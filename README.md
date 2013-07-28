@@ -11,5 +11,5 @@ All these data was compiled from XLS spreadsheets provided by IBGE through its F
 TODO
 ----
 
-- Provide their database in other formats like XML, JSON and YAML;
+- Provide their database in other formats like <del>XML</del>, JSON and YAML;
 - Provide some executable to extract their data and export it to supported formats.
