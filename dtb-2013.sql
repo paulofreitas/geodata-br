@@ -1,8 +1,8 @@
 --
--- Database: `dtb`
+-- Database: `dtb_2013`
 --
-CREATE DATABASE IF NOT EXISTS dtb;
-USE dtb;
+CREATE DATABASE IF NOT EXISTS dtb_2013;
+USE dtb_2013;
 
 --
 -- Table structure for table `uf`
