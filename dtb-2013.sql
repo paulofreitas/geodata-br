@@ -1,6 +1,3 @@
---
--- Database: `dtb_2013`
---
 CREATE DATABASE IF NOT EXISTS dtb_2013;
 USE dtb_2013;
 
