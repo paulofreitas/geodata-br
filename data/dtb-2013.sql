@@ -1,10 +1,12 @@
-CREATE DATABASE IF NOT EXISTS dtb_2013;
+BEGIN TRANSACTION;
+DROP DATABASE IF EXISTS dtb_2013;
+CREATE DATABASE dtb_2013;
 USE dtb_2013;
 
 --
--- Table structure for table `uf`
+-- Table structure for table "uf"
 --
-CREATE TABLE IF NOT EXISTS uf (
+CREATE TABLE uf (
     id SMALLINT NOT NULL,
     nome VARCHAR(32) NOT NULL,
     CONSTRAINT pk_uf
@@ -12,7 +14,7 @@ CREATE TABLE IF NOT EXISTS uf (
 );
 
 --
--- Dumping data for table `uf`
+-- Dumping data for table "uf"
 --
 INSERT INTO uf VALUES (11, 'Rondônia');
 INSERT INTO uf VALUES (12, 'Acre');
@@ -43,9 +45,9 @@ INSERT INTO uf VALUES (52, 'Goiás');
 INSERT INTO uf VALUES (53, 'Distrito Federal');
 
 --
--- Table structure for table `mesorregiao`
+-- Table structure for table "mesorregiao"
 --
-CREATE TABLE IF NOT EXISTS mesorregiao (
+CREATE TABLE mesorregiao (
     id SMALLINT NOT NULL,
     id_uf SMALLINT NOT NULL,
     nome VARCHAR(64) NOT NULL,
@@ -54,12 +56,10 @@ CREATE TABLE IF NOT EXISTS mesorregiao (
     CONSTRAINT fk_mesorregiao_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE
 );
 
 --
--- Dumping data for table `mesorregiao`
+-- Dumping data for table "mesorregiao"
 --
 INSERT INTO mesorregiao VALUES (1101, 11, 'Madeira-Guaporé');
 INSERT INTO mesorregiao VALUES (1102, 11, 'Leste Rondoniense');
@@ -200,9 +200,9 @@ INSERT INTO mesorregiao VALUES (5205, 52, 'Sul Goiano');
 INSERT INTO mesorregiao VALUES (5301, 53, 'Distrito Federal');
 
 --
--- Table structure for table `microrregiao`
+-- Table structure for table "microrregiao"
 --
-CREATE TABLE IF NOT EXISTS microrregiao (
+CREATE TABLE microrregiao (
     id INTEGER NOT NULL,
     id_mesorregiao SMALLINT NOT NULL,
     id_uf SMALLINT NOT NULL,
@@ -211,18 +211,14 @@ CREATE TABLE IF NOT EXISTS microrregiao (
         PRIMARY KEY (id),
     CONSTRAINT fk_microrregiao_mesorregiao
         FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE,
+            REFERENCES mesorregiao(id),
     CONSTRAINT fk_microrregiao_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE
 );
 
 --
--- Dumping data for table `microrregiao`
+-- Dumping data for table "microrregiao"
 --
 INSERT INTO microrregiao VALUES (11001, 1101, 11, 'Porto Velho');
 INSERT INTO microrregiao VALUES (11002, 1101, 11, 'Guajará-Mirim');
@@ -784,9 +780,9 @@ INSERT INTO microrregiao VALUES (52018, 5205, 52, 'Quirinópolis');
 INSERT INTO microrregiao VALUES (53001, 5301, 53, 'Brasília');
 
 --
--- Table structure for table `municipio`
+-- Table structure for table "municipio"
 --
-CREATE TABLE IF NOT EXISTS municipio (
+CREATE TABLE municipio (
     id INTEGER NOT NULL,
     id_microrregiao INTEGER NOT NULL,
     id_mesorregiao SMALLINT NOT NULL,
@@ -796,23 +792,17 @@ CREATE TABLE IF NOT EXISTS municipio (
         PRIMARY KEY (id),
     CONSTRAINT fk_municipio_microrregiao
         FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE,
+            REFERENCES microrregiao(id),
     CONSTRAINT fk_municipio_mesorregiao
         FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE,
+            REFERENCES mesorregiao(id),
     CONSTRAINT fk_municipio_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE
 );
 
 --
--- Dumping data for table `municipio`
+-- Dumping data for table "municipio"
 --
 INSERT INTO municipio VALUES (1100205, 11001, 1101, 11, 'Porto Velho');
 INSERT INTO municipio VALUES (1100338, 11001, 1101, 11, 'Nova Mamoré');
@@ -6386,9 +6376,9 @@ INSERT INTO municipio VALUES (5220405, 52018, 5205, 52, 'São Simão');
 INSERT INTO municipio VALUES (5300108, 53001, 5301, 53, 'Brasília');
 
 --
--- Table structure for table `distrito`
+-- Table structure for table "distrito"
 --
-CREATE TABLE IF NOT EXISTS distrito (
+CREATE TABLE distrito (
     id INTEGER NOT NULL,
     id_municipio INTEGER NOT NULL,
     id_microrregiao INTEGER NOT NULL,
@@ -6399,28 +6389,20 @@ CREATE TABLE IF NOT EXISTS distrito (
         PRIMARY KEY (id),
     CONSTRAINT fk_distrito_municipio
         FOREIGN KEY (id_municipio)
-            REFERENCES municipio(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE,
+            REFERENCES municipio(id),
     CONSTRAINT fk_distrito_microrregiao
         FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE,
+            REFERENCES microrregiao(id),
     CONSTRAINT fk_distrito_mesorregiao
         FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE,
+            REFERENCES mesorregiao(id),
     CONSTRAINT fk_distrito_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE
 );
 
 --
--- Dumping data for table `distrito`
+-- Dumping data for table "distrito"
 --
 INSERT INTO distrito VALUES (110020505, 1100205, 11001, 1101, 11, 'Porto Velho');
 INSERT INTO distrito VALUES (110020510, 1100205, 11001, 1101, 11, 'Abunã');
@@ -16726,9 +16708,9 @@ INSERT INTO distrito VALUES (522040510, 5220405, 52018, 5205, 52, 'Itaguaçu');
 INSERT INTO distrito VALUES (530010805, 5300108, 53001, 5301, 53, 'Brasília');
 
 --
--- Table structure for table `subdistrito`
+-- Table structure for table "subdistrito"
 --
-CREATE TABLE IF NOT EXISTS subdistrito (
+CREATE TABLE subdistrito (
     id BIGINT NOT NULL,
     id_distrito INTEGER NOT NULL,
     id_municipio INTEGER NOT NULL,
@@ -16740,33 +16722,23 @@ CREATE TABLE IF NOT EXISTS subdistrito (
         PRIMARY KEY (id),
     CONSTRAINT fk_subdistrito_distrito
         FOREIGN KEY (id_distrito)
-            REFERENCES distrito(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE,
+            REFERENCES distrito(id),
     CONSTRAINT fk_subdistrito_municipio
         FOREIGN KEY (id_municipio)
-            REFERENCES municipio(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE,
+            REFERENCES municipio(id),
     CONSTRAINT fk_subdistrito_microrregiao
         FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE,
+            REFERENCES microrregiao(id),
     CONSTRAINT fk_subdistrito_mesorregiao
         FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE,
+            REFERENCES mesorregiao(id),
     CONSTRAINT fk_subdistrito_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
-            ON DELETE RESTRICT
-            ON UPDATE CASCADE
 );
 
 --
--- Dumping data for table `subdistrito`
+-- Dumping data for table "subdistrito"
 --
 INSERT INTO subdistrito VALUES (11002050506, 110020505, 1100205, 11001, 1101, 11, 'Zona 01');
 INSERT INTO subdistrito VALUES (11002050507, 110020505, 1100205, 11001, 1101, 11, 'Zona 02');
@@ -17430,3 +17402,4 @@ INSERT INTO subdistrito VALUES (53001080521, 530010805, 5300108, 53001, 5301, 53
 INSERT INTO subdistrito VALUES (53001080523, 530010805, 5300108, 53001, 5301, 53, 'Lago Sul');
 INSERT INTO subdistrito VALUES (53001080525, 530010805, 5300108, 53001, 5301, 53, 'Santa Maria');
 INSERT INTO subdistrito VALUES (53001080530, 530010805, 5300108, 53001, 5301, 53, 'São Sebastião');
+COMMIT;
