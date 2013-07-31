@@ -1,8 +1,3 @@
-BEGIN TRANSACTION;
-DROP DATABASE IF EXISTS dtb_2013;
-CREATE DATABASE dtb_2013;
-USE dtb_2013;
-
 --
 -- Table structure for table "uf"
 --
@@ -51,6 +46,7 @@ CREATE TABLE mesorregiao (
     id SMALLINT NOT NULL,
     id_uf SMALLINT NOT NULL,
     nome VARCHAR(64) NOT NULL,
+    KEY fk_mesorregiao_uf (id_uf),
     CONSTRAINT pk_mesorregiao
         PRIMARY KEY (id),
     CONSTRAINT fk_mesorregiao_uf
@@ -207,6 +203,8 @@ CREATE TABLE microrregiao (
     id_mesorregiao SMALLINT NOT NULL,
     id_uf SMALLINT NOT NULL,
     nome VARCHAR(64) NOT NULL,
+    KEY fk_microrregiao_mesorregiao (id_mesorregiao),
+    KEY fk_microrregiao_uf (id_uf),
     CONSTRAINT pk_microrregiao
         PRIMARY KEY (id),
     CONSTRAINT fk_microrregiao_mesorregiao
@@ -788,6 +786,9 @@ CREATE TABLE municipio (
     id_mesorregiao SMALLINT NOT NULL,
     id_uf SMALLINT NOT NULL,
     nome VARCHAR(64) NOT NULL,
+    KEY fk_municipio_microrregiao (id_microrregiao),
+    KEY fk_municipio_mesorregiao (id_mesorregiao),
+    KEY fk_municipio_uf (id_municipio),
     CONSTRAINT pk_municipio
         PRIMARY KEY (id),
     CONSTRAINT fk_municipio_microrregiao
@@ -6385,6 +6386,10 @@ CREATE TABLE distrito (
     id_mesorregiao SMALLINT NOT NULL,
     id_uf SMALLINT NOT NULL,
     nome VARCHAR(64) NOT NULL,
+    KEY fk_distrito_municipio (id_municipio),
+    KEY fk_distrito_microrregiao (id_microrregiao),
+    KEY fk_distrito_mesorregiao (id_mesorregiao),
+    KEY fk_distrito_uf (id_uf),
     CONSTRAINT pk_distrito
         PRIMARY KEY (id),
     CONSTRAINT fk_distrito_municipio
@@ -16718,6 +16723,11 @@ CREATE TABLE subdistrito (
     id_mesorregiao SMALLINT NOT NULL,
     id_uf SMALLINT NOT NULL,
     nome VARCHAR(64) NOT NULL,
+    KEY fk_subdistrito_distrito (id_distrito),
+    KEY fk_subdistrito_municipio (id_municipio),
+    KEY fk_subdistrito_microrregiao (id_microrregiao),
+    KEY fk_subdistrito_mesorregiao (id_mesorregiao),
+    KEY fk_subdistrito_uf (id_uf),
     CONSTRAINT pk_subdistrito
         PRIMARY KEY (id),
     CONSTRAINT fk_subdistrito_distrito
@@ -17402,4 +17412,3 @@ INSERT INTO subdistrito VALUES (53001080521, 530010805, 5300108, 53001, 5301, 53
 INSERT INTO subdistrito VALUES (53001080523, 530010805, 5300108, 53001, 5301, 53, 'Lago Sul');
 INSERT INTO subdistrito VALUES (53001080525, 530010805, 5300108, 53001, 5301, 53, 'Santa Maria');
 INSERT INTO subdistrito VALUES (53001080530, 530010805, 5300108, 53001, 5301, 53, 'São Sebastião');
-COMMIT;
