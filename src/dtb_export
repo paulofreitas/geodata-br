@@ -45,7 +45,7 @@ import yaml
 __author__ = 'Paulo Freitas <me@paulofreitas.me>'
 __copyright__ = 'Copyright (c) 2013 Paulo Freitas'
 __license__ = 'MIT'
-__version__ = '0.9'
+__version__ = '0.9.1'
 __usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
 __epilog__ = 'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
 
@@ -64,33 +64,163 @@ log_handler.setFormatter(formatter)
 logger = logging.getLogger('dtb')
 logger.addHandler(log_handler)
 
+class Database(object):
+    _tables = ('uf', 'mesorregiao', 'microrregiao', 'municipio', 'distrito', 'subdistrito')
+    _fields = {
+        'uf':
+            ('id', 'nome'),
+        'mesorregiao':
+            ('id', 'id_uf', 'nome'),
+        'microrregiao': 
+            ('id', 'id_mesorregiao', 'id_uf', 'nome'),
+        'municipio':
+            ('id', 'id_microrregiao', 'id_mesorregiao', 'id_uf', 'nome'),
+        'distrito':
+            ('id', 'id_municipio', 'id_microrregiao', 'id_mesorregiao', 'id_uf', 'nome'),
+        'subdistrito':
+            ('id', 'id_distrito', 'id_municipio', 'id_microrregiao', 'id_mesorregiao', 'id_uf', 'nome')
+    }
+    _cols = []
+    _rows = []
+    _data = {}
+
+    def __init__(self, base):
+        self._base = str(base)
+        self._name = 'dtb_{}'.format(self._base)
+
+        for table_name in self._tables:
+            self._cols.append('id_' + table_name)
+            self._cols.append('nome_' + table_name)
+            self._data[table_name] = []
+
+class Exporter(object):
+    def __init__(self, db, minified=False):
+        self._db = db
+        self._minified = minified
+
+    def __str__(self):
+        raise NotImplementedError
+
+class CSV(Exporter):
+    def __str__(self):
+        csv_file = io.BytesIO()
+        csv_writer = csv.writer(csv_file,
+                                quoting=csv.QUOTE_MINIMAL if self._minified else csv.QUOTE_NONNUMERIC,
+                                lineterminator='\n')
+
+        csv_writer.writerow([col.encode('utf-8') for col in self._db._cols])
+
+        for row in self._db._rows:
+            csv_writer.writerow([bytes(col) if type(col) == str else col for col in filter(None, row)])
+
+        return csv_file.getvalue()
+
+class JSON(Exporter):
+    def __str__(self):
+        json_obj = collections.OrderedDict()
+
+        for table_name in self._db._tables:
+            json_obj[table_name] = collections.OrderedDict()
+
+            for item in self._db._data[table_name]:
+                item_obj = collections.OrderedDict()
+
+                for key in self._db._fields[table_name]:
+                    item_obj[key] = item[key]
+
+                item_id = item_obj['id']
+                del item_obj['id']
+                json_obj[table_name][item_id] = item_obj
+
+        if self._minified:
+            json_str = json.dumps(json_obj, separators=(',', ':'))
+        else:
+            json_str = json.dumps(json_obj, indent=2)
+
+        return json_str
+
+class SQL(Exporter):
+    def __str__(self):
+        sql = ''
+
+        for table_name in self._db._tables:
+            if not self._minified:
+                sql += Strings.SQL_TABLE_STRUCTURE_FOR_TABLE.format(table_name)
+
+            sql += Strings.SQL_CREATE_TABLE[table_name].strip() + '\n'
+
+            if not self._minified:
+                sql += Strings.SQL_DUMPING_DATA_FOR_TABLE.format(table_name)
+
+            for item in self._db._data[table_name]:
+                data = collections.OrderedDict()
+
+                for key in self._db._fields[table_name]:
+                    data[key] =\
+                        item[key] if type(item[key]) == int else Utils.addslashes(item[key])
+
+                sql += Strings.SQL_INSERT_INTO[table_name].strip().format(**data) + '\n'
+
+        sql = sql.strip()
+
+        if self._minified:
+            sql = re.sub('([;(])\s+', r'\1', sql)
+            sql = re.sub(',\s(?=\')|,\s+', ',', sql)
+            sql = re.sub('\s+', ' ', sql)
+            sql = re.sub('(\W)\s(\W)', r'\1\2', sql)
+
+        return sql
+
+class XML(Exporter):
+    def __str__(self):
+        database = lxml.etree.Element('database', name=self._db._name)
+
+        for table_name in self._db._tables:
+            if not self._minified:
+                database.append(lxml.etree.Comment(' Table {} '.format(table_name)))
+
+            table = lxml.etree.SubElement(database, 'table', name=table_name)
+
+            for item in self._db._data[table_name]:
+                row = lxml.etree.SubElement(table, 'row')
+
+                for field_name in self._db._fields[table_name]:
+                    lxml.etree.SubElement(row, 'field',
+                        name=field_name).text = str(item[field_name]).decode('utf-8')
+
+        return lxml.etree.tostring(database,
+                                   pretty_print=not self._minified,
+                                   xml_declaration=True,
+                                   encoding='utf-8')
+
+class YAML(Exporter):
+    def __str__(self):
+        yaml_obj = collections.OrderedDict()
+
+        for table_name in self._db._tables:
+            yaml_obj[table_name] = collections.OrderedDict()
+
+            for item in self._db._data[table_name]:
+                item_obj = collections.OrderedDict()
+
+                for key in self._db._fields[table_name]:
+                    item_obj[key] = item[key]
+
+                item_id = item_obj['id']
+                del item_obj['id']
+                yaml_obj[table_name][item_id] = item_obj
+
+        if self._minified:
+            options = {'default_flow_style': True, 'width': 2e6, 'indent': 0}
+        else:
+            options = {'default_flow_style': False}
+
+        return yaml.safe_dump(yaml_obj, **options).replace('}, ', '},')
+
 class DTB(object):
     def __init__(self, base):
-        self._db_base = str(base)
-        self._db_name = 'dtb_{}'.format(self._db_base)
+        self._db = Database(base)
         self._db_rawdata = None
-        self._db_data = None
-        self._db_cols = []
-        self._db_rows = None
-        self._db_tables = ('uf', 'mesorregiao', 'microrregiao', 'municipio', 'distrito', 'subdistrito')
-        self._db_fields = {
-            'uf':
-                ('id', 'nome'),
-            'mesorregiao':
-                ('id', 'id_uf', 'nome'),
-            'microrregiao': 
-                ('id', 'id_mesorregiao', 'id_uf', 'nome'),
-            'municipio':
-                ('id', 'id_microrregiao', 'id_mesorregiao', 'id_uf', 'nome'),
-            'distrito':
-                ('id', 'id_municipio', 'id_microrregiao', 'id_mesorregiao', 'id_uf', 'nome'),
-            'subdistrito':
-                ('id', 'id_distrito', 'id_municipio', 'id_microrregiao', 'id_mesorregiao', 'id_uf', 'nome')
-        }
-
-        for table_name in self._db_tables:
-            self._db_cols.append('id_' + table_name)
-            self._db_cols.append('nome_' + table_name)
 
     def download(self):
         ftp = ftplib.FTP('geoftp.ibge.gov.br')
@@ -102,17 +232,17 @@ class DTB(object):
 
         bases_available = [item for item in ftp.nlst() if item.isdigit()]
 
-        if not self._db_base in bases_available:
+        if not self._db._base in bases_available:
             raise Exception('This base is not available to download.')
 
-        ftp.cwd(self._db_base)
+        ftp.cwd(self._db._base)
         zip_data = io.BytesIO()
         logger.info('Retrieving database...')
-        ftp.retrbinary('RETR dtb_{}.zip'.format(self._db_base), zip_data.write)
+        ftp.retrbinary('RETR dtb_{}.zip'.format(self._db._base), zip_data.write)
 
         with zipfile.ZipFile(zip_data, 'r') as zip:
             logger.info('Reading database...')
-            self._db_rawdata = zip.open('DTB {}.xls'.format(self._db_base)).read()
+            self._db_rawdata = zip.open('DTB {}.xls'.format(self._db._base)).read()
 
         return self
 
@@ -121,8 +251,6 @@ class DTB(object):
         xls = xlrd.open_workbook(file_contents=self._db_rawdata,
                                  logfile=open(os.devnull, 'w'))
         sheet = xls.sheet_by_index(0)
-        self._db_data = dict((table, []) for table in self._db_tables)
-        self._db_rows = []
 
         for row_id in xrange(sheet.nrows):
             if row_id == 0:
@@ -141,18 +269,18 @@ class DTB(object):
             id_mesorregiao = int(id_mesorregiao)
             id_uf = int(id_uf)
 
-            self._db_rows.append([id_uf, nome_uf, id_mesorregiao, nome_mesorregiao,
-                                  id_microrregiao, nome_microrregiao, id_municipio,
-                                  nome_municipio, id_distrito, nome_distrito,
-                                  id_subdistrito, nome_subdistrito or None])
+            self._db._rows.append([id_uf, nome_uf, id_mesorregiao, nome_mesorregiao,
+                                   id_microrregiao, nome_microrregiao, id_municipio,
+                                   nome_municipio, id_distrito, nome_distrito,
+                                   id_subdistrito, nome_subdistrito or None])
 
             # uf
             uf = Struct()
             uf.id = id_uf
             uf.nome = nome_uf
 
-            if not uf in self._db_data['uf']:
-                self._db_data['uf'].append(uf)
+            if not uf in self._db._data['uf']:
+                self._db._data['uf'].append(uf)
 
             # mesorregiao
             mesorregiao = Struct(
@@ -161,8 +289,8 @@ class DTB(object):
                 nome=nome_mesorregiao
             )
 
-            if not mesorregiao in self._db_data['mesorregiao']:
-                self._db_data['mesorregiao'].append(mesorregiao)
+            if not mesorregiao in self._db._data['mesorregiao']:
+                self._db._data['mesorregiao'].append(mesorregiao)
 
             # microrregiao
             microrregiao = Struct(
@@ -172,8 +300,8 @@ class DTB(object):
                 nome=nome_microrregiao
             )
 
-            if not microrregiao in self._db_data['microrregiao']:
-                self._db_data['microrregiao'].append(microrregiao)
+            if not microrregiao in self._db._data['microrregiao']:
+                self._db._data['microrregiao'].append(microrregiao)
 
             # municipio
             municipio = Struct(
@@ -184,8 +312,8 @@ class DTB(object):
                 nome=nome_municipio
             )
 
-            if not municipio in self._db_data['municipio']:
-                self._db_data['municipio'].append(municipio)
+            if not municipio in self._db._data['municipio']:
+                self._db._data['municipio'].append(municipio)
 
             # distrito
             distrito = Struct(
@@ -197,8 +325,8 @@ class DTB(object):
                 nome=nome_distrito
             )
 
-            if not distrito in self._db_data['distrito']:
-                self._db_data['distrito'].append(distrito)
+            if not distrito in self._db._data['distrito']:
+                self._db._data['distrito'].append(distrito)
 
             # subdistrito
             if id_subdistrito:
@@ -212,8 +340,8 @@ class DTB(object):
                     nome=nome_subdistrito
                 )
 
-                if not subdistrito in self._db_data['subdistrito']:
-                    self._db_data['subdistrito'].append(subdistrito)
+                if not subdistrito in self._db._data['subdistrito']:
+                    self._db._data['subdistrito'].append(subdistrito)
 
         return self
 
@@ -223,7 +351,14 @@ class DTB(object):
         if not format in FORMAT_ALL:
             raise Exception('Unsupported output format.')
 
-        data = getattr(self, '_' + format)(minified)
+        exporters = {}
+        exporters[FORMAT_CSV] = CSV
+        exporters[FORMAT_JSON] = JSON
+        exporters[FORMAT_SQL] = SQL
+        exporters[FORMAT_XML] = XML
+        exporters[FORMAT_YAML] = YAML
+
+        data = str(exporters[format](self._db, minified))
         logger.info('Done.')
 
         if filename:
@@ -232,121 +367,7 @@ class DTB(object):
 
             open(filename, 'w').write(data)
         else:
-            sys.stdout.write(data + '\n')
-
-    def _csv(self, minified):
-        csv_file = io.BytesIO()
-        csv_writer = csv.writer(csv_file,
-                                quoting=csv.QUOTE_MINIMAL if minified else csv.QUOTE_NONNUMERIC,
-                                lineterminator='\n')
-
-        csv_writer.writerow([col.encode('utf-8') for col in self._db_cols])
-
-        for row in self._db_rows:
-            csv_writer.writerow([bytes(col) if type(col) == str else col for col in filter(None, row)])
-
-        return csv_file.getvalue()
-
-    def _json(self, minified):
-        json_obj = collections.OrderedDict()
-
-        for table_name in self._db_tables:
-            json_obj[table_name] = collections.OrderedDict()
-
-            for item in self._db_data[table_name]:
-                item_obj = collections.OrderedDict()
-
-                for key in self._db_fields[table_name]:
-                    item_obj[key] = item[key]
-
-                item_id = item_obj['id']
-                del item_obj['id']
-                json_obj[table_name][item_id] = item_obj
-
-        if minified:
-            json_str = json.dumps(json_obj, separators=(',', ':'))
-        else:
-            json_str = json.dumps(json_obj, indent=2)
-
-        return json_str
-
-    def _sql(self, minified):
-        sql = ''
-
-        for table_name in self._db_tables:
-            if not minified:
-                sql += Strings.SQL_TABLE_STRUCTURE_FOR_TABLE.format(table_name)
-
-            sql += Strings.SQL_CREATE_TABLE[table_name].strip() + '\n'
-
-            if not minified:
-                sql += Strings.SQL_DUMPING_DATA_FOR_TABLE.format(table_name)
-
-            for item in self._db_data[table_name]:
-                data = collections.OrderedDict()
-
-                for key in self._db_fields[table_name]:
-                    data[key] =\
-                        item[key] if type(item[key]) == int else Utils.addslashes(item[key])
-
-                sql += Strings.SQL_INSERT_INTO[table_name].strip().format(**data) + '\n'
-
-        sql = sql.strip()
-
-        if minified:
-            sql = re.sub('([;(])\s+', r'\1', sql)
-            sql = re.sub(',\s(?=\')|,\s+', ',', sql)
-            sql = re.sub('\s+', ' ', sql)
-            sql = re.sub('(\W)\s(\W)', r'\1\2', sql)
-
-        return sql
-
-    def _yaml(self, minified):
-        yaml_obj = collections.OrderedDict()
-
-        for table_name in self._db_tables:
-            yaml_obj[table_name] = collections.OrderedDict()
-
-            for item in self._db_data[table_name]:
-                item_obj = collections.OrderedDict()
-
-                for key in self._db_fields[table_name]:
-                    item_obj[key] = item[key]
-
-                item_id = item_obj['id']
-                del item_obj['id']
-                import json
-                yaml_obj[table_name][item_id] = item_obj
-
-        if minified:
-            options = {'default_flow_style': True, 'width': 2e6, 'indent': 0}
-        else:
-            options = {'default_flow_style': False}
-
-        yaml_str = yaml.safe_dump(yaml_obj, **options).replace('}, ', '},')
-
-        return yaml_str
-
-    def _xml(self, minified):
-        database = lxml.etree.Element('database', name=self._db_name)
-
-        for table_name in self._db_tables:
-            if not minified:
-                database.append(lxml.etree.Comment(' Table {} '.format(table_name)))
-
-            table = lxml.etree.SubElement(database, 'table', name=table_name)
-
-            for item in self._db_data[table_name]:
-                row = lxml.etree.SubElement(table, 'row')
-
-                for field_name in self._db_fields[table_name]:
-                    lxml.etree.SubElement(row, 'field',
-                        name=field_name).text = str(item[field_name]).decode('utf-8')
-
-        return lxml.etree.tostring(database,
-                                   pretty_print=not minified,
-                                   xml_declaration=True,
-                                   encoding='utf-8')
+            sys.stdout.write(data)
 
 class Strings(object):
     SQL_TABLE_STRUCTURE_FOR_TABLE =\
@@ -629,5 +650,6 @@ if __name__ == '__main__':
         dtb = DTB(args.base)
         dtb.download().parse().export(args.format, args.minified, args.filename)
     except Exception as e:
+        raise
         sys.stdout.write('EXCEPTION CAUGHT: {}: {}\n'.format(type(e).__name__, e.message))
         sys.exit(1)
