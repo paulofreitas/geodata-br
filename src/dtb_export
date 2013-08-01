@@ -186,17 +186,201 @@ class plist(Exporter):
         return re.sub('[\n\t]+', '', plist_str) if self._minified else plist_str
 
 class SQL(Exporter):
+    def __table(self, table_name, *args):
+        return 'CREATE TABLE {} (\n{}\n);\n'.format(table_name, '\n'.join(args))
+
+    def __column(self, column_name, column_type):
+        return '    {} {},'.format(column_name, column_type)
+
+    def __primaryKey(self, pk_name, pk_column):
+        return '''    CONSTRAINT {}
+        PRIMARY KEY ({}),'''.format(pk_name, pk_column)
+
+    def __foreignKey(self, fk_name, fk_column, foreign_table, foreign_column):
+        return '''    CONSTRAINT {}
+        FOREIGN KEY ({})
+            REFERENCES {}({})'''.format(fk_name, fk_column, foreign_table, foreign_column)
+
+    def __index(self, index_name, table_name, indexed_column):
+        return 'CREATE INDEX {} ON {} ({});'.format(index_name, table_name, indexed_column)
+
+    def __indexes(self, *indexes):
+        return '\n'.join(indexes)
+
+    def __insert(self, table_name, *columns):
+        return 'INSERT INTO {} VALUES ({});'.format(table_name, ', '.join(columns))
+
+    def __insertField(self, field_name, field_type):
+        repl_field = '{' + field_name + '}'
+
+        return repr(repl_field) if field_type == str else repl_field
+
+    def __init__(self, db, minified):
+        super(SQL, self).__init__(db, minified)
+
+        self._tables = {
+            'uf': self.__table(
+                'uf',
+                self.__column('id', 'SMALLINT NOT NULL'),
+                self.__column('nome', 'VARCHAR(32) NOT NULL'),
+                self.__primaryKey('pk_uf', 'id')
+            ),
+            'mesorregiao': self.__table(
+                'mesorregiao',
+                self.__column('id', 'SMALLINT NOT NULL'),
+                self.__column('id_uf', 'SMALLINT NOT NULL'),
+                self.__column('nome', 'VARCHAR(64) NOT NULL'),
+                self.__primaryKey('pk_mesorregiao', 'id'),
+                self.__foreignKey('fk_mesorregiao_uf', 'id_uf', 'uf', 'id')
+            ),
+            'microrregiao': self.__table(
+                'microrregiao',
+                self.__column('id', 'INTEGER NOT NULL'),
+                self.__column('id_mesorregiao', 'SMALLINT NOT NULL'),
+                self.__column('id_uf', 'SMALLINT NOT NULL'),
+                self.__column('nome', 'VARCHAR(64) NOT NULL'),
+                self.__primaryKey('pk_microrregiao', 'id'),
+                self.__foreignKey('fk_microrregiao_mesorregiao', 'id_mesorregiao', 'microrregiao', 'id'),
+                self.__foreignKey('fk_microrregiao_uf', 'id_uf', 'uf', 'id')
+            ),
+            'municipio': self.__table(
+                'municipio',
+                self.__column('id', 'INTEGER NOT NULL'),
+                self.__column('id_microrregiao', 'INTEGER NOT NULL'),
+                self.__column('id_mesorregiao', 'SMALLINT NOT NULL'),
+                self.__column('id_uf', 'SMALLINT NOT NULL'),
+                self.__column('nome', 'VARCHAR(64) NOT NULL'),
+                self.__primaryKey('pk_municipio', 'id'),
+                self.__foreignKey('fk_municipio_microrregiao', 'id_microrregiao', 'microrregiao', 'id'),
+                self.__foreignKey('fk_municipio_mesorregiao', 'id_mesorregiao', 'mesorregiao', 'id'),
+                self.__foreignKey('fk_municipio_uf', 'id_uf', 'uf', 'id')
+            ),
+            'distrito': self.__table(
+                'distrito',
+                self.__column('id', 'INTEGER NOT NULL'),
+                self.__column('id_municipio', 'INTEGER NOT NULL'),
+                self.__column('id_microrregiao', 'INTEGER NOT NULL'),
+                self.__column('id_mesorregiao', 'SMALLINT NOT NULL'),
+                self.__column('id_uf', 'SMALLINT NOT NULL'),
+                self.__column('nome', 'VARCHAR(64) NOT NULL'),
+                self.__primaryKey('pk_distrito', 'id'),
+                self.__foreignKey('fk_distrito_municipio', 'id_municipio', 'municipio', 'id'),
+                self.__foreignKey('fk_distrito_microrregiao', 'id_microrregiao', 'microrregiao', 'id'),
+                self.__foreignKey('fk_distrito_mesorregiao', 'id_mesorregiao', 'mesorregiao', 'id'),
+                self.__foreignKey('fk_distrito_uf', 'id_uf', 'uf', 'id')
+            ),
+            'subdistrito': self.__table(
+                'subdistrito',
+                self.__column('id', 'BIGINT NOT NULL'),
+                self.__column('id_distrito', 'INTEGER NOT NULL'),
+                self.__column('id_municipio', 'INTEGER NOT NULL'),
+                self.__column('id_microrregiao', 'INTEGER NOT NULL'),
+                self.__column('id_mesorregiao', 'SMALLINT NOT NULL'),
+                self.__column('id_uf', 'SMALLINT NOT NULL'),
+                self.__column('nome', 'VARCHAR(64) NOT NULL'),
+                self.__primaryKey('pk_subdistrito', 'id'),
+                self.__foreignKey('fk_subdistrito_distrito', 'id_distrito', 'distrito', 'id'),
+                self.__foreignKey('fk_subdistrito_municipio', 'id_municipio', 'municipio', 'id'),
+                self.__foreignKey('fk_subdistrito_microrregiao', 'id_microrregiao', 'microrregiao', 'id'),
+                self.__foreignKey('fk_subdistrito_mesorregiao', 'id_mesorregiao', 'mesorregiao', 'id'),
+                self.__foreignKey('fk_subdistrito_uf', 'id_uf', 'uf', 'id')
+            )
+        }
+        self._indexes = {
+            'mesorregiao': self.__index('fk_mesorregiao_uf', 'mesorregiao', 'id_uf'),
+            'microrregiao': self.__indexes(
+                self.__index('fk_microrregiao_mesorregiao', 'microrregiao', 'id_mesorregiao'),
+                self.__index('fk_microrregiao_uf', 'microrregiao', 'id_uf')
+            ),
+            'municipio': self.__indexes(
+                self.__index('fk_municipio_microrregiao', 'municipio', 'id_microrregiao'),
+                self.__index('fk_municipio_mesorregiao', 'municipio', 'id_mesorregiao'),
+                self.__index('fk_municipio_uf', 'municipio', 'id_uf')
+            ),
+            'distrito': self.__indexes(
+                self.__index('fk_distrito_municipio', 'distrito', 'id_municipio'),
+                self.__index('fk_distrito_microrregiao', 'distrito', 'id_microrregiao'),
+                self.__index('fk_distrito_mesorregiao', 'distrito', 'id_mesorregiao'),
+                self.__index('fk_distrito_uf', 'distrito', 'id_uf')
+            ),
+            'subdistrito': self.__indexes(
+                self.__index('fk_subdistrito_distrito', 'subdistrito', 'id_distrito'),
+                self.__index('fk_subdistrito_municipio', 'subdistrito', 'id_municipio'),
+                self.__index('fk_subdistrito_microrregiao', 'subdistrito', 'id_microrregiao'),
+                self.__index('fk_subdistrito_mesorregiao', 'subdistrito', 'id_mesorregiao'),
+                self.__index('fk_subdistrito_uf', 'subdistrito', 'id_uf')
+            )
+        }
+        self._inserts = {
+            'uf': self.__insert(
+                'uf',
+                self.__insertField('id', int),
+                self.__insertField('nome', str)
+            ),
+            'mesorregiao': self.__insert(
+                'mesorregiao',
+                self.__insertField('id', int),
+                self.__insertField('id_uf', int),
+                self.__insertField('nome', str)
+            ),
+            'microrregiao': self.__insert(
+                'microrregiao',
+                self.__insertField('id', int),
+                self.__insertField('id_mesorregiao', int),
+                self.__insertField('id_uf', int),
+                self.__insertField('nome', str)
+            ),
+            'municipio': self.__insert(
+                'municipio',
+                self.__insertField('id', int),
+                self.__insertField('id_microrregiao', int),
+                self.__insertField('id_mesorregiao', int),
+                self.__insertField('id_uf', int),
+                self.__insertField('nome', str)
+            ),
+            'distrito': self.__insert(
+                'distrito',
+                self.__insertField('id', int),
+                self.__insertField('id_municipio', int),
+                self.__insertField('id_microrregiao', int),
+                self.__insertField('id_mesorregiao', int),
+                self.__insertField('id_uf', int),
+                self.__insertField('nome', str)
+            ),
+            'subdistrito': self.__insert(
+                'subdistrito',
+                self.__insertField('id', int),
+                self.__insertField('id_distrito', int),
+                self.__insertField('id_municipio', int),
+                self.__insertField('id_microrregiao', int),
+                self.__insertField('id_mesorregiao', int),
+                self.__insertField('id_uf', int),
+                self.__insertField('nome', str)
+            )
+        }
+
     def __str__(self):
         sql = ''
 
         for table_name in self._db._tables:
             if not self._minified:
-                sql += Strings.SQL_TABLE_STRUCTURE_FOR_TABLE.format(table_name)
+                sql += '''
+--
+-- Table structure for table "{}"
+--
+'''.format(table_name)
 
-            sql += Strings.SQL_CREATE_TABLE[table_name].strip() + '\n'
+            sql += self._tables[table_name]
+
+            if table_name in self._indexes:
+                sql += self._indexes[table_name]
 
             if not self._minified:
-                sql += Strings.SQL_DUMPING_DATA_FOR_TABLE.format(table_name)
+                sql += '''
+--
+-- Dumping data for table "{}"
+--
+'''.format(table_name)
 
             for item in self._db._data[table_name]:
                 data = collections.OrderedDict()
@@ -205,7 +389,7 @@ class SQL(Exporter):
                     data[key] =\
                         item[key] if type(item[key]) == int else Utils.addslashes(item[key])
 
-                sql += Strings.SQL_INSERT_INTO[table_name].strip().format(**data) + '\n'
+                sql += self._inserts[table_name].strip().format(**data) + '\n'
 
         sql = sql.strip()
 
@@ -415,180 +599,6 @@ class DTB(object):
             open(filename, 'w').write(data)
         else:
             sys.stdout.write(data)
-
-class Strings(object):
-    SQL_TABLE_STRUCTURE_FOR_TABLE =\
-'''
---
--- Table structure for table "{}"
---
-'''
-
-    SQL_DUMPING_DATA_FOR_TABLE =\
-'''
---
--- Dumping data for table "{}"
---
-'''
-
-    SQL_CREATE_TABLE = {
-        'uf':
-'''
-CREATE TABLE uf (
-    id SMALLINT NOT NULL,
-    nome VARCHAR(32) NOT NULL,
-    CONSTRAINT pk_uf
-        PRIMARY KEY (id)
-);
-''',
-        'mesorregiao':
-'''
-CREATE TABLE mesorregiao (
-    id SMALLINT NOT NULL,
-    id_uf SMALLINT NOT NULL,
-    nome VARCHAR(64) NOT NULL,
-    KEY fk_mesorregiao_uf (id_uf),
-    CONSTRAINT pk_mesorregiao
-        PRIMARY KEY (id),
-    CONSTRAINT fk_mesorregiao_uf
-        FOREIGN KEY (id_uf)
-            REFERENCES uf(id)
-);
-''',
-        'microrregiao':
-'''
-CREATE TABLE microrregiao (
-    id INTEGER NOT NULL,
-    id_mesorregiao SMALLINT NOT NULL,
-    id_uf SMALLINT NOT NULL,
-    nome VARCHAR(64) NOT NULL,
-    KEY fk_microrregiao_mesorregiao (id_mesorregiao),
-    KEY fk_microrregiao_uf (id_uf),
-    CONSTRAINT pk_microrregiao
-        PRIMARY KEY (id),
-    CONSTRAINT fk_microrregiao_mesorregiao
-        FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id),
-    CONSTRAINT fk_microrregiao_uf
-        FOREIGN KEY (id_uf)
-            REFERENCES uf(id)
-);
-''',
-        'municipio':
-'''
-CREATE TABLE municipio (
-    id INTEGER NOT NULL,
-    id_microrregiao INTEGER NOT NULL,
-    id_mesorregiao SMALLINT NOT NULL,
-    id_uf SMALLINT NOT NULL,
-    nome VARCHAR(64) NOT NULL,
-    KEY fk_municipio_microrregiao (id_microrregiao),
-    KEY fk_municipio_mesorregiao (id_mesorregiao),
-    KEY fk_municipio_uf (id_municipio),
-    CONSTRAINT pk_municipio
-        PRIMARY KEY (id),
-    CONSTRAINT fk_municipio_microrregiao
-        FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id),
-    CONSTRAINT fk_municipio_mesorregiao
-        FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id),
-    CONSTRAINT fk_municipio_uf
-        FOREIGN KEY (id_uf)
-            REFERENCES uf(id)
-);
-''',
-        'distrito':
-'''
-CREATE TABLE distrito (
-    id INTEGER NOT NULL,
-    id_municipio INTEGER NOT NULL,
-    id_microrregiao INTEGER NOT NULL,
-    id_mesorregiao SMALLINT NOT NULL,
-    id_uf SMALLINT NOT NULL,
-    nome VARCHAR(64) NOT NULL,
-    KEY fk_distrito_municipio (id_municipio),
-    KEY fk_distrito_microrregiao (id_microrregiao),
-    KEY fk_distrito_mesorregiao (id_mesorregiao),
-    KEY fk_distrito_uf (id_uf),
-    CONSTRAINT pk_distrito
-        PRIMARY KEY (id),
-    CONSTRAINT fk_distrito_municipio
-        FOREIGN KEY (id_municipio)
-            REFERENCES municipio(id),
-    CONSTRAINT fk_distrito_microrregiao
-        FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id),
-    CONSTRAINT fk_distrito_mesorregiao
-        FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id),
-    CONSTRAINT fk_distrito_uf
-        FOREIGN KEY (id_uf)
-            REFERENCES uf(id)
-);
-''',
-        'subdistrito':
-'''
-CREATE TABLE subdistrito (
-    id BIGINT NOT NULL,
-    id_distrito INTEGER NOT NULL,
-    id_municipio INTEGER NOT NULL,
-    id_microrregiao INTEGER NOT NULL,
-    id_mesorregiao SMALLINT NOT NULL,
-    id_uf SMALLINT NOT NULL,
-    nome VARCHAR(64) NOT NULL,
-    KEY fk_subdistrito_distrito (id_distrito),
-    KEY fk_subdistrito_municipio (id_municipio),
-    KEY fk_subdistrito_microrregiao (id_microrregiao),
-    KEY fk_subdistrito_mesorregiao (id_mesorregiao),
-    KEY fk_subdistrito_uf (id_uf),
-    CONSTRAINT pk_subdistrito
-        PRIMARY KEY (id),
-    CONSTRAINT fk_subdistrito_distrito
-        FOREIGN KEY (id_distrito)
-            REFERENCES distrito(id),
-    CONSTRAINT fk_subdistrito_municipio
-        FOREIGN KEY (id_municipio)
-            REFERENCES municipio(id),
-    CONSTRAINT fk_subdistrito_microrregiao
-        FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id),
-    CONSTRAINT fk_subdistrito_mesorregiao
-        FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id),
-    CONSTRAINT fk_subdistrito_uf
-        FOREIGN KEY (id_uf)
-            REFERENCES uf(id)
-);
-'''
-    }
-
-    SQL_INSERT_INTO = {
-        'uf':
-'''
-INSERT INTO uf VALUES ({id}, '{nome}');
-''',
-        'mesorregiao':
-'''
-INSERT INTO mesorregiao VALUES ({id}, {id_uf}, '{nome}');
-''',
-        'microrregiao':
-'''
-INSERT INTO microrregiao VALUES ({id}, {id_mesorregiao}, {id_uf}, '{nome}');
-''',
-        'municipio':
-'''
-INSERT INTO municipio VALUES ({id}, {id_microrregiao}, {id_mesorregiao}, {id_uf}, '{nome}');
-''',
-        'distrito':
-'''
-INSERT INTO distrito VALUES ({id}, {id_municipio}, {id_microrregiao}, {id_mesorregiao}, {id_uf}, '{nome}');
-''',
-        'subdistrito':
-'''
-INSERT INTO subdistrito VALUES ({id}, {id_distrito}, {id_municipio}, {id_microrregiao}, {id_mesorregiao}, {id_uf}, '{nome}');
-'''
-    }
 
 class Struct(dict):
     def __getattr__(self, name):
