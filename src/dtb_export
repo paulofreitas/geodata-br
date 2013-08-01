@@ -36,7 +36,9 @@ import logging
 import os
 import plistlib
 import re
+import sqlite3
 import sys
+import tempfile
 import zipfile
 
 # Dependency modules
@@ -76,9 +78,10 @@ FORMAT_CSV = 'csv'
 FORMAT_JSON = 'json'
 FORMAT_PLIST = 'plist'
 FORMAT_SQL = 'sql'
+FORMAT_SQLITE3 = 'sqlite3'
 FORMAT_XML = 'xml'
 FORMAT_YAML = 'yaml'
-FORMAT_ALL = (FORMAT_CSV, FORMAT_JSON, FORMAT_PLIST, FORMAT_SQL, FORMAT_XML, FORMAT_YAML)
+FORMAT_ALL = (FORMAT_CSV, FORMAT_JSON, FORMAT_PLIST, FORMAT_SQL, FORMAT_SQLITE3, FORMAT_XML, FORMAT_YAML)
 
 # -- Module initialization ----------------------------------------------------
 formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%H:%M:%S')
@@ -401,6 +404,19 @@ class SQL(Exporter):
 
         return sql
 
+class SQLite3(Exporter):
+    def __str__(self):
+        sql_str = str(SQL(self._db, self._minified)).replace('\\"', '"').replace('\\\'', "''")
+
+        with tempfile.NamedTemporaryFile() as sqlite_file:
+            with sqlite3.connect(sqlite_file.name) as sqlite_con:
+                sqlite_cursor = sqlite_con.cursor()
+                sqlite_cursor.executescript('BEGIN; {} COMMIT'.format(sql_str))
+
+            sqlite_data = open(sqlite_file.name, 'rb').read()
+
+        return sqlite_data
+
 class XML(Exporter):
     def __str__(self):
         database = lxml.etree.Element('database', name=self._db._name)
@@ -585,6 +601,7 @@ class DTB(object):
         exporters[FORMAT_JSON] = JSON
         exporters[FORMAT_PLIST] = plist
         exporters[FORMAT_SQL] = SQL
+        exporters[FORMAT_SQLITE3] = SQLite3
         exporters[FORMAT_XML] = XML
         exporters[FORMAT_YAML] = YAML
         exporter = exporters[format]

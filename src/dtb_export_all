@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
-formats=(csv json plist sql xml yaml) 
 
 for base in 2013;
 do
     mkdir -p data/$base
     mkdir -p data/minified/$base
 
-    for format in "${formats[@]}";
+    for format in (csv json plist sql sqlite3 xml yaml);
     do
         src/dtb_export -b $base -f $format -o data/$base/dtb.$format -V
     done
 
-    for format in "${formats[@]}";
+    for format in (csv json plist sql xml yaml);
     do
         src/dtb_export -b $base -f $format -m -o data/minified/$base/dtb.$format -V
     done
