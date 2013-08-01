@@ -5,7 +5,7 @@ CREATE TABLE uf (
     id SMALLINT NOT NULL,
     nome VARCHAR(32) NOT NULL,
     CONSTRAINT pk_uf
-        PRIMARY KEY (id)
+        PRIMARY KEY (id),
 );
 
 --
@@ -46,14 +46,13 @@ CREATE TABLE mesorregiao (
     id SMALLINT NOT NULL,
     id_uf SMALLINT NOT NULL,
     nome VARCHAR(64) NOT NULL,
-    KEY fk_mesorregiao_uf (id_uf),
     CONSTRAINT pk_mesorregiao
         PRIMARY KEY (id),
     CONSTRAINT fk_mesorregiao_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
 );
-
+CREATE INDEX fk_mesorregiao_uf ON mesorregiao (id_uf);
 --
 -- Dumping data for table "mesorregiao"
 --
@@ -203,18 +202,17 @@ CREATE TABLE microrregiao (
     id_mesorregiao SMALLINT NOT NULL,
     id_uf SMALLINT NOT NULL,
     nome VARCHAR(64) NOT NULL,
-    KEY fk_microrregiao_mesorregiao (id_mesorregiao),
-    KEY fk_microrregiao_uf (id_uf),
     CONSTRAINT pk_microrregiao
         PRIMARY KEY (id),
     CONSTRAINT fk_microrregiao_mesorregiao
         FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id),
+            REFERENCES mesorregiao(id)
     CONSTRAINT fk_microrregiao_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
 );
-
+CREATE INDEX fk_microrregiao_mesorregiao ON microrregiao (id_mesorregiao);
+CREATE INDEX fk_microrregiao_uf ON microrregiao (id_uf);
 --
 -- Dumping data for table "microrregiao"
 --
@@ -786,22 +784,21 @@ CREATE TABLE municipio (
     id_mesorregiao SMALLINT NOT NULL,
     id_uf SMALLINT NOT NULL,
     nome VARCHAR(64) NOT NULL,
-    KEY fk_municipio_microrregiao (id_microrregiao),
-    KEY fk_municipio_mesorregiao (id_mesorregiao),
-    KEY fk_municipio_uf (id_municipio),
     CONSTRAINT pk_municipio
         PRIMARY KEY (id),
     CONSTRAINT fk_municipio_microrregiao
         FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id),
+            REFERENCES microrregiao(id)
     CONSTRAINT fk_municipio_mesorregiao
         FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id),
+            REFERENCES mesorregiao(id)
     CONSTRAINT fk_municipio_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
 );
-
+CREATE INDEX fk_municipio_microrregiao ON municipio (id_microrregiao);
+CREATE INDEX fk_municipio_mesorregiao ON municipio (id_mesorregiao);
+CREATE INDEX fk_municipio_uf ON municipio (id_uf);
 --
 -- Dumping data for table "municipio"
 --
@@ -6386,26 +6383,25 @@ CREATE TABLE distrito (
     id_mesorregiao SMALLINT NOT NULL,
     id_uf SMALLINT NOT NULL,
     nome VARCHAR(64) NOT NULL,
-    KEY fk_distrito_municipio (id_municipio),
-    KEY fk_distrito_microrregiao (id_microrregiao),
-    KEY fk_distrito_mesorregiao (id_mesorregiao),
-    KEY fk_distrito_uf (id_uf),
     CONSTRAINT pk_distrito
         PRIMARY KEY (id),
     CONSTRAINT fk_distrito_municipio
         FOREIGN KEY (id_municipio)
-            REFERENCES municipio(id),
+            REFERENCES municipio(id)
     CONSTRAINT fk_distrito_microrregiao
         FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id),
+            REFERENCES microrregiao(id)
     CONSTRAINT fk_distrito_mesorregiao
         FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id),
+            REFERENCES mesorregiao(id)
     CONSTRAINT fk_distrito_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
 );
-
+CREATE INDEX fk_distrito_municipio ON distrito (id_municipio);
+CREATE INDEX fk_distrito_microrregiao ON distrito (id_microrregiao);
+CREATE INDEX fk_distrito_mesorregiao ON distrito (id_mesorregiao);
+CREATE INDEX fk_distrito_uf ON distrito (id_uf);
 --
 -- Dumping data for table "distrito"
 --
@@ -16723,30 +16719,29 @@ CREATE TABLE subdistrito (
     id_mesorregiao SMALLINT NOT NULL,
     id_uf SMALLINT NOT NULL,
     nome VARCHAR(64) NOT NULL,
-    KEY fk_subdistrito_distrito (id_distrito),
-    KEY fk_subdistrito_municipio (id_municipio),
-    KEY fk_subdistrito_microrregiao (id_microrregiao),
-    KEY fk_subdistrito_mesorregiao (id_mesorregiao),
-    KEY fk_subdistrito_uf (id_uf),
     CONSTRAINT pk_subdistrito
         PRIMARY KEY (id),
     CONSTRAINT fk_subdistrito_distrito
         FOREIGN KEY (id_distrito)
-            REFERENCES distrito(id),
+            REFERENCES distrito(id)
     CONSTRAINT fk_subdistrito_municipio
         FOREIGN KEY (id_municipio)
-            REFERENCES municipio(id),
+            REFERENCES municipio(id)
     CONSTRAINT fk_subdistrito_microrregiao
         FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id),
+            REFERENCES microrregiao(id)
     CONSTRAINT fk_subdistrito_mesorregiao
         FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id),
+            REFERENCES mesorregiao(id)
     CONSTRAINT fk_subdistrito_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
 );
-
+CREATE INDEX fk_subdistrito_distrito ON subdistrito (id_distrito);
+CREATE INDEX fk_subdistrito_municipio ON subdistrito (id_municipio);
+CREATE INDEX fk_subdistrito_microrregiao ON subdistrito (id_microrregiao);
+CREATE INDEX fk_subdistrito_mesorregiao ON subdistrito (id_mesorregiao);
+CREATE INDEX fk_subdistrito_uf ON subdistrito (id_uf);
 --
 -- Dumping data for table "subdistrito"
 --
