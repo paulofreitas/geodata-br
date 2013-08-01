@@ -24,7 +24,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
-# Built-in imports
+# -- Imports ------------------------------------------------------------------
+# Built-in modules
 import argparse
 import collections
 import csv
@@ -33,15 +34,36 @@ import io
 import json
 import logging
 import os
+import plistlib
 import re
 import sys
 import zipfile
 
-# Dependency imports
+# Dependency modules
 import lxml.etree
 import xlrd
 import yaml
 
+# -- Modules enhancements -----------------------------------------------------
+yaml.SafeDumper.add_representer(collections.OrderedDict,
+    lambda dumper, value: Utils.represent_odict(dumper, u'tag:yaml.org,2002:map', value))
+
+def unsortableWriteDict(self, d):
+    self.beginElement('dict')
+    items = d.items()
+
+    for key, value in items:
+        if not isinstance(key, (str, unicode)):
+            raise TypeError('keys must be strings')
+
+        self.simpleElement('key', key)
+        self.writeValue(value)
+
+    self.endElement('dict')
+
+plistlib.PlistWriter.writeDict = unsortableWriteDict
+
+# -- Module docstrings --------------------------------------------------------
 __author__ = 'Paulo Freitas <me@paulofreitas.me>'
 __copyright__ = 'Copyright (c) 2013 Paulo Freitas'
 __license__ = 'MIT'
@@ -49,21 +71,23 @@ __version__ = '1.0-dev'
 __usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
 __epilog__ = 'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
 
+# -- Module constants ---------------------------------------------------------
 FORMAT_CSV = 'csv'
 FORMAT_JSON = 'json'
+FORMAT_PLIST = 'plist'
 FORMAT_SQL = 'sql'
 FORMAT_XML = 'xml'
 FORMAT_YAML = 'yaml'
-FORMAT_ALL = (FORMAT_CSV, FORMAT_JSON, FORMAT_SQL, FORMAT_XML, FORMAT_YAML)
+FORMAT_ALL = (FORMAT_CSV, FORMAT_JSON, FORMAT_PLIST, FORMAT_SQL, FORMAT_XML, FORMAT_YAML)
 
-yaml.SafeDumper.add_representer(collections.OrderedDict,
-    lambda dumper, value: Utils.represent_odict(dumper, u'tag:yaml.org,2002:map', value))
+# -- Module initialization ----------------------------------------------------
 formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%H:%M:%S')
 log_handler = logging.StreamHandler(sys.stdout)
 log_handler.setFormatter(formatter)
 logger = logging.getLogger('dtb')
 logger.addHandler(log_handler)
 
+# -- Classes ------------------------------------------------------------------
 class Database(object):
     _tables = ('uf', 'mesorregiao', 'microrregiao', 'municipio', 'distrito', 'subdistrito')
     _fields = {
@@ -139,6 +163,27 @@ class JSON(Exporter):
             json_str = json.dumps(json_obj, indent=2)
 
         return json_str
+
+class plist(Exporter):
+    def __str__(self):
+        plist_obj = collections.OrderedDict()
+    
+        for table_name in self._db._tables:
+            plist_obj[table_name] = collections.OrderedDict()
+
+            for item in self._db._data[table_name]:
+                item_obj = collections.OrderedDict()
+
+                for key in self._db._fields[table_name]:
+                    item_obj[key] = item[key].decode('utf-8') if type(item[key]) == str else item[key]
+
+                item_id = str(item_obj['id'])
+                del item_obj['id']
+                plist_obj[table_name][item_id] = item_obj
+
+        plist_str = plistlib.writePlistToString(plist_obj)
+
+        return re.sub('[\n\t]+', '', plist_str) if self._minified else plist_str
 
 class SQL(Exporter):
     def __str__(self):
@@ -354,6 +399,7 @@ class DTB(object):
         exporters = {}
         exporters[FORMAT_CSV] = CSV
         exporters[FORMAT_JSON] = JSON
+        exporters[FORMAT_PLIST] = plist
         exporters[FORMAT_SQL] = SQL
         exporters[FORMAT_XML] = XML
         exporters[FORMAT_YAML] = YAML
