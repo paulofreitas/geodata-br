@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+for base in 2013;
+do
+    mkdir -p data/$base
+    mkdir -p data/minified/$base
+
+    for format in csv json sql xml yaml;
+    do
+        src/dtb_export -b $base -f $format -o data/$base/dtb.$format
+    done
+
+    for format in csv json sql xml yaml;
+    do
+        src/dtb_export -b $base -f $format -m -o data/minified/$base/dtb.$format
+    done
+done
