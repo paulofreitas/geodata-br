@@ -7,12 +7,12 @@ do
     mkdir -p data/$base
     mkdir -p data/minified/$base
 
-    for format in $formats;
+    for format in "${formats[@]}";
     do
         src/dtb_export -b $base -f $format -o data/$base/dtb.$format -V
     done
 
-    for format in $formats;
+    for format in "${formats[@]}";
     do
         src/dtb_export -b $base -f $format -m -o data/minified/$base/dtb.$format -V
     done
