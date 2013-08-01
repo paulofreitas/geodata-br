@@ -187,14 +187,14 @@ class plist(Exporter):
 
 class SQL(Exporter):
     def __table(self, table_name, *args):
-        return 'CREATE TABLE {} (\n{}\n);\n'.format(table_name, '\n'.join(args))
+        return 'CREATE TABLE {} (\n{}\n);\n'.format(table_name, ',\n'.join(args))
 
     def __column(self, column_name, column_type):
-        return '    {} {},'.format(column_name, column_type)
+        return '    {} {}'.format(column_name, column_type)
 
     def __primaryKey(self, pk_name, pk_column):
         return '''    CONSTRAINT {}
-        PRIMARY KEY ({}),'''.format(pk_name, pk_column)
+        PRIMARY KEY ({})'''.format(pk_name, pk_column)
 
     def __foreignKey(self, fk_name, fk_column, foreign_table, foreign_column):
         return '''    CONSTRAINT {}
