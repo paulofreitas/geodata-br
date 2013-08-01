@@ -1,0 +1,633 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''Brazilian territorial distribution data exporter
+
+The MIT License (MIT)
+
+Copyright (c) 2013 Paulo Freitas
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+'''
+# Built-in imports
+import argparse
+import collections
+import csv
+import ftplib
+import io
+import json
+import logging
+import os
+import re
+import sys
+import zipfile
+
+# Dependency imports
+import lxml.etree
+import xlrd
+import yaml
+
+__author__ = 'Paulo Freitas <me@paulofreitas.me>'
+__copyright__ = 'Copyright (c) 2013 Paulo Freitas'
+__license__ = 'MIT'
+__version__ = '0.9'
+__usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
+__epilog__ = 'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
+
+FORMAT_CSV = 'csv'
+FORMAT_JSON = 'json'
+FORMAT_SQL = 'sql'
+FORMAT_XML = 'xml'
+FORMAT_YAML = 'yaml'
+FORMAT_ALL = (FORMAT_CSV, FORMAT_JSON, FORMAT_SQL, FORMAT_XML, FORMAT_YAML)
+
+yaml.SafeDumper.add_representer(collections.OrderedDict,
+    lambda dumper, value: Utils.represent_odict(dumper, u'tag:yaml.org,2002:map', value))
+formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%H:%M:%S')
+log_handler = logging.StreamHandler(sys.stdout)
+log_handler.setFormatter(formatter)
+logger = logging.getLogger('dtb')
+logger.addHandler(log_handler)
+
+class DTB(object):
+    def __init__(self, base):
+        self._db_base = str(base)
+        self._db_name = 'dtb_{}'.format(self._db_base)
+        self._db_rawdata = None
+        self._db_data = None
+        self._db_cols = []
+        self._db_rows = None
+        self._db_tables = ('uf', 'mesorregiao', 'microrregiao', 'municipio', 'distrito', 'subdistrito')
+        self._db_fields = {
+            'uf':
+                ('id', 'nome'),
+            'mesorregiao':
+                ('id', 'id_uf', 'nome'),
+            'microrregiao': 
+                ('id', 'id_mesorregiao', 'id_uf', 'nome'),
+            'municipio':
+                ('id', 'id_microrregiao', 'id_mesorregiao', 'id_uf', 'nome'),
+            'distrito':
+                ('id', 'id_municipio', 'id_microrregiao', 'id_mesorregiao', 'id_uf', 'nome'),
+            'subdistrito':
+                ('id', 'id_distrito', 'id_municipio', 'id_microrregiao', 'id_mesorregiao', 'id_uf', 'nome')
+        }
+
+        for table_name in self._db_tables:
+            self._db_cols.append('id_' + table_name)
+            self._db_cols.append('nome_' + table_name)
+
+    def download(self):
+        ftp = ftplib.FTP('geoftp.ibge.gov.br')
+        logger.debug('Connecting to FTP server...')
+        ftp.connect()
+        logger.debug('Logging into the FTP server...')
+        ftp.login()
+        ftp.cwd('organizacao_territorial/divisao_territorial')
+
+        bases_available = [item for item in ftp.nlst() if item.isdigit()]
+
+        if not self._db_base in bases_available:
+            raise Exception('This base is not available to download.')
+
+        ftp.cwd(self._db_base)
+        zip_data = io.BytesIO()
+        logger.info('Retrieving database...')
+        ftp.retrbinary('RETR dtb_{}.zip'.format(self._db_base), zip_data.write)
+
+        with zipfile.ZipFile(zip_data, 'r') as zip:
+            logger.info('Reading database...')
+            self._db_rawdata = zip.open('DTB {}.xls'.format(self._db_base)).read()
+
+        return self
+
+    def parse(self):
+        logger.debug('Parsing database...')
+        xls = xlrd.open_workbook(file_contents=self._db_rawdata,
+                                 logfile=open(os.devnull, 'w'))
+        sheet = xls.sheet_by_index(0)
+        self._db_data = dict((table, []) for table in self._db_tables)
+        self._db_rows = []
+
+        for row_id in xrange(sheet.nrows):
+            if row_id == 0:
+                continue
+
+            row_data = [value.encode('utf-8') for value in sheet.row_values(row_id)]
+
+            id_uf, nome_uf, id_mesorregiao, nome_mesorregiao, \
+            id_microrregiao, nome_microrregiao, id_municipio, nome_municipio, \
+            id_distrito, nome_distrito, id_subdistrito, nome_subdistrito = row_data
+
+            id_subdistrito = int(id_uf + id_municipio + id_distrito + id_subdistrito) if id_subdistrito else None
+            id_distrito = int(id_uf + id_municipio + id_distrito)
+            id_municipio = int(id_uf + id_municipio)
+            id_microrregiao = int(id_microrregiao)
+            id_mesorregiao = int(id_mesorregiao)
+            id_uf = int(id_uf)
+
+            self._db_rows.append([id_uf, nome_uf, id_mesorregiao, nome_mesorregiao,
+                                  id_microrregiao, nome_microrregiao, id_municipio,
+                                  nome_municipio, id_distrito, nome_distrito,
+                                  id_subdistrito, nome_subdistrito or None])
+
+            # uf
+            uf = Struct()
+            uf.id = id_uf
+            uf.nome = nome_uf
+
+            if not uf in self._db_data['uf']:
+                self._db_data['uf'].append(uf)
+
+            # mesorregiao
+            mesorregiao = Struct(
+                id=id_mesorregiao,
+                id_uf=id_uf,
+                nome=nome_mesorregiao
+            )
+
+            if not mesorregiao in self._db_data['mesorregiao']:
+                self._db_data['mesorregiao'].append(mesorregiao)
+
+            # microrregiao
+            microrregiao = Struct(
+                id=id_microrregiao,
+                id_mesorregiao=id_mesorregiao,
+                id_uf=id_uf,
+                nome=nome_microrregiao
+            )
+
+            if not microrregiao in self._db_data['microrregiao']:
+                self._db_data['microrregiao'].append(microrregiao)
+
+            # municipio
+            municipio = Struct(
+                id=id_municipio,
+                id_microrregiao=id_microrregiao,
+                id_mesorregiao=id_mesorregiao,
+                id_uf=id_uf,
+                nome=nome_municipio
+            )
+
+            if not municipio in self._db_data['municipio']:
+                self._db_data['municipio'].append(municipio)
+
+            # distrito
+            distrito = Struct(
+                id=id_distrito,
+                id_municipio=id_municipio,
+                id_microrregiao=id_microrregiao,
+                id_mesorregiao=id_mesorregiao,
+                id_uf=id_uf,
+                nome=nome_distrito
+            )
+
+            if not distrito in self._db_data['distrito']:
+                self._db_data['distrito'].append(distrito)
+
+            # subdistrito
+            if id_subdistrito:
+                subdistrito = Struct(
+                    id=id_subdistrito,
+                    id_distrito=id_distrito,
+                    id_municipio=id_municipio,
+                    id_microrregiao=id_microrregiao,
+                    id_mesorregiao=id_mesorregiao,
+                    id_uf=id_uf,
+                    nome=nome_subdistrito
+                )
+
+                if not subdistrito in self._db_data['subdistrito']:
+                    self._db_data['subdistrito'].append(subdistrito)
+
+        return self
+
+    def export(self, format, minified=False, filename=None):
+        logger.info('Exporting database to {} format...'.format(format.upper()))
+
+        if not format in FORMAT_ALL:
+            raise Exception('Unsupported output format.')
+
+        data = getattr(self, '_' + format)(minified)
+        logger.info('Done.')
+
+        if filename:
+            if filename == 'auto':
+                filename = 'dtb.' + format
+
+            open(filename, 'w').write(data)
+        else:
+            sys.stdout.write(data + '\n')
+
+    def _csv(self, minified):
+        csv_file = io.BytesIO()
+        csv_writer = csv.writer(csv_file,
+                                quoting=csv.QUOTE_MINIMAL if minified else csv.QUOTE_NONNUMERIC,
+                                lineterminator='\n')
+
+        csv_writer.writerow([col.encode('utf-8') for col in self._db_cols])
+
+        for row in self._db_rows:
+            csv_writer.writerow([bytes(col) if type(col) == str else col for col in filter(None, row)])
+
+        return csv_file.getvalue()
+
+    def _json(self, minified):
+        json_obj = collections.OrderedDict()
+
+        for table_name in self._db_tables:
+            json_obj[table_name] = collections.OrderedDict()
+
+            for item in self._db_data[table_name]:
+                item_obj = collections.OrderedDict()
+
+                for key in self._db_fields[table_name]:
+                    item_obj[key] = item[key]
+
+                item_id = item_obj['id']
+                del item_obj['id']
+                json_obj[table_name][item_id] = item_obj
+
+        if minified:
+            json_str = json.dumps(json_obj, separators=(',', ':'))
+        else:
+            json_str = json.dumps(json_obj, indent=2)
+
+        return json_str
+
+    def _sql(self, minified):
+        sql = ''
+
+        for table_name in self._db_tables:
+            if not minified:
+                sql += Strings.SQL_TABLE_STRUCTURE_FOR_TABLE.format(table_name)
+
+            sql += Strings.SQL_CREATE_TABLE[table_name].strip() + '\n'
+
+            if not minified:
+                sql += Strings.SQL_DUMPING_DATA_FOR_TABLE.format(table_name)
+
+            for item in self._db_data[table_name]:
+                data = collections.OrderedDict()
+
+                for key in self._db_fields[table_name]:
+                    data[key] =\
+                        item[key] if type(item[key]) == int else Utils.addslashes(item[key])
+
+                sql += Strings.SQL_INSERT_INTO[table_name].strip().format(**data) + '\n'
+
+        sql = sql.strip()
+
+        if minified:
+            sql = re.sub('([;(])\s+', r'\1', sql)
+            sql = re.sub(',\s(?=\')|,\s+', ',', sql)
+            sql = re.sub('\s+', ' ', sql)
+            sql = re.sub('(\W)\s(\W)', r'\1\2', sql)
+
+        return sql
+
+    def _yaml(self, minified):
+        yaml_obj = collections.OrderedDict()
+
+        for table_name in self._db_tables:
+            yaml_obj[table_name] = collections.OrderedDict()
+
+            for item in self._db_data[table_name]:
+                item_obj = collections.OrderedDict()
+
+                for key in self._db_fields[table_name]:
+                    item_obj[key] = item[key]
+
+                item_id = item_obj['id']
+                del item_obj['id']
+                import json
+                yaml_obj[table_name][item_id] = item_obj
+
+        if minified:
+            options = {'default_flow_style': True, 'width': 2e6, 'indent': 0}
+        else:
+            options = {'default_flow_style': False}
+
+        yaml_str = yaml.safe_dump(yaml_obj, **options).replace('}, ', '},')
+
+        return yaml_str
+
+    def _xml(self, minified):
+        database = lxml.etree.Element('database', name=self._db_name)
+
+        for table_name in self._db_tables:
+            if not minified:
+                database.append(lxml.etree.Comment(' Table {} '.format(table_name)))
+
+            table = lxml.etree.SubElement(database, 'table', name=table_name)
+
+            for item in self._db_data[table_name]:
+                row = lxml.etree.SubElement(table, 'row')
+
+                for field_name in self._db_fields[table_name]:
+                    lxml.etree.SubElement(row, 'field',
+                        name=field_name).text = str(item[field_name]).decode('utf-8')
+
+        return lxml.etree.tostring(database,
+                                   pretty_print=not minified,
+                                   xml_declaration=True,
+                                   encoding='utf-8')
+
+class Strings(object):
+    SQL_TABLE_STRUCTURE_FOR_TABLE =\
+'''
+--
+-- Table structure for table "{}"
+--
+'''
+
+    SQL_DUMPING_DATA_FOR_TABLE =\
+'''
+--
+-- Dumping data for table "{}"
+--
+'''
+
+    SQL_CREATE_TABLE = {
+        'uf':
+'''
+CREATE TABLE uf (
+    id SMALLINT NOT NULL,
+    nome VARCHAR(32) NOT NULL,
+    CONSTRAINT pk_uf
+        PRIMARY KEY (id)
+);
+''',
+        'mesorregiao':
+'''
+CREATE TABLE mesorregiao (
+    id SMALLINT NOT NULL,
+    id_uf SMALLINT NOT NULL,
+    nome VARCHAR(64) NOT NULL,
+    KEY fk_mesorregiao_uf (id_uf),
+    CONSTRAINT pk_mesorregiao
+        PRIMARY KEY (id),
+    CONSTRAINT fk_mesorregiao_uf
+        FOREIGN KEY (id_uf)
+            REFERENCES uf(id)
+);
+''',
+        'microrregiao':
+'''
+CREATE TABLE microrregiao (
+    id INTEGER NOT NULL,
+    id_mesorregiao SMALLINT NOT NULL,
+    id_uf SMALLINT NOT NULL,
+    nome VARCHAR(64) NOT NULL,
+    KEY fk_microrregiao_mesorregiao (id_mesorregiao),
+    KEY fk_microrregiao_uf (id_uf),
+    CONSTRAINT pk_microrregiao
+        PRIMARY KEY (id),
+    CONSTRAINT fk_microrregiao_mesorregiao
+        FOREIGN KEY (id_mesorregiao)
+            REFERENCES mesorregiao(id),
+    CONSTRAINT fk_microrregiao_uf
+        FOREIGN KEY (id_uf)
+            REFERENCES uf(id)
+);
+''',
+        'municipio':
+'''
+CREATE TABLE municipio (
+    id INTEGER NOT NULL,
+    id_microrregiao INTEGER NOT NULL,
+    id_mesorregiao SMALLINT NOT NULL,
+    id_uf SMALLINT NOT NULL,
+    nome VARCHAR(64) NOT NULL,
+    KEY fk_municipio_microrregiao (id_microrregiao),
+    KEY fk_municipio_mesorregiao (id_mesorregiao),
+    KEY fk_municipio_uf (id_municipio),
+    CONSTRAINT pk_municipio
+        PRIMARY KEY (id),
+    CONSTRAINT fk_municipio_microrregiao
+        FOREIGN KEY (id_microrregiao)
+            REFERENCES microrregiao(id),
+    CONSTRAINT fk_municipio_mesorregiao
+        FOREIGN KEY (id_mesorregiao)
+            REFERENCES mesorregiao(id),
+    CONSTRAINT fk_municipio_uf
+        FOREIGN KEY (id_uf)
+            REFERENCES uf(id)
+);
+''',
+        'distrito':
+'''
+CREATE TABLE distrito (
+    id INTEGER NOT NULL,
+    id_municipio INTEGER NOT NULL,
+    id_microrregiao INTEGER NOT NULL,
+    id_mesorregiao SMALLINT NOT NULL,
+    id_uf SMALLINT NOT NULL,
+    nome VARCHAR(64) NOT NULL,
+    KEY fk_distrito_municipio (id_municipio),
+    KEY fk_distrito_microrregiao (id_microrregiao),
+    KEY fk_distrito_mesorregiao (id_mesorregiao),
+    KEY fk_distrito_uf (id_uf),
+    CONSTRAINT pk_distrito
+        PRIMARY KEY (id),
+    CONSTRAINT fk_distrito_municipio
+        FOREIGN KEY (id_municipio)
+            REFERENCES municipio(id),
+    CONSTRAINT fk_distrito_microrregiao
+        FOREIGN KEY (id_microrregiao)
+            REFERENCES microrregiao(id),
+    CONSTRAINT fk_distrito_mesorregiao
+        FOREIGN KEY (id_mesorregiao)
+            REFERENCES mesorregiao(id),
+    CONSTRAINT fk_distrito_uf
+        FOREIGN KEY (id_uf)
+            REFERENCES uf(id)
+);
+''',
+        'subdistrito':
+'''
+CREATE TABLE subdistrito (
+    id BIGINT NOT NULL,
+    id_distrito INTEGER NOT NULL,
+    id_municipio INTEGER NOT NULL,
+    id_microrregiao INTEGER NOT NULL,
+    id_mesorregiao SMALLINT NOT NULL,
+    id_uf SMALLINT NOT NULL,
+    nome VARCHAR(64) NOT NULL,
+    KEY fk_subdistrito_distrito (id_distrito),
+    KEY fk_subdistrito_municipio (id_municipio),
+    KEY fk_subdistrito_microrregiao (id_microrregiao),
+    KEY fk_subdistrito_mesorregiao (id_mesorregiao),
+    KEY fk_subdistrito_uf (id_uf),
+    CONSTRAINT pk_subdistrito
+        PRIMARY KEY (id),
+    CONSTRAINT fk_subdistrito_distrito
+        FOREIGN KEY (id_distrito)
+            REFERENCES distrito(id),
+    CONSTRAINT fk_subdistrito_municipio
+        FOREIGN KEY (id_municipio)
+            REFERENCES municipio(id),
+    CONSTRAINT fk_subdistrito_microrregiao
+        FOREIGN KEY (id_microrregiao)
+            REFERENCES microrregiao(id),
+    CONSTRAINT fk_subdistrito_mesorregiao
+        FOREIGN KEY (id_mesorregiao)
+            REFERENCES mesorregiao(id),
+    CONSTRAINT fk_subdistrito_uf
+        FOREIGN KEY (id_uf)
+            REFERENCES uf(id)
+);
+'''
+    }
+
+    SQL_INSERT_INTO = {
+        'uf':
+'''
+INSERT INTO uf VALUES ({id}, '{nome}');
+''',
+        'mesorregiao':
+'''
+INSERT INTO mesorregiao VALUES ({id}, {id_uf}, '{nome}');
+''',
+        'microrregiao':
+'''
+INSERT INTO microrregiao VALUES ({id}, {id_mesorregiao}, {id_uf}, '{nome}');
+''',
+        'municipio':
+'''
+INSERT INTO municipio VALUES ({id}, {id_microrregiao}, {id_mesorregiao}, {id_uf}, '{nome}');
+''',
+        'distrito':
+'''
+INSERT INTO distrito VALUES ({id}, {id_municipio}, {id_microrregiao}, {id_mesorregiao}, {id_uf}, '{nome}');
+''',
+        'subdistrito':
+'''
+INSERT INTO subdistrito VALUES ({id}, {id_distrito}, {id_municipio}, {id_microrregiao}, {id_mesorregiao}, {id_uf}, '{nome}');
+'''
+    }
+
+class Struct(dict):
+    def __getattr__(self, name):
+        try:
+            return self[name]
+        except KeyError:
+            raise AttributeError(name)
+
+    def __setattr__(self, name, value):
+        self[name] = value
+
+    def copy(self):
+        return Struct(dict.copy(self))
+
+class Utils(object):
+    @staticmethod
+    def addslashes(value):
+        return value.replace('\\', '\\\\').replace('"', '\\"').replace("'", "\\'")
+
+    @staticmethod
+    def represent_odict(dump, tag, mapping, flow_style=None):
+        '''Make PyYAML output and OrderedDict.
+        Credits: https://gist.github.com/miracle2k/3184458/
+        '''
+        value = []
+        node = yaml.MappingNode(tag, value, flow_style=flow_style)
+
+        if dump.alias_key is not None:
+            dump.represented_objects[dump.alias_key] = node
+
+        best_style = True
+
+        if hasattr(mapping, 'items'):
+            mapping = mapping.items()
+
+        for item_key, item_value in mapping:
+            node_key = dump.represent_data(item_key)
+            node_value = dump.represent_data(item_value)
+
+            if not (isinstance(node_key, yaml.ScalarNode) and not node_key.style):
+                best_style = False
+
+            if not (isinstance(node_value, yaml.ScalarNode) and not node_value.style):
+                best_style = False
+
+            value.append((node_key, node_value))
+
+            if flow_style is None:
+                if dump.default_flow_style is not None:
+                    node.flow_style = dump.default_flow_style
+                else:
+                    node.flow_style = best_style
+
+        return node
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     usage=__usage__,
+                                     epilog=__epilog__,
+                                     conflict_handler='resolve',
+                                     formatter_class=argparse.RawTextHelpFormatter)
+    g_global = parser.add_argument_group('Global options')
+    g_global.add_argument('-h', '--help',
+                          action='help',
+                          help='Display this information')
+    g_global.add_argument('-v', '--version',
+                          action='version',
+                          version='%(prog)s ' + __version__,
+                          help='Show version information and exit')
+    g_global.add_argument('-V', '--verbose',
+                          action='store_true',
+                          help='Display informational messages and warnings')
+
+    g_export = parser.add_argument_group('Export options')
+    g_export.add_argument('-b', '--base',
+                          type=int,
+                          help='Database year to export to.')
+    g_export.add_argument('-f', '--format',
+                          metavar='FORMAT',
+                          choices=FORMAT_ALL,
+                          help='Format to export the database.\nOptions: %(choices)s')
+    g_export.add_argument('-m', '--minify',
+                          dest='minified',
+                          action='store_true',
+                          help='Minifies output file whenever possible.')
+    g_export.add_argument('-o', '--out',
+                          dest='filename',
+                          nargs='?',
+                          const='auto',
+                          help='Specify a file to write the export to.\n' \
+                              + 'If none are specified, %(prog)s writes data to standard output.')
+    args = parser.parse_args()
+
+    if not args.base:
+        parser.error('You need to specify the database year you want to export.')
+
+    if not args.format:
+        parser.error('You need to specify the database format you want to export.')
+
+    if args.verbose:
+        logger.setLevel(logging.DEBUG)
+
+    print args
+
+    try:
+        dtb = DTB(args.base)
+        dtb.download().parse().export(args.format, args.minified, args.filename)
+    except Exception as e:
+        sys.stdout.write('EXCEPTION CAUGHT: {}: {}\n'.format(type(e).__name__, e.message))
+        sys.exit(1)
