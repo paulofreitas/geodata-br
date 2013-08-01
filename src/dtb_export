@@ -45,7 +45,7 @@ import yaml
 __author__ = 'Paulo Freitas <me@paulofreitas.me>'
 __copyright__ = 'Copyright (c) 2013 Paulo Freitas'
 __license__ = 'MIT'
-__version__ = '0.9.1'
+__version__ = '1.0-dev'
 __usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
 __epilog__ = 'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
 
@@ -83,6 +83,7 @@ class Database(object):
     _cols = []
     _rows = []
     _data = {}
+    _rawdata = None
 
     def __init__(self, base):
         self._base = str(base)
@@ -215,12 +216,13 @@ class YAML(Exporter):
         else:
             options = {'default_flow_style': False}
 
-        return yaml.safe_dump(yaml_obj, **options).replace('}, ', '},')
+        yaml_str = yaml.safe_dump(yaml_obj, **options)
+
+        return yaml_str.replace('}, ', '},') if self._minified else yaml_str
 
 class DTB(object):
     def __init__(self, base):
         self._db = Database(base)
-        self._db_rawdata = None
 
     def download(self):
         ftp = ftplib.FTP('geoftp.ibge.gov.br')
@@ -242,13 +244,13 @@ class DTB(object):
 
         with zipfile.ZipFile(zip_data, 'r') as zip:
             logger.info('Reading database...')
-            self._db_rawdata = zip.open('DTB {}.xls'.format(self._db._base)).read()
+            self._db._rawdata = zip.open('DTB {}.xls'.format(self._db._base)).read()
 
         return self
 
     def parse(self):
         logger.debug('Parsing database...')
-        xls = xlrd.open_workbook(file_contents=self._db_rawdata,
+        xls = xlrd.open_workbook(file_contents=self._db._rawdata,
                                  logfile=open(os.devnull, 'w'))
         sheet = xls.sheet_by_index(0)
 
@@ -346,8 +348,6 @@ class DTB(object):
         return self
 
     def export(self, format, minified=False, filename=None):
-        logger.info('Exporting database to {} format...'.format(format.upper()))
-
         if not format in FORMAT_ALL:
             raise Exception('Unsupported output format.')
 
@@ -357,8 +357,9 @@ class DTB(object):
         exporters[FORMAT_SQL] = SQL
         exporters[FORMAT_XML] = XML
         exporters[FORMAT_YAML] = YAML
-
-        data = str(exporters[format](self._db, minified))
+        exporter = exporters[format]
+        logger.info('Exporting database to {} format...'.format(exporter.__name__))
+        data = str(exporter(self._db, minified))
         logger.info('Done.')
 
         if filename:
@@ -644,12 +645,9 @@ if __name__ == '__main__':
     if args.verbose:
         logger.setLevel(logging.DEBUG)
 
-    print args
-
     try:
         dtb = DTB(args.base)
         dtb.download().parse().export(args.format, args.minified, args.filename)
     except Exception as e:
-        raise
         sys.stdout.write('EXCEPTION CAUGHT: {}: {}\n'.format(type(e).__name__, e.message))
         sys.exit(1)
