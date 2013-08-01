@@ -5,7 +5,7 @@ CREATE TABLE uf (
     id SMALLINT NOT NULL,
     nome VARCHAR(32) NOT NULL,
     CONSTRAINT pk_uf
-        PRIMARY KEY (id),
+        PRIMARY KEY (id)
 );
 
 --
@@ -206,7 +206,7 @@ CREATE TABLE microrregiao (
         PRIMARY KEY (id),
     CONSTRAINT fk_microrregiao_mesorregiao
         FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id)
+            REFERENCES mesorregiao(id),
     CONSTRAINT fk_microrregiao_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
@@ -788,10 +788,10 @@ CREATE TABLE municipio (
         PRIMARY KEY (id),
     CONSTRAINT fk_municipio_microrregiao
         FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id)
+            REFERENCES microrregiao(id),
     CONSTRAINT fk_municipio_mesorregiao
         FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id)
+            REFERENCES mesorregiao(id),
     CONSTRAINT fk_municipio_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
@@ -6387,13 +6387,13 @@ CREATE TABLE distrito (
         PRIMARY KEY (id),
     CONSTRAINT fk_distrito_municipio
         FOREIGN KEY (id_municipio)
-            REFERENCES municipio(id)
+            REFERENCES municipio(id),
     CONSTRAINT fk_distrito_microrregiao
         FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id)
+            REFERENCES microrregiao(id),
     CONSTRAINT fk_distrito_mesorregiao
         FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id)
+            REFERENCES mesorregiao(id),
     CONSTRAINT fk_distrito_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
@@ -16723,16 +16723,16 @@ CREATE TABLE subdistrito (
         PRIMARY KEY (id),
     CONSTRAINT fk_subdistrito_distrito
         FOREIGN KEY (id_distrito)
-            REFERENCES distrito(id)
+            REFERENCES distrito(id),
     CONSTRAINT fk_subdistrito_municipio
         FOREIGN KEY (id_municipio)
-            REFERENCES municipio(id)
+            REFERENCES municipio(id),
     CONSTRAINT fk_subdistrito_microrregiao
         FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id)
+            REFERENCES microrregiao(id),
     CONSTRAINT fk_subdistrito_mesorregiao
         FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id)
+            REFERENCES mesorregiao(id),
     CONSTRAINT fk_subdistrito_uf
         FOREIGN KEY (id_uf)
             REFERENCES uf(id)
