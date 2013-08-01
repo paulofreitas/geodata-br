@@ -240,7 +240,7 @@ class SQL(Exporter):
                 self.__column('id_uf', 'SMALLINT NOT NULL'),
                 self.__column('nome', 'VARCHAR(64) NOT NULL'),
                 self.__primaryKey('pk_microrregiao', 'id'),
-                self.__foreignKey('fk_microrregiao_mesorregiao', 'id_mesorregiao', 'microrregiao', 'id'),
+                self.__foreignKey('fk_microrregiao_mesorregiao', 'id_mesorregiao', 'mesorregiao', 'id'),
                 self.__foreignKey('fk_microrregiao_uf', 'id_uf', 'uf', 'id')
             ),
             'municipio': self.__table(
