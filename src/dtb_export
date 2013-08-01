@@ -47,10 +47,45 @@ import xlrd
 import yaml
 
 # -- Modules enhancements -----------------------------------------------------
-yaml.SafeDumper.add_representer(collections.OrderedDict,
-    lambda dumper, value: Utils.represent_odict(dumper, u'tag:yaml.org,2002:map', value))
+def __represent_odict(dump, tag, mapping, flow_style=None):
+    '''Make PyYAML output and OrderedDict.
+    Credits: https://gist.github.com/miracle2k/3184458/
+    '''
+    value = []
+    node = yaml.MappingNode(tag, value, flow_style=flow_style)
 
-def unsortableWriteDict(self, d):
+    if dump.alias_key is not None:
+        dump.represented_objects[dump.alias_key] = node
+
+    best_style = True
+
+    if hasattr(mapping, 'items'):
+        mapping = mapping.items()
+
+    for item_key, item_value in mapping:
+        node_key = dump.represent_data(item_key)
+        node_value = dump.represent_data(item_value)
+
+        if not (isinstance(node_key, yaml.ScalarNode) and not node_key.style):
+            best_style = False
+
+        if not (isinstance(node_value, yaml.ScalarNode) and not node_value.style):
+            best_style = False
+
+        value.append((node_key, node_value))
+
+        if flow_style is None:
+            if dump.default_flow_style is not None:
+                node.flow_style = dump.default_flow_style
+            else:
+                node.flow_style = best_style
+
+    return node
+
+yaml.SafeDumper.add_representer(collections.OrderedDict,
+    lambda dumper, value: __represent_odict(dumper, u'tag:yaml.org,2002:map', value))
+
+def __unsortable_write_dict(self, d):
     self.beginElement('dict')
     items = d.items()
 
@@ -63,7 +98,7 @@ def unsortableWriteDict(self, d):
 
     self.endElement('dict')
 
-plistlib.PlistWriter.writeDict = unsortableWriteDict
+plistlib.PlistWriter.writeDict = __unsortable_write_dict
 
 # -- Module docstrings --------------------------------------------------------
 __author__ = 'Paulo Freitas <me@paulofreitas.me>'
@@ -217,6 +252,9 @@ class SQL(Exporter):
         repl_field = '{' + field_name + '}'
 
         return repr(repl_field) if field_type == str else repl_field
+
+    def __quote(value):
+        return value.replace('\\', '\\\\').replace('"', '\\"').replace("'", "\\'")
 
     def __init__(self, db, minified):
         super(SQL, self).__init__(db, minified)
@@ -390,7 +428,7 @@ class SQL(Exporter):
 
                 for key in self._db._fields[table_name]:
                     data[key] =\
-                        item[key] if type(item[key]) == int else Utils.addslashes(item[key])
+                        item[key] if type(item[key]) == int else self.__quote(item[key])
 
                 sql += self._inserts[table_name].strip().format(**data) + '\n'
 
@@ -629,47 +667,6 @@ class Struct(dict):
 
     def copy(self):
         return Struct(dict.copy(self))
-
-class Utils(object):
-    @staticmethod
-    def addslashes(value):
-        return value.replace('\\', '\\\\').replace('"', '\\"').replace("'", "\\'")
-
-    @staticmethod
-    def represent_odict(dump, tag, mapping, flow_style=None):
-        '''Make PyYAML output and OrderedDict.
-        Credits: https://gist.github.com/miracle2k/3184458/
-        '''
-        value = []
-        node = yaml.MappingNode(tag, value, flow_style=flow_style)
-
-        if dump.alias_key is not None:
-            dump.represented_objects[dump.alias_key] = node
-
-        best_style = True
-
-        if hasattr(mapping, 'items'):
-            mapping = mapping.items()
-
-        for item_key, item_value in mapping:
-            node_key = dump.represent_data(item_key)
-            node_value = dump.represent_data(item_value)
-
-            if not (isinstance(node_key, yaml.ScalarNode) and not node_key.style):
-                best_style = False
-
-            if not (isinstance(node_value, yaml.ScalarNode) and not node_value.style):
-                best_style = False
-
-            value.append((node_key, node_value))
-
-            if flow_style is None:
-                if dump.default_flow_style is not None:
-                    node.flow_style = dump.default_flow_style
-                else:
-                    node.flow_style = best_style
-
-        return node
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__,
