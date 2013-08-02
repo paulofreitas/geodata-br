@@ -228,22 +228,39 @@ class SQL(Exporter):
         return 'CREATE TABLE {} (\n{}\n);\n'.format(table_name, ',\n'.join(args))
 
     def __column(self, column_name, column_type):
-        return '    {} {}'.format(column_name, column_type)
+        return '  {} {}'.format(column_name, column_type)
 
-    def __primaryKey(self, pk_name, pk_column):
-        return '''    CONSTRAINT {}
-        PRIMARY KEY ({})'''.format(pk_name, pk_column)
+    def __primaryKey(self, table, column):
+        pk_name = 'pk_{}'.format(table)
 
-    def __foreignKey(self, fk_name, fk_column, foreign_table, foreign_column):
-        return '''    CONSTRAINT {}
-        FOREIGN KEY ({})
-            REFERENCES {}({})'''.format(fk_name, fk_column, foreign_table, foreign_column)
+        if self._lazy_constraints:
+            stmt = 'ALTER TABLE {}\n  ADD CONSTRAINT {}\n    PRIMARY KEY ({});''' \
+                .format(table, pk_name, column)
+        else:
+            stmt = '  CONSTRAINT {}\n    PRIMARY KEY ({})'''.format(pk_name, column)
+
+        return stmt
+
+    def __foreignKey(self, table, column, foreign_table, foreign_column):
+        fk_name = 'fk_{}_{}'.format(table, foreign_table)
+
+        if self._lazy_constraints:
+            stmt = 'ALTER TABLE {}\n  ADD CONSTRAINT {}\n    FOREIGN KEY ({})\n      REFERENCES {}({});' \
+                .format(table, fk_name, column, foreign_table, foreign_column)
+        else:
+            stmt = '  CONSTRAINT {}\n    FOREIGN KEY ({})\n      REFERENCES {}({})' \
+                .format(fk_name, column, foreign_table, foreign_column)
+
+        return stmt
+
+    def __constraints(sql, *constraints):
+        return '\n'.join(constraints) + '\n'
 
     def __index(self, index_name, table_name, indexed_column):
         return 'CREATE INDEX {} ON {} ({});'.format(index_name, table_name, indexed_column)
 
     def __indexes(self, *indexes):
-        return '\n'.join(indexes)
+        return '\n'.join(indexes) + '\n'
 
     def __insert(self, table_name, *columns):
         return 'INSERT INTO {} VALUES ({});'.format(table_name, ', '.join(columns))
@@ -253,143 +270,148 @@ class SQL(Exporter):
 
         return repr(repl_field) if field_type == str else repl_field
 
-    def __quote(value):
-        return value.replace('\\', '\\\\').replace('"', '\\"').replace("'", "\\'")
+    def __quote(self, value):
+        return value.replace("'", self._escape_char)
 
-    def __init__(self, db, minified):
+    def __init__(self, db, minified, lazy_constraints=True, escape_char="\\'"):
         super(SQL, self).__init__(db, minified)
-
+        self._lazy_constraints = lazy_constraints
+        self._escape_char = escape_char
         self._tables = {
-            'uf': self.__table(
-                'uf',
+            'uf': [
                 self.__column('id', 'SMALLINT NOT NULL'),
-                self.__column('nome', 'VARCHAR(32) NOT NULL'),
-                self.__primaryKey('pk_uf', 'id')
-            ),
-            'mesorregiao': self.__table(
-                'mesorregiao',
+                self.__column('nome', 'VARCHAR(32) NOT NULL')
+            ],
+            'mesorregiao': [
                 self.__column('id', 'SMALLINT NOT NULL'),
                 self.__column('id_uf', 'SMALLINT NOT NULL'),
-                self.__column('nome', 'VARCHAR(64) NOT NULL'),
-                self.__primaryKey('pk_mesorregiao', 'id'),
-                self.__foreignKey('fk_mesorregiao_uf', 'id_uf', 'uf', 'id')
-            ),
-            'microrregiao': self.__table(
-                'microrregiao',
+                self.__column('nome', 'VARCHAR(64) NOT NULL')
+            ],
+            'microrregiao': [
                 self.__column('id', 'INTEGER NOT NULL'),
                 self.__column('id_mesorregiao', 'SMALLINT NOT NULL'),
                 self.__column('id_uf', 'SMALLINT NOT NULL'),
-                self.__column('nome', 'VARCHAR(64) NOT NULL'),
-                self.__primaryKey('pk_microrregiao', 'id'),
-                self.__foreignKey('fk_microrregiao_mesorregiao', 'id_mesorregiao', 'mesorregiao', 'id'),
-                self.__foreignKey('fk_microrregiao_uf', 'id_uf', 'uf', 'id')
-            ),
-            'municipio': self.__table(
-                'municipio',
+                self.__column('nome', 'VARCHAR(64) NOT NULL')
+            ],
+            'municipio': [
                 self.__column('id', 'INTEGER NOT NULL'),
                 self.__column('id_microrregiao', 'INTEGER NOT NULL'),
                 self.__column('id_mesorregiao', 'SMALLINT NOT NULL'),
                 self.__column('id_uf', 'SMALLINT NOT NULL'),
-                self.__column('nome', 'VARCHAR(64) NOT NULL'),
-                self.__primaryKey('pk_municipio', 'id'),
-                self.__foreignKey('fk_municipio_microrregiao', 'id_microrregiao', 'microrregiao', 'id'),
-                self.__foreignKey('fk_municipio_mesorregiao', 'id_mesorregiao', 'mesorregiao', 'id'),
-                self.__foreignKey('fk_municipio_uf', 'id_uf', 'uf', 'id')
-            ),
-            'distrito': self.__table(
-                'distrito',
+                self.__column('nome', 'VARCHAR(64) NOT NULL')
+            ],
+            'distrito': [
                 self.__column('id', 'INTEGER NOT NULL'),
                 self.__column('id_municipio', 'INTEGER NOT NULL'),
                 self.__column('id_microrregiao', 'INTEGER NOT NULL'),
                 self.__column('id_mesorregiao', 'SMALLINT NOT NULL'),
                 self.__column('id_uf', 'SMALLINT NOT NULL'),
-                self.__column('nome', 'VARCHAR(64) NOT NULL'),
-                self.__primaryKey('pk_distrito', 'id'),
-                self.__foreignKey('fk_distrito_municipio', 'id_municipio', 'municipio', 'id'),
-                self.__foreignKey('fk_distrito_microrregiao', 'id_microrregiao', 'microrregiao', 'id'),
-                self.__foreignKey('fk_distrito_mesorregiao', 'id_mesorregiao', 'mesorregiao', 'id'),
-                self.__foreignKey('fk_distrito_uf', 'id_uf', 'uf', 'id')
-            ),
-            'subdistrito': self.__table(
-                'subdistrito',
+                self.__column('nome', 'VARCHAR(64) NOT NULL')
+            ],
+            'subdistrito': [
                 self.__column('id', 'BIGINT NOT NULL'),
                 self.__column('id_distrito', 'INTEGER NOT NULL'),
                 self.__column('id_municipio', 'INTEGER NOT NULL'),
                 self.__column('id_microrregiao', 'INTEGER NOT NULL'),
                 self.__column('id_mesorregiao', 'SMALLINT NOT NULL'),
                 self.__column('id_uf', 'SMALLINT NOT NULL'),
-                self.__column('nome', 'VARCHAR(64) NOT NULL'),
-                self.__primaryKey('pk_subdistrito', 'id'),
-                self.__foreignKey('fk_subdistrito_distrito', 'id_distrito', 'distrito', 'id'),
-                self.__foreignKey('fk_subdistrito_municipio', 'id_municipio', 'municipio', 'id'),
-                self.__foreignKey('fk_subdistrito_microrregiao', 'id_microrregiao', 'microrregiao', 'id'),
-                self.__foreignKey('fk_subdistrito_mesorregiao', 'id_mesorregiao', 'mesorregiao', 'id'),
-                self.__foreignKey('fk_subdistrito_uf', 'id_uf', 'uf', 'id')
-            )
+                self.__column('nome', 'VARCHAR(64) NOT NULL')
+            ]
+        }
+        self._constraints = {
+            'uf': [
+                self.__primaryKey('uf', 'id')
+            ],
+            'mesorregiao': [
+                self.__primaryKey('mesorregiao', 'id'),
+                self.__foreignKey('mesorregiao', 'id_uf', 'uf', 'id')
+            ],
+            'microrregiao': [
+                self.__primaryKey('microrregiao', 'id'),
+                self.__foreignKey('microrregiao', 'id_mesorregiao', 'mesorregiao', 'id'),
+                self.__foreignKey('microrregiao', 'id_uf', 'uf', 'id')                
+            ],
+            'municipio': [
+                self.__primaryKey('municipio', 'id'),
+                self.__foreignKey('municipio', 'id_microrregiao', 'microrregiao', 'id'),
+                self.__foreignKey('municipio', 'id_mesorregiao', 'mesorregiao', 'id'),
+                self.__foreignKey('municipio', 'id_uf', 'uf', 'id')
+            ],
+            'distrito': [
+                self.__primaryKey('distrito', 'id'),
+                self.__foreignKey('distrito', 'id_municipio', 'municipio', 'id'),
+                self.__foreignKey('distrito', 'id_microrregiao', 'microrregiao', 'id'),
+                self.__foreignKey('distrito', 'id_mesorregiao', 'mesorregiao', 'id'),
+                self.__foreignKey('distrito', 'id_uf', 'uf', 'id')   
+            ],
+            'subdistrito': [
+                self.__primaryKey('subdistrito', 'id'),
+                self.__foreignKey('subdistrito', 'id_distrito', 'distrito', 'id'),
+                self.__foreignKey('subdistrito', 'id_municipio', 'municipio', 'id'),
+                self.__foreignKey('subdistrito', 'id_microrregiao', 'microrregiao', 'id'),
+                self.__foreignKey('subdistrito', 'id_mesorregiao', 'mesorregiao', 'id'),
+                self.__foreignKey('subdistrito', 'id_uf', 'uf', 'id')
+            ]
         }
         self._indexes = {
-            'mesorregiao': self.__index('fk_mesorregiao_uf', 'mesorregiao', 'id_uf'),
-            'microrregiao': self.__indexes(
+            'mesorregiao': [
+                self.__index('fk_mesorregiao_uf', 'mesorregiao', 'id_uf')
+            ],
+            'microrregiao': [
                 self.__index('fk_microrregiao_mesorregiao', 'microrregiao', 'id_mesorregiao'),
                 self.__index('fk_microrregiao_uf', 'microrregiao', 'id_uf')
-            ),
-            'municipio': self.__indexes(
+            ],
+            'municipio': [
                 self.__index('fk_municipio_microrregiao', 'municipio', 'id_microrregiao'),
                 self.__index('fk_municipio_mesorregiao', 'municipio', 'id_mesorregiao'),
                 self.__index('fk_municipio_uf', 'municipio', 'id_uf')
-            ),
-            'distrito': self.__indexes(
+            ],
+            'distrito': [
                 self.__index('fk_distrito_municipio', 'distrito', 'id_municipio'),
                 self.__index('fk_distrito_microrregiao', 'distrito', 'id_microrregiao'),
                 self.__index('fk_distrito_mesorregiao', 'distrito', 'id_mesorregiao'),
                 self.__index('fk_distrito_uf', 'distrito', 'id_uf')
-            ),
-            'subdistrito': self.__indexes(
+            ],
+            'subdistrito': [
                 self.__index('fk_subdistrito_distrito', 'subdistrito', 'id_distrito'),
                 self.__index('fk_subdistrito_municipio', 'subdistrito', 'id_municipio'),
                 self.__index('fk_subdistrito_microrregiao', 'subdistrito', 'id_microrregiao'),
                 self.__index('fk_subdistrito_mesorregiao', 'subdistrito', 'id_mesorregiao'),
                 self.__index('fk_subdistrito_uf', 'subdistrito', 'id_uf')
-            )
+            ]
         }
         self._inserts = {
-            'uf': self.__insert(
-                'uf',
+            'uf': [
                 self.__insertField('id', int),
                 self.__insertField('nome', str)
-            ),
-            'mesorregiao': self.__insert(
-                'mesorregiao',
+            ],
+            'mesorregiao': [
                 self.__insertField('id', int),
                 self.__insertField('id_uf', int),
                 self.__insertField('nome', str)
-            ),
-            'microrregiao': self.__insert(
-                'microrregiao',
+            ],
+            'microrregiao': [
                 self.__insertField('id', int),
                 self.__insertField('id_mesorregiao', int),
                 self.__insertField('id_uf', int),
                 self.__insertField('nome', str)
-            ),
-            'municipio': self.__insert(
-                'municipio',
+            ],
+            'municipio': [
                 self.__insertField('id', int),
                 self.__insertField('id_microrregiao', int),
                 self.__insertField('id_mesorregiao', int),
                 self.__insertField('id_uf', int),
                 self.__insertField('nome', str)
-            ),
-            'distrito': self.__insert(
-                'distrito',
+            ],
+            'distrito': [
                 self.__insertField('id', int),
                 self.__insertField('id_municipio', int),
                 self.__insertField('id_microrregiao', int),
                 self.__insertField('id_mesorregiao', int),
                 self.__insertField('id_uf', int),
                 self.__insertField('nome', str)
-            ),
-            'subdistrito': self.__insert(
-                'subdistrito',
+            ],
+            'subdistrito': [
                 self.__insertField('id', int),
                 self.__insertField('id_distrito', int),
                 self.__insertField('id_municipio', int),
@@ -397,7 +419,7 @@ class SQL(Exporter):
                 self.__insertField('id_mesorregiao', int),
                 self.__insertField('id_uf', int),
                 self.__insertField('nome', str)
-            )
+            ]
         }
 
     def __str__(self):
@@ -407,19 +429,17 @@ class SQL(Exporter):
             if not self._minified:
                 sql += '''
 --
--- Table structure for table "{}"
+-- Structure for table "{}"
 --
 '''.format(table_name)
 
-            sql += self._tables[table_name]
-
-            if table_name in self._indexes:
-                sql += self._indexes[table_name]
+            sql += self.__table(table_name, *self._tables[table_name] if self._lazy_constraints
+                else self._tables[table_name] + self._constraints[table_name])
 
             if not self._minified:
                 sql += '''
 --
--- Dumping data for table "{}"
+-- Data for table "{}"
 --
 '''.format(table_name)
 
@@ -430,7 +450,28 @@ class SQL(Exporter):
                     data[key] =\
                         item[key] if type(item[key]) == int else self.__quote(item[key])
 
-                sql += self._inserts[table_name].strip().format(**data) + '\n'
+                sql += self.__insert(table_name, *self._inserts[table_name]) \
+                    .strip().format(**data) + '\n'
+
+            if self._lazy_constraints:
+                if not self._minified:
+                    sql += '''
+--
+-- Constraints for table "{}"
+--
+'''.format(table_name)
+
+                sql += self.__constraints(*self._constraints[table_name])
+
+            if table_name in self._indexes:
+                if not self._minified:
+                    sql += '''
+--
+-- Indexes for table "{}"
+--
+'''.format(table_name)
+
+                sql += self.__indexes(*self._indexes[table_name])
 
         sql = sql.strip()
 
@@ -444,7 +485,7 @@ class SQL(Exporter):
 
 class SQLite3(Exporter):
     def __str__(self):
-        sql_str = str(SQL(self._db, self._minified)).replace('\\"', '"').replace('\\\'', "''")
+        sql_str = str(SQL(self._db, self._minified, lazy_constraints=False, escape_char="''"))
 
         with tempfile.NamedTemporaryFile() as sqlite_file:
             with sqlite3.connect(sqlite_file.name) as sqlite_con:
