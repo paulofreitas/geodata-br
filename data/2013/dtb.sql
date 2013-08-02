@@ -1,15 +1,13 @@
 --
--- Table structure for table "uf"
+-- Structure for table "uf"
 --
 CREATE TABLE uf (
-    id SMALLINT NOT NULL,
-    nome VARCHAR(32) NOT NULL,
-    CONSTRAINT pk_uf
-        PRIMARY KEY (id)
+  id SMALLINT NOT NULL,
+  nome VARCHAR(32) NOT NULL
 );
 
 --
--- Dumping data for table "uf"
+-- Data for table "uf"
 --
 INSERT INTO uf VALUES (11, 'Rondônia');
 INSERT INTO uf VALUES (12, 'Acre');
@@ -40,21 +38,23 @@ INSERT INTO uf VALUES (52, 'Goiás');
 INSERT INTO uf VALUES (53, 'Distrito Federal');
 
 --
--- Table structure for table "mesorregiao"
+-- Constraints for table "uf"
+--
+ALTER TABLE uf
+  ADD CONSTRAINT pk_uf
+    PRIMARY KEY (id);
+
+--
+-- Structure for table "mesorregiao"
 --
 CREATE TABLE mesorregiao (
-    id SMALLINT NOT NULL,
-    id_uf SMALLINT NOT NULL,
-    nome VARCHAR(64) NOT NULL,
-    CONSTRAINT pk_mesorregiao
-        PRIMARY KEY (id),
-    CONSTRAINT fk_mesorregiao_uf
-        FOREIGN KEY (id_uf)
-            REFERENCES uf(id)
+  id SMALLINT NOT NULL,
+  id_uf SMALLINT NOT NULL,
+  nome VARCHAR(64) NOT NULL
 );
-CREATE INDEX fk_mesorregiao_uf ON mesorregiao (id_uf);
+
 --
--- Dumping data for table "mesorregiao"
+-- Data for table "mesorregiao"
 --
 INSERT INTO mesorregiao VALUES (1101, 11, 'Madeira-Guaporé');
 INSERT INTO mesorregiao VALUES (1102, 11, 'Leste Rondoniense');
@@ -195,26 +195,33 @@ INSERT INTO mesorregiao VALUES (5205, 52, 'Sul Goiano');
 INSERT INTO mesorregiao VALUES (5301, 53, 'Distrito Federal');
 
 --
--- Table structure for table "microrregiao"
+-- Constraints for table "mesorregiao"
+--
+ALTER TABLE mesorregiao
+  ADD CONSTRAINT pk_mesorregiao
+    PRIMARY KEY (id);
+ALTER TABLE mesorregiao
+  ADD CONSTRAINT fk_mesorregiao_uf
+    FOREIGN KEY (id_uf)
+      REFERENCES uf(id);
+
+--
+-- Indexes for table "mesorregiao"
+--
+CREATE INDEX fk_mesorregiao_uf ON mesorregiao (id_uf);
+
+--
+-- Structure for table "microrregiao"
 --
 CREATE TABLE microrregiao (
-    id INTEGER NOT NULL,
-    id_mesorregiao SMALLINT NOT NULL,
-    id_uf SMALLINT NOT NULL,
-    nome VARCHAR(64) NOT NULL,
-    CONSTRAINT pk_microrregiao
-        PRIMARY KEY (id),
-    CONSTRAINT fk_microrregiao_mesorregiao
-        FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id),
-    CONSTRAINT fk_microrregiao_uf
-        FOREIGN KEY (id_uf)
-            REFERENCES uf(id)
+  id INTEGER NOT NULL,
+  id_mesorregiao SMALLINT NOT NULL,
+  id_uf SMALLINT NOT NULL,
+  nome VARCHAR(64) NOT NULL
 );
-CREATE INDEX fk_microrregiao_mesorregiao ON microrregiao (id_mesorregiao);
-CREATE INDEX fk_microrregiao_uf ON microrregiao (id_uf);
+
 --
--- Dumping data for table "microrregiao"
+-- Data for table "microrregiao"
 --
 INSERT INTO microrregiao VALUES (11001, 1101, 11, 'Porto Velho');
 INSERT INTO microrregiao VALUES (11002, 1101, 11, 'Guajará-Mirim');
@@ -776,31 +783,39 @@ INSERT INTO microrregiao VALUES (52018, 5205, 52, 'Quirinópolis');
 INSERT INTO microrregiao VALUES (53001, 5301, 53, 'Brasília');
 
 --
--- Table structure for table "municipio"
+-- Constraints for table "microrregiao"
+--
+ALTER TABLE microrregiao
+  ADD CONSTRAINT pk_microrregiao
+    PRIMARY KEY (id);
+ALTER TABLE microrregiao
+  ADD CONSTRAINT fk_microrregiao_mesorregiao
+    FOREIGN KEY (id_mesorregiao)
+      REFERENCES mesorregiao(id);
+ALTER TABLE microrregiao
+  ADD CONSTRAINT fk_microrregiao_uf
+    FOREIGN KEY (id_uf)
+      REFERENCES uf(id);
+
+--
+-- Indexes for table "microrregiao"
+--
+CREATE INDEX fk_microrregiao_mesorregiao ON microrregiao (id_mesorregiao);
+CREATE INDEX fk_microrregiao_uf ON microrregiao (id_uf);
+
+--
+-- Structure for table "municipio"
 --
 CREATE TABLE municipio (
-    id INTEGER NOT NULL,
-    id_microrregiao INTEGER NOT NULL,
-    id_mesorregiao SMALLINT NOT NULL,
-    id_uf SMALLINT NOT NULL,
-    nome VARCHAR(64) NOT NULL,
-    CONSTRAINT pk_municipio
-        PRIMARY KEY (id),
-    CONSTRAINT fk_municipio_microrregiao
-        FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id),
-    CONSTRAINT fk_municipio_mesorregiao
-        FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id),
-    CONSTRAINT fk_municipio_uf
-        FOREIGN KEY (id_uf)
-            REFERENCES uf(id)
+  id INTEGER NOT NULL,
+  id_microrregiao INTEGER NOT NULL,
+  id_mesorregiao SMALLINT NOT NULL,
+  id_uf SMALLINT NOT NULL,
+  nome VARCHAR(64) NOT NULL
 );
-CREATE INDEX fk_municipio_microrregiao ON municipio (id_microrregiao);
-CREATE INDEX fk_municipio_mesorregiao ON municipio (id_mesorregiao);
-CREATE INDEX fk_municipio_uf ON municipio (id_uf);
+
 --
--- Dumping data for table "municipio"
+-- Data for table "municipio"
 --
 INSERT INTO municipio VALUES (1100205, 11001, 1101, 11, 'Porto Velho');
 INSERT INTO municipio VALUES (1100338, 11001, 1101, 11, 'Nova Mamoré');
@@ -6374,36 +6389,45 @@ INSERT INTO municipio VALUES (5220405, 52018, 5205, 52, 'São Simão');
 INSERT INTO municipio VALUES (5300108, 53001, 5301, 53, 'Brasília');
 
 --
--- Table structure for table "distrito"
+-- Constraints for table "municipio"
+--
+ALTER TABLE municipio
+  ADD CONSTRAINT pk_municipio
+    PRIMARY KEY (id);
+ALTER TABLE municipio
+  ADD CONSTRAINT fk_municipio_microrregiao
+    FOREIGN KEY (id_microrregiao)
+      REFERENCES microrregiao(id);
+ALTER TABLE municipio
+  ADD CONSTRAINT fk_municipio_mesorregiao
+    FOREIGN KEY (id_mesorregiao)
+      REFERENCES mesorregiao(id);
+ALTER TABLE municipio
+  ADD CONSTRAINT fk_municipio_uf
+    FOREIGN KEY (id_uf)
+      REFERENCES uf(id);
+
+--
+-- Indexes for table "municipio"
+--
+CREATE INDEX fk_municipio_microrregiao ON municipio (id_microrregiao);
+CREATE INDEX fk_municipio_mesorregiao ON municipio (id_mesorregiao);
+CREATE INDEX fk_municipio_uf ON municipio (id_uf);
+
+--
+-- Structure for table "distrito"
 --
 CREATE TABLE distrito (
-    id INTEGER NOT NULL,
-    id_municipio INTEGER NOT NULL,
-    id_microrregiao INTEGER NOT NULL,
-    id_mesorregiao SMALLINT NOT NULL,
-    id_uf SMALLINT NOT NULL,
-    nome VARCHAR(64) NOT NULL,
-    CONSTRAINT pk_distrito
-        PRIMARY KEY (id),
-    CONSTRAINT fk_distrito_municipio
-        FOREIGN KEY (id_municipio)
-            REFERENCES municipio(id),
-    CONSTRAINT fk_distrito_microrregiao
-        FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id),
-    CONSTRAINT fk_distrito_mesorregiao
-        FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id),
-    CONSTRAINT fk_distrito_uf
-        FOREIGN KEY (id_uf)
-            REFERENCES uf(id)
+  id INTEGER NOT NULL,
+  id_municipio INTEGER NOT NULL,
+  id_microrregiao INTEGER NOT NULL,
+  id_mesorregiao SMALLINT NOT NULL,
+  id_uf SMALLINT NOT NULL,
+  nome VARCHAR(64) NOT NULL
 );
-CREATE INDEX fk_distrito_municipio ON distrito (id_municipio);
-CREATE INDEX fk_distrito_microrregiao ON distrito (id_microrregiao);
-CREATE INDEX fk_distrito_mesorregiao ON distrito (id_mesorregiao);
-CREATE INDEX fk_distrito_uf ON distrito (id_uf);
+
 --
--- Dumping data for table "distrito"
+-- Data for table "distrito"
 --
 INSERT INTO distrito VALUES (110020505, 1100205, 11001, 1101, 11, 'Porto Velho');
 INSERT INTO distrito VALUES (110020510, 1100205, 11001, 1101, 11, 'Abunã');
@@ -16709,41 +16733,51 @@ INSERT INTO distrito VALUES (522040510, 5220405, 52018, 5205, 52, 'Itaguaçu');
 INSERT INTO distrito VALUES (530010805, 5300108, 53001, 5301, 53, 'Brasília');
 
 --
--- Table structure for table "subdistrito"
+-- Constraints for table "distrito"
+--
+ALTER TABLE distrito
+  ADD CONSTRAINT pk_distrito
+    PRIMARY KEY (id);
+ALTER TABLE distrito
+  ADD CONSTRAINT fk_distrito_municipio
+    FOREIGN KEY (id_municipio)
+      REFERENCES municipio(id);
+ALTER TABLE distrito
+  ADD CONSTRAINT fk_distrito_microrregiao
+    FOREIGN KEY (id_microrregiao)
+      REFERENCES microrregiao(id);
+ALTER TABLE distrito
+  ADD CONSTRAINT fk_distrito_mesorregiao
+    FOREIGN KEY (id_mesorregiao)
+      REFERENCES mesorregiao(id);
+ALTER TABLE distrito
+  ADD CONSTRAINT fk_distrito_uf
+    FOREIGN KEY (id_uf)
+      REFERENCES uf(id);
+
+--
+-- Indexes for table "distrito"
+--
+CREATE INDEX fk_distrito_municipio ON distrito (id_municipio);
+CREATE INDEX fk_distrito_microrregiao ON distrito (id_microrregiao);
+CREATE INDEX fk_distrito_mesorregiao ON distrito (id_mesorregiao);
+CREATE INDEX fk_distrito_uf ON distrito (id_uf);
+
+--
+-- Structure for table "subdistrito"
 --
 CREATE TABLE subdistrito (
-    id BIGINT NOT NULL,
-    id_distrito INTEGER NOT NULL,
-    id_municipio INTEGER NOT NULL,
-    id_microrregiao INTEGER NOT NULL,
-    id_mesorregiao SMALLINT NOT NULL,
-    id_uf SMALLINT NOT NULL,
-    nome VARCHAR(64) NOT NULL,
-    CONSTRAINT pk_subdistrito
-        PRIMARY KEY (id),
-    CONSTRAINT fk_subdistrito_distrito
-        FOREIGN KEY (id_distrito)
-            REFERENCES distrito(id),
-    CONSTRAINT fk_subdistrito_municipio
-        FOREIGN KEY (id_municipio)
-            REFERENCES municipio(id),
-    CONSTRAINT fk_subdistrito_microrregiao
-        FOREIGN KEY (id_microrregiao)
-            REFERENCES microrregiao(id),
-    CONSTRAINT fk_subdistrito_mesorregiao
-        FOREIGN KEY (id_mesorregiao)
-            REFERENCES mesorregiao(id),
-    CONSTRAINT fk_subdistrito_uf
-        FOREIGN KEY (id_uf)
-            REFERENCES uf(id)
+  id BIGINT NOT NULL,
+  id_distrito INTEGER NOT NULL,
+  id_municipio INTEGER NOT NULL,
+  id_microrregiao INTEGER NOT NULL,
+  id_mesorregiao SMALLINT NOT NULL,
+  id_uf SMALLINT NOT NULL,
+  nome VARCHAR(64) NOT NULL
 );
-CREATE INDEX fk_subdistrito_distrito ON subdistrito (id_distrito);
-CREATE INDEX fk_subdistrito_municipio ON subdistrito (id_municipio);
-CREATE INDEX fk_subdistrito_microrregiao ON subdistrito (id_microrregiao);
-CREATE INDEX fk_subdistrito_mesorregiao ON subdistrito (id_mesorregiao);
-CREATE INDEX fk_subdistrito_uf ON subdistrito (id_uf);
+
 --
--- Dumping data for table "subdistrito"
+-- Data for table "subdistrito"
 --
 INSERT INTO subdistrito VALUES (11002050506, 110020505, 1100205, 11001, 1101, 11, 'Zona 01');
 INSERT INTO subdistrito VALUES (11002050507, 110020505, 1100205, 11001, 1101, 11, 'Zona 02');
@@ -17177,26 +17211,26 @@ INSERT INTO subdistrito VALUES (43175090515, 431750905, 4317509, 43007, 4301, 43
 INSERT INTO subdistrito VALUES (43175090516, 431750905, 4317509, 43007, 4301, 43, 'Uplans 16');
 INSERT INTO subdistrito VALUES (43175090517, 431750905, 4317509, 43007, 4301, 43, 'Uplans 17');
 INSERT INTO subdistrito VALUES (43175090518, 431750905, 4317509, 43007, 4301, 43, 'Uplans 18');
-INSERT INTO subdistrito VALUES (43141000501, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Centro \"Centro e Vila Vergueiro\"');
+INSERT INTO subdistrito VALUES (43141000501, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Centro "Centro e Vila Vergueiro"');
 INSERT INTO subdistrito VALUES (43141000502, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Boqueirão');
 INSERT INTO subdistrito VALUES (43141000503, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Vera Cruz');
 INSERT INTO subdistrito VALUES (43141000504, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Petrópolis');
 INSERT INTO subdistrito VALUES (43141000505, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro São Luiz Gonzaga');
-INSERT INTO subdistrito VALUES (43141000506, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro \"Vila Cruzeiro\"');
+INSERT INTO subdistrito VALUES (43141000506, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro "Vila Cruzeiro"');
 INSERT INTO subdistrito VALUES (43141000507, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Lucas de Araújo');
 INSERT INTO subdistrito VALUES (43141000508, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Santa Marta');
 INSERT INTO subdistrito VALUES (43141000509, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Integração');
-INSERT INTO subdistrito VALUES (43141000510, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro \"Vila Vitor Issler\"');
+INSERT INTO subdistrito VALUES (43141000510, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro "Vila Vitor Issler"');
 INSERT INTO subdistrito VALUES (43141000511, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro São José');
 INSERT INTO subdistrito VALUES (43141000512, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro São Cristóvão');
 INSERT INTO subdistrito VALUES (43141000513, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Roselândia');
-INSERT INTO subdistrito VALUES (43141000514, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro \"Vila Mattos\"');
-INSERT INTO subdistrito VALUES (43141000515, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Annes \"Vila Fátima e Vila Annes\"');
+INSERT INTO subdistrito VALUES (43141000514, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro "Vila Mattos"');
+INSERT INTO subdistrito VALUES (43141000515, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Annes "Vila Fátima e Vila Annes"');
 INSERT INTO subdistrito VALUES (43141000516, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro José Alexandre Zachia');
-INSERT INTO subdistrito VALUES (43141000517, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Valinhos \"Loteamento Industrial e São Lucas');
-INSERT INTO subdistrito VALUES (43141000518, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro \"Vila Luíza\"');
-INSERT INTO subdistrito VALUES (43141000519, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro \"Vila Rodrigues\"');
-INSERT INTO subdistrito VALUES (43141000520, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro \"Vila Santa Maria\"');
+INSERT INTO subdistrito VALUES (43141000517, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Valinhos "Loteamento Industrial e São Lucas');
+INSERT INTO subdistrito VALUES (43141000518, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro "Vila Luíza"');
+INSERT INTO subdistrito VALUES (43141000519, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro "Vila Rodrigues"');
+INSERT INTO subdistrito VALUES (43141000520, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro "Vila Santa Maria"');
 INSERT INTO subdistrito VALUES (43141000521, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Planaltina');
 INSERT INTO subdistrito VALUES (43141000522, 431410005, 4314100, 43010, 4301, 43, 'Região do Bairro Nenê Graeff');
 INSERT INTO subdistrito VALUES (43051080510, 430510805, 4305108, 43016, 4302, 43, 'RA 01 - Centro');
@@ -17407,3 +17441,39 @@ INSERT INTO subdistrito VALUES (53001080521, 530010805, 5300108, 53001, 5301, 53
 INSERT INTO subdistrito VALUES (53001080523, 530010805, 5300108, 53001, 5301, 53, 'Lago Sul');
 INSERT INTO subdistrito VALUES (53001080525, 530010805, 5300108, 53001, 5301, 53, 'Santa Maria');
 INSERT INTO subdistrito VALUES (53001080530, 530010805, 5300108, 53001, 5301, 53, 'São Sebastião');
+
+--
+-- Constraints for table "subdistrito"
+--
+ALTER TABLE subdistrito
+  ADD CONSTRAINT pk_subdistrito
+    PRIMARY KEY (id);
+ALTER TABLE subdistrito
+  ADD CONSTRAINT fk_subdistrito_distrito
+    FOREIGN KEY (id_distrito)
+      REFERENCES distrito(id);
+ALTER TABLE subdistrito
+  ADD CONSTRAINT fk_subdistrito_municipio
+    FOREIGN KEY (id_municipio)
+      REFERENCES municipio(id);
+ALTER TABLE subdistrito
+  ADD CONSTRAINT fk_subdistrito_microrregiao
+    FOREIGN KEY (id_microrregiao)
+      REFERENCES microrregiao(id);
+ALTER TABLE subdistrito
+  ADD CONSTRAINT fk_subdistrito_mesorregiao
+    FOREIGN KEY (id_mesorregiao)
+      REFERENCES mesorregiao(id);
+ALTER TABLE subdistrito
+  ADD CONSTRAINT fk_subdistrito_uf
+    FOREIGN KEY (id_uf)
+      REFERENCES uf(id);
+
+--
+-- Indexes for table "subdistrito"
+--
+CREATE INDEX fk_subdistrito_distrito ON subdistrito (id_distrito);
+CREATE INDEX fk_subdistrito_municipio ON subdistrito (id_municipio);
+CREATE INDEX fk_subdistrito_microrregiao ON subdistrito (id_microrregiao);
+CREATE INDEX fk_subdistrito_mesorregiao ON subdistrito (id_mesorregiao);
+CREATE INDEX fk_subdistrito_uf ON subdistrito (id_uf);
