@@ -706,7 +706,6 @@ class DTB(object):
         return self
 
     def export(self, format, minified=False, filename=None):
-        print FORMATS
         if not format in FORMATS:
             raise Exception('Unsupported output format.')
 
