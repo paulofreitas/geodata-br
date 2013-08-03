@@ -168,6 +168,8 @@ class Exporter(object):
         raise NotImplementedError
 
 class CSV(Exporter):
+    extension = '.csv'
+
     def __str__(self):
         csv_file = io.BytesIO()
         csv_writer = csv.writer(csv_file,
@@ -182,6 +184,8 @@ class CSV(Exporter):
         return csv_file.getvalue()
 
 class JSON(Exporter):
+    extension = '.json'
+
     def __str__(self):
         json_obj = collections.OrderedDict()
 
@@ -206,6 +210,8 @@ class JSON(Exporter):
         return json_str
 
 class PHP(Exporter):
+    extension = '.phpd'
+
     def __str__(self):
         serialize_obj = collections.OrderedDict()
 
@@ -225,6 +231,8 @@ class PHP(Exporter):
         return phpserialize.dumps(serialize_obj)
 
 class plist(Exporter):
+    extension = '.plist'
+
     def __str__(self):
         plist_obj = collections.OrderedDict()
     
@@ -246,6 +254,8 @@ class plist(Exporter):
         return re.sub('[\n\t]+', '', plist_str) if self._minified else plist_str
 
 class SQL(Exporter):
+    extension = '.sql'
+
     def __table(self, table_name, *args):
         return 'CREATE TABLE {} (\n{}\n);\n'.format(table_name, ',\n'.join(args))
 
@@ -506,6 +516,8 @@ class SQL(Exporter):
         return sql
 
 class SQLite3(Exporter):
+    extension = '.sqlite3'
+
     def __str__(self):
         sql_str = str(SQL(self._db, self._minified, lazy_constraints=False, escape_char="''"))
 
@@ -541,6 +553,8 @@ class XML(Exporter):
                                    encoding='utf-8')
 
 class YAML(Exporter):
+    extension = '.yaml'
+
     def __str__(self):
         yaml_obj = collections.OrderedDict()
 
@@ -713,7 +727,7 @@ class DTB(object):
 
         if filename:
             if filename == 'auto':
-                filename = 'dtb.' + format
+                filename = 'dtb' + exporter.extension
 
             open(filename, 'w').write(data)
         else:
