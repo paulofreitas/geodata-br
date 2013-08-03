@@ -9,14 +9,14 @@ All these data was compiled from XLS spreadsheets provided by IBGE through its F
 
 ### Database records
 
-| Table          | 2013   | 2012   |
-| --------------:| ------:| ------:|
-| `uf`           |     27 |     27 |
-| `mesorregiao`  |    137 |    137 |
-| `microrregiao` |    558 |    558 |
-| `municipio`    |  5,570 |  5,565 |
-| `distrito`     | 10,302 |      - |
-| `subdistrito`  |    662 |      - |
+| Table          | 2013   | 2012   | 2011   |
+| --------------:| ------:| ------:| ------:|
+| `uf`           |     27 |     27 |     27 |
+| `mesorregiao`  |    137 |    137 |    137 |
+| `microrregiao` |    558 |    558 |    558 |
+| `municipio`    |  5,570 |  5,565 |  5,565 |
+| `distrito`     | 10,302 |      - |      - |
+| `subdistrito`  |    662 |      - |      - |
 
 ### Get involved!
 
