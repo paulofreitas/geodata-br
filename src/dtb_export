@@ -109,18 +109,6 @@ __version__ = '1.0-dev'
 __usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
 __epilog__ = 'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
 
-# -- Module constants ---------------------------------------------------------
-FORMAT_CSV = 'csv'
-FORMAT_JSON = 'json'
-FORMAT_PHP = 'php'
-FORMAT_PLIST = 'plist'
-FORMAT_SQL = 'sql'
-FORMAT_SQLITE3 = 'sqlite3'
-FORMAT_XML = 'xml'
-FORMAT_YAML = 'yaml'
-FORMAT_ALL = (FORMAT_CSV, FORMAT_JSON, FORMAT_PHP, FORMAT_PLIST, FORMAT_SQL,
-              FORMAT_SQLITE3, FORMAT_XML, FORMAT_YAML)
-
 # -- Module initialization ----------------------------------------------------
 formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%H:%M:%S')
 log_handler = logging.StreamHandler(sys.stdout)
@@ -168,7 +156,8 @@ class Exporter(object):
         raise NotImplementedError
 
 class CSV(Exporter):
-    extension = '.csv'
+    _format = 'csv'
+    _extension = '.csv'
 
     def __str__(self):
         csv_file = io.BytesIO()
@@ -184,7 +173,8 @@ class CSV(Exporter):
         return csv_file.getvalue()
 
 class JSON(Exporter):
-    extension = '.json'
+    _format = 'json'
+    _extension = '.json'
 
     def __str__(self):
         json_obj = collections.OrderedDict()
@@ -210,7 +200,8 @@ class JSON(Exporter):
         return json_str
 
 class PHP(Exporter):
-    extension = '.phpd'
+    _format = 'php'
+    _extension = '.phpd'
 
     def __str__(self):
         serialize_obj = collections.OrderedDict()
@@ -231,7 +222,8 @@ class PHP(Exporter):
         return phpserialize.dumps(serialize_obj)
 
 class plist(Exporter):
-    extension = '.plist'
+    _format = 'plist'
+    _extension = '.plist'
 
     def __str__(self):
         plist_obj = collections.OrderedDict()
@@ -254,7 +246,8 @@ class plist(Exporter):
         return re.sub('[\n\t]+', '', plist_str) if self._minified else plist_str
 
 class SQL(Exporter):
-    extension = '.sql'
+    _format = 'sql'
+    _extension = '.sql'
 
     def __table(self, table_name, *args):
         return 'CREATE TABLE {} (\n{}\n);\n'.format(table_name, ',\n'.join(args))
@@ -516,7 +509,8 @@ class SQL(Exporter):
         return sql
 
 class SQLite3(Exporter):
-    extension = '.sqlite3'
+    _format = 'sqlite3'
+    _extension = '.sqlite3'
 
     def __str__(self):
         sql_str = str(SQL(self._db, self._minified, lazy_constraints=False, escape_char="''"))
@@ -531,6 +525,9 @@ class SQLite3(Exporter):
         return sqlite_data
 
 class XML(Exporter):
+    _format = 'xml'
+    _extension = '.xml'
+
     def __str__(self):
         database = lxml.etree.Element('database', name=self._db._name)
 
@@ -553,7 +550,8 @@ class XML(Exporter):
                                    encoding='utf-8')
 
 class YAML(Exporter):
-    extension = '.yaml'
+    _format = 'yaml'
+    _extension = '.yaml'
 
     def __str__(self):
         yaml_obj = collections.OrderedDict()
@@ -708,26 +706,18 @@ class DTB(object):
         return self
 
     def export(self, format, minified=False, filename=None):
-        if not format in FORMAT_ALL:
+        print FORMATS
+        if not format in FORMATS:
             raise Exception('Unsupported output format.')
 
-        exporters = {}
-        exporters[FORMAT_CSV] = CSV
-        exporters[FORMAT_JSON] = JSON
-        exporters[FORMAT_PHP] = PHP
-        exporters[FORMAT_PLIST] = plist
-        exporters[FORMAT_SQL] = SQL
-        exporters[FORMAT_SQLITE3] = SQLite3
-        exporters[FORMAT_XML] = XML
-        exporters[FORMAT_YAML] = YAML
-        exporter = exporters[format]
+        exporter = dict((exporter._format, exporter) for exporter in EXPORTERS)[format]
         logger.info('Exporting database to {} format...'.format(exporter.__name__))
         data = str(exporter(self._db, minified))
         logger.info('Done.')
 
         if filename:
             if filename == 'auto':
-                filename = 'dtb' + exporter.extension
+                filename = 'dtb' + exporter._extension
 
             open(filename, 'w').write(data)
         else:
@@ -745,6 +735,10 @@ class Struct(dict):
 
     def copy(self):
         return Struct(dict.copy(self))
+
+# -- Module constants ---------------------------------------------------------
+EXPORTERS = (CSV, JSON, PHP, plist, SQL, SQLite3, XML, YAML)
+FORMATS = tuple(exporter._format for exporter in EXPORTERS)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__,
@@ -770,7 +764,7 @@ if __name__ == '__main__':
                           help='Database year to export to.')
     g_export.add_argument('-f', '--format',
                           metavar='FORMAT',
-                          choices=FORMAT_ALL,
+                          choices=FORMATS,
                           help='Format to export the database.\nOptions: %(choices)s')
     g_export.add_argument('-m', '--minify',
                           dest='minified',
