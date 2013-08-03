@@ -43,6 +43,7 @@ import zipfile
 
 # Dependency modules
 import lxml.etree
+import phpserialize
 import xlrd
 import yaml
 
@@ -111,12 +112,14 @@ __epilog__ = 'Report bugs and feature requests to https://github.com/paulofreita
 # -- Module constants ---------------------------------------------------------
 FORMAT_CSV = 'csv'
 FORMAT_JSON = 'json'
+FORMAT_PHP = 'php'
 FORMAT_PLIST = 'plist'
 FORMAT_SQL = 'sql'
 FORMAT_SQLITE3 = 'sqlite3'
 FORMAT_XML = 'xml'
 FORMAT_YAML = 'yaml'
-FORMAT_ALL = (FORMAT_CSV, FORMAT_JSON, FORMAT_PLIST, FORMAT_SQL, FORMAT_SQLITE3, FORMAT_XML, FORMAT_YAML)
+FORMAT_ALL = (FORMAT_CSV, FORMAT_JSON, FORMAT_PHP, FORMAT_PLIST, FORMAT_SQL,
+              FORMAT_SQLITE3, FORMAT_XML, FORMAT_YAML)
 
 # -- Module initialization ----------------------------------------------------
 formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%H:%M:%S')
@@ -201,6 +204,25 @@ class JSON(Exporter):
             json_str = json.dumps(json_obj, indent=2)
 
         return json_str
+
+class PHP(Exporter):
+    def __str__(self):
+        serialize_obj = collections.OrderedDict()
+
+        for table_name in self._db._tables:
+            serialize_obj[table_name] = collections.OrderedDict()
+
+            for item in self._db._data[table_name]:
+                item_obj = collections.OrderedDict()
+
+                for key in self._db._fields[table_name]:
+                    item_obj[key] = item[key]
+
+                item_id = item_obj['id']
+                del item_obj['id']
+                serialize_obj[table_name][item_id] = item_obj
+
+        return phpserialize.dumps(serialize_obj)
 
 class plist(Exporter):
     def __str__(self):
@@ -678,6 +700,7 @@ class DTB(object):
         exporters = {}
         exporters[FORMAT_CSV] = CSV
         exporters[FORMAT_JSON] = JSON
+        exporters[FORMAT_PHP] = PHP
         exporters[FORMAT_PLIST] = plist
         exporters[FORMAT_SQL] = SQL
         exporters[FORMAT_SQLITE3] = SQLite3
