@@ -596,9 +596,18 @@ class DTB(object):
             id_microrregiao, nome_microrregiao, id_municipio, nome_municipio, \
             id_distrito, nome_distrito, id_subdistrito, nome_subdistrito = row_data + [None] * (12 - len(row_data))
 
-            id_subdistrito = int(id_uf + id_municipio + id_distrito + id_subdistrito) if id_subdistrito else None
-            id_distrito = int(id_uf + id_municipio + id_distrito) if id_distrito else None
-            id_municipio = int(id_uf + id_municipio)
+            if len(id_municipio) == 5:
+                id_municipio = id_uf + id_municipio
+
+                if id_distrito:
+                    id_distrito = id_municipio + id_distrito
+
+                if id_subdistrito:
+                    id_subdistrito = id_distrito + id_subdistrito
+
+            id_subdistrito = int(id_subdistrito) if id_subdistrito else None
+            id_distrito = int(id_distrito) if id_distrito else None
+            id_municipio = int(id_municipio)
             id_microrregiao = int(id_microrregiao)
             id_mesorregiao = int(id_mesorregiao)
             id_uf = int(id_uf)
