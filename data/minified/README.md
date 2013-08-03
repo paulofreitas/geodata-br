@@ -35,10 +35,10 @@
 
 | File        | Format         | Size      | Savings |
 | ----------- |:--------------:| ---------:| -------:|
-| `dtb.csv`   | CSV            |   448,432 |    9.0% |
-| `dtb.json`  | JSON           |   574,177 |   33.3% |
-| `dtb.plist` | p-list         | 1,286,389 |   16.3% |
-| `dtb.sql`   | SQL            |   436,609 |    6.7% |
-| `dtb.xml`   | XML            | 1,204,652 |   18.7% |
-| `dtb.yaml`  | YAML           |   548,054 |   12.6% |
+| `dtb.csv`   | CSV            |   437,302 |    9.2% |
+| `dtb.json`  | JSON           |   563,047 |   33.8% |
+| `dtb.plist` | p-list         | 1,275,259 |   16.4% |
+| `dtb.sql`   | SQL            |   425,479 |    6.9% |
+| `dtb.xml`   | XML            | 1,193,522 |   18.8% |
+| `dtb.yaml`  | YAML           |   536,924 |   12.8% |
 
