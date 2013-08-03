@@ -155,6 +155,28 @@ class Exporter(object):
     def __str__(self):
         raise NotImplementedError
 
+    def __toDict__(self, strKeys=False, unicode=False):
+        dict_obj = collections.OrderedDict()
+
+        for table_name in self._db._tables:
+            if not self._db._data[table_name]:
+                continue
+
+            dict_obj[table_name] = collections.OrderedDict()
+
+            for item in self._db._data[table_name]:
+                item_obj = collections.OrderedDict()
+
+                for key in self._db._fields[table_name]:
+                    item_obj[key] = item[key].decode('utf-8') \
+                        if unicode and (type(item[key]) == str) else item[key]
+
+                item_id = str(item_obj['id']) if strKeys else item_obj['id']
+                del item_obj['id']
+                dict_obj[table_name][item_id] = item_obj
+
+        return dict_obj
+
 class CSV(Exporter):
     _format = 'csv'
     _extension = '.csv'
@@ -177,23 +199,7 @@ class JSON(Exporter):
     _extension = '.json'
 
     def __str__(self):
-        json_obj = collections.OrderedDict()
-
-        for table_name in self._db._tables:
-            if not self._db._data[table_name]:
-                continue
-
-            json_obj[table_name] = collections.OrderedDict()
-
-            for item in self._db._data[table_name]:
-                item_obj = collections.OrderedDict()
-
-                for key in self._db._fields[table_name]:
-                    item_obj[key] = item[key]
-
-                item_id = item_obj['id']
-                del item_obj['id']
-                json_obj[table_name][item_id] = item_obj
+        json_obj = self.__toDict__()
 
         if self._minified:
             json_str = json.dumps(json_obj, separators=(',', ':'))
@@ -207,23 +213,7 @@ class PHP(Exporter):
     _extension = '.phpd'
 
     def __str__(self):
-        serialize_obj = collections.OrderedDict()
-
-        for table_name in self._db._tables:
-            if not self._db._data[table_name]:
-                continue
-
-            serialize_obj[table_name] = collections.OrderedDict()
-
-            for item in self._db._data[table_name]:
-                item_obj = collections.OrderedDict()
-
-                for key in self._db._fields[table_name]:
-                    item_obj[key] = item[key]
-
-                item_id = item_obj['id']
-                del item_obj['id']
-                serialize_obj[table_name][item_id] = item_obj
+        serialize_obj = self.__toDict__()
 
         return phpserialize.dumps(serialize_obj)
 
@@ -232,25 +222,7 @@ class plist(Exporter):
     _extension = '.plist'
 
     def __str__(self):
-        plist_obj = collections.OrderedDict()
-    
-        for table_name in self._db._tables:
-            if not self._db._data[table_name]:
-                continue
-
-            plist_obj[table_name] = collections.OrderedDict()
-
-            for item in self._db._data[table_name]:
-                item_obj = collections.OrderedDict()
-
-                for key in self._db._fields[table_name]:
-                    item_obj[key] = item[key].decode('utf-8') if type(item[key]) == str else item[key]
-
-                item_id = str(item_obj['id'])
-                del item_obj['id']
-                plist_obj[table_name][item_id] = item_obj
-
-        plist_str = plistlib.writePlistToString(plist_obj)
+        plist_str = plistlib.writePlistToString(self.__toDict__(strKeys=True, unicode=True))
 
         return re.sub('[\n\t]+', '', plist_str) if self._minified else plist_str
 
@@ -569,30 +541,13 @@ class YAML(Exporter):
     _extension = '.yaml'
 
     def __str__(self):
-        yaml_obj = collections.OrderedDict()
-
-        for table_name in self._db._tables:
-            if not self._db._data[table_name]:
-                continue
-
-            yaml_obj[table_name] = collections.OrderedDict()
-
-            for item in self._db._data[table_name]:
-                item_obj = collections.OrderedDict()
-
-                for key in self._db._fields[table_name]:
-                    item_obj[key] = item[key]
-
-                item_id = item_obj['id']
-                del item_obj['id']
-                yaml_obj[table_name][item_id] = item_obj
+        yaml_obj = self.__toDict__()
+        yaml_opts = {'default_flow_style': False}
 
         if self._minified:
-            options = {'default_flow_style': True, 'width': 2e6, 'indent': 0}
-        else:
-            options = {'default_flow_style': False}
+            yaml_opts = {'default_flow_style': True, 'width': 2e6, 'indent': 0}
 
-        yaml_str = yaml.safe_dump(yaml_obj, **options)
+        yaml_str = yaml.safe_dump(yaml_obj, **yaml_opts)
 
         return yaml_str.replace('}, ', '},') if self._minified else yaml_str
 
