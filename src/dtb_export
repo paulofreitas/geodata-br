@@ -180,6 +180,9 @@ class JSON(Exporter):
         json_obj = collections.OrderedDict()
 
         for table_name in self._db._tables:
+            if not self._db._data[table_name]:
+                continue
+
             json_obj[table_name] = collections.OrderedDict()
 
             for item in self._db._data[table_name]:
@@ -207,6 +210,9 @@ class PHP(Exporter):
         serialize_obj = collections.OrderedDict()
 
         for table_name in self._db._tables:
+            if not self._db._data[table_name]:
+                continue
+
             serialize_obj[table_name] = collections.OrderedDict()
 
             for item in self._db._data[table_name]:
@@ -229,6 +235,9 @@ class plist(Exporter):
         plist_obj = collections.OrderedDict()
     
         for table_name in self._db._tables:
+            if not self._db._data[table_name]:
+                continue
+
             plist_obj[table_name] = collections.OrderedDict()
 
             for item in self._db._data[table_name]:
@@ -451,6 +460,9 @@ class SQL(Exporter):
         sql = ''
 
         for table_name in self._db._tables:
+            if not self._db._data[table_name]:
+                continue
+
             if not self._minified:
                 sql += '''
 --
@@ -532,6 +544,9 @@ class XML(Exporter):
         database = lxml.etree.Element('database', name=self._db._name)
 
         for table_name in self._db._tables:
+            if not self._db._data[table_name]:
+                continue
+
             if not self._minified:
                 database.append(lxml.etree.Comment(' Table {} '.format(table_name)))
 
@@ -557,6 +572,9 @@ class YAML(Exporter):
         yaml_obj = collections.OrderedDict()
 
         for table_name in self._db._tables:
+            if not self._db._data[table_name]:
+                continue
+
             yaml_obj[table_name] = collections.OrderedDict()
 
             for item in self._db._data[table_name]:
@@ -602,7 +620,7 @@ class DTB(object):
 
         with zipfile.ZipFile(zip_data, 'r') as zip:
             logger.info('Reading database...')
-            self._db._rawdata = zip.open('DTB {}.xls'.format(self._db._base)).read()
+            self._db._rawdata = zip.open(zip.namelist()[0]).read()
 
         return self
 
@@ -613,17 +631,18 @@ class DTB(object):
         sheet = xls.sheet_by_index(0)
 
         for row_id in xrange(sheet.nrows):
-            if row_id == 0:
-                continue
-
             row_data = [value.encode('utf-8') for value in sheet.row_values(row_id)]
+
+            if row_id == 0:
+                self._db._cols = self._db._cols[:len(row_data)]
+                continue
 
             id_uf, nome_uf, id_mesorregiao, nome_mesorregiao, \
             id_microrregiao, nome_microrregiao, id_municipio, nome_municipio, \
-            id_distrito, nome_distrito, id_subdistrito, nome_subdistrito = row_data
+            id_distrito, nome_distrito, id_subdistrito, nome_subdistrito = row_data + [None] * (12 - len(row_data))
 
             id_subdistrito = int(id_uf + id_municipio + id_distrito + id_subdistrito) if id_subdistrito else None
-            id_distrito = int(id_uf + id_municipio + id_distrito)
+            id_distrito = int(id_uf + id_municipio + id_distrito) if id_distrito else None
             id_municipio = int(id_uf + id_municipio)
             id_microrregiao = int(id_microrregiao)
             id_mesorregiao = int(id_mesorregiao)
@@ -676,17 +695,18 @@ class DTB(object):
                 self._db._data['municipio'].append(municipio)
 
             # distrito
-            distrito = Struct(
-                id=id_distrito,
-                id_municipio=id_municipio,
-                id_microrregiao=id_microrregiao,
-                id_mesorregiao=id_mesorregiao,
-                id_uf=id_uf,
-                nome=nome_distrito
-            )
+            if id_distrito:
+                distrito = Struct(
+                    id=id_distrito,
+                    id_municipio=id_municipio,
+                    id_microrregiao=id_microrregiao,
+                    id_mesorregiao=id_mesorregiao,
+                    id_uf=id_uf,
+                    nome=nome_distrito
+                )
 
-            if not distrito in self._db._data['distrito']:
-                self._db._data['distrito'].append(distrito)
+                if not distrito in self._db._data['distrito']:
+                    self._db._data['distrito'].append(distrito)
 
             # subdistrito
             if id_subdistrito:
