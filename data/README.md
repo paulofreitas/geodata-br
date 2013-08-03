@@ -37,3 +37,16 @@
 | `dtb.xml`     | XML            | 1,470,183 |
 | `dtb.yaml`    | YAML           |   615,909 |
 
+## 2010
+
+| File          | Format         | Size      |
+| ------------- |:--------------:| ---------:|
+| `dtb.csv`     | CSV            |   492,968 |
+| `dtb.json`    | JSON           |   861,477 |
+| `dtb.phpd`    | Serialized PHP |   760,285 |
+| `dtb.plist`   | p-list         | 1,536,882 |
+| `dtb.sql`     | SQL            |   467,898 |
+| `dtb.sqlite3` | SQLite 3       |   487,424 |
+| `dtb.xml`     | XML            | 1,481,308 |
+| `dtb.yaml`    | YAML           |   627,036 |
+
