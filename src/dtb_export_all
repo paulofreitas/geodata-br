@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
-cd "$(dirname "${BASH_SOURCE[0]}")/.."
+BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd $BASE_DIR
 
 for base in 2013;
 do
     mkdir -p data/$base
     mkdir -p data/minified/$base
 
-    for format in csv json plist sql sqlite3 xml yaml;
+    cd $BASE_DIR/data/$base && pwd
+
+    for format in csv json php plist sql sqlite3 xml yaml;
     do
-        src/dtb_export -b $base -f $format -o data/$base/dtb.$format -V
+        $BASE_DIR/src/dtb_export -b $base -f $format -o -V
     done
+
+    cd $BASE_DIR/data/minified/$base && pwd
 
     for format in csv json plist sql xml yaml;
     do
-        src/dtb_export -b $base -f $format -m -o data/minified/$base/dtb.$format -V
+        $BASE_DIR/src/dtb_export -b $base -f $format -m -o -V
     done
 done
