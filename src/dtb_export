@@ -607,6 +607,12 @@ class DTB(object):
                 if id_subdistrito:
                     id_subdistrito = id_distrito + id_subdistrito
 
+            if len(id_distrito) == 2:
+                id_distrito = id_municipio + id_distrito
+
+                if id_subdistrito:
+                    id_subdistrito = id_distrito + id_subdistrito
+
             id_subdistrito = int(id_subdistrito) if id_subdistrito else None
             id_distrito = int(id_distrito) if id_distrito else None
             id_municipio = int(id_municipio)
