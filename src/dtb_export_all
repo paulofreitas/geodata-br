@@ -2,7 +2,7 @@
 BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd $BASE_DIR
 
-for base in 2008 2009 2010 2011 2012 2013;
+for base in {2007..2013};
 do
     mkdir -p $BASE_DIR/data/$base
     mkdir -p $BASE_DIR/data/minified/$base
