@@ -42,6 +42,17 @@
 | `dtb.xml`   | XML            | 1,193,522 |   18.8% |
 | `dtb.yaml`  | YAML           |   536,924 |   12.8% |
 
+## 2009
+
+| File        | Format         | Size      | Savings |
+| ----------- |:--------------:| ---------:| -------:|
+| `dtb.csv`   | CSV            | 1,015,415 |    9.6% |
+| `dtb.json`  | JSON           |   582,908 |   33.8% |
+| `dtb.plist` | p-list         | 1,320,589 |   16.4% |
+| `dtb.sql`   | SQL            | 1,172,621 |    7.6% |
+| `dtb.xml`   | XML            | 3,688,158 |   18.4% |
+| `dtb.yaml`  | YAML           |   556,107 |   12.8% |
+
 ## 2008
 
 | File        | Format         | Size      | Savings |
