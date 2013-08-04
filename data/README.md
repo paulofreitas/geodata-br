@@ -52,15 +52,16 @@
 
 ## 2009
 
-| File        | Format         | Size      |
-| ----------- |:--------------:| ---------:|
-| `dtb.csv`   | CSV            | 1,122,837 |
-| `dtb.json`  | JSON           |   880,083 |
-| `dtb.phpd`  | Serialized PHP |   775,785 |
-| `dtb.plist` | p-list         | 1,579,731 |
-| `dtb.sql`   | SQL            | 1,268,774 |
-| `dtb.xml`   | XML            | 4,521,792 |
-| `dtb.yaml`  | YAML           |   637,932 |
+| File          | Format         | Size      |
+| ------------- |:--------------:| ---------:|
+| `dtb.csv`     | CSV            | 1,208,204 |
+| `dtb.json`    | JSON           | 2,722,839 |
+| `dtb.phpd`    | Serialized PHP | 2,424,851 |
+| `dtb.plist`   | p-list         | 4,858,184 |
+| `dtb.sql`     | SQL            | 1,354,141 |
+| `dtb.sqlite3` | SQLite 3       | 1,552,384 |
+| `dtb.xml`     | XML            | 4,607,159 |
+| `dtb.yaml`    | YAML           | 2,015,366 |
 
 ## 2008
 

@@ -15,8 +15,8 @@ All these data was compiled from XLS spreadsheets provided by IBGE through its F
 | `mesorregiao`  |    137 |    137 |    137 |    137 |    137 |    137 |
 | `microrregiao` |    558 |    558 |    558 |    558 |    558 |    558 |
 | `municipio`    |  5,570 |  5,565 |  5,565 |  5,565 |  5,565 |  5,564 |
-| `distrito`     | 10,302 |      - |      - |      - |     96 | 10,104 |
-| `subdistrito`  |    662 |      - |      - |      - |     69 |    471 |
+| `distrito`     | 10,302 |      - |      - |      - | 10,155 | 10,104 |
+| `subdistrito`  |    662 |      - |      - |      - |    489 |    471 |
 
 ### Get involved!
 
