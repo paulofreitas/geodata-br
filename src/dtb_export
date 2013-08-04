@@ -29,6 +29,7 @@ THE SOFTWARE.
 import argparse
 import collections
 import csv
+import fnmatch
 import ftplib
 import io
 import json
@@ -571,7 +572,8 @@ class DTB(object):
         ftp.cwd(self._db._base)
         zip_data = io.BytesIO()
         logger.info('Retrieving database...')
-        ftp.retrbinary('RETR dtb_{}.zip'.format(self._db._base), zip_data.write)
+        zip_filename = fnmatch.filter(ftp.nlst(), 'dtb_*{}.zip'.format(self._db._base))[0]
+        ftp.retrbinary('RETR {}'.format(zip_filename), zip_data.write)
 
         with zipfile.ZipFile(zip_data, 'r') as zip:
             logger.info('Reading database...')
