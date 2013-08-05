@@ -18,6 +18,10 @@ All these data was compiled from XLS spreadsheets provided by IBGE through its F
 | `distrito`     | 10,302 |      - |      - |      - | 10,155 | 10,104 | 10,090 |
 | `subdistrito`  |    662 |      - |      - |      - |    489 |    471 |    471 |
 
+### Database formats
+
+Currently we provide databases into the following formats: CSV, JSON, p-list, Serialized PHP, SQL, SQLite 3, XML and YAML
+
 ### Get involved!
 
 Report any mislead information, enhancement or feature request to [our bug tracker](https://github.com/paulofreitas/dtb-ibge/issues)!
