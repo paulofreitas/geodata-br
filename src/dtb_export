@@ -50,7 +50,7 @@ import yaml
 
 # -- Modules enhancements -----------------------------------------------------
 def __represent_odict(dump, tag, mapping, flow_style=None):
-    '''Make PyYAML output and OrderedDict.
+    '''Make PyYAML output an OrderedDict.
     Credits: https://gist.github.com/miracle2k/3184458/
     '''
     value = []
@@ -556,7 +556,7 @@ class DTB(object):
     def __init__(self, base):
         self._db = Database(base)
 
-    def download(self):
+    def _download_db(self):
         ftp = ftplib.FTP('geoftp.ibge.gov.br')
         logger.debug('Connecting to FTP server...')
         ftp.connect()
@@ -570,18 +570,44 @@ class DTB(object):
             raise Exception('This base is not available to download.')
 
         ftp.cwd(self._db._base)
+        zip_filename = fnmatch.filter(ftp.nlst(), 'dtb_*{}.zip'.format(self._db._base))[0]
         zip_data = io.BytesIO()
         logger.info('Retrieving database...')
-        zip_filename = fnmatch.filter(ftp.nlst(), 'dtb_*{}.zip'.format(self._db._base))[0]
         ftp.retrbinary('RETR {}'.format(zip_filename), zip_data.write)
+        xls_file = io.BytesIO()
 
-        with zipfile.ZipFile(zip_data, 'r') as zip:
+        with zipfile.ZipFile(zip_data, 'r') as zip_file:
             logger.info('Reading database...')
-            self._db._rawdata = zip.open(zip.namelist()[0]).read()
+            xls_file.write(zip_file.open(zip_file.namelist()[0]).read())
+
+        return xls_file
+
+    def get_db(self, cacheFiles=True):
+        xls_file = io.BytesIO()
+
+        if cacheFiles:
+            temp_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '.cache')
+            temp_file = os.path.join(temp_dir, self._db._base)
+
+            if not os.path.exists(temp_file):
+                xls_file = self._download_db()
+
+                try:
+                    os.makedirs(temp_dir)
+                except OSError:
+                    pass
+
+                open(temp_file, 'wb').write(xls_file.getvalue())
+            else:
+                xls_file.write(open(temp_file, 'rb').read())
+        else:
+            xls_file = self._download_db()
+
+        self._db._rawdata = xls_file.getvalue()
 
         return self
 
-    def parse(self):
+    def parse_db(self):
         logger.debug('Parsing database...')
         xls = xlrd.open_workbook(file_contents=self._db._rawdata,
                                  logfile=open(os.devnull, 'w'))
@@ -698,7 +724,7 @@ class DTB(object):
 
         return self
 
-    def export(self, format, minified=False, filename=None):
+    def export_db(self, format, minified=False, filename=None):
         if not format in FORMATS:
             raise Exception('Unsupported output format.')
 
@@ -781,7 +807,7 @@ if __name__ == '__main__':
 
     try:
         dtb = DTB(args.base)
-        dtb.download().parse().export(args.format, args.minified, args.filename)
+        dtb.get_db().parse_db().export_db(args.format, args.minified, args.filename)
     except Exception as e:
         sys.stdout.write('EXCEPTION CAUGHT: {}: {}\n'.format(type(e).__name__, e.message))
         sys.exit(1)
