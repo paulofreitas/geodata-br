@@ -8,18 +8,18 @@
 | `mesorregiao`  |     137 |
 | `microrregiao` |     558 |
 | `municipio`    |    5564 |
-| `distrito`     |   10031 |
-| `subdistrito`  |     449 |
+| `distrito`     |   10001 |
+| `subdistrito`  |     413 |
 
 ### Database files
 
 | File          | Format         | Size      |
 | ------------- |:--------------:| ---------:|
-| `dtb.csv`     | CSV            | 1,181,688 |
-| `dtb.json`    | JSON           | 2,692,753 |
-| `dtb.phpd`    | Serialized PHP | 2,397,774 |
-| `dtb.plist`   | p-list         | 4,804,597 |
-| `dtb.sql`     | SQL            | 1,339,717 |
-| `dtb.sqlite3` | SQLite 3       | 1,560,576 |
-| `dtb.xml`     | XML            | 4,556,854 |
-| `dtb.yaml`    | YAML           | 1,992,798 |
+| `dtb.csv`     | CSV            | 1,178,814 |
+| `dtb.json`    | JSON           | 2,679,198 |
+| `dtb.phpd`    | Serialized PHP | 2,385,649 |
+| `dtb.plist`   | p-list         | 4,781,323 |
+| `dtb.sql`     | SQL            | 1,333,009 |
+| `dtb.sqlite3` | SQLite 3       | 1,540,096 |
+| `dtb.xml`     | XML            | 4,535,056 |
+| `dtb.yaml`    | YAML           | 1,982,405 |
