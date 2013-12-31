@@ -28,3 +28,7 @@ Currently we provide databases into the following formats: CSV, JSON, p-list, Se
 ### Get involved!
 
 Report any mislead information, enhancement or feature request to [our bug tracker](https://github.com/paulofreitas/dtb-ibge/issues)!
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/paulofreitas/dtb-ibge/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
