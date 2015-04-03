@@ -21,6 +21,7 @@ All these data was compiled from XLS spreadsheets provided by IBGE through its F
 | **2007** |   27 |           137 |            558 |       5,564 |     10,090 |           471 |
 | **2006** |   27 |           137 |            558 |       5,564 |     10,031 |           449 |
 | **2005** |   27 |           137 |            558 |       5,564 |     10,001 |           413 |
+| **2003** |   27 |           137 |            558 |       5,560 |      9,927 |           405 |
 
 ### Database formats
 
