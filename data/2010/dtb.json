@@ -83,37 +83,37 @@
     }
   }, 
   "mesorregiao": {
-    "1102": {
-      "id_uf": 11, 
-      "nome": "Leste Rondoniense"
-    }, 
     "1101": {
       "id_uf": 11, 
       "nome": "Madeira-Guapor\u00e9"
     }, 
-    "1202": {
-      "id_uf": 12, 
-      "nome": "Vale do Acre"
+    "1102": {
+      "id_uf": 11, 
+      "nome": "Leste Rondoniense"
     }, 
     "1201": {
       "id_uf": 12, 
       "nome": "Vale do Juru\u00e1"
     }, 
-    "1303": {
+    "1202": {
+      "id_uf": 12, 
+      "nome": "Vale do Acre"
+    }, 
+    "1301": {
       "id_uf": 13, 
-      "nome": "Centro Amazonense"
+      "nome": "Norte Amazonense"
     }, 
     "1302": {
       "id_uf": 13, 
       "nome": "Sudoeste Amazonense"
     }, 
+    "1303": {
+      "id_uf": 13, 
+      "nome": "Centro Amazonense"
+    }, 
     "1304": {
       "id_uf": 13, 
       "nome": "Sul Amazonense"
-    }, 
-    "1301": {
-      "id_uf": 13, 
-      "nome": "Norte Amazonense"
     }, 
     "1401": {
       "id_uf": 14, 
@@ -123,37 +123,37 @@
       "id_uf": 14, 
       "nome": "Sul de Roraima"
     }, 
-    "1504": {
+    "1501": {
       "id_uf": 15, 
-      "nome": "Nordeste Paraense"
-    }, 
-    "1506": {
-      "id_uf": 15, 
-      "nome": "Sudeste Paraense"
+      "nome": "Baixo Amazonas"
     }, 
     "1502": {
       "id_uf": 15, 
       "nome": "Maraj\u00f3"
     }, 
-    "1501": {
+    "1503": {
       "id_uf": 15, 
-      "nome": "Baixo Amazonas"
+      "nome": "Metropolitana de Bel\u00e9m"
+    }, 
+    "1504": {
+      "id_uf": 15, 
+      "nome": "Nordeste Paraense"
     }, 
     "1505": {
       "id_uf": 15, 
       "nome": "Sudoeste Paraense"
     }, 
-    "1503": {
+    "1506": {
       "id_uf": 15, 
-      "nome": "Metropolitana de Bel\u00e9m"
-    }, 
-    "1602": {
-      "id_uf": 16, 
-      "nome": "Sul do Amap\u00e1"
+      "nome": "Sudeste Paraense"
     }, 
     "1601": {
       "id_uf": 16, 
       "nome": "Norte do Amap\u00e1"
+    }, 
+    "1602": {
+      "id_uf": 16, 
+      "nome": "Sul do Amap\u00e1"
     }, 
     "1701": {
       "id_uf": 17, 
@@ -163,29 +163,29 @@
       "id_uf": 17, 
       "nome": "Oriental do Tocantins"
     }, 
-    "2102": {
-      "id_uf": 21, 
-      "nome": "Oeste Maranhense"
-    }, 
-    "2104": {
-      "id_uf": 21, 
-      "nome": "Leste Maranhense"
-    }, 
     "2101": {
       "id_uf": 21, 
       "nome": "Norte Maranhense"
     }, 
-    "2105": {
+    "2102": {
       "id_uf": 21, 
-      "nome": "Sul Maranhense"
+      "nome": "Oeste Maranhense"
     }, 
     "2103": {
       "id_uf": 21, 
       "nome": "Centro Maranhense"
     }, 
-    "2204": {
+    "2104": {
+      "id_uf": 21, 
+      "nome": "Leste Maranhense"
+    }, 
+    "2105": {
+      "id_uf": 21, 
+      "nome": "Sul Maranhense"
+    }, 
+    "2201": {
       "id_uf": 22, 
-      "nome": "Sudeste Piauiense"
+      "nome": "Norte Piauiense"
     }, 
     "2202": {
       "id_uf": 22, 
@@ -195,21 +195,21 @@
       "id_uf": 22, 
       "nome": "Sudoeste Piauiense"
     }, 
-    "2201": {
+    "2204": {
       "id_uf": 22, 
-      "nome": "Norte Piauiense"
+      "nome": "Sudeste Piauiense"
     }, 
-    "2307": {
+    "2301": {
       "id_uf": 23, 
-      "nome": "Sul Cearense"
+      "nome": "Noroeste Cearense"
     }, 
     "2302": {
       "id_uf": 23, 
       "nome": "Norte Cearense"
     }, 
-    "2301": {
+    "2303": {
       "id_uf": 23, 
-      "nome": "Noroeste Cearense"
+      "nome": "Metropolitana de Fortaleza"
     }, 
     "2304": {
       "id_uf": 23, 
@@ -223,45 +223,41 @@
       "id_uf": 23, 
       "nome": "Centro-Sul Cearense"
     }, 
-    "2303": {
+    "2307": {
       "id_uf": 23, 
-      "nome": "Metropolitana de Fortaleza"
-    }, 
-    "2402": {
-      "id_uf": 24, 
-      "nome": "Central Potiguar"
+      "nome": "Sul Cearense"
     }, 
     "2401": {
       "id_uf": 24, 
       "nome": "Oeste Potiguar"
     }, 
-    "2404": {
+    "2402": {
       "id_uf": 24, 
-      "nome": "Leste Potiguar"
+      "nome": "Central Potiguar"
     }, 
     "2403": {
       "id_uf": 24, 
       "nome": "Agreste Potiguar"
     }, 
+    "2404": {
+      "id_uf": 24, 
+      "nome": "Leste Potiguar"
+    }, 
     "2501": {
       "id_uf": 25, 
       "nome": "Sert\u00e3o Paraibano"
-    }, 
-    "2503": {
-      "id_uf": 25, 
-      "nome": "Agreste Paraibano"
     }, 
     "2502": {
       "id_uf": 25, 
       "nome": "Borborema"
     }, 
+    "2503": {
+      "id_uf": 25, 
+      "nome": "Agreste Paraibano"
+    }, 
     "2504": {
       "id_uf": 25, 
       "nome": "Mata Paraibana"
-    }, 
-    "2605": {
-      "id_uf": 26, 
-      "nome": "Metropolitana de Recife"
     }, 
     "2601": {
       "id_uf": 26, 
@@ -279,57 +275,77 @@
       "id_uf": 26, 
       "nome": "Mata Pernambucana"
     }, 
+    "2605": {
+      "id_uf": 26, 
+      "nome": "Metropolitana de Recife"
+    }, 
     "2701": {
       "id_uf": 27, 
       "nome": "Sert\u00e3o Alagoano"
-    }, 
-    "2703": {
-      "id_uf": 27, 
-      "nome": "Leste Alagoano"
     }, 
     "2702": {
       "id_uf": 27, 
       "nome": "Agreste Alagoano"
     }, 
-    "2803": {
-      "id_uf": 28, 
-      "nome": "Leste Sergipano"
-    }, 
-    "2802": {
-      "id_uf": 28, 
-      "nome": "Agreste Sergipano"
+    "2703": {
+      "id_uf": 27, 
+      "nome": "Leste Alagoano"
     }, 
     "2801": {
       "id_uf": 28, 
       "nome": "Sert\u00e3o Sergipano"
     }, 
-    "2906": {
+    "2802": {
+      "id_uf": 28, 
+      "nome": "Agreste Sergipano"
+    }, 
+    "2803": {
+      "id_uf": 28, 
+      "nome": "Leste Sergipano"
+    }, 
+    "2901": {
       "id_uf": 29, 
-      "nome": "Centro Sul Baiano"
+      "nome": "Extremo Oeste Baiano"
     }, 
     "2902": {
       "id_uf": 29, 
       "nome": "Vale S\u00e3o-Franciscano da Bahia"
     }, 
-    "2904": {
-      "id_uf": 29, 
-      "nome": "Nordeste Baiano"
-    }, 
     "2903": {
       "id_uf": 29, 
       "nome": "Centro Norte Baiano"
     }, 
-    "2907": {
+    "2904": {
       "id_uf": 29, 
-      "nome": "Sul Baiano"
+      "nome": "Nordeste Baiano"
     }, 
     "2905": {
       "id_uf": 29, 
       "nome": "Metropolitana de Salvador"
     }, 
-    "2901": {
+    "2906": {
       "id_uf": 29, 
-      "nome": "Extremo Oeste Baiano"
+      "nome": "Centro Sul Baiano"
+    }, 
+    "2907": {
+      "id_uf": 29, 
+      "nome": "Sul Baiano"
+    }, 
+    "3101": {
+      "id_uf": 31, 
+      "nome": "Noroeste de Minas"
+    }, 
+    "3102": {
+      "id_uf": 31, 
+      "nome": "Norte de Minas"
+    }, 
+    "3103": {
+      "id_uf": 31, 
+      "nome": "Jequitinhonha"
+    }, 
+    "3104": {
+      "id_uf": 31, 
+      "nome": "Vale do Mucuri"
     }, 
     "3105": {
       "id_uf": 31, 
@@ -339,9 +355,9 @@
       "id_uf": 31, 
       "nome": "Central Mineira"
     }, 
-    "3112": {
+    "3107": {
       "id_uf": 31, 
-      "nome": "Zona da Mata"
+      "nome": "Metropolitana de Belo Horizonte"
     }, 
     "3108": {
       "id_uf": 31, 
@@ -351,14 +367,6 @@
       "id_uf": 31, 
       "nome": "Oeste de Minas"
     }, 
-    "3104": {
-      "id_uf": 31, 
-      "nome": "Vale do Mucuri"
-    }, 
-    "3102": {
-      "id_uf": 31, 
-      "nome": "Norte de Minas"
-    }, 
     "3110": {
       "id_uf": 31, 
       "nome": "Sul/Sudoeste de Minas"
@@ -367,81 +375,53 @@
       "id_uf": 31, 
       "nome": "Campo das Vertentes"
     }, 
-    "3103": {
+    "3112": {
       "id_uf": 31, 
-      "nome": "Jequitinhonha"
-    }, 
-    "3107": {
-      "id_uf": 31, 
-      "nome": "Metropolitana de Belo Horizonte"
-    }, 
-    "3101": {
-      "id_uf": 31, 
-      "nome": "Noroeste de Minas"
-    }, 
-    "3203": {
-      "id_uf": 32, 
-      "nome": "Central Esp\u00edrito-santense"
+      "nome": "Zona da Mata"
     }, 
     "3201": {
       "id_uf": 32, 
       "nome": "Noroeste Esp\u00edrito-santense"
     }, 
-    "3204": {
-      "id_uf": 32, 
-      "nome": "Sul Esp\u00edrito-santense"
-    }, 
     "3202": {
       "id_uf": 32, 
       "nome": "Litoral Norte Esp\u00edrito-santense"
     }, 
-    "3305": {
-      "id_uf": 33, 
-      "nome": "Sul Fluminense"
+    "3203": {
+      "id_uf": 32, 
+      "nome": "Central Esp\u00edrito-santense"
+    }, 
+    "3204": {
+      "id_uf": 32, 
+      "nome": "Sul Esp\u00edrito-santense"
     }, 
     "3301": {
       "id_uf": 33, 
       "nome": "Noroeste Fluminense"
     }, 
-    "3304": {
+    "3302": {
       "id_uf": 33, 
-      "nome": "Baixadas"
+      "nome": "Norte Fluminense"
     }, 
     "3303": {
       "id_uf": 33, 
       "nome": "Centro Fluminense"
     }, 
+    "3304": {
+      "id_uf": 33, 
+      "nome": "Baixadas"
+    }, 
+    "3305": {
+      "id_uf": 33, 
+      "nome": "Sul Fluminense"
+    }, 
     "3306": {
       "id_uf": 33, 
       "nome": "Metropolitana do Rio de Janeiro"
     }, 
-    "3302": {
-      "id_uf": 33, 
-      "nome": "Norte Fluminense"
-    }, 
-    "3508": {
-      "id_uf": 35, 
-      "nome": "Presidente Prudente"
-    }, 
     "3501": {
       "id_uf": 35, 
       "nome": "S\u00e3o Jos\u00e9 do Rio Preto"
-    }, 
-    "3507": {
-      "id_uf": 35, 
-      "nome": "Campinas"
-    }, 
-    "3504": {
-      "id_uf": 35, 
-      "nome": "Bauru"
-    }, 
-    "3506": {
-      "id_uf": 35, 
-      "nome": "Piracicaba"
-    }, 
-    "3511": {
-      "id_uf": 35, 
-      "nome": "Itapetininga"
     }, 
     "3502": {
       "id_uf": 35, 
@@ -451,81 +431,105 @@
       "id_uf": 35, 
       "nome": "Ara\u00e7atuba"
     }, 
-    "3512": {
+    "3504": {
       "id_uf": 35, 
-      "nome": "Macro Metropolitana Paulista"
-    }, 
-    "3509": {
-      "id_uf": 35, 
-      "nome": "Mar\u00edlia"
+      "nome": "Bauru"
     }, 
     "3505": {
       "id_uf": 35, 
       "nome": "Araraquara"
     }, 
-    "3513": {
+    "3506": {
       "id_uf": 35, 
-      "nome": "Vale do Para\u00edba Paulista"
+      "nome": "Piracicaba"
     }, 
-    "3515": {
+    "3507": {
       "id_uf": 35, 
-      "nome": "Metropolitana de S\u00e3o Paulo"
+      "nome": "Campinas"
+    }, 
+    "3508": {
+      "id_uf": 35, 
+      "nome": "Presidente Prudente"
+    }, 
+    "3509": {
+      "id_uf": 35, 
+      "nome": "Mar\u00edlia"
     }, 
     "3510": {
       "id_uf": 35, 
       "nome": "Assis"
     }, 
+    "3511": {
+      "id_uf": 35, 
+      "nome": "Itapetininga"
+    }, 
+    "3512": {
+      "id_uf": 35, 
+      "nome": "Macro Metropolitana Paulista"
+    }, 
+    "3513": {
+      "id_uf": 35, 
+      "nome": "Vale do Para\u00edba Paulista"
+    }, 
     "3514": {
       "id_uf": 35, 
       "nome": "Litoral Sul Paulista"
     }, 
-    "4104": {
-      "id_uf": 41, 
-      "nome": "Norte Pioneiro Paranaense"
-    }, 
-    "4110": {
-      "id_uf": 41, 
-      "nome": "Metropolitana de Curitiba"
-    }, 
-    "4102": {
-      "id_uf": 41, 
-      "nome": "Centro Ocidental Paranaense"
+    "3515": {
+      "id_uf": 35, 
+      "nome": "Metropolitana de S\u00e3o Paulo"
     }, 
     "4101": {
       "id_uf": 41, 
       "nome": "Noroeste Paranaense"
     }, 
+    "4102": {
+      "id_uf": 41, 
+      "nome": "Centro Ocidental Paranaense"
+    }, 
     "4103": {
       "id_uf": 41, 
       "nome": "Norte Central Paranaense"
     }, 
-    "4107": {
+    "4104": {
       "id_uf": 41, 
-      "nome": "Sudoeste Paranaense"
-    }, 
-    "4106": {
-      "id_uf": 41, 
-      "nome": "Oeste Paranaense"
-    }, 
-    "4109": {
-      "id_uf": 41, 
-      "nome": "Sudeste Paranaense"
+      "nome": "Norte Pioneiro Paranaense"
     }, 
     "4105": {
       "id_uf": 41, 
       "nome": "Centro Oriental Paranaense"
     }, 
+    "4106": {
+      "id_uf": 41, 
+      "nome": "Oeste Paranaense"
+    }, 
+    "4107": {
+      "id_uf": 41, 
+      "nome": "Sudoeste Paranaense"
+    }, 
     "4108": {
       "id_uf": 41, 
       "nome": "Centro-Sul Paranaense"
     }, 
-    "4203": {
-      "id_uf": 42, 
-      "nome": "Serrana"
+    "4109": {
+      "id_uf": 41, 
+      "nome": "Sudeste Paranaense"
+    }, 
+    "4110": {
+      "id_uf": 41, 
+      "nome": "Metropolitana de Curitiba"
     }, 
     "4201": {
       "id_uf": 42, 
       "nome": "Oeste Catarinense"
+    }, 
+    "4202": {
+      "id_uf": 42, 
+      "nome": "Norte Catarinense"
+    }, 
+    "4203": {
+      "id_uf": 42, 
+      "nome": "Serrana"
     }, 
     "4204": {
       "id_uf": 42, 
@@ -535,77 +539,81 @@
       "id_uf": 42, 
       "nome": "Grande Florian\u00f3polis"
     }, 
-    "4202": {
-      "id_uf": 42, 
-      "nome": "Norte Catarinense"
-    }, 
     "4206": {
       "id_uf": 42, 
       "nome": "Sul Catarinense"
-    }, 
-    "4306": {
-      "id_uf": 43, 
-      "nome": "Sudoeste Rio-grandense"
     }, 
     "4301": {
       "id_uf": 43, 
       "nome": "Noroeste Rio-grandense"
     }, 
-    "4303": {
-      "id_uf": 43, 
-      "nome": "Centro Ocidental Rio-grandense"
-    }, 
-    "4305": {
-      "id_uf": 43, 
-      "nome": "Metropolitana de Porto Alegre"
-    }, 
-    "4307": {
-      "id_uf": 43, 
-      "nome": "Sudeste Rio-grandense"
-    }, 
     "4302": {
       "id_uf": 43, 
       "nome": "Nordeste Rio-grandense"
+    }, 
+    "4303": {
+      "id_uf": 43, 
+      "nome": "Centro Ocidental Rio-grandense"
     }, 
     "4304": {
       "id_uf": 43, 
       "nome": "Centro Oriental Rio-grandense"
     }, 
-    "5003": {
-      "id_uf": 50, 
-      "nome": "Leste de Mato Grosso do Sul"
+    "4305": {
+      "id_uf": 43, 
+      "nome": "Metropolitana de Porto Alegre"
     }, 
-    "5002": {
-      "id_uf": 50, 
-      "nome": "Centro Norte de Mato Grosso do Sul"
+    "4306": {
+      "id_uf": 43, 
+      "nome": "Sudoeste Rio-grandense"
     }, 
-    "5004": {
-      "id_uf": 50, 
-      "nome": "Sudoeste de Mato Grosso do Sul"
+    "4307": {
+      "id_uf": 43, 
+      "nome": "Sudeste Rio-grandense"
     }, 
     "5001": {
       "id_uf": 50, 
       "nome": "Pantanais Sul Mato-grossense"
     }, 
-    "5104": {
-      "id_uf": 51, 
-      "nome": "Centro-Sul Mato-grossense"
+    "5002": {
+      "id_uf": 50, 
+      "nome": "Centro Norte de Mato Grosso do Sul"
     }, 
-    "5102": {
-      "id_uf": 51, 
-      "nome": "Nordeste Mato-grossense"
+    "5003": {
+      "id_uf": 50, 
+      "nome": "Leste de Mato Grosso do Sul"
+    }, 
+    "5004": {
+      "id_uf": 50, 
+      "nome": "Sudoeste de Mato Grosso do Sul"
     }, 
     "5101": {
       "id_uf": 51, 
       "nome": "Norte Mato-grossense"
     }, 
-    "5105": {
+    "5102": {
       "id_uf": 51, 
-      "nome": "Sudeste Mato-grossense"
+      "nome": "Nordeste Mato-grossense"
     }, 
     "5103": {
       "id_uf": 51, 
       "nome": "Sudoeste Mato-grossense"
+    }, 
+    "5104": {
+      "id_uf": 51, 
+      "nome": "Centro-Sul Mato-grossense"
+    }, 
+    "5105": {
+      "id_uf": 51, 
+      "nome": "Sudeste Mato-grossense"
+    }, 
+    "5201": {
+      "id_uf": 52, 
+      "nome": "Noroeste Goiano"
+    }, 
+    "5202": {
+      "id_uf": 52, 
+      "nome": "Norte Goiano"
     }, 
     "5203": {
       "id_uf": 52, 
@@ -619,39 +627,26 @@
       "id_uf": 52, 
       "nome": "Sul Goiano"
     }, 
-    "5202": {
-      "id_uf": 52, 
-      "nome": "Norte Goiano"
-    }, 
-    "5201": {
-      "id_uf": 52, 
-      "nome": "Noroeste Goiano"
-    }, 
     "5301": {
       "id_uf": 53, 
       "nome": "Distrito Federal"
     }
   }, 
   "microrregiao": {
-    "11006": {
-      "id_mesorregiao": 1102, 
+    "11001": {
+      "id_mesorregiao": 1101, 
       "id_uf": 11, 
-      "nome": "Cacoal"
-    }, 
-    "11003": {
-      "id_mesorregiao": 1102, 
-      "id_uf": 11, 
-      "nome": "Ariquemes"
-    }, 
-    "11008": {
-      "id_mesorregiao": 1102, 
-      "id_uf": 11, 
-      "nome": "Colorado do Oeste"
+      "nome": "Porto Velho"
     }, 
     "11002": {
       "id_mesorregiao": 1101, 
       "id_uf": 11, 
       "nome": "Guajar\u00e1-Mirim"
+    }, 
+    "11003": {
+      "id_mesorregiao": 1102, 
+      "id_uf": 11, 
+      "nome": "Ariquemes"
     }, 
     "11004": {
       "id_mesorregiao": 1102, 
@@ -663,25 +658,20 @@
       "id_uf": 11, 
       "nome": "Alvorada D'Oeste"
     }, 
+    "11006": {
+      "id_mesorregiao": 1102, 
+      "id_uf": 11, 
+      "nome": "Cacoal"
+    }, 
     "11007": {
       "id_mesorregiao": 1102, 
       "id_uf": 11, 
       "nome": "Vilhena"
     }, 
-    "11001": {
-      "id_mesorregiao": 1101, 
+    "11008": {
+      "id_mesorregiao": 1102, 
       "id_uf": 11, 
-      "nome": "Porto Velho"
-    }, 
-    "12004": {
-      "id_mesorregiao": 1202, 
-      "id_uf": 12, 
-      "nome": "Rio Branco"
-    }, 
-    "12005": {
-      "id_mesorregiao": 1202, 
-      "id_uf": 12, 
-      "nome": "Brasil\u00e9ia"
+      "nome": "Colorado do Oeste"
     }, 
     "12001": {
       "id_mesorregiao": 1201, 
@@ -698,35 +688,60 @@
       "id_uf": 12, 
       "nome": "Sena Madureira"
     }, 
-    "13005": {
-      "id_mesorregiao": 1303, 
+    "12004": {
+      "id_mesorregiao": 1202, 
+      "id_uf": 12, 
+      "nome": "Rio Branco"
+    }, 
+    "12005": {
+      "id_mesorregiao": 1202, 
+      "id_uf": 12, 
+      "nome": "Brasil\u00e9ia"
+    }, 
+    "13001": {
+      "id_mesorregiao": 1301, 
       "id_uf": 13, 
-      "nome": "Tef\u00e9"
+      "nome": "Rio Negro"
+    }, 
+    "13002": {
+      "id_mesorregiao": 1301, 
+      "id_uf": 13, 
+      "nome": "Japur\u00e1"
     }, 
     "13003": {
       "id_mesorregiao": 1302, 
       "id_uf": 13, 
       "nome": "Alto Solim\u00f5es"
     }, 
+    "13004": {
+      "id_mesorregiao": 1302, 
+      "id_uf": 13, 
+      "nome": "Juru\u00e1"
+    }, 
+    "13005": {
+      "id_mesorregiao": 1303, 
+      "id_uf": 13, 
+      "nome": "Tef\u00e9"
+    }, 
     "13006": {
       "id_mesorregiao": 1303, 
       "id_uf": 13, 
       "nome": "Coari"
-    }, 
-    "13013": {
-      "id_mesorregiao": 1304, 
-      "id_uf": 13, 
-      "nome": "Madeira"
     }, 
     "13007": {
       "id_mesorregiao": 1303, 
       "id_uf": 13, 
       "nome": "Manaus"
     }, 
-    "13001": {
-      "id_mesorregiao": 1301, 
+    "13008": {
+      "id_mesorregiao": 1303, 
       "id_uf": 13, 
-      "nome": "Rio Negro"
+      "nome": "Rio Preto da Eva"
+    }, 
+    "13009": {
+      "id_mesorregiao": 1303, 
+      "id_uf": 13, 
+      "nome": "Itacoatiara"
     }, 
     "13010": {
       "id_mesorregiao": 1303, 
@@ -743,25 +758,10 @@
       "id_uf": 13, 
       "nome": "Purus"
     }, 
-    "13004": {
-      "id_mesorregiao": 1302, 
+    "13013": {
+      "id_mesorregiao": 1304, 
       "id_uf": 13, 
-      "nome": "Juru\u00e1"
-    }, 
-    "13009": {
-      "id_mesorregiao": 1303, 
-      "id_uf": 13, 
-      "nome": "Itacoatiara"
-    }, 
-    "13002": {
-      "id_mesorregiao": 1301, 
-      "id_uf": 13, 
-      "nome": "Japur\u00e1"
-    }, 
-    "13008": {
-      "id_mesorregiao": 1303, 
-      "id_uf": 13, 
-      "nome": "Rio Preto da Eva"
+      "nome": "Madeira"
     }, 
     "14001": {
       "id_mesorregiao": 1401, 
@@ -783,30 +783,10 @@
       "id_uf": 14, 
       "nome": "Sudeste de Roraima"
     }, 
-    "15011": {
-      "id_mesorregiao": 1504, 
+    "15001": {
+      "id_mesorregiao": 1501, 
       "id_uf": 15, 
-      "nome": "Camet\u00e1"
-    }, 
-    "15017": {
-      "id_mesorregiao": 1506, 
-      "id_uf": 15, 
-      "nome": "Paragominas"
-    }, 
-    "15012": {
-      "id_mesorregiao": 1504, 
-      "id_uf": 15, 
-      "nome": "Tom\u00e9-A\u00e7u"
-    }, 
-    "15005": {
-      "id_mesorregiao": 1502, 
-      "id_uf": 15, 
-      "nome": "Furos de Breves"
-    }, 
-    "15019": {
-      "id_mesorregiao": 1506, 
-      "id_uf": 15, 
-      "nome": "Parauapebas"
+      "nome": "\u00d3bidos"
     }, 
     "15002": {
       "id_mesorregiao": 1501, 
@@ -818,20 +798,50 @@
       "id_uf": 15, 
       "nome": "Almeirim"
     }, 
-    "15015": {
-      "id_mesorregiao": 1505, 
+    "15004": {
+      "id_mesorregiao": 1502, 
       "id_uf": 15, 
-      "nome": "Altamira"
+      "nome": "Portel"
+    }, 
+    "15005": {
+      "id_mesorregiao": 1502, 
+      "id_uf": 15, 
+      "nome": "Furos de Breves"
+    }, 
+    "15006": {
+      "id_mesorregiao": 1502, 
+      "id_uf": 15, 
+      "nome": "Arari"
     }, 
     "15007": {
       "id_mesorregiao": 1503, 
       "id_uf": 15, 
       "nome": "Bel\u00e9m"
     }, 
+    "15008": {
+      "id_mesorregiao": 1503, 
+      "id_uf": 15, 
+      "nome": "Castanhal"
+    }, 
+    "15009": {
+      "id_mesorregiao": 1504, 
+      "id_uf": 15, 
+      "nome": "Salgado"
+    }, 
     "15010": {
       "id_mesorregiao": 1504, 
       "id_uf": 15, 
       "nome": "Bragantina"
+    }, 
+    "15011": {
+      "id_mesorregiao": 1504, 
+      "id_uf": 15, 
+      "nome": "Camet\u00e1"
+    }, 
+    "15012": {
+      "id_mesorregiao": 1504, 
+      "id_uf": 15, 
+      "nome": "Tom\u00e9-A\u00e7u"
     }, 
     "15013": {
       "id_mesorregiao": 1504, 
@@ -843,280 +853,210 @@
       "id_uf": 15, 
       "nome": "Itaituba"
     }, 
-    "15004": {
-      "id_mesorregiao": 1502, 
+    "15015": {
+      "id_mesorregiao": 1505, 
       "id_uf": 15, 
-      "nome": "Portel"
-    }, 
-    "15018": {
-      "id_mesorregiao": 1506, 
-      "id_uf": 15, 
-      "nome": "S\u00e3o F\u00e9lix do Xingu"
-    }, 
-    "15020": {
-      "id_mesorregiao": 1506, 
-      "id_uf": 15, 
-      "nome": "Marab\u00e1"
+      "nome": "Altamira"
     }, 
     "15016": {
       "id_mesorregiao": 1506, 
       "id_uf": 15, 
       "nome": "Tucuru\u00ed"
     }, 
-    "15008": {
-      "id_mesorregiao": 1503, 
-      "id_uf": 15, 
-      "nome": "Castanhal"
-    }, 
-    "15006": {
-      "id_mesorregiao": 1502, 
-      "id_uf": 15, 
-      "nome": "Arari"
-    }, 
-    "15009": {
-      "id_mesorregiao": 1504, 
-      "id_uf": 15, 
-      "nome": "Salgado"
-    }, 
-    "15022": {
+    "15017": {
       "id_mesorregiao": 1506, 
       "id_uf": 15, 
-      "nome": "Concei\u00e7\u00e3o do Araguaia"
+      "nome": "Paragominas"
     }, 
-    "15001": {
-      "id_mesorregiao": 1501, 
+    "15018": {
+      "id_mesorregiao": 1506, 
       "id_uf": 15, 
-      "nome": "\u00d3bidos"
+      "nome": "S\u00e3o F\u00e9lix do Xingu"
+    }, 
+    "15019": {
+      "id_mesorregiao": 1506, 
+      "id_uf": 15, 
+      "nome": "Parauapebas"
+    }, 
+    "15020": {
+      "id_mesorregiao": 1506, 
+      "id_uf": 15, 
+      "nome": "Marab\u00e1"
     }, 
     "15021": {
       "id_mesorregiao": 1506, 
       "id_uf": 15, 
       "nome": "Reden\u00e7\u00e3o"
     }, 
-    "16003": {
-      "id_mesorregiao": 1602, 
-      "id_uf": 16, 
-      "nome": "Macap\u00e1"
-    }, 
-    "16002": {
-      "id_mesorregiao": 1601, 
-      "id_uf": 16, 
-      "nome": "Amap\u00e1"
+    "15022": {
+      "id_mesorregiao": 1506, 
+      "id_uf": 15, 
+      "nome": "Concei\u00e7\u00e3o do Araguaia"
     }, 
     "16001": {
       "id_mesorregiao": 1601, 
       "id_uf": 16, 
       "nome": "Oiapoque"
     }, 
+    "16002": {
+      "id_mesorregiao": 1601, 
+      "id_uf": 16, 
+      "nome": "Amap\u00e1"
+    }, 
+    "16003": {
+      "id_mesorregiao": 1602, 
+      "id_uf": 16, 
+      "nome": "Macap\u00e1"
+    }, 
     "16004": {
       "id_mesorregiao": 1602, 
       "id_uf": 16, 
       "nome": "Mazag\u00e3o"
-    }, 
-    "17003": {
-      "id_mesorregiao": 1701, 
-      "id_uf": 17, 
-      "nome": "Miracema do Tocantins"
     }, 
     "17001": {
       "id_mesorregiao": 1701, 
       "id_uf": 17, 
       "nome": "Bico do Papagaio"
     }, 
-    "17005": {
-      "id_mesorregiao": 1701, 
-      "id_uf": 17, 
-      "nome": "Gurupi"
-    }, 
-    "17008": {
-      "id_mesorregiao": 1702, 
-      "id_uf": 17, 
-      "nome": "Dian\u00f3polis"
-    }, 
-    "17006": {
-      "id_mesorregiao": 1702, 
-      "id_uf": 17, 
-      "nome": "Porto Nacional"
-    }, 
     "17002": {
       "id_mesorregiao": 1701, 
       "id_uf": 17, 
       "nome": "Aragua\u00edna"
+    }, 
+    "17003": {
+      "id_mesorregiao": 1701, 
+      "id_uf": 17, 
+      "nome": "Miracema do Tocantins"
     }, 
     "17004": {
       "id_mesorregiao": 1701, 
       "id_uf": 17, 
       "nome": "Rio Formoso"
     }, 
+    "17005": {
+      "id_mesorregiao": 1701, 
+      "id_uf": 17, 
+      "nome": "Gurupi"
+    }, 
+    "17006": {
+      "id_mesorregiao": 1702, 
+      "id_uf": 17, 
+      "nome": "Porto Nacional"
+    }, 
     "17007": {
       "id_mesorregiao": 1702, 
       "id_uf": 17, 
       "nome": "Jalap\u00e3o"
     }, 
-    "21009": {
-      "id_mesorregiao": 2102, 
-      "id_uf": 21, 
-      "nome": "Imperatriz"
-    }, 
-    "21016": {
-      "id_mesorregiao": 2104, 
-      "id_uf": 21, 
-      "nome": "Coelho Neto"
-    }, 
-    "21013": {
-      "id_mesorregiao": 2104, 
-      "id_uf": 21, 
-      "nome": "Baixo Parna\u00edba Maranhense"
+    "17008": {
+      "id_mesorregiao": 1702, 
+      "id_uf": 17, 
+      "nome": "Dian\u00f3polis"
     }, 
     "21001": {
       "id_mesorregiao": 2101, 
       "id_uf": 21, 
       "nome": "Litoral Ocidental Maranhense"
     }, 
-    "21008": {
-      "id_mesorregiao": 2102, 
-      "id_uf": 21, 
-      "nome": "Pindar\u00e9"
-    }, 
-    "21015": {
-      "id_mesorregiao": 2104, 
-      "id_uf": 21, 
-      "nome": "Cod\u00f3"
-    }, 
-    "21020": {
-      "id_mesorregiao": 2105, 
-      "id_uf": 21, 
-      "nome": "Gerais de Balsas"
-    }, 
-    "21007": {
-      "id_mesorregiao": 2102, 
-      "id_uf": 21, 
-      "nome": "Gurupi"
-    }, 
-    "21005": {
+    "21002": {
       "id_mesorregiao": 2101, 
       "id_uf": 21, 
-      "nome": "Baixada Maranhense"
-    }, 
-    "21014": {
-      "id_mesorregiao": 2104, 
-      "id_uf": 21, 
-      "nome": "Chapadinha"
-    }, 
-    "21011": {
-      "id_mesorregiao": 2103, 
-      "id_uf": 21, 
-      "nome": "Alto Mearim e Graja\u00fa"
+      "nome": "Aglomera\u00e7\u00e3o Urbana de S\u00e3o Lu\u00eds"
     }, 
     "21003": {
       "id_mesorregiao": 2101, 
       "id_uf": 21, 
       "nome": "Ros\u00e1rio"
     }, 
-    "21010": {
-      "id_mesorregiao": 2103, 
-      "id_uf": 21, 
-      "nome": "M\u00e9dio Mearim"
-    }, 
-    "21018": {
-      "id_mesorregiao": 2104, 
-      "id_uf": 21, 
-      "nome": "Chapadas do Alto Itapecuru"
-    }, 
     "21004": {
       "id_mesorregiao": 2101, 
       "id_uf": 21, 
       "nome": "Len\u00e7ois Maranhenses"
     }, 
-    "21021": {
-      "id_mesorregiao": 2105, 
+    "21005": {
+      "id_mesorregiao": 2101, 
       "id_uf": 21, 
-      "nome": "Chapadas das Mangabeiras"
-    }, 
-    "21017": {
-      "id_mesorregiao": 2104, 
-      "id_uf": 21, 
-      "nome": "Caxias"
-    }, 
-    "21019": {
-      "id_mesorregiao": 2105, 
-      "id_uf": 21, 
-      "nome": "Porto Franco"
+      "nome": "Baixada Maranhense"
     }, 
     "21006": {
       "id_mesorregiao": 2101, 
       "id_uf": 21, 
       "nome": "Itapecuru Mirim"
     }, 
+    "21007": {
+      "id_mesorregiao": 2102, 
+      "id_uf": 21, 
+      "nome": "Gurupi"
+    }, 
+    "21008": {
+      "id_mesorregiao": 2102, 
+      "id_uf": 21, 
+      "nome": "Pindar\u00e9"
+    }, 
+    "21009": {
+      "id_mesorregiao": 2102, 
+      "id_uf": 21, 
+      "nome": "Imperatriz"
+    }, 
+    "21010": {
+      "id_mesorregiao": 2103, 
+      "id_uf": 21, 
+      "nome": "M\u00e9dio Mearim"
+    }, 
+    "21011": {
+      "id_mesorregiao": 2103, 
+      "id_uf": 21, 
+      "nome": "Alto Mearim e Graja\u00fa"
+    }, 
     "21012": {
       "id_mesorregiao": 2103, 
       "id_uf": 21, 
       "nome": "Presidente Dutra"
     }, 
-    "21002": {
-      "id_mesorregiao": 2101, 
+    "21013": {
+      "id_mesorregiao": 2104, 
       "id_uf": 21, 
-      "nome": "Aglomera\u00e7\u00e3o Urbana de S\u00e3o Lu\u00eds"
+      "nome": "Baixo Parna\u00edba Maranhense"
     }, 
-    "22015": {
-      "id_mesorregiao": 2204, 
-      "id_uf": 22, 
-      "nome": "Alto M\u00e9dio Canind\u00e9"
+    "21014": {
+      "id_mesorregiao": 2104, 
+      "id_uf": 21, 
+      "nome": "Chapadinha"
     }, 
-    "22005": {
-      "id_mesorregiao": 2202, 
-      "id_uf": 22, 
-      "nome": "M\u00e9dio Parna\u00edba Piauiense"
+    "21015": {
+      "id_mesorregiao": 2104, 
+      "id_uf": 21, 
+      "nome": "Cod\u00f3"
     }, 
-    "22014": {
-      "id_mesorregiao": 2204, 
-      "id_uf": 22, 
-      "nome": "Pio IX"
+    "21016": {
+      "id_mesorregiao": 2104, 
+      "id_uf": 21, 
+      "nome": "Coelho Neto"
     }, 
-    "22004": {
-      "id_mesorregiao": 2202, 
-      "id_uf": 22, 
-      "nome": "Campo Maior"
+    "21017": {
+      "id_mesorregiao": 2104, 
+      "id_uf": 21, 
+      "nome": "Caxias"
     }, 
-    "22003": {
-      "id_mesorregiao": 2202, 
-      "id_uf": 22, 
-      "nome": "Teresina"
+    "21018": {
+      "id_mesorregiao": 2104, 
+      "id_uf": 21, 
+      "nome": "Chapadas do Alto Itapecuru"
     }, 
-    "22010": {
-      "id_mesorregiao": 2203, 
-      "id_uf": 22, 
-      "nome": "Alto M\u00e9dio Gurgu\u00e9ia"
+    "21019": {
+      "id_mesorregiao": 2105, 
+      "id_uf": 21, 
+      "nome": "Porto Franco"
     }, 
-    "22011": {
-      "id_mesorregiao": 2203, 
-      "id_uf": 22, 
-      "nome": "S\u00e3o Raimundo Nonato"
+    "21020": {
+      "id_mesorregiao": 2105, 
+      "id_uf": 21, 
+      "nome": "Gerais de Balsas"
     }, 
-    "22008": {
-      "id_mesorregiao": 2203, 
-      "id_uf": 22, 
-      "nome": "Bertol\u00ednia"
-    }, 
-    "22006": {
-      "id_mesorregiao": 2202, 
-      "id_uf": 22, 
-      "nome": "Valen\u00e7a do Piau\u00ed"
-    }, 
-    "22013": {
-      "id_mesorregiao": 2204, 
-      "id_uf": 22, 
-      "nome": "Picos"
-    }, 
-    "22012": {
-      "id_mesorregiao": 2203, 
-      "id_uf": 22, 
-      "nome": "Chapadas do Extremo Sul Piauiense"
-    }, 
-    "22007": {
-      "id_mesorregiao": 2203, 
-      "id_uf": 22, 
-      "nome": "Alto Parna\u00edba Piauiense"
+    "21021": {
+      "id_mesorregiao": 2105, 
+      "id_uf": 21, 
+      "nome": "Chapadas das Mangabeiras"
     }, 
     "22001": {
       "id_mesorregiao": 2201, 
@@ -1128,105 +1068,135 @@
       "id_uf": 22, 
       "nome": "Litoral Piauiense"
     }, 
+    "22003": {
+      "id_mesorregiao": 2202, 
+      "id_uf": 22, 
+      "nome": "Teresina"
+    }, 
+    "22004": {
+      "id_mesorregiao": 2202, 
+      "id_uf": 22, 
+      "nome": "Campo Maior"
+    }, 
+    "22005": {
+      "id_mesorregiao": 2202, 
+      "id_uf": 22, 
+      "nome": "M\u00e9dio Parna\u00edba Piauiense"
+    }, 
+    "22006": {
+      "id_mesorregiao": 2202, 
+      "id_uf": 22, 
+      "nome": "Valen\u00e7a do Piau\u00ed"
+    }, 
+    "22007": {
+      "id_mesorregiao": 2203, 
+      "id_uf": 22, 
+      "nome": "Alto Parna\u00edba Piauiense"
+    }, 
+    "22008": {
+      "id_mesorregiao": 2203, 
+      "id_uf": 22, 
+      "nome": "Bertol\u00ednia"
+    }, 
     "22009": {
       "id_mesorregiao": 2203, 
       "id_uf": 22, 
       "nome": "Floriano"
     }, 
-    "23033": {
-      "id_mesorregiao": 2307, 
-      "id_uf": 23, 
-      "nome": "Brejo Santo"
+    "22010": {
+      "id_mesorregiao": 2203, 
+      "id_uf": 22, 
+      "nome": "Alto M\u00e9dio Gurgu\u00e9ia"
     }, 
-    "23013": {
-      "id_mesorregiao": 2302, 
-      "id_uf": 23, 
-      "nome": "Baturit\u00e9"
+    "22011": {
+      "id_mesorregiao": 2203, 
+      "id_uf": 22, 
+      "nome": "S\u00e3o Raimundo Nonato"
+    }, 
+    "22012": {
+      "id_mesorregiao": 2203, 
+      "id_uf": 22, 
+      "nome": "Chapadas do Extremo Sul Piauiense"
+    }, 
+    "22013": {
+      "id_mesorregiao": 2204, 
+      "id_uf": 22, 
+      "nome": "Picos"
+    }, 
+    "22014": {
+      "id_mesorregiao": 2204, 
+      "id_uf": 22, 
+      "nome": "Pio IX"
+    }, 
+    "22015": {
+      "id_mesorregiao": 2204, 
+      "id_uf": 22, 
+      "nome": "Alto M\u00e9dio Canind\u00e9"
     }, 
     "23001": {
       "id_mesorregiao": 2301, 
       "id_uf": 23, 
       "nome": "Litoral de Camocim e Acara\u00fa"
     }, 
-    "23021": {
-      "id_mesorregiao": 2304, 
+    "23002": {
+      "id_mesorregiao": 2301, 
       "id_uf": 23, 
-      "nome": "Sert\u00e3o de Senador Pompeu"
+      "nome": "Ibiapaba"
     }, 
-    "23020": {
-      "id_mesorregiao": 2304, 
+    "23003": {
+      "id_mesorregiao": 2301, 
       "id_uf": 23, 
-      "nome": "Sert\u00e3o de Inhamuns"
+      "nome": "Corea\u00fa"
     }, 
     "23004": {
       "id_mesorregiao": 2301, 
       "id_uf": 23, 
       "nome": "Meruoca"
     }, 
-    "23030": {
-      "id_mesorregiao": 2307, 
+    "23005": {
+      "id_mesorregiao": 2301, 
       "id_uf": 23, 
-      "nome": "Cariria\u00e7u"
+      "nome": "Sobral"
     }, 
-    "23023": {
-      "id_mesorregiao": 2305, 
+    "23006": {
+      "id_mesorregiao": 2301, 
       "id_uf": 23, 
-      "nome": "Baixo Jaguaribe"
+      "nome": "Ipu"
+    }, 
+    "23007": {
+      "id_mesorregiao": 2301, 
+      "id_uf": 23, 
+      "nome": "Santa Quit\u00e9ria"
     }, 
     "23008": {
       "id_mesorregiao": 2302, 
       "id_uf": 23, 
       "nome": "Itapipoca"
     }, 
-    "23027": {
-      "id_mesorregiao": 2306, 
+    "23009": {
+      "id_mesorregiao": 2302, 
       "id_uf": 23, 
-      "nome": "V\u00e1rzea Alegre"
+      "nome": "Baixo Curu"
+    }, 
+    "23010": {
+      "id_mesorregiao": 2302, 
+      "id_uf": 23, 
+      "nome": "Uruburetama"
     }, 
     "23011": {
       "id_mesorregiao": 2302, 
       "id_uf": 23, 
       "nome": "M\u00e9dio Curu"
     }, 
-    "23016": {
-      "id_mesorregiao": 2303, 
+    "23012": {
+      "id_mesorregiao": 2302, 
       "id_uf": 23, 
-      "nome": "Fortaleza"
+      "nome": "Canind\u00e9"
     }, 
-    "23022": {
-      "id_mesorregiao": 2305, 
+    "23013": {
+      "id_mesorregiao": 2302, 
       "id_uf": 23, 
-      "nome": "Litoral de Aracati"
-    }, 
-    "23018": {
-      "id_mesorregiao": 2304, 
-      "id_uf": 23, 
-      "nome": "Sert\u00e3o de Crat\u00e9us"
-    }, 
-    "23029": {
-      "id_mesorregiao": 2307, 
-      "id_uf": 23, 
-      "nome": "Chapada do Araripe"
-    }, 
-    "23031": {
-      "id_mesorregiao": 2307, 
-      "id_uf": 23, 
-      "nome": "Barro"
-    }, 
-    "23028": {
-      "id_mesorregiao": 2306, 
-      "id_uf": 23, 
-      "nome": "Lavras da Mangabeira"
-    }, 
-    "23019": {
-      "id_mesorregiao": 2304, 
-      "id_uf": 23, 
-      "nome": "Sert\u00e3o de Quixeramobim"
-    }, 
-    "23032": {
-      "id_mesorregiao": 2307, 
-      "id_uf": 23, 
-      "nome": "Cariri"
+      "nome": "Baturit\u00e9"
     }, 
     "23014": {
       "id_mesorregiao": 2302, 
@@ -1238,80 +1208,115 @@
       "id_uf": 23, 
       "nome": "Cascavel"
     }, 
-    "23012": {
-      "id_mesorregiao": 2302, 
+    "23016": {
+      "id_mesorregiao": 2303, 
       "id_uf": 23, 
-      "nome": "Canind\u00e9"
-    }, 
-    "23005": {
-      "id_mesorregiao": 2301, 
-      "id_uf": 23, 
-      "nome": "Sobral"
-    }, 
-    "23002": {
-      "id_mesorregiao": 2301, 
-      "id_uf": 23, 
-      "nome": "Ibiapaba"
-    }, 
-    "23007": {
-      "id_mesorregiao": 2301, 
-      "id_uf": 23, 
-      "nome": "Santa Quit\u00e9ria"
-    }, 
-    "23026": {
-      "id_mesorregiao": 2306, 
-      "id_uf": 23, 
-      "nome": "Iguatu"
-    }, 
-    "23003": {
-      "id_mesorregiao": 2301, 
-      "id_uf": 23, 
-      "nome": "Corea\u00fa"
-    }, 
-    "23025": {
-      "id_mesorregiao": 2305, 
-      "id_uf": 23, 
-      "nome": "Serra do Pereiro"
+      "nome": "Fortaleza"
     }, 
     "23017": {
       "id_mesorregiao": 2303, 
       "id_uf": 23, 
       "nome": "Pacajus"
     }, 
-    "23006": {
-      "id_mesorregiao": 2301, 
+    "23018": {
+      "id_mesorregiao": 2304, 
       "id_uf": 23, 
-      "nome": "Ipu"
+      "nome": "Sert\u00e3o de Crat\u00e9us"
     }, 
-    "23010": {
-      "id_mesorregiao": 2302, 
+    "23019": {
+      "id_mesorregiao": 2304, 
       "id_uf": 23, 
-      "nome": "Uruburetama"
+      "nome": "Sert\u00e3o de Quixeramobim"
+    }, 
+    "23020": {
+      "id_mesorregiao": 2304, 
+      "id_uf": 23, 
+      "nome": "Sert\u00e3o de Inhamuns"
+    }, 
+    "23021": {
+      "id_mesorregiao": 2304, 
+      "id_uf": 23, 
+      "nome": "Sert\u00e3o de Senador Pompeu"
+    }, 
+    "23022": {
+      "id_mesorregiao": 2305, 
+      "id_uf": 23, 
+      "nome": "Litoral de Aracati"
+    }, 
+    "23023": {
+      "id_mesorregiao": 2305, 
+      "id_uf": 23, 
+      "nome": "Baixo Jaguaribe"
     }, 
     "23024": {
       "id_mesorregiao": 2305, 
       "id_uf": 23, 
       "nome": "M\u00e9dio Jaguaribe"
     }, 
-    "23009": {
-      "id_mesorregiao": 2302, 
+    "23025": {
+      "id_mesorregiao": 2305, 
       "id_uf": 23, 
-      "nome": "Baixo Curu"
+      "nome": "Serra do Pereiro"
     }, 
-    "24012": {
-      "id_mesorregiao": 2402, 
+    "23026": {
+      "id_mesorregiao": 2306, 
+      "id_uf": 23, 
+      "nome": "Iguatu"
+    }, 
+    "23027": {
+      "id_mesorregiao": 2306, 
+      "id_uf": 23, 
+      "nome": "V\u00e1rzea Alegre"
+    }, 
+    "23028": {
+      "id_mesorregiao": 2306, 
+      "id_uf": 23, 
+      "nome": "Lavras da Mangabeira"
+    }, 
+    "23029": {
+      "id_mesorregiao": 2307, 
+      "id_uf": 23, 
+      "nome": "Chapada do Araripe"
+    }, 
+    "23030": {
+      "id_mesorregiao": 2307, 
+      "id_uf": 23, 
+      "nome": "Cariria\u00e7u"
+    }, 
+    "23031": {
+      "id_mesorregiao": 2307, 
+      "id_uf": 23, 
+      "nome": "Barro"
+    }, 
+    "23032": {
+      "id_mesorregiao": 2307, 
+      "id_uf": 23, 
+      "nome": "Cariri"
+    }, 
+    "23033": {
+      "id_mesorregiao": 2307, 
+      "id_uf": 23, 
+      "nome": "Brejo Santo"
+    }, 
+    "24001": {
+      "id_mesorregiao": 2401, 
       "id_uf": 24, 
-      "nome": "Serid\u00f3 Oriental"
+      "nome": "Mossor\u00f3"
+    }, 
+    "24002": {
+      "id_mesorregiao": 2401, 
+      "id_uf": 24, 
+      "nome": "Chapada do Apodi"
+    }, 
+    "24003": {
+      "id_mesorregiao": 2401, 
+      "id_uf": 24, 
+      "nome": "M\u00e9dio Oeste"
     }, 
     "24004": {
       "id_mesorregiao": 2401, 
       "id_uf": 24, 
       "nome": "Vale do A\u00e7u"
-    }, 
-    "24009": {
-      "id_mesorregiao": 2402, 
-      "id_uf": 24, 
-      "nome": "Angicos"
     }, 
     "24005": {
       "id_mesorregiao": 2401, 
@@ -1328,55 +1333,50 @@
       "id_uf": 24, 
       "nome": "Umarizal"
     }, 
-    "24002": {
-      "id_mesorregiao": 2401, 
+    "24008": {
+      "id_mesorregiao": 2402, 
       "id_uf": 24, 
-      "nome": "Chapada do Apodi"
+      "nome": "Macau"
     }, 
-    "24001": {
-      "id_mesorregiao": 2401, 
+    "24009": {
+      "id_mesorregiao": 2402, 
       "id_uf": 24, 
-      "nome": "Mossor\u00f3"
-    }, 
-    "24019": {
-      "id_mesorregiao": 2404, 
-      "id_uf": 24, 
-      "nome": "Litoral Sul"
-    }, 
-    "24003": {
-      "id_mesorregiao": 2401, 
-      "id_uf": 24, 
-      "nome": "M\u00e9dio Oeste"
-    }, 
-    "24014": {
-      "id_mesorregiao": 2403, 
-      "id_uf": 24, 
-      "nome": "Borborema Potiguar"
-    }, 
-    "24013": {
-      "id_mesorregiao": 2403, 
-      "id_uf": 24, 
-      "nome": "Baixa Verde"
+      "nome": "Angicos"
     }, 
     "24010": {
       "id_mesorregiao": 2402, 
       "id_uf": 24, 
       "nome": "Serra de Santana"
     }, 
+    "24011": {
+      "id_mesorregiao": 2402, 
+      "id_uf": 24, 
+      "nome": "Serid\u00f3 Ocidental"
+    }, 
+    "24012": {
+      "id_mesorregiao": 2402, 
+      "id_uf": 24, 
+      "nome": "Serid\u00f3 Oriental"
+    }, 
+    "24013": {
+      "id_mesorregiao": 2403, 
+      "id_uf": 24, 
+      "nome": "Baixa Verde"
+    }, 
+    "24014": {
+      "id_mesorregiao": 2403, 
+      "id_uf": 24, 
+      "nome": "Borborema Potiguar"
+    }, 
     "24015": {
       "id_mesorregiao": 2403, 
       "id_uf": 24, 
       "nome": "Agreste Potiguar"
     }, 
-    "24008": {
-      "id_mesorregiao": 2402, 
+    "24016": {
+      "id_mesorregiao": 2404, 
       "id_uf": 24, 
-      "nome": "Macau"
-    }, 
-    "24011": {
-      "id_mesorregiao": 2402, 
-      "id_uf": 24, 
-      "nome": "Serid\u00f3 Ocidental"
+      "nome": "Litoral Nordeste"
     }, 
     "24017": {
       "id_mesorregiao": 2404, 
@@ -1388,30 +1388,60 @@
       "id_uf": 24, 
       "nome": "Natal"
     }, 
-    "24016": {
+    "24019": {
       "id_mesorregiao": 2404, 
       "id_uf": 24, 
-      "nome": "Litoral Nordeste"
+      "nome": "Litoral Sul"
     }, 
-    "25007": {
+    "25001": {
       "id_mesorregiao": 2501, 
       "id_uf": 25, 
-      "nome": "Serra do Teixeira"
+      "nome": "Catol\u00e9 do Rocha"
+    }, 
+    "25002": {
+      "id_mesorregiao": 2501, 
+      "id_uf": 25, 
+      "nome": "Cajazeiras"
+    }, 
+    "25003": {
+      "id_mesorregiao": 2501, 
+      "id_uf": 25, 
+      "nome": "Sousa"
+    }, 
+    "25004": {
+      "id_mesorregiao": 2501, 
+      "id_uf": 25, 
+      "nome": "Patos"
     }, 
     "25005": {
       "id_mesorregiao": 2501, 
       "id_uf": 25, 
       "nome": "Pianc\u00f3"
     }, 
-    "25015": {
-      "id_mesorregiao": 2503, 
+    "25006": {
+      "id_mesorregiao": 2501, 
       "id_uf": 25, 
-      "nome": "Brejo Paraibano"
+      "nome": "Itaporanga"
     }, 
-    "25016": {
-      "id_mesorregiao": 2503, 
+    "25007": {
+      "id_mesorregiao": 2501, 
       "id_uf": 25, 
-      "nome": "Guarabira"
+      "nome": "Serra do Teixeira"
+    }, 
+    "25008": {
+      "id_mesorregiao": 2502, 
+      "id_uf": 25, 
+      "nome": "Serid\u00f3 Ocidental Paraibano"
+    }, 
+    "25009": {
+      "id_mesorregiao": 2502, 
+      "id_uf": 25, 
+      "nome": "Serid\u00f3 Oriental Paraibano"
+    }, 
+    "25010": {
+      "id_mesorregiao": 2502, 
+      "id_uf": 25, 
+      "nome": "Cariri Ocidental"
     }, 
     "25011": {
       "id_mesorregiao": 2502, 
@@ -1423,70 +1453,25 @@
       "id_uf": 25, 
       "nome": "Curimata\u00fa Ocidental"
     }, 
-    "25023": {
-      "id_mesorregiao": 2504, 
-      "id_uf": 25, 
-      "nome": "Litoral Sul"
-    }, 
-    "25002": {
-      "id_mesorregiao": 2501, 
-      "id_uf": 25, 
-      "nome": "Cajazeiras"
-    }, 
-    "25010": {
-      "id_mesorregiao": 2502, 
-      "id_uf": 25, 
-      "nome": "Cariri Ocidental"
-    }, 
-    "25003": {
-      "id_mesorregiao": 2501, 
-      "id_uf": 25, 
-      "nome": "Sousa"
-    }, 
     "25013": {
       "id_mesorregiao": 2503, 
       "id_uf": 25, 
       "nome": "Curimata\u00fa Oriental"
-    }, 
-    "25004": {
-      "id_mesorregiao": 2501, 
-      "id_uf": 25, 
-      "nome": "Patos"
     }, 
     "25014": {
       "id_mesorregiao": 2503, 
       "id_uf": 25, 
       "nome": "Esperan\u00e7a"
     }, 
-    "25019": {
+    "25015": {
       "id_mesorregiao": 2503, 
       "id_uf": 25, 
-      "nome": "Umbuzeiro"
+      "nome": "Brejo Paraibano"
     }, 
-    "25020": {
-      "id_mesorregiao": 2504, 
+    "25016": {
+      "id_mesorregiao": 2503, 
       "id_uf": 25, 
-      "nome": "Litoral Norte"
-    }, 
-    "25009": {
-      "id_mesorregiao": 2502, 
-      "id_uf": 25, 
-      "nome": "Serid\u00f3 Oriental Paraibano"
-    }, 
-    "25022": {
-      "id_mesorregiao": 2504, 
-      "id_uf": 25, 
-      "nome": "Jo\u00e3o Pessoa"
-    }, 
-    "25001": {
-      "id_mesorregiao": 2501, 
-      "id_uf": 25, 
-      "nome": "Catol\u00e9 do Rocha"
-    }, 
-    "25006": {
-      "id_mesorregiao": 2501, 
-      "id_uf": 25, 
-      "nome": "Itaporanga"
+      "nome": "Guarabira"
     }, 
     "25017": {
       "id_mesorregiao": 2503, 
@@ -1498,40 +1483,60 @@
       "id_uf": 25, 
       "nome": "Itabaiana"
     }, 
+    "25019": {
+      "id_mesorregiao": 2503, 
+      "id_uf": 25, 
+      "nome": "Umbuzeiro"
+    }, 
+    "25020": {
+      "id_mesorregiao": 2504, 
+      "id_uf": 25, 
+      "nome": "Litoral Norte"
+    }, 
     "25021": {
       "id_mesorregiao": 2504, 
       "id_uf": 25, 
       "nome": "Sap\u00e9"
     }, 
-    "25008": {
-      "id_mesorregiao": 2502, 
+    "25022": {
+      "id_mesorregiao": 2504, 
       "id_uf": 25, 
-      "nome": "Serid\u00f3 Ocidental Paraibano"
+      "nome": "Jo\u00e3o Pessoa"
     }, 
-    "26017": {
-      "id_mesorregiao": 2605, 
+    "25023": {
+      "id_mesorregiao": 2504, 
+      "id_uf": 25, 
+      "nome": "Litoral Sul"
+    }, 
+    "26001": {
+      "id_mesorregiao": 2601, 
       "id_uf": 26, 
-      "nome": "Recife"
+      "nome": "Araripina"
+    }, 
+    "26002": {
+      "id_mesorregiao": 2601, 
+      "id_uf": 26, 
+      "nome": "Salgueiro"
     }, 
     "26003": {
       "id_mesorregiao": 2601, 
       "id_uf": 26, 
       "nome": "Paje\u00fa"
     }, 
+    "26004": {
+      "id_mesorregiao": 2601, 
+      "id_uf": 26, 
+      "nome": "Sert\u00e3o do Moxot\u00f3"
+    }, 
     "26005": {
       "id_mesorregiao": 2602, 
       "id_uf": 26, 
       "nome": "Petrolina"
     }, 
-    "26012": {
-      "id_mesorregiao": 2603, 
+    "26006": {
+      "id_mesorregiao": 2602, 
       "id_uf": 26, 
-      "nome": "Brejo Pernambucano"
-    }, 
-    "26015": {
-      "id_mesorregiao": 2604, 
-      "id_uf": 26, 
-      "nome": "Mata Meridional Pernambucana"
+      "nome": "Itaparica"
     }, 
     "26007": {
       "id_mesorregiao": 2603, 
@@ -1543,60 +1548,55 @@
       "id_uf": 26, 
       "nome": "Vale do Ipojuca"
     }, 
-    "26013": {
-      "id_mesorregiao": 2604, 
-      "id_uf": 26, 
-      "nome": "Mata Setentrional Pernambucana"
-    }, 
-    "26011": {
+    "26009": {
       "id_mesorregiao": 2603, 
       "id_uf": 26, 
-      "nome": "Garanhuns"
-    }, 
-    "26016": {
-      "id_mesorregiao": 2605, 
-      "id_uf": 26, 
-      "nome": "Itamarac\u00e1"
-    }, 
-    "26001": {
-      "id_mesorregiao": 2601, 
-      "id_uf": 26, 
-      "nome": "Araripina"
-    }, 
-    "26004": {
-      "id_mesorregiao": 2601, 
-      "id_uf": 26, 
-      "nome": "Sert\u00e3o do Moxot\u00f3"
-    }, 
-    "26006": {
-      "id_mesorregiao": 2602, 
-      "id_uf": 26, 
-      "nome": "Itaparica"
+      "nome": "Alto Capibaribe"
     }, 
     "26010": {
       "id_mesorregiao": 2603, 
       "id_uf": 26, 
       "nome": "M\u00e9dio Capibaribe"
     }, 
-    "26018": {
-      "id_mesorregiao": 2605, 
-      "id_uf": 26, 
-      "nome": "Suape"
-    }, 
-    "26009": {
+    "26011": {
       "id_mesorregiao": 2603, 
       "id_uf": 26, 
-      "nome": "Alto Capibaribe"
+      "nome": "Garanhuns"
     }, 
-    "26002": {
-      "id_mesorregiao": 2601, 
+    "26012": {
+      "id_mesorregiao": 2603, 
       "id_uf": 26, 
-      "nome": "Salgueiro"
+      "nome": "Brejo Pernambucano"
+    }, 
+    "26013": {
+      "id_mesorregiao": 2604, 
+      "id_uf": 26, 
+      "nome": "Mata Setentrional Pernambucana"
     }, 
     "26014": {
       "id_mesorregiao": 2604, 
       "id_uf": 26, 
       "nome": "Vit\u00f3ria de Santo Ant\u00e3o"
+    }, 
+    "26015": {
+      "id_mesorregiao": 2604, 
+      "id_uf": 26, 
+      "nome": "Mata Meridional Pernambucana"
+    }, 
+    "26016": {
+      "id_mesorregiao": 2605, 
+      "id_uf": 26, 
+      "nome": "Itamarac\u00e1"
+    }, 
+    "26017": {
+      "id_mesorregiao": 2605, 
+      "id_uf": 26, 
+      "nome": "Recife"
+    }, 
+    "26018": {
+      "id_mesorregiao": 2605, 
+      "id_uf": 26, 
+      "nome": "Suape"
     }, 
     "26019": {
       "id_mesorregiao": 2605, 
@@ -1608,25 +1608,15 @@
       "id_uf": 27, 
       "nome": "Serrana do Sert\u00e3o Alagoano"
     }, 
-    "27012": {
-      "id_mesorregiao": 2703, 
+    "27002": {
+      "id_mesorregiao": 2701, 
       "id_uf": 27, 
-      "nome": "S\u00e3o Miguel dos Campos"
+      "nome": "Alagoana do Sert\u00e3o do S\u00e3o Francisco"
     }, 
-    "27006": {
-      "id_mesorregiao": 2702, 
+    "27003": {
+      "id_mesorregiao": 2701, 
       "id_uf": 27, 
-      "nome": "Arapiraca"
-    }, 
-    "27009": {
-      "id_mesorregiao": 2703, 
-      "id_uf": 27, 
-      "nome": "Mata Alagoana"
-    }, 
-    "27011": {
-      "id_mesorregiao": 2703, 
-      "id_uf": 27, 
-      "nome": "Macei\u00f3"
+      "nome": "Santana do Ipanema"
     }, 
     "27004": {
       "id_mesorregiao": 2701, 
@@ -1638,45 +1628,95 @@
       "id_uf": 27, 
       "nome": "Palmeira dos \u00cdndios"
     }, 
-    "27003": {
-      "id_mesorregiao": 2701, 
+    "27006": {
+      "id_mesorregiao": 2702, 
       "id_uf": 27, 
-      "nome": "Santana do Ipanema"
-    }, 
-    "27008": {
-      "id_mesorregiao": 2703, 
-      "id_uf": 27, 
-      "nome": "Serrana dos Quilombos"
-    }, 
-    "27002": {
-      "id_mesorregiao": 2701, 
-      "id_uf": 27, 
-      "nome": "Alagoana do Sert\u00e3o do S\u00e3o Francisco"
-    }, 
-    "27013": {
-      "id_mesorregiao": 2703, 
-      "id_uf": 27, 
-      "nome": "Penedo"
-    }, 
-    "27010": {
-      "id_mesorregiao": 2703, 
-      "id_uf": 27, 
-      "nome": "Litoral Norte Alagoano"
+      "nome": "Arapiraca"
     }, 
     "27007": {
       "id_mesorregiao": 2702, 
       "id_uf": 27, 
       "nome": "Traipu"
     }, 
-    "28007": {
-      "id_mesorregiao": 2803, 
+    "27008": {
+      "id_mesorregiao": 2703, 
+      "id_uf": 27, 
+      "nome": "Serrana dos Quilombos"
+    }, 
+    "27009": {
+      "id_mesorregiao": 2703, 
+      "id_uf": 27, 
+      "nome": "Mata Alagoana"
+    }, 
+    "27010": {
+      "id_mesorregiao": 2703, 
+      "id_uf": 27, 
+      "nome": "Litoral Norte Alagoano"
+    }, 
+    "27011": {
+      "id_mesorregiao": 2703, 
+      "id_uf": 27, 
+      "nome": "Macei\u00f3"
+    }, 
+    "27012": {
+      "id_mesorregiao": 2703, 
+      "id_uf": 27, 
+      "nome": "S\u00e3o Miguel dos Campos"
+    }, 
+    "27013": {
+      "id_mesorregiao": 2703, 
+      "id_uf": 27, 
+      "nome": "Penedo"
+    }, 
+    "28001": {
+      "id_mesorregiao": 2801, 
       "id_uf": 28, 
-      "nome": "Propri\u00e1"
+      "nome": "Sergipana do Sert\u00e3o do S\u00e3o Francisco"
+    }, 
+    "28002": {
+      "id_mesorregiao": 2801, 
+      "id_uf": 28, 
+      "nome": "Carira"
     }, 
     "28003": {
       "id_mesorregiao": 2802, 
       "id_uf": 28, 
       "nome": "Nossa Senhora das Dores"
+    }, 
+    "28004": {
+      "id_mesorregiao": 2802, 
+      "id_uf": 28, 
+      "nome": "Agreste de Itabaiana"
+    }, 
+    "28005": {
+      "id_mesorregiao": 2802, 
+      "id_uf": 28, 
+      "nome": "Tobias Barreto"
+    }, 
+    "28006": {
+      "id_mesorregiao": 2802, 
+      "id_uf": 28, 
+      "nome": "Agreste de Lagarto"
+    }, 
+    "28007": {
+      "id_mesorregiao": 2803, 
+      "id_uf": 28, 
+      "nome": "Propri\u00e1"
+    }, 
+    "28008": {
+      "id_mesorregiao": 2803, 
+      "id_uf": 28, 
+      "nome": "Cotinguiba"
+    }, 
+    "28009": {
+      "id_mesorregiao": 2803, 
+      "id_uf": 28, 
+      "nome": "Japaratuba"
+    }, 
+    "28010": {
+      "id_mesorregiao": 2803, 
+      "id_uf": 28, 
+      "nome": "Baixo Cotinguiba"
     }, 
     "28011": {
       "id_mesorregiao": 2803, 
@@ -1688,145 +1728,35 @@
       "id_uf": 28, 
       "nome": "Boquim"
     }, 
-    "28004": {
-      "id_mesorregiao": 2802, 
-      "id_uf": 28, 
-      "nome": "Agreste de Itabaiana"
-    }, 
-    "28001": {
-      "id_mesorregiao": 2801, 
-      "id_uf": 28, 
-      "nome": "Sergipana do Sert\u00e3o do S\u00e3o Francisco"
-    }, 
-    "28008": {
-      "id_mesorregiao": 2803, 
-      "id_uf": 28, 
-      "nome": "Cotinguiba"
-    }, 
-    "28002": {
-      "id_mesorregiao": 2801, 
-      "id_uf": 28, 
-      "nome": "Carira"
-    }, 
-    "28010": {
-      "id_mesorregiao": 2803, 
-      "id_uf": 28, 
-      "nome": "Baixo Cotinguiba"
-    }, 
     "28013": {
       "id_mesorregiao": 2803, 
       "id_uf": 28, 
       "nome": "Est\u00e2ncia"
-    }, 
-    "28009": {
-      "id_mesorregiao": 2803, 
-      "id_uf": 28, 
-      "nome": "Japaratuba"
-    }, 
-    "28006": {
-      "id_mesorregiao": 2802, 
-      "id_uf": 28, 
-      "nome": "Agreste de Lagarto"
-    }, 
-    "28005": {
-      "id_mesorregiao": 2802, 
-      "id_uf": 28, 
-      "nome": "Tobias Barreto"
-    }, 
-    "29023": {
-      "id_mesorregiao": 2906, 
-      "id_uf": 29, 
-      "nome": "Seabra"
-    }, 
-    "29005": {
-      "id_mesorregiao": 2902, 
-      "id_uf": 29, 
-      "nome": "Paulo Afonso"
-    }, 
-    "29017": {
-      "id_mesorregiao": 2904, 
-      "id_uf": 29, 
-      "nome": "Alagoinhas"
-    }, 
-    "29015": {
-      "id_mesorregiao": 2904, 
-      "id_uf": 29, 
-      "nome": "Ribeira do Pombal"
-    }, 
-    "29012": {
-      "id_mesorregiao": 2903, 
-      "id_uf": 29, 
-      "nome": "Feira de Santana"
-    }, 
-    "29025": {
-      "id_mesorregiao": 2906, 
-      "id_uf": 29, 
-      "nome": "Livramento do Brumado"
-    }, 
-    "29024": {
-      "id_mesorregiao": 2906, 
-      "id_uf": 29, 
-      "nome": "Jequi\u00e9"
-    }, 
-    "29032": {
-      "id_mesorregiao": 2907, 
-      "id_uf": 29, 
-      "nome": "Porto Seguro"
-    }, 
-    "29031": {
-      "id_mesorregiao": 2907, 
-      "id_uf": 29, 
-      "nome": "Ilh\u00e9us-Itabuna"
-    }, 
-    "29019": {
-      "id_mesorregiao": 2905, 
-      "id_uf": 29, 
-      "nome": "Catu"
-    }, 
-    "29009": {
-      "id_mesorregiao": 2903, 
-      "id_uf": 29, 
-      "nome": "Irec\u00ea"
-    }, 
-    "29028": {
-      "id_mesorregiao": 2906, 
-      "id_uf": 29, 
-      "nome": "Vit\u00f3ria da Conquista"
-    }, 
-    "29008": {
-      "id_mesorregiao": 2903, 
-      "id_uf": 29, 
-      "nome": "Senhor do Bonfim"
-    }, 
-    "29002": {
-      "id_mesorregiao": 2901, 
-      "id_uf": 29, 
-      "nome": "Cotegipe"
-    }, 
-    "29027": {
-      "id_mesorregiao": 2906, 
-      "id_uf": 29, 
-      "nome": "Brumado"
-    }, 
-    "29016": {
-      "id_mesorregiao": 2904, 
-      "id_uf": 29, 
-      "nome": "Serrinha"
-    }, 
-    "29020": {
-      "id_mesorregiao": 2905, 
-      "id_uf": 29, 
-      "nome": "Santo Ant\u00f4nio de Jesus"
     }, 
     "29001": {
       "id_mesorregiao": 2901, 
       "id_uf": 29, 
       "nome": "Barreiras"
     }, 
-    "29011": {
-      "id_mesorregiao": 2903, 
+    "29002": {
+      "id_mesorregiao": 2901, 
       "id_uf": 29, 
-      "nome": "Itaberaba"
+      "nome": "Cotegipe"
+    }, 
+    "29003": {
+      "id_mesorregiao": 2901, 
+      "id_uf": 29, 
+      "nome": "Santa Maria da Vit\u00f3ria"
+    }, 
+    "29004": {
+      "id_mesorregiao": 2902, 
+      "id_uf": 29, 
+      "nome": "Juazeiro"
+    }, 
+    "29005": {
+      "id_mesorregiao": 2902, 
+      "id_uf": 29, 
+      "nome": "Paulo Afonso"
     }, 
     "29006": {
       "id_mesorregiao": 2902, 
@@ -1838,625 +1768,730 @@
       "id_uf": 29, 
       "nome": "Bom Jesus da Lapa"
     }, 
-    "29022": {
-      "id_mesorregiao": 2906, 
+    "29008": {
+      "id_mesorregiao": 2903, 
       "id_uf": 29, 
-      "nome": "Boquira"
+      "nome": "Senhor do Bonfim"
     }, 
-    "29026": {
-      "id_mesorregiao": 2906, 
+    "29009": {
+      "id_mesorregiao": 2903, 
       "id_uf": 29, 
-      "nome": "Guanambi"
+      "nome": "Irec\u00ea"
     }, 
     "29010": {
       "id_mesorregiao": 2903, 
       "id_uf": 29, 
       "nome": "Jacobina"
     }, 
-    "29030": {
-      "id_mesorregiao": 2907, 
+    "29011": {
+      "id_mesorregiao": 2903, 
       "id_uf": 29, 
-      "nome": "Valen\u00e7a"
+      "nome": "Itaberaba"
     }, 
-    "29021": {
-      "id_mesorregiao": 2905, 
+    "29012": {
+      "id_mesorregiao": 2903, 
       "id_uf": 29, 
-      "nome": "Salvador"
-    }, 
-    "29004": {
-      "id_mesorregiao": 2902, 
-      "id_uf": 29, 
-      "nome": "Juazeiro"
-    }, 
-    "29003": {
-      "id_mesorregiao": 2901, 
-      "id_uf": 29, 
-      "nome": "Santa Maria da Vit\u00f3ria"
-    }, 
-    "29014": {
-      "id_mesorregiao": 2904, 
-      "id_uf": 29, 
-      "nome": "Euclides da Cunha"
-    }, 
-    "29018": {
-      "id_mesorregiao": 2904, 
-      "id_uf": 29, 
-      "nome": "Entre Rios"
+      "nome": "Feira de Santana"
     }, 
     "29013": {
       "id_mesorregiao": 2904, 
       "id_uf": 29, 
       "nome": "Jeremoabo"
     }, 
+    "29014": {
+      "id_mesorregiao": 2904, 
+      "id_uf": 29, 
+      "nome": "Euclides da Cunha"
+    }, 
+    "29015": {
+      "id_mesorregiao": 2904, 
+      "id_uf": 29, 
+      "nome": "Ribeira do Pombal"
+    }, 
+    "29016": {
+      "id_mesorregiao": 2904, 
+      "id_uf": 29, 
+      "nome": "Serrinha"
+    }, 
+    "29017": {
+      "id_mesorregiao": 2904, 
+      "id_uf": 29, 
+      "nome": "Alagoinhas"
+    }, 
+    "29018": {
+      "id_mesorregiao": 2904, 
+      "id_uf": 29, 
+      "nome": "Entre Rios"
+    }, 
+    "29019": {
+      "id_mesorregiao": 2905, 
+      "id_uf": 29, 
+      "nome": "Catu"
+    }, 
+    "29020": {
+      "id_mesorregiao": 2905, 
+      "id_uf": 29, 
+      "nome": "Santo Ant\u00f4nio de Jesus"
+    }, 
+    "29021": {
+      "id_mesorregiao": 2905, 
+      "id_uf": 29, 
+      "nome": "Salvador"
+    }, 
+    "29022": {
+      "id_mesorregiao": 2906, 
+      "id_uf": 29, 
+      "nome": "Boquira"
+    }, 
+    "29023": {
+      "id_mesorregiao": 2906, 
+      "id_uf": 29, 
+      "nome": "Seabra"
+    }, 
+    "29024": {
+      "id_mesorregiao": 2906, 
+      "id_uf": 29, 
+      "nome": "Jequi\u00e9"
+    }, 
+    "29025": {
+      "id_mesorregiao": 2906, 
+      "id_uf": 29, 
+      "nome": "Livramento do Brumado"
+    }, 
+    "29026": {
+      "id_mesorregiao": 2906, 
+      "id_uf": 29, 
+      "nome": "Guanambi"
+    }, 
+    "29027": {
+      "id_mesorregiao": 2906, 
+      "id_uf": 29, 
+      "nome": "Brumado"
+    }, 
+    "29028": {
+      "id_mesorregiao": 2906, 
+      "id_uf": 29, 
+      "nome": "Vit\u00f3ria da Conquista"
+    }, 
     "29029": {
       "id_mesorregiao": 2906, 
       "id_uf": 29, 
       "nome": "Itapetinga"
     }, 
-    "31019": {
-      "id_mesorregiao": 3105, 
-      "id_uf": 31, 
-      "nome": "Patroc\u00ednio"
+    "29030": {
+      "id_mesorregiao": 2907, 
+      "id_uf": 29, 
+      "nome": "Valen\u00e7a"
     }, 
-    "31024": {
-      "id_mesorregiao": 3106, 
-      "id_uf": 31, 
-      "nome": "Tr\u00eas Marias"
+    "29031": {
+      "id_mesorregiao": 2907, 
+      "id_uf": 29, 
+      "nome": "Ilh\u00e9us-Itabuna"
     }, 
-    "31061": {
-      "id_mesorregiao": 3112, 
-      "id_uf": 31, 
-      "nome": "Manhua\u00e7u"
-    }, 
-    "31060": {
-      "id_mesorregiao": 3112, 
-      "id_uf": 31, 
-      "nome": "Ponte Nova"
-    }, 
-    "31039": {
-      "id_mesorregiao": 3108, 
-      "id_uf": 31, 
-      "nome": "Ipatinga"
-    }, 
-    "31036": {
-      "id_mesorregiao": 3108, 
-      "id_uf": 31, 
-      "nome": "Pe\u00e7anha"
-    }, 
-    "31022": {
-      "id_mesorregiao": 3105, 
-      "id_uf": 31, 
-      "nome": "Uberaba"
-    }, 
-    "31045": {
-      "id_mesorregiao": 3109, 
-      "id_uf": 31, 
-      "nome": "Campo Belo"
-    }, 
-    "31016": {
-      "id_mesorregiao": 3104, 
-      "id_uf": 31, 
-      "nome": "Nanuque"
-    }, 
-    "31005": {
-      "id_mesorregiao": 3102, 
-      "id_uf": 31, 
-      "nome": "Salinas"
-    }, 
-    "31041": {
-      "id_mesorregiao": 3108, 
-      "id_uf": 31, 
-      "nome": "Aimor\u00e9s"
-    }, 
-    "31055": {
-      "id_mesorregiao": 3110, 
-      "id_uf": 31, 
-      "nome": "Andrel\u00e2ndia"
-    }, 
-    "31054": {
-      "id_mesorregiao": 3110, 
-      "id_uf": 31, 
-      "nome": "S\u00e3o Louren\u00e7o"
-    }, 
-    "31051": {
-      "id_mesorregiao": 3110, 
-      "id_uf": 31, 
-      "nome": "Po\u00e7os de Caldas"
-    }, 
-    "31066": {
-      "id_mesorregiao": 3112, 
-      "id_uf": 31, 
-      "nome": "Cataguases"
-    }, 
-    "31049": {
-      "id_mesorregiao": 3110, 
-      "id_uf": 31, 
-      "nome": "Alfenas"
-    }, 
-    "31059": {
-      "id_mesorregiao": 3111, 
-      "id_uf": 31, 
-      "nome": "Barbacena"
-    }, 
-    "31014": {
-      "id_mesorregiao": 3103, 
-      "id_uf": 31, 
-      "nome": "Almenara"
-    }, 
-    "31037": {
-      "id_mesorregiao": 3108, 
-      "id_uf": 31, 
-      "nome": "Governador Valadares"
-    }, 
-    "31047": {
-      "id_mesorregiao": 3110, 
-      "id_uf": 31, 
-      "nome": "Passos"
-    }, 
-    "31062": {
-      "id_mesorregiao": 3112, 
-      "id_uf": 31, 
-      "nome": "Vi\u00e7osa"
-    }, 
-    "31031": {
-      "id_mesorregiao": 3107, 
-      "id_uf": 31, 
-      "nome": "Itabira"
-    }, 
-    "31028": {
-      "id_mesorregiao": 3107, 
-      "id_uf": 31, 
-      "nome": "Concei\u00e7\u00e3o do Mato Dentro"
-    }, 
-    "31013": {
-      "id_mesorregiao": 3103, 
-      "id_uf": 31, 
-      "nome": "Pedra Azul"
-    }, 
-    "31011": {
-      "id_mesorregiao": 3103, 
-      "id_uf": 31, 
-      "nome": "Capelinha"
-    }, 
-    "31063": {
-      "id_mesorregiao": 3112, 
-      "id_uf": 31, 
-      "nome": "Muria\u00e9"
-    }, 
-    "31027": {
-      "id_mesorregiao": 3107, 
-      "id_uf": 31, 
-      "nome": "Sete Lagoas"
-    }, 
-    "31065": {
-      "id_mesorregiao": 3112, 
-      "id_uf": 31, 
-      "nome": "Juiz de Fora"
-    }, 
-    "31012": {
-      "id_mesorregiao": 3103, 
-      "id_uf": 31, 
-      "nome": "Ara\u00e7ua\u00ed"
-    }, 
-    "31018": {
-      "id_mesorregiao": 3105, 
-      "id_uf": 31, 
-      "nome": "Uberl\u00e2ndia"
-    }, 
-    "31020": {
-      "id_mesorregiao": 3105, 
-      "id_uf": 31, 
-      "nome": "Patos de Minas"
-    }, 
-    "31026": {
-      "id_mesorregiao": 3106, 
-      "id_uf": 31, 
-      "nome": "Bom Despacho"
-    }, 
-    "31023": {
-      "id_mesorregiao": 3105, 
-      "id_uf": 31, 
-      "nome": "Arax\u00e1"
-    }, 
-    "31048": {
-      "id_mesorregiao": 3110, 
-      "id_uf": 31, 
-      "nome": "S\u00e3o Sebasti\u00e3o do Para\u00edso"
-    }, 
-    "31044": {
-      "id_mesorregiao": 3109, 
-      "id_uf": 31, 
-      "nome": "Formiga"
+    "29032": {
+      "id_mesorregiao": 2907, 
+      "id_uf": 29, 
+      "nome": "Porto Seguro"
     }, 
     "31001": {
       "id_mesorregiao": 3101, 
       "id_uf": 31, 
       "nome": "Una\u00ed"
     }, 
-    "31064": {
-      "id_mesorregiao": 3112, 
+    "31002": {
+      "id_mesorregiao": 3101, 
       "id_uf": 31, 
-      "nome": "Ub\u00e1"
-    }, 
-    "31015": {
-      "id_mesorregiao": 3104, 
-      "id_uf": 31, 
-      "nome": "Te\u00f3filo Otoni"
-    }, 
-    "31025": {
-      "id_mesorregiao": 3106, 
-      "id_uf": 31, 
-      "nome": "Curvelo"
-    }, 
-    "31042": {
-      "id_mesorregiao": 3109, 
-      "id_uf": 31, 
-      "nome": "Piu\u00ed"
-    }, 
-    "31030": {
-      "id_mesorregiao": 3107, 
-      "id_uf": 31, 
-      "nome": "Belo Horizonte"
-    }, 
-    "31032": {
-      "id_mesorregiao": 3107, 
-      "id_uf": 31, 
-      "nome": "Itaguara"
-    }, 
-    "31050": {
-      "id_mesorregiao": 3110, 
-      "id_uf": 31, 
-      "nome": "Varginha"
-    }, 
-    "31009": {
-      "id_mesorregiao": 3102, 
-      "id_uf": 31, 
-      "nome": "Bocai\u00fava"
-    }, 
-    "31040": {
-      "id_mesorregiao": 3108, 
-      "id_uf": 31, 
-      "nome": "Caratinga"
-    }, 
-    "31052": {
-      "id_mesorregiao": 3110, 
-      "id_uf": 31, 
-      "nome": "Pouso Alegre"
-    }, 
-    "31046": {
-      "id_mesorregiao": 3109, 
-      "id_uf": 31, 
-      "nome": "Oliveira"
+      "nome": "Paracatu"
     }, 
     "31003": {
       "id_mesorregiao": 3102, 
       "id_uf": 31, 
       "nome": "Janu\u00e1ria"
     }, 
-    "31008": {
+    "31004": {
       "id_mesorregiao": 3102, 
       "id_uf": 31, 
-      "nome": "Gr\u00e3o Mogol"
+      "nome": "Jana\u00faba"
     }, 
-    "31002": {
-      "id_mesorregiao": 3101, 
-      "id_uf": 31, 
-      "nome": "Paracatu"
-    }, 
-    "31007": {
+    "31005": {
       "id_mesorregiao": 3102, 
       "id_uf": 31, 
-      "nome": "Montes Claros"
-    }, 
-    "31035": {
-      "id_mesorregiao": 3108, 
-      "id_uf": 31, 
-      "nome": "Guanh\u00e3es"
-    }, 
-    "31056": {
-      "id_mesorregiao": 3110, 
-      "id_uf": 31, 
-      "nome": "Itajub\u00e1"
+      "nome": "Salinas"
     }, 
     "31006": {
       "id_mesorregiao": 3102, 
       "id_uf": 31, 
       "nome": "Pirapora"
     }, 
-    "31053": {
-      "id_mesorregiao": 3110, 
-      "id_uf": 31, 
-      "nome": "Santa Rita do Sapuca\u00ed"
-    }, 
-    "31017": {
-      "id_mesorregiao": 3105, 
-      "id_uf": 31, 
-      "nome": "Ituiutaba"
-    }, 
-    "31021": {
-      "id_mesorregiao": 3105, 
-      "id_uf": 31, 
-      "nome": "Frutal"
-    }, 
-    "31043": {
-      "id_mesorregiao": 3109, 
-      "id_uf": 31, 
-      "nome": "Divin\u00f3polis"
-    }, 
-    "31057": {
-      "id_mesorregiao": 3111, 
-      "id_uf": 31, 
-      "nome": "Lavras"
-    }, 
-    "31034": {
-      "id_mesorregiao": 3107, 
-      "id_uf": 31, 
-      "nome": "Conselheiro Lafaiete"
-    }, 
-    "31058": {
-      "id_mesorregiao": 3111, 
-      "id_uf": 31, 
-      "nome": "S\u00e3o Jo\u00e3o Del Rei"
-    }, 
-    "31004": {
+    "31007": {
       "id_mesorregiao": 3102, 
       "id_uf": 31, 
-      "nome": "Jana\u00faba"
+      "nome": "Montes Claros"
     }, 
-    "31038": {
-      "id_mesorregiao": 3108, 
+    "31008": {
+      "id_mesorregiao": 3102, 
       "id_uf": 31, 
-      "nome": "Mantena"
+      "nome": "Gr\u00e3o Mogol"
+    }, 
+    "31009": {
+      "id_mesorregiao": 3102, 
+      "id_uf": 31, 
+      "nome": "Bocai\u00fava"
     }, 
     "31010": {
       "id_mesorregiao": 3103, 
       "id_uf": 31, 
       "nome": "Diamantina"
     }, 
-    "31033": {
+    "31011": {
+      "id_mesorregiao": 3103, 
+      "id_uf": 31, 
+      "nome": "Capelinha"
+    }, 
+    "31012": {
+      "id_mesorregiao": 3103, 
+      "id_uf": 31, 
+      "nome": "Ara\u00e7ua\u00ed"
+    }, 
+    "31013": {
+      "id_mesorregiao": 3103, 
+      "id_uf": 31, 
+      "nome": "Pedra Azul"
+    }, 
+    "31014": {
+      "id_mesorregiao": 3103, 
+      "id_uf": 31, 
+      "nome": "Almenara"
+    }, 
+    "31015": {
+      "id_mesorregiao": 3104, 
+      "id_uf": 31, 
+      "nome": "Te\u00f3filo Otoni"
+    }, 
+    "31016": {
+      "id_mesorregiao": 3104, 
+      "id_uf": 31, 
+      "nome": "Nanuque"
+    }, 
+    "31017": {
+      "id_mesorregiao": 3105, 
+      "id_uf": 31, 
+      "nome": "Ituiutaba"
+    }, 
+    "31018": {
+      "id_mesorregiao": 3105, 
+      "id_uf": 31, 
+      "nome": "Uberl\u00e2ndia"
+    }, 
+    "31019": {
+      "id_mesorregiao": 3105, 
+      "id_uf": 31, 
+      "nome": "Patroc\u00ednio"
+    }, 
+    "31020": {
+      "id_mesorregiao": 3105, 
+      "id_uf": 31, 
+      "nome": "Patos de Minas"
+    }, 
+    "31021": {
+      "id_mesorregiao": 3105, 
+      "id_uf": 31, 
+      "nome": "Frutal"
+    }, 
+    "31022": {
+      "id_mesorregiao": 3105, 
+      "id_uf": 31, 
+      "nome": "Uberaba"
+    }, 
+    "31023": {
+      "id_mesorregiao": 3105, 
+      "id_uf": 31, 
+      "nome": "Arax\u00e1"
+    }, 
+    "31024": {
+      "id_mesorregiao": 3106, 
+      "id_uf": 31, 
+      "nome": "Tr\u00eas Marias"
+    }, 
+    "31025": {
+      "id_mesorregiao": 3106, 
+      "id_uf": 31, 
+      "nome": "Curvelo"
+    }, 
+    "31026": {
+      "id_mesorregiao": 3106, 
+      "id_uf": 31, 
+      "nome": "Bom Despacho"
+    }, 
+    "31027": {
       "id_mesorregiao": 3107, 
       "id_uf": 31, 
-      "nome": "Ouro Preto"
+      "nome": "Sete Lagoas"
+    }, 
+    "31028": {
+      "id_mesorregiao": 3107, 
+      "id_uf": 31, 
+      "nome": "Concei\u00e7\u00e3o do Mato Dentro"
     }, 
     "31029": {
       "id_mesorregiao": 3107, 
       "id_uf": 31, 
       "nome": "Par\u00e1 de Minas"
     }, 
-    "32007": {
-      "id_mesorregiao": 3203, 
-      "id_uf": 32, 
-      "nome": "Afonso Cl\u00e1udio"
+    "31030": {
+      "id_mesorregiao": 3107, 
+      "id_uf": 31, 
+      "nome": "Belo Horizonte"
     }, 
-    "32002": {
-      "id_mesorregiao": 3201, 
-      "id_uf": 32, 
-      "nome": "Nova Ven\u00e9cia"
+    "31031": {
+      "id_mesorregiao": 3107, 
+      "id_uf": 31, 
+      "nome": "Itabira"
+    }, 
+    "31032": {
+      "id_mesorregiao": 3107, 
+      "id_uf": 31, 
+      "nome": "Itaguara"
+    }, 
+    "31033": {
+      "id_mesorregiao": 3107, 
+      "id_uf": 31, 
+      "nome": "Ouro Preto"
+    }, 
+    "31034": {
+      "id_mesorregiao": 3107, 
+      "id_uf": 31, 
+      "nome": "Conselheiro Lafaiete"
+    }, 
+    "31035": {
+      "id_mesorregiao": 3108, 
+      "id_uf": 31, 
+      "nome": "Guanh\u00e3es"
+    }, 
+    "31036": {
+      "id_mesorregiao": 3108, 
+      "id_uf": 31, 
+      "nome": "Pe\u00e7anha"
+    }, 
+    "31037": {
+      "id_mesorregiao": 3108, 
+      "id_uf": 31, 
+      "nome": "Governador Valadares"
+    }, 
+    "31038": {
+      "id_mesorregiao": 3108, 
+      "id_uf": 31, 
+      "nome": "Mantena"
+    }, 
+    "31039": {
+      "id_mesorregiao": 3108, 
+      "id_uf": 31, 
+      "nome": "Ipatinga"
+    }, 
+    "31040": {
+      "id_mesorregiao": 3108, 
+      "id_uf": 31, 
+      "nome": "Caratinga"
+    }, 
+    "31041": {
+      "id_mesorregiao": 3108, 
+      "id_uf": 31, 
+      "nome": "Aimor\u00e9s"
+    }, 
+    "31042": {
+      "id_mesorregiao": 3109, 
+      "id_uf": 31, 
+      "nome": "Piu\u00ed"
+    }, 
+    "31043": {
+      "id_mesorregiao": 3109, 
+      "id_uf": 31, 
+      "nome": "Divin\u00f3polis"
+    }, 
+    "31044": {
+      "id_mesorregiao": 3109, 
+      "id_uf": 31, 
+      "nome": "Formiga"
+    }, 
+    "31045": {
+      "id_mesorregiao": 3109, 
+      "id_uf": 31, 
+      "nome": "Campo Belo"
+    }, 
+    "31046": {
+      "id_mesorregiao": 3109, 
+      "id_uf": 31, 
+      "nome": "Oliveira"
+    }, 
+    "31047": {
+      "id_mesorregiao": 3110, 
+      "id_uf": 31, 
+      "nome": "Passos"
+    }, 
+    "31048": {
+      "id_mesorregiao": 3110, 
+      "id_uf": 31, 
+      "nome": "S\u00e3o Sebasti\u00e3o do Para\u00edso"
+    }, 
+    "31049": {
+      "id_mesorregiao": 3110, 
+      "id_uf": 31, 
+      "nome": "Alfenas"
+    }, 
+    "31050": {
+      "id_mesorregiao": 3110, 
+      "id_uf": 31, 
+      "nome": "Varginha"
+    }, 
+    "31051": {
+      "id_mesorregiao": 3110, 
+      "id_uf": 31, 
+      "nome": "Po\u00e7os de Caldas"
+    }, 
+    "31052": {
+      "id_mesorregiao": 3110, 
+      "id_uf": 31, 
+      "nome": "Pouso Alegre"
+    }, 
+    "31053": {
+      "id_mesorregiao": 3110, 
+      "id_uf": 31, 
+      "nome": "Santa Rita do Sapuca\u00ed"
+    }, 
+    "31054": {
+      "id_mesorregiao": 3110, 
+      "id_uf": 31, 
+      "nome": "S\u00e3o Louren\u00e7o"
+    }, 
+    "31055": {
+      "id_mesorregiao": 3110, 
+      "id_uf": 31, 
+      "nome": "Andrel\u00e2ndia"
+    }, 
+    "31056": {
+      "id_mesorregiao": 3110, 
+      "id_uf": 31, 
+      "nome": "Itajub\u00e1"
+    }, 
+    "31057": {
+      "id_mesorregiao": 3111, 
+      "id_uf": 31, 
+      "nome": "Lavras"
+    }, 
+    "31058": {
+      "id_mesorregiao": 3111, 
+      "id_uf": 31, 
+      "nome": "S\u00e3o Jo\u00e3o Del Rei"
+    }, 
+    "31059": {
+      "id_mesorregiao": 3111, 
+      "id_uf": 31, 
+      "nome": "Barbacena"
+    }, 
+    "31060": {
+      "id_mesorregiao": 3112, 
+      "id_uf": 31, 
+      "nome": "Ponte Nova"
+    }, 
+    "31061": {
+      "id_mesorregiao": 3112, 
+      "id_uf": 31, 
+      "nome": "Manhua\u00e7u"
+    }, 
+    "31062": {
+      "id_mesorregiao": 3112, 
+      "id_uf": 31, 
+      "nome": "Vi\u00e7osa"
+    }, 
+    "31063": {
+      "id_mesorregiao": 3112, 
+      "id_uf": 31, 
+      "nome": "Muria\u00e9"
+    }, 
+    "31064": {
+      "id_mesorregiao": 3112, 
+      "id_uf": 31, 
+      "nome": "Ub\u00e1"
+    }, 
+    "31065": {
+      "id_mesorregiao": 3112, 
+      "id_uf": 31, 
+      "nome": "Juiz de Fora"
+    }, 
+    "31066": {
+      "id_mesorregiao": 3112, 
+      "id_uf": 31, 
+      "nome": "Cataguases"
     }, 
     "32001": {
       "id_mesorregiao": 3201, 
       "id_uf": 32, 
       "nome": "Barra de S\u00e3o Francisco"
     }, 
-    "32011": {
-      "id_mesorregiao": 3204, 
+    "32002": {
+      "id_mesorregiao": 3201, 
       "id_uf": 32, 
-      "nome": "Alegre"
-    }, 
-    "32010": {
-      "id_mesorregiao": 3203, 
-      "id_uf": 32, 
-      "nome": "Guarapari"
+      "nome": "Nova Ven\u00e9cia"
     }, 
     "32003": {
       "id_mesorregiao": 3201, 
       "id_uf": 32, 
       "nome": "Colatina"
     }, 
-    "32012": {
-      "id_mesorregiao": 3204, 
-      "id_uf": 32, 
-      "nome": "Cachoeiro de Itapemirim"
-    }, 
-    "32006": {
+    "32004": {
       "id_mesorregiao": 3202, 
       "id_uf": 32, 
-      "nome": "Linhares"
-    }, 
-    "32009": {
-      "id_mesorregiao": 3203, 
-      "id_uf": 32, 
-      "nome": "Vit\u00f3ria"
+      "nome": "Montanha"
     }, 
     "32005": {
       "id_mesorregiao": 3202, 
       "id_uf": 32, 
       "nome": "S\u00e3o Mateus"
     }, 
+    "32006": {
+      "id_mesorregiao": 3202, 
+      "id_uf": 32, 
+      "nome": "Linhares"
+    }, 
+    "32007": {
+      "id_mesorregiao": 3203, 
+      "id_uf": 32, 
+      "nome": "Afonso Cl\u00e1udio"
+    }, 
     "32008": {
       "id_mesorregiao": 3203, 
       "id_uf": 32, 
       "nome": "Santa Teresa"
+    }, 
+    "32009": {
+      "id_mesorregiao": 3203, 
+      "id_uf": 32, 
+      "nome": "Vit\u00f3ria"
+    }, 
+    "32010": {
+      "id_mesorregiao": 3203, 
+      "id_uf": 32, 
+      "nome": "Guarapari"
+    }, 
+    "32011": {
+      "id_mesorregiao": 3204, 
+      "id_uf": 32, 
+      "nome": "Alegre"
+    }, 
+    "32012": {
+      "id_mesorregiao": 3204, 
+      "id_uf": 32, 
+      "nome": "Cachoeiro de Itapemirim"
     }, 
     "32013": {
       "id_mesorregiao": 3204, 
       "id_uf": 32, 
       "nome": "Itapemirim"
     }, 
-    "32004": {
-      "id_mesorregiao": 3202, 
-      "id_uf": 32, 
-      "nome": "Montanha"
-    }, 
-    "33013": {
-      "id_mesorregiao": 3305, 
+    "33001": {
+      "id_mesorregiao": 3301, 
       "id_uf": 33, 
-      "nome": "Ba\u00eda da Ilha Grande"
+      "nome": "Itaperuna"
     }, 
     "33002": {
       "id_mesorregiao": 3301, 
       "id_uf": 33, 
       "nome": "Santo Ant\u00f4nio de P\u00e1dua"
     }, 
-    "33010": {
-      "id_mesorregiao": 3304, 
+    "33003": {
+      "id_mesorregiao": 3302, 
       "id_uf": 33, 
-      "nome": "Lagos"
-    }, 
-    "33005": {
-      "id_mesorregiao": 3303, 
-      "id_uf": 33, 
-      "nome": "Tr\u00eas Rios"
-    }, 
-    "33012": {
-      "id_mesorregiao": 3305, 
-      "id_uf": 33, 
-      "nome": "Barra do Pira\u00ed"
-    }, 
-    "33011": {
-      "id_mesorregiao": 3305, 
-      "id_uf": 33, 
-      "nome": "Vale do Para\u00edba Fluminense"
-    }, 
-    "33018": {
-      "id_mesorregiao": 3306, 
-      "id_uf": 33, 
-      "nome": "Rio de Janeiro"
-    }, 
-    "33007": {
-      "id_mesorregiao": 3303, 
-      "id_uf": 33, 
-      "nome": "Nova Friburgo"
-    }, 
-    "33001": {
-      "id_mesorregiao": 3301, 
-      "id_uf": 33, 
-      "nome": "Itaperuna"
-    }, 
-    "33016": {
-      "id_mesorregiao": 3306, 
-      "id_uf": 33, 
-      "nome": "Macacu-Caceribu"
+      "nome": "Campos dos Goytacazes"
     }, 
     "33004": {
       "id_mesorregiao": 3302, 
       "id_uf": 33, 
       "nome": "Maca\u00e9"
     }, 
-    "33003": {
-      "id_mesorregiao": 3302, 
+    "33005": {
+      "id_mesorregiao": 3303, 
       "id_uf": 33, 
-      "nome": "Campos dos Goytacazes"
+      "nome": "Tr\u00eas Rios"
     }, 
     "33006": {
       "id_mesorregiao": 3303, 
       "id_uf": 33, 
       "nome": "Cantagalo-Cordeiro"
     }, 
-    "33009": {
-      "id_mesorregiao": 3304, 
+    "33007": {
+      "id_mesorregiao": 3303, 
       "id_uf": 33, 
-      "nome": "Bacia de S\u00e3o Jo\u00e3o"
-    }, 
-    "33014": {
-      "id_mesorregiao": 3306, 
-      "id_uf": 33, 
-      "nome": "Vassouras"
-    }, 
-    "33017": {
-      "id_mesorregiao": 3306, 
-      "id_uf": 33, 
-      "nome": "Itagua\u00ed"
-    }, 
-    "33015": {
-      "id_mesorregiao": 3306, 
-      "id_uf": 33, 
-      "nome": "Serrana"
+      "nome": "Nova Friburgo"
     }, 
     "33008": {
       "id_mesorregiao": 3303, 
       "id_uf": 33, 
       "nome": "Santa Maria Madalena"
     }, 
-    "35035": {
-      "id_mesorregiao": 3508, 
-      "id_uf": 35, 
-      "nome": "Adamantina"
+    "33009": {
+      "id_mesorregiao": 3304, 
+      "id_uf": 33, 
+      "nome": "Bacia de S\u00e3o Jo\u00e3o"
     }, 
-    "35004": {
+    "33010": {
+      "id_mesorregiao": 3304, 
+      "id_uf": 33, 
+      "nome": "Lagos"
+    }, 
+    "33011": {
+      "id_mesorregiao": 3305, 
+      "id_uf": 33, 
+      "nome": "Vale do Para\u00edba Fluminense"
+    }, 
+    "33012": {
+      "id_mesorregiao": 3305, 
+      "id_uf": 33, 
+      "nome": "Barra do Pira\u00ed"
+    }, 
+    "33013": {
+      "id_mesorregiao": 3305, 
+      "id_uf": 33, 
+      "nome": "Ba\u00eda da Ilha Grande"
+    }, 
+    "33014": {
+      "id_mesorregiao": 3306, 
+      "id_uf": 33, 
+      "nome": "Vassouras"
+    }, 
+    "33015": {
+      "id_mesorregiao": 3306, 
+      "id_uf": 33, 
+      "nome": "Serrana"
+    }, 
+    "33016": {
+      "id_mesorregiao": 3306, 
+      "id_uf": 33, 
+      "nome": "Macacu-Caceribu"
+    }, 
+    "33017": {
+      "id_mesorregiao": 3306, 
+      "id_uf": 33, 
+      "nome": "Itagua\u00ed"
+    }, 
+    "33018": {
+      "id_mesorregiao": 3306, 
+      "id_uf": 33, 
+      "nome": "Rio de Janeiro"
+    }, 
+    "35001": {
       "id_mesorregiao": 3501, 
       "id_uf": 35, 
-      "nome": "S\u00e3o Jos\u00e9 do Rio Preto"
+      "nome": "Jales"
     }, 
-    "35029": {
-      "id_mesorregiao": 3507, 
+    "35002": {
+      "id_mesorregiao": 3501, 
       "id_uf": 35, 
-      "nome": "Pirassununga"
-    }, 
-    "35030": {
-      "id_mesorregiao": 3507, 
-      "id_uf": 35, 
-      "nome": "S\u00e3o Jo\u00e3o da Boa Vista"
-    }, 
-    "35033": {
-      "id_mesorregiao": 3507, 
-      "id_uf": 35, 
-      "nome": "Amparo"
-    }, 
-    "35022": {
-      "id_mesorregiao": 3504, 
-      "id_uf": 35, 
-      "nome": "Avar\u00e9"
-    }, 
-    "35028": {
-      "id_mesorregiao": 3506, 
-      "id_uf": 35, 
-      "nome": "Piracicaba"
-    }, 
-    "35020": {
-      "id_mesorregiao": 3504, 
-      "id_uf": 35, 
-      "nome": "Bauru"
-    }, 
-    "35042": {
-      "id_mesorregiao": 3511, 
-      "id_uf": 35, 
-      "nome": "Itapetininga"
-    }, 
-    "35036": {
-      "id_mesorregiao": 3508, 
-      "id_uf": 35, 
-      "nome": "Presidente Prudente"
-    }, 
-    "35015": {
-      "id_mesorregiao": 3502, 
-      "id_uf": 35, 
-      "nome": "Batatais"
-    }, 
-    "35018": {
-      "id_mesorregiao": 3503, 
-      "id_uf": 35, 
-      "nome": "Birigui"
-    }, 
-    "35046": {
-      "id_mesorregiao": 3512, 
-      "id_uf": 35, 
-      "nome": "Sorocaba"
+      "nome": "Fernand\u00f3polis"
     }, 
     "35003": {
       "id_mesorregiao": 3501, 
       "id_uf": 35, 
       "nome": "Votuporanga"
     }, 
-    "35038": {
-      "id_mesorregiao": 3509, 
+    "35004": {
+      "id_mesorregiao": 3501, 
       "id_uf": 35, 
-      "nome": "Mar\u00edlia"
+      "nome": "S\u00e3o Jos\u00e9 do Rio Preto"
     }, 
-    "35032": {
-      "id_mesorregiao": 3507, 
+    "35005": {
+      "id_mesorregiao": 3501, 
       "id_uf": 35, 
-      "nome": "Campinas"
+      "nome": "Catanduva"
+    }, 
+    "35006": {
+      "id_mesorregiao": 3501, 
+      "id_uf": 35, 
+      "nome": "Auriflama"
+    }, 
+    "35007": {
+      "id_mesorregiao": 3501, 
+      "id_uf": 35, 
+      "nome": "Nhandeara"
+    }, 
+    "35008": {
+      "id_mesorregiao": 3501, 
+      "id_uf": 35, 
+      "nome": "Novo Horizonte"
+    }, 
+    "35009": {
+      "id_mesorregiao": 3502, 
+      "id_uf": 35, 
+      "nome": "Barretos"
+    }, 
+    "35010": {
+      "id_mesorregiao": 3502, 
+      "id_uf": 35, 
+      "nome": "S\u00e3o Joaquim da Barra"
+    }, 
+    "35011": {
+      "id_mesorregiao": 3502, 
+      "id_uf": 35, 
+      "nome": "Ituverava"
+    }, 
+    "35012": {
+      "id_mesorregiao": 3502, 
+      "id_uf": 35, 
+      "nome": "Franca"
+    }, 
+    "35013": {
+      "id_mesorregiao": 3502, 
+      "id_uf": 35, 
+      "nome": "Jaboticabal"
+    }, 
+    "35014": {
+      "id_mesorregiao": 3502, 
+      "id_uf": 35, 
+      "nome": "Ribeir\u00e3o Preto"
+    }, 
+    "35015": {
+      "id_mesorregiao": 3502, 
+      "id_uf": 35, 
+      "nome": "Batatais"
+    }, 
+    "35016": {
+      "id_mesorregiao": 3503, 
+      "id_uf": 35, 
+      "nome": "Andradina"
+    }, 
+    "35017": {
+      "id_mesorregiao": 3503, 
+      "id_uf": 35, 
+      "nome": "Ara\u00e7atuba"
+    }, 
+    "35018": {
+      "id_mesorregiao": 3503, 
+      "id_uf": 35, 
+      "nome": "Birigui"
+    }, 
+    "35019": {
+      "id_mesorregiao": 3504, 
+      "id_uf": 35, 
+      "nome": "Lins"
+    }, 
+    "35020": {
+      "id_mesorregiao": 3504, 
+      "id_uf": 35, 
+      "nome": "Bauru"
+    }, 
+    "35021": {
+      "id_mesorregiao": 3504, 
+      "id_uf": 35, 
+      "nome": "Ja\u00fa"
+    }, 
+    "35022": {
+      "id_mesorregiao": 3504, 
+      "id_uf": 35, 
+      "nome": "Avar\u00e9"
+    }, 
+    "35023": {
+      "id_mesorregiao": 3504, 
+      "id_uf": 35, 
+      "nome": "Botucatu"
     }, 
     "35024": {
       "id_mesorregiao": 3505, 
@@ -2468,510 +2503,415 @@
       "id_uf": 35, 
       "nome": "S\u00e3o Carlos"
     }, 
-    "35016": {
-      "id_mesorregiao": 3503, 
+    "35026": {
+      "id_mesorregiao": 3506, 
       "id_uf": 35, 
-      "nome": "Andradina"
-    }, 
-    "35023": {
-      "id_mesorregiao": 3504, 
-      "id_uf": 35, 
-      "nome": "Botucatu"
-    }, 
-    "35051": {
-      "id_mesorregiao": 3513, 
-      "id_uf": 35, 
-      "nome": "Guaratinguet\u00e1"
-    }, 
-    "35001": {
-      "id_mesorregiao": 3501, 
-      "id_uf": 35, 
-      "nome": "Jales"
-    }, 
-    "35044": {
-      "id_mesorregiao": 3511, 
-      "id_uf": 35, 
-      "nome": "Cap\u00e3o Bonito"
-    }, 
-    "35017": {
-      "id_mesorregiao": 3503, 
-      "id_uf": 35, 
-      "nome": "Ara\u00e7atuba"
-    }, 
-    "35011": {
-      "id_mesorregiao": 3502, 
-      "id_uf": 35, 
-      "nome": "Ituverava"
-    }, 
-    "35052": {
-      "id_mesorregiao": 3513, 
-      "id_uf": 35, 
-      "nome": "Bananal"
+      "nome": "Rio Claro"
     }, 
     "35027": {
       "id_mesorregiao": 3506, 
       "id_uf": 35, 
       "nome": "Limeira"
     }, 
-    "35037": {
-      "id_mesorregiao": 3509, 
+    "35028": {
+      "id_mesorregiao": 3506, 
       "id_uf": 35, 
-      "nome": "Tup\u00e3"
+      "nome": "Piracicaba"
     }, 
-    "35005": {
-      "id_mesorregiao": 3501, 
+    "35029": {
+      "id_mesorregiao": 3507, 
       "id_uf": 35, 
-      "nome": "Catanduva"
+      "nome": "Pirassununga"
+    }, 
+    "35030": {
+      "id_mesorregiao": 3507, 
+      "id_uf": 35, 
+      "nome": "S\u00e3o Jo\u00e3o da Boa Vista"
     }, 
     "35031": {
       "id_mesorregiao": 3507, 
       "id_uf": 35, 
       "nome": "Moji Mirim"
     }, 
-    "35059": {
-      "id_mesorregiao": 3515, 
+    "35032": {
+      "id_mesorregiao": 3507, 
       "id_uf": 35, 
-      "nome": "Guarulhos"
+      "nome": "Campinas"
     }, 
-    "35039": {
-      "id_mesorregiao": 3510, 
+    "35033": {
+      "id_mesorregiao": 3507, 
       "id_uf": 35, 
-      "nome": "Assis"
-    }, 
-    "35048": {
-      "id_mesorregiao": 3512, 
-      "id_uf": 35, 
-      "nome": "Bragan\u00e7a Paulista"
-    }, 
-    "35006": {
-      "id_mesorregiao": 3501, 
-      "id_uf": 35, 
-      "nome": "Auriflama"
-    }, 
-    "35041": {
-      "id_mesorregiao": 3511, 
-      "id_uf": 35, 
-      "nome": "Itapeva"
-    }, 
-    "35021": {
-      "id_mesorregiao": 3504, 
-      "id_uf": 35, 
-      "nome": "Ja\u00fa"
-    }, 
-    "35055": {
-      "id_mesorregiao": 3514, 
-      "id_uf": 35, 
-      "nome": "Registro"
-    }, 
-    "35009": {
-      "id_mesorregiao": 3502, 
-      "id_uf": 35, 
-      "nome": "Barretos"
-    }, 
-    "35014": {
-      "id_mesorregiao": 3502, 
-      "id_uf": 35, 
-      "nome": "Ribeir\u00e3o Preto"
-    }, 
-    "35057": {
-      "id_mesorregiao": 3515, 
-      "id_uf": 35, 
-      "nome": "Osasco"
-    }, 
-    "35013": {
-      "id_mesorregiao": 3502, 
-      "id_uf": 35, 
-      "nome": "Jaboticabal"
-    }, 
-    "35040": {
-      "id_mesorregiao": 3510, 
-      "id_uf": 35, 
-      "nome": "Ourinhos"
-    }, 
-    "35063": {
-      "id_mesorregiao": 3515, 
-      "id_uf": 35, 
-      "nome": "Santos"
-    }, 
-    "35062": {
-      "id_mesorregiao": 3515, 
-      "id_uf": 35, 
-      "nome": "Mogi das Cruzes"
-    }, 
-    "35043": {
-      "id_mesorregiao": 3511, 
-      "id_uf": 35, 
-      "nome": "Tatu\u00ed"
-    }, 
-    "35026": {
-      "id_mesorregiao": 3506, 
-      "id_uf": 35, 
-      "nome": "Rio Claro"
-    }, 
-    "35050": {
-      "id_mesorregiao": 3513, 
-      "id_uf": 35, 
-      "nome": "S\u00e3o Jos\u00e9 dos Campos"
-    }, 
-    "35019": {
-      "id_mesorregiao": 3504, 
-      "id_uf": 35, 
-      "nome": "Lins"
-    }, 
-    "35058": {
-      "id_mesorregiao": 3515, 
-      "id_uf": 35, 
-      "nome": "Franco da Rocha"
-    }, 
-    "35047": {
-      "id_mesorregiao": 3512, 
-      "id_uf": 35, 
-      "nome": "Jundia\u00ed"
-    }, 
-    "35049": {
-      "id_mesorregiao": 3513, 
-      "id_uf": 35, 
-      "nome": "Campos do Jord\u00e3o"
-    }, 
-    "35054": {
-      "id_mesorregiao": 3513, 
-      "id_uf": 35, 
-      "nome": "Caraguatatuba"
-    }, 
-    "35060": {
-      "id_mesorregiao": 3515, 
-      "id_uf": 35, 
-      "nome": "Itapecerica da Serra"
-    }, 
-    "35012": {
-      "id_mesorregiao": 3502, 
-      "id_uf": 35, 
-      "nome": "Franca"
-    }, 
-    "35053": {
-      "id_mesorregiao": 3513, 
-      "id_uf": 35, 
-      "nome": "Paraibuna/Paraitinga"
-    }, 
-    "35061": {
-      "id_mesorregiao": 3515, 
-      "id_uf": 35, 
-      "nome": "S\u00e3o Paulo"
+      "nome": "Amparo"
     }, 
     "35034": {
       "id_mesorregiao": 3508, 
       "id_uf": 35, 
       "nome": "Dracena"
     }, 
-    "35002": {
-      "id_mesorregiao": 3501, 
+    "35035": {
+      "id_mesorregiao": 3508, 
       "id_uf": 35, 
-      "nome": "Fernand\u00f3polis"
+      "nome": "Adamantina"
     }, 
-    "35010": {
-      "id_mesorregiao": 3502, 
+    "35036": {
+      "id_mesorregiao": 3508, 
       "id_uf": 35, 
-      "nome": "S\u00e3o Joaquim da Barra"
+      "nome": "Presidente Prudente"
+    }, 
+    "35037": {
+      "id_mesorregiao": 3509, 
+      "id_uf": 35, 
+      "nome": "Tup\u00e3"
+    }, 
+    "35038": {
+      "id_mesorregiao": 3509, 
+      "id_uf": 35, 
+      "nome": "Mar\u00edlia"
+    }, 
+    "35039": {
+      "id_mesorregiao": 3510, 
+      "id_uf": 35, 
+      "nome": "Assis"
+    }, 
+    "35040": {
+      "id_mesorregiao": 3510, 
+      "id_uf": 35, 
+      "nome": "Ourinhos"
+    }, 
+    "35041": {
+      "id_mesorregiao": 3511, 
+      "id_uf": 35, 
+      "nome": "Itapeva"
+    }, 
+    "35042": {
+      "id_mesorregiao": 3511, 
+      "id_uf": 35, 
+      "nome": "Itapetininga"
+    }, 
+    "35043": {
+      "id_mesorregiao": 3511, 
+      "id_uf": 35, 
+      "nome": "Tatu\u00ed"
+    }, 
+    "35044": {
+      "id_mesorregiao": 3511, 
+      "id_uf": 35, 
+      "nome": "Cap\u00e3o Bonito"
     }, 
     "35045": {
       "id_mesorregiao": 3512, 
       "id_uf": 35, 
       "nome": "Piedade"
     }, 
-    "35008": {
-      "id_mesorregiao": 3501, 
+    "35046": {
+      "id_mesorregiao": 3512, 
       "id_uf": 35, 
-      "nome": "Novo Horizonte"
+      "nome": "Sorocaba"
+    }, 
+    "35047": {
+      "id_mesorregiao": 3512, 
+      "id_uf": 35, 
+      "nome": "Jundia\u00ed"
+    }, 
+    "35048": {
+      "id_mesorregiao": 3512, 
+      "id_uf": 35, 
+      "nome": "Bragan\u00e7a Paulista"
+    }, 
+    "35049": {
+      "id_mesorregiao": 3513, 
+      "id_uf": 35, 
+      "nome": "Campos do Jord\u00e3o"
+    }, 
+    "35050": {
+      "id_mesorregiao": 3513, 
+      "id_uf": 35, 
+      "nome": "S\u00e3o Jos\u00e9 dos Campos"
+    }, 
+    "35051": {
+      "id_mesorregiao": 3513, 
+      "id_uf": 35, 
+      "nome": "Guaratinguet\u00e1"
+    }, 
+    "35052": {
+      "id_mesorregiao": 3513, 
+      "id_uf": 35, 
+      "nome": "Bananal"
+    }, 
+    "35053": {
+      "id_mesorregiao": 3513, 
+      "id_uf": 35, 
+      "nome": "Paraibuna/Paraitinga"
+    }, 
+    "35054": {
+      "id_mesorregiao": 3513, 
+      "id_uf": 35, 
+      "nome": "Caraguatatuba"
+    }, 
+    "35055": {
+      "id_mesorregiao": 3514, 
+      "id_uf": 35, 
+      "nome": "Registro"
     }, 
     "35056": {
       "id_mesorregiao": 3514, 
       "id_uf": 35, 
       "nome": "Itanha\u00e9m"
     }, 
-    "35007": {
-      "id_mesorregiao": 3501, 
+    "35057": {
+      "id_mesorregiao": 3515, 
       "id_uf": 35, 
-      "nome": "Nhandeara"
+      "nome": "Osasco"
     }, 
-    "41015": {
-      "id_mesorregiao": 4104, 
-      "id_uf": 41, 
-      "nome": "Corn\u00e9lio Proc\u00f3pio"
+    "35058": {
+      "id_mesorregiao": 3515, 
+      "id_uf": 35, 
+      "nome": "Franco da Rocha"
     }, 
-    "41035": {
-      "id_mesorregiao": 4110, 
-      "id_uf": 41, 
-      "nome": "Cerro Azul"
+    "35059": {
+      "id_mesorregiao": 3515, 
+      "id_uf": 35, 
+      "nome": "Guarulhos"
     }, 
-    "41039": {
-      "id_mesorregiao": 4110, 
-      "id_uf": 41, 
-      "nome": "Rio Negro"
+    "35060": {
+      "id_mesorregiao": 3515, 
+      "id_uf": 35, 
+      "nome": "Itapecerica da Serra"
     }, 
-    "41037": {
-      "id_mesorregiao": 4110, 
-      "id_uf": 41, 
-      "nome": "Curitiba"
+    "35061": {
+      "id_mesorregiao": 3515, 
+      "id_uf": 35, 
+      "nome": "S\u00e3o Paulo"
     }, 
-    "41004": {
-      "id_mesorregiao": 4102, 
-      "id_uf": 41, 
-      "nome": "Goioer\u00ea"
+    "35062": {
+      "id_mesorregiao": 3515, 
+      "id_uf": 35, 
+      "nome": "Mogi das Cruzes"
     }, 
-    "41002": {
-      "id_mesorregiao": 4101, 
-      "id_uf": 41, 
-      "nome": "Umuarama"
+    "35063": {
+      "id_mesorregiao": 3515, 
+      "id_uf": 35, 
+      "nome": "Santos"
     }, 
     "41001": {
       "id_mesorregiao": 4101, 
       "id_uf": 41, 
       "nome": "Paranava\u00ed"
     }, 
-    "41007": {
-      "id_mesorregiao": 4103, 
+    "41002": {
+      "id_mesorregiao": 4101, 
       "id_uf": 41, 
-      "nome": "Porecatu"
-    }, 
-    "41025": {
-      "id_mesorregiao": 4107, 
-      "id_uf": 41, 
-      "nome": "Capanema"
-    }, 
-    "41023": {
-      "id_mesorregiao": 4106, 
-      "id_uf": 41, 
-      "nome": "Cascavel"
-    }, 
-    "41006": {
-      "id_mesorregiao": 4103, 
-      "id_uf": 41, 
-      "nome": "Astorga"
-    }, 
-    "41038": {
-      "id_mesorregiao": 4110, 
-      "id_uf": 41, 
-      "nome": "Paranagu\u00e1"
-    }, 
-    "41034": {
-      "id_mesorregiao": 4109, 
-      "id_uf": 41, 
-      "nome": "S\u00e3o Mateus do Sul"
-    }, 
-    "41010": {
-      "id_mesorregiao": 4103, 
-      "id_uf": 41, 
-      "nome": "Apucarana"
-    }, 
-    "41020": {
-      "id_mesorregiao": 4105, 
-      "id_uf": 41, 
-      "nome": "Jaguaria\u00edva"
-    }, 
-    "41013": {
-      "id_mesorregiao": 4103, 
-      "id_uf": 41, 
-      "nome": "Ivaipor\u00e3"
-    }, 
-    "41005": {
-      "id_mesorregiao": 4102, 
-      "id_uf": 41, 
-      "nome": "Campo Mour\u00e3o"
-    }, 
-    "41014": {
-      "id_mesorregiao": 4104, 
-      "id_uf": 41, 
-      "nome": "Assa\u00ed"
-    }, 
-    "41022": {
-      "id_mesorregiao": 4106, 
-      "id_uf": 41, 
-      "nome": "Toledo"
-    }, 
-    "41026": {
-      "id_mesorregiao": 4107, 
-      "id_uf": 41, 
-      "nome": "Francisco Beltr\u00e3o"
-    }, 
-    "41016": {
-      "id_mesorregiao": 4104, 
-      "id_uf": 41, 
-      "nome": "Jacarezinho"
-    }, 
-    "41033": {
-      "id_mesorregiao": 4109, 
-      "id_uf": 41, 
-      "nome": "Uni\u00e3o da Vit\u00f3ria"
-    }, 
-    "41028": {
-      "id_mesorregiao": 4108, 
-      "id_uf": 41, 
-      "nome": "Pitanga"
-    }, 
-    "41012": {
-      "id_mesorregiao": 4103, 
-      "id_uf": 41, 
-      "nome": "Faxinal"
-    }, 
-    "41027": {
-      "id_mesorregiao": 4107, 
-      "id_uf": 41, 
-      "nome": "Pato Branco"
-    }, 
-    "41011": {
-      "id_mesorregiao": 4103, 
-      "id_uf": 41, 
-      "nome": "Londrina"
-    }, 
-    "41029": {
-      "id_mesorregiao": 4108, 
-      "id_uf": 41, 
-      "nome": "Guarapuava"
-    }, 
-    "41021": {
-      "id_mesorregiao": 4105, 
-      "id_uf": 41, 
-      "nome": "Ponta Grossa"
-    }, 
-    "41018": {
-      "id_mesorregiao": 4104, 
-      "id_uf": 41, 
-      "nome": "Wenceslau Braz"
-    }, 
-    "41024": {
-      "id_mesorregiao": 4106, 
-      "id_uf": 41, 
-      "nome": "Foz do Igua\u00e7u"
+      "nome": "Umuarama"
     }, 
     "41003": {
       "id_mesorregiao": 4101, 
       "id_uf": 41, 
       "nome": "Cianorte"
     }, 
-    "41030": {
-      "id_mesorregiao": 4108, 
+    "41004": {
+      "id_mesorregiao": 4102, 
       "id_uf": 41, 
-      "nome": "Palmas"
+      "nome": "Goioer\u00ea"
     }, 
-    "41017": {
-      "id_mesorregiao": 4104, 
+    "41005": {
+      "id_mesorregiao": 4102, 
       "id_uf": 41, 
-      "nome": "Ibaiti"
+      "nome": "Campo Mour\u00e3o"
+    }, 
+    "41006": {
+      "id_mesorregiao": 4103, 
+      "id_uf": 41, 
+      "nome": "Astorga"
+    }, 
+    "41007": {
+      "id_mesorregiao": 4103, 
+      "id_uf": 41, 
+      "nome": "Porecatu"
     }, 
     "41008": {
       "id_mesorregiao": 4103, 
       "id_uf": 41, 
       "nome": "Flora\u00ed"
     }, 
-    "41031": {
-      "id_mesorregiao": 4109, 
+    "41009": {
+      "id_mesorregiao": 4103, 
       "id_uf": 41, 
-      "nome": "Prudent\u00f3polis"
+      "nome": "Maring\u00e1"
+    }, 
+    "41010": {
+      "id_mesorregiao": 4103, 
+      "id_uf": 41, 
+      "nome": "Apucarana"
+    }, 
+    "41011": {
+      "id_mesorregiao": 4103, 
+      "id_uf": 41, 
+      "nome": "Londrina"
+    }, 
+    "41012": {
+      "id_mesorregiao": 4103, 
+      "id_uf": 41, 
+      "nome": "Faxinal"
+    }, 
+    "41013": {
+      "id_mesorregiao": 4103, 
+      "id_uf": 41, 
+      "nome": "Ivaipor\u00e3"
+    }, 
+    "41014": {
+      "id_mesorregiao": 4104, 
+      "id_uf": 41, 
+      "nome": "Assa\u00ed"
+    }, 
+    "41015": {
+      "id_mesorregiao": 4104, 
+      "id_uf": 41, 
+      "nome": "Corn\u00e9lio Proc\u00f3pio"
+    }, 
+    "41016": {
+      "id_mesorregiao": 4104, 
+      "id_uf": 41, 
+      "nome": "Jacarezinho"
+    }, 
+    "41017": {
+      "id_mesorregiao": 4104, 
+      "id_uf": 41, 
+      "nome": "Ibaiti"
+    }, 
+    "41018": {
+      "id_mesorregiao": 4104, 
+      "id_uf": 41, 
+      "nome": "Wenceslau Braz"
     }, 
     "41019": {
       "id_mesorregiao": 4105, 
       "id_uf": 41, 
       "nome": "Tel\u00eamaco Borba"
     }, 
+    "41020": {
+      "id_mesorregiao": 4105, 
+      "id_uf": 41, 
+      "nome": "Jaguaria\u00edva"
+    }, 
+    "41021": {
+      "id_mesorregiao": 4105, 
+      "id_uf": 41, 
+      "nome": "Ponta Grossa"
+    }, 
+    "41022": {
+      "id_mesorregiao": 4106, 
+      "id_uf": 41, 
+      "nome": "Toledo"
+    }, 
+    "41023": {
+      "id_mesorregiao": 4106, 
+      "id_uf": 41, 
+      "nome": "Cascavel"
+    }, 
+    "41024": {
+      "id_mesorregiao": 4106, 
+      "id_uf": 41, 
+      "nome": "Foz do Igua\u00e7u"
+    }, 
+    "41025": {
+      "id_mesorregiao": 4107, 
+      "id_uf": 41, 
+      "nome": "Capanema"
+    }, 
+    "41026": {
+      "id_mesorregiao": 4107, 
+      "id_uf": 41, 
+      "nome": "Francisco Beltr\u00e3o"
+    }, 
+    "41027": {
+      "id_mesorregiao": 4107, 
+      "id_uf": 41, 
+      "nome": "Pato Branco"
+    }, 
+    "41028": {
+      "id_mesorregiao": 4108, 
+      "id_uf": 41, 
+      "nome": "Pitanga"
+    }, 
+    "41029": {
+      "id_mesorregiao": 4108, 
+      "id_uf": 41, 
+      "nome": "Guarapuava"
+    }, 
+    "41030": {
+      "id_mesorregiao": 4108, 
+      "id_uf": 41, 
+      "nome": "Palmas"
+    }, 
+    "41031": {
+      "id_mesorregiao": 4109, 
+      "id_uf": 41, 
+      "nome": "Prudent\u00f3polis"
+    }, 
     "41032": {
       "id_mesorregiao": 4109, 
       "id_uf": 41, 
       "nome": "Irati"
+    }, 
+    "41033": {
+      "id_mesorregiao": 4109, 
+      "id_uf": 41, 
+      "nome": "Uni\u00e3o da Vit\u00f3ria"
+    }, 
+    "41034": {
+      "id_mesorregiao": 4109, 
+      "id_uf": 41, 
+      "nome": "S\u00e3o Mateus do Sul"
+    }, 
+    "41035": {
+      "id_mesorregiao": 4110, 
+      "id_uf": 41, 
+      "nome": "Cerro Azul"
     }, 
     "41036": {
       "id_mesorregiao": 4110, 
       "id_uf": 41, 
       "nome": "Lapa"
     }, 
-    "41009": {
-      "id_mesorregiao": 4103, 
+    "41037": {
+      "id_mesorregiao": 4110, 
       "id_uf": 41, 
-      "nome": "Maring\u00e1"
+      "nome": "Curitiba"
     }, 
-    "42009": {
-      "id_mesorregiao": 4203, 
-      "id_uf": 42, 
-      "nome": "Curitibanos"
+    "41038": {
+      "id_mesorregiao": 4110, 
+      "id_uf": 41, 
+      "nome": "Paranagu\u00e1"
     }, 
-    "42003": {
-      "id_mesorregiao": 4201, 
-      "id_uf": 42, 
-      "nome": "Xanxer\u00ea"
-    }, 
-    "42014": {
-      "id_mesorregiao": 4204, 
-      "id_uf": 42, 
-      "nome": "Ituporanga"
-    }, 
-    "42011": {
-      "id_mesorregiao": 4204, 
-      "id_uf": 42, 
-      "nome": "Rio do Sul"
-    }, 
-    "42004": {
-      "id_mesorregiao": 4201, 
-      "id_uf": 42, 
-      "nome": "Joa\u00e7aba"
-    }, 
-    "42002": {
-      "id_mesorregiao": 4201, 
-      "id_uf": 42, 
-      "nome": "Chapec\u00f3"
-    }, 
-    "42017": {
-      "id_mesorregiao": 4205, 
-      "id_uf": 42, 
-      "nome": "Tabuleiro"
-    }, 
-    "42005": {
-      "id_mesorregiao": 4201, 
-      "id_uf": 42, 
-      "nome": "Conc\u00f3rdia"
+    "41039": {
+      "id_mesorregiao": 4110, 
+      "id_uf": 41, 
+      "nome": "Rio Negro"
     }, 
     "42001": {
       "id_mesorregiao": 4201, 
       "id_uf": 42, 
       "nome": "S\u00e3o Miguel do Oeste"
     }, 
-    "42015": {
-      "id_mesorregiao": 4205, 
+    "42002": {
+      "id_mesorregiao": 4201, 
       "id_uf": 42, 
-      "nome": "Tijucas"
+      "nome": "Chapec\u00f3"
     }, 
-    "42010": {
-      "id_mesorregiao": 4203, 
+    "42003": {
+      "id_mesorregiao": 4201, 
       "id_uf": 42, 
-      "nome": "Campos de Lages"
+      "nome": "Xanxer\u00ea"
     }, 
-    "42016": {
-      "id_mesorregiao": 4205, 
+    "42004": {
+      "id_mesorregiao": 4201, 
       "id_uf": 42, 
-      "nome": "Florian\u00f3polis"
+      "nome": "Joa\u00e7aba"
     }, 
-    "42012": {
-      "id_mesorregiao": 4204, 
+    "42005": {
+      "id_mesorregiao": 4201, 
       "id_uf": 42, 
-      "nome": "Blumenau"
-    }, 
-    "42008": {
-      "id_mesorregiao": 4202, 
-      "id_uf": 42, 
-      "nome": "Joinville"
-    }, 
-    "42020": {
-      "id_mesorregiao": 4206, 
-      "id_uf": 42, 
-      "nome": "Ararangu\u00e1"
-    }, 
-    "42018": {
-      "id_mesorregiao": 4206, 
-      "id_uf": 42, 
-      "nome": "Tubar\u00e3o"
-    }, 
-    "42013": {
-      "id_mesorregiao": 4204, 
-      "id_uf": 42, 
-      "nome": "Itaja\u00ed"
+      "nome": "Conc\u00f3rdia"
     }, 
     "42006": {
       "id_mesorregiao": 4202, 
@@ -2983,375 +2923,425 @@
       "id_uf": 42, 
       "nome": "S\u00e3o Bento do Sul"
     }, 
+    "42008": {
+      "id_mesorregiao": 4202, 
+      "id_uf": 42, 
+      "nome": "Joinville"
+    }, 
+    "42009": {
+      "id_mesorregiao": 4203, 
+      "id_uf": 42, 
+      "nome": "Curitibanos"
+    }, 
+    "42010": {
+      "id_mesorregiao": 4203, 
+      "id_uf": 42, 
+      "nome": "Campos de Lages"
+    }, 
+    "42011": {
+      "id_mesorregiao": 4204, 
+      "id_uf": 42, 
+      "nome": "Rio do Sul"
+    }, 
+    "42012": {
+      "id_mesorregiao": 4204, 
+      "id_uf": 42, 
+      "nome": "Blumenau"
+    }, 
+    "42013": {
+      "id_mesorregiao": 4204, 
+      "id_uf": 42, 
+      "nome": "Itaja\u00ed"
+    }, 
+    "42014": {
+      "id_mesorregiao": 4204, 
+      "id_uf": 42, 
+      "nome": "Ituporanga"
+    }, 
+    "42015": {
+      "id_mesorregiao": 4205, 
+      "id_uf": 42, 
+      "nome": "Tijucas"
+    }, 
+    "42016": {
+      "id_mesorregiao": 4205, 
+      "id_uf": 42, 
+      "nome": "Florian\u00f3polis"
+    }, 
+    "42017": {
+      "id_mesorregiao": 4205, 
+      "id_uf": 42, 
+      "nome": "Tabuleiro"
+    }, 
+    "42018": {
+      "id_mesorregiao": 4206, 
+      "id_uf": 42, 
+      "nome": "Tubar\u00e3o"
+    }, 
     "42019": {
       "id_mesorregiao": 4206, 
       "id_uf": 42, 
       "nome": "Crici\u00fama"
     }, 
-    "43031": {
-      "id_mesorregiao": 4306, 
-      "id_uf": 43, 
-      "nome": "Campanha Meridional"
-    }, 
-    "43010": {
-      "id_mesorregiao": 4301, 
-      "id_uf": 43, 
-      "nome": "Passo Fundo"
-    }, 
-    "43019": {
-      "id_mesorregiao": 4303, 
-      "id_uf": 43, 
-      "nome": "Restinga Seca"
-    }, 
-    "43008": {
-      "id_mesorregiao": 4301, 
-      "id_uf": 43, 
-      "nome": "Iju\u00ed"
+    "42020": {
+      "id_mesorregiao": 4206, 
+      "id_uf": 42, 
+      "nome": "Ararangu\u00e1"
     }, 
     "43001": {
       "id_mesorregiao": 4301, 
       "id_uf": 43, 
       "nome": "Santa Rosa"
     }, 
-    "43029": {
-      "id_mesorregiao": 4306, 
-      "id_uf": 43, 
-      "nome": "Campanha Ocidental"
-    }, 
-    "43009": {
+    "43002": {
       "id_mesorregiao": 4301, 
       "id_uf": 43, 
-      "nome": "Carazinho"
+      "nome": "Tr\u00eas Passos"
     }, 
     "43003": {
       "id_mesorregiao": 4301, 
       "id_uf": 43, 
       "nome": "Frederico Westphalen"
     }, 
-    "43011": {
-      "id_mesorregiao": 4301, 
-      "id_uf": 43, 
-      "nome": "Cruz Alta"
-    }, 
-    "43023": {
-      "id_mesorregiao": 4305, 
-      "id_uf": 43, 
-      "nome": "Montenegro"
-    }, 
-    "43026": {
-      "id_mesorregiao": 4305, 
-      "id_uf": 43, 
-      "nome": "Porto Alegre"
-    }, 
-    "43032": {
-      "id_mesorregiao": 4307, 
-      "id_uf": 43, 
-      "nome": "Serras de Sudeste"
-    }, 
-    "43014": {
-      "id_mesorregiao": 4302, 
-      "id_uf": 43, 
-      "nome": "Guapor\u00e9"
-    }, 
-    "43016": {
-      "id_mesorregiao": 4302, 
-      "id_uf": 43, 
-      "nome": "Caxias do Sul"
-    }, 
-    "43028": {
-      "id_mesorregiao": 4305, 
-      "id_uf": 43, 
-      "nome": "Camaqu\u00e3"
-    }, 
     "43004": {
       "id_mesorregiao": 4301, 
       "id_uf": 43, 
       "nome": "Erechim"
-    }, 
-    "43021": {
-      "id_mesorregiao": 4304, 
-      "id_uf": 43, 
-      "nome": "Lajeado-Estrela"
-    }, 
-    "43027": {
-      "id_mesorregiao": 4305, 
-      "id_uf": 43, 
-      "nome": "Os\u00f3rio"
-    }, 
-    "43033": {
-      "id_mesorregiao": 4307, 
-      "id_uf": 43, 
-      "nome": "Pelotas"
-    }, 
-    "43025": {
-      "id_mesorregiao": 4305, 
-      "id_uf": 43, 
-      "nome": "S\u00e3o Jer\u00f4nimo"
-    }, 
-    "43020": {
-      "id_mesorregiao": 4304, 
-      "id_uf": 43, 
-      "nome": "Santa Cruz do Sul"
-    }, 
-    "43034": {
-      "id_mesorregiao": 4307, 
-      "id_uf": 43, 
-      "nome": "Jaguar\u00e3o"
     }, 
     "43005": {
       "id_mesorregiao": 4301, 
       "id_uf": 43, 
       "nome": "Sananduva"
     }, 
-    "43002": {
+    "43006": {
       "id_mesorregiao": 4301, 
       "id_uf": 43, 
-      "nome": "Tr\u00eas Passos"
-    }, 
-    "43013": {
-      "id_mesorregiao": 4301, 
-      "id_uf": 43, 
-      "nome": "Soledade"
-    }, 
-    "43015": {
-      "id_mesorregiao": 4302, 
-      "id_uf": 43, 
-      "nome": "Vacaria"
+      "nome": "Cerro Largo"
     }, 
     "43007": {
       "id_mesorregiao": 4301, 
       "id_uf": 43, 
       "nome": "Santo \u00c2ngelo"
     }, 
-    "43018": {
-      "id_mesorregiao": 4303, 
-      "id_uf": 43, 
-      "nome": "Santa Maria"
-    }, 
-    "43022": {
-      "id_mesorregiao": 4304, 
-      "id_uf": 43, 
-      "nome": "Cachoeira do Sul"
-    }, 
-    "43006": {
+    "43008": {
       "id_mesorregiao": 4301, 
       "id_uf": 43, 
-      "nome": "Cerro Largo"
+      "nome": "Iju\u00ed"
     }, 
-    "43024": {
-      "id_mesorregiao": 4305, 
+    "43009": {
+      "id_mesorregiao": 4301, 
       "id_uf": 43, 
-      "nome": "Gramado-Canela"
+      "nome": "Carazinho"
     }, 
-    "43017": {
-      "id_mesorregiao": 4303, 
+    "43010": {
+      "id_mesorregiao": 4301, 
       "id_uf": 43, 
-      "nome": "Santiago"
+      "nome": "Passo Fundo"
     }, 
-    "43035": {
-      "id_mesorregiao": 4307, 
+    "43011": {
+      "id_mesorregiao": 4301, 
       "id_uf": 43, 
-      "nome": "Litoral Lagunar"
+      "nome": "Cruz Alta"
     }, 
     "43012": {
       "id_mesorregiao": 4301, 
       "id_uf": 43, 
       "nome": "N\u00e3o-Me-Toque"
     }, 
+    "43013": {
+      "id_mesorregiao": 4301, 
+      "id_uf": 43, 
+      "nome": "Soledade"
+    }, 
+    "43014": {
+      "id_mesorregiao": 4302, 
+      "id_uf": 43, 
+      "nome": "Guapor\u00e9"
+    }, 
+    "43015": {
+      "id_mesorregiao": 4302, 
+      "id_uf": 43, 
+      "nome": "Vacaria"
+    }, 
+    "43016": {
+      "id_mesorregiao": 4302, 
+      "id_uf": 43, 
+      "nome": "Caxias do Sul"
+    }, 
+    "43017": {
+      "id_mesorregiao": 4303, 
+      "id_uf": 43, 
+      "nome": "Santiago"
+    }, 
+    "43018": {
+      "id_mesorregiao": 4303, 
+      "id_uf": 43, 
+      "nome": "Santa Maria"
+    }, 
+    "43019": {
+      "id_mesorregiao": 4303, 
+      "id_uf": 43, 
+      "nome": "Restinga Seca"
+    }, 
+    "43020": {
+      "id_mesorregiao": 4304, 
+      "id_uf": 43, 
+      "nome": "Santa Cruz do Sul"
+    }, 
+    "43021": {
+      "id_mesorregiao": 4304, 
+      "id_uf": 43, 
+      "nome": "Lajeado-Estrela"
+    }, 
+    "43022": {
+      "id_mesorregiao": 4304, 
+      "id_uf": 43, 
+      "nome": "Cachoeira do Sul"
+    }, 
+    "43023": {
+      "id_mesorregiao": 4305, 
+      "id_uf": 43, 
+      "nome": "Montenegro"
+    }, 
+    "43024": {
+      "id_mesorregiao": 4305, 
+      "id_uf": 43, 
+      "nome": "Gramado-Canela"
+    }, 
+    "43025": {
+      "id_mesorregiao": 4305, 
+      "id_uf": 43, 
+      "nome": "S\u00e3o Jer\u00f4nimo"
+    }, 
+    "43026": {
+      "id_mesorregiao": 4305, 
+      "id_uf": 43, 
+      "nome": "Porto Alegre"
+    }, 
+    "43027": {
+      "id_mesorregiao": 4305, 
+      "id_uf": 43, 
+      "nome": "Os\u00f3rio"
+    }, 
+    "43028": {
+      "id_mesorregiao": 4305, 
+      "id_uf": 43, 
+      "nome": "Camaqu\u00e3"
+    }, 
+    "43029": {
+      "id_mesorregiao": 4306, 
+      "id_uf": 43, 
+      "nome": "Campanha Ocidental"
+    }, 
     "43030": {
       "id_mesorregiao": 4306, 
       "id_uf": 43, 
       "nome": "Campanha Central"
     }, 
-    "50007": {
-      "id_mesorregiao": 5003, 
-      "id_uf": 50, 
-      "nome": "Tr\u00eas Lagoas"
+    "43031": {
+      "id_mesorregiao": 4306, 
+      "id_uf": 43, 
+      "nome": "Campanha Meridional"
     }, 
-    "50003": {
-      "id_mesorregiao": 5002, 
-      "id_uf": 50, 
-      "nome": "Alto Taquari"
+    "43032": {
+      "id_mesorregiao": 4307, 
+      "id_uf": 43, 
+      "nome": "Serras de Sudeste"
     }, 
-    "50010": {
-      "id_mesorregiao": 5004, 
-      "id_uf": 50, 
-      "nome": "Dourados"
+    "43033": {
+      "id_mesorregiao": 4307, 
+      "id_uf": 43, 
+      "nome": "Pelotas"
     }, 
-    "50002": {
-      "id_mesorregiao": 5001, 
-      "id_uf": 50, 
-      "nome": "Aquidauana"
+    "43034": {
+      "id_mesorregiao": 4307, 
+      "id_uf": 43, 
+      "nome": "Jaguar\u00e3o"
     }, 
-    "50008": {
-      "id_mesorregiao": 5003, 
-      "id_uf": 50, 
-      "nome": "Nova Andradina"
-    }, 
-    "50011": {
-      "id_mesorregiao": 5004, 
-      "id_uf": 50, 
-      "nome": "Iguatemi"
-    }, 
-    "50006": {
-      "id_mesorregiao": 5003, 
-      "id_uf": 50, 
-      "nome": "Parana\u00edba"
-    }, 
-    "50004": {
-      "id_mesorregiao": 5002, 
-      "id_uf": 50, 
-      "nome": "Campo Grande"
-    }, 
-    "50009": {
-      "id_mesorregiao": 5004, 
-      "id_uf": 50, 
-      "nome": "Bodoquena"
-    }, 
-    "50005": {
-      "id_mesorregiao": 5003, 
-      "id_uf": 50, 
-      "nome": "Cassil\u00e2ndia"
+    "43035": {
+      "id_mesorregiao": 4307, 
+      "id_uf": 43, 
+      "nome": "Litoral Lagunar"
     }, 
     "50001": {
       "id_mesorregiao": 5001, 
       "id_uf": 50, 
       "nome": "Baixo Pantanal"
     }, 
-    "51016": {
-      "id_mesorregiao": 5104, 
-      "id_uf": 51, 
-      "nome": "Ros\u00e1rio Oeste"
+    "50002": {
+      "id_mesorregiao": 5001, 
+      "id_uf": 50, 
+      "nome": "Aquidauana"
     }, 
-    "51010": {
-      "id_mesorregiao": 5102, 
-      "id_uf": 51, 
-      "nome": "Canarana"
+    "50003": {
+      "id_mesorregiao": 5002, 
+      "id_uf": 50, 
+      "nome": "Alto Taquari"
     }, 
-    "51002": {
-      "id_mesorregiao": 5101, 
-      "id_uf": 51, 
-      "nome": "Alta Floresta"
+    "50004": {
+      "id_mesorregiao": 5002, 
+      "id_uf": 50, 
+      "nome": "Campo Grande"
     }, 
-    "51022": {
-      "id_mesorregiao": 5105, 
-      "id_uf": 51, 
-      "nome": "Alto Araguaia"
+    "50005": {
+      "id_mesorregiao": 5003, 
+      "id_uf": 50, 
+      "nome": "Cassil\u00e2ndia"
     }, 
-    "51009": {
-      "id_mesorregiao": 5102, 
-      "id_uf": 51, 
-      "nome": "Norte Araguaia"
+    "50006": {
+      "id_mesorregiao": 5003, 
+      "id_uf": 50, 
+      "nome": "Parana\u00edba"
     }, 
-    "51015": {
-      "id_mesorregiao": 5104, 
-      "id_uf": 51, 
-      "nome": "Alto Paraguai"
+    "50007": {
+      "id_mesorregiao": 5003, 
+      "id_uf": 50, 
+      "nome": "Tr\u00eas Lagoas"
     }, 
-    "51011": {
-      "id_mesorregiao": 5102, 
-      "id_uf": 51, 
-      "nome": "M\u00e9dio Araguaia"
+    "50008": {
+      "id_mesorregiao": 5003, 
+      "id_uf": 50, 
+      "nome": "Nova Andradina"
     }, 
-    "51020": {
-      "id_mesorregiao": 5105, 
-      "id_uf": 51, 
-      "nome": "Tesouro"
+    "50009": {
+      "id_mesorregiao": 5004, 
+      "id_uf": 50, 
+      "nome": "Bodoquena"
     }, 
-    "51014": {
-      "id_mesorregiao": 5103, 
-      "id_uf": 51, 
-      "nome": "Jauru"
+    "50010": {
+      "id_mesorregiao": 5004, 
+      "id_uf": 50, 
+      "nome": "Dourados"
+    }, 
+    "50011": {
+      "id_mesorregiao": 5004, 
+      "id_uf": 50, 
+      "nome": "Iguatemi"
     }, 
     "51001": {
       "id_mesorregiao": 5101, 
       "id_uf": 51, 
       "nome": "Aripuan\u00e3"
     }, 
-    "51018": {
-      "id_mesorregiao": 5104, 
-      "id_uf": 51, 
-      "nome": "Alto Pantanal"
-    }, 
-    "51013": {
-      "id_mesorregiao": 5103, 
-      "id_uf": 51, 
-      "nome": "Tangar\u00e1 da Serra"
-    }, 
-    "51004": {
+    "51002": {
       "id_mesorregiao": 5101, 
       "id_uf": 51, 
-      "nome": "Parecis"
-    }, 
-    "51019": {
-      "id_mesorregiao": 5105, 
-      "id_uf": 51, 
-      "nome": "Primavera do Leste"
-    }, 
-    "51017": {
-      "id_mesorregiao": 5104, 
-      "id_uf": 51, 
-      "nome": "Cuiab\u00e1"
-    }, 
-    "51007": {
-      "id_mesorregiao": 5101, 
-      "id_uf": 51, 
-      "nome": "Sinop"
+      "nome": "Alta Floresta"
     }, 
     "51003": {
       "id_mesorregiao": 5101, 
       "id_uf": 51, 
       "nome": "Col\u00edder"
     }, 
-    "51012": {
-      "id_mesorregiao": 5103, 
-      "id_uf": 51, 
-      "nome": "Alto Guapor\u00e9"
-    }, 
-    "51021": {
-      "id_mesorregiao": 5105, 
-      "id_uf": 51, 
-      "nome": "Rondon\u00f3polis"
-    }, 
-    "51008": {
+    "51004": {
       "id_mesorregiao": 5101, 
       "id_uf": 51, 
-      "nome": "Paranatinga"
-    }, 
-    "51006": {
-      "id_mesorregiao": 5101, 
-      "id_uf": 51, 
-      "nome": "Alto Teles Pires"
+      "nome": "Parecis"
     }, 
     "51005": {
       "id_mesorregiao": 5101, 
       "id_uf": 51, 
       "nome": "Arinos"
     }, 
-    "52010": {
-      "id_mesorregiao": 5203, 
-      "id_uf": 52, 
-      "nome": "Goi\u00e2nia"
+    "51006": {
+      "id_mesorregiao": 5101, 
+      "id_uf": 51, 
+      "nome": "Alto Teles Pires"
     }, 
-    "52012": {
-      "id_mesorregiao": 5204, 
-      "id_uf": 52, 
-      "nome": "Entorno de Bras\u00edlia"
+    "51007": {
+      "id_mesorregiao": 5101, 
+      "id_uf": 51, 
+      "nome": "Sinop"
     }, 
-    "52014": {
-      "id_mesorregiao": 5205, 
-      "id_uf": 52, 
-      "nome": "Vale do Rio dos Bois"
+    "51008": {
+      "id_mesorregiao": 5101, 
+      "id_uf": 51, 
+      "nome": "Paranatinga"
     }, 
-    "52009": {
-      "id_mesorregiao": 5203, 
-      "id_uf": 52, 
-      "nome": "Anicuns"
+    "51009": {
+      "id_mesorregiao": 5102, 
+      "id_uf": 51, 
+      "nome": "Norte Araguaia"
     }, 
-    "52015": {
-      "id_mesorregiao": 5205, 
+    "51010": {
+      "id_mesorregiao": 5102, 
+      "id_uf": 51, 
+      "nome": "Canarana"
+    }, 
+    "51011": {
+      "id_mesorregiao": 5102, 
+      "id_uf": 51, 
+      "nome": "M\u00e9dio Araguaia"
+    }, 
+    "51012": {
+      "id_mesorregiao": 5103, 
+      "id_uf": 51, 
+      "nome": "Alto Guapor\u00e9"
+    }, 
+    "51013": {
+      "id_mesorregiao": 5103, 
+      "id_uf": 51, 
+      "nome": "Tangar\u00e1 da Serra"
+    }, 
+    "51014": {
+      "id_mesorregiao": 5103, 
+      "id_uf": 51, 
+      "nome": "Jauru"
+    }, 
+    "51015": {
+      "id_mesorregiao": 5104, 
+      "id_uf": 51, 
+      "nome": "Alto Paraguai"
+    }, 
+    "51016": {
+      "id_mesorregiao": 5104, 
+      "id_uf": 51, 
+      "nome": "Ros\u00e1rio Oeste"
+    }, 
+    "51017": {
+      "id_mesorregiao": 5104, 
+      "id_uf": 51, 
+      "nome": "Cuiab\u00e1"
+    }, 
+    "51018": {
+      "id_mesorregiao": 5104, 
+      "id_uf": 51, 
+      "nome": "Alto Pantanal"
+    }, 
+    "51019": {
+      "id_mesorregiao": 5105, 
+      "id_uf": 51, 
+      "nome": "Primavera do Leste"
+    }, 
+    "51020": {
+      "id_mesorregiao": 5105, 
+      "id_uf": 51, 
+      "nome": "Tesouro"
+    }, 
+    "51021": {
+      "id_mesorregiao": 5105, 
+      "id_uf": 51, 
+      "nome": "Rondon\u00f3polis"
+    }, 
+    "51022": {
+      "id_mesorregiao": 5105, 
+      "id_uf": 51, 
+      "nome": "Alto Araguaia"
+    }, 
+    "52001": {
+      "id_mesorregiao": 5201, 
       "id_uf": 52, 
-      "nome": "Meia Ponte"
+      "nome": "S\u00e3o Miguel do Araguaia"
+    }, 
+    "52002": {
+      "id_mesorregiao": 5201, 
+      "id_uf": 52, 
+      "nome": "Rio Vermelho"
+    }, 
+    "52003": {
+      "id_mesorregiao": 5201, 
+      "id_uf": 52, 
+      "nome": "Aragar\u00e7as"
     }, 
     "52004": {
       "id_mesorregiao": 5202, 
@@ -3363,60 +3353,70 @@
       "id_uf": 52, 
       "nome": "Chapada dos Veadeiros"
     }, 
-    "52011": {
-      "id_mesorregiao": 5204, 
-      "id_uf": 52, 
-      "nome": "V\u00e3o do Paran\u00e3"
-    }, 
-    "52008": {
+    "52006": {
       "id_mesorregiao": 5203, 
       "id_uf": 52, 
-      "nome": "Ipor\u00e1"
+      "nome": "Ceres"
     }, 
     "52007": {
       "id_mesorregiao": 5203, 
       "id_uf": 52, 
       "nome": "An\u00e1polis"
     }, 
-    "52017": {
-      "id_mesorregiao": 5205, 
+    "52008": {
+      "id_mesorregiao": 5203, 
       "id_uf": 52, 
-      "nome": "Catal\u00e3o"
+      "nome": "Ipor\u00e1"
+    }, 
+    "52009": {
+      "id_mesorregiao": 5203, 
+      "id_uf": 52, 
+      "nome": "Anicuns"
+    }, 
+    "52010": {
+      "id_mesorregiao": 5203, 
+      "id_uf": 52, 
+      "nome": "Goi\u00e2nia"
+    }, 
+    "52011": {
+      "id_mesorregiao": 5204, 
+      "id_uf": 52, 
+      "nome": "V\u00e3o do Paran\u00e3"
+    }, 
+    "52012": {
+      "id_mesorregiao": 5204, 
+      "id_uf": 52, 
+      "nome": "Entorno de Bras\u00edlia"
     }, 
     "52013": {
       "id_mesorregiao": 5205, 
       "id_uf": 52, 
       "nome": "Sudoeste de Goi\u00e1s"
     }, 
-    "52003": {
-      "id_mesorregiao": 5201, 
-      "id_uf": 52, 
-      "nome": "Aragar\u00e7as"
-    }, 
-    "52002": {
-      "id_mesorregiao": 5201, 
-      "id_uf": 52, 
-      "nome": "Rio Vermelho"
-    }, 
-    "52006": {
-      "id_mesorregiao": 5203, 
-      "id_uf": 52, 
-      "nome": "Ceres"
-    }, 
-    "52018": {
+    "52014": {
       "id_mesorregiao": 5205, 
       "id_uf": 52, 
-      "nome": "Quirin\u00f3polis"
+      "nome": "Vale do Rio dos Bois"
+    }, 
+    "52015": {
+      "id_mesorregiao": 5205, 
+      "id_uf": 52, 
+      "nome": "Meia Ponte"
     }, 
     "52016": {
       "id_mesorregiao": 5205, 
       "id_uf": 52, 
       "nome": "Pires do Rio"
     }, 
-    "52001": {
-      "id_mesorregiao": 5201, 
+    "52017": {
+      "id_mesorregiao": 5205, 
       "id_uf": 52, 
-      "nome": "S\u00e3o Miguel do Araguaia"
+      "nome": "Catal\u00e3o"
+    }, 
+    "52018": {
+      "id_mesorregiao": 5205, 
+      "id_uf": 52, 
+      "nome": "Quirin\u00f3polis"
     }, 
     "53001": {
       "id_mesorregiao": 5301, 

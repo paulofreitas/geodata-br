@@ -114,19 +114,14 @@
   <!-- Table mesorregiao -->
   <table name="mesorregiao">
     <row>
-      <field name="id">1102</field>
-      <field name="id_uf">11</field>
-      <field name="nome">Leste Rondoniense</field>
-    </row>
-    <row>
       <field name="id">1101</field>
       <field name="id_uf">11</field>
       <field name="nome">Madeira-Guaporé</field>
     </row>
     <row>
-      <field name="id">1202</field>
-      <field name="id_uf">12</field>
-      <field name="nome">Vale do Acre</field>
+      <field name="id">1102</field>
+      <field name="id_uf">11</field>
+      <field name="nome">Leste Rondoniense</field>
     </row>
     <row>
       <field name="id">1201</field>
@@ -134,9 +129,14 @@
       <field name="nome">Vale do Juruá</field>
     </row>
     <row>
-      <field name="id">1303</field>
+      <field name="id">1202</field>
+      <field name="id_uf">12</field>
+      <field name="nome">Vale do Acre</field>
+    </row>
+    <row>
+      <field name="id">1301</field>
       <field name="id_uf">13</field>
-      <field name="nome">Centro Amazonense</field>
+      <field name="nome">Norte Amazonense</field>
     </row>
     <row>
       <field name="id">1302</field>
@@ -144,14 +144,14 @@
       <field name="nome">Sudoeste Amazonense</field>
     </row>
     <row>
+      <field name="id">1303</field>
+      <field name="id_uf">13</field>
+      <field name="nome">Centro Amazonense</field>
+    </row>
+    <row>
       <field name="id">1304</field>
       <field name="id_uf">13</field>
       <field name="nome">Sul Amazonense</field>
-    </row>
-    <row>
-      <field name="id">1301</field>
-      <field name="id_uf">13</field>
-      <field name="nome">Norte Amazonense</field>
     </row>
     <row>
       <field name="id">1401</field>
@@ -164,14 +164,9 @@
       <field name="nome">Sul de Roraima</field>
     </row>
     <row>
-      <field name="id">1504</field>
+      <field name="id">1501</field>
       <field name="id_uf">15</field>
-      <field name="nome">Nordeste Paraense</field>
-    </row>
-    <row>
-      <field name="id">1506</field>
-      <field name="id_uf">15</field>
-      <field name="nome">Sudeste Paraense</field>
+      <field name="nome">Baixo Amazonas</field>
     </row>
     <row>
       <field name="id">1502</field>
@@ -179,9 +174,14 @@
       <field name="nome">Marajó</field>
     </row>
     <row>
-      <field name="id">1501</field>
+      <field name="id">1503</field>
       <field name="id_uf">15</field>
-      <field name="nome">Baixo Amazonas</field>
+      <field name="nome">Metropolitana de Belém</field>
+    </row>
+    <row>
+      <field name="id">1504</field>
+      <field name="id_uf">15</field>
+      <field name="nome">Nordeste Paraense</field>
     </row>
     <row>
       <field name="id">1505</field>
@@ -189,19 +189,19 @@
       <field name="nome">Sudoeste Paraense</field>
     </row>
     <row>
-      <field name="id">1503</field>
+      <field name="id">1506</field>
       <field name="id_uf">15</field>
-      <field name="nome">Metropolitana de Belém</field>
-    </row>
-    <row>
-      <field name="id">1602</field>
-      <field name="id_uf">16</field>
-      <field name="nome">Sul do Amapá</field>
+      <field name="nome">Sudeste Paraense</field>
     </row>
     <row>
       <field name="id">1601</field>
       <field name="id_uf">16</field>
       <field name="nome">Norte do Amapá</field>
+    </row>
+    <row>
+      <field name="id">1602</field>
+      <field name="id_uf">16</field>
+      <field name="nome">Sul do Amapá</field>
     </row>
     <row>
       <field name="id">1701</field>
@@ -214,24 +214,14 @@
       <field name="nome">Oriental do Tocantins</field>
     </row>
     <row>
-      <field name="id">2102</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Oeste Maranhense</field>
-    </row>
-    <row>
-      <field name="id">2104</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Leste Maranhense</field>
-    </row>
-    <row>
       <field name="id">2101</field>
       <field name="id_uf">21</field>
       <field name="nome">Norte Maranhense</field>
     </row>
     <row>
-      <field name="id">2105</field>
+      <field name="id">2102</field>
       <field name="id_uf">21</field>
-      <field name="nome">Sul Maranhense</field>
+      <field name="nome">Oeste Maranhense</field>
     </row>
     <row>
       <field name="id">2103</field>
@@ -239,9 +229,19 @@
       <field name="nome">Centro Maranhense</field>
     </row>
     <row>
-      <field name="id">2204</field>
+      <field name="id">2104</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Leste Maranhense</field>
+    </row>
+    <row>
+      <field name="id">2105</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Sul Maranhense</field>
+    </row>
+    <row>
+      <field name="id">2201</field>
       <field name="id_uf">22</field>
-      <field name="nome">Sudeste Piauiense</field>
+      <field name="nome">Norte Piauiense</field>
     </row>
     <row>
       <field name="id">2202</field>
@@ -254,14 +254,14 @@
       <field name="nome">Sudoeste Piauiense</field>
     </row>
     <row>
-      <field name="id">2201</field>
+      <field name="id">2204</field>
       <field name="id_uf">22</field>
-      <field name="nome">Norte Piauiense</field>
+      <field name="nome">Sudeste Piauiense</field>
     </row>
     <row>
-      <field name="id">2307</field>
+      <field name="id">2301</field>
       <field name="id_uf">23</field>
-      <field name="nome">Sul Cearense</field>
+      <field name="nome">Noroeste Cearense</field>
     </row>
     <row>
       <field name="id">2302</field>
@@ -269,9 +269,9 @@
       <field name="nome">Norte Cearense</field>
     </row>
     <row>
-      <field name="id">2301</field>
+      <field name="id">2303</field>
       <field name="id_uf">23</field>
-      <field name="nome">Noroeste Cearense</field>
+      <field name="nome">Metropolitana de Fortaleza</field>
     </row>
     <row>
       <field name="id">2304</field>
@@ -289,14 +289,9 @@
       <field name="nome">Centro-Sul Cearense</field>
     </row>
     <row>
-      <field name="id">2303</field>
+      <field name="id">2307</field>
       <field name="id_uf">23</field>
-      <field name="nome">Metropolitana de Fortaleza</field>
-    </row>
-    <row>
-      <field name="id">2402</field>
-      <field name="id_uf">24</field>
-      <field name="nome">Central Potiguar</field>
+      <field name="nome">Sul Cearense</field>
     </row>
     <row>
       <field name="id">2401</field>
@@ -304,9 +299,9 @@
       <field name="nome">Oeste Potiguar</field>
     </row>
     <row>
-      <field name="id">2404</field>
+      <field name="id">2402</field>
       <field name="id_uf">24</field>
-      <field name="nome">Leste Potiguar</field>
+      <field name="nome">Central Potiguar</field>
     </row>
     <row>
       <field name="id">2403</field>
@@ -314,14 +309,14 @@
       <field name="nome">Agreste Potiguar</field>
     </row>
     <row>
+      <field name="id">2404</field>
+      <field name="id_uf">24</field>
+      <field name="nome">Leste Potiguar</field>
+    </row>
+    <row>
       <field name="id">2501</field>
       <field name="id_uf">25</field>
       <field name="nome">Sertão Paraibano</field>
-    </row>
-    <row>
-      <field name="id">2503</field>
-      <field name="id_uf">25</field>
-      <field name="nome">Agreste Paraibano</field>
     </row>
     <row>
       <field name="id">2502</field>
@@ -329,14 +324,14 @@
       <field name="nome">Borborema</field>
     </row>
     <row>
+      <field name="id">2503</field>
+      <field name="id_uf">25</field>
+      <field name="nome">Agreste Paraibano</field>
+    </row>
+    <row>
       <field name="id">2504</field>
       <field name="id_uf">25</field>
       <field name="nome">Mata Paraibana</field>
-    </row>
-    <row>
-      <field name="id">2605</field>
-      <field name="id_uf">26</field>
-      <field name="nome">Metropolitana de Recife</field>
     </row>
     <row>
       <field name="id">2601</field>
@@ -359,14 +354,14 @@
       <field name="nome">Mata Pernambucana</field>
     </row>
     <row>
+      <field name="id">2605</field>
+      <field name="id_uf">26</field>
+      <field name="nome">Metropolitana de Recife</field>
+    </row>
+    <row>
       <field name="id">2701</field>
       <field name="id_uf">27</field>
       <field name="nome">Sertão Alagoano</field>
-    </row>
-    <row>
-      <field name="id">2703</field>
-      <field name="id_uf">27</field>
-      <field name="nome">Leste Alagoano</field>
     </row>
     <row>
       <field name="id">2702</field>
@@ -374,14 +369,9 @@
       <field name="nome">Agreste Alagoano</field>
     </row>
     <row>
-      <field name="id">2803</field>
-      <field name="id_uf">28</field>
-      <field name="nome">Leste Sergipano</field>
-    </row>
-    <row>
-      <field name="id">2802</field>
-      <field name="id_uf">28</field>
-      <field name="nome">Agreste Sergipano</field>
+      <field name="id">2703</field>
+      <field name="id_uf">27</field>
+      <field name="nome">Leste Alagoano</field>
     </row>
     <row>
       <field name="id">2801</field>
@@ -389,9 +379,19 @@
       <field name="nome">Sertão Sergipano</field>
     </row>
     <row>
-      <field name="id">2906</field>
+      <field name="id">2802</field>
+      <field name="id_uf">28</field>
+      <field name="nome">Agreste Sergipano</field>
+    </row>
+    <row>
+      <field name="id">2803</field>
+      <field name="id_uf">28</field>
+      <field name="nome">Leste Sergipano</field>
+    </row>
+    <row>
+      <field name="id">2901</field>
       <field name="id_uf">29</field>
-      <field name="nome">Centro Sul Baiano</field>
+      <field name="nome">Extremo Oeste Baiano</field>
     </row>
     <row>
       <field name="id">2902</field>
@@ -399,19 +399,14 @@
       <field name="nome">Vale São-Franciscano da Bahia</field>
     </row>
     <row>
-      <field name="id">2904</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Nordeste Baiano</field>
-    </row>
-    <row>
       <field name="id">2903</field>
       <field name="id_uf">29</field>
       <field name="nome">Centro Norte Baiano</field>
     </row>
     <row>
-      <field name="id">2907</field>
+      <field name="id">2904</field>
       <field name="id_uf">29</field>
-      <field name="nome">Sul Baiano</field>
+      <field name="nome">Nordeste Baiano</field>
     </row>
     <row>
       <field name="id">2905</field>
@@ -419,9 +414,34 @@
       <field name="nome">Metropolitana de Salvador</field>
     </row>
     <row>
-      <field name="id">2901</field>
+      <field name="id">2906</field>
       <field name="id_uf">29</field>
-      <field name="nome">Extremo Oeste Baiano</field>
+      <field name="nome">Centro Sul Baiano</field>
+    </row>
+    <row>
+      <field name="id">2907</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Sul Baiano</field>
+    </row>
+    <row>
+      <field name="id">3101</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Noroeste de Minas</field>
+    </row>
+    <row>
+      <field name="id">3102</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Norte de Minas</field>
+    </row>
+    <row>
+      <field name="id">3103</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Jequitinhonha</field>
+    </row>
+    <row>
+      <field name="id">3104</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Vale do Mucuri</field>
     </row>
     <row>
       <field name="id">3105</field>
@@ -434,9 +454,9 @@
       <field name="nome">Central Mineira</field>
     </row>
     <row>
-      <field name="id">3112</field>
+      <field name="id">3107</field>
       <field name="id_uf">31</field>
-      <field name="nome">Zona da Mata</field>
+      <field name="nome">Metropolitana de Belo Horizonte</field>
     </row>
     <row>
       <field name="id">3108</field>
@@ -449,16 +469,6 @@
       <field name="nome">Oeste de Minas</field>
     </row>
     <row>
-      <field name="id">3104</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Vale do Mucuri</field>
-    </row>
-    <row>
-      <field name="id">3102</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Norte de Minas</field>
-    </row>
-    <row>
       <field name="id">3110</field>
       <field name="id_uf">31</field>
       <field name="nome">Sul/Sudoeste de Minas</field>
@@ -469,24 +479,9 @@
       <field name="nome">Campo das Vertentes</field>
     </row>
     <row>
-      <field name="id">3103</field>
+      <field name="id">3112</field>
       <field name="id_uf">31</field>
-      <field name="nome">Jequitinhonha</field>
-    </row>
-    <row>
-      <field name="id">3107</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Metropolitana de Belo Horizonte</field>
-    </row>
-    <row>
-      <field name="id">3101</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Noroeste de Minas</field>
-    </row>
-    <row>
-      <field name="id">3203</field>
-      <field name="id_uf">32</field>
-      <field name="nome">Central Espírito-santense</field>
+      <field name="nome">Zona da Mata</field>
     </row>
     <row>
       <field name="id">3201</field>
@@ -494,19 +489,19 @@
       <field name="nome">Noroeste Espírito-santense</field>
     </row>
     <row>
-      <field name="id">3204</field>
-      <field name="id_uf">32</field>
-      <field name="nome">Sul Espírito-santense</field>
-    </row>
-    <row>
       <field name="id">3202</field>
       <field name="id_uf">32</field>
       <field name="nome">Litoral Norte Espírito-santense</field>
     </row>
     <row>
-      <field name="id">3305</field>
-      <field name="id_uf">33</field>
-      <field name="nome">Sul Fluminense</field>
+      <field name="id">3203</field>
+      <field name="id_uf">32</field>
+      <field name="nome">Central Espírito-santense</field>
+    </row>
+    <row>
+      <field name="id">3204</field>
+      <field name="id_uf">32</field>
+      <field name="nome">Sul Espírito-santense</field>
     </row>
     <row>
       <field name="id">3301</field>
@@ -514,9 +509,9 @@
       <field name="nome">Noroeste Fluminense</field>
     </row>
     <row>
-      <field name="id">3304</field>
+      <field name="id">3302</field>
       <field name="id_uf">33</field>
-      <field name="nome">Baixadas</field>
+      <field name="nome">Norte Fluminense</field>
     </row>
     <row>
       <field name="id">3303</field>
@@ -524,44 +519,24 @@
       <field name="nome">Centro Fluminense</field>
     </row>
     <row>
+      <field name="id">3304</field>
+      <field name="id_uf">33</field>
+      <field name="nome">Baixadas</field>
+    </row>
+    <row>
+      <field name="id">3305</field>
+      <field name="id_uf">33</field>
+      <field name="nome">Sul Fluminense</field>
+    </row>
+    <row>
       <field name="id">3306</field>
       <field name="id_uf">33</field>
       <field name="nome">Metropolitana do Rio de Janeiro</field>
     </row>
     <row>
-      <field name="id">3302</field>
-      <field name="id_uf">33</field>
-      <field name="nome">Norte Fluminense</field>
-    </row>
-    <row>
-      <field name="id">3508</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Presidente Prudente</field>
-    </row>
-    <row>
       <field name="id">3501</field>
       <field name="id_uf">35</field>
       <field name="nome">São José do Rio Preto</field>
-    </row>
-    <row>
-      <field name="id">3507</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Campinas</field>
-    </row>
-    <row>
-      <field name="id">3504</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Bauru</field>
-    </row>
-    <row>
-      <field name="id">3506</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Piracicaba</field>
-    </row>
-    <row>
-      <field name="id">3511</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Itapetininga</field>
     </row>
     <row>
       <field name="id">3502</field>
@@ -574,14 +549,9 @@
       <field name="nome">Araçatuba</field>
     </row>
     <row>
-      <field name="id">3512</field>
+      <field name="id">3504</field>
       <field name="id_uf">35</field>
-      <field name="nome">Macro Metropolitana Paulista</field>
-    </row>
-    <row>
-      <field name="id">3509</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Marília</field>
+      <field name="nome">Bauru</field>
     </row>
     <row>
       <field name="id">3505</field>
@@ -589,14 +559,24 @@
       <field name="nome">Araraquara</field>
     </row>
     <row>
-      <field name="id">3513</field>
+      <field name="id">3506</field>
       <field name="id_uf">35</field>
-      <field name="nome">Vale do Paraíba Paulista</field>
+      <field name="nome">Piracicaba</field>
     </row>
     <row>
-      <field name="id">3515</field>
+      <field name="id">3507</field>
       <field name="id_uf">35</field>
-      <field name="nome">Metropolitana de São Paulo</field>
+      <field name="nome">Campinas</field>
+    </row>
+    <row>
+      <field name="id">3508</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Presidente Prudente</field>
+    </row>
+    <row>
+      <field name="id">3509</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Marília</field>
     </row>
     <row>
       <field name="id">3510</field>
@@ -604,24 +584,29 @@
       <field name="nome">Assis</field>
     </row>
     <row>
+      <field name="id">3511</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Itapetininga</field>
+    </row>
+    <row>
+      <field name="id">3512</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Macro Metropolitana Paulista</field>
+    </row>
+    <row>
+      <field name="id">3513</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Vale do Paraíba Paulista</field>
+    </row>
+    <row>
       <field name="id">3514</field>
       <field name="id_uf">35</field>
       <field name="nome">Litoral Sul Paulista</field>
     </row>
     <row>
-      <field name="id">4104</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Norte Pioneiro Paranaense</field>
-    </row>
-    <row>
-      <field name="id">4110</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Metropolitana de Curitiba</field>
-    </row>
-    <row>
-      <field name="id">4102</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Centro Ocidental Paranaense</field>
+      <field name="id">3515</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Metropolitana de São Paulo</field>
     </row>
     <row>
       <field name="id">4101</field>
@@ -629,24 +614,19 @@
       <field name="nome">Noroeste Paranaense</field>
     </row>
     <row>
+      <field name="id">4102</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Centro Ocidental Paranaense</field>
+    </row>
+    <row>
       <field name="id">4103</field>
       <field name="id_uf">41</field>
       <field name="nome">Norte Central Paranaense</field>
     </row>
     <row>
-      <field name="id">4107</field>
+      <field name="id">4104</field>
       <field name="id_uf">41</field>
-      <field name="nome">Sudoeste Paranaense</field>
-    </row>
-    <row>
-      <field name="id">4106</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Oeste Paranaense</field>
-    </row>
-    <row>
-      <field name="id">4109</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Sudeste Paranaense</field>
+      <field name="nome">Norte Pioneiro Paranaense</field>
     </row>
     <row>
       <field name="id">4105</field>
@@ -654,19 +634,44 @@
       <field name="nome">Centro Oriental Paranaense</field>
     </row>
     <row>
+      <field name="id">4106</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Oeste Paranaense</field>
+    </row>
+    <row>
+      <field name="id">4107</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Sudoeste Paranaense</field>
+    </row>
+    <row>
       <field name="id">4108</field>
       <field name="id_uf">41</field>
       <field name="nome">Centro-Sul Paranaense</field>
     </row>
     <row>
-      <field name="id">4203</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Serrana</field>
+      <field name="id">4109</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Sudeste Paranaense</field>
+    </row>
+    <row>
+      <field name="id">4110</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Metropolitana de Curitiba</field>
     </row>
     <row>
       <field name="id">4201</field>
       <field name="id_uf">42</field>
       <field name="nome">Oeste Catarinense</field>
+    </row>
+    <row>
+      <field name="id">4202</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Norte Catarinense</field>
+    </row>
+    <row>
+      <field name="id">4203</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Serrana</field>
     </row>
     <row>
       <field name="id">4204</field>
@@ -679,19 +684,9 @@
       <field name="nome">Grande Florianópolis</field>
     </row>
     <row>
-      <field name="id">4202</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Norte Catarinense</field>
-    </row>
-    <row>
       <field name="id">4206</field>
       <field name="id_uf">42</field>
       <field name="nome">Sul Catarinense</field>
-    </row>
-    <row>
-      <field name="id">4306</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Sudoeste Rio-grandense</field>
     </row>
     <row>
       <field name="id">4301</field>
@@ -699,24 +694,14 @@
       <field name="nome">Noroeste Rio-grandense</field>
     </row>
     <row>
-      <field name="id">4303</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Centro Ocidental Rio-grandense</field>
-    </row>
-    <row>
-      <field name="id">4305</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Metropolitana de Porto Alegre</field>
-    </row>
-    <row>
-      <field name="id">4307</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Sudeste Rio-grandense</field>
-    </row>
-    <row>
       <field name="id">4302</field>
       <field name="id_uf">43</field>
       <field name="nome">Nordeste Rio-grandense</field>
+    </row>
+    <row>
+      <field name="id">4303</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Centro Ocidental Rio-grandense</field>
     </row>
     <row>
       <field name="id">4304</field>
@@ -724,19 +709,19 @@
       <field name="nome">Centro Oriental Rio-grandense</field>
     </row>
     <row>
-      <field name="id">5003</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Leste de Mato Grosso do Sul</field>
+      <field name="id">4305</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Metropolitana de Porto Alegre</field>
     </row>
     <row>
-      <field name="id">5002</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Centro Norte de Mato Grosso do Sul</field>
+      <field name="id">4306</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Sudoeste Rio-grandense</field>
     </row>
     <row>
-      <field name="id">5004</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Sudoeste de Mato Grosso do Sul</field>
+      <field name="id">4307</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Sudeste Rio-grandense</field>
     </row>
     <row>
       <field name="id">5001</field>
@@ -744,14 +729,19 @@
       <field name="nome">Pantanais Sul Mato-grossense</field>
     </row>
     <row>
-      <field name="id">5104</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Centro-Sul Mato-grossense</field>
+      <field name="id">5002</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Centro Norte de Mato Grosso do Sul</field>
     </row>
     <row>
-      <field name="id">5102</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Nordeste Mato-grossense</field>
+      <field name="id">5003</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Leste de Mato Grosso do Sul</field>
+    </row>
+    <row>
+      <field name="id">5004</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Sudoeste de Mato Grosso do Sul</field>
     </row>
     <row>
       <field name="id">5101</field>
@@ -759,14 +749,34 @@
       <field name="nome">Norte Mato-grossense</field>
     </row>
     <row>
-      <field name="id">5105</field>
+      <field name="id">5102</field>
       <field name="id_uf">51</field>
-      <field name="nome">Sudeste Mato-grossense</field>
+      <field name="nome">Nordeste Mato-grossense</field>
     </row>
     <row>
       <field name="id">5103</field>
       <field name="id_uf">51</field>
       <field name="nome">Sudoeste Mato-grossense</field>
+    </row>
+    <row>
+      <field name="id">5104</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Centro-Sul Mato-grossense</field>
+    </row>
+    <row>
+      <field name="id">5105</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Sudeste Mato-grossense</field>
+    </row>
+    <row>
+      <field name="id">5201</field>
+      <field name="id_uf">52</field>
+      <field name="nome">Noroeste Goiano</field>
+    </row>
+    <row>
+      <field name="id">5202</field>
+      <field name="id_uf">52</field>
+      <field name="nome">Norte Goiano</field>
     </row>
     <row>
       <field name="id">5203</field>
@@ -784,16 +794,6 @@
       <field name="nome">Sul Goiano</field>
     </row>
     <row>
-      <field name="id">5202</field>
-      <field name="id_uf">52</field>
-      <field name="nome">Norte Goiano</field>
-    </row>
-    <row>
-      <field name="id">5201</field>
-      <field name="id_uf">52</field>
-      <field name="nome">Noroeste Goiano</field>
-    </row>
-    <row>
       <field name="id">5301</field>
       <field name="id_uf">53</field>
       <field name="nome">Distrito Federal</field>
@@ -802,28 +802,22 @@
   <!-- Table microrregiao -->
   <table name="microrregiao">
     <row>
-      <field name="id">11006</field>
-      <field name="id_mesorregiao">1102</field>
+      <field name="id">11001</field>
+      <field name="id_mesorregiao">1101</field>
       <field name="id_uf">11</field>
-      <field name="nome">Cacoal</field>
-    </row>
-    <row>
-      <field name="id">11003</field>
-      <field name="id_mesorregiao">1102</field>
-      <field name="id_uf">11</field>
-      <field name="nome">Ariquemes</field>
-    </row>
-    <row>
-      <field name="id">11008</field>
-      <field name="id_mesorregiao">1102</field>
-      <field name="id_uf">11</field>
-      <field name="nome">Colorado do Oeste</field>
+      <field name="nome">Porto Velho</field>
     </row>
     <row>
       <field name="id">11002</field>
       <field name="id_mesorregiao">1101</field>
       <field name="id_uf">11</field>
       <field name="nome">Guajará-Mirim</field>
+    </row>
+    <row>
+      <field name="id">11003</field>
+      <field name="id_mesorregiao">1102</field>
+      <field name="id_uf">11</field>
+      <field name="nome">Ariquemes</field>
     </row>
     <row>
       <field name="id">11004</field>
@@ -838,28 +832,22 @@
       <field name="nome">Alvorada D'Oeste</field>
     </row>
     <row>
+      <field name="id">11006</field>
+      <field name="id_mesorregiao">1102</field>
+      <field name="id_uf">11</field>
+      <field name="nome">Cacoal</field>
+    </row>
+    <row>
       <field name="id">11007</field>
       <field name="id_mesorregiao">1102</field>
       <field name="id_uf">11</field>
       <field name="nome">Vilhena</field>
     </row>
     <row>
-      <field name="id">11001</field>
-      <field name="id_mesorregiao">1101</field>
+      <field name="id">11008</field>
+      <field name="id_mesorregiao">1102</field>
       <field name="id_uf">11</field>
-      <field name="nome">Porto Velho</field>
-    </row>
-    <row>
-      <field name="id">12004</field>
-      <field name="id_mesorregiao">1202</field>
-      <field name="id_uf">12</field>
-      <field name="nome">Rio Branco</field>
-    </row>
-    <row>
-      <field name="id">12005</field>
-      <field name="id_mesorregiao">1202</field>
-      <field name="id_uf">12</field>
-      <field name="nome">Brasiléia</field>
+      <field name="nome">Colorado do Oeste</field>
     </row>
     <row>
       <field name="id">12001</field>
@@ -880,10 +868,28 @@
       <field name="nome">Sena Madureira</field>
     </row>
     <row>
-      <field name="id">13005</field>
-      <field name="id_mesorregiao">1303</field>
+      <field name="id">12004</field>
+      <field name="id_mesorregiao">1202</field>
+      <field name="id_uf">12</field>
+      <field name="nome">Rio Branco</field>
+    </row>
+    <row>
+      <field name="id">12005</field>
+      <field name="id_mesorregiao">1202</field>
+      <field name="id_uf">12</field>
+      <field name="nome">Brasiléia</field>
+    </row>
+    <row>
+      <field name="id">13001</field>
+      <field name="id_mesorregiao">1301</field>
       <field name="id_uf">13</field>
-      <field name="nome">Tefé</field>
+      <field name="nome">Rio Negro</field>
+    </row>
+    <row>
+      <field name="id">13002</field>
+      <field name="id_mesorregiao">1301</field>
+      <field name="id_uf">13</field>
+      <field name="nome">Japurá</field>
     </row>
     <row>
       <field name="id">13003</field>
@@ -892,16 +898,22 @@
       <field name="nome">Alto Solimões</field>
     </row>
     <row>
+      <field name="id">13004</field>
+      <field name="id_mesorregiao">1302</field>
+      <field name="id_uf">13</field>
+      <field name="nome">Juruá</field>
+    </row>
+    <row>
+      <field name="id">13005</field>
+      <field name="id_mesorregiao">1303</field>
+      <field name="id_uf">13</field>
+      <field name="nome">Tefé</field>
+    </row>
+    <row>
       <field name="id">13006</field>
       <field name="id_mesorregiao">1303</field>
       <field name="id_uf">13</field>
       <field name="nome">Coari</field>
-    </row>
-    <row>
-      <field name="id">13013</field>
-      <field name="id_mesorregiao">1304</field>
-      <field name="id_uf">13</field>
-      <field name="nome">Madeira</field>
     </row>
     <row>
       <field name="id">13007</field>
@@ -910,10 +922,16 @@
       <field name="nome">Manaus</field>
     </row>
     <row>
-      <field name="id">13001</field>
-      <field name="id_mesorregiao">1301</field>
+      <field name="id">13008</field>
+      <field name="id_mesorregiao">1303</field>
       <field name="id_uf">13</field>
-      <field name="nome">Rio Negro</field>
+      <field name="nome">Rio Preto da Eva</field>
+    </row>
+    <row>
+      <field name="id">13009</field>
+      <field name="id_mesorregiao">1303</field>
+      <field name="id_uf">13</field>
+      <field name="nome">Itacoatiara</field>
     </row>
     <row>
       <field name="id">13010</field>
@@ -934,28 +952,10 @@
       <field name="nome">Purus</field>
     </row>
     <row>
-      <field name="id">13004</field>
-      <field name="id_mesorregiao">1302</field>
+      <field name="id">13013</field>
+      <field name="id_mesorregiao">1304</field>
       <field name="id_uf">13</field>
-      <field name="nome">Juruá</field>
-    </row>
-    <row>
-      <field name="id">13009</field>
-      <field name="id_mesorregiao">1303</field>
-      <field name="id_uf">13</field>
-      <field name="nome">Itacoatiara</field>
-    </row>
-    <row>
-      <field name="id">13002</field>
-      <field name="id_mesorregiao">1301</field>
-      <field name="id_uf">13</field>
-      <field name="nome">Japurá</field>
-    </row>
-    <row>
-      <field name="id">13008</field>
-      <field name="id_mesorregiao">1303</field>
-      <field name="id_uf">13</field>
-      <field name="nome">Rio Preto da Eva</field>
+      <field name="nome">Madeira</field>
     </row>
     <row>
       <field name="id">14001</field>
@@ -982,34 +982,10 @@
       <field name="nome">Sudeste de Roraima</field>
     </row>
     <row>
-      <field name="id">15011</field>
-      <field name="id_mesorregiao">1504</field>
+      <field name="id">15001</field>
+      <field name="id_mesorregiao">1501</field>
       <field name="id_uf">15</field>
-      <field name="nome">Cametá</field>
-    </row>
-    <row>
-      <field name="id">15017</field>
-      <field name="id_mesorregiao">1506</field>
-      <field name="id_uf">15</field>
-      <field name="nome">Paragominas</field>
-    </row>
-    <row>
-      <field name="id">15012</field>
-      <field name="id_mesorregiao">1504</field>
-      <field name="id_uf">15</field>
-      <field name="nome">Tomé-Açu</field>
-    </row>
-    <row>
-      <field name="id">15005</field>
-      <field name="id_mesorregiao">1502</field>
-      <field name="id_uf">15</field>
-      <field name="nome">Furos de Breves</field>
-    </row>
-    <row>
-      <field name="id">15019</field>
-      <field name="id_mesorregiao">1506</field>
-      <field name="id_uf">15</field>
-      <field name="nome">Parauapebas</field>
+      <field name="nome">Óbidos</field>
     </row>
     <row>
       <field name="id">15002</field>
@@ -1024,10 +1000,22 @@
       <field name="nome">Almeirim</field>
     </row>
     <row>
-      <field name="id">15015</field>
-      <field name="id_mesorregiao">1505</field>
+      <field name="id">15004</field>
+      <field name="id_mesorregiao">1502</field>
       <field name="id_uf">15</field>
-      <field name="nome">Altamira</field>
+      <field name="nome">Portel</field>
+    </row>
+    <row>
+      <field name="id">15005</field>
+      <field name="id_mesorregiao">1502</field>
+      <field name="id_uf">15</field>
+      <field name="nome">Furos de Breves</field>
+    </row>
+    <row>
+      <field name="id">15006</field>
+      <field name="id_mesorregiao">1502</field>
+      <field name="id_uf">15</field>
+      <field name="nome">Arari</field>
     </row>
     <row>
       <field name="id">15007</field>
@@ -1036,10 +1024,34 @@
       <field name="nome">Belém</field>
     </row>
     <row>
+      <field name="id">15008</field>
+      <field name="id_mesorregiao">1503</field>
+      <field name="id_uf">15</field>
+      <field name="nome">Castanhal</field>
+    </row>
+    <row>
+      <field name="id">15009</field>
+      <field name="id_mesorregiao">1504</field>
+      <field name="id_uf">15</field>
+      <field name="nome">Salgado</field>
+    </row>
+    <row>
       <field name="id">15010</field>
       <field name="id_mesorregiao">1504</field>
       <field name="id_uf">15</field>
       <field name="nome">Bragantina</field>
+    </row>
+    <row>
+      <field name="id">15011</field>
+      <field name="id_mesorregiao">1504</field>
+      <field name="id_uf">15</field>
+      <field name="nome">Cametá</field>
+    </row>
+    <row>
+      <field name="id">15012</field>
+      <field name="id_mesorregiao">1504</field>
+      <field name="id_uf">15</field>
+      <field name="nome">Tomé-Açu</field>
     </row>
     <row>
       <field name="id">15013</field>
@@ -1054,22 +1066,10 @@
       <field name="nome">Itaituba</field>
     </row>
     <row>
-      <field name="id">15004</field>
-      <field name="id_mesorregiao">1502</field>
+      <field name="id">15015</field>
+      <field name="id_mesorregiao">1505</field>
       <field name="id_uf">15</field>
-      <field name="nome">Portel</field>
-    </row>
-    <row>
-      <field name="id">15018</field>
-      <field name="id_mesorregiao">1506</field>
-      <field name="id_uf">15</field>
-      <field name="nome">São Félix do Xingu</field>
-    </row>
-    <row>
-      <field name="id">15020</field>
-      <field name="id_mesorregiao">1506</field>
-      <field name="id_uf">15</field>
-      <field name="nome">Marabá</field>
+      <field name="nome">Altamira</field>
     </row>
     <row>
       <field name="id">15016</field>
@@ -1078,34 +1078,28 @@
       <field name="nome">Tucuruí</field>
     </row>
     <row>
-      <field name="id">15008</field>
-      <field name="id_mesorregiao">1503</field>
-      <field name="id_uf">15</field>
-      <field name="nome">Castanhal</field>
-    </row>
-    <row>
-      <field name="id">15006</field>
-      <field name="id_mesorregiao">1502</field>
-      <field name="id_uf">15</field>
-      <field name="nome">Arari</field>
-    </row>
-    <row>
-      <field name="id">15009</field>
-      <field name="id_mesorregiao">1504</field>
-      <field name="id_uf">15</field>
-      <field name="nome">Salgado</field>
-    </row>
-    <row>
-      <field name="id">15022</field>
+      <field name="id">15017</field>
       <field name="id_mesorregiao">1506</field>
       <field name="id_uf">15</field>
-      <field name="nome">Conceição do Araguaia</field>
+      <field name="nome">Paragominas</field>
     </row>
     <row>
-      <field name="id">15001</field>
-      <field name="id_mesorregiao">1501</field>
+      <field name="id">15018</field>
+      <field name="id_mesorregiao">1506</field>
       <field name="id_uf">15</field>
-      <field name="nome">Óbidos</field>
+      <field name="nome">São Félix do Xingu</field>
+    </row>
+    <row>
+      <field name="id">15019</field>
+      <field name="id_mesorregiao">1506</field>
+      <field name="id_uf">15</field>
+      <field name="nome">Parauapebas</field>
+    </row>
+    <row>
+      <field name="id">15020</field>
+      <field name="id_mesorregiao">1506</field>
+      <field name="id_uf">15</field>
+      <field name="nome">Marabá</field>
     </row>
     <row>
       <field name="id">15021</field>
@@ -1114,16 +1108,10 @@
       <field name="nome">Redenção</field>
     </row>
     <row>
-      <field name="id">16003</field>
-      <field name="id_mesorregiao">1602</field>
-      <field name="id_uf">16</field>
-      <field name="nome">Macapá</field>
-    </row>
-    <row>
-      <field name="id">16002</field>
-      <field name="id_mesorregiao">1601</field>
-      <field name="id_uf">16</field>
-      <field name="nome">Amapá</field>
+      <field name="id">15022</field>
+      <field name="id_mesorregiao">1506</field>
+      <field name="id_uf">15</field>
+      <field name="nome">Conceição do Araguaia</field>
     </row>
     <row>
       <field name="id">16001</field>
@@ -1132,16 +1120,22 @@
       <field name="nome">Oiapoque</field>
     </row>
     <row>
+      <field name="id">16002</field>
+      <field name="id_mesorregiao">1601</field>
+      <field name="id_uf">16</field>
+      <field name="nome">Amapá</field>
+    </row>
+    <row>
+      <field name="id">16003</field>
+      <field name="id_mesorregiao">1602</field>
+      <field name="id_uf">16</field>
+      <field name="nome">Macapá</field>
+    </row>
+    <row>
       <field name="id">16004</field>
       <field name="id_mesorregiao">1602</field>
       <field name="id_uf">16</field>
       <field name="nome">Mazagão</field>
-    </row>
-    <row>
-      <field name="id">17003</field>
-      <field name="id_mesorregiao">1701</field>
-      <field name="id_uf">17</field>
-      <field name="nome">Miracema do Tocantins</field>
     </row>
     <row>
       <field name="id">17001</field>
@@ -1150,28 +1144,16 @@
       <field name="nome">Bico do Papagaio</field>
     </row>
     <row>
-      <field name="id">17005</field>
-      <field name="id_mesorregiao">1701</field>
-      <field name="id_uf">17</field>
-      <field name="nome">Gurupi</field>
-    </row>
-    <row>
-      <field name="id">17008</field>
-      <field name="id_mesorregiao">1702</field>
-      <field name="id_uf">17</field>
-      <field name="nome">Dianópolis</field>
-    </row>
-    <row>
-      <field name="id">17006</field>
-      <field name="id_mesorregiao">1702</field>
-      <field name="id_uf">17</field>
-      <field name="nome">Porto Nacional</field>
-    </row>
-    <row>
       <field name="id">17002</field>
       <field name="id_mesorregiao">1701</field>
       <field name="id_uf">17</field>
       <field name="nome">Araguaína</field>
+    </row>
+    <row>
+      <field name="id">17003</field>
+      <field name="id_mesorregiao">1701</field>
+      <field name="id_uf">17</field>
+      <field name="nome">Miracema do Tocantins</field>
     </row>
     <row>
       <field name="id">17004</field>
@@ -1180,28 +1162,28 @@
       <field name="nome">Rio Formoso</field>
     </row>
     <row>
+      <field name="id">17005</field>
+      <field name="id_mesorregiao">1701</field>
+      <field name="id_uf">17</field>
+      <field name="nome">Gurupi</field>
+    </row>
+    <row>
+      <field name="id">17006</field>
+      <field name="id_mesorregiao">1702</field>
+      <field name="id_uf">17</field>
+      <field name="nome">Porto Nacional</field>
+    </row>
+    <row>
       <field name="id">17007</field>
       <field name="id_mesorregiao">1702</field>
       <field name="id_uf">17</field>
       <field name="nome">Jalapão</field>
     </row>
     <row>
-      <field name="id">21009</field>
-      <field name="id_mesorregiao">2102</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Imperatriz</field>
-    </row>
-    <row>
-      <field name="id">21016</field>
-      <field name="id_mesorregiao">2104</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Coelho Neto</field>
-    </row>
-    <row>
-      <field name="id">21013</field>
-      <field name="id_mesorregiao">2104</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Baixo Parnaíba Maranhense</field>
+      <field name="id">17008</field>
+      <field name="id_mesorregiao">1702</field>
+      <field name="id_uf">17</field>
+      <field name="nome">Dianópolis</field>
     </row>
     <row>
       <field name="id">21001</field>
@@ -1210,46 +1192,10 @@
       <field name="nome">Litoral Ocidental Maranhense</field>
     </row>
     <row>
-      <field name="id">21008</field>
-      <field name="id_mesorregiao">2102</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Pindaré</field>
-    </row>
-    <row>
-      <field name="id">21015</field>
-      <field name="id_mesorregiao">2104</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Codó</field>
-    </row>
-    <row>
-      <field name="id">21020</field>
-      <field name="id_mesorregiao">2105</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Gerais de Balsas</field>
-    </row>
-    <row>
-      <field name="id">21007</field>
-      <field name="id_mesorregiao">2102</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Gurupi</field>
-    </row>
-    <row>
-      <field name="id">21005</field>
+      <field name="id">21002</field>
       <field name="id_mesorregiao">2101</field>
       <field name="id_uf">21</field>
-      <field name="nome">Baixada Maranhense</field>
-    </row>
-    <row>
-      <field name="id">21014</field>
-      <field name="id_mesorregiao">2104</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Chapadinha</field>
-    </row>
-    <row>
-      <field name="id">21011</field>
-      <field name="id_mesorregiao">2103</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Alto Mearim e Grajaú</field>
+      <field name="nome">Aglomeração Urbana de São Luís</field>
     </row>
     <row>
       <field name="id">21003</field>
@@ -1258,40 +1204,16 @@
       <field name="nome">Rosário</field>
     </row>
     <row>
-      <field name="id">21010</field>
-      <field name="id_mesorregiao">2103</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Médio Mearim</field>
-    </row>
-    <row>
-      <field name="id">21018</field>
-      <field name="id_mesorregiao">2104</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Chapadas do Alto Itapecuru</field>
-    </row>
-    <row>
       <field name="id">21004</field>
       <field name="id_mesorregiao">2101</field>
       <field name="id_uf">21</field>
       <field name="nome">Lençois Maranhenses</field>
     </row>
     <row>
-      <field name="id">21021</field>
-      <field name="id_mesorregiao">2105</field>
+      <field name="id">21005</field>
+      <field name="id_mesorregiao">2101</field>
       <field name="id_uf">21</field>
-      <field name="nome">Chapadas das Mangabeiras</field>
-    </row>
-    <row>
-      <field name="id">21017</field>
-      <field name="id_mesorregiao">2104</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Caxias</field>
-    </row>
-    <row>
-      <field name="id">21019</field>
-      <field name="id_mesorregiao">2105</field>
-      <field name="id_uf">21</field>
-      <field name="nome">Porto Franco</field>
+      <field name="nome">Baixada Maranhense</field>
     </row>
     <row>
       <field name="id">21006</field>
@@ -1300,88 +1222,94 @@
       <field name="nome">Itapecuru Mirim</field>
     </row>
     <row>
+      <field name="id">21007</field>
+      <field name="id_mesorregiao">2102</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Gurupi</field>
+    </row>
+    <row>
+      <field name="id">21008</field>
+      <field name="id_mesorregiao">2102</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Pindaré</field>
+    </row>
+    <row>
+      <field name="id">21009</field>
+      <field name="id_mesorregiao">2102</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Imperatriz</field>
+    </row>
+    <row>
+      <field name="id">21010</field>
+      <field name="id_mesorregiao">2103</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Médio Mearim</field>
+    </row>
+    <row>
+      <field name="id">21011</field>
+      <field name="id_mesorregiao">2103</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Alto Mearim e Grajaú</field>
+    </row>
+    <row>
       <field name="id">21012</field>
       <field name="id_mesorregiao">2103</field>
       <field name="id_uf">21</field>
       <field name="nome">Presidente Dutra</field>
     </row>
     <row>
-      <field name="id">21002</field>
-      <field name="id_mesorregiao">2101</field>
+      <field name="id">21013</field>
+      <field name="id_mesorregiao">2104</field>
       <field name="id_uf">21</field>
-      <field name="nome">Aglomeração Urbana de São Luís</field>
+      <field name="nome">Baixo Parnaíba Maranhense</field>
     </row>
     <row>
-      <field name="id">22015</field>
-      <field name="id_mesorregiao">2204</field>
-      <field name="id_uf">22</field>
-      <field name="nome">Alto Médio Canindé</field>
+      <field name="id">21014</field>
+      <field name="id_mesorregiao">2104</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Chapadinha</field>
     </row>
     <row>
-      <field name="id">22005</field>
-      <field name="id_mesorregiao">2202</field>
-      <field name="id_uf">22</field>
-      <field name="nome">Médio Parnaíba Piauiense</field>
+      <field name="id">21015</field>
+      <field name="id_mesorregiao">2104</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Codó</field>
     </row>
     <row>
-      <field name="id">22014</field>
-      <field name="id_mesorregiao">2204</field>
-      <field name="id_uf">22</field>
-      <field name="nome">Pio IX</field>
+      <field name="id">21016</field>
+      <field name="id_mesorregiao">2104</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Coelho Neto</field>
     </row>
     <row>
-      <field name="id">22004</field>
-      <field name="id_mesorregiao">2202</field>
-      <field name="id_uf">22</field>
-      <field name="nome">Campo Maior</field>
+      <field name="id">21017</field>
+      <field name="id_mesorregiao">2104</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Caxias</field>
     </row>
     <row>
-      <field name="id">22003</field>
-      <field name="id_mesorregiao">2202</field>
-      <field name="id_uf">22</field>
-      <field name="nome">Teresina</field>
+      <field name="id">21018</field>
+      <field name="id_mesorregiao">2104</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Chapadas do Alto Itapecuru</field>
     </row>
     <row>
-      <field name="id">22010</field>
-      <field name="id_mesorregiao">2203</field>
-      <field name="id_uf">22</field>
-      <field name="nome">Alto Médio Gurguéia</field>
+      <field name="id">21019</field>
+      <field name="id_mesorregiao">2105</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Porto Franco</field>
     </row>
     <row>
-      <field name="id">22011</field>
-      <field name="id_mesorregiao">2203</field>
-      <field name="id_uf">22</field>
-      <field name="nome">São Raimundo Nonato</field>
+      <field name="id">21020</field>
+      <field name="id_mesorregiao">2105</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Gerais de Balsas</field>
     </row>
     <row>
-      <field name="id">22008</field>
-      <field name="id_mesorregiao">2203</field>
-      <field name="id_uf">22</field>
-      <field name="nome">Bertolínia</field>
-    </row>
-    <row>
-      <field name="id">22006</field>
-      <field name="id_mesorregiao">2202</field>
-      <field name="id_uf">22</field>
-      <field name="nome">Valença do Piauí</field>
-    </row>
-    <row>
-      <field name="id">22013</field>
-      <field name="id_mesorregiao">2204</field>
-      <field name="id_uf">22</field>
-      <field name="nome">Picos</field>
-    </row>
-    <row>
-      <field name="id">22012</field>
-      <field name="id_mesorregiao">2203</field>
-      <field name="id_uf">22</field>
-      <field name="nome">Chapadas do Extremo Sul Piauiense</field>
-    </row>
-    <row>
-      <field name="id">22007</field>
-      <field name="id_mesorregiao">2203</field>
-      <field name="id_uf">22</field>
-      <field name="nome">Alto Parnaíba Piauiense</field>
+      <field name="id">21021</field>
+      <field name="id_mesorregiao">2105</field>
+      <field name="id_uf">21</field>
+      <field name="nome">Chapadas das Mangabeiras</field>
     </row>
     <row>
       <field name="id">22001</field>
@@ -1396,22 +1324,82 @@
       <field name="nome">Litoral Piauiense</field>
     </row>
     <row>
+      <field name="id">22003</field>
+      <field name="id_mesorregiao">2202</field>
+      <field name="id_uf">22</field>
+      <field name="nome">Teresina</field>
+    </row>
+    <row>
+      <field name="id">22004</field>
+      <field name="id_mesorregiao">2202</field>
+      <field name="id_uf">22</field>
+      <field name="nome">Campo Maior</field>
+    </row>
+    <row>
+      <field name="id">22005</field>
+      <field name="id_mesorregiao">2202</field>
+      <field name="id_uf">22</field>
+      <field name="nome">Médio Parnaíba Piauiense</field>
+    </row>
+    <row>
+      <field name="id">22006</field>
+      <field name="id_mesorregiao">2202</field>
+      <field name="id_uf">22</field>
+      <field name="nome">Valença do Piauí</field>
+    </row>
+    <row>
+      <field name="id">22007</field>
+      <field name="id_mesorregiao">2203</field>
+      <field name="id_uf">22</field>
+      <field name="nome">Alto Parnaíba Piauiense</field>
+    </row>
+    <row>
+      <field name="id">22008</field>
+      <field name="id_mesorregiao">2203</field>
+      <field name="id_uf">22</field>
+      <field name="nome">Bertolínia</field>
+    </row>
+    <row>
       <field name="id">22009</field>
       <field name="id_mesorregiao">2203</field>
       <field name="id_uf">22</field>
       <field name="nome">Floriano</field>
     </row>
     <row>
-      <field name="id">23033</field>
-      <field name="id_mesorregiao">2307</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Brejo Santo</field>
+      <field name="id">22010</field>
+      <field name="id_mesorregiao">2203</field>
+      <field name="id_uf">22</field>
+      <field name="nome">Alto Médio Gurguéia</field>
     </row>
     <row>
-      <field name="id">23013</field>
-      <field name="id_mesorregiao">2302</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Baturité</field>
+      <field name="id">22011</field>
+      <field name="id_mesorregiao">2203</field>
+      <field name="id_uf">22</field>
+      <field name="nome">São Raimundo Nonato</field>
+    </row>
+    <row>
+      <field name="id">22012</field>
+      <field name="id_mesorregiao">2203</field>
+      <field name="id_uf">22</field>
+      <field name="nome">Chapadas do Extremo Sul Piauiense</field>
+    </row>
+    <row>
+      <field name="id">22013</field>
+      <field name="id_mesorregiao">2204</field>
+      <field name="id_uf">22</field>
+      <field name="nome">Picos</field>
+    </row>
+    <row>
+      <field name="id">22014</field>
+      <field name="id_mesorregiao">2204</field>
+      <field name="id_uf">22</field>
+      <field name="nome">Pio IX</field>
+    </row>
+    <row>
+      <field name="id">22015</field>
+      <field name="id_mesorregiao">2204</field>
+      <field name="id_uf">22</field>
+      <field name="nome">Alto Médio Canindé</field>
     </row>
     <row>
       <field name="id">23001</field>
@@ -1420,16 +1408,16 @@
       <field name="nome">Litoral de Camocim e Acaraú</field>
     </row>
     <row>
-      <field name="id">23021</field>
-      <field name="id_mesorregiao">2304</field>
+      <field name="id">23002</field>
+      <field name="id_mesorregiao">2301</field>
       <field name="id_uf">23</field>
-      <field name="nome">Sertão de Senador Pompeu</field>
+      <field name="nome">Ibiapaba</field>
     </row>
     <row>
-      <field name="id">23020</field>
-      <field name="id_mesorregiao">2304</field>
+      <field name="id">23003</field>
+      <field name="id_mesorregiao">2301</field>
       <field name="id_uf">23</field>
-      <field name="nome">Sertão de Inhamuns</field>
+      <field name="nome">Coreaú</field>
     </row>
     <row>
       <field name="id">23004</field>
@@ -1438,16 +1426,22 @@
       <field name="nome">Meruoca</field>
     </row>
     <row>
-      <field name="id">23030</field>
-      <field name="id_mesorregiao">2307</field>
+      <field name="id">23005</field>
+      <field name="id_mesorregiao">2301</field>
       <field name="id_uf">23</field>
-      <field name="nome">Caririaçu</field>
+      <field name="nome">Sobral</field>
     </row>
     <row>
-      <field name="id">23023</field>
-      <field name="id_mesorregiao">2305</field>
+      <field name="id">23006</field>
+      <field name="id_mesorregiao">2301</field>
       <field name="id_uf">23</field>
-      <field name="nome">Baixo Jaguaribe</field>
+      <field name="nome">Ipu</field>
+    </row>
+    <row>
+      <field name="id">23007</field>
+      <field name="id_mesorregiao">2301</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Santa Quitéria</field>
     </row>
     <row>
       <field name="id">23008</field>
@@ -1456,10 +1450,16 @@
       <field name="nome">Itapipoca</field>
     </row>
     <row>
-      <field name="id">23027</field>
-      <field name="id_mesorregiao">2306</field>
+      <field name="id">23009</field>
+      <field name="id_mesorregiao">2302</field>
       <field name="id_uf">23</field>
-      <field name="nome">Várzea Alegre</field>
+      <field name="nome">Baixo Curu</field>
+    </row>
+    <row>
+      <field name="id">23010</field>
+      <field name="id_mesorregiao">2302</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Uruburetama</field>
     </row>
     <row>
       <field name="id">23011</field>
@@ -1468,52 +1468,16 @@
       <field name="nome">Médio Curu</field>
     </row>
     <row>
-      <field name="id">23016</field>
-      <field name="id_mesorregiao">2303</field>
+      <field name="id">23012</field>
+      <field name="id_mesorregiao">2302</field>
       <field name="id_uf">23</field>
-      <field name="nome">Fortaleza</field>
+      <field name="nome">Canindé</field>
     </row>
     <row>
-      <field name="id">23022</field>
-      <field name="id_mesorregiao">2305</field>
+      <field name="id">23013</field>
+      <field name="id_mesorregiao">2302</field>
       <field name="id_uf">23</field>
-      <field name="nome">Litoral de Aracati</field>
-    </row>
-    <row>
-      <field name="id">23018</field>
-      <field name="id_mesorregiao">2304</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Sertão de Cratéus</field>
-    </row>
-    <row>
-      <field name="id">23029</field>
-      <field name="id_mesorregiao">2307</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Chapada do Araripe</field>
-    </row>
-    <row>
-      <field name="id">23031</field>
-      <field name="id_mesorregiao">2307</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Barro</field>
-    </row>
-    <row>
-      <field name="id">23028</field>
-      <field name="id_mesorregiao">2306</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Lavras da Mangabeira</field>
-    </row>
-    <row>
-      <field name="id">23019</field>
-      <field name="id_mesorregiao">2304</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Sertão de Quixeramobim</field>
-    </row>
-    <row>
-      <field name="id">23032</field>
-      <field name="id_mesorregiao">2307</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Cariri</field>
+      <field name="nome">Baturité</field>
     </row>
     <row>
       <field name="id">23014</field>
@@ -1528,46 +1492,10 @@
       <field name="nome">Cascavel</field>
     </row>
     <row>
-      <field name="id">23012</field>
-      <field name="id_mesorregiao">2302</field>
+      <field name="id">23016</field>
+      <field name="id_mesorregiao">2303</field>
       <field name="id_uf">23</field>
-      <field name="nome">Canindé</field>
-    </row>
-    <row>
-      <field name="id">23005</field>
-      <field name="id_mesorregiao">2301</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Sobral</field>
-    </row>
-    <row>
-      <field name="id">23002</field>
-      <field name="id_mesorregiao">2301</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Ibiapaba</field>
-    </row>
-    <row>
-      <field name="id">23007</field>
-      <field name="id_mesorregiao">2301</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Santa Quitéria</field>
-    </row>
-    <row>
-      <field name="id">23026</field>
-      <field name="id_mesorregiao">2306</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Iguatu</field>
-    </row>
-    <row>
-      <field name="id">23003</field>
-      <field name="id_mesorregiao">2301</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Coreaú</field>
-    </row>
-    <row>
-      <field name="id">23025</field>
-      <field name="id_mesorregiao">2305</field>
-      <field name="id_uf">23</field>
-      <field name="nome">Serra do Pereiro</field>
+      <field name="nome">Fortaleza</field>
     </row>
     <row>
       <field name="id">23017</field>
@@ -1576,16 +1504,40 @@
       <field name="nome">Pacajus</field>
     </row>
     <row>
-      <field name="id">23006</field>
-      <field name="id_mesorregiao">2301</field>
+      <field name="id">23018</field>
+      <field name="id_mesorregiao">2304</field>
       <field name="id_uf">23</field>
-      <field name="nome">Ipu</field>
+      <field name="nome">Sertão de Cratéus</field>
     </row>
     <row>
-      <field name="id">23010</field>
-      <field name="id_mesorregiao">2302</field>
+      <field name="id">23019</field>
+      <field name="id_mesorregiao">2304</field>
       <field name="id_uf">23</field>
-      <field name="nome">Uruburetama</field>
+      <field name="nome">Sertão de Quixeramobim</field>
+    </row>
+    <row>
+      <field name="id">23020</field>
+      <field name="id_mesorregiao">2304</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Sertão de Inhamuns</field>
+    </row>
+    <row>
+      <field name="id">23021</field>
+      <field name="id_mesorregiao">2304</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Sertão de Senador Pompeu</field>
+    </row>
+    <row>
+      <field name="id">23022</field>
+      <field name="id_mesorregiao">2305</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Litoral de Aracati</field>
+    </row>
+    <row>
+      <field name="id">23023</field>
+      <field name="id_mesorregiao">2305</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Baixo Jaguaribe</field>
     </row>
     <row>
       <field name="id">23024</field>
@@ -1594,28 +1546,82 @@
       <field name="nome">Médio Jaguaribe</field>
     </row>
     <row>
-      <field name="id">23009</field>
-      <field name="id_mesorregiao">2302</field>
+      <field name="id">23025</field>
+      <field name="id_mesorregiao">2305</field>
       <field name="id_uf">23</field>
-      <field name="nome">Baixo Curu</field>
+      <field name="nome">Serra do Pereiro</field>
     </row>
     <row>
-      <field name="id">24012</field>
-      <field name="id_mesorregiao">2402</field>
+      <field name="id">23026</field>
+      <field name="id_mesorregiao">2306</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Iguatu</field>
+    </row>
+    <row>
+      <field name="id">23027</field>
+      <field name="id_mesorregiao">2306</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Várzea Alegre</field>
+    </row>
+    <row>
+      <field name="id">23028</field>
+      <field name="id_mesorregiao">2306</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Lavras da Mangabeira</field>
+    </row>
+    <row>
+      <field name="id">23029</field>
+      <field name="id_mesorregiao">2307</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Chapada do Araripe</field>
+    </row>
+    <row>
+      <field name="id">23030</field>
+      <field name="id_mesorregiao">2307</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Caririaçu</field>
+    </row>
+    <row>
+      <field name="id">23031</field>
+      <field name="id_mesorregiao">2307</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Barro</field>
+    </row>
+    <row>
+      <field name="id">23032</field>
+      <field name="id_mesorregiao">2307</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Cariri</field>
+    </row>
+    <row>
+      <field name="id">23033</field>
+      <field name="id_mesorregiao">2307</field>
+      <field name="id_uf">23</field>
+      <field name="nome">Brejo Santo</field>
+    </row>
+    <row>
+      <field name="id">24001</field>
+      <field name="id_mesorregiao">2401</field>
       <field name="id_uf">24</field>
-      <field name="nome">Seridó Oriental</field>
+      <field name="nome">Mossoró</field>
+    </row>
+    <row>
+      <field name="id">24002</field>
+      <field name="id_mesorregiao">2401</field>
+      <field name="id_uf">24</field>
+      <field name="nome">Chapada do Apodi</field>
+    </row>
+    <row>
+      <field name="id">24003</field>
+      <field name="id_mesorregiao">2401</field>
+      <field name="id_uf">24</field>
+      <field name="nome">Médio Oeste</field>
     </row>
     <row>
       <field name="id">24004</field>
       <field name="id_mesorregiao">2401</field>
       <field name="id_uf">24</field>
       <field name="nome">Vale do Açu</field>
-    </row>
-    <row>
-      <field name="id">24009</field>
-      <field name="id_mesorregiao">2402</field>
-      <field name="id_uf">24</field>
-      <field name="nome">Angicos</field>
     </row>
     <row>
       <field name="id">24005</field>
@@ -1636,40 +1642,16 @@
       <field name="nome">Umarizal</field>
     </row>
     <row>
-      <field name="id">24002</field>
-      <field name="id_mesorregiao">2401</field>
+      <field name="id">24008</field>
+      <field name="id_mesorregiao">2402</field>
       <field name="id_uf">24</field>
-      <field name="nome">Chapada do Apodi</field>
+      <field name="nome">Macau</field>
     </row>
     <row>
-      <field name="id">24001</field>
-      <field name="id_mesorregiao">2401</field>
+      <field name="id">24009</field>
+      <field name="id_mesorregiao">2402</field>
       <field name="id_uf">24</field>
-      <field name="nome">Mossoró</field>
-    </row>
-    <row>
-      <field name="id">24019</field>
-      <field name="id_mesorregiao">2404</field>
-      <field name="id_uf">24</field>
-      <field name="nome">Litoral Sul</field>
-    </row>
-    <row>
-      <field name="id">24003</field>
-      <field name="id_mesorregiao">2401</field>
-      <field name="id_uf">24</field>
-      <field name="nome">Médio Oeste</field>
-    </row>
-    <row>
-      <field name="id">24014</field>
-      <field name="id_mesorregiao">2403</field>
-      <field name="id_uf">24</field>
-      <field name="nome">Borborema Potiguar</field>
-    </row>
-    <row>
-      <field name="id">24013</field>
-      <field name="id_mesorregiao">2403</field>
-      <field name="id_uf">24</field>
-      <field name="nome">Baixa Verde</field>
+      <field name="nome">Angicos</field>
     </row>
     <row>
       <field name="id">24010</field>
@@ -1678,22 +1660,40 @@
       <field name="nome">Serra de Santana</field>
     </row>
     <row>
+      <field name="id">24011</field>
+      <field name="id_mesorregiao">2402</field>
+      <field name="id_uf">24</field>
+      <field name="nome">Seridó Ocidental</field>
+    </row>
+    <row>
+      <field name="id">24012</field>
+      <field name="id_mesorregiao">2402</field>
+      <field name="id_uf">24</field>
+      <field name="nome">Seridó Oriental</field>
+    </row>
+    <row>
+      <field name="id">24013</field>
+      <field name="id_mesorregiao">2403</field>
+      <field name="id_uf">24</field>
+      <field name="nome">Baixa Verde</field>
+    </row>
+    <row>
+      <field name="id">24014</field>
+      <field name="id_mesorregiao">2403</field>
+      <field name="id_uf">24</field>
+      <field name="nome">Borborema Potiguar</field>
+    </row>
+    <row>
       <field name="id">24015</field>
       <field name="id_mesorregiao">2403</field>
       <field name="id_uf">24</field>
       <field name="nome">Agreste Potiguar</field>
     </row>
     <row>
-      <field name="id">24008</field>
-      <field name="id_mesorregiao">2402</field>
+      <field name="id">24016</field>
+      <field name="id_mesorregiao">2404</field>
       <field name="id_uf">24</field>
-      <field name="nome">Macau</field>
-    </row>
-    <row>
-      <field name="id">24011</field>
-      <field name="id_mesorregiao">2402</field>
-      <field name="id_uf">24</field>
-      <field name="nome">Seridó Ocidental</field>
+      <field name="nome">Litoral Nordeste</field>
     </row>
     <row>
       <field name="id">24017</field>
@@ -1708,16 +1708,34 @@
       <field name="nome">Natal</field>
     </row>
     <row>
-      <field name="id">24016</field>
+      <field name="id">24019</field>
       <field name="id_mesorregiao">2404</field>
       <field name="id_uf">24</field>
-      <field name="nome">Litoral Nordeste</field>
+      <field name="nome">Litoral Sul</field>
     </row>
     <row>
-      <field name="id">25007</field>
+      <field name="id">25001</field>
       <field name="id_mesorregiao">2501</field>
       <field name="id_uf">25</field>
-      <field name="nome">Serra do Teixeira</field>
+      <field name="nome">Catolé do Rocha</field>
+    </row>
+    <row>
+      <field name="id">25002</field>
+      <field name="id_mesorregiao">2501</field>
+      <field name="id_uf">25</field>
+      <field name="nome">Cajazeiras</field>
+    </row>
+    <row>
+      <field name="id">25003</field>
+      <field name="id_mesorregiao">2501</field>
+      <field name="id_uf">25</field>
+      <field name="nome">Sousa</field>
+    </row>
+    <row>
+      <field name="id">25004</field>
+      <field name="id_mesorregiao">2501</field>
+      <field name="id_uf">25</field>
+      <field name="nome">Patos</field>
     </row>
     <row>
       <field name="id">25005</field>
@@ -1726,16 +1744,34 @@
       <field name="nome">Piancó</field>
     </row>
     <row>
-      <field name="id">25015</field>
-      <field name="id_mesorregiao">2503</field>
+      <field name="id">25006</field>
+      <field name="id_mesorregiao">2501</field>
       <field name="id_uf">25</field>
-      <field name="nome">Brejo Paraibano</field>
+      <field name="nome">Itaporanga</field>
     </row>
     <row>
-      <field name="id">25016</field>
-      <field name="id_mesorregiao">2503</field>
+      <field name="id">25007</field>
+      <field name="id_mesorregiao">2501</field>
       <field name="id_uf">25</field>
-      <field name="nome">Guarabira</field>
+      <field name="nome">Serra do Teixeira</field>
+    </row>
+    <row>
+      <field name="id">25008</field>
+      <field name="id_mesorregiao">2502</field>
+      <field name="id_uf">25</field>
+      <field name="nome">Seridó Ocidental Paraibano</field>
+    </row>
+    <row>
+      <field name="id">25009</field>
+      <field name="id_mesorregiao">2502</field>
+      <field name="id_uf">25</field>
+      <field name="nome">Seridó Oriental Paraibano</field>
+    </row>
+    <row>
+      <field name="id">25010</field>
+      <field name="id_mesorregiao">2502</field>
+      <field name="id_uf">25</field>
+      <field name="nome">Cariri Ocidental</field>
     </row>
     <row>
       <field name="id">25011</field>
@@ -1750,40 +1786,10 @@
       <field name="nome">Curimataú Ocidental</field>
     </row>
     <row>
-      <field name="id">25023</field>
-      <field name="id_mesorregiao">2504</field>
-      <field name="id_uf">25</field>
-      <field name="nome">Litoral Sul</field>
-    </row>
-    <row>
-      <field name="id">25002</field>
-      <field name="id_mesorregiao">2501</field>
-      <field name="id_uf">25</field>
-      <field name="nome">Cajazeiras</field>
-    </row>
-    <row>
-      <field name="id">25010</field>
-      <field name="id_mesorregiao">2502</field>
-      <field name="id_uf">25</field>
-      <field name="nome">Cariri Ocidental</field>
-    </row>
-    <row>
-      <field name="id">25003</field>
-      <field name="id_mesorregiao">2501</field>
-      <field name="id_uf">25</field>
-      <field name="nome">Sousa</field>
-    </row>
-    <row>
       <field name="id">25013</field>
       <field name="id_mesorregiao">2503</field>
       <field name="id_uf">25</field>
       <field name="nome">Curimataú Oriental</field>
-    </row>
-    <row>
-      <field name="id">25004</field>
-      <field name="id_mesorregiao">2501</field>
-      <field name="id_uf">25</field>
-      <field name="nome">Patos</field>
     </row>
     <row>
       <field name="id">25014</field>
@@ -1792,40 +1798,16 @@
       <field name="nome">Esperança</field>
     </row>
     <row>
-      <field name="id">25019</field>
+      <field name="id">25015</field>
       <field name="id_mesorregiao">2503</field>
       <field name="id_uf">25</field>
-      <field name="nome">Umbuzeiro</field>
+      <field name="nome">Brejo Paraibano</field>
     </row>
     <row>
-      <field name="id">25020</field>
-      <field name="id_mesorregiao">2504</field>
+      <field name="id">25016</field>
+      <field name="id_mesorregiao">2503</field>
       <field name="id_uf">25</field>
-      <field name="nome">Litoral Norte</field>
-    </row>
-    <row>
-      <field name="id">25009</field>
-      <field name="id_mesorregiao">2502</field>
-      <field name="id_uf">25</field>
-      <field name="nome">Seridó Oriental Paraibano</field>
-    </row>
-    <row>
-      <field name="id">25022</field>
-      <field name="id_mesorregiao">2504</field>
-      <field name="id_uf">25</field>
-      <field name="nome">João Pessoa</field>
-    </row>
-    <row>
-      <field name="id">25001</field>
-      <field name="id_mesorregiao">2501</field>
-      <field name="id_uf">25</field>
-      <field name="nome">Catolé do Rocha</field>
-    </row>
-    <row>
-      <field name="id">25006</field>
-      <field name="id_mesorregiao">2501</field>
-      <field name="id_uf">25</field>
-      <field name="nome">Itaporanga</field>
+      <field name="nome">Guarabira</field>
     </row>
     <row>
       <field name="id">25017</field>
@@ -1840,22 +1822,46 @@
       <field name="nome">Itabaiana</field>
     </row>
     <row>
+      <field name="id">25019</field>
+      <field name="id_mesorregiao">2503</field>
+      <field name="id_uf">25</field>
+      <field name="nome">Umbuzeiro</field>
+    </row>
+    <row>
+      <field name="id">25020</field>
+      <field name="id_mesorregiao">2504</field>
+      <field name="id_uf">25</field>
+      <field name="nome">Litoral Norte</field>
+    </row>
+    <row>
       <field name="id">25021</field>
       <field name="id_mesorregiao">2504</field>
       <field name="id_uf">25</field>
       <field name="nome">Sapé</field>
     </row>
     <row>
-      <field name="id">25008</field>
-      <field name="id_mesorregiao">2502</field>
+      <field name="id">25022</field>
+      <field name="id_mesorregiao">2504</field>
       <field name="id_uf">25</field>
-      <field name="nome">Seridó Ocidental Paraibano</field>
+      <field name="nome">João Pessoa</field>
     </row>
     <row>
-      <field name="id">26017</field>
-      <field name="id_mesorregiao">2605</field>
+      <field name="id">25023</field>
+      <field name="id_mesorregiao">2504</field>
+      <field name="id_uf">25</field>
+      <field name="nome">Litoral Sul</field>
+    </row>
+    <row>
+      <field name="id">26001</field>
+      <field name="id_mesorregiao">2601</field>
       <field name="id_uf">26</field>
-      <field name="nome">Recife</field>
+      <field name="nome">Araripina</field>
+    </row>
+    <row>
+      <field name="id">26002</field>
+      <field name="id_mesorregiao">2601</field>
+      <field name="id_uf">26</field>
+      <field name="nome">Salgueiro</field>
     </row>
     <row>
       <field name="id">26003</field>
@@ -1864,22 +1870,22 @@
       <field name="nome">Pajeú</field>
     </row>
     <row>
+      <field name="id">26004</field>
+      <field name="id_mesorregiao">2601</field>
+      <field name="id_uf">26</field>
+      <field name="nome">Sertão do Moxotó</field>
+    </row>
+    <row>
       <field name="id">26005</field>
       <field name="id_mesorregiao">2602</field>
       <field name="id_uf">26</field>
       <field name="nome">Petrolina</field>
     </row>
     <row>
-      <field name="id">26012</field>
-      <field name="id_mesorregiao">2603</field>
+      <field name="id">26006</field>
+      <field name="id_mesorregiao">2602</field>
       <field name="id_uf">26</field>
-      <field name="nome">Brejo Pernambucano</field>
-    </row>
-    <row>
-      <field name="id">26015</field>
-      <field name="id_mesorregiao">2604</field>
-      <field name="id_uf">26</field>
-      <field name="nome">Mata Meridional Pernambucana</field>
+      <field name="nome">Itaparica</field>
     </row>
     <row>
       <field name="id">26007</field>
@@ -1894,40 +1900,10 @@
       <field name="nome">Vale do Ipojuca</field>
     </row>
     <row>
-      <field name="id">26013</field>
-      <field name="id_mesorregiao">2604</field>
-      <field name="id_uf">26</field>
-      <field name="nome">Mata Setentrional Pernambucana</field>
-    </row>
-    <row>
-      <field name="id">26011</field>
+      <field name="id">26009</field>
       <field name="id_mesorregiao">2603</field>
       <field name="id_uf">26</field>
-      <field name="nome">Garanhuns</field>
-    </row>
-    <row>
-      <field name="id">26016</field>
-      <field name="id_mesorregiao">2605</field>
-      <field name="id_uf">26</field>
-      <field name="nome">Itamaracá</field>
-    </row>
-    <row>
-      <field name="id">26001</field>
-      <field name="id_mesorregiao">2601</field>
-      <field name="id_uf">26</field>
-      <field name="nome">Araripina</field>
-    </row>
-    <row>
-      <field name="id">26004</field>
-      <field name="id_mesorregiao">2601</field>
-      <field name="id_uf">26</field>
-      <field name="nome">Sertão do Moxotó</field>
-    </row>
-    <row>
-      <field name="id">26006</field>
-      <field name="id_mesorregiao">2602</field>
-      <field name="id_uf">26</field>
-      <field name="nome">Itaparica</field>
+      <field name="nome">Alto Capibaribe</field>
     </row>
     <row>
       <field name="id">26010</field>
@@ -1936,28 +1912,52 @@
       <field name="nome">Médio Capibaribe</field>
     </row>
     <row>
-      <field name="id">26018</field>
-      <field name="id_mesorregiao">2605</field>
-      <field name="id_uf">26</field>
-      <field name="nome">Suape</field>
-    </row>
-    <row>
-      <field name="id">26009</field>
+      <field name="id">26011</field>
       <field name="id_mesorregiao">2603</field>
       <field name="id_uf">26</field>
-      <field name="nome">Alto Capibaribe</field>
+      <field name="nome">Garanhuns</field>
     </row>
     <row>
-      <field name="id">26002</field>
-      <field name="id_mesorregiao">2601</field>
+      <field name="id">26012</field>
+      <field name="id_mesorregiao">2603</field>
       <field name="id_uf">26</field>
-      <field name="nome">Salgueiro</field>
+      <field name="nome">Brejo Pernambucano</field>
+    </row>
+    <row>
+      <field name="id">26013</field>
+      <field name="id_mesorregiao">2604</field>
+      <field name="id_uf">26</field>
+      <field name="nome">Mata Setentrional Pernambucana</field>
     </row>
     <row>
       <field name="id">26014</field>
       <field name="id_mesorregiao">2604</field>
       <field name="id_uf">26</field>
       <field name="nome">Vitória de Santo Antão</field>
+    </row>
+    <row>
+      <field name="id">26015</field>
+      <field name="id_mesorregiao">2604</field>
+      <field name="id_uf">26</field>
+      <field name="nome">Mata Meridional Pernambucana</field>
+    </row>
+    <row>
+      <field name="id">26016</field>
+      <field name="id_mesorregiao">2605</field>
+      <field name="id_uf">26</field>
+      <field name="nome">Itamaracá</field>
+    </row>
+    <row>
+      <field name="id">26017</field>
+      <field name="id_mesorregiao">2605</field>
+      <field name="id_uf">26</field>
+      <field name="nome">Recife</field>
+    </row>
+    <row>
+      <field name="id">26018</field>
+      <field name="id_mesorregiao">2605</field>
+      <field name="id_uf">26</field>
+      <field name="nome">Suape</field>
     </row>
     <row>
       <field name="id">26019</field>
@@ -1972,28 +1972,16 @@
       <field name="nome">Serrana do Sertão Alagoano</field>
     </row>
     <row>
-      <field name="id">27012</field>
-      <field name="id_mesorregiao">2703</field>
+      <field name="id">27002</field>
+      <field name="id_mesorregiao">2701</field>
       <field name="id_uf">27</field>
-      <field name="nome">São Miguel dos Campos</field>
+      <field name="nome">Alagoana do Sertão do São Francisco</field>
     </row>
     <row>
-      <field name="id">27006</field>
-      <field name="id_mesorregiao">2702</field>
+      <field name="id">27003</field>
+      <field name="id_mesorregiao">2701</field>
       <field name="id_uf">27</field>
-      <field name="nome">Arapiraca</field>
-    </row>
-    <row>
-      <field name="id">27009</field>
-      <field name="id_mesorregiao">2703</field>
-      <field name="id_uf">27</field>
-      <field name="nome">Mata Alagoana</field>
-    </row>
-    <row>
-      <field name="id">27011</field>
-      <field name="id_mesorregiao">2703</field>
-      <field name="id_uf">27</field>
-      <field name="nome">Maceió</field>
+      <field name="nome">Santana do Ipanema</field>
     </row>
     <row>
       <field name="id">27004</field>
@@ -2008,34 +1996,10 @@
       <field name="nome">Palmeira dos Índios</field>
     </row>
     <row>
-      <field name="id">27003</field>
-      <field name="id_mesorregiao">2701</field>
+      <field name="id">27006</field>
+      <field name="id_mesorregiao">2702</field>
       <field name="id_uf">27</field>
-      <field name="nome">Santana do Ipanema</field>
-    </row>
-    <row>
-      <field name="id">27008</field>
-      <field name="id_mesorregiao">2703</field>
-      <field name="id_uf">27</field>
-      <field name="nome">Serrana dos Quilombos</field>
-    </row>
-    <row>
-      <field name="id">27002</field>
-      <field name="id_mesorregiao">2701</field>
-      <field name="id_uf">27</field>
-      <field name="nome">Alagoana do Sertão do São Francisco</field>
-    </row>
-    <row>
-      <field name="id">27013</field>
-      <field name="id_mesorregiao">2703</field>
-      <field name="id_uf">27</field>
-      <field name="nome">Penedo</field>
-    </row>
-    <row>
-      <field name="id">27010</field>
-      <field name="id_mesorregiao">2703</field>
-      <field name="id_uf">27</field>
-      <field name="nome">Litoral Norte Alagoano</field>
+      <field name="nome">Arapiraca</field>
     </row>
     <row>
       <field name="id">27007</field>
@@ -2044,16 +2008,100 @@
       <field name="nome">Traipu</field>
     </row>
     <row>
-      <field name="id">28007</field>
-      <field name="id_mesorregiao">2803</field>
+      <field name="id">27008</field>
+      <field name="id_mesorregiao">2703</field>
+      <field name="id_uf">27</field>
+      <field name="nome">Serrana dos Quilombos</field>
+    </row>
+    <row>
+      <field name="id">27009</field>
+      <field name="id_mesorregiao">2703</field>
+      <field name="id_uf">27</field>
+      <field name="nome">Mata Alagoana</field>
+    </row>
+    <row>
+      <field name="id">27010</field>
+      <field name="id_mesorregiao">2703</field>
+      <field name="id_uf">27</field>
+      <field name="nome">Litoral Norte Alagoano</field>
+    </row>
+    <row>
+      <field name="id">27011</field>
+      <field name="id_mesorregiao">2703</field>
+      <field name="id_uf">27</field>
+      <field name="nome">Maceió</field>
+    </row>
+    <row>
+      <field name="id">27012</field>
+      <field name="id_mesorregiao">2703</field>
+      <field name="id_uf">27</field>
+      <field name="nome">São Miguel dos Campos</field>
+    </row>
+    <row>
+      <field name="id">27013</field>
+      <field name="id_mesorregiao">2703</field>
+      <field name="id_uf">27</field>
+      <field name="nome">Penedo</field>
+    </row>
+    <row>
+      <field name="id">28001</field>
+      <field name="id_mesorregiao">2801</field>
       <field name="id_uf">28</field>
-      <field name="nome">Propriá</field>
+      <field name="nome">Sergipana do Sertão do São Francisco</field>
+    </row>
+    <row>
+      <field name="id">28002</field>
+      <field name="id_mesorregiao">2801</field>
+      <field name="id_uf">28</field>
+      <field name="nome">Carira</field>
     </row>
     <row>
       <field name="id">28003</field>
       <field name="id_mesorregiao">2802</field>
       <field name="id_uf">28</field>
       <field name="nome">Nossa Senhora das Dores</field>
+    </row>
+    <row>
+      <field name="id">28004</field>
+      <field name="id_mesorregiao">2802</field>
+      <field name="id_uf">28</field>
+      <field name="nome">Agreste de Itabaiana</field>
+    </row>
+    <row>
+      <field name="id">28005</field>
+      <field name="id_mesorregiao">2802</field>
+      <field name="id_uf">28</field>
+      <field name="nome">Tobias Barreto</field>
+    </row>
+    <row>
+      <field name="id">28006</field>
+      <field name="id_mesorregiao">2802</field>
+      <field name="id_uf">28</field>
+      <field name="nome">Agreste de Lagarto</field>
+    </row>
+    <row>
+      <field name="id">28007</field>
+      <field name="id_mesorregiao">2803</field>
+      <field name="id_uf">28</field>
+      <field name="nome">Propriá</field>
+    </row>
+    <row>
+      <field name="id">28008</field>
+      <field name="id_mesorregiao">2803</field>
+      <field name="id_uf">28</field>
+      <field name="nome">Cotinguiba</field>
+    </row>
+    <row>
+      <field name="id">28009</field>
+      <field name="id_mesorregiao">2803</field>
+      <field name="id_uf">28</field>
+      <field name="nome">Japaratuba</field>
+    </row>
+    <row>
+      <field name="id">28010</field>
+      <field name="id_mesorregiao">2803</field>
+      <field name="id_uf">28</field>
+      <field name="nome">Baixo Cotinguiba</field>
     </row>
     <row>
       <field name="id">28011</field>
@@ -2068,160 +2116,10 @@
       <field name="nome">Boquim</field>
     </row>
     <row>
-      <field name="id">28004</field>
-      <field name="id_mesorregiao">2802</field>
-      <field name="id_uf">28</field>
-      <field name="nome">Agreste de Itabaiana</field>
-    </row>
-    <row>
-      <field name="id">28001</field>
-      <field name="id_mesorregiao">2801</field>
-      <field name="id_uf">28</field>
-      <field name="nome">Sergipana do Sertão do São Francisco</field>
-    </row>
-    <row>
-      <field name="id">28008</field>
-      <field name="id_mesorregiao">2803</field>
-      <field name="id_uf">28</field>
-      <field name="nome">Cotinguiba</field>
-    </row>
-    <row>
-      <field name="id">28002</field>
-      <field name="id_mesorregiao">2801</field>
-      <field name="id_uf">28</field>
-      <field name="nome">Carira</field>
-    </row>
-    <row>
-      <field name="id">28010</field>
-      <field name="id_mesorregiao">2803</field>
-      <field name="id_uf">28</field>
-      <field name="nome">Baixo Cotinguiba</field>
-    </row>
-    <row>
       <field name="id">28013</field>
       <field name="id_mesorregiao">2803</field>
       <field name="id_uf">28</field>
       <field name="nome">Estância</field>
-    </row>
-    <row>
-      <field name="id">28009</field>
-      <field name="id_mesorregiao">2803</field>
-      <field name="id_uf">28</field>
-      <field name="nome">Japaratuba</field>
-    </row>
-    <row>
-      <field name="id">28006</field>
-      <field name="id_mesorregiao">2802</field>
-      <field name="id_uf">28</field>
-      <field name="nome">Agreste de Lagarto</field>
-    </row>
-    <row>
-      <field name="id">28005</field>
-      <field name="id_mesorregiao">2802</field>
-      <field name="id_uf">28</field>
-      <field name="nome">Tobias Barreto</field>
-    </row>
-    <row>
-      <field name="id">29023</field>
-      <field name="id_mesorregiao">2906</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Seabra</field>
-    </row>
-    <row>
-      <field name="id">29005</field>
-      <field name="id_mesorregiao">2902</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Paulo Afonso</field>
-    </row>
-    <row>
-      <field name="id">29017</field>
-      <field name="id_mesorregiao">2904</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Alagoinhas</field>
-    </row>
-    <row>
-      <field name="id">29015</field>
-      <field name="id_mesorregiao">2904</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Ribeira do Pombal</field>
-    </row>
-    <row>
-      <field name="id">29012</field>
-      <field name="id_mesorregiao">2903</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Feira de Santana</field>
-    </row>
-    <row>
-      <field name="id">29025</field>
-      <field name="id_mesorregiao">2906</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Livramento do Brumado</field>
-    </row>
-    <row>
-      <field name="id">29024</field>
-      <field name="id_mesorregiao">2906</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Jequié</field>
-    </row>
-    <row>
-      <field name="id">29032</field>
-      <field name="id_mesorregiao">2907</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Porto Seguro</field>
-    </row>
-    <row>
-      <field name="id">29031</field>
-      <field name="id_mesorregiao">2907</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Ilhéus-Itabuna</field>
-    </row>
-    <row>
-      <field name="id">29019</field>
-      <field name="id_mesorregiao">2905</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Catu</field>
-    </row>
-    <row>
-      <field name="id">29009</field>
-      <field name="id_mesorregiao">2903</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Irecê</field>
-    </row>
-    <row>
-      <field name="id">29028</field>
-      <field name="id_mesorregiao">2906</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Vitória da Conquista</field>
-    </row>
-    <row>
-      <field name="id">29008</field>
-      <field name="id_mesorregiao">2903</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Senhor do Bonfim</field>
-    </row>
-    <row>
-      <field name="id">29002</field>
-      <field name="id_mesorregiao">2901</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Cotegipe</field>
-    </row>
-    <row>
-      <field name="id">29027</field>
-      <field name="id_mesorregiao">2906</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Brumado</field>
-    </row>
-    <row>
-      <field name="id">29016</field>
-      <field name="id_mesorregiao">2904</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Serrinha</field>
-    </row>
-    <row>
-      <field name="id">29020</field>
-      <field name="id_mesorregiao">2905</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Santo Antônio de Jesus</field>
     </row>
     <row>
       <field name="id">29001</field>
@@ -2230,10 +2128,28 @@
       <field name="nome">Barreiras</field>
     </row>
     <row>
-      <field name="id">29011</field>
-      <field name="id_mesorregiao">2903</field>
+      <field name="id">29002</field>
+      <field name="id_mesorregiao">2901</field>
       <field name="id_uf">29</field>
-      <field name="nome">Itaberaba</field>
+      <field name="nome">Cotegipe</field>
+    </row>
+    <row>
+      <field name="id">29003</field>
+      <field name="id_mesorregiao">2901</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Santa Maria da Vitória</field>
+    </row>
+    <row>
+      <field name="id">29004</field>
+      <field name="id_mesorregiao">2902</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Juazeiro</field>
+    </row>
+    <row>
+      <field name="id">29005</field>
+      <field name="id_mesorregiao">2902</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Paulo Afonso</field>
     </row>
     <row>
       <field name="id">29006</field>
@@ -2248,16 +2164,16 @@
       <field name="nome">Bom Jesus da Lapa</field>
     </row>
     <row>
-      <field name="id">29022</field>
-      <field name="id_mesorregiao">2906</field>
+      <field name="id">29008</field>
+      <field name="id_mesorregiao">2903</field>
       <field name="id_uf">29</field>
-      <field name="nome">Boquira</field>
+      <field name="nome">Senhor do Bonfim</field>
     </row>
     <row>
-      <field name="id">29026</field>
-      <field name="id_mesorregiao">2906</field>
+      <field name="id">29009</field>
+      <field name="id_mesorregiao">2903</field>
       <field name="id_uf">29</field>
-      <field name="nome">Guanambi</field>
+      <field name="nome">Irecê</field>
     </row>
     <row>
       <field name="id">29010</field>
@@ -2266,40 +2182,16 @@
       <field name="nome">Jacobina</field>
     </row>
     <row>
-      <field name="id">29030</field>
-      <field name="id_mesorregiao">2907</field>
+      <field name="id">29011</field>
+      <field name="id_mesorregiao">2903</field>
       <field name="id_uf">29</field>
-      <field name="nome">Valença</field>
+      <field name="nome">Itaberaba</field>
     </row>
     <row>
-      <field name="id">29021</field>
-      <field name="id_mesorregiao">2905</field>
+      <field name="id">29012</field>
+      <field name="id_mesorregiao">2903</field>
       <field name="id_uf">29</field>
-      <field name="nome">Salvador</field>
-    </row>
-    <row>
-      <field name="id">29004</field>
-      <field name="id_mesorregiao">2902</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Juazeiro</field>
-    </row>
-    <row>
-      <field name="id">29003</field>
-      <field name="id_mesorregiao">2901</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Santa Maria da Vitória</field>
-    </row>
-    <row>
-      <field name="id">29014</field>
-      <field name="id_mesorregiao">2904</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Euclides da Cunha</field>
-    </row>
-    <row>
-      <field name="id">29018</field>
-      <field name="id_mesorregiao">2904</field>
-      <field name="id_uf">29</field>
-      <field name="nome">Entre Rios</field>
+      <field name="nome">Feira de Santana</field>
     </row>
     <row>
       <field name="id">29013</field>
@@ -2308,220 +2200,118 @@
       <field name="nome">Jeremoabo</field>
     </row>
     <row>
+      <field name="id">29014</field>
+      <field name="id_mesorregiao">2904</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Euclides da Cunha</field>
+    </row>
+    <row>
+      <field name="id">29015</field>
+      <field name="id_mesorregiao">2904</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Ribeira do Pombal</field>
+    </row>
+    <row>
+      <field name="id">29016</field>
+      <field name="id_mesorregiao">2904</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Serrinha</field>
+    </row>
+    <row>
+      <field name="id">29017</field>
+      <field name="id_mesorregiao">2904</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Alagoinhas</field>
+    </row>
+    <row>
+      <field name="id">29018</field>
+      <field name="id_mesorregiao">2904</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Entre Rios</field>
+    </row>
+    <row>
+      <field name="id">29019</field>
+      <field name="id_mesorregiao">2905</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Catu</field>
+    </row>
+    <row>
+      <field name="id">29020</field>
+      <field name="id_mesorregiao">2905</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Santo Antônio de Jesus</field>
+    </row>
+    <row>
+      <field name="id">29021</field>
+      <field name="id_mesorregiao">2905</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Salvador</field>
+    </row>
+    <row>
+      <field name="id">29022</field>
+      <field name="id_mesorregiao">2906</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Boquira</field>
+    </row>
+    <row>
+      <field name="id">29023</field>
+      <field name="id_mesorregiao">2906</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Seabra</field>
+    </row>
+    <row>
+      <field name="id">29024</field>
+      <field name="id_mesorregiao">2906</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Jequié</field>
+    </row>
+    <row>
+      <field name="id">29025</field>
+      <field name="id_mesorregiao">2906</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Livramento do Brumado</field>
+    </row>
+    <row>
+      <field name="id">29026</field>
+      <field name="id_mesorregiao">2906</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Guanambi</field>
+    </row>
+    <row>
+      <field name="id">29027</field>
+      <field name="id_mesorregiao">2906</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Brumado</field>
+    </row>
+    <row>
+      <field name="id">29028</field>
+      <field name="id_mesorregiao">2906</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Vitória da Conquista</field>
+    </row>
+    <row>
       <field name="id">29029</field>
       <field name="id_mesorregiao">2906</field>
       <field name="id_uf">29</field>
       <field name="nome">Itapetinga</field>
     </row>
     <row>
-      <field name="id">31019</field>
-      <field name="id_mesorregiao">3105</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Patrocínio</field>
+      <field name="id">29030</field>
+      <field name="id_mesorregiao">2907</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Valença</field>
     </row>
     <row>
-      <field name="id">31024</field>
-      <field name="id_mesorregiao">3106</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Três Marias</field>
+      <field name="id">29031</field>
+      <field name="id_mesorregiao">2907</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Ilhéus-Itabuna</field>
     </row>
     <row>
-      <field name="id">31061</field>
-      <field name="id_mesorregiao">3112</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Manhuaçu</field>
-    </row>
-    <row>
-      <field name="id">31060</field>
-      <field name="id_mesorregiao">3112</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Ponte Nova</field>
-    </row>
-    <row>
-      <field name="id">31039</field>
-      <field name="id_mesorregiao">3108</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Ipatinga</field>
-    </row>
-    <row>
-      <field name="id">31036</field>
-      <field name="id_mesorregiao">3108</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Peçanha</field>
-    </row>
-    <row>
-      <field name="id">31022</field>
-      <field name="id_mesorregiao">3105</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Uberaba</field>
-    </row>
-    <row>
-      <field name="id">31045</field>
-      <field name="id_mesorregiao">3109</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Campo Belo</field>
-    </row>
-    <row>
-      <field name="id">31016</field>
-      <field name="id_mesorregiao">3104</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Nanuque</field>
-    </row>
-    <row>
-      <field name="id">31005</field>
-      <field name="id_mesorregiao">3102</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Salinas</field>
-    </row>
-    <row>
-      <field name="id">31041</field>
-      <field name="id_mesorregiao">3108</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Aimorés</field>
-    </row>
-    <row>
-      <field name="id">31055</field>
-      <field name="id_mesorregiao">3110</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Andrelândia</field>
-    </row>
-    <row>
-      <field name="id">31054</field>
-      <field name="id_mesorregiao">3110</field>
-      <field name="id_uf">31</field>
-      <field name="nome">São Lourenço</field>
-    </row>
-    <row>
-      <field name="id">31051</field>
-      <field name="id_mesorregiao">3110</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Poços de Caldas</field>
-    </row>
-    <row>
-      <field name="id">31066</field>
-      <field name="id_mesorregiao">3112</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Cataguases</field>
-    </row>
-    <row>
-      <field name="id">31049</field>
-      <field name="id_mesorregiao">3110</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Alfenas</field>
-    </row>
-    <row>
-      <field name="id">31059</field>
-      <field name="id_mesorregiao">3111</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Barbacena</field>
-    </row>
-    <row>
-      <field name="id">31014</field>
-      <field name="id_mesorregiao">3103</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Almenara</field>
-    </row>
-    <row>
-      <field name="id">31037</field>
-      <field name="id_mesorregiao">3108</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Governador Valadares</field>
-    </row>
-    <row>
-      <field name="id">31047</field>
-      <field name="id_mesorregiao">3110</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Passos</field>
-    </row>
-    <row>
-      <field name="id">31062</field>
-      <field name="id_mesorregiao">3112</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Viçosa</field>
-    </row>
-    <row>
-      <field name="id">31031</field>
-      <field name="id_mesorregiao">3107</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Itabira</field>
-    </row>
-    <row>
-      <field name="id">31028</field>
-      <field name="id_mesorregiao">3107</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Conceição do Mato Dentro</field>
-    </row>
-    <row>
-      <field name="id">31013</field>
-      <field name="id_mesorregiao">3103</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Pedra Azul</field>
-    </row>
-    <row>
-      <field name="id">31011</field>
-      <field name="id_mesorregiao">3103</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Capelinha</field>
-    </row>
-    <row>
-      <field name="id">31063</field>
-      <field name="id_mesorregiao">3112</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Muriaé</field>
-    </row>
-    <row>
-      <field name="id">31027</field>
-      <field name="id_mesorregiao">3107</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Sete Lagoas</field>
-    </row>
-    <row>
-      <field name="id">31065</field>
-      <field name="id_mesorregiao">3112</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Juiz de Fora</field>
-    </row>
-    <row>
-      <field name="id">31012</field>
-      <field name="id_mesorregiao">3103</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Araçuaí</field>
-    </row>
-    <row>
-      <field name="id">31018</field>
-      <field name="id_mesorregiao">3105</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Uberlândia</field>
-    </row>
-    <row>
-      <field name="id">31020</field>
-      <field name="id_mesorregiao">3105</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Patos de Minas</field>
-    </row>
-    <row>
-      <field name="id">31026</field>
-      <field name="id_mesorregiao">3106</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Bom Despacho</field>
-    </row>
-    <row>
-      <field name="id">31023</field>
-      <field name="id_mesorregiao">3105</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Araxá</field>
-    </row>
-    <row>
-      <field name="id">31048</field>
-      <field name="id_mesorregiao">3110</field>
-      <field name="id_uf">31</field>
-      <field name="nome">São Sebastião do Paraíso</field>
-    </row>
-    <row>
-      <field name="id">31044</field>
-      <field name="id_mesorregiao">3109</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Formiga</field>
+      <field name="id">29032</field>
+      <field name="id_mesorregiao">2907</field>
+      <field name="id_uf">29</field>
+      <field name="nome">Porto Seguro</field>
     </row>
     <row>
       <field name="id">31001</field>
@@ -2530,70 +2320,10 @@
       <field name="nome">Unaí</field>
     </row>
     <row>
-      <field name="id">31064</field>
-      <field name="id_mesorregiao">3112</field>
+      <field name="id">31002</field>
+      <field name="id_mesorregiao">3101</field>
       <field name="id_uf">31</field>
-      <field name="nome">Ubá</field>
-    </row>
-    <row>
-      <field name="id">31015</field>
-      <field name="id_mesorregiao">3104</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Teófilo Otoni</field>
-    </row>
-    <row>
-      <field name="id">31025</field>
-      <field name="id_mesorregiao">3106</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Curvelo</field>
-    </row>
-    <row>
-      <field name="id">31042</field>
-      <field name="id_mesorregiao">3109</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Piuí</field>
-    </row>
-    <row>
-      <field name="id">31030</field>
-      <field name="id_mesorregiao">3107</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Belo Horizonte</field>
-    </row>
-    <row>
-      <field name="id">31032</field>
-      <field name="id_mesorregiao">3107</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Itaguara</field>
-    </row>
-    <row>
-      <field name="id">31050</field>
-      <field name="id_mesorregiao">3110</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Varginha</field>
-    </row>
-    <row>
-      <field name="id">31009</field>
-      <field name="id_mesorregiao">3102</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Bocaiúva</field>
-    </row>
-    <row>
-      <field name="id">31040</field>
-      <field name="id_mesorregiao">3108</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Caratinga</field>
-    </row>
-    <row>
-      <field name="id">31052</field>
-      <field name="id_mesorregiao">3110</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Pouso Alegre</field>
-    </row>
-    <row>
-      <field name="id">31046</field>
-      <field name="id_mesorregiao">3109</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Oliveira</field>
+      <field name="nome">Paracatu</field>
     </row>
     <row>
       <field name="id">31003</field>
@@ -2602,34 +2332,16 @@
       <field name="nome">Januária</field>
     </row>
     <row>
-      <field name="id">31008</field>
+      <field name="id">31004</field>
       <field name="id_mesorregiao">3102</field>
       <field name="id_uf">31</field>
-      <field name="nome">Grão Mogol</field>
+      <field name="nome">Janaúba</field>
     </row>
     <row>
-      <field name="id">31002</field>
-      <field name="id_mesorregiao">3101</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Paracatu</field>
-    </row>
-    <row>
-      <field name="id">31007</field>
+      <field name="id">31005</field>
       <field name="id_mesorregiao">3102</field>
       <field name="id_uf">31</field>
-      <field name="nome">Montes Claros</field>
-    </row>
-    <row>
-      <field name="id">31035</field>
-      <field name="id_mesorregiao">3108</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Guanhães</field>
-    </row>
-    <row>
-      <field name="id">31056</field>
-      <field name="id_mesorregiao">3110</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Itajubá</field>
+      <field name="nome">Salinas</field>
     </row>
     <row>
       <field name="id">31006</field>
@@ -2638,58 +2350,22 @@
       <field name="nome">Pirapora</field>
     </row>
     <row>
-      <field name="id">31053</field>
-      <field name="id_mesorregiao">3110</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Santa Rita do Sapucaí</field>
-    </row>
-    <row>
-      <field name="id">31017</field>
-      <field name="id_mesorregiao">3105</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Ituiutaba</field>
-    </row>
-    <row>
-      <field name="id">31021</field>
-      <field name="id_mesorregiao">3105</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Frutal</field>
-    </row>
-    <row>
-      <field name="id">31043</field>
-      <field name="id_mesorregiao">3109</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Divinópolis</field>
-    </row>
-    <row>
-      <field name="id">31057</field>
-      <field name="id_mesorregiao">3111</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Lavras</field>
-    </row>
-    <row>
-      <field name="id">31034</field>
-      <field name="id_mesorregiao">3107</field>
-      <field name="id_uf">31</field>
-      <field name="nome">Conselheiro Lafaiete</field>
-    </row>
-    <row>
-      <field name="id">31058</field>
-      <field name="id_mesorregiao">3111</field>
-      <field name="id_uf">31</field>
-      <field name="nome">São João Del Rei</field>
-    </row>
-    <row>
-      <field name="id">31004</field>
+      <field name="id">31007</field>
       <field name="id_mesorregiao">3102</field>
       <field name="id_uf">31</field>
-      <field name="nome">Janaúba</field>
+      <field name="nome">Montes Claros</field>
     </row>
     <row>
-      <field name="id">31038</field>
-      <field name="id_mesorregiao">3108</field>
+      <field name="id">31008</field>
+      <field name="id_mesorregiao">3102</field>
       <field name="id_uf">31</field>
-      <field name="nome">Mantena</field>
+      <field name="nome">Grão Mogol</field>
+    </row>
+    <row>
+      <field name="id">31009</field>
+      <field name="id_mesorregiao">3102</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Bocaiúva</field>
     </row>
     <row>
       <field name="id">31010</field>
@@ -2698,10 +2374,112 @@
       <field name="nome">Diamantina</field>
     </row>
     <row>
-      <field name="id">31033</field>
+      <field name="id">31011</field>
+      <field name="id_mesorregiao">3103</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Capelinha</field>
+    </row>
+    <row>
+      <field name="id">31012</field>
+      <field name="id_mesorregiao">3103</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Araçuaí</field>
+    </row>
+    <row>
+      <field name="id">31013</field>
+      <field name="id_mesorregiao">3103</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Pedra Azul</field>
+    </row>
+    <row>
+      <field name="id">31014</field>
+      <field name="id_mesorregiao">3103</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Almenara</field>
+    </row>
+    <row>
+      <field name="id">31015</field>
+      <field name="id_mesorregiao">3104</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Teófilo Otoni</field>
+    </row>
+    <row>
+      <field name="id">31016</field>
+      <field name="id_mesorregiao">3104</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Nanuque</field>
+    </row>
+    <row>
+      <field name="id">31017</field>
+      <field name="id_mesorregiao">3105</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Ituiutaba</field>
+    </row>
+    <row>
+      <field name="id">31018</field>
+      <field name="id_mesorregiao">3105</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Uberlândia</field>
+    </row>
+    <row>
+      <field name="id">31019</field>
+      <field name="id_mesorregiao">3105</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Patrocínio</field>
+    </row>
+    <row>
+      <field name="id">31020</field>
+      <field name="id_mesorregiao">3105</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Patos de Minas</field>
+    </row>
+    <row>
+      <field name="id">31021</field>
+      <field name="id_mesorregiao">3105</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Frutal</field>
+    </row>
+    <row>
+      <field name="id">31022</field>
+      <field name="id_mesorregiao">3105</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Uberaba</field>
+    </row>
+    <row>
+      <field name="id">31023</field>
+      <field name="id_mesorregiao">3105</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Araxá</field>
+    </row>
+    <row>
+      <field name="id">31024</field>
+      <field name="id_mesorregiao">3106</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Três Marias</field>
+    </row>
+    <row>
+      <field name="id">31025</field>
+      <field name="id_mesorregiao">3106</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Curvelo</field>
+    </row>
+    <row>
+      <field name="id">31026</field>
+      <field name="id_mesorregiao">3106</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Bom Despacho</field>
+    </row>
+    <row>
+      <field name="id">31027</field>
       <field name="id_mesorregiao">3107</field>
       <field name="id_uf">31</field>
-      <field name="nome">Ouro Preto</field>
+      <field name="nome">Sete Lagoas</field>
+    </row>
+    <row>
+      <field name="id">31028</field>
+      <field name="id_mesorregiao">3107</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Conceição do Mato Dentro</field>
     </row>
     <row>
       <field name="id">31029</field>
@@ -2710,16 +2488,226 @@
       <field name="nome">Pará de Minas</field>
     </row>
     <row>
-      <field name="id">32007</field>
-      <field name="id_mesorregiao">3203</field>
-      <field name="id_uf">32</field>
-      <field name="nome">Afonso Cláudio</field>
+      <field name="id">31030</field>
+      <field name="id_mesorregiao">3107</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Belo Horizonte</field>
     </row>
     <row>
-      <field name="id">32002</field>
-      <field name="id_mesorregiao">3201</field>
-      <field name="id_uf">32</field>
-      <field name="nome">Nova Venécia</field>
+      <field name="id">31031</field>
+      <field name="id_mesorregiao">3107</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Itabira</field>
+    </row>
+    <row>
+      <field name="id">31032</field>
+      <field name="id_mesorregiao">3107</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Itaguara</field>
+    </row>
+    <row>
+      <field name="id">31033</field>
+      <field name="id_mesorregiao">3107</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Ouro Preto</field>
+    </row>
+    <row>
+      <field name="id">31034</field>
+      <field name="id_mesorregiao">3107</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Conselheiro Lafaiete</field>
+    </row>
+    <row>
+      <field name="id">31035</field>
+      <field name="id_mesorregiao">3108</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Guanhães</field>
+    </row>
+    <row>
+      <field name="id">31036</field>
+      <field name="id_mesorregiao">3108</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Peçanha</field>
+    </row>
+    <row>
+      <field name="id">31037</field>
+      <field name="id_mesorregiao">3108</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Governador Valadares</field>
+    </row>
+    <row>
+      <field name="id">31038</field>
+      <field name="id_mesorregiao">3108</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Mantena</field>
+    </row>
+    <row>
+      <field name="id">31039</field>
+      <field name="id_mesorregiao">3108</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Ipatinga</field>
+    </row>
+    <row>
+      <field name="id">31040</field>
+      <field name="id_mesorregiao">3108</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Caratinga</field>
+    </row>
+    <row>
+      <field name="id">31041</field>
+      <field name="id_mesorregiao">3108</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Aimorés</field>
+    </row>
+    <row>
+      <field name="id">31042</field>
+      <field name="id_mesorregiao">3109</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Piuí</field>
+    </row>
+    <row>
+      <field name="id">31043</field>
+      <field name="id_mesorregiao">3109</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Divinópolis</field>
+    </row>
+    <row>
+      <field name="id">31044</field>
+      <field name="id_mesorregiao">3109</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Formiga</field>
+    </row>
+    <row>
+      <field name="id">31045</field>
+      <field name="id_mesorregiao">3109</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Campo Belo</field>
+    </row>
+    <row>
+      <field name="id">31046</field>
+      <field name="id_mesorregiao">3109</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Oliveira</field>
+    </row>
+    <row>
+      <field name="id">31047</field>
+      <field name="id_mesorregiao">3110</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Passos</field>
+    </row>
+    <row>
+      <field name="id">31048</field>
+      <field name="id_mesorregiao">3110</field>
+      <field name="id_uf">31</field>
+      <field name="nome">São Sebastião do Paraíso</field>
+    </row>
+    <row>
+      <field name="id">31049</field>
+      <field name="id_mesorregiao">3110</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Alfenas</field>
+    </row>
+    <row>
+      <field name="id">31050</field>
+      <field name="id_mesorregiao">3110</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Varginha</field>
+    </row>
+    <row>
+      <field name="id">31051</field>
+      <field name="id_mesorregiao">3110</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Poços de Caldas</field>
+    </row>
+    <row>
+      <field name="id">31052</field>
+      <field name="id_mesorregiao">3110</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Pouso Alegre</field>
+    </row>
+    <row>
+      <field name="id">31053</field>
+      <field name="id_mesorregiao">3110</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Santa Rita do Sapucaí</field>
+    </row>
+    <row>
+      <field name="id">31054</field>
+      <field name="id_mesorregiao">3110</field>
+      <field name="id_uf">31</field>
+      <field name="nome">São Lourenço</field>
+    </row>
+    <row>
+      <field name="id">31055</field>
+      <field name="id_mesorregiao">3110</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Andrelândia</field>
+    </row>
+    <row>
+      <field name="id">31056</field>
+      <field name="id_mesorregiao">3110</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Itajubá</field>
+    </row>
+    <row>
+      <field name="id">31057</field>
+      <field name="id_mesorregiao">3111</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Lavras</field>
+    </row>
+    <row>
+      <field name="id">31058</field>
+      <field name="id_mesorregiao">3111</field>
+      <field name="id_uf">31</field>
+      <field name="nome">São João Del Rei</field>
+    </row>
+    <row>
+      <field name="id">31059</field>
+      <field name="id_mesorregiao">3111</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Barbacena</field>
+    </row>
+    <row>
+      <field name="id">31060</field>
+      <field name="id_mesorregiao">3112</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Ponte Nova</field>
+    </row>
+    <row>
+      <field name="id">31061</field>
+      <field name="id_mesorregiao">3112</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Manhuaçu</field>
+    </row>
+    <row>
+      <field name="id">31062</field>
+      <field name="id_mesorregiao">3112</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Viçosa</field>
+    </row>
+    <row>
+      <field name="id">31063</field>
+      <field name="id_mesorregiao">3112</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Muriaé</field>
+    </row>
+    <row>
+      <field name="id">31064</field>
+      <field name="id_mesorregiao">3112</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Ubá</field>
+    </row>
+    <row>
+      <field name="id">31065</field>
+      <field name="id_mesorregiao">3112</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Juiz de Fora</field>
+    </row>
+    <row>
+      <field name="id">31066</field>
+      <field name="id_mesorregiao">3112</field>
+      <field name="id_uf">31</field>
+      <field name="nome">Cataguases</field>
     </row>
     <row>
       <field name="id">32001</field>
@@ -2728,16 +2716,10 @@
       <field name="nome">Barra de São Francisco</field>
     </row>
     <row>
-      <field name="id">32011</field>
-      <field name="id_mesorregiao">3204</field>
+      <field name="id">32002</field>
+      <field name="id_mesorregiao">3201</field>
       <field name="id_uf">32</field>
-      <field name="nome">Alegre</field>
-    </row>
-    <row>
-      <field name="id">32010</field>
-      <field name="id_mesorregiao">3203</field>
-      <field name="id_uf">32</field>
-      <field name="nome">Guarapari</field>
+      <field name="nome">Nova Venécia</field>
     </row>
     <row>
       <field name="id">32003</field>
@@ -2746,22 +2728,10 @@
       <field name="nome">Colatina</field>
     </row>
     <row>
-      <field name="id">32012</field>
-      <field name="id_mesorregiao">3204</field>
-      <field name="id_uf">32</field>
-      <field name="nome">Cachoeiro de Itapemirim</field>
-    </row>
-    <row>
-      <field name="id">32006</field>
+      <field name="id">32004</field>
       <field name="id_mesorregiao">3202</field>
       <field name="id_uf">32</field>
-      <field name="nome">Linhares</field>
-    </row>
-    <row>
-      <field name="id">32009</field>
-      <field name="id_mesorregiao">3203</field>
-      <field name="id_uf">32</field>
-      <field name="nome">Vitória</field>
+      <field name="nome">Montanha</field>
     </row>
     <row>
       <field name="id">32005</field>
@@ -2770,10 +2740,46 @@
       <field name="nome">São Mateus</field>
     </row>
     <row>
+      <field name="id">32006</field>
+      <field name="id_mesorregiao">3202</field>
+      <field name="id_uf">32</field>
+      <field name="nome">Linhares</field>
+    </row>
+    <row>
+      <field name="id">32007</field>
+      <field name="id_mesorregiao">3203</field>
+      <field name="id_uf">32</field>
+      <field name="nome">Afonso Cláudio</field>
+    </row>
+    <row>
       <field name="id">32008</field>
       <field name="id_mesorregiao">3203</field>
       <field name="id_uf">32</field>
       <field name="nome">Santa Teresa</field>
+    </row>
+    <row>
+      <field name="id">32009</field>
+      <field name="id_mesorregiao">3203</field>
+      <field name="id_uf">32</field>
+      <field name="nome">Vitória</field>
+    </row>
+    <row>
+      <field name="id">32010</field>
+      <field name="id_mesorregiao">3203</field>
+      <field name="id_uf">32</field>
+      <field name="nome">Guarapari</field>
+    </row>
+    <row>
+      <field name="id">32011</field>
+      <field name="id_mesorregiao">3204</field>
+      <field name="id_uf">32</field>
+      <field name="nome">Alegre</field>
+    </row>
+    <row>
+      <field name="id">32012</field>
+      <field name="id_mesorregiao">3204</field>
+      <field name="id_uf">32</field>
+      <field name="nome">Cachoeiro de Itapemirim</field>
     </row>
     <row>
       <field name="id">32013</field>
@@ -2782,16 +2788,10 @@
       <field name="nome">Itapemirim</field>
     </row>
     <row>
-      <field name="id">32004</field>
-      <field name="id_mesorregiao">3202</field>
-      <field name="id_uf">32</field>
-      <field name="nome">Montanha</field>
-    </row>
-    <row>
-      <field name="id">33013</field>
-      <field name="id_mesorregiao">3305</field>
+      <field name="id">33001</field>
+      <field name="id_mesorregiao">3301</field>
       <field name="id_uf">33</field>
-      <field name="nome">Baía da Ilha Grande</field>
+      <field name="nome">Itaperuna</field>
     </row>
     <row>
       <field name="id">33002</field>
@@ -2800,52 +2800,10 @@
       <field name="nome">Santo Antônio de Pádua</field>
     </row>
     <row>
-      <field name="id">33010</field>
-      <field name="id_mesorregiao">3304</field>
+      <field name="id">33003</field>
+      <field name="id_mesorregiao">3302</field>
       <field name="id_uf">33</field>
-      <field name="nome">Lagos</field>
-    </row>
-    <row>
-      <field name="id">33005</field>
-      <field name="id_mesorregiao">3303</field>
-      <field name="id_uf">33</field>
-      <field name="nome">Três Rios</field>
-    </row>
-    <row>
-      <field name="id">33012</field>
-      <field name="id_mesorregiao">3305</field>
-      <field name="id_uf">33</field>
-      <field name="nome">Barra do Piraí</field>
-    </row>
-    <row>
-      <field name="id">33011</field>
-      <field name="id_mesorregiao">3305</field>
-      <field name="id_uf">33</field>
-      <field name="nome">Vale do Paraíba Fluminense</field>
-    </row>
-    <row>
-      <field name="id">33018</field>
-      <field name="id_mesorregiao">3306</field>
-      <field name="id_uf">33</field>
-      <field name="nome">Rio de Janeiro</field>
-    </row>
-    <row>
-      <field name="id">33007</field>
-      <field name="id_mesorregiao">3303</field>
-      <field name="id_uf">33</field>
-      <field name="nome">Nova Friburgo</field>
-    </row>
-    <row>
-      <field name="id">33001</field>
-      <field name="id_mesorregiao">3301</field>
-      <field name="id_uf">33</field>
-      <field name="nome">Itaperuna</field>
-    </row>
-    <row>
-      <field name="id">33016</field>
-      <field name="id_mesorregiao">3306</field>
-      <field name="id_uf">33</field>
-      <field name="nome">Macacu-Caceribu</field>
+      <field name="nome">Campos dos Goytacazes</field>
     </row>
     <row>
       <field name="id">33004</field>
@@ -2854,10 +2812,10 @@
       <field name="nome">Macaé</field>
     </row>
     <row>
-      <field name="id">33003</field>
-      <field name="id_mesorregiao">3302</field>
+      <field name="id">33005</field>
+      <field name="id_mesorregiao">3303</field>
       <field name="id_uf">33</field>
-      <field name="nome">Campos dos Goytacazes</field>
+      <field name="nome">Três Rios</field>
     </row>
     <row>
       <field name="id">33006</field>
@@ -2866,28 +2824,10 @@
       <field name="nome">Cantagalo-Cordeiro</field>
     </row>
     <row>
-      <field name="id">33009</field>
-      <field name="id_mesorregiao">3304</field>
+      <field name="id">33007</field>
+      <field name="id_mesorregiao">3303</field>
       <field name="id_uf">33</field>
-      <field name="nome">Bacia de São João</field>
-    </row>
-    <row>
-      <field name="id">33014</field>
-      <field name="id_mesorregiao">3306</field>
-      <field name="id_uf">33</field>
-      <field name="nome">Vassouras</field>
-    </row>
-    <row>
-      <field name="id">33017</field>
-      <field name="id_mesorregiao">3306</field>
-      <field name="id_uf">33</field>
-      <field name="nome">Itaguaí</field>
-    </row>
-    <row>
-      <field name="id">33015</field>
-      <field name="id_mesorregiao">3306</field>
-      <field name="id_uf">33</field>
-      <field name="nome">Serrana</field>
+      <field name="nome">Nova Friburgo</field>
     </row>
     <row>
       <field name="id">33008</field>
@@ -2896,82 +2836,76 @@
       <field name="nome">Santa Maria Madalena</field>
     </row>
     <row>
-      <field name="id">35035</field>
-      <field name="id_mesorregiao">3508</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Adamantina</field>
+      <field name="id">33009</field>
+      <field name="id_mesorregiao">3304</field>
+      <field name="id_uf">33</field>
+      <field name="nome">Bacia de São João</field>
     </row>
     <row>
-      <field name="id">35004</field>
+      <field name="id">33010</field>
+      <field name="id_mesorregiao">3304</field>
+      <field name="id_uf">33</field>
+      <field name="nome">Lagos</field>
+    </row>
+    <row>
+      <field name="id">33011</field>
+      <field name="id_mesorregiao">3305</field>
+      <field name="id_uf">33</field>
+      <field name="nome">Vale do Paraíba Fluminense</field>
+    </row>
+    <row>
+      <field name="id">33012</field>
+      <field name="id_mesorregiao">3305</field>
+      <field name="id_uf">33</field>
+      <field name="nome">Barra do Piraí</field>
+    </row>
+    <row>
+      <field name="id">33013</field>
+      <field name="id_mesorregiao">3305</field>
+      <field name="id_uf">33</field>
+      <field name="nome">Baía da Ilha Grande</field>
+    </row>
+    <row>
+      <field name="id">33014</field>
+      <field name="id_mesorregiao">3306</field>
+      <field name="id_uf">33</field>
+      <field name="nome">Vassouras</field>
+    </row>
+    <row>
+      <field name="id">33015</field>
+      <field name="id_mesorregiao">3306</field>
+      <field name="id_uf">33</field>
+      <field name="nome">Serrana</field>
+    </row>
+    <row>
+      <field name="id">33016</field>
+      <field name="id_mesorregiao">3306</field>
+      <field name="id_uf">33</field>
+      <field name="nome">Macacu-Caceribu</field>
+    </row>
+    <row>
+      <field name="id">33017</field>
+      <field name="id_mesorregiao">3306</field>
+      <field name="id_uf">33</field>
+      <field name="nome">Itaguaí</field>
+    </row>
+    <row>
+      <field name="id">33018</field>
+      <field name="id_mesorregiao">3306</field>
+      <field name="id_uf">33</field>
+      <field name="nome">Rio de Janeiro</field>
+    </row>
+    <row>
+      <field name="id">35001</field>
       <field name="id_mesorregiao">3501</field>
       <field name="id_uf">35</field>
-      <field name="nome">São José do Rio Preto</field>
+      <field name="nome">Jales</field>
     </row>
     <row>
-      <field name="id">35029</field>
-      <field name="id_mesorregiao">3507</field>
+      <field name="id">35002</field>
+      <field name="id_mesorregiao">3501</field>
       <field name="id_uf">35</field>
-      <field name="nome">Pirassununga</field>
-    </row>
-    <row>
-      <field name="id">35030</field>
-      <field name="id_mesorregiao">3507</field>
-      <field name="id_uf">35</field>
-      <field name="nome">São João da Boa Vista</field>
-    </row>
-    <row>
-      <field name="id">35033</field>
-      <field name="id_mesorregiao">3507</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Amparo</field>
-    </row>
-    <row>
-      <field name="id">35022</field>
-      <field name="id_mesorregiao">3504</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Avaré</field>
-    </row>
-    <row>
-      <field name="id">35028</field>
-      <field name="id_mesorregiao">3506</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Piracicaba</field>
-    </row>
-    <row>
-      <field name="id">35020</field>
-      <field name="id_mesorregiao">3504</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Bauru</field>
-    </row>
-    <row>
-      <field name="id">35042</field>
-      <field name="id_mesorregiao">3511</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Itapetininga</field>
-    </row>
-    <row>
-      <field name="id">35036</field>
-      <field name="id_mesorregiao">3508</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Presidente Prudente</field>
-    </row>
-    <row>
-      <field name="id">35015</field>
-      <field name="id_mesorregiao">3502</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Batatais</field>
-    </row>
-    <row>
-      <field name="id">35018</field>
-      <field name="id_mesorregiao">3503</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Birigui</field>
-    </row>
-    <row>
-      <field name="id">35046</field>
-      <field name="id_mesorregiao">3512</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Sorocaba</field>
+      <field name="nome">Fernandópolis</field>
     </row>
     <row>
       <field name="id">35003</field>
@@ -2980,16 +2914,124 @@
       <field name="nome">Votuporanga</field>
     </row>
     <row>
-      <field name="id">35038</field>
-      <field name="id_mesorregiao">3509</field>
+      <field name="id">35004</field>
+      <field name="id_mesorregiao">3501</field>
       <field name="id_uf">35</field>
-      <field name="nome">Marília</field>
+      <field name="nome">São José do Rio Preto</field>
     </row>
     <row>
-      <field name="id">35032</field>
-      <field name="id_mesorregiao">3507</field>
+      <field name="id">35005</field>
+      <field name="id_mesorregiao">3501</field>
       <field name="id_uf">35</field>
-      <field name="nome">Campinas</field>
+      <field name="nome">Catanduva</field>
+    </row>
+    <row>
+      <field name="id">35006</field>
+      <field name="id_mesorregiao">3501</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Auriflama</field>
+    </row>
+    <row>
+      <field name="id">35007</field>
+      <field name="id_mesorregiao">3501</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Nhandeara</field>
+    </row>
+    <row>
+      <field name="id">35008</field>
+      <field name="id_mesorregiao">3501</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Novo Horizonte</field>
+    </row>
+    <row>
+      <field name="id">35009</field>
+      <field name="id_mesorregiao">3502</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Barretos</field>
+    </row>
+    <row>
+      <field name="id">35010</field>
+      <field name="id_mesorregiao">3502</field>
+      <field name="id_uf">35</field>
+      <field name="nome">São Joaquim da Barra</field>
+    </row>
+    <row>
+      <field name="id">35011</field>
+      <field name="id_mesorregiao">3502</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Ituverava</field>
+    </row>
+    <row>
+      <field name="id">35012</field>
+      <field name="id_mesorregiao">3502</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Franca</field>
+    </row>
+    <row>
+      <field name="id">35013</field>
+      <field name="id_mesorregiao">3502</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Jaboticabal</field>
+    </row>
+    <row>
+      <field name="id">35014</field>
+      <field name="id_mesorregiao">3502</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Ribeirão Preto</field>
+    </row>
+    <row>
+      <field name="id">35015</field>
+      <field name="id_mesorregiao">3502</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Batatais</field>
+    </row>
+    <row>
+      <field name="id">35016</field>
+      <field name="id_mesorregiao">3503</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Andradina</field>
+    </row>
+    <row>
+      <field name="id">35017</field>
+      <field name="id_mesorregiao">3503</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Araçatuba</field>
+    </row>
+    <row>
+      <field name="id">35018</field>
+      <field name="id_mesorregiao">3503</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Birigui</field>
+    </row>
+    <row>
+      <field name="id">35019</field>
+      <field name="id_mesorregiao">3504</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Lins</field>
+    </row>
+    <row>
+      <field name="id">35020</field>
+      <field name="id_mesorregiao">3504</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Bauru</field>
+    </row>
+    <row>
+      <field name="id">35021</field>
+      <field name="id_mesorregiao">3504</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Jaú</field>
+    </row>
+    <row>
+      <field name="id">35022</field>
+      <field name="id_mesorregiao">3504</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Avaré</field>
+    </row>
+    <row>
+      <field name="id">35023</field>
+      <field name="id_mesorregiao">3504</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Botucatu</field>
     </row>
     <row>
       <field name="id">35024</field>
@@ -3004,52 +3046,10 @@
       <field name="nome">São Carlos</field>
     </row>
     <row>
-      <field name="id">35016</field>
-      <field name="id_mesorregiao">3503</field>
+      <field name="id">35026</field>
+      <field name="id_mesorregiao">3506</field>
       <field name="id_uf">35</field>
-      <field name="nome">Andradina</field>
-    </row>
-    <row>
-      <field name="id">35023</field>
-      <field name="id_mesorregiao">3504</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Botucatu</field>
-    </row>
-    <row>
-      <field name="id">35051</field>
-      <field name="id_mesorregiao">3513</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Guaratinguetá</field>
-    </row>
-    <row>
-      <field name="id">35001</field>
-      <field name="id_mesorregiao">3501</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Jales</field>
-    </row>
-    <row>
-      <field name="id">35044</field>
-      <field name="id_mesorregiao">3511</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Capão Bonito</field>
-    </row>
-    <row>
-      <field name="id">35017</field>
-      <field name="id_mesorregiao">3503</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Araçatuba</field>
-    </row>
-    <row>
-      <field name="id">35011</field>
-      <field name="id_mesorregiao">3502</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Ituverava</field>
-    </row>
-    <row>
-      <field name="id">35052</field>
-      <field name="id_mesorregiao">3513</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Bananal</field>
+      <field name="nome">Rio Claro</field>
     </row>
     <row>
       <field name="id">35027</field>
@@ -3058,16 +3058,22 @@
       <field name="nome">Limeira</field>
     </row>
     <row>
-      <field name="id">35037</field>
-      <field name="id_mesorregiao">3509</field>
+      <field name="id">35028</field>
+      <field name="id_mesorregiao">3506</field>
       <field name="id_uf">35</field>
-      <field name="nome">Tupã</field>
+      <field name="nome">Piracicaba</field>
     </row>
     <row>
-      <field name="id">35005</field>
-      <field name="id_mesorregiao">3501</field>
+      <field name="id">35029</field>
+      <field name="id_mesorregiao">3507</field>
       <field name="id_uf">35</field>
-      <field name="nome">Catanduva</field>
+      <field name="nome">Pirassununga</field>
+    </row>
+    <row>
+      <field name="id">35030</field>
+      <field name="id_mesorregiao">3507</field>
+      <field name="id_uf">35</field>
+      <field name="nome">São João da Boa Vista</field>
     </row>
     <row>
       <field name="id">35031</field>
@@ -3076,160 +3082,16 @@
       <field name="nome">Moji Mirim</field>
     </row>
     <row>
-      <field name="id">35059</field>
-      <field name="id_mesorregiao">3515</field>
+      <field name="id">35032</field>
+      <field name="id_mesorregiao">3507</field>
       <field name="id_uf">35</field>
-      <field name="nome">Guarulhos</field>
+      <field name="nome">Campinas</field>
     </row>
     <row>
-      <field name="id">35039</field>
-      <field name="id_mesorregiao">3510</field>
+      <field name="id">35033</field>
+      <field name="id_mesorregiao">3507</field>
       <field name="id_uf">35</field>
-      <field name="nome">Assis</field>
-    </row>
-    <row>
-      <field name="id">35048</field>
-      <field name="id_mesorregiao">3512</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Bragança Paulista</field>
-    </row>
-    <row>
-      <field name="id">35006</field>
-      <field name="id_mesorregiao">3501</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Auriflama</field>
-    </row>
-    <row>
-      <field name="id">35041</field>
-      <field name="id_mesorregiao">3511</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Itapeva</field>
-    </row>
-    <row>
-      <field name="id">35021</field>
-      <field name="id_mesorregiao">3504</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Jaú</field>
-    </row>
-    <row>
-      <field name="id">35055</field>
-      <field name="id_mesorregiao">3514</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Registro</field>
-    </row>
-    <row>
-      <field name="id">35009</field>
-      <field name="id_mesorregiao">3502</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Barretos</field>
-    </row>
-    <row>
-      <field name="id">35014</field>
-      <field name="id_mesorregiao">3502</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Ribeirão Preto</field>
-    </row>
-    <row>
-      <field name="id">35057</field>
-      <field name="id_mesorregiao">3515</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Osasco</field>
-    </row>
-    <row>
-      <field name="id">35013</field>
-      <field name="id_mesorregiao">3502</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Jaboticabal</field>
-    </row>
-    <row>
-      <field name="id">35040</field>
-      <field name="id_mesorregiao">3510</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Ourinhos</field>
-    </row>
-    <row>
-      <field name="id">35063</field>
-      <field name="id_mesorregiao">3515</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Santos</field>
-    </row>
-    <row>
-      <field name="id">35062</field>
-      <field name="id_mesorregiao">3515</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Mogi das Cruzes</field>
-    </row>
-    <row>
-      <field name="id">35043</field>
-      <field name="id_mesorregiao">3511</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Tatuí</field>
-    </row>
-    <row>
-      <field name="id">35026</field>
-      <field name="id_mesorregiao">3506</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Rio Claro</field>
-    </row>
-    <row>
-      <field name="id">35050</field>
-      <field name="id_mesorregiao">3513</field>
-      <field name="id_uf">35</field>
-      <field name="nome">São José dos Campos</field>
-    </row>
-    <row>
-      <field name="id">35019</field>
-      <field name="id_mesorregiao">3504</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Lins</field>
-    </row>
-    <row>
-      <field name="id">35058</field>
-      <field name="id_mesorregiao">3515</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Franco da Rocha</field>
-    </row>
-    <row>
-      <field name="id">35047</field>
-      <field name="id_mesorregiao">3512</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Jundiaí</field>
-    </row>
-    <row>
-      <field name="id">35049</field>
-      <field name="id_mesorregiao">3513</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Campos do Jordão</field>
-    </row>
-    <row>
-      <field name="id">35054</field>
-      <field name="id_mesorregiao">3513</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Caraguatatuba</field>
-    </row>
-    <row>
-      <field name="id">35060</field>
-      <field name="id_mesorregiao">3515</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Itapecerica da Serra</field>
-    </row>
-    <row>
-      <field name="id">35012</field>
-      <field name="id_mesorregiao">3502</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Franca</field>
-    </row>
-    <row>
-      <field name="id">35053</field>
-      <field name="id_mesorregiao">3513</field>
-      <field name="id_uf">35</field>
-      <field name="nome">Paraibuna/Paraitinga</field>
-    </row>
-    <row>
-      <field name="id">35061</field>
-      <field name="id_mesorregiao">3515</field>
-      <field name="id_uf">35</field>
-      <field name="nome">São Paulo</field>
+      <field name="nome">Amparo</field>
     </row>
     <row>
       <field name="id">35034</field>
@@ -3238,16 +3100,64 @@
       <field name="nome">Dracena</field>
     </row>
     <row>
-      <field name="id">35002</field>
-      <field name="id_mesorregiao">3501</field>
+      <field name="id">35035</field>
+      <field name="id_mesorregiao">3508</field>
       <field name="id_uf">35</field>
-      <field name="nome">Fernandópolis</field>
+      <field name="nome">Adamantina</field>
     </row>
     <row>
-      <field name="id">35010</field>
-      <field name="id_mesorregiao">3502</field>
+      <field name="id">35036</field>
+      <field name="id_mesorregiao">3508</field>
       <field name="id_uf">35</field>
-      <field name="nome">São Joaquim da Barra</field>
+      <field name="nome">Presidente Prudente</field>
+    </row>
+    <row>
+      <field name="id">35037</field>
+      <field name="id_mesorregiao">3509</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Tupã</field>
+    </row>
+    <row>
+      <field name="id">35038</field>
+      <field name="id_mesorregiao">3509</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Marília</field>
+    </row>
+    <row>
+      <field name="id">35039</field>
+      <field name="id_mesorregiao">3510</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Assis</field>
+    </row>
+    <row>
+      <field name="id">35040</field>
+      <field name="id_mesorregiao">3510</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Ourinhos</field>
+    </row>
+    <row>
+      <field name="id">35041</field>
+      <field name="id_mesorregiao">3511</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Itapeva</field>
+    </row>
+    <row>
+      <field name="id">35042</field>
+      <field name="id_mesorregiao">3511</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Itapetininga</field>
+    </row>
+    <row>
+      <field name="id">35043</field>
+      <field name="id_mesorregiao">3511</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Tatuí</field>
+    </row>
+    <row>
+      <field name="id">35044</field>
+      <field name="id_mesorregiao">3511</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Capão Bonito</field>
     </row>
     <row>
       <field name="id">35045</field>
@@ -3256,10 +3166,64 @@
       <field name="nome">Piedade</field>
     </row>
     <row>
-      <field name="id">35008</field>
-      <field name="id_mesorregiao">3501</field>
+      <field name="id">35046</field>
+      <field name="id_mesorregiao">3512</field>
       <field name="id_uf">35</field>
-      <field name="nome">Novo Horizonte</field>
+      <field name="nome">Sorocaba</field>
+    </row>
+    <row>
+      <field name="id">35047</field>
+      <field name="id_mesorregiao">3512</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Jundiaí</field>
+    </row>
+    <row>
+      <field name="id">35048</field>
+      <field name="id_mesorregiao">3512</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Bragança Paulista</field>
+    </row>
+    <row>
+      <field name="id">35049</field>
+      <field name="id_mesorregiao">3513</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Campos do Jordão</field>
+    </row>
+    <row>
+      <field name="id">35050</field>
+      <field name="id_mesorregiao">3513</field>
+      <field name="id_uf">35</field>
+      <field name="nome">São José dos Campos</field>
+    </row>
+    <row>
+      <field name="id">35051</field>
+      <field name="id_mesorregiao">3513</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Guaratinguetá</field>
+    </row>
+    <row>
+      <field name="id">35052</field>
+      <field name="id_mesorregiao">3513</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Bananal</field>
+    </row>
+    <row>
+      <field name="id">35053</field>
+      <field name="id_mesorregiao">3513</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Paraibuna/Paraitinga</field>
+    </row>
+    <row>
+      <field name="id">35054</field>
+      <field name="id_mesorregiao">3513</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Caraguatatuba</field>
+    </row>
+    <row>
+      <field name="id">35055</field>
+      <field name="id_mesorregiao">3514</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Registro</field>
     </row>
     <row>
       <field name="id">35056</field>
@@ -3268,46 +3232,46 @@
       <field name="nome">Itanhaém</field>
     </row>
     <row>
-      <field name="id">35007</field>
-      <field name="id_mesorregiao">3501</field>
+      <field name="id">35057</field>
+      <field name="id_mesorregiao">3515</field>
       <field name="id_uf">35</field>
-      <field name="nome">Nhandeara</field>
+      <field name="nome">Osasco</field>
     </row>
     <row>
-      <field name="id">41015</field>
-      <field name="id_mesorregiao">4104</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Cornélio Procópio</field>
+      <field name="id">35058</field>
+      <field name="id_mesorregiao">3515</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Franco da Rocha</field>
     </row>
     <row>
-      <field name="id">41035</field>
-      <field name="id_mesorregiao">4110</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Cerro Azul</field>
+      <field name="id">35059</field>
+      <field name="id_mesorregiao">3515</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Guarulhos</field>
     </row>
     <row>
-      <field name="id">41039</field>
-      <field name="id_mesorregiao">4110</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Rio Negro</field>
+      <field name="id">35060</field>
+      <field name="id_mesorregiao">3515</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Itapecerica da Serra</field>
     </row>
     <row>
-      <field name="id">41037</field>
-      <field name="id_mesorregiao">4110</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Curitiba</field>
+      <field name="id">35061</field>
+      <field name="id_mesorregiao">3515</field>
+      <field name="id_uf">35</field>
+      <field name="nome">São Paulo</field>
     </row>
     <row>
-      <field name="id">41004</field>
-      <field name="id_mesorregiao">4102</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Goioerê</field>
+      <field name="id">35062</field>
+      <field name="id_mesorregiao">3515</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Mogi das Cruzes</field>
     </row>
     <row>
-      <field name="id">41002</field>
-      <field name="id_mesorregiao">4101</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Umuarama</field>
+      <field name="id">35063</field>
+      <field name="id_mesorregiao">3515</field>
+      <field name="id_uf">35</field>
+      <field name="nome">Santos</field>
     </row>
     <row>
       <field name="id">41001</field>
@@ -3316,142 +3280,10 @@
       <field name="nome">Paranavaí</field>
     </row>
     <row>
-      <field name="id">41007</field>
-      <field name="id_mesorregiao">4103</field>
+      <field name="id">41002</field>
+      <field name="id_mesorregiao">4101</field>
       <field name="id_uf">41</field>
-      <field name="nome">Porecatu</field>
-    </row>
-    <row>
-      <field name="id">41025</field>
-      <field name="id_mesorregiao">4107</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Capanema</field>
-    </row>
-    <row>
-      <field name="id">41023</field>
-      <field name="id_mesorregiao">4106</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Cascavel</field>
-    </row>
-    <row>
-      <field name="id">41006</field>
-      <field name="id_mesorregiao">4103</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Astorga</field>
-    </row>
-    <row>
-      <field name="id">41038</field>
-      <field name="id_mesorregiao">4110</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Paranaguá</field>
-    </row>
-    <row>
-      <field name="id">41034</field>
-      <field name="id_mesorregiao">4109</field>
-      <field name="id_uf">41</field>
-      <field name="nome">São Mateus do Sul</field>
-    </row>
-    <row>
-      <field name="id">41010</field>
-      <field name="id_mesorregiao">4103</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Apucarana</field>
-    </row>
-    <row>
-      <field name="id">41020</field>
-      <field name="id_mesorregiao">4105</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Jaguariaíva</field>
-    </row>
-    <row>
-      <field name="id">41013</field>
-      <field name="id_mesorregiao">4103</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Ivaiporã</field>
-    </row>
-    <row>
-      <field name="id">41005</field>
-      <field name="id_mesorregiao">4102</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Campo Mourão</field>
-    </row>
-    <row>
-      <field name="id">41014</field>
-      <field name="id_mesorregiao">4104</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Assaí</field>
-    </row>
-    <row>
-      <field name="id">41022</field>
-      <field name="id_mesorregiao">4106</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Toledo</field>
-    </row>
-    <row>
-      <field name="id">41026</field>
-      <field name="id_mesorregiao">4107</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Francisco Beltrão</field>
-    </row>
-    <row>
-      <field name="id">41016</field>
-      <field name="id_mesorregiao">4104</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Jacarezinho</field>
-    </row>
-    <row>
-      <field name="id">41033</field>
-      <field name="id_mesorregiao">4109</field>
-      <field name="id_uf">41</field>
-      <field name="nome">União da Vitória</field>
-    </row>
-    <row>
-      <field name="id">41028</field>
-      <field name="id_mesorregiao">4108</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Pitanga</field>
-    </row>
-    <row>
-      <field name="id">41012</field>
-      <field name="id_mesorregiao">4103</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Faxinal</field>
-    </row>
-    <row>
-      <field name="id">41027</field>
-      <field name="id_mesorregiao">4107</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Pato Branco</field>
-    </row>
-    <row>
-      <field name="id">41011</field>
-      <field name="id_mesorregiao">4103</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Londrina</field>
-    </row>
-    <row>
-      <field name="id">41029</field>
-      <field name="id_mesorregiao">4108</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Guarapuava</field>
-    </row>
-    <row>
-      <field name="id">41021</field>
-      <field name="id_mesorregiao">4105</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Ponta Grossa</field>
-    </row>
-    <row>
-      <field name="id">41018</field>
-      <field name="id_mesorregiao">4104</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Wenceslau Braz</field>
-    </row>
-    <row>
-      <field name="id">41024</field>
-      <field name="id_mesorregiao">4106</field>
-      <field name="id_uf">41</field>
-      <field name="nome">Foz do Iguaçu</field>
+      <field name="nome">Umuarama</field>
     </row>
     <row>
       <field name="id">41003</field>
@@ -3460,16 +3292,28 @@
       <field name="nome">Cianorte</field>
     </row>
     <row>
-      <field name="id">41030</field>
-      <field name="id_mesorregiao">4108</field>
+      <field name="id">41004</field>
+      <field name="id_mesorregiao">4102</field>
       <field name="id_uf">41</field>
-      <field name="nome">Palmas</field>
+      <field name="nome">Goioerê</field>
     </row>
     <row>
-      <field name="id">41017</field>
-      <field name="id_mesorregiao">4104</field>
+      <field name="id">41005</field>
+      <field name="id_mesorregiao">4102</field>
       <field name="id_uf">41</field>
-      <field name="nome">Ibaiti</field>
+      <field name="nome">Campo Mourão</field>
+    </row>
+    <row>
+      <field name="id">41006</field>
+      <field name="id_mesorregiao">4103</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Astorga</field>
+    </row>
+    <row>
+      <field name="id">41007</field>
+      <field name="id_mesorregiao">4103</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Porecatu</field>
     </row>
     <row>
       <field name="id">41008</field>
@@ -3478,10 +3322,64 @@
       <field name="nome">Floraí</field>
     </row>
     <row>
-      <field name="id">41031</field>
-      <field name="id_mesorregiao">4109</field>
+      <field name="id">41009</field>
+      <field name="id_mesorregiao">4103</field>
       <field name="id_uf">41</field>
-      <field name="nome">Prudentópolis</field>
+      <field name="nome">Maringá</field>
+    </row>
+    <row>
+      <field name="id">41010</field>
+      <field name="id_mesorregiao">4103</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Apucarana</field>
+    </row>
+    <row>
+      <field name="id">41011</field>
+      <field name="id_mesorregiao">4103</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Londrina</field>
+    </row>
+    <row>
+      <field name="id">41012</field>
+      <field name="id_mesorregiao">4103</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Faxinal</field>
+    </row>
+    <row>
+      <field name="id">41013</field>
+      <field name="id_mesorregiao">4103</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Ivaiporã</field>
+    </row>
+    <row>
+      <field name="id">41014</field>
+      <field name="id_mesorregiao">4104</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Assaí</field>
+    </row>
+    <row>
+      <field name="id">41015</field>
+      <field name="id_mesorregiao">4104</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Cornélio Procópio</field>
+    </row>
+    <row>
+      <field name="id">41016</field>
+      <field name="id_mesorregiao">4104</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Jacarezinho</field>
+    </row>
+    <row>
+      <field name="id">41017</field>
+      <field name="id_mesorregiao">4104</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Ibaiti</field>
+    </row>
+    <row>
+      <field name="id">41018</field>
+      <field name="id_mesorregiao">4104</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Wenceslau Braz</field>
     </row>
     <row>
       <field name="id">41019</field>
@@ -3490,10 +3388,100 @@
       <field name="nome">Telêmaco Borba</field>
     </row>
     <row>
+      <field name="id">41020</field>
+      <field name="id_mesorregiao">4105</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Jaguariaíva</field>
+    </row>
+    <row>
+      <field name="id">41021</field>
+      <field name="id_mesorregiao">4105</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Ponta Grossa</field>
+    </row>
+    <row>
+      <field name="id">41022</field>
+      <field name="id_mesorregiao">4106</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Toledo</field>
+    </row>
+    <row>
+      <field name="id">41023</field>
+      <field name="id_mesorregiao">4106</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Cascavel</field>
+    </row>
+    <row>
+      <field name="id">41024</field>
+      <field name="id_mesorregiao">4106</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Foz do Iguaçu</field>
+    </row>
+    <row>
+      <field name="id">41025</field>
+      <field name="id_mesorregiao">4107</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Capanema</field>
+    </row>
+    <row>
+      <field name="id">41026</field>
+      <field name="id_mesorregiao">4107</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Francisco Beltrão</field>
+    </row>
+    <row>
+      <field name="id">41027</field>
+      <field name="id_mesorregiao">4107</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Pato Branco</field>
+    </row>
+    <row>
+      <field name="id">41028</field>
+      <field name="id_mesorregiao">4108</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Pitanga</field>
+    </row>
+    <row>
+      <field name="id">41029</field>
+      <field name="id_mesorregiao">4108</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Guarapuava</field>
+    </row>
+    <row>
+      <field name="id">41030</field>
+      <field name="id_mesorregiao">4108</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Palmas</field>
+    </row>
+    <row>
+      <field name="id">41031</field>
+      <field name="id_mesorregiao">4109</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Prudentópolis</field>
+    </row>
+    <row>
       <field name="id">41032</field>
       <field name="id_mesorregiao">4109</field>
       <field name="id_uf">41</field>
       <field name="nome">Irati</field>
+    </row>
+    <row>
+      <field name="id">41033</field>
+      <field name="id_mesorregiao">4109</field>
+      <field name="id_uf">41</field>
+      <field name="nome">União da Vitória</field>
+    </row>
+    <row>
+      <field name="id">41034</field>
+      <field name="id_mesorregiao">4109</field>
+      <field name="id_uf">41</field>
+      <field name="nome">São Mateus do Sul</field>
+    </row>
+    <row>
+      <field name="id">41035</field>
+      <field name="id_mesorregiao">4110</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Cerro Azul</field>
     </row>
     <row>
       <field name="id">41036</field>
@@ -3502,58 +3490,22 @@
       <field name="nome">Lapa</field>
     </row>
     <row>
-      <field name="id">41009</field>
-      <field name="id_mesorregiao">4103</field>
+      <field name="id">41037</field>
+      <field name="id_mesorregiao">4110</field>
       <field name="id_uf">41</field>
-      <field name="nome">Maringá</field>
+      <field name="nome">Curitiba</field>
     </row>
     <row>
-      <field name="id">42009</field>
-      <field name="id_mesorregiao">4203</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Curitibanos</field>
+      <field name="id">41038</field>
+      <field name="id_mesorregiao">4110</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Paranaguá</field>
     </row>
     <row>
-      <field name="id">42003</field>
-      <field name="id_mesorregiao">4201</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Xanxerê</field>
-    </row>
-    <row>
-      <field name="id">42014</field>
-      <field name="id_mesorregiao">4204</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Ituporanga</field>
-    </row>
-    <row>
-      <field name="id">42011</field>
-      <field name="id_mesorregiao">4204</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Rio do Sul</field>
-    </row>
-    <row>
-      <field name="id">42004</field>
-      <field name="id_mesorregiao">4201</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Joaçaba</field>
-    </row>
-    <row>
-      <field name="id">42002</field>
-      <field name="id_mesorregiao">4201</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Chapecó</field>
-    </row>
-    <row>
-      <field name="id">42017</field>
-      <field name="id_mesorregiao">4205</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Tabuleiro</field>
-    </row>
-    <row>
-      <field name="id">42005</field>
-      <field name="id_mesorregiao">4201</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Concórdia</field>
+      <field name="id">41039</field>
+      <field name="id_mesorregiao">4110</field>
+      <field name="id_uf">41</field>
+      <field name="nome">Rio Negro</field>
     </row>
     <row>
       <field name="id">42001</field>
@@ -3562,52 +3514,28 @@
       <field name="nome">São Miguel do Oeste</field>
     </row>
     <row>
-      <field name="id">42015</field>
-      <field name="id_mesorregiao">4205</field>
+      <field name="id">42002</field>
+      <field name="id_mesorregiao">4201</field>
       <field name="id_uf">42</field>
-      <field name="nome">Tijucas</field>
+      <field name="nome">Chapecó</field>
     </row>
     <row>
-      <field name="id">42010</field>
-      <field name="id_mesorregiao">4203</field>
+      <field name="id">42003</field>
+      <field name="id_mesorregiao">4201</field>
       <field name="id_uf">42</field>
-      <field name="nome">Campos de Lages</field>
+      <field name="nome">Xanxerê</field>
     </row>
     <row>
-      <field name="id">42016</field>
-      <field name="id_mesorregiao">4205</field>
+      <field name="id">42004</field>
+      <field name="id_mesorregiao">4201</field>
       <field name="id_uf">42</field>
-      <field name="nome">Florianópolis</field>
+      <field name="nome">Joaçaba</field>
     </row>
     <row>
-      <field name="id">42012</field>
-      <field name="id_mesorregiao">4204</field>
+      <field name="id">42005</field>
+      <field name="id_mesorregiao">4201</field>
       <field name="id_uf">42</field>
-      <field name="nome">Blumenau</field>
-    </row>
-    <row>
-      <field name="id">42008</field>
-      <field name="id_mesorregiao">4202</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Joinville</field>
-    </row>
-    <row>
-      <field name="id">42020</field>
-      <field name="id_mesorregiao">4206</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Araranguá</field>
-    </row>
-    <row>
-      <field name="id">42018</field>
-      <field name="id_mesorregiao">4206</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Tubarão</field>
-    </row>
-    <row>
-      <field name="id">42013</field>
-      <field name="id_mesorregiao">4204</field>
-      <field name="id_uf">42</field>
-      <field name="nome">Itajaí</field>
+      <field name="nome">Concórdia</field>
     </row>
     <row>
       <field name="id">42006</field>
@@ -3622,34 +3550,82 @@
       <field name="nome">São Bento do Sul</field>
     </row>
     <row>
+      <field name="id">42008</field>
+      <field name="id_mesorregiao">4202</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Joinville</field>
+    </row>
+    <row>
+      <field name="id">42009</field>
+      <field name="id_mesorregiao">4203</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Curitibanos</field>
+    </row>
+    <row>
+      <field name="id">42010</field>
+      <field name="id_mesorregiao">4203</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Campos de Lages</field>
+    </row>
+    <row>
+      <field name="id">42011</field>
+      <field name="id_mesorregiao">4204</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Rio do Sul</field>
+    </row>
+    <row>
+      <field name="id">42012</field>
+      <field name="id_mesorregiao">4204</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Blumenau</field>
+    </row>
+    <row>
+      <field name="id">42013</field>
+      <field name="id_mesorregiao">4204</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Itajaí</field>
+    </row>
+    <row>
+      <field name="id">42014</field>
+      <field name="id_mesorregiao">4204</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Ituporanga</field>
+    </row>
+    <row>
+      <field name="id">42015</field>
+      <field name="id_mesorregiao">4205</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Tijucas</field>
+    </row>
+    <row>
+      <field name="id">42016</field>
+      <field name="id_mesorregiao">4205</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Florianópolis</field>
+    </row>
+    <row>
+      <field name="id">42017</field>
+      <field name="id_mesorregiao">4205</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Tabuleiro</field>
+    </row>
+    <row>
+      <field name="id">42018</field>
+      <field name="id_mesorregiao">4206</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Tubarão</field>
+    </row>
+    <row>
       <field name="id">42019</field>
       <field name="id_mesorregiao">4206</field>
       <field name="id_uf">42</field>
       <field name="nome">Criciúma</field>
     </row>
     <row>
-      <field name="id">43031</field>
-      <field name="id_mesorregiao">4306</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Campanha Meridional</field>
-    </row>
-    <row>
-      <field name="id">43010</field>
-      <field name="id_mesorregiao">4301</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Passo Fundo</field>
-    </row>
-    <row>
-      <field name="id">43019</field>
-      <field name="id_mesorregiao">4303</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Restinga Seca</field>
-    </row>
-    <row>
-      <field name="id">43008</field>
-      <field name="id_mesorregiao">4301</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Ijuí</field>
+      <field name="id">42020</field>
+      <field name="id_mesorregiao">4206</field>
+      <field name="id_uf">42</field>
+      <field name="nome">Araranguá</field>
     </row>
     <row>
       <field name="id">43001</field>
@@ -3658,16 +3634,10 @@
       <field name="nome">Santa Rosa</field>
     </row>
     <row>
-      <field name="id">43029</field>
-      <field name="id_mesorregiao">4306</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Campanha Ocidental</field>
-    </row>
-    <row>
-      <field name="id">43009</field>
+      <field name="id">43002</field>
       <field name="id_mesorregiao">4301</field>
       <field name="id_uf">43</field>
-      <field name="nome">Carazinho</field>
+      <field name="nome">Três Passos</field>
     </row>
     <row>
       <field name="id">43003</field>
@@ -3676,88 +3646,10 @@
       <field name="nome">Frederico Westphalen</field>
     </row>
     <row>
-      <field name="id">43011</field>
-      <field name="id_mesorregiao">4301</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Cruz Alta</field>
-    </row>
-    <row>
-      <field name="id">43023</field>
-      <field name="id_mesorregiao">4305</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Montenegro</field>
-    </row>
-    <row>
-      <field name="id">43026</field>
-      <field name="id_mesorregiao">4305</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Porto Alegre</field>
-    </row>
-    <row>
-      <field name="id">43032</field>
-      <field name="id_mesorregiao">4307</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Serras de Sudeste</field>
-    </row>
-    <row>
-      <field name="id">43014</field>
-      <field name="id_mesorregiao">4302</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Guaporé</field>
-    </row>
-    <row>
-      <field name="id">43016</field>
-      <field name="id_mesorregiao">4302</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Caxias do Sul</field>
-    </row>
-    <row>
-      <field name="id">43028</field>
-      <field name="id_mesorregiao">4305</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Camaquã</field>
-    </row>
-    <row>
       <field name="id">43004</field>
       <field name="id_mesorregiao">4301</field>
       <field name="id_uf">43</field>
       <field name="nome">Erechim</field>
-    </row>
-    <row>
-      <field name="id">43021</field>
-      <field name="id_mesorregiao">4304</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Lajeado-Estrela</field>
-    </row>
-    <row>
-      <field name="id">43027</field>
-      <field name="id_mesorregiao">4305</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Osório</field>
-    </row>
-    <row>
-      <field name="id">43033</field>
-      <field name="id_mesorregiao">4307</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Pelotas</field>
-    </row>
-    <row>
-      <field name="id">43025</field>
-      <field name="id_mesorregiao">4305</field>
-      <field name="id_uf">43</field>
-      <field name="nome">São Jerônimo</field>
-    </row>
-    <row>
-      <field name="id">43020</field>
-      <field name="id_mesorregiao">4304</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Santa Cruz do Sul</field>
-    </row>
-    <row>
-      <field name="id">43034</field>
-      <field name="id_mesorregiao">4307</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Jaguarão</field>
     </row>
     <row>
       <field name="id">43005</field>
@@ -3766,22 +3658,10 @@
       <field name="nome">Sananduva</field>
     </row>
     <row>
-      <field name="id">43002</field>
+      <field name="id">43006</field>
       <field name="id_mesorregiao">4301</field>
       <field name="id_uf">43</field>
-      <field name="nome">Três Passos</field>
-    </row>
-    <row>
-      <field name="id">43013</field>
-      <field name="id_mesorregiao">4301</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Soledade</field>
-    </row>
-    <row>
-      <field name="id">43015</field>
-      <field name="id_mesorregiao">4302</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Vacaria</field>
+      <field name="nome">Cerro Largo</field>
     </row>
     <row>
       <field name="id">43007</field>
@@ -3790,40 +3670,28 @@
       <field name="nome">Santo Ângelo</field>
     </row>
     <row>
-      <field name="id">43018</field>
-      <field name="id_mesorregiao">4303</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Santa Maria</field>
-    </row>
-    <row>
-      <field name="id">43022</field>
-      <field name="id_mesorregiao">4304</field>
-      <field name="id_uf">43</field>
-      <field name="nome">Cachoeira do Sul</field>
-    </row>
-    <row>
-      <field name="id">43006</field>
+      <field name="id">43008</field>
       <field name="id_mesorregiao">4301</field>
       <field name="id_uf">43</field>
-      <field name="nome">Cerro Largo</field>
+      <field name="nome">Ijuí</field>
     </row>
     <row>
-      <field name="id">43024</field>
-      <field name="id_mesorregiao">4305</field>
+      <field name="id">43009</field>
+      <field name="id_mesorregiao">4301</field>
       <field name="id_uf">43</field>
-      <field name="nome">Gramado-Canela</field>
+      <field name="nome">Carazinho</field>
     </row>
     <row>
-      <field name="id">43017</field>
-      <field name="id_mesorregiao">4303</field>
+      <field name="id">43010</field>
+      <field name="id_mesorregiao">4301</field>
       <field name="id_uf">43</field>
-      <field name="nome">Santiago</field>
+      <field name="nome">Passo Fundo</field>
     </row>
     <row>
-      <field name="id">43035</field>
-      <field name="id_mesorregiao">4307</field>
+      <field name="id">43011</field>
+      <field name="id_mesorregiao">4301</field>
       <field name="id_uf">43</field>
-      <field name="nome">Litoral Lagunar</field>
+      <field name="nome">Cruz Alta</field>
     </row>
     <row>
       <field name="id">43012</field>
@@ -3832,70 +3700,142 @@
       <field name="nome">Não-Me-Toque</field>
     </row>
     <row>
+      <field name="id">43013</field>
+      <field name="id_mesorregiao">4301</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Soledade</field>
+    </row>
+    <row>
+      <field name="id">43014</field>
+      <field name="id_mesorregiao">4302</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Guaporé</field>
+    </row>
+    <row>
+      <field name="id">43015</field>
+      <field name="id_mesorregiao">4302</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Vacaria</field>
+    </row>
+    <row>
+      <field name="id">43016</field>
+      <field name="id_mesorregiao">4302</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Caxias do Sul</field>
+    </row>
+    <row>
+      <field name="id">43017</field>
+      <field name="id_mesorregiao">4303</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Santiago</field>
+    </row>
+    <row>
+      <field name="id">43018</field>
+      <field name="id_mesorregiao">4303</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Santa Maria</field>
+    </row>
+    <row>
+      <field name="id">43019</field>
+      <field name="id_mesorregiao">4303</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Restinga Seca</field>
+    </row>
+    <row>
+      <field name="id">43020</field>
+      <field name="id_mesorregiao">4304</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Santa Cruz do Sul</field>
+    </row>
+    <row>
+      <field name="id">43021</field>
+      <field name="id_mesorregiao">4304</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Lajeado-Estrela</field>
+    </row>
+    <row>
+      <field name="id">43022</field>
+      <field name="id_mesorregiao">4304</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Cachoeira do Sul</field>
+    </row>
+    <row>
+      <field name="id">43023</field>
+      <field name="id_mesorregiao">4305</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Montenegro</field>
+    </row>
+    <row>
+      <field name="id">43024</field>
+      <field name="id_mesorregiao">4305</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Gramado-Canela</field>
+    </row>
+    <row>
+      <field name="id">43025</field>
+      <field name="id_mesorregiao">4305</field>
+      <field name="id_uf">43</field>
+      <field name="nome">São Jerônimo</field>
+    </row>
+    <row>
+      <field name="id">43026</field>
+      <field name="id_mesorregiao">4305</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Porto Alegre</field>
+    </row>
+    <row>
+      <field name="id">43027</field>
+      <field name="id_mesorregiao">4305</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Osório</field>
+    </row>
+    <row>
+      <field name="id">43028</field>
+      <field name="id_mesorregiao">4305</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Camaquã</field>
+    </row>
+    <row>
+      <field name="id">43029</field>
+      <field name="id_mesorregiao">4306</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Campanha Ocidental</field>
+    </row>
+    <row>
       <field name="id">43030</field>
       <field name="id_mesorregiao">4306</field>
       <field name="id_uf">43</field>
       <field name="nome">Campanha Central</field>
     </row>
     <row>
-      <field name="id">50007</field>
-      <field name="id_mesorregiao">5003</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Três Lagoas</field>
+      <field name="id">43031</field>
+      <field name="id_mesorregiao">4306</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Campanha Meridional</field>
     </row>
     <row>
-      <field name="id">50003</field>
-      <field name="id_mesorregiao">5002</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Alto Taquari</field>
+      <field name="id">43032</field>
+      <field name="id_mesorregiao">4307</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Serras de Sudeste</field>
     </row>
     <row>
-      <field name="id">50010</field>
-      <field name="id_mesorregiao">5004</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Dourados</field>
+      <field name="id">43033</field>
+      <field name="id_mesorregiao">4307</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Pelotas</field>
     </row>
     <row>
-      <field name="id">50002</field>
-      <field name="id_mesorregiao">5001</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Aquidauana</field>
+      <field name="id">43034</field>
+      <field name="id_mesorregiao">4307</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Jaguarão</field>
     </row>
     <row>
-      <field name="id">50008</field>
-      <field name="id_mesorregiao">5003</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Nova Andradina</field>
-    </row>
-    <row>
-      <field name="id">50011</field>
-      <field name="id_mesorregiao">5004</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Iguatemi</field>
-    </row>
-    <row>
-      <field name="id">50006</field>
-      <field name="id_mesorregiao">5003</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Paranaíba</field>
-    </row>
-    <row>
-      <field name="id">50004</field>
-      <field name="id_mesorregiao">5002</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Campo Grande</field>
-    </row>
-    <row>
-      <field name="id">50009</field>
-      <field name="id_mesorregiao">5004</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Bodoquena</field>
-    </row>
-    <row>
-      <field name="id">50005</field>
-      <field name="id_mesorregiao">5003</field>
-      <field name="id_uf">50</field>
-      <field name="nome">Cassilândia</field>
+      <field name="id">43035</field>
+      <field name="id_mesorregiao">4307</field>
+      <field name="id_uf">43</field>
+      <field name="nome">Litoral Lagunar</field>
     </row>
     <row>
       <field name="id">50001</field>
@@ -3904,58 +3844,64 @@
       <field name="nome">Baixo Pantanal</field>
     </row>
     <row>
-      <field name="id">51016</field>
-      <field name="id_mesorregiao">5104</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Rosário Oeste</field>
+      <field name="id">50002</field>
+      <field name="id_mesorregiao">5001</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Aquidauana</field>
     </row>
     <row>
-      <field name="id">51010</field>
-      <field name="id_mesorregiao">5102</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Canarana</field>
+      <field name="id">50003</field>
+      <field name="id_mesorregiao">5002</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Alto Taquari</field>
     </row>
     <row>
-      <field name="id">51002</field>
-      <field name="id_mesorregiao">5101</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Alta Floresta</field>
+      <field name="id">50004</field>
+      <field name="id_mesorregiao">5002</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Campo Grande</field>
     </row>
     <row>
-      <field name="id">51022</field>
-      <field name="id_mesorregiao">5105</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Alto Araguaia</field>
+      <field name="id">50005</field>
+      <field name="id_mesorregiao">5003</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Cassilândia</field>
     </row>
     <row>
-      <field name="id">51009</field>
-      <field name="id_mesorregiao">5102</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Norte Araguaia</field>
+      <field name="id">50006</field>
+      <field name="id_mesorregiao">5003</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Paranaíba</field>
     </row>
     <row>
-      <field name="id">51015</field>
-      <field name="id_mesorregiao">5104</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Alto Paraguai</field>
+      <field name="id">50007</field>
+      <field name="id_mesorregiao">5003</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Três Lagoas</field>
     </row>
     <row>
-      <field name="id">51011</field>
-      <field name="id_mesorregiao">5102</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Médio Araguaia</field>
+      <field name="id">50008</field>
+      <field name="id_mesorregiao">5003</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Nova Andradina</field>
     </row>
     <row>
-      <field name="id">51020</field>
-      <field name="id_mesorregiao">5105</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Tesouro</field>
+      <field name="id">50009</field>
+      <field name="id_mesorregiao">5004</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Bodoquena</field>
     </row>
     <row>
-      <field name="id">51014</field>
-      <field name="id_mesorregiao">5103</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Jauru</field>
+      <field name="id">50010</field>
+      <field name="id_mesorregiao">5004</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Dourados</field>
+    </row>
+    <row>
+      <field name="id">50011</field>
+      <field name="id_mesorregiao">5004</field>
+      <field name="id_uf">50</field>
+      <field name="nome">Iguatemi</field>
     </row>
     <row>
       <field name="id">51001</field>
@@ -3964,40 +3910,10 @@
       <field name="nome">Aripuanã</field>
     </row>
     <row>
-      <field name="id">51018</field>
-      <field name="id_mesorregiao">5104</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Alto Pantanal</field>
-    </row>
-    <row>
-      <field name="id">51013</field>
-      <field name="id_mesorregiao">5103</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Tangará da Serra</field>
-    </row>
-    <row>
-      <field name="id">51004</field>
+      <field name="id">51002</field>
       <field name="id_mesorregiao">5101</field>
       <field name="id_uf">51</field>
-      <field name="nome">Parecis</field>
-    </row>
-    <row>
-      <field name="id">51019</field>
-      <field name="id_mesorregiao">5105</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Primavera do Leste</field>
-    </row>
-    <row>
-      <field name="id">51017</field>
-      <field name="id_mesorregiao">5104</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Cuiabá</field>
-    </row>
-    <row>
-      <field name="id">51007</field>
-      <field name="id_mesorregiao">5101</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Sinop</field>
+      <field name="nome">Alta Floresta</field>
     </row>
     <row>
       <field name="id">51003</field>
@@ -4006,28 +3922,10 @@
       <field name="nome">Colíder</field>
     </row>
     <row>
-      <field name="id">51012</field>
-      <field name="id_mesorregiao">5103</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Alto Guaporé</field>
-    </row>
-    <row>
-      <field name="id">51021</field>
-      <field name="id_mesorregiao">5105</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Rondonópolis</field>
-    </row>
-    <row>
-      <field name="id">51008</field>
+      <field name="id">51004</field>
       <field name="id_mesorregiao">5101</field>
       <field name="id_uf">51</field>
-      <field name="nome">Paranatinga</field>
-    </row>
-    <row>
-      <field name="id">51006</field>
-      <field name="id_mesorregiao">5101</field>
-      <field name="id_uf">51</field>
-      <field name="nome">Alto Teles Pires</field>
+      <field name="nome">Parecis</field>
     </row>
     <row>
       <field name="id">51005</field>
@@ -4036,34 +3934,124 @@
       <field name="nome">Arinos</field>
     </row>
     <row>
-      <field name="id">52010</field>
-      <field name="id_mesorregiao">5203</field>
-      <field name="id_uf">52</field>
-      <field name="nome">Goiânia</field>
+      <field name="id">51006</field>
+      <field name="id_mesorregiao">5101</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Alto Teles Pires</field>
     </row>
     <row>
-      <field name="id">52012</field>
-      <field name="id_mesorregiao">5204</field>
-      <field name="id_uf">52</field>
-      <field name="nome">Entorno de Brasília</field>
+      <field name="id">51007</field>
+      <field name="id_mesorregiao">5101</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Sinop</field>
     </row>
     <row>
-      <field name="id">52014</field>
-      <field name="id_mesorregiao">5205</field>
-      <field name="id_uf">52</field>
-      <field name="nome">Vale do Rio dos Bois</field>
+      <field name="id">51008</field>
+      <field name="id_mesorregiao">5101</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Paranatinga</field>
     </row>
     <row>
-      <field name="id">52009</field>
-      <field name="id_mesorregiao">5203</field>
-      <field name="id_uf">52</field>
-      <field name="nome">Anicuns</field>
+      <field name="id">51009</field>
+      <field name="id_mesorregiao">5102</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Norte Araguaia</field>
     </row>
     <row>
-      <field name="id">52015</field>
-      <field name="id_mesorregiao">5205</field>
+      <field name="id">51010</field>
+      <field name="id_mesorregiao">5102</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Canarana</field>
+    </row>
+    <row>
+      <field name="id">51011</field>
+      <field name="id_mesorregiao">5102</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Médio Araguaia</field>
+    </row>
+    <row>
+      <field name="id">51012</field>
+      <field name="id_mesorregiao">5103</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Alto Guaporé</field>
+    </row>
+    <row>
+      <field name="id">51013</field>
+      <field name="id_mesorregiao">5103</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Tangará da Serra</field>
+    </row>
+    <row>
+      <field name="id">51014</field>
+      <field name="id_mesorregiao">5103</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Jauru</field>
+    </row>
+    <row>
+      <field name="id">51015</field>
+      <field name="id_mesorregiao">5104</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Alto Paraguai</field>
+    </row>
+    <row>
+      <field name="id">51016</field>
+      <field name="id_mesorregiao">5104</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Rosário Oeste</field>
+    </row>
+    <row>
+      <field name="id">51017</field>
+      <field name="id_mesorregiao">5104</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Cuiabá</field>
+    </row>
+    <row>
+      <field name="id">51018</field>
+      <field name="id_mesorregiao">5104</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Alto Pantanal</field>
+    </row>
+    <row>
+      <field name="id">51019</field>
+      <field name="id_mesorregiao">5105</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Primavera do Leste</field>
+    </row>
+    <row>
+      <field name="id">51020</field>
+      <field name="id_mesorregiao">5105</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Tesouro</field>
+    </row>
+    <row>
+      <field name="id">51021</field>
+      <field name="id_mesorregiao">5105</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Rondonópolis</field>
+    </row>
+    <row>
+      <field name="id">51022</field>
+      <field name="id_mesorregiao">5105</field>
+      <field name="id_uf">51</field>
+      <field name="nome">Alto Araguaia</field>
+    </row>
+    <row>
+      <field name="id">52001</field>
+      <field name="id_mesorregiao">5201</field>
       <field name="id_uf">52</field>
-      <field name="nome">Meia Ponte</field>
+      <field name="nome">São Miguel do Araguaia</field>
+    </row>
+    <row>
+      <field name="id">52002</field>
+      <field name="id_mesorregiao">5201</field>
+      <field name="id_uf">52</field>
+      <field name="nome">Rio Vermelho</field>
+    </row>
+    <row>
+      <field name="id">52003</field>
+      <field name="id_mesorregiao">5201</field>
+      <field name="id_uf">52</field>
+      <field name="nome">Aragarças</field>
     </row>
     <row>
       <field name="id">52004</field>
@@ -4078,16 +4066,10 @@
       <field name="nome">Chapada dos Veadeiros</field>
     </row>
     <row>
-      <field name="id">52011</field>
-      <field name="id_mesorregiao">5204</field>
-      <field name="id_uf">52</field>
-      <field name="nome">Vão do Paranã</field>
-    </row>
-    <row>
-      <field name="id">52008</field>
+      <field name="id">52006</field>
       <field name="id_mesorregiao">5203</field>
       <field name="id_uf">52</field>
-      <field name="nome">Iporá</field>
+      <field name="nome">Ceres</field>
     </row>
     <row>
       <field name="id">52007</field>
@@ -4096,10 +4078,34 @@
       <field name="nome">Anápolis</field>
     </row>
     <row>
-      <field name="id">52017</field>
-      <field name="id_mesorregiao">5205</field>
+      <field name="id">52008</field>
+      <field name="id_mesorregiao">5203</field>
       <field name="id_uf">52</field>
-      <field name="nome">Catalão</field>
+      <field name="nome">Iporá</field>
+    </row>
+    <row>
+      <field name="id">52009</field>
+      <field name="id_mesorregiao">5203</field>
+      <field name="id_uf">52</field>
+      <field name="nome">Anicuns</field>
+    </row>
+    <row>
+      <field name="id">52010</field>
+      <field name="id_mesorregiao">5203</field>
+      <field name="id_uf">52</field>
+      <field name="nome">Goiânia</field>
+    </row>
+    <row>
+      <field name="id">52011</field>
+      <field name="id_mesorregiao">5204</field>
+      <field name="id_uf">52</field>
+      <field name="nome">Vão do Paranã</field>
+    </row>
+    <row>
+      <field name="id">52012</field>
+      <field name="id_mesorregiao">5204</field>
+      <field name="id_uf">52</field>
+      <field name="nome">Entorno de Brasília</field>
     </row>
     <row>
       <field name="id">52013</field>
@@ -4108,28 +4114,16 @@
       <field name="nome">Sudoeste de Goiás</field>
     </row>
     <row>
-      <field name="id">52003</field>
-      <field name="id_mesorregiao">5201</field>
-      <field name="id_uf">52</field>
-      <field name="nome">Aragarças</field>
-    </row>
-    <row>
-      <field name="id">52002</field>
-      <field name="id_mesorregiao">5201</field>
-      <field name="id_uf">52</field>
-      <field name="nome">Rio Vermelho</field>
-    </row>
-    <row>
-      <field name="id">52006</field>
-      <field name="id_mesorregiao">5203</field>
-      <field name="id_uf">52</field>
-      <field name="nome">Ceres</field>
-    </row>
-    <row>
-      <field name="id">52018</field>
+      <field name="id">52014</field>
       <field name="id_mesorregiao">5205</field>
       <field name="id_uf">52</field>
-      <field name="nome">Quirinópolis</field>
+      <field name="nome">Vale do Rio dos Bois</field>
+    </row>
+    <row>
+      <field name="id">52015</field>
+      <field name="id_mesorregiao">5205</field>
+      <field name="id_uf">52</field>
+      <field name="nome">Meia Ponte</field>
     </row>
     <row>
       <field name="id">52016</field>
@@ -4138,10 +4132,16 @@
       <field name="nome">Pires do Rio</field>
     </row>
     <row>
-      <field name="id">52001</field>
-      <field name="id_mesorregiao">5201</field>
+      <field name="id">52017</field>
+      <field name="id_mesorregiao">5205</field>
       <field name="id_uf">52</field>
-      <field name="nome">São Miguel do Araguaia</field>
+      <field name="nome">Catalão</field>
+    </row>
+    <row>
+      <field name="id">52018</field>
+      <field name="id_mesorregiao">5205</field>
+      <field name="id_uf">52</field>
+      <field name="nome">Quirinópolis</field>
     </row>
     <row>
       <field name="id">53001</field>
