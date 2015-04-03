@@ -11,6 +11,7 @@ All these data was compiled from XLS spreadsheets provided by IBGE through its F
 
 | Base     | `uf` | `mesorregiao` | `microrregiao` | `municipio` | `distrito` | `subdistrito` |
 | --------:| ----:| -------------:| --------------:| -----------:| ----------:| -------------:|
+| **2014** |   27 |           137 |            558 |       5,570 |     10,307 |           662 |
 | **2013** |   27 |           137 |            558 |       5,570 |     10,302 |           662 |
 | **2012** |   27 |           137 |            558 |       5,565 |          - |             - |
 | **2011** |   27 |           137 |            558 |       5,565 |          - |             - |
@@ -28,7 +29,3 @@ Currently we provide databases into the following formats: CSV, JSON, p-list, Se
 ### Get involved!
 
 Report any mislead information, enhancement or feature request to [our bug tracker](https://github.com/paulofreitas/dtb-ibge/issues)!
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/paulofreitas/dtb-ibge/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
