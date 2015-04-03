@@ -107,8 +107,11 @@ plistlib.PlistWriter.writeDict = __unsortable_write_dict
 
 ## Base exporter
 
-class Exporter(object):
+class BaseExporter(object):
     def __init__(self, db, minified=False):
+        if type(self) == BaseExporter:
+            raise Exception('<BaseExporter> must be subclassed.')
+
         self._db = db
         self._minified = minified
 
@@ -139,7 +142,7 @@ class Exporter(object):
 
 ## CSV
 
-class CSV(Exporter):
+class CSV(BaseExporter):
     _format = 'csv'
     _extension = '.csv'
 
@@ -158,7 +161,7 @@ class CSV(Exporter):
 
 ## JSON
 
-class JSON(Exporter):
+class JSON(BaseExporter):
     _format = 'json'
     _extension = '.json'
 
@@ -174,7 +177,7 @@ class JSON(Exporter):
 
 ## PHP
 
-class PHP(Exporter):
+class PHP(BaseExporter):
     _format = 'php'
     _extension = '.phpd'
 
@@ -185,7 +188,7 @@ class PHP(Exporter):
 
 ## plist
 
-class plist(Exporter):
+class plist(BaseExporter):
     _format = 'plist'
     _extension = '.plist'
 
@@ -196,7 +199,7 @@ class plist(Exporter):
 
 ## SQL
 
-class SQL(Exporter):
+class SQL(BaseExporter):
     _format = 'sql'
     _extension = '.sql'
 
@@ -249,10 +252,21 @@ class SQL(Exporter):
     def __quote(self, value):
         return value.replace("'", self._escape_char)
 
-    def __init__(self, db, minified, lazy_constraints=True, escape_char="\\'"):
+    def __init__(self, db, minified, dialect='standard'):
         super(SQL, self).__init__(db, minified)
-        self._lazy_constraints = lazy_constraints
-        self._escape_char = escape_char
+
+        # Standard settings
+        self._lazy_constraints = True
+        self._create_indexes = True
+        self._bigint_type = 'BIGINT'
+        self._escape_char = "\\'"
+
+        # Handle dialect settings
+        if dialect == 'sqlite':
+            self._lazy_constraints = False
+            self._escape_char = "''"
+
+        # SQL data
         self._tables = {
             'uf': [
                 self.__column('id', 'SMALLINT NOT NULL'),
@@ -285,7 +299,7 @@ class SQL(Exporter):
                 self.__column('nome', 'VARCHAR(64) NOT NULL')
             ],
             'subdistrito': [
-                self.__column('id', 'BIGINT NOT NULL'),
+                self.__column('id', '{} NOT NULL'.format(self._bigint_type)),
                 self.__column('id_distrito', 'INTEGER NOT NULL'),
                 self.__column('id_municipio', 'INTEGER NOT NULL'),
                 self.__column('id_microrregiao', 'INTEGER NOT NULL'),
@@ -442,15 +456,16 @@ class SQL(Exporter):
 
                 sql += self.__constraints(*self._constraints[table_name])
 
-            if table_name in self._indexes:
-                if not self._minified:
-                    sql += '''
+            if self._create_indexes:
+                if table_name in self._indexes:
+                    if not self._minified:
+                        sql += '''
 --
 -- Indexes for table "{}"
 --
 '''.format(table_name)
 
-                    sql += self.__indexes(*self._indexes[table_name])
+                        sql += self.__indexes(*self._indexes[table_name])
 
         sql = sql.strip()
 
@@ -464,12 +479,12 @@ class SQL(Exporter):
 
 ## SQLite3
 
-class SQLite3(Exporter):
+class SQLite3(BaseExporter):
     _format = 'sqlite3'
     _extension = '.sqlite3'
 
     def __str__(self):
-        sql_str = str(SQL(self._db, self._minified, lazy_constraints=False, escape_char="''"))
+        sql_str = str(SQL(self._db, self._minified, dialect='sqlite'))
 
         with tempfile.NamedTemporaryFile() as sqlite_file:
             with sqlite3.connect(sqlite_file.name) as sqlite_con:
@@ -482,7 +497,7 @@ class SQLite3(Exporter):
 
 ## XML
 
-class XML(Exporter):
+class XML(BaseExporter):
     _format = 'xml'
     _extension = '.xml'
 
@@ -512,7 +527,7 @@ class XML(Exporter):
 
 ## YAML
 
-class YAML(Exporter):
+class YAML(BaseExporter):
     _format = 'yaml'
     _extension = '.yaml'
 
