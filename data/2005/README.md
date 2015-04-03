@@ -20,6 +20,6 @@
 | `dtb.phpd`    | Serialized PHP | 2,385,649 |
 | `dtb.plist`   | p-list         | 4,781,323 |
 | `dtb.sql`     | SQL            | 1,333,009 |
-| `dtb.sqlite3` | SQLite 3       | 1,540,096 |
+| `dtb.sqlite3` | SQLite 3       | 1,338,368 |
 | `dtb.xml`     | XML            | 4,535,056 |
 | `dtb.yaml`    | YAML           | 1,982,405 |
