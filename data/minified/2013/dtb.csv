@@ -1,65 +1,4 @@
 id_uf,nome_uf,id_mesorregiao,nome_mesorregiao,id_microrregiao,nome_microrregiao,id_municipio,nome_municipio,id_distrito,nome_distrito,id_subdistrito,nome_subdistrito
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020505,Porto Velho,11002050506,Zona 01
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020505,Porto Velho,11002050507,Zona 02
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020505,Porto Velho,11002050508,Zona 03
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020505,Porto Velho,11002050509,Zona 04
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020505,Porto Velho,11002050510,Zona 05
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020505,Porto Velho
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020510,Abunã
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020515,Calama
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020516,Demarcação
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020517,Extrema
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020518,Fortaleza do Abunã
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020520,Jaci Paraná
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020525,Mutum Paraná
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020530,Nazaré
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020535,Nova Califórnia
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020540,São Carlos
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020545,Vista Alegre do Abunã
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100338,Nova Mamoré,110033805,Nova Mamoré
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100338,Nova Mamoré,110033810,Araras
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100338,Nova Mamoré,110033812,Jacynópolis
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100338,Nova Mamoré,110033815,Nova Dimensão
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100338,Nova Mamoré,110033820,Palmeiras
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100452,Buritis,110045205,Buritis
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100700,Campo Novo de Rondônia,110070005,Campo Novo de Rondônia
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100809,Candeias do Jamari,110080905,Candeias do Jamari
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100809,Candeias do Jamari,110080920,Rio Preto do Candeias
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100940,Cujubim,110094005,Cujubim
-11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1101104,Itapuã do Oeste,110110405,Itapuã do Oeste
-11,Rondônia,1101,Madeira-Guaporé,11002,Guajará-Mirim,1100080,Costa Marques,110008005,Costa Marques
-11,Rondônia,1101,Madeira-Guaporé,11002,Guajará-Mirim,1100080,Costa Marques,110008015,Príncipe da Beira
-11,Rondônia,1101,Madeira-Guaporé,11002,Guajará-Mirim,1100106,Guajará-Mirim,110010605,Guajará-Mirim
-11,Rondônia,1101,Madeira-Guaporé,11002,Guajará-Mirim,1100106,Guajará-Mirim,110010612,Iata
-11,Rondônia,1101,Madeira-Guaporé,11002,Guajará-Mirim,1100106,Guajará-Mirim,110010622,Surpresa
-11,Rondônia,1101,Madeira-Guaporé,11002,Guajará-Mirim,1101492,São Francisco do Guaporé,110149205,São Francisco do Guaporé
-11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100023,Ariquemes,110002305,Ariquemes
-11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100130,Machadinho D'Oeste,110013005,Machadinho D'Oeste
-11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100130,Machadinho D'Oeste,110013015,Oriente Novo
-11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100130,Machadinho D'Oeste,110013020,Quinto BEC
-11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100130,Machadinho D'Oeste,110013025,Tabajara
-11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100262,Rio Crespo,110026205,Rio Crespo
-11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100403,Alto Paraíso,110040305,Alto Paraíso
-11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100601,Cacaulândia,110060105,Cacaulândia
-11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1101401,Monte Negro,110140105,Monte Negro
-11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1101757,Vale do Anari,110175705,Vale do Anari
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100114,Jaru,110011405,Jaru
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100114,Jaru,110011410,Bom Jesus
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100114,Jaru,110011420,Santa Cruz da Serra
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100114,Jaru,110011425,Tarilândia
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100122,Ji-Paraná,110012205,Ji-Paraná
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100122,Ji-Paraná,110012220,Nova Colina
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100122,Ji-Paraná,110012225,Nova Londrina
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100155,Ouro Preto do Oeste,110015505,Ouro Preto do Oeste
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100155,Ouro Preto do Oeste,110015525,Rondominas
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100254,Presidente Médici,110025405,Presidente Médici
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100254,Presidente Médici,110025415,Estrela de Rondônia
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100254,Presidente Médici,110025420,Novo Riachuelo
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100254,Presidente Médici,110025425,Vila Bandeira Branca
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100254,Presidente Médici,110025430,Vila Camargo
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1101005,Governador Jorge Teixeira,110100505,Governador Jorge Teixeira
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1101005,Governador Jorge Teixeira,110100515,Colina Verde
-11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1101302,Mirante da Serra,110130205,Mirante da Serra
 11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1101435,Nova União,110143505,Nova União
 11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1101559,Teixeirópolis,110155905,Teixeirópolis
 11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1101609,Theobroma,110160905,Theobroma
@@ -276,6 +215,67 @@ id_uf,nome_uf,id_mesorregiao,nome_mesorregiao,id_microrregiao,nome_microrregiao,
 15,Pará,1502,Marajó,15005,Furos de Breves,1501808,Breves,150180810,Antônio Lemos
 15,Pará,1502,Marajó,15005,Furos de Breves,1501808,Breves,150180815,Curumu
 15,Pará,1502,Marajó,15005,Furos de Breves,1501808,Breves,150180820,São Miguel dos Macacos
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020505,Porto Velho,11002050506,Zona 01
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020505,Porto Velho,11002050507,Zona 02
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020505,Porto Velho,11002050508,Zona 03
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020505,Porto Velho,11002050509,Zona 04
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020505,Porto Velho,11002050510,Zona 05
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020505,Porto Velho
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020510,Abunã
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020515,Calama
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020516,Demarcação
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020517,Extrema
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020518,Fortaleza do Abunã
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020520,Jaci Paraná
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020525,Mutum Paraná
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020530,Nazaré
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020535,Nova Califórnia
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020540,São Carlos
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100205,Porto Velho,110020545,Vista Alegre do Abunã
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100338,Nova Mamoré,110033805,Nova Mamoré
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100338,Nova Mamoré,110033810,Araras
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100338,Nova Mamoré,110033812,Jacynópolis
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100338,Nova Mamoré,110033815,Nova Dimensão
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100338,Nova Mamoré,110033820,Palmeiras
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100452,Buritis,110045205,Buritis
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100700,Campo Novo de Rondônia,110070005,Campo Novo de Rondônia
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100809,Candeias do Jamari,110080905,Candeias do Jamari
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100809,Candeias do Jamari,110080920,Rio Preto do Candeias
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1100940,Cujubim,110094005,Cujubim
+11,Rondônia,1101,Madeira-Guaporé,11001,Porto Velho,1101104,Itapuã do Oeste,110110405,Itapuã do Oeste
+11,Rondônia,1101,Madeira-Guaporé,11002,Guajará-Mirim,1100080,Costa Marques,110008005,Costa Marques
+11,Rondônia,1101,Madeira-Guaporé,11002,Guajará-Mirim,1100080,Costa Marques,110008015,Príncipe da Beira
+11,Rondônia,1101,Madeira-Guaporé,11002,Guajará-Mirim,1100106,Guajará-Mirim,110010605,Guajará-Mirim
+11,Rondônia,1101,Madeira-Guaporé,11002,Guajará-Mirim,1100106,Guajará-Mirim,110010612,Iata
+11,Rondônia,1101,Madeira-Guaporé,11002,Guajará-Mirim,1100106,Guajará-Mirim,110010622,Surpresa
+11,Rondônia,1101,Madeira-Guaporé,11002,Guajará-Mirim,1101492,São Francisco do Guaporé,110149205,São Francisco do Guaporé
+11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100023,Ariquemes,110002305,Ariquemes
+11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100130,Machadinho D'Oeste,110013005,Machadinho D'Oeste
+11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100130,Machadinho D'Oeste,110013015,Oriente Novo
+11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100130,Machadinho D'Oeste,110013020,Quinto BEC
+11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100130,Machadinho D'Oeste,110013025,Tabajara
+11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100262,Rio Crespo,110026205,Rio Crespo
+11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100403,Alto Paraíso,110040305,Alto Paraíso
+11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1100601,Cacaulândia,110060105,Cacaulândia
+11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1101401,Monte Negro,110140105,Monte Negro
+11,Rondônia,1102,Leste Rondoniense,11003,Ariquemes,1101757,Vale do Anari,110175705,Vale do Anari
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100114,Jaru,110011405,Jaru
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100114,Jaru,110011410,Bom Jesus
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100114,Jaru,110011420,Santa Cruz da Serra
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100114,Jaru,110011425,Tarilândia
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100122,Ji-Paraná,110012205,Ji-Paraná
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100122,Ji-Paraná,110012220,Nova Colina
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100122,Ji-Paraná,110012225,Nova Londrina
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100155,Ouro Preto do Oeste,110015505,Ouro Preto do Oeste
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100155,Ouro Preto do Oeste,110015525,Rondominas
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100254,Presidente Médici,110025405,Presidente Médici
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100254,Presidente Médici,110025415,Estrela de Rondônia
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100254,Presidente Médici,110025420,Novo Riachuelo
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100254,Presidente Médici,110025425,Vila Bandeira Branca
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1100254,Presidente Médici,110025430,Vila Camargo
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1101005,Governador Jorge Teixeira,110100505,Governador Jorge Teixeira
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1101005,Governador Jorge Teixeira,110100515,Colina Verde
+11,Rondônia,1102,Leste Rondoniense,11004,Ji-Paraná,1101302,Mirante da Serra,110130205,Mirante da Serra
 15,Pará,1502,Marajó,15005,Furos de Breves,1502806,Curralinho,150280605,Curralinho
 15,Pará,1502,Marajó,15005,Furos de Breves,1502806,Curralinho,150280610,Piriá
 15,Pará,1502,Marajó,15005,Furos de Breves,1507706,São Sebastião da Boa Vista,150770605,São Sebastião da Boa Vista
@@ -5349,9 +5349,9 @@ id_uf,nome_uf,id_mesorregiao,nome_mesorregiao,id_microrregiao,nome_microrregiao,
 31,Minas Gerais,3110,Sul/Sudoeste de Minas,31055,Andrelândia,3165305,São Vicente de Minas,316530505,São Vicente de Minas
 31,Minas Gerais,3110,Sul/Sudoeste de Minas,31055,Andrelândia,3166402,Seritinga,316640205,Seritinga
 31,Minas Gerais,3110,Sul/Sudoeste de Minas,31055,Andrelândia,3167004,Serranos,316700405,Serranos
-31,Minas Gerais,3110,Sul/Sudoeste de Minas,31056,Itajubá,3108909,Brasópolis,310890905,Brasópolis
-31,Minas Gerais,3110,Sul/Sudoeste de Minas,31056,Itajubá,3108909,Brasópolis,310890910,Dias
-31,Minas Gerais,3110,Sul/Sudoeste de Minas,31056,Itajubá,3108909,Brasópolis,310890915,Luminosa
+31,Minas Gerais,3110,Sul/Sudoeste de Minas,31056,Itajubá,3108909,Brazópolis,310890905,Brazópolis
+31,Minas Gerais,3110,Sul/Sudoeste de Minas,31056,Itajubá,3108909,Brazópolis,310890910,Dias
+31,Minas Gerais,3110,Sul/Sudoeste de Minas,31056,Itajubá,3108909,Brazópolis,310890915,Luminosa
 31,Minas Gerais,3110,Sul/Sudoeste de Minas,31056,Itajubá,3118502,Consolação,311850205,Consolação
 31,Minas Gerais,3110,Sul/Sudoeste de Minas,31056,Itajubá,3120508,Cristina,312050805,Cristina
 31,Minas Gerais,3110,Sul/Sudoeste de Minas,31056,Itajubá,3121100,Delfim Moreira,312110005,Delfim Moreira,31211000506,Barra
