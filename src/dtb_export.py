@@ -164,6 +164,7 @@ class DTB(object):
             id_microrregiao, nome_microrregiao, id_municipio, nome_municipio, \
             id_distrito, nome_distrito, id_subdistrito, nome_subdistrito = row_data + [None] * (12 - len(row_data))
 
+            # Normalize data as needed
             if len(id_mesorregiao) == 2:
                 id_mesorregiao = id_uf + id_mesorregiao
                 id_microrregiao = id_uf + id_microrregiao
@@ -201,7 +202,8 @@ class DTB(object):
             self._db._rows.append([id_uf, nome_uf, id_mesorregiao, nome_mesorregiao,
                                    id_microrregiao, nome_microrregiao, id_municipio,
                                    nome_municipio, id_distrito, nome_distrito,
-                                   id_subdistrito, nome_subdistrito or None])
+                                   id_subdistrito if nome_subdistrito else None,
+                                   nome_subdistrito or None])
 
             # uf
             uf = Struct()
@@ -259,7 +261,7 @@ class DTB(object):
                     self._db._data['distrito'].append(distrito)
 
             # subdistrito
-            if id_subdistrito:
+            if nome_subdistrito:
                 subdistrito = Struct(
                     id=id_subdistrito,
                     id_distrito=id_distrito,
@@ -272,6 +274,13 @@ class DTB(object):
 
                 if not subdistrito in self._db._data['subdistrito']:
                     self._db._data['subdistrito'].append(subdistrito)
+
+        # Sort data
+        for table in self._db._data:
+            self._db._data[table] = sorted(
+                self._db._data[table],
+                key = lambda row: row['id']
+            )
 
         return self
 
