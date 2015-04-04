@@ -490,10 +490,10 @@ class SQL(BaseExporter):
 --
 '''.format(table_name)
 
-            cols = *self._tables[table_name] if self._lazy_constraints \
+            cols = self._tables[table_name] if self._lazy_constraints \
                 else self._tables[table_name] + self._constraints[table_name]
 
-            sql += self.__table(table_name, cols)
+            sql += self.__table(table_name, *cols)
 
             if not self._minified:
                 sql += '''
