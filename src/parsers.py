@@ -41,9 +41,8 @@ import xlrd
 
 
 class BaseParser(object):
-    def __init__(self, db):
-        # logger.debug('Parsing database...')
-
+    def __init__(self, db, logger):
+        self._logger = logger
         self._db = db
         self._xls = xlrd.open_workbook(file_contents=self._db._rawdata,
                                        logfile=open(os.devnull, 'w'))
@@ -52,6 +51,8 @@ class BaseParser(object):
 
 class XLS(BaseParser):
     def parse(self):
+        self._logger.debug('Parsing database...')
+
         for row_id in xrange(self._sheet.nrows):
             row_data =\
                 [value.encode('utf-8') for value in self._sheet.row_values(row_id)]
