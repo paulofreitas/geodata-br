@@ -27,7 +27,7 @@ THE SOFTWARE.
 
 # -- Imports ------------------------------------------------------------------
 
-## Built-in modules
+# Built-in modules
 
 import collections
 import csv
@@ -38,7 +38,7 @@ import re
 import sqlite3
 import tempfile
 
-## Dependency modules
+# Dependency modules
 
 import lxml.etree
 import phpserialize
@@ -46,7 +46,8 @@ import yaml
 
 # -- Modules enhancements -----------------------------------------------------
 
-## yaml
+# yaml
+
 
 def __represent_odict(dump, tag, mapping, flow_style=None):
     '''Make PyYAML output an OrderedDict.
@@ -70,7 +71,8 @@ def __represent_odict(dump, tag, mapping, flow_style=None):
         if not (isinstance(node_key, yaml.ScalarNode) and not node_key.style):
             best_style = False
 
-        if not (isinstance(node_value, yaml.ScalarNode) and not node_value.style):
+        if not (isinstance(node_value, yaml.ScalarNode)
+                and not node_value.style):
             best_style = False
 
         value.append((node_key, node_value))
@@ -83,10 +85,14 @@ def __represent_odict(dump, tag, mapping, flow_style=None):
 
     return node
 
-yaml.SafeDumper.add_representer(collections.OrderedDict,
-    lambda dumper, value: __represent_odict(dumper, u'tag:yaml.org,2002:map', value))
+yaml.SafeDumper.add_representer(
+    collections.OrderedDict,
+    lambda dumper, value:
+        __represent_odict(dumper, u'tag:yaml.org,2002:map', value)
+)
 
-## plistlib
+# plistlib
+
 
 def __unsortable_write_dict(self, d):
     self.beginElement('dict')
@@ -105,9 +111,9 @@ plistlib.PlistWriter.writeDict = __unsortable_write_dict
 
 # -- Classes ------------------------------------------------------------------
 
-## Base exporter
 
 class BaseExporter(object):
+    '''Base exporter class.'''
     def __init__(self, db, minified=False):
         if type(self) == BaseExporter:
             raise Exception('<BaseExporter> must be subclassed.')
@@ -140,28 +146,33 @@ class BaseExporter(object):
 
         return dict_obj
 
-## CSV
 
 class CSV(BaseExporter):
+    '''CSV exporter class.'''
     _format = 'csv'
     _extension = '.csv'
 
     def __str__(self):
         csv_file = io.BytesIO()
-        csv_writer = csv.writer(csv_file,
-                                quoting=csv.QUOTE_MINIMAL if self._minified else csv.QUOTE_NONNUMERIC,
-                                lineterminator='\n')
+        csv_writer = csv.writer(
+            csv_file,
+            quoting=(csv.QUOTE_NONNUMERIC, csv.QUOTE_MINIMAL)[self._minified],
+            lineterminator='\n'
+        )
 
         csv_writer.writerow([col.encode('utf-8') for col in self._db._cols])
 
         for row in self._db._rows:
-            csv_writer.writerow([bytes(col) if type(col) == str else col for col in filter(None, row)])
+            csv_writer.writerow([
+                bytes(col) if type(col) == str else col
+                for col in filter(None, row)
+            ])
 
         return csv_file.getvalue()
 
-## JSON
 
 class JSON(BaseExporter):
+    '''JSON exporter class.'''
     _format = 'json'
     _extension = '.json'
 
@@ -175,9 +186,9 @@ class JSON(BaseExporter):
 
         return json_str
 
-## PHP
 
 class PHP(BaseExporter):
+    '''PHP exporter class.'''
     _format = 'php'
     _extension = '.phpd'
 
@@ -186,25 +197,29 @@ class PHP(BaseExporter):
 
         return phpserialize.dumps(serialize_obj)
 
-## plist
 
 class plist(BaseExporter):
+    '''plist exporter class.'''
     _format = 'plist'
     _extension = '.plist'
 
     def __str__(self):
-        plist_str = plistlib.writePlistToString(self.__toDict__(strKeys=True, unicode=True))
+        plist_str = plistlib.writePlistToString(
+            self.__toDict__(strKeys=True, unicode=True)
+        )
 
-        return re.sub('[\n\t]+', '', plist_str) if self._minified else plist_str
+        return re.sub('[\n\t]+', '', plist_str) if self._minified \
+            else plist_str
 
-## SQL
 
 class SQL(BaseExporter):
+    '''SQL exporter class.'''
     _format = 'sql'
     _extension = '.sql'
 
     def __table(self, table_name, *args):
-        return 'CREATE TABLE {} (\n{}\n);\n'.format(table_name, ',\n'.join(args))
+        return 'CREATE TABLE {} (\n{}\n);\n' \
+            .format(table_name, ',\n'.join(args))
 
     def __column(self, column_name, column_type):
         return '  {} {}'.format(column_name, column_type)
@@ -216,7 +231,8 @@ class SQL(BaseExporter):
             stmt = 'ALTER TABLE {}\n  ADD CONSTRAINT {}\n    PRIMARY KEY ({});''' \
                 .format(table, pk_name, column)
         else:
-            stmt = '  CONSTRAINT {}\n    PRIMARY KEY ({})'''.format(pk_name, column)
+            stmt = '  CONSTRAINT {}\n    PRIMARY KEY ({})''' \
+                .format(pk_name, column)
 
         return stmt
 
@@ -236,13 +252,15 @@ class SQL(BaseExporter):
         return '\n'.join(constraints) + '\n'
 
     def __index(self, index_name, table_name, indexed_column):
-        return 'CREATE INDEX {} ON {} ({});'.format(index_name, table_name, indexed_column)
+        return 'CREATE INDEX {} ON {} ({});' \
+            .format(index_name, table_name, indexed_column)
 
     def __indexes(self, *indexes):
         return '\n'.join(indexes) + '\n'
 
     def __insert(self, table_name, *columns):
-        return 'INSERT INTO {} VALUES ({});'.format(table_name, ', '.join(columns))
+        return 'INSERT INTO {} VALUES ({});' \
+            .format(table_name, ', '.join(columns))
 
     def __insertField(self, field_name, field_type):
         repl_field = '{' + field_name + '}'
@@ -318,28 +336,48 @@ class SQL(BaseExporter):
             ],
             'microrregiao': [
                 self.__primaryKey('microrregiao', 'id'),
-                self.__foreignKey('microrregiao', 'id_mesorregiao', 'mesorregiao', 'id'),
+                self.__foreignKey(
+                    'microrregiao', 'id_mesorregiao', 'mesorregiao', 'id'
+                ),
                 self.__foreignKey('microrregiao', 'id_uf', 'uf', 'id')
             ],
             'municipio': [
                 self.__primaryKey('municipio', 'id'),
-                self.__foreignKey('municipio', 'id_microrregiao', 'microrregiao', 'id'),
-                self.__foreignKey('municipio', 'id_mesorregiao', 'mesorregiao', 'id'),
+                self.__foreignKey(
+                    'municipio', 'id_microrregiao', 'microrregiao', 'id'
+                ),
+                self.__foreignKey(
+                    'municipio', 'id_mesorregiao', 'mesorregiao', 'id'
+                ),
                 self.__foreignKey('municipio', 'id_uf', 'uf', 'id')
             ],
             'distrito': [
                 self.__primaryKey('distrito', 'id'),
-                self.__foreignKey('distrito', 'id_municipio', 'municipio', 'id'),
-                self.__foreignKey('distrito', 'id_microrregiao', 'microrregiao', 'id'),
-                self.__foreignKey('distrito', 'id_mesorregiao', 'mesorregiao', 'id'),
+                self.__foreignKey(
+                    'distrito', 'id_municipio', 'municipio', 'id'
+                ),
+                self.__foreignKey(
+                    'distrito', 'id_microrregiao', 'microrregiao', 'id'
+                ),
+                self.__foreignKey(
+                    'distrito', 'id_mesorregiao', 'mesorregiao', 'id'
+                ),
                 self.__foreignKey('distrito', 'id_uf', 'uf', 'id')
             ],
             'subdistrito': [
                 self.__primaryKey('subdistrito', 'id'),
-                self.__foreignKey('subdistrito', 'id_distrito', 'distrito', 'id'),
-                self.__foreignKey('subdistrito', 'id_municipio', 'municipio', 'id'),
-                self.__foreignKey('subdistrito', 'id_microrregiao', 'microrregiao', 'id'),
-                self.__foreignKey('subdistrito', 'id_mesorregiao', 'mesorregiao', 'id'),
+                self.__foreignKey(
+                    'subdistrito', 'id_distrito', 'distrito', 'id'
+                ),
+                self.__foreignKey(
+                    'subdistrito', 'id_municipio', 'municipio', 'id'
+                ),
+                self.__foreignKey(
+                    'subdistrito', 'id_microrregiao', 'microrregiao', 'id'
+                ),
+                self.__foreignKey(
+                    'subdistrito', 'id_mesorregiao', 'mesorregiao', 'id'
+                ),
                 self.__foreignKey('subdistrito', 'id_uf', 'uf', 'id')
             ]
         }
@@ -348,25 +386,51 @@ class SQL(BaseExporter):
                 self.__index('fk_mesorregiao_uf', 'mesorregiao', 'id_uf')
             ],
             'microrregiao': [
-                self.__index('fk_microrregiao_mesorregiao', 'microrregiao', 'id_mesorregiao'),
+                self.__index(
+                    'fk_microrregiao_mesorregiao',
+                    'microrregiao',
+                    'id_mesorregiao'
+                ),
                 self.__index('fk_microrregiao_uf', 'microrregiao', 'id_uf')
             ],
             'municipio': [
-                self.__index('fk_municipio_microrregiao', 'municipio', 'id_microrregiao'),
-                self.__index('fk_municipio_mesorregiao', 'municipio', 'id_mesorregiao'),
+                self.__index(
+                    'fk_municipio_microrregiao', 'municipio', 'id_microrregiao'
+                ),
+                self.__index(
+                    'fk_municipio_mesorregiao', 'municipio', 'id_mesorregiao'
+                ),
                 self.__index('fk_municipio_uf', 'municipio', 'id_uf')
             ],
             'distrito': [
-                self.__index('fk_distrito_municipio', 'distrito', 'id_municipio'),
-                self.__index('fk_distrito_microrregiao', 'distrito', 'id_microrregiao'),
-                self.__index('fk_distrito_mesorregiao', 'distrito', 'id_mesorregiao'),
+                self.__index(
+                    'fk_distrito_municipio', 'distrito', 'id_municipio'
+                ),
+                self.__index(
+                    'fk_distrito_microrregiao', 'distrito', 'id_microrregiao'
+                ),
+                self.__index(
+                    'fk_distrito_mesorregiao', 'distrito', 'id_mesorregiao'
+                ),
                 self.__index('fk_distrito_uf', 'distrito', 'id_uf')
             ],
             'subdistrito': [
-                self.__index('fk_subdistrito_distrito', 'subdistrito', 'id_distrito'),
-                self.__index('fk_subdistrito_municipio', 'subdistrito', 'id_municipio'),
-                self.__index('fk_subdistrito_microrregiao', 'subdistrito', 'id_microrregiao'),
-                self.__index('fk_subdistrito_mesorregiao', 'subdistrito', 'id_mesorregiao'),
+                self.__index(
+                    'fk_subdistrito_distrito', 'subdistrito', 'id_distrito'
+                ),
+                self.__index(
+                    'fk_subdistrito_municipio', 'subdistrito', 'id_municipio'
+                ),
+                self.__index(
+                    'fk_subdistrito_microrregiao',
+                    'subdistrito',
+                    'id_microrregiao'
+                ),
+                self.__index(
+                    'fk_subdistrito_mesorregiao',
+                    'subdistrito',
+                    'id_mesorregiao'
+                ),
                 self.__index('fk_subdistrito_uf', 'subdistrito', 'id_uf')
             ]
         }
@@ -426,8 +490,10 @@ class SQL(BaseExporter):
 --
 '''.format(table_name)
 
-            sql += self.__table(table_name, *self._tables[table_name] if self._lazy_constraints
-                else self._tables[table_name] + self._constraints[table_name])
+            cols = *self._tables[table_name] if self._lazy_constraints \
+                else self._tables[table_name] + self._constraints[table_name]
+
+            sql += self.__table(table_name, cols)
 
             if not self._minified:
                 sql += '''
@@ -440,8 +506,8 @@ class SQL(BaseExporter):
                 data = collections.OrderedDict()
 
                 for key in self._db._fields[table_name]:
-                    data[key] =\
-                        item[key] if type(item[key]) == int else self.__quote(item[key])
+                    data[key] = item[key] if type(item[key]) == int \
+                        else self.__quote(item[key])
 
                 sql += self.__insert(table_name, *self._inserts[table_name]) \
                     .strip().format(**data) + '\n'
@@ -477,9 +543,9 @@ class SQL(BaseExporter):
 
         return sql
 
-## SQLite3
 
 class SQLite3(BaseExporter):
+    '''SQLite3 exporter class.'''
     _format = 'sqlite3'
     _extension = '.sqlite3'
 
@@ -495,9 +561,9 @@ class SQLite3(BaseExporter):
 
         return sqlite_data
 
-## XML
 
 class XML(BaseExporter):
+    '''XML exporter class.'''
     _format = 'xml'
     _extension = '.xml'
 
@@ -509,7 +575,9 @@ class XML(BaseExporter):
                 continue
 
             if not self._minified:
-                database.append(lxml.etree.Comment(' Table {} '.format(table_name)))
+                database.append(
+                    lxml.etree.Comment(' Table {} '.format(table_name))
+                )
 
             table = lxml.etree.SubElement(database, 'table', name=table_name)
 
@@ -517,17 +585,17 @@ class XML(BaseExporter):
                 row = lxml.etree.SubElement(table, 'row')
 
                 for field_name in self._db._fields[table_name]:
-                    lxml.etree.SubElement(row, 'field',
-                        name=field_name).text = str(item[field_name]).decode('utf-8')
+                    lxml.etree.SubElement(row, 'field', name=field_name).text =\
+                        str(item[field_name]).decode('utf-8')
 
         return lxml.etree.tostring(database,
                                    pretty_print=not self._minified,
                                    xml_declaration=True,
                                    encoding='utf-8')
 
-## YAML
 
 class YAML(BaseExporter):
+    '''YAML exporter class.'''
     _format = 'yaml'
     _extension = '.yaml'
 
