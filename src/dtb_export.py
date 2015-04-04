@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 import exporters
 
-## Built-in modules
+# Built-in modules
 
 import argparse
 import fnmatch
@@ -39,7 +39,7 @@ import os
 import sys
 import zipfile
 
-## Dependency modules
+# Dependency modules
 
 import xlrd
 
@@ -50,11 +50,14 @@ __copyright__ = 'Copyright (c) 2013-2015 Paulo Freitas'
 __license__ = 'MIT'
 __version__ = '1.0-dev'
 __usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
-__epilog__ = 'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
+__epilog__ =\
+    'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
 
 # -- Module initialization ----------------------------------------------------
 
-formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%H:%M:%S')
+formatter = logging.Formatter(
+    '[%(asctime)s] [%(levelname)s] %(message)s', '%H:%M:%S'
+)
 log_handler = logging.StreamHandler(sys.stdout)
 log_handler.setFormatter(formatter)
 logger = logging.getLogger('dtb')
@@ -62,21 +65,56 @@ logger.addHandler(log_handler)
 
 # -- Classes ------------------------------------------------------------------
 
+
 class Database(object):
-    _tables = ('uf', 'mesorregiao', 'microrregiao', 'municipio', 'distrito', 'subdistrito')
+    _tables = (
+        'uf',
+        'mesorregiao',
+        'microrregiao',
+        'municipio',
+        'distrito',
+        'subdistrito'
+    )
     _fields = {
-        'uf':
-            ('id', 'nome'),
-        'mesorregiao':
-            ('id', 'id_uf', 'nome'),
-        'microrregiao':
-            ('id', 'id_mesorregiao', 'id_uf', 'nome'),
-        'municipio':
-            ('id', 'id_microrregiao', 'id_mesorregiao', 'id_uf', 'nome'),
-        'distrito':
-            ('id', 'id_municipio', 'id_microrregiao', 'id_mesorregiao', 'id_uf', 'nome'),
-        'subdistrito':
-            ('id', 'id_distrito', 'id_municipio', 'id_microrregiao', 'id_mesorregiao', 'id_uf', 'nome')
+        'uf': (
+            'id',
+            'nome'
+        ),
+        'mesorregiao': (
+            'id',
+            'id_uf',
+            'nome'
+        ),
+        'microrregiao': (
+            'id',
+            'id_mesorregiao',
+            'id_uf',
+            'nome'
+        ),
+        'municipio': (
+            'id',
+            'id_microrregiao',
+            'id_mesorregiao',
+            'id_uf',
+            'nome'
+        ),
+        'distrito': (
+            'id',
+            'id_municipio',
+            'id_microrregiao',
+            'id_mesorregiao',
+            'id_uf',
+            'nome'
+        ),
+        'subdistrito': (
+            'id',
+            'id_distrito',
+            'id_municipio',
+            'id_microrregiao',
+            'id_mesorregiao',
+            'id_uf',
+            'nome'
+        )
     }
     _cols = []
     _rows = []
@@ -92,6 +130,7 @@ class Database(object):
             self._cols.append('nome_' + table_name)
             self._data[table_name] = []
 
+
 class DTB(object):
     def __init__(self, base):
         self._db = Database(base)
@@ -106,11 +145,14 @@ class DTB(object):
 
         bases_available = [item for item in ftp.nlst() if item.isdigit()]
 
-        if not self._db._base in bases_available:
+        if self._db._base not in bases_available:
             raise Exception('This base is not available to download.')
 
         ftp.cwd(self._db._base)
-        zip_filename = fnmatch.filter(ftp.nlst(), 'dtb_*{}.zip'.format(self._db._base))[0]
+        zip_filename = fnmatch.filter(
+            ftp.nlst(),
+            'dtb_*{}.zip'.format(self._db._base)
+        )[0]
         zip_data = io.BytesIO()
         logger.info('Retrieving database...')
         ftp.retrbinary('RETR {}'.format(zip_filename), zip_data.write)
@@ -126,7 +168,10 @@ class DTB(object):
         xls_file = io.BytesIO()
 
         if cacheFiles:
-            temp_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '.cache')
+            temp_dir = os.path.join(
+                os.path.dirname(os.path.realpath(__file__)),
+                '.cache'
+            )
             temp_file = os.path.join(temp_dir, self._db._base)
 
             if not os.path.exists(temp_file):
@@ -154,15 +199,17 @@ class DTB(object):
         sheet = xls.sheet_by_index(0)
 
         for row_id in xrange(sheet.nrows):
-            row_data = [value.encode('utf-8') for value in sheet.row_values(row_id)]
+            row_data =\
+                [value.encode('utf-8') for value in sheet.row_values(row_id)]
 
             if row_id == 0:
                 self._db._cols = self._db._cols[:len(row_data)]
                 continue
 
             id_uf, nome_uf, id_mesorregiao, nome_mesorregiao, \
-            id_microrregiao, nome_microrregiao, id_municipio, nome_municipio, \
-            id_distrito, nome_distrito, id_subdistrito, nome_subdistrito = row_data + [None] * (12 - len(row_data))
+                id_microrregiao, nome_microrregiao, id_municipio, nome_municipio, \
+                id_distrito, nome_distrito, id_subdistrito, nome_subdistrito =\
+                row_data + [None] * (12 - len(row_data))
 
             # Normalize data as needed
             if len(id_mesorregiao) == 2:
@@ -199,18 +246,20 @@ class DTB(object):
             id_mesorregiao = int(id_mesorregiao)
             id_uf = int(id_uf)
 
-            self._db._rows.append([id_uf, nome_uf, id_mesorregiao, nome_mesorregiao,
-                                   id_microrregiao, nome_microrregiao, id_municipio,
-                                   nome_municipio, id_distrito, nome_distrito,
-                                   id_subdistrito if nome_subdistrito else None,
-                                   nome_subdistrito or None])
+            self._db._rows.append([
+                id_uf, nome_uf, id_mesorregiao, nome_mesorregiao,
+                id_microrregiao, nome_microrregiao, id_municipio,
+                nome_municipio, id_distrito, nome_distrito,
+                id_subdistrito if nome_subdistrito else None,
+                nome_subdistrito or None
+            ])
 
             # uf
             uf = Struct()
             uf.id = id_uf
             uf.nome = nome_uf
 
-            if not uf in self._db._data['uf']:
+            if uf not in self._db._data['uf']:
                 self._db._data['uf'].append(uf)
 
             # mesorregiao
@@ -220,7 +269,7 @@ class DTB(object):
                 nome=nome_mesorregiao
             )
 
-            if not mesorregiao in self._db._data['mesorregiao']:
+            if mesorregiao not in self._db._data['mesorregiao']:
                 self._db._data['mesorregiao'].append(mesorregiao)
 
             # microrregiao
@@ -231,7 +280,7 @@ class DTB(object):
                 nome=nome_microrregiao
             )
 
-            if not microrregiao in self._db._data['microrregiao']:
+            if microrregiao not in self._db._data['microrregiao']:
                 self._db._data['microrregiao'].append(microrregiao)
 
             # municipio
@@ -243,7 +292,7 @@ class DTB(object):
                 nome=nome_municipio
             )
 
-            if not municipio in self._db._data['municipio']:
+            if municipio not in self._db._data['municipio']:
                 self._db._data['municipio'].append(municipio)
 
             # distrito
@@ -257,7 +306,7 @@ class DTB(object):
                     nome=nome_distrito
                 )
 
-                if not distrito in self._db._data['distrito']:
+                if distrito not in self._db._data['distrito']:
                     self._db._data['distrito'].append(distrito)
 
             # subdistrito
@@ -272,24 +321,28 @@ class DTB(object):
                     nome=nome_subdistrito
                 )
 
-                if not subdistrito in self._db._data['subdistrito']:
+                if subdistrito not in self._db._data['subdistrito']:
                     self._db._data['subdistrito'].append(subdistrito)
 
         # Sort data
         for table in self._db._data:
             self._db._data[table] = sorted(
                 self._db._data[table],
-                key = lambda row: row['id']
+                key=lambda row: row['id']
             )
 
         return self
 
     def export_db(self, format, minified=False, filename=None):
-        if not format in FORMATS:
+        if format not in FORMATS:
             raise Exception('Unsupported output format.')
 
-        exporter = dict((exporter._format, exporter) for exporter in EXPORTERS)[format]
-        logger.info('Exporting database to {} format...'.format(exporter.__name__))
+        exporter = dict(
+            (exporter._format, exporter) for exporter in EXPORTERS
+        )[format]
+        logger.info(
+            'Exporting database to {} format...'.format(exporter.__name__)
+        )
         data = str(exporter(self._db, minified))
         logger.info('Done.')
 
@@ -300,6 +353,7 @@ class DTB(object):
             open(filename, 'w').write(data)
         else:
             sys.stdout.write(data)
+
 
 class Struct(dict):
     def __getattr__(self, name):
@@ -329,55 +383,79 @@ EXPORTERS = (
 FORMATS = tuple(exporter._format for exporter in EXPORTERS)
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description=__doc__,
-                                     usage=__usage__,
-                                     epilog=__epilog__,
-                                     conflict_handler='resolve',
-                                     formatter_class=argparse.RawTextHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        usage=__usage__,
+        epilog=__epilog__,
+        conflict_handler='resolve',
+        formatter_class=argparse.RawTextHelpFormatter
+    )
     g_global = parser.add_argument_group('Global options')
-    g_global.add_argument('-h', '--help',
-                          action='help',
-                          help='Display this information')
-    g_global.add_argument('-v', '--version',
-                          action='version',
-                          version='%(prog)s ' + __version__,
-                          help='Show version information and exit')
-    g_global.add_argument('-V', '--verbose',
-                          action='store_true',
-                          help='Display informational messages and warnings')
+    g_global.add_argument(
+        '-h', '--help',
+        action='help',
+        help='Display this information'
+    )
+    g_global.add_argument(
+        '-v', '--version',
+        action='version',
+        version='%(prog)s ' + __version__,
+        help='Show version information and exit'
+    )
+    g_global.add_argument(
+        '-V', '--verbose',
+        action='store_true',
+        help='Display informational messages and warnings'
+    )
 
     g_export = parser.add_argument_group('Export options')
-    g_export.add_argument('-b', '--base',
-                          type=int,
-                          help='Database year to export to.')
-    g_export.add_argument('-f', '--format',
-                          metavar='FORMAT',
-                          choices=FORMATS,
-                          help='Format to export the database.\nOptions: %(choices)s')
-    g_export.add_argument('-m', '--minify',
-                          dest='minified',
-                          action='store_true',
-                          help='Minifies output file whenever possible.')
-    g_export.add_argument('-o', '--out',
-                          dest='filename',
-                          nargs='?',
-                          const='auto',
-                          help='Specify a file to write the export to.\n' \
-                              + 'If none are specified, %(prog)s writes data to standard output.')
+    g_export.add_argument(
+        '-b', '--base',
+        type=int,
+        help='Database year to export to.'
+    )
+    g_export.add_argument(
+        '-f', '--format',
+        metavar='FORMAT',
+        choices=FORMATS,
+        help='Format to export the database.\nOptions: %(choices)s'
+    )
+    g_export.add_argument(
+        '-m', '--minify',
+        dest='minified',
+        action='store_true',
+        help='Minifies output file whenever possible.'
+    )
+    g_export.add_argument(
+        '-o', '--out',
+        dest='filename',
+        nargs='?',
+        const='auto',
+        help='Specify a file to write the export to.\n'
+        + 'If none are specified, %(prog)s writes data to standard output.'
+    )
     args = parser.parse_args()
 
     if not args.base:
-        parser.error('You need to specify the database year you want to export.')
+        parser.error(
+            'You need to specify the database year you want to export.'
+        )
 
     if not args.format:
-        parser.error('You need to specify the database format you want to export.')
+        parser.error(
+            'You need to specify the database format you want to export.'
+        )
 
     if args.verbose:
         logger.setLevel(logging.DEBUG)
 
     try:
         dtb = DTB(args.base)
-        dtb.get_db().parse_db().export_db(args.format, args.minified, args.filename)
+        dtb.get_db() \
+            .parse_db() \
+            .export_db(args.format, args.minified, args.filename)
     except Exception as e:
-        sys.stdout.write('EXCEPTION CAUGHT: {}: {}\n'.format(type(e).__name__, e.message))
+        sys.stdout.write(
+            'EXCEPTION CAUGHT: {}: {}\n'.format(type(e).__name__, e.message)
+        )
         sys.exit(1)
