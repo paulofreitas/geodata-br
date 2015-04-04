@@ -16,6 +16,6 @@
 | `dtb.csv`   | CSV            |   437,302 |    9.2% |
 | `dtb.json`  | JSON           |   563,047 |   33.8% |
 | `dtb.plist` | p-list         | 1,275,259 |   16.4% |
-| `dtb.sql`   | SQL            |   425,479 |    6.9% |
+| `dtb.sql`   | SQL            |   421,224 |    7.8% |
 | `dtb.xml`   | XML            | 1,193,522 |   18.8% |
 | `dtb.yaml`  | YAML           |   536,924 |   12.8% |
