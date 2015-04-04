@@ -4,7 +4,7 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2013 Paulo Freitas
+Copyright (c) 2013-2015 Paulo Freitas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,13 +32,17 @@ import parsers
 # Built-in modules
 
 import argparse
-import fnmatch
 import ftplib
 import io
 import logging
 import os
 import sys
+import urlparse
 import zipfile
+
+# Dependency modules
+
+import yaml
 
 # -- Module docstrings --------------------------------------------------------
 
@@ -49,16 +53,6 @@ __version__ = '1.0-dev'
 __usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
 __epilog__ =\
     'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
-
-# -- Module initialization ----------------------------------------------------
-
-formatter = logging.Formatter(
-    '[%(asctime)s] [%(levelname)s] %(message)s', '%H:%M:%S'
-)
-log_handler = logging.StreamHandler(sys.stdout)
-log_handler.setFormatter(formatter)
-logger = logging.getLogger('dtb')
-logger.addHandler(log_handler)
 
 # -- Classes ------------------------------------------------------------------
 
@@ -119,8 +113,8 @@ class Database(object):
     _rawdata = None
 
     def __init__(self, base):
-        self._base = str(base)
-        self._name = 'dtb_{}'.format(self._base)
+        self._base = Struct(base)
+        self._name = 'dtb_{}'.format(self._base.year)
 
         for table_name in self._tables:
             self._cols.append('id_' + table_name)
@@ -129,35 +123,35 @@ class Database(object):
 
 
 class DTB(object):
-    def __init__(self, base):
-        self._db = Database(base)
+    def __init__(self, base, logger):
+        self._logger = logger
+        self._bases = yaml.load(open(
+            os.path.join(os.path.dirname(__file__), 'bases.yaml')
+        ))
 
-    def _download_db(self):
-        ftp = ftplib.FTP('geoftp.ibge.gov.br')
-        logger.debug('Connecting to FTP server...')
-        ftp.connect()
-        logger.debug('Logging into the FTP server...')
-        ftp.login()
-        ftp.cwd('organizacao_territorial/divisao_territorial')
+        base_data = filter(lambda row: row['year'] == base, self._bases)
 
-        bases_available = [item for item in ftp.nlst() if item.isdigit()]
-
-        if self._db._base not in bases_available:
+        if not base_data:
             raise Exception('This base is not available to download.')
 
-        ftp.cwd(self._db._base)
-        zip_filename = fnmatch.filter(
-            ftp.nlst(),
-            'dtb_*{}.zip'.format(self._db._base)
-        )[0]
+        self._db = Database(next(iter(base_data)))
+
+    def _download_db(self):
+        url_info = urlparse.urlparse(self._db._base.archive)
+        ftp = ftplib.FTP(url_info.netloc)
+        self._logger.debug('Connecting to FTP server...')
+        ftp.connect()
+        self._logger.debug('Logging into the FTP server...')
+        ftp.login()
+        ftp.cwd(os.path.dirname(url_info.path))
         zip_data = io.BytesIO()
-        logger.info('Retrieving database...')
-        ftp.retrbinary('RETR {}'.format(zip_filename), zip_data.write)
+        self._logger.info('Retrieving database...')
+        ftp.retrbinary('RETR {}'.format(os.path.basename(url_info.path)), zip_data.write)
         xls_file = io.BytesIO()
 
         with zipfile.ZipFile(zip_data, 'r') as zip_file:
             logger.info('Reading database...')
-            xls_file.write(zip_file.open(zip_file.namelist()[0]).read())
+            xls_file.write(zip_file.open(self._db._base.file).read())
 
         return xls_file
 
@@ -166,10 +160,9 @@ class DTB(object):
 
         if cacheFiles:
             temp_dir = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)),
-                '.cache'
+                os.path.dirname(os.path.realpath(__file__)), '.cache'
             )
-            temp_file = os.path.join(temp_dir, self._db._base)
+            temp_file = os.path.join(temp_dir, str(self._db._base.year))
 
             if not os.path.exists(temp_file):
                 xls_file = self._download_db()
@@ -190,7 +183,7 @@ class DTB(object):
         return self
 
     def export_db(self, format, minified=False, filename=None):
-        self._db = parsers.XLS(self._db).parse()
+        self._db = parsers.XLS(self._db, self._logger).parse()
 
         if format not in FORMATS:
             raise Exception('Unsupported output format.')
@@ -236,11 +229,22 @@ EXPORTERS = (
     exporters.SQL,
     exporters.SQLite3,
     exporters.XML,
-    exporters.YAML
+    exporters.YAML,
 )
 FORMATS = tuple(exporter._format for exporter in EXPORTERS)
 
 if __name__ == '__main__':
+    # -- Logging initialization -----------------------------------------------
+
+    formatter = logging.Formatter(
+        '[%(asctime)s] [%(levelname)s] %(message)s', '%H:%M:%S'
+    )
+    log_handler = logging.StreamHandler(sys.stdout)
+    log_handler.setFormatter(formatter)
+    logger = logging.getLogger('dtb')
+    logger.addHandler(log_handler)
+
+    # CLI parser
     parser = argparse.ArgumentParser(
         description=__doc__,
         usage=__usage__,
@@ -308,9 +312,8 @@ if __name__ == '__main__':
         logger.setLevel(logging.DEBUG)
 
     try:
-        dtb = DTB(args.base)
-        dtb.get_db() \
-            .export_db(args.format, args.minified, args.filename)
+        dtb = DTB(args.base, logger)
+        dtb.get_db().export_db(args.format, args.minified, args.filename)
     except Exception as e:
         sys.stdout.write(
             'EXCEPTION CAUGHT: {}: {}\n'.format(type(e).__name__, e.message)
