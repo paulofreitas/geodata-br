@@ -531,15 +531,17 @@ class SQL(BaseExporter):
 --
 '''.format(table_name)
 
-                        sql += self.__indexes(*self._indexes[table_name])
+                    sql += self.__indexes(*self._indexes[table_name])
 
         sql = sql.strip()
 
         if self._minified:
-            sql = re.sub('([;(])\s+', r'\1', sql)
+            sql = re.sub('(?<=[;(])\s+', '', sql)
             sql = re.sub(',\s(?=\')|,\s+', ',', sql)
             sql = re.sub('\s+', ' ', sql)
-            sql = re.sub('(\W)\s(\W)', r'\1\2', sql)
+            sql = re.sub('(?<=\W)\s(?=\W)', '', sql)
+            sql = re.sub('(?<=\w)\s(?=\))', '', sql)
+            sql = re.sub("\s\((?=(?:(?:[^']*'){2})*[^']*$)", '(', sql)
 
         return sql
 
