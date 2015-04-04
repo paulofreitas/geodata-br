@@ -27,6 +27,7 @@ THE SOFTWARE.
 # -- Imports ------------------------------------------------------------------
 
 import exporters
+import parsers
 
 # Built-in modules
 
@@ -38,10 +39,6 @@ import logging
 import os
 import sys
 import zipfile
-
-# Dependency modules
-
-import xlrd
 
 # -- Module docstrings --------------------------------------------------------
 
@@ -192,148 +189,9 @@ class DTB(object):
 
         return self
 
-    def parse_db(self):
-        logger.debug('Parsing database...')
-        xls = xlrd.open_workbook(file_contents=self._db._rawdata,
-                                 logfile=open(os.devnull, 'w'))
-        sheet = xls.sheet_by_index(0)
-
-        for row_id in xrange(sheet.nrows):
-            row_data =\
-                [value.encode('utf-8') for value in sheet.row_values(row_id)]
-
-            if row_id == 0:
-                self._db._cols = self._db._cols[:len(row_data)]
-                continue
-
-            id_uf, nome_uf, id_mesorregiao, nome_mesorregiao, \
-                id_microrregiao, nome_microrregiao, id_municipio, nome_municipio, \
-                id_distrito, nome_distrito, id_subdistrito, nome_subdistrito =\
-                row_data + [None] * (12 - len(row_data))
-
-            # Normalize data as needed
-            if len(id_mesorregiao) == 2:
-                id_mesorregiao = id_uf + id_mesorregiao
-                id_microrregiao = id_uf + id_microrregiao
-                id_municipio = id_uf + id_municipio
-
-                if id_distrito:
-                    id_distrito = id_municipio + id_distrito
-
-                if id_subdistrito:
-                    id_subdistrito = id_distrito + id_subdistrito
-
-            if len(id_municipio) == 5:
-                id_municipio = id_uf + id_municipio
-
-                if id_distrito:
-                    id_distrito = id_municipio + id_distrito
-
-                if id_subdistrito:
-                    id_subdistrito = id_distrito + id_subdistrito
-
-            if id_distrito:
-                if len(id_distrito) == 2:
-                    id_distrito = id_municipio + id_distrito
-
-                    if id_subdistrito:
-                        id_subdistrito = id_distrito + id_subdistrito
-
-            id_subdistrito = int(id_subdistrito) if id_subdistrito else None
-            id_distrito = int(id_distrito) if id_distrito else None
-            id_municipio = int(id_municipio)
-            id_microrregiao = int(id_microrregiao)
-            id_mesorregiao = int(id_mesorregiao)
-            id_uf = int(id_uf)
-
-            self._db._rows.append([
-                id_uf, nome_uf, id_mesorregiao, nome_mesorregiao,
-                id_microrregiao, nome_microrregiao, id_municipio,
-                nome_municipio, id_distrito, nome_distrito,
-                id_subdistrito if nome_subdistrito else None,
-                nome_subdistrito or None
-            ])
-
-            # uf
-            uf = Struct()
-            uf.id = id_uf
-            uf.nome = nome_uf
-
-            if uf not in self._db._data['uf']:
-                self._db._data['uf'].append(uf)
-
-            # mesorregiao
-            mesorregiao = Struct(
-                id=id_mesorregiao,
-                id_uf=id_uf,
-                nome=nome_mesorregiao
-            )
-
-            if mesorregiao not in self._db._data['mesorregiao']:
-                self._db._data['mesorregiao'].append(mesorregiao)
-
-            # microrregiao
-            microrregiao = Struct(
-                id=id_microrregiao,
-                id_mesorregiao=id_mesorregiao,
-                id_uf=id_uf,
-                nome=nome_microrregiao
-            )
-
-            if microrregiao not in self._db._data['microrregiao']:
-                self._db._data['microrregiao'].append(microrregiao)
-
-            # municipio
-            municipio = Struct(
-                id=id_municipio,
-                id_microrregiao=id_microrregiao,
-                id_mesorregiao=id_mesorregiao,
-                id_uf=id_uf,
-                nome=nome_municipio
-            )
-
-            if municipio not in self._db._data['municipio']:
-                self._db._data['municipio'].append(municipio)
-
-            # distrito
-            if id_distrito:
-                distrito = Struct(
-                    id=id_distrito,
-                    id_municipio=id_municipio,
-                    id_microrregiao=id_microrregiao,
-                    id_mesorregiao=id_mesorregiao,
-                    id_uf=id_uf,
-                    nome=nome_distrito
-                )
-
-                if distrito not in self._db._data['distrito']:
-                    self._db._data['distrito'].append(distrito)
-
-            # subdistrito
-            if nome_subdistrito:
-                subdistrito = Struct(
-                    id=id_subdistrito,
-                    id_distrito=id_distrito,
-                    id_municipio=id_municipio,
-                    id_microrregiao=id_microrregiao,
-                    id_mesorregiao=id_mesorregiao,
-                    id_uf=id_uf,
-                    nome=nome_subdistrito
-                )
-
-                if subdistrito not in self._db._data['subdistrito']:
-                    self._db._data['subdistrito'].append(subdistrito)
-
-        # Sort data
-        for table in self._db._data:
-            self._db._data[table] = sorted(
-                self._db._data[table],
-                key=lambda row: row['id']
-            )
-
-        return self
-
     def export_db(self, format, minified=False, filename=None):
+        self._db = parsers.XLS(self._db).parse()
+
         if format not in FORMATS:
             raise Exception('Unsupported output format.')
 
@@ -452,7 +310,6 @@ if __name__ == '__main__':
     try:
         dtb = DTB(args.base)
         dtb.get_db() \
-            .parse_db() \
             .export_db(args.format, args.minified, args.filename)
     except Exception as e:
         sys.stdout.write(
