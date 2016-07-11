@@ -27,29 +27,35 @@ THE SOFTWARE.
 
 # -- Imports ------------------------------------------------------------------
 
-from dtb_export import Struct
-
-# Built-in modules
-
+# Built-in imports
 import os
+import sys
 
 # Dependency modules
 
 import xlrd
 
-# -- Classes ------------------------------------------------------------------
+# Package modules
+lib_path = os.path.abspath(os.path.join('..'))
+sys.path.append(lib_path)
+
+from base import BaseParser
+from utils import Struct
+
+# -- Implementation -----------------------------------------------------------
 
 
-class BaseParser(object):
-    def __init__(self, db, logger):
-        self._logger = logger
-        self._db = db
-        self._xls = xlrd.open_workbook(file_contents=self._db._rawdata,
-                                       logfile=open(os.devnull, 'w'))
-        self._sheet = self._xls.sheet_by_index(0)
+class XlsParser(BaseParser):
+    '''XLS parser class.'''
+    format = 'xls'
 
+    def __init__(self, base, logger):
+        super(XlsParser, self).__init__(base, logger)
 
-class XLS(BaseParser):
+        self._book = xlrd.open_workbook(file_contents=self._data._rawdata,
+                                        logfile=open(os.devnull, 'w'))
+        self._sheet = self._book.sheet_by_name(self._data._base.sheet)
+
     def parse(self):
         self._logger.debug('Parsing database...')
 
@@ -58,7 +64,7 @@ class XLS(BaseParser):
                 [value.encode('utf-8') for value in self._sheet.row_values(row_id)]
 
             if row_id == 0:
-                self._db._cols = self._db._cols[:len(row_data)]
+                self._data._cols = self._data._cols[:len(row_data)]
                 continue
 
             id_uf, nome_uf, id_mesorregiao, nome_mesorregiao, \
@@ -101,7 +107,7 @@ class XLS(BaseParser):
             id_mesorregiao = int(id_mesorregiao)
             id_uf = int(id_uf)
 
-            self._db._rows.append([
+            self._data._rows.append([
                 id_uf, nome_uf, id_mesorregiao, nome_mesorregiao,
                 id_microrregiao, nome_microrregiao, id_municipio,
                 nome_municipio, id_distrito, nome_distrito,
@@ -110,12 +116,13 @@ class XLS(BaseParser):
             ])
 
             # uf
-            uf = Struct()
-            uf.id = id_uf
-            uf.nome = nome_uf
+            uf = Struct(
+                id=id_uf,
+                nome=nome_uf
+            )
 
-            if uf not in self._db._data['uf']:
-                self._db._data['uf'].append(uf)
+            if uf not in self._data._dict['uf']:
+                self._data._dict['uf'].append(uf)
 
             # mesorregiao
             mesorregiao = Struct(
@@ -124,8 +131,8 @@ class XLS(BaseParser):
                 nome=nome_mesorregiao
             )
 
-            if mesorregiao not in self._db._data['mesorregiao']:
-                self._db._data['mesorregiao'].append(mesorregiao)
+            if mesorregiao not in self._data._dict['mesorregiao']:
+                self._data._dict['mesorregiao'].append(mesorregiao)
 
             # microrregiao
             microrregiao = Struct(
@@ -135,8 +142,8 @@ class XLS(BaseParser):
                 nome=nome_microrregiao
             )
 
-            if microrregiao not in self._db._data['microrregiao']:
-                self._db._data['microrregiao'].append(microrregiao)
+            if microrregiao not in self._data._dict['microrregiao']:
+                self._data._dict['microrregiao'].append(microrregiao)
 
             # municipio
             municipio = Struct(
@@ -147,8 +154,8 @@ class XLS(BaseParser):
                 nome=nome_municipio
             )
 
-            if municipio not in self._db._data['municipio']:
-                self._db._data['municipio'].append(municipio)
+            if municipio not in self._data._dict['municipio']:
+                self._data._dict['municipio'].append(municipio)
 
             # distrito
             if id_distrito:
@@ -161,8 +168,8 @@ class XLS(BaseParser):
                     nome=nome_distrito
                 )
 
-                if distrito not in self._db._data['distrito']:
-                    self._db._data['distrito'].append(distrito)
+                if distrito not in self._data._dict['distrito']:
+                    self._data._dict['distrito'].append(distrito)
 
             # subdistrito
             if nome_subdistrito:
@@ -176,14 +183,14 @@ class XLS(BaseParser):
                     nome=nome_subdistrito
                 )
 
-                if subdistrito not in self._db._data['subdistrito']:
-                    self._db._data['subdistrito'].append(subdistrito)
+                if subdistrito not in self._data._dict['subdistrito']:
+                    self._data._dict['subdistrito'].append(subdistrito)
 
         # Sort data
-        for table in self._db._data:
-            self._db._data[table] = sorted(
-                self._db._data[table],
+        for table in self._data._dict:
+            self._data._dict[table] = sorted(
+                self._data._dict[table],
                 key=lambda row: row['id']
             )
 
-        return self._db
+        return self._data
