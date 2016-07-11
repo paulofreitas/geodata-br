@@ -4,7 +4,7 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2013-2015 Paulo Freitas
+Copyright (c) 2013-2016 Paulo Freitas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ import yaml
 # -- Module docstrings --------------------------------------------------------
 
 __author__ = 'Paulo Freitas <me@paulofreitas.me>'
-__copyright__ = 'Copyright (c) 2013-2015 Paulo Freitas'
+__copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
 __license__ = 'MIT'
 __version__ = '1.0-dev'
 __usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
