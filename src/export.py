@@ -24,10 +24,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
-# -- Imports ------------------------------------------------------------------
+# -- Metadata -----------------------------------------------------------------
 
-import exporters
-import parsers
+__author__ = 'Paulo Freitas <me@paulofreitas.me>'
+__copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
+__license__ = 'MIT'
+__version__ = '1.0-dev'
+__usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
+__epilog__ =\
+    'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
+
+# -- Imports ------------------------------------------------------------------
 
 # Built-in modules
 
@@ -44,15 +51,12 @@ import zipfile
 
 import yaml
 
-# -- Module docstrings --------------------------------------------------------
+# Package modules
 
-__author__ = 'Paulo Freitas <me@paulofreitas.me>'
-__copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
-__license__ = 'MIT'
-__version__ = '1.0-dev'
-__usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
-__epilog__ =\
-    'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
+import exporters
+import parsers
+
+from utils import Struct
 
 # -- Classes ------------------------------------------------------------------
 
@@ -183,14 +187,13 @@ class DTB(object):
         return self
 
     def export_db(self, format, minified=False, filename=None):
-        self._db = parsers.XLS(self._db, self._logger).parse()
+        parser = parsers.FORMATS.get(self._db._base.format)
+        self._db = parser(self._db, self._logger).parse()
 
-        if format not in FORMATS:
+        if format not in exporters.FORMATS:
             raise Exception('Unsupported output format.')
 
-        exporter = dict(
-            (exporter._format, exporter) for exporter in EXPORTERS
-        )[format]
+        exporter = exporters.FORMATS.get(format)
         logger.info(
             'Exporting database to {} format...'.format(exporter.__name__)
         )
@@ -205,33 +208,6 @@ class DTB(object):
         else:
             sys.stdout.write(data)
 
-
-class Struct(dict):
-    def __getattr__(self, name):
-        try:
-            return self[name]
-        except KeyError:
-            raise AttributeError(name)
-
-    def __setattr__(self, name, value):
-        self[name] = value
-
-    def copy(self):
-        return Struct(dict.copy(self))
-
-# -- Module constants ---------------------------------------------------------
-
-EXPORTERS = (
-    exporters.CSV,
-    exporters.JSON,
-    exporters.PHP,
-    exporters.plist,
-    exporters.SQL,
-    exporters.SQLite3,
-    exporters.XML,
-    exporters.YAML,
-)
-FORMATS = tuple(exporter._format for exporter in EXPORTERS)
 
 if __name__ == '__main__':
     # -- Logging initialization -----------------------------------------------
@@ -279,7 +255,7 @@ if __name__ == '__main__':
     g_export.add_argument(
         '-f', '--format',
         metavar='FORMAT',
-        choices=FORMATS,
+        choices=exporters.FORMATS.keys(),
         help='Format to export the database.\nOptions: %(choices)s'
     )
     g_export.add_argument(
