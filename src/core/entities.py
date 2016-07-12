@@ -59,7 +59,7 @@ from utils import Struct
 # -- Classes ------------------------------------------------------------------
 
 
-class Database(object):
+class TerritorialData(object):
     _tables = (
         'uf',
         'mesorregiao',
@@ -109,99 +109,138 @@ class Database(object):
             'nome'
         )
     }
-    _cols = []
-    _rows = []
-    _data = {}
-    _rawdata = None
 
     def __init__(self, base):
         self._base = Struct(base)
         self._name = 'dtb_{}'.format(self._base.year)
+        self._cols = []
+        self._rows = []
+        self._dict = {}
+        self._rawdata = None
 
         for table_name in self._tables:
             self._cols.append('id_' + table_name)
             self._cols.append('nome_' + table_name)
             self._data[table_name] = []
 
+    def load(self, rawdata):
+        self._rawdata = rawdata
 
-class DTB(object):
-    def __init__(self, base, logger):
-        self._logger = logger
-        self._bases = yaml.load(open(
-            os.path.join(os.path.dirname(__file__), 'bases.yaml')
-        ))
 
-        base_data = filter(lambda row: row['year'] == base, self._bases)
-
-        if not base_data:
+class TerritorialBase(object):
+    def __init__(self, year, logger):
+        if not self.bases.get(year):
             raise Exception('This base is not available to download.')
 
-        self._db = Database(next(iter(base_data)))
+        self._data = TerritorialData(self.bases.get(year))
+        self._logger = logger
 
-    def _download_db(self):
-        url_info = urlparse.urlparse(self._db._base.archive)
+    @property
+    def bases(self):
+        return dict(
+            (base_data['year'], base_data)
+            for base_data in yaml.load(open(
+                os.path.join(os.path.dirname(__file__), 'bases.yaml')))
+        )
+
+    @property
+    def year(self):
+        return str(self._data._base.year)
+
+    @property
+    def archive(self):
+        return self._data._base.archive
+
+    @property
+    def file(self):
+        return self._data._base.file
+
+    @property
+    def format(self):
+        return self._data._base.format
+
+    @property
+    def sheet(self):
+        return self._data._base.sheet
+
+    @property
+    def sheet_file(self):
+        return os.path.join(os.path.dirname(__file__), '.cache', str(self.year))
+
+    def download(self):
+        url_info = urlparse.urlparse(self.archive)
         ftp = ftplib.FTP(url_info.netloc)
+        zip_data = io.BytesIO()
+        sheet_file = io.BytesIO()
+
         self._logger.debug('Connecting to FTP server...')
         ftp.connect()
+
         self._logger.debug('Logging into the FTP server...')
         ftp.login()
         ftp.cwd(os.path.dirname(url_info.path))
-        zip_data = io.BytesIO()
+
         self._logger.info('Retrieving database...')
-        ftp.retrbinary('RETR {}'.format(os.path.basename(url_info.path)), zip_data.write)
-        xls_file = io.BytesIO()
+        ftp.retrbinary(
+            'RETR {}'.format(os.path.basename(url_info.path)),
+            zip_data.write
+        )
 
         with zipfile.ZipFile(zip_data, 'r') as zip_file:
-            logger.info('Reading database...')
-            xls_file.write(zip_file.open(self._db._base.file).read())
+            self._logger.info('Reading database...')
+            sheet_file.write(zip_file.open(self.file).read())
 
-        return xls_file
+        try:
+            os.makedirs(os.path.dirname(self.sheet_file))
+        except OSError:
+            pass
 
-    def get_db(self, cacheFiles=True):
-        xls_file = io.BytesIO()
-
-        if cacheFiles:
-            temp_dir = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), '.cache'
-            )
-            temp_file = os.path.join(temp_dir, str(self._db._base.year))
-
-            if not os.path.exists(temp_file):
-                xls_file = self._download_db()
-
-                try:
-                    os.makedirs(temp_dir)
-                except OSError:
-                    pass
-
-                open(temp_file, 'wb').write(xls_file.getvalue())
-            else:
-                xls_file.write(open(temp_file, 'rb').read())
-        else:
-            xls_file = self._download_db()
-
-        self._db._rawdata = xls_file.getvalue()
+        open(self.sheet_file, 'wb').write(sheet_file.getvalue())
 
         return self
 
-    def export_db(self, format, minified=False, filename=None):
-        parser = parsers.FORMATS.get(self._db._base.format)
-        self._db = parser(self._db, self._logger).parse()
+    def retrieve(self):
+        if not os.path.exists(self.sheet_file):
+            self.download()
 
+        sheet_file = io.BytesIO()
+        sheet_file.write(open(self.sheet_file, 'rb').read())
+
+        self._data.load(sheet_file.getvalue())
+
+        return self
+
+    def parse(self):
+        parser = parsers.FORMATS.get(self.format)
+
+        try:
+            self._data = parser(self._data, self._logger).parse()
+        except:
+            raise Exception('Failed to parse data using the given parser')
+
+        return self
+
+    def export(self, format, minified=False, filename=None):
         if format not in exporters.FORMATS:
             raise Exception('Unsupported output format.')
 
         exporter = exporters.FORMATS.get(format)
-        logger.info(
-            'Exporting database to {} format...'.format(exporter.__name__)
-        )
-        data = str(exporter(self._db, minified))
-        logger.info('Done.')
+
+        if minified:
+            self._logger.info('Exporting database to minified {} format...' \
+                .format(exporter.format))
+        else:
+            self._logger.info('Exporting database to {} format...' \
+                .format(exporter.format))
+
+        data = str(exporter(self._data, minified))
+        self._logger.debug('Done.')
 
         if filename:
             if filename == 'auto':
-                filename = 'dtb' + exporter._extension
+                filename = 'dtb' + exporter.extension
 
-            open(filename, 'w').write(data)
+            with open(filename, 'w') as export_file:
+                export_file.write(data)
         else:
             sys.stdout.write(data)
