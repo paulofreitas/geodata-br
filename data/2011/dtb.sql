@@ -203,7 +203,7 @@ ALTER TABLE mesorregiao
 ALTER TABLE mesorregiao
   ADD CONSTRAINT fk_mesorregiao_uf
     FOREIGN KEY (id_uf)
-      REFERENCES uf(id);
+      REFERENCES uf (id);
 
 --
 -- Indexes for table "mesorregiao"
@@ -791,11 +791,11 @@ ALTER TABLE microrregiao
 ALTER TABLE microrregiao
   ADD CONSTRAINT fk_microrregiao_mesorregiao
     FOREIGN KEY (id_mesorregiao)
-      REFERENCES mesorregiao(id);
+      REFERENCES mesorregiao (id);
 ALTER TABLE microrregiao
   ADD CONSTRAINT fk_microrregiao_uf
     FOREIGN KEY (id_uf)
-      REFERENCES uf(id);
+      REFERENCES uf (id);
 
 --
 -- Indexes for table "microrregiao"
@@ -6392,15 +6392,15 @@ ALTER TABLE municipio
 ALTER TABLE municipio
   ADD CONSTRAINT fk_municipio_microrregiao
     FOREIGN KEY (id_microrregiao)
-      REFERENCES microrregiao(id);
+      REFERENCES microrregiao (id);
 ALTER TABLE municipio
   ADD CONSTRAINT fk_municipio_mesorregiao
     FOREIGN KEY (id_mesorregiao)
-      REFERENCES mesorregiao(id);
+      REFERENCES mesorregiao (id);
 ALTER TABLE municipio
   ADD CONSTRAINT fk_municipio_uf
     FOREIGN KEY (id_uf)
-      REFERENCES uf(id);
+      REFERENCES uf (id);
 
 --
 -- Indexes for table "municipio"
