@@ -40,7 +40,7 @@ lib_path = os.path.abspath(os.path.join('..'))
 sys.path.append(lib_path)
 
 from base import BaseParser
-from utils import Struct
+from core.value_objects import Struct
 
 # -- Implementation -----------------------------------------------------------
 
