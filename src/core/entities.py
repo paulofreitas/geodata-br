@@ -54,7 +54,7 @@ import yaml
 import exporters
 import parsers
 
-from utils import Struct
+from value_objects import Struct
 
 # -- Classes ------------------------------------------------------------------
 
