@@ -46,91 +46,56 @@ import sys
 import exporters
 import parsers
 
-from core.entities import Database, DTB
+from core.entities import TerritorialBase, TerritorialData
+from core.helpers import CliParser
+
+# -- Implementation -----------------------------------------------------------
+
+
+class TerritorialDataExporter(CliParser):
+    def configure(self):
+        self.addArgumentGroup('export', 'Export options')
+        self.addArgument('export',
+                         '-b', '--base',
+                         help='Database year to export.')
+        self.addArgument('export',
+                         '-f', '--format',
+                         metavar='FORMAT',
+                         choices=exporters.FORMATS.keys(),
+                         help='Format to export the database.\nOptions: %(choices)s')
+        self.addArgument('export',
+                         '-m', '--minify',
+                         dest='minified',
+                         action='store_true',
+                         help='Minifies output file whenever possible.')
+        self.addArgument('export',
+                         '-o', '--out',
+                         dest='filename',
+                         nargs='?',
+                         const='auto',
+                         help='Specify a file to write the export to.\n'
+                             + 'If none are specified, %(prog)s writes data to standard output.')
+
+    def parse(self):
+        args = super(self.__class__, self).parse()
+
+        if not args.base:
+            parser.error('You need to give the database year you want to export.')
+
+        if not args.format:
+            parser.error('You need to give the database format you want to export.')
+
+        try:
+            base = TerritorialBase(args.base, self._logger)
+            base.retrieve().export(args.format, args.minified, args.filename)
+        except KeyboardInterrupt as e:
+            self._logger.info('> Exporting was canceled.')
+        except Exception as e:
+            sys.stderr.write(
+                'EXCEPTION CAUGHT: {}: {}\n'.format(type(e).__name__, e.message)
+            )
+            sys.exit(1)
+
 
 if __name__ == '__main__':
-    # -- Logging initialization -----------------------------------------------
-
-    formatter = logging.Formatter(
-        '[%(asctime)s] [%(levelname)s] %(message)s', '%H:%M:%S'
-    )
-    log_handler = logging.StreamHandler(sys.stdout)
-    log_handler.setFormatter(formatter)
-    logger = logging.getLogger('dtb')
-    logger.addHandler(log_handler)
-
-    # CLI parser
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        usage=__usage__,
-        epilog=__epilog__,
-        conflict_handler='resolve',
-        formatter_class=argparse.RawTextHelpFormatter
-    )
-    g_global = parser.add_argument_group('Global options')
-    g_global.add_argument(
-        '-h', '--help',
-        action='help',
-        help='Display this information'
-    )
-    g_global.add_argument(
-        '-v', '--version',
-        action='version',
-        version='%(prog)s ' + __version__,
-        help='Show version information and exit'
-    )
-    g_global.add_argument(
-        '-V', '--verbose',
-        action='store_true',
-        help='Display informational messages and warnings'
-    )
-
-    g_export = parser.add_argument_group('Export options')
-    g_export.add_argument(
-        '-b', '--base',
-        type=int,
-        help='Database year to export to.'
-    )
-    g_export.add_argument(
-        '-f', '--format',
-        metavar='FORMAT',
-        choices=exporters.FORMATS.keys(),
-        help='Format to export the database.\nOptions: %(choices)s'
-    )
-    g_export.add_argument(
-        '-m', '--minify',
-        dest='minified',
-        action='store_true',
-        help='Minifies output file whenever possible.'
-    )
-    g_export.add_argument(
-        '-o', '--out',
-        dest='filename',
-        nargs='?',
-        const='auto',
-        help='Specify a file to write the export to.\n'
-        + 'If none are specified, %(prog)s writes data to standard output.'
-    )
-    args = parser.parse_args()
-
-    if not args.base:
-        parser.error(
-            'You need to specify the database year you want to export.'
-        )
-
-    if not args.format:
-        parser.error(
-            'You need to specify the database format you want to export.'
-        )
-
-    if args.verbose:
-        logger.setLevel(logging.DEBUG)
-
-    try:
-        dtb = DTB(args.base, logger)
-        dtb.get_db().export_db(args.format, args.minified, args.filename)
-    except Exception as e:
-        sys.stdout.write(
-            'EXCEPTION CAUGHT: {}: {}\n'.format(type(e).__name__, e.message)
-        )
-        sys.exit(1)
+    TerritorialDataExporter().parse()
