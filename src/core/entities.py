@@ -121,7 +121,7 @@ class TerritorialData(object):
         for table_name in self._tables:
             self._cols.append('id_' + table_name)
             self._cols.append('nome_' + table_name)
-            self._data[table_name] = []
+            self._dict[table_name] = []
 
     def load(self, rawdata):
         self._rawdata = rawdata
@@ -138,9 +138,9 @@ class TerritorialBase(object):
     @property
     def bases(self):
         return dict(
-            (base_data['year'], base_data)
-            for base_data in yaml.load(open(
-                os.path.join(os.path.dirname(__file__), 'bases.yaml')))
+            (str(base_data['year']), base_data)
+            for base_data in yaml.load(open(os.path.realpath(
+                os.path.join(os.path.dirname(__file__), '../data/bases.yaml'))))
         )
 
     @property
@@ -165,7 +165,10 @@ class TerritorialBase(object):
 
     @property
     def sheet_file(self):
-        return os.path.join(os.path.dirname(__file__), '.cache', str(self.year))
+        return os.path.join(
+            os.path.realpath(os.path.join(os.path.dirname(__file__), '../.cache')),
+            self.year
+        )
 
     def download(self):
         url_info = urlparse.urlparse(self.archive)
