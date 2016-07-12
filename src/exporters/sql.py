@@ -32,7 +32,6 @@ from __future__ import absolute_import
 # Built-in modules
 
 import collections
-import re
 
 # Package modules
 
@@ -47,48 +46,104 @@ class SqlExporter(BaseExporter):
     extension = '.sql'
 
     def __table(self, table_name, *args):
-        return 'CREATE TABLE {} (\n{}\n);\n' \
-            .format(table_name, ',\n'.join(args))
+        '''Makes table creation statements.'''
+        if self._minified:
+            return 'CREATE TABLE {}({});'.format(table_name, ','.join(args))
+
+        return '\n'.join([
+            'CREATE TABLE {} ('.format(table_name),
+            ',\n'.join(args),
+            ');\n',
+        ])
 
     def __column(self, column_name, column_type):
+        '''Makes column definition statements.'''
+        if self._minified:
+            return '{} {}'.format(column_name, column_type)
+
         return '  {} {}'.format(column_name, column_type)
 
     def __primaryKey(self, table, column):
+        '''Makes primary key constraints statements.'''
         pk_name = 'pk_{}'.format(table)
 
+        # If not using column constraints
         if self._lazy_constraints:
-            stmt = 'ALTER TABLE {}\n  ADD CONSTRAINT {}\n    PRIMARY KEY ({});''' \
-                .format(table, pk_name, column)
-        else:
-            stmt = '  CONSTRAINT {}\n    PRIMARY KEY ({})''' \
-                .format(pk_name, column)
+            if self._minified:
+                return 'ALTER TABLE {} ADD CONSTRAINT {} PRIMARY KEY({});' \
+                    .format(table, pk_name, column)
 
-        return stmt
+            return '\n'.join([
+                'ALTER TABLE {}'.format(table),
+                '  ADD CONSTRAINT {}'.format(pk_name),
+                '    PRIMARY KEY ({});'.format(column),
+            ])
+
+        if self._minified:
+            return ' CONSTRAINT {} PRIMARY KEY({})'.format(pk_name, column)
+
+        return '\n'.join([
+            '  CONSTRAINT {}'.format(pk_name),
+            '    PRIMARY KEY ({})'.format(column),
+        ])
 
     def __foreignKey(self, table, column, foreign_table, foreign_column):
+        '''Makes foreign key constraints statements.'''
         fk_name = 'fk_{}_{}'.format(table, foreign_table)
 
+        # If not using column constraints
         if self._lazy_constraints:
-            stmt = 'ALTER TABLE {}\n  ADD CONSTRAINT {}\n    FOREIGN KEY ({})\n      REFERENCES {}({});' \
-                .format(table, fk_name, column, foreign_table, foreign_column)
-        else:
-            stmt = '  CONSTRAINT {}\n    FOREIGN KEY ({})\n      REFERENCES {}({})' \
+            if self._minified:
+                return 'ALTER TABLE {} ADD CONSTRAINT {} FOREIGN KEY({}) REFERENCES {}({});' \
+                    .format(table, fk_name, column, foreign_table, foreign_column)
+
+            return '\n'.join([
+                'ALTER TABLE {}'.format(table),
+                '  ADD CONSTRAINT {}'.format(fk_name),
+                '    FOREIGN KEY ({})'.format(column),
+                '      REFERENCES {} ({});'.format(foreign_table, foreign_column),
+            ])
+
+        if self._minified:
+            return 'CONSTRAINT {} FOREIGN KEY ({}) REFERENCES {}({})' \
                 .format(fk_name, column, foreign_table, foreign_column)
 
-        return stmt
+        return '\n'.join([
+            '  CONSTRAINT {}'.format(fk_name),
+            '    FOREIGN KEY ({})'.format(column),
+            '      REFERENCES {} ({})'.format(foreign_table, foreign_column),
+        ])
 
     def __constraints(self, *constraints):
+        '''Makes all constraints statements.'''
+        if self._minified:
+            return ''.join(constraints)
+
         return '\n'.join(constraints) + '\n'
 
     def __index(self, index_name, table_name, indexed_column):
+        '''Makes index creation statements.'''
+        if self._minified:
+            return 'CREATE INDEX {} ON {}({});' \
+                .format(index_name, table_name, indexed_column)
+
         return 'CREATE INDEX {} ON {} ({});' \
             .format(index_name, table_name, indexed_column)
 
     def __indexes(self, *indexes):
+        '''Makes all indexes statements.'''
+        if self._minified:
+            return ''.join(indexes)
+
         return '\n'.join(indexes) + '\n'
 
     def __insert(self, table_name, *columns):
-        return 'INSERT INTO {} VALUES ({});' \
+        '''Makes insert statements.'''
+        if self._minified:
+            return 'INSERT INTO {} VALUES({});' \
+                .format(table_name, ','.join(columns))
+
+        return 'INSERT INTO {} VALUES ({});\n' \
             .format(table_name, ', '.join(columns))
 
     def __insertField(self, field_name, field_type):
@@ -97,6 +152,7 @@ class SqlExporter(BaseExporter):
         return repr(repl_field) if field_type == str else repl_field
 
     def __quote(self, value):
+        '''Quotes values using the right escape char.'''
         return value.replace("'", self._escape_char)
 
     def __init__(self, base, minified, dialect='standard'):
@@ -339,7 +395,7 @@ class SqlExporter(BaseExporter):
                         else self.__quote(item[key])
 
                 sql += self.__insert(table_name, *self._inserts[table_name]) \
-                    .strip().format(**data) + '\n'
+                    .format(**data)
 
             if self._lazy_constraints:
                 if not self._minified:
@@ -363,13 +419,5 @@ class SqlExporter(BaseExporter):
                     sql += self.__indexes(*self._indexes[table_name])
 
         sql = sql.strip()
-
-        if self._minified:
-            sql = re.sub('(?<=[;(])\s+', '', sql)
-            sql = re.sub(',\s(?=\')|,\s+', ',', sql)
-            sql = re.sub('\s+', ' ', sql)
-            sql = re.sub('(?<=\W)\s(?=\W)', '', sql)
-            sql = re.sub('(?<=\w)\s(?=\))', '', sql)
-            sql = re.sub("\s\((?=(?:(?:[^']*'){2})*[^']*$)", '(', sql)
 
         return sql
