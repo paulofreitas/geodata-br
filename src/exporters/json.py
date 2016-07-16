@@ -24,10 +24,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
+from __future__ import absolute_import
 
 # -- Imports ------------------------------------------------------------------
-
-from __future__ import absolute_import
 
 # Built-in modules
 
@@ -49,8 +48,8 @@ class JsonExporter(BaseExporter):
         json_obj = self.__toDict__()
 
         if self._minified:
-            json_str = json.dumps(json_obj, separators=(',', ':'))
+            json_data = json.dumps(json_obj, separators=(',', ':'))
         else:
-            json_str = json.dumps(json_obj, indent=2)
+            json_data = json.dumps(json_obj, indent=2)
 
-        return json_str
+        return json_data
