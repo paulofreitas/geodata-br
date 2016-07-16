@@ -24,14 +24,24 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
+from __future__ import absolute_import, unicode_literals
 
 # -- Imports ------------------------------------------------------------------
-
-from __future__ import absolute_import
 
 # Built-in modules
 
 import collections
+
+# Dependency modules
+from builtins import str
+from sqlalchemy.dialects import firebird, mssql, mysql, oracle, postgresql, sqlite, sybase
+from sqlalchemy.engine import default
+from sqlalchemy.ext.compiler import compiles
+from sqlalchemy.sql import crud
+from sqlalchemy.sql.ddl import AddConstraint, CreateColumn, CreateIndex, CreateTable
+from sqlalchemy.sql.dml import Insert
+from sqlalchemy.sql.schema import Column, Constraint, ForeignKey, ForeignKeyConstraint, Index, MetaData, PrimaryKeyConstraint, Table
+from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 
 # Package modules
 
@@ -40,384 +50,557 @@ from .base import BaseExporter
 # -- Implementation -----------------------------------------------------------
 
 
+class SchemaGenerator(object):
+    convention = {
+      'pk': 'pk_%(table_name)s',
+      'fk': 'fk_%(table_name)s_%(column_0_name)s',
+      'ix': 'ix_%(column_0_label)s',
+      'uq': 'uq_%(table_name)s_%(column_0_name)s',
+    }
+
+    minified = False
+
+    def __init__(self, dialect='default', minified=False):
+        self.metadata = MetaData(naming_convention=self.convention)
+        self.tables = []
+        self.dialect = dialect
+        self._dialect = self.getDialect(dialect)
+
+        SchemaGenerator.minified = minified
+
+    def getDialect(self, dialect):
+        if dialect == 'default':
+            return default.DefaultDialect()
+
+        if dialect in ['firebird', 'mssql', 'mysql', 'oracle', 'postgresql',
+                       'sqlite', 'sybase']:
+            return globals()[dialect].dialect()
+
+        raise Exception('Unsupported dialect: {}'.format(dialect))
+
+    # Custom DDL/DML compilers
+
+    @compiles(CreateColumn)
+    def __compileCreateColumn(create, compiler, **kw):
+        column = create.element
+
+        ddl = '{} {}'.format(column.name,
+                             compiler.type_compiler.process(column.type))
+
+        default = compiler.get_column_default_string(column)
+
+        if default is not None:
+            ddl += ' DEFAULT ' + default
+
+        if not column.nullable:
+            ddl += ' NOT NULL'
+
+        if column.constraints:
+            ddl += ' '.join(compiler.process(constraint)
+                            for constraint in column.constraints)
+
+        return ddl
+
+    @compiles(CreateTable)
+    def __compileCreateTable(create, compiler, **kw):
+        table = create.element
+        separator = '' if SchemaGenerator.minified else '\n'
+        first_pk = False
+
+        ddl = 'CREATE '
+
+        if table._prefixes:
+            ddl += ' '.join(table._prefixes) + ' '
+
+        ddl += 'TABLE ' + compiler.preparer.format_table(table)
+        ddl += '(' if SchemaGenerator.minified else ' ('
+
+        for create_column in create.columns:
+            column = create_column.element
+
+            try:
+                column_ddl = compiler.process(
+                    create_column,
+                    first_pk=column.primary_key and not first_pk
+                )
+
+                if column_ddl is not None:
+                    ddl += separator
+                    separator = ',' if SchemaGenerator.minified else ',\n'
+
+                    if not SchemaGenerator.minified:
+                        ddl += '  '
+
+                    ddl += column_ddl
+
+                if column.primary_key:
+                    first_pk = True
+            except:
+                pass
+
+        constraints_ddl = compiler.create_table_constraints(
+            table
+            #_include_foreign_key_constraints=True #create.include_foreign_key_constraints
+        )
+
+        if constraints_ddl:
+            ddl += ',' if SchemaGenerator.minified else ',\n  '
+            ddl += constraints_ddl.replace(
+                ', \n\t',
+                ',' if SchemaGenerator.minified else ',\n  '
+            )
+
+        if not SchemaGenerator.minified:
+            ddl += '\n'
+
+        ddl += '){};'.format(compiler.post_create_table(table))
+
+        return ddl
+
+    @compiles(CreateIndex)
+    def __compileCreateIndex(create,
+                             compiler,
+                             include_schema=False,
+                             include_table_schema=True):
+        index = create.element
+
+        compiler._verify_index_table(index)
+
+        ddl = 'CREATE '
+        separator = ',' if SchemaGenerator.minified else ', '
+
+        if index.unique:
+            ddl += 'UNIQUE '
+
+        ddl += 'INDEX {} ON {}'.format(
+            compiler._prepared_index_name(index, include_schema=include_schema),
+            compiler.preparer.format_table(index.table,
+                                           use_schema=include_table_schema)
+        )
+
+        if not SchemaGenerator.minified:
+            ddl += ' '
+
+        ddl += '({});'.format(separator.join(
+            compiler.sql_compiler.process(expression,
+                                          include_table=False,
+                                          literal_binds=True)
+            for expression in index.expressions
+        ))
+
+        return ddl
+
+    @compiles(AddConstraint)
+    def __compileAddConstraint(create, compiler):
+        return 'ALTER TABLE {} ADD {};'.format(
+            compiler.preparer.format_table(create.element.table),
+            compiler.process(create.element)
+        )
+
+    @compiles(PrimaryKeyConstraint)
+    def __compilePrimaryKeyConstraint(constraint, compiler):
+        if len(constraint) == 0:
+            return ''
+
+        ddl = ''
+        separator = ',' if SchemaGenerator.minified else ', '
+
+        if constraint.name is not None:
+            formatted_name = compiler.preparer.format_constraint(constraint)
+
+            if formatted_name is not None:
+                ddl += 'CONSTRAINT {} '.format(formatted_name)
+
+        ddl += 'PRIMARY KEY'
+
+        if not SchemaGenerator.minified:
+            ddl += ' '
+
+        ddl += '({})'.format(separator.join(
+            compiler.preparer.quote(_constraint.name)
+            for _constraint in (
+                constraint.columns_autoinc_first \
+                    if hasattr(constraint, '_implicit_generated')
+                    else constraint.columns
+            )
+        ))
+        ddl += compiler.define_constraint_deferrability(constraint)
+
+        return ddl
+
+    @compiles(ForeignKeyConstraint)
+    def __compileForeignKeyConstraint(constraint, compiler):
+        ddl = ''
+        separator = ',' if SchemaGenerator.minified else ', '
+
+        if constraint.name is not None:
+            formatted_name = compiler.preparer.format_constraint(constraint)
+
+            if formatted_name is not None:
+                ddl += 'CONSTRAINT {} '.format(formatted_name)
+
+        remote_table = list(constraint.elements)[0].column.table
+
+        ddl += 'FOREIGN KEY'
+
+        if not SchemaGenerator.minified:
+            ddl += ' '
+
+        ddl += '({}) REFERENCES {}'.format(
+            separator.join(
+                compiler.preparer.quote(element.parent.name)
+                for element in constraint.elements
+            ),
+            compiler.define_constraint_remote_table(constraint,
+                                                    remote_table,
+                                                    compiler.preparer)
+        )
+
+        if not SchemaGenerator.minified:
+            ddl += ' '
+
+        ddl += '({})'.format(separator.join(
+            compiler.preparer.quote(element.column.name)
+            for element in constraint.elements
+        ))
+        ddl += compiler.define_constraint_match(constraint)
+        ddl += compiler.define_constraint_cascades(constraint)
+        ddl += compiler.define_constraint_deferrability(constraint)
+
+        return ddl
+
+    @compiles(Insert)
+    def __compileInsert(insert_stmt, compiler, **kw):
+        compiler.stack.append({
+            'correlate_froms': set(),
+            'asfrom_froms': set(),
+            'selectable': insert_stmt,
+        })
+        compiler.isinsert = True
+        crud_params = crud._get_crud_params(compiler, insert_stmt, **kw)
+
+        if not crud_params:
+            return
+
+        if insert_stmt._has_multi_parameters \
+                and not compiler.dialect.supports_multivalues_insert:
+            return
+
+        dml = 'INSERT INTO ' + compiler.preparer.format_table(insert_stmt.table)
+        separator = ',' if SchemaGenerator.minified else ', '
+
+        if insert_stmt.select is not None:
+            dml += ' {}'.format(
+                compiler.process(compiler._insert_from_select, **kw))
+        elif insert_stmt._has_multi_parameters:
+            dml += ' VALUES'
+
+            if not SchemaGenerator.minified:
+                dml += ' '
+
+            dml += separator.join(
+                '({})'.format(separator.join(
+                    param[1] for param in crud_param_set
+                ))
+                for crud_param_set in crud_params
+            )
+        else:
+            dml += ' VALUES'
+
+            if not SchemaGenerator.minified:
+                dml += ' '
+
+            dml += '({})'.format(separator.join([
+                param[1] for param in crud_params
+            ]))
+
+        compiler.stack.pop(-1)
+
+        return dml + ';'
+
+    # Custom DDL renderers
+
+    def createTable(self, table_name, properties):
+        table = Table(table_name, self.metadata)
+        table._data = []
+        table._constraints = []
+        table._indexes = []
+
+        # Workarounds to render table properties in the order they were declared
+        for table_property in properties:
+            if isinstance(table_property, Column):
+                column = table_property
+
+                table.append_column(column)
+
+                if column.index:
+                    table._indexes.append(Index(None,
+                                                column,
+                                                unique=bool(column.unique)))
+
+                for foreign_key in column.foreign_keys:
+                    table._constraints.append(foreign_key.constraint)
+            elif isinstance(table_property, Index):
+                index = table_property
+
+                table.append_constraint(index)
+                table._indexes.append(index)
+            elif isinstance(table_property, Constraint):
+                constraint = table_property
+
+                table.append_constraint(constraint)
+
+                if isinstance(constraint, ForeignKeyConstraint):
+                    table._constraints.append(constraint)
+
+        self.tables.append(table)
+
+    def render(self, createIndexes=True):
+        separator = '' if self.minified else '\n\n'
+
+        return separator.join([
+            self.renderCreateTable(table, createIndexes=createIndexes)
+            for table in self.tables
+        ])
+
+    def renderCreateTable(self, table, createIndexes=True):
+        ddl = []
+        include_foreign_keys = None
+        separator = '' if self.minified else '\n'
+
+        if not self.minified:
+            ddl.append('--\n-- Structure for table {}\n--\n'.format(table.name))
+
+        if not self._dialect.supports_alter:
+            include_foreign_keys = True
+
+        ddl.append(str(
+            CreateTable(table,
+                        include_foreign_key_constraints=include_foreign_keys) \
+                .compile(dialect=self._dialect)
+        ))
+
+        if len(table._data):
+            ddl.append(separator + self.renderInserts(table))
+
+        if len(table._constraints) and self._dialect.supports_alter:
+            ddl.append(separator + self.renderTableConstraints(table))
+
+        if createIndexes and len(table._indexes):
+            ddl.append(separator + self.renderTableIndexes(table))
+
+        return separator.join(ddl)
+
+    def renderInserts(self, table):
+        ddl = []
+        separator = '' if self.minified else '\n'
+
+        if not self.minified:
+            ddl.append('--\n-- Dumping data for table {}\n--\n' \
+                .format(table.name))
+
+        for row in table._data:
+            insert_ddl = str(table.insert().values(row).compile(
+                compile_kwargs={'literal_binds': True},
+                dialect=self._dialect,
+            ))
+
+            if self.minified and "''" in insert_ddl:
+                insert_ddl = insert_ddl.replace("''", "\\'") \
+                                       .replace("'", '"') \
+                                       .replace('\\"', "'")
+
+            ddl.append(insert_ddl)
+
+        return separator.join(ddl)
+
+    def renderTableConstraints(self, table):
+        if not self._dialect.supports_alter:
+            return
+
+        ddl = []
+        separator = '' if self.minified else '\n'
+
+        if not self.minified:
+            ddl.append('--\n-- Constraints for table {}\n--\n' \
+                .format(table.name))
+
+        for constraint in table._constraints:
+            ddl.append(str(
+                AddConstraint(constraint).compile(dialect=self._dialect)
+            ))
+
+        return separator.join(ddl)
+
+    def renderTableIndexes(self, table):
+        ddl = []
+        separator = '' if self.minified else '\n'
+
+        if not self.minified:
+            ddl.append('--\n-- Indexes for table {}\n--\n'.format(table.name))
+
+        for index in table._indexes:
+            ddl.append(str(CreateIndex(index).compile(dialect=self._dialect)))
+
+        return separator.join(ddl)
+
+    def __str__(self):
+        return self.render()
+
+
 class SqlExporter(BaseExporter):
     '''SQL exporter class.'''
     format = 'SQL'
     extension = '.sql'
 
-    def __table(self, table_name, *args):
-        '''Makes table creation statements.'''
-        if self._minified:
-            return 'CREATE TABLE {}({});'.format(table_name, ','.join(args))
+    def __init__(self, base, minified, dialect='default'):
+        super(self.__class__, self).__init__(base, minified)
 
-        return '\n'.join([
-            'CREATE TABLE {} ('.format(table_name),
-            ',\n'.join(args),
-            ');\n',
+        self.dialect = dialect
+
+        self._buildSchema()
+
+    def _buildSchema(self):
+        self.schema = SchemaGenerator(self.dialect, self._minified)
+        self.schema.createTable('uf', [
+            Column('id',
+                   SmallInteger,
+                   nullable=False,
+                   primary_key=True),
+            Column('nome',
+                   String(32),
+                   nullable=False,
+                   index=True),
+        ]),
+        self.schema.createTable('mesorregiao', [
+            Column('id',
+                   SmallInteger,
+                   nullable=False,
+                   primary_key=True),
+            Column('id_uf',
+                   SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('nome',
+                   String(64),
+                   nullable=False,
+                   index=True),
+        ]),
+        self.schema.createTable('microrregiao', [
+            Column('id',
+                   Integer,
+                   nullable=False,
+                   primary_key=True),
+            Column('id_mesorregiao',
+                   SmallInteger,
+                   ForeignKey('mesorregiao.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('id_uf',
+                   SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('nome',
+                   String(64),
+                   nullable=False,
+                   index=True),
+        ]),
+        self.schema.createTable('municipio', [
+            Column('id',
+                   Integer,
+                   nullable=False,
+                   primary_key=True),
+            Column('id_microrregiao',
+                   Integer,
+                   ForeignKey('microrregiao.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('id_mesorregiao',
+                   SmallInteger,
+                   ForeignKey('mesorregiao.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('id_uf',
+                   SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('nome',
+                   String(64),
+                   nullable=False,
+                   index=True),
+        ]),
+        self.schema.createTable('distrito', [
+            Column('id',
+                   Integer,
+                   nullable=False,
+                   primary_key=True),
+            Column('id_municipio',
+                   Integer,
+                   ForeignKey('municipio.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('id_microrregiao',
+                   Integer,
+                   ForeignKey('microrregiao.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('id_mesorregiao',
+                   SmallInteger,
+                   ForeignKey('mesorregiao.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('id_uf',
+                   SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('nome',
+                   String(64),
+                   nullable=False,
+                   index=True),
+        ]),
+        self.schema.createTable('subdistrito', [
+            Column('id',
+                   BigInteger,
+                   nullable=False,
+                   primary_key=True),
+            Column('id_distrito',
+                   Integer,
+                   ForeignKey('distrito.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('id_municipio',
+                   Integer,
+                   ForeignKey('municipio.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('id_microrregiao',
+                   Integer,
+                   ForeignKey('microrregiao.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('id_mesorregiao',
+                   SmallInteger,
+                   ForeignKey('mesorregiao.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('id_uf',
+                   SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True),
+            Column('nome',
+                   String(64),
+                   nullable=False,
+                   index=True),
         ])
 
-    def __column(self, column_name, column_type):
-        '''Makes column definition statements.'''
-        if self._minified:
-            return '{} {}'.format(column_name, column_type)
-
-        return '  {} {}'.format(column_name, column_type)
-
-    def __primaryKey(self, table, column):
-        '''Makes primary key constraints statements.'''
-        pk_name = 'pk_{}'.format(table)
-
-        # If not using column constraints
-        if self._lazy_constraints:
-            if self._minified:
-                return 'ALTER TABLE {} ADD CONSTRAINT {} PRIMARY KEY({});' \
-                    .format(table, pk_name, column)
-
-            return '\n'.join([
-                'ALTER TABLE {}'.format(table),
-                '  ADD CONSTRAINT {}'.format(pk_name),
-                '    PRIMARY KEY ({});'.format(column),
-            ])
-
-        if self._minified:
-            return ' CONSTRAINT {} PRIMARY KEY({})'.format(pk_name, column)
-
-        return '\n'.join([
-            '  CONSTRAINT {}'.format(pk_name),
-            '    PRIMARY KEY ({})'.format(column),
-        ])
-
-    def __foreignKey(self, table, column, foreign_table, foreign_column):
-        '''Makes foreign key constraints statements.'''
-        fk_name = 'fk_{}_{}'.format(table, foreign_table)
-
-        # If not using column constraints
-        if self._lazy_constraints:
-            if self._minified:
-                return 'ALTER TABLE {} ADD CONSTRAINT {} FOREIGN KEY({}) REFERENCES {}({});' \
-                    .format(table, fk_name, column, foreign_table, foreign_column)
-
-            return '\n'.join([
-                'ALTER TABLE {}'.format(table),
-                '  ADD CONSTRAINT {}'.format(fk_name),
-                '    FOREIGN KEY ({})'.format(column),
-                '      REFERENCES {} ({});'.format(foreign_table, foreign_column),
-            ])
-
-        if self._minified:
-            return 'CONSTRAINT {} FOREIGN KEY ({}) REFERENCES {}({})' \
-                .format(fk_name, column, foreign_table, foreign_column)
-
-        return '\n'.join([
-            '  CONSTRAINT {}'.format(fk_name),
-            '    FOREIGN KEY ({})'.format(column),
-            '      REFERENCES {} ({})'.format(foreign_table, foreign_column),
-        ])
-
-    def __constraints(self, *constraints):
-        '''Makes all constraints statements.'''
-        if self._minified:
-            return ''.join(constraints)
-
-        return '\n'.join(constraints) + '\n'
-
-    def __index(self, index_name, table_name, indexed_column):
-        '''Makes index creation statements.'''
-        if self._minified:
-            return 'CREATE INDEX {} ON {}({});' \
-                .format(index_name, table_name, indexed_column)
-
-        return 'CREATE INDEX {} ON {} ({});' \
-            .format(index_name, table_name, indexed_column)
-
-    def __indexes(self, *indexes):
-        '''Makes all indexes statements.'''
-        if self._minified:
-            return ''.join(indexes)
-
-        return '\n'.join(indexes) + '\n'
-
-    def __insert(self, table_name, *columns):
-        '''Makes insert statements.'''
-        if self._minified:
-            return 'INSERT INTO {} VALUES({});' \
-                .format(table_name, ','.join(columns))
-
-        return 'INSERT INTO {} VALUES ({});\n' \
-            .format(table_name, ', '.join(columns))
-
-    def __insertField(self, field_name, field_type):
-        repl_field = '{' + field_name + '}'
-
-        return repr(repl_field) if field_type == str else repl_field
-
-    def __quote(self, value):
-        '''Quotes values using the right escape char.'''
-        return value.replace("'", self._escape_char)
-
-    def __init__(self, base, minified, dialect='standard'):
-        super(SqlExporter, self).__init__(base, minified)
-
-        # Standard settings
-        self._lazy_constraints = True
-        self._create_indexes = True
-        self._bigint_type = 'BIGINT'
-        self._escape_char = "\\'"
-
-        # Handle dialect settings
-        if dialect == 'sqlite':
-            self._lazy_constraints = False
-            self._escape_char = "''"
-
-        # SQL data
-        self._tables = {
-            'uf': [
-                self.__column('id', 'SMALLINT NOT NULL'),
-                self.__column('nome', 'VARCHAR(32) NOT NULL')
-            ],
-            'mesorregiao': [
-                self.__column('id', 'SMALLINT NOT NULL'),
-                self.__column('id_uf', 'SMALLINT NOT NULL'),
-                self.__column('nome', 'VARCHAR(64) NOT NULL')
-            ],
-            'microrregiao': [
-                self.__column('id', 'INTEGER NOT NULL'),
-                self.__column('id_mesorregiao', 'SMALLINT NOT NULL'),
-                self.__column('id_uf', 'SMALLINT NOT NULL'),
-                self.__column('nome', 'VARCHAR(64) NOT NULL')
-            ],
-            'municipio': [
-                self.__column('id', 'INTEGER NOT NULL'),
-                self.__column('id_microrregiao', 'INTEGER NOT NULL'),
-                self.__column('id_mesorregiao', 'SMALLINT NOT NULL'),
-                self.__column('id_uf', 'SMALLINT NOT NULL'),
-                self.__column('nome', 'VARCHAR(64) NOT NULL')
-            ],
-            'distrito': [
-                self.__column('id', 'INTEGER NOT NULL'),
-                self.__column('id_municipio', 'INTEGER NOT NULL'),
-                self.__column('id_microrregiao', 'INTEGER NOT NULL'),
-                self.__column('id_mesorregiao', 'SMALLINT NOT NULL'),
-                self.__column('id_uf', 'SMALLINT NOT NULL'),
-                self.__column('nome', 'VARCHAR(64) NOT NULL')
-            ],
-            'subdistrito': [
-                self.__column('id', '{} NOT NULL'.format(self._bigint_type)),
-                self.__column('id_distrito', 'INTEGER NOT NULL'),
-                self.__column('id_municipio', 'INTEGER NOT NULL'),
-                self.__column('id_microrregiao', 'INTEGER NOT NULL'),
-                self.__column('id_mesorregiao', 'SMALLINT NOT NULL'),
-                self.__column('id_uf', 'SMALLINT NOT NULL'),
-                self.__column('nome', 'VARCHAR(64) NOT NULL')
-            ]
-        }
-        self._constraints = {
-            'uf': [
-                self.__primaryKey('uf', 'id')
-            ],
-            'mesorregiao': [
-                self.__primaryKey('mesorregiao', 'id'),
-                self.__foreignKey('mesorregiao', 'id_uf', 'uf', 'id')
-            ],
-            'microrregiao': [
-                self.__primaryKey('microrregiao', 'id'),
-                self.__foreignKey(
-                    'microrregiao', 'id_mesorregiao', 'mesorregiao', 'id'
-                ),
-                self.__foreignKey('microrregiao', 'id_uf', 'uf', 'id')
-            ],
-            'municipio': [
-                self.__primaryKey('municipio', 'id'),
-                self.__foreignKey(
-                    'municipio', 'id_microrregiao', 'microrregiao', 'id'
-                ),
-                self.__foreignKey(
-                    'municipio', 'id_mesorregiao', 'mesorregiao', 'id'
-                ),
-                self.__foreignKey('municipio', 'id_uf', 'uf', 'id')
-            ],
-            'distrito': [
-                self.__primaryKey('distrito', 'id'),
-                self.__foreignKey(
-                    'distrito', 'id_municipio', 'municipio', 'id'
-                ),
-                self.__foreignKey(
-                    'distrito', 'id_microrregiao', 'microrregiao', 'id'
-                ),
-                self.__foreignKey(
-                    'distrito', 'id_mesorregiao', 'mesorregiao', 'id'
-                ),
-                self.__foreignKey('distrito', 'id_uf', 'uf', 'id')
-            ],
-            'subdistrito': [
-                self.__primaryKey('subdistrito', 'id'),
-                self.__foreignKey(
-                    'subdistrito', 'id_distrito', 'distrito', 'id'
-                ),
-                self.__foreignKey(
-                    'subdistrito', 'id_municipio', 'municipio', 'id'
-                ),
-                self.__foreignKey(
-                    'subdistrito', 'id_microrregiao', 'microrregiao', 'id'
-                ),
-                self.__foreignKey(
-                    'subdistrito', 'id_mesorregiao', 'mesorregiao', 'id'
-                ),
-                self.__foreignKey('subdistrito', 'id_uf', 'uf', 'id')
-            ]
-        }
-        self._indexes = {
-            'mesorregiao': [
-                self.__index('fk_mesorregiao_uf', 'mesorregiao', 'id_uf')
-            ],
-            'microrregiao': [
-                self.__index(
-                    'fk_microrregiao_mesorregiao',
-                    'microrregiao',
-                    'id_mesorregiao'
-                ),
-                self.__index('fk_microrregiao_uf', 'microrregiao', 'id_uf')
-            ],
-            'municipio': [
-                self.__index(
-                    'fk_municipio_microrregiao', 'municipio', 'id_microrregiao'
-                ),
-                self.__index(
-                    'fk_municipio_mesorregiao', 'municipio', 'id_mesorregiao'
-                ),
-                self.__index('fk_municipio_uf', 'municipio', 'id_uf')
-            ],
-            'distrito': [
-                self.__index(
-                    'fk_distrito_municipio', 'distrito', 'id_municipio'
-                ),
-                self.__index(
-                    'fk_distrito_microrregiao', 'distrito', 'id_microrregiao'
-                ),
-                self.__index(
-                    'fk_distrito_mesorregiao', 'distrito', 'id_mesorregiao'
-                ),
-                self.__index('fk_distrito_uf', 'distrito', 'id_uf')
-            ],
-            'subdistrito': [
-                self.__index(
-                    'fk_subdistrito_distrito', 'subdistrito', 'id_distrito'
-                ),
-                self.__index(
-                    'fk_subdistrito_municipio', 'subdistrito', 'id_municipio'
-                ),
-                self.__index(
-                    'fk_subdistrito_microrregiao',
-                    'subdistrito',
-                    'id_microrregiao'
-                ),
-                self.__index(
-                    'fk_subdistrito_mesorregiao',
-                    'subdistrito',
-                    'id_mesorregiao'
-                ),
-                self.__index('fk_subdistrito_uf', 'subdistrito', 'id_uf')
-            ]
-        }
-        self._inserts = {
-            'uf': [
-                self.__insertField('id', int),
-                self.__insertField('nome', str)
-            ],
-            'mesorregiao': [
-                self.__insertField('id', int),
-                self.__insertField('id_uf', int),
-                self.__insertField('nome', str)
-            ],
-            'microrregiao': [
-                self.__insertField('id', int),
-                self.__insertField('id_mesorregiao', int),
-                self.__insertField('id_uf', int),
-                self.__insertField('nome', str)
-            ],
-            'municipio': [
-                self.__insertField('id', int),
-                self.__insertField('id_microrregiao', int),
-                self.__insertField('id_mesorregiao', int),
-                self.__insertField('id_uf', int),
-                self.__insertField('nome', str)
-            ],
-            'distrito': [
-                self.__insertField('id', int),
-                self.__insertField('id_municipio', int),
-                self.__insertField('id_microrregiao', int),
-                self.__insertField('id_mesorregiao', int),
-                self.__insertField('id_uf', int),
-                self.__insertField('nome', str)
-            ],
-            'subdistrito': [
-                self.__insertField('id', int),
-                self.__insertField('id_distrito', int),
-                self.__insertField('id_municipio', int),
-                self.__insertField('id_microrregiao', int),
-                self.__insertField('id_mesorregiao', int),
-                self.__insertField('id_uf', int),
-                self.__insertField('nome', str)
-            ]
-        }
+        # Insert data into tables
+        for table in self.schema.tables:
+            table._data = self._data._dict[table.name]
 
     def __str__(self):
-        sql = ''
-
-        for table_name in self._data._tables:
-            if not self._data._dict[table_name]:
-                continue
-
-            if not self._minified:
-                sql += '''
---
--- Structure for table "{}"
---
-'''.format(table_name)
-
-            cols = self._tables[table_name] if self._lazy_constraints \
-                else self._tables[table_name] + self._constraints[table_name]
-
-            sql += self.__table(table_name, *cols)
-
-            if not self._minified:
-                sql += '''
---
--- Data for table "{}"
---
-'''.format(table_name)
-
-            for item in self._data._dict[table_name]:
-                data = collections.OrderedDict()
-
-                for key in self._data._fields[table_name]:
-                    data[key] = item[key] if type(item[key]) == int \
-                        else self.__quote(item[key])
-
-                sql += self.__insert(table_name, *self._inserts[table_name]) \
-                    .format(**data)
-
-            if self._lazy_constraints:
-                if not self._minified:
-                    sql += '''
---
--- Constraints for table "{}"
---
-'''.format(table_name)
-
-                sql += self.__constraints(*self._constraints[table_name])
-
-            if self._create_indexes:
-                if table_name in self._indexes:
-                    if not self._minified:
-                        sql += '''
---
--- Indexes for table "{}"
---
-'''.format(table_name)
-
-                    sql += self.__indexes(*self._indexes[table_name])
-
-        sql = sql.strip()
-
-        return sql
+        return self.schema.render()
