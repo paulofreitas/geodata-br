@@ -24,19 +24,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
-
 # -- Imports ------------------------------------------------------------------
 
 # Built-in imports
-import os
+
 import sys
+
+from os import devnull
+from os.path import abspath
 
 # Dependency modules
 
 import xlrd
 
 # Package modules
-lib_path = os.path.abspath(os.path.join('..'))
+
+lib_path = abspath('..')
 sys.path.append(lib_path)
 
 from base import BaseParser
@@ -53,15 +56,15 @@ class XlsParser(BaseParser):
         super(XlsParser, self).__init__(base, logger)
 
         self._book = xlrd.open_workbook(file_contents=self._data._rawdata,
-                                        logfile=open(os.devnull, 'w'))
+                                        encoding_override='utf-8',
+                                        logfile=open(devnull, 'w'))
         self._sheet = self._book.sheet_by_name(self._data._base.sheet)
 
     def parse(self):
         self._logger.debug('Parsing database...')
 
         for row_id in xrange(self._sheet.nrows):
-            row_data =\
-                [value.encode('utf-8') for value in self._sheet.row_values(row_id)]
+            row_data = map(unicode, self._sheet.row_values(row_id))
 
             if row_id == 0:
                 self._data._cols = self._data._cols[:len(row_data)]
