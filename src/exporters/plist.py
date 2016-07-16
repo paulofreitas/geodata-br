@@ -24,6 +24,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
+from __future__ import absolute_import, unicode_literals
 
 # -- Imports ------------------------------------------------------------------
 
@@ -32,9 +33,11 @@ THE SOFTWARE.
 import plistlib
 import re
 
+from sys import version_info
+
 # Package modules
 
-from base import BaseExporter
+from .base import BaseExporter
 
 # -- Enhancements -------------------------------------------------------------
 
@@ -52,7 +55,9 @@ def __unsortable_write_dict(self, d):
 
     self.endElement('dict')
 
-plistlib.PlistWriter.writeDict = __unsortable_write_dict
+plistwriter = plistlib._PlistWriter if version_info >= (3, 0) \
+                  else plistlib.PlistWriter
+plistwriter.writeDict = __unsortable_write_dict
 
 
 # -- Implementation -----------------------------------------------------------
@@ -64,9 +69,9 @@ class PlistExporter(BaseExporter):
     extension = '.plist'
 
     def __str__(self):
-        plist_str = plistlib.writePlistToString(
+        plist_str = unicode(plistlib.writePlistToString(
             self.__toDict__(strKeys=True, unicode=True)
-        )
+        ).decode('utf-8'))
 
         return re.sub('[\n\t]+', '', plist_str) if self._minified \
             else plist_str
