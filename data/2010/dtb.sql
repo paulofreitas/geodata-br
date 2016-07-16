@@ -1,14 +1,17 @@
 --
--- Structure for table "uf"
+-- Structure for table uf
 --
+
 CREATE TABLE uf (
   id SMALLINT NOT NULL,
-  nome VARCHAR(32) NOT NULL
+  nome VARCHAR(32) NOT NULL,
+  CONSTRAINT pk_uf PRIMARY KEY (id)
 );
 
 --
--- Data for table "uf"
+-- Data for table uf
 --
+
 INSERT INTO uf VALUES (11, 'Rondônia');
 INSERT INTO uf VALUES (12, 'Acre');
 INSERT INTO uf VALUES (13, 'Amazonas');
@@ -38,24 +41,26 @@ INSERT INTO uf VALUES (52, 'Goiás');
 INSERT INTO uf VALUES (53, 'Distrito Federal');
 
 --
--- Constraints for table "uf"
+-- Indexes for table uf
 --
-ALTER TABLE uf
-  ADD CONSTRAINT pk_uf
-    PRIMARY KEY (id);
+
+CREATE INDEX ix_uf_nome ON uf (nome);
 
 --
--- Structure for table "mesorregiao"
+-- Structure for table mesorregiao
 --
+
 CREATE TABLE mesorregiao (
   id SMALLINT NOT NULL,
   id_uf SMALLINT NOT NULL,
-  nome VARCHAR(64) NOT NULL
+  nome VARCHAR(64) NOT NULL,
+  CONSTRAINT pk_mesorregiao PRIMARY KEY (id)
 );
 
 --
--- Data for table "mesorregiao"
+-- Data for table mesorregiao
 --
+
 INSERT INTO mesorregiao VALUES (1101, 11, 'Madeira-Guaporé');
 INSERT INTO mesorregiao VALUES (1102, 11, 'Leste Rondoniense');
 INSERT INTO mesorregiao VALUES (1201, 12, 'Vale do Juruá');
@@ -195,39 +200,39 @@ INSERT INTO mesorregiao VALUES (5205, 52, 'Sul Goiano');
 INSERT INTO mesorregiao VALUES (5301, 53, 'Distrito Federal');
 
 --
--- Constraints for table "mesorregiao"
+-- Constraints for table mesorregiao
 --
-ALTER TABLE mesorregiao
-  ADD CONSTRAINT pk_mesorregiao
-    PRIMARY KEY (id);
-ALTER TABLE mesorregiao
-  ADD CONSTRAINT fk_mesorregiao_uf
-    FOREIGN KEY (id_uf)
-      REFERENCES uf (id);
+
+ALTER TABLE mesorregiao ADD CONSTRAINT fk_mesorregiao_id_uf FOREIGN KEY (id_uf) REFERENCES uf (id);
 
 --
--- Indexes for table "mesorregiao"
+-- Indexes for table mesorregiao
 --
-CREATE INDEX fk_mesorregiao_uf ON mesorregiao (id_uf);
+
+CREATE INDEX ix_mesorregiao_id_uf ON mesorregiao (id_uf);
+CREATE INDEX ix_mesorregiao_nome ON mesorregiao (nome);
 
 --
--- Structure for table "microrregiao"
+-- Structure for table microrregiao
 --
+
 CREATE TABLE microrregiao (
   id INTEGER NOT NULL,
   id_mesorregiao SMALLINT NOT NULL,
   id_uf SMALLINT NOT NULL,
-  nome VARCHAR(64) NOT NULL
+  nome VARCHAR(64) NOT NULL,
+  CONSTRAINT pk_microrregiao PRIMARY KEY (id)
 );
 
 --
--- Data for table "microrregiao"
+-- Data for table microrregiao
 --
+
 INSERT INTO microrregiao VALUES (11001, 1101, 11, 'Porto Velho');
 INSERT INTO microrregiao VALUES (11002, 1101, 11, 'Guajará-Mirim');
 INSERT INTO microrregiao VALUES (11003, 1102, 11, 'Ariquemes');
 INSERT INTO microrregiao VALUES (11004, 1102, 11, 'Ji-Paraná');
-INSERT INTO microrregiao VALUES (11005, 1102, 11, 'Alvorada D\'Oeste');
+INSERT INTO microrregiao VALUES (11005, 1102, 11, 'Alvorada D''Oeste');
 INSERT INTO microrregiao VALUES (11006, 1102, 11, 'Cacoal');
 INSERT INTO microrregiao VALUES (11007, 1102, 11, 'Vilhena');
 INSERT INTO microrregiao VALUES (11008, 1102, 11, 'Colorado do Oeste');
@@ -783,41 +788,38 @@ INSERT INTO microrregiao VALUES (52018, 5205, 52, 'Quirinópolis');
 INSERT INTO microrregiao VALUES (53001, 5301, 53, 'Brasília');
 
 --
--- Constraints for table "microrregiao"
+-- Constraints for table microrregiao
 --
-ALTER TABLE microrregiao
-  ADD CONSTRAINT pk_microrregiao
-    PRIMARY KEY (id);
-ALTER TABLE microrregiao
-  ADD CONSTRAINT fk_microrregiao_mesorregiao
-    FOREIGN KEY (id_mesorregiao)
-      REFERENCES mesorregiao (id);
-ALTER TABLE microrregiao
-  ADD CONSTRAINT fk_microrregiao_uf
-    FOREIGN KEY (id_uf)
-      REFERENCES uf (id);
+
+ALTER TABLE microrregiao ADD CONSTRAINT fk_microrregiao_id_mesorregiao FOREIGN KEY (id_mesorregiao) REFERENCES mesorregiao (id);
+ALTER TABLE microrregiao ADD CONSTRAINT fk_microrregiao_id_uf FOREIGN KEY (id_uf) REFERENCES uf (id);
 
 --
--- Indexes for table "microrregiao"
+-- Indexes for table microrregiao
 --
-CREATE INDEX fk_microrregiao_mesorregiao ON microrregiao (id_mesorregiao);
-CREATE INDEX fk_microrregiao_uf ON microrregiao (id_uf);
+
+CREATE INDEX ix_microrregiao_id_mesorregiao ON microrregiao (id_mesorregiao);
+CREATE INDEX ix_microrregiao_id_uf ON microrregiao (id_uf);
+CREATE INDEX ix_microrregiao_nome ON microrregiao (nome);
 
 --
--- Structure for table "municipio"
+-- Structure for table municipio
 --
+
 CREATE TABLE municipio (
   id INTEGER NOT NULL,
   id_microrregiao INTEGER NOT NULL,
   id_mesorregiao SMALLINT NOT NULL,
   id_uf SMALLINT NOT NULL,
-  nome VARCHAR(64) NOT NULL
+  nome VARCHAR(64) NOT NULL,
+  CONSTRAINT pk_municipio PRIMARY KEY (id)
 );
 
 --
--- Data for table "municipio"
+-- Data for table municipio
 --
-INSERT INTO municipio VALUES (1100015, 11006, 1102, 11, 'Alta Floresta D\'Oeste');
+
+INSERT INTO municipio VALUES (1100015, 11006, 1102, 11, 'Alta Floresta D''Oeste');
 INSERT INTO municipio VALUES (1100023, 11003, 1102, 11, 'Ariquemes');
 INSERT INTO municipio VALUES (1100031, 11008, 1102, 11, 'Cabixi');
 INSERT INTO municipio VALUES (1100049, 11006, 1102, 11, 'Cacoal');
@@ -825,23 +827,23 @@ INSERT INTO municipio VALUES (1100056, 11008, 1102, 11, 'Cerejeiras');
 INSERT INTO municipio VALUES (1100064, 11008, 1102, 11, 'Colorado do Oeste');
 INSERT INTO municipio VALUES (1100072, 11008, 1102, 11, 'Corumbiara');
 INSERT INTO municipio VALUES (1100080, 11002, 1101, 11, 'Costa Marques');
-INSERT INTO municipio VALUES (1100098, 11006, 1102, 11, 'Espigão D\'Oeste');
+INSERT INTO municipio VALUES (1100098, 11006, 1102, 11, 'Espigão D''Oeste');
 INSERT INTO municipio VALUES (1100106, 11002, 1101, 11, 'Guajará-Mirim');
 INSERT INTO municipio VALUES (1100114, 11004, 1102, 11, 'Jaru');
 INSERT INTO municipio VALUES (1100122, 11004, 1102, 11, 'Ji-Paraná');
-INSERT INTO municipio VALUES (1100130, 11003, 1102, 11, 'Machadinho D\'Oeste');
-INSERT INTO municipio VALUES (1100148, 11005, 1102, 11, 'Nova Brasilândia D\'Oeste');
+INSERT INTO municipio VALUES (1100130, 11003, 1102, 11, 'Machadinho D''Oeste');
+INSERT INTO municipio VALUES (1100148, 11005, 1102, 11, 'Nova Brasilândia D''Oeste');
 INSERT INTO municipio VALUES (1100155, 11004, 1102, 11, 'Ouro Preto do Oeste');
 INSERT INTO municipio VALUES (1100189, 11007, 1102, 11, 'Pimenta Bueno');
 INSERT INTO municipio VALUES (1100205, 11001, 1101, 11, 'Porto Velho');
 INSERT INTO municipio VALUES (1100254, 11004, 1102, 11, 'Presidente Médici');
 INSERT INTO municipio VALUES (1100262, 11003, 1102, 11, 'Rio Crespo');
 INSERT INTO municipio VALUES (1100288, 11006, 1102, 11, 'Rolim de Moura');
-INSERT INTO municipio VALUES (1100296, 11006, 1102, 11, 'Santa Luzia D\'Oeste');
+INSERT INTO municipio VALUES (1100296, 11006, 1102, 11, 'Santa Luzia D''Oeste');
 INSERT INTO municipio VALUES (1100304, 11007, 1102, 11, 'Vilhena');
 INSERT INTO municipio VALUES (1100320, 11005, 1102, 11, 'São Miguel do Guaporé');
 INSERT INTO municipio VALUES (1100338, 11001, 1101, 11, 'Nova Mamoré');
-INSERT INTO municipio VALUES (1100346, 11005, 1102, 11, 'Alvorada D\'Oeste');
+INSERT INTO municipio VALUES (1100346, 11005, 1102, 11, 'Alvorada D''Oeste');
 INSERT INTO municipio VALUES (1100379, 11006, 1102, 11, 'Alto Alegre dos Parecis');
 INSERT INTO municipio VALUES (1100403, 11003, 1102, 11, 'Alto Paraíso');
 INSERT INTO municipio VALUES (1100452, 11001, 1101, 11, 'Buritis');
@@ -861,7 +863,7 @@ INSERT INTO municipio VALUES (1101435, 11004, 1102, 11, 'Nova União');
 INSERT INTO municipio VALUES (1101450, 11007, 1102, 11, 'Parecis');
 INSERT INTO municipio VALUES (1101468, 11008, 1102, 11, 'Pimenteiras do Oeste');
 INSERT INTO municipio VALUES (1101476, 11007, 1102, 11, 'Primavera de Rondônia');
-INSERT INTO municipio VALUES (1101484, 11007, 1102, 11, 'São Felipe D\'Oeste');
+INSERT INTO municipio VALUES (1101484, 11007, 1102, 11, 'São Felipe D''Oeste');
 INSERT INTO municipio VALUES (1101492, 11002, 1101, 11, 'São Francisco do Guaporé');
 INSERT INTO municipio VALUES (1101500, 11005, 1102, 11, 'Seringueiras');
 INSERT INTO municipio VALUES (1101559, 11004, 1102, 11, 'Teixeirópolis');
@@ -1057,7 +1059,7 @@ INSERT INTO municipio VALUES (1505486, 15015, 1505, 15, 'Pacajá');
 INSERT INTO municipio VALUES (1505494, 15020, 1506, 15, 'Palestina do Pará');
 INSERT INTO municipio VALUES (1505502, 15017, 1506, 15, 'Paragominas');
 INSERT INTO municipio VALUES (1505536, 15019, 1506, 15, 'Parauapebas');
-INSERT INTO municipio VALUES (1505551, 15021, 1506, 15, 'Pau D\'Arco');
+INSERT INTO municipio VALUES (1505551, 15021, 1506, 15, 'Pau D''Arco');
 INSERT INTO municipio VALUES (1505601, 15010, 1504, 15, 'Peixe-Boi');
 INSERT INTO municipio VALUES (1505635, 15021, 1506, 15, 'Piçarra');
 INSERT INTO municipio VALUES (1505650, 15002, 1501, 15, 'Placas');
@@ -1219,7 +1221,7 @@ INSERT INTO municipio VALUES (1715705, 17002, 1701, 17, 'Palmeirante');
 INSERT INTO municipio VALUES (1715754, 17005, 1701, 17, 'Palmeirópolis');
 INSERT INTO municipio VALUES (1716109, 17004, 1701, 17, 'Paraíso do Tocantins');
 INSERT INTO municipio VALUES (1716208, 17008, 1702, 17, 'Paranã');
-INSERT INTO municipio VALUES (1716307, 17002, 1701, 17, 'Pau D\'Arco');
+INSERT INTO municipio VALUES (1716307, 17002, 1701, 17, 'Pau D''Arco');
 INSERT INTO municipio VALUES (1716505, 17006, 1702, 17, 'Pedro Afonso');
 INSERT INTO municipio VALUES (1716604, 17005, 1701, 17, 'Peixe');
 INSERT INTO municipio VALUES (1716653, 17003, 1701, 17, 'Pequizeiro');
@@ -1393,7 +1395,7 @@ INSERT INTO municipio VALUES (2107209, 21006, 2101, 21, 'Nina Rodrigues');
 INSERT INTO municipio VALUES (2107258, 21021, 2105, 21, 'Nova Colinas');
 INSERT INTO municipio VALUES (2107308, 21018, 2104, 21, 'Nova Iorque');
 INSERT INTO municipio VALUES (2107357, 21008, 2102, 21, 'Nova Olinda do Maranhão');
-INSERT INTO municipio VALUES (2107407, 21010, 2103, 21, 'Olho d\'Água das Cunhãs');
+INSERT INTO municipio VALUES (2107407, 21010, 2103, 21, 'Olho d''Água das Cunhãs');
 INSERT INTO municipio VALUES (2107456, 21005, 2101, 21, 'Olinda Nova do Maranhão');
 INSERT INTO municipio VALUES (2107506, 21002, 2101, 21, 'Paço do Lumiar');
 INSERT INTO municipio VALUES (2107605, 21005, 2101, 21, 'Palmeirândia');
@@ -1501,7 +1503,7 @@ INSERT INTO municipio VALUES (2201002, 22005, 2202, 22, 'Arraial');
 INSERT INTO municipio VALUES (2201051, 22004, 2202, 22, 'Assunção do Piauí');
 INSERT INTO municipio VALUES (2201101, 22012, 2203, 22, 'Avelino Lopes');
 INSERT INTO municipio VALUES (2201150, 22007, 2203, 22, 'Baixa Grande do Ribeiro');
-INSERT INTO municipio VALUES (2201176, 22006, 2202, 22, 'Barra D\'Alcântara');
+INSERT INTO municipio VALUES (2201176, 22006, 2202, 22, 'Barra D''Alcântara');
 INSERT INTO municipio VALUES (2201200, 22001, 2201, 22, 'Barras');
 INSERT INTO municipio VALUES (2201309, 22010, 2203, 22, 'Barreiras do Piauí');
 INSERT INTO municipio VALUES (2201408, 22005, 2202, 22, 'Barro Duro');
@@ -1625,7 +1627,7 @@ INSERT INTO municipio VALUES (2206803, 22001, 2201, 22, 'Nossa Senhora dos Remé
 INSERT INTO municipio VALUES (2206902, 22006, 2202, 22, 'Novo Oriente do Piauí');
 INSERT INTO municipio VALUES (2206951, 22004, 2202, 22, 'Novo Santo Antônio');
 INSERT INTO municipio VALUES (2207009, 22013, 2204, 22, 'Oeiras');
-INSERT INTO municipio VALUES (2207108, 22005, 2202, 22, 'Olho D\'Água do Piauí');
+INSERT INTO municipio VALUES (2207108, 22005, 2202, 22, 'Olho D''Água do Piauí');
 INSERT INTO municipio VALUES (2207207, 22015, 2204, 22, 'Padre Marcos');
 INSERT INTO municipio VALUES (2207306, 22015, 2204, 22, 'Paes Landim');
 INSERT INTO municipio VALUES (2207355, 22011, 2203, 22, 'Pajeú do Piauí');
@@ -1636,7 +1638,7 @@ INSERT INTO municipio VALUES (2207603, 22012, 2203, 22, 'Parnaguá');
 INSERT INTO municipio VALUES (2207702, 22002, 2201, 22, 'Parnaíba');
 INSERT INTO municipio VALUES (2207751, 22005, 2202, 22, 'Passagem Franca do Piauí');
 INSERT INTO municipio VALUES (2207777, 22015, 2204, 22, 'Patos do Piauí');
-INSERT INTO municipio VALUES (2207793, 22003, 2202, 22, 'Pau D\'Arco do Piauí');
+INSERT INTO municipio VALUES (2207793, 22003, 2202, 22, 'Pau D''Arco do Piauí');
 INSERT INTO municipio VALUES (2207801, 22015, 2204, 22, 'Paulistana');
 INSERT INTO municipio VALUES (2207850, 22009, 2203, 22, 'Pavussu');
 INSERT INTO municipio VALUES (2207900, 22004, 2202, 22, 'Pedro II');
@@ -1959,7 +1961,7 @@ INSERT INTO municipio VALUES (2405900, 24007, 2401, 24, 'João Dias');
 INSERT INTO municipio VALUES (2406007, 24006, 2401, 24, 'José da Penha');
 INSERT INTO municipio VALUES (2406106, 24004, 2401, 24, 'Jucurutu');
 INSERT INTO municipio VALUES (2406155, 24015, 2403, 24, 'Jundiá');
-INSERT INTO municipio VALUES (2406205, 24015, 2403, 24, 'Lagoa d\'Anta');
+INSERT INTO municipio VALUES (2406205, 24015, 2403, 24, 'Lagoa d''Anta');
 INSERT INTO municipio VALUES (2406304, 24015, 2403, 24, 'Lagoa de Pedras');
 INSERT INTO municipio VALUES (2406403, 24014, 2403, 24, 'Lagoa de Velhos');
 INSERT INTO municipio VALUES (2406502, 24010, 2402, 24, 'Lagoa Nova');
@@ -1982,7 +1984,7 @@ INSERT INTO municipio VALUES (2408003, 24001, 2401, 24, 'Mossoró');
 INSERT INTO municipio VALUES (2408102, 24018, 2404, 24, 'Natal');
 INSERT INTO municipio VALUES (2408201, 24017, 2404, 24, 'Nísia Floresta');
 INSERT INTO municipio VALUES (2408300, 24015, 2403, 24, 'Nova Cruz');
-INSERT INTO municipio VALUES (2408409, 24007, 2401, 24, 'Olho-d\'Água do Borges');
+INSERT INTO municipio VALUES (2408409, 24007, 2401, 24, 'Olho-d''Água do Borges');
 INSERT INTO municipio VALUES (2408508, 24012, 2402, 24, 'Ouro Branco');
 INSERT INTO municipio VALUES (2408607, 24006, 2401, 24, 'Paraná');
 INSERT INTO municipio VALUES (2408706, 24003, 2401, 24, 'Paraú');
@@ -2166,7 +2168,7 @@ INSERT INTO municipio VALUES (2508406, 25003, 2501, 25, 'Lastro');
 INSERT INTO municipio VALUES (2508505, 25010, 2502, 25, 'Livramento');
 INSERT INTO municipio VALUES (2508554, 25016, 2503, 25, 'Logradouro');
 INSERT INTO municipio VALUES (2508604, 25022, 2504, 25, 'Lucena');
-INSERT INTO municipio VALUES (2508703, 25004, 2501, 25, 'Mãe d\'Água');
+INSERT INTO municipio VALUES (2508703, 25004, 2501, 25, 'Mãe d''Água');
 INSERT INTO municipio VALUES (2508802, 25003, 2501, 25, 'Malta');
 INSERT INTO municipio VALUES (2508901, 25020, 2504, 25, 'Mamanguape');
 INSERT INTO municipio VALUES (2509008, 25007, 2501, 25, 'Manaíra');
@@ -2188,7 +2190,7 @@ INSERT INTO municipio VALUES (2510006, 25003, 2501, 25, 'Nazarezinho');
 INSERT INTO municipio VALUES (2510105, 25012, 2503, 25, 'Nova Floresta');
 INSERT INTO municipio VALUES (2510204, 25005, 2501, 25, 'Nova Olinda');
 INSERT INTO municipio VALUES (2510303, 25009, 2502, 25, 'Nova Palmeira');
-INSERT INTO municipio VALUES (2510402, 25005, 2501, 25, 'Olho d\'Água');
+INSERT INTO municipio VALUES (2510402, 25005, 2501, 25, 'Olho d''Água');
 INSERT INTO municipio VALUES (2510501, 25012, 2503, 25, 'Olivedos');
 INSERT INTO municipio VALUES (2510600, 25010, 2502, 25, 'Ouro Velho');
 INSERT INTO municipio VALUES (2510659, 25010, 2502, 25, 'Parari');
@@ -2526,9 +2528,9 @@ INSERT INTO municipio VALUES (2705309, 27005, 2702, 27, 'Minador do Negrão');
 INSERT INTO municipio VALUES (2705408, 27004, 2701, 27, 'Monteirópolis');
 INSERT INTO municipio VALUES (2705507, 27009, 2703, 27, 'Murici');
 INSERT INTO municipio VALUES (2705606, 27009, 2703, 27, 'Novo Lino');
-INSERT INTO municipio VALUES (2705705, 27004, 2701, 27, 'Olho d\'Água das Flores');
-INSERT INTO municipio VALUES (2705804, 27002, 2701, 27, 'Olho d\'Água do Casado');
-INSERT INTO municipio VALUES (2705903, 27007, 2702, 27, 'Olho d\'Água Grande');
+INSERT INTO municipio VALUES (2705705, 27004, 2701, 27, 'Olho d''Água das Flores');
+INSERT INTO municipio VALUES (2705804, 27002, 2701, 27, 'Olho d''Água do Casado');
+INSERT INTO municipio VALUES (2705903, 27007, 2702, 27, 'Olho d''Água Grande');
 INSERT INTO municipio VALUES (2706000, 27004, 2701, 27, 'Olivença');
 INSERT INTO municipio VALUES (2706109, 27003, 2701, 27, 'Ouro Branco');
 INSERT INTO municipio VALUES (2706208, 27003, 2701, 27, 'Palestina');
@@ -2562,7 +2564,7 @@ INSERT INTO municipio VALUES (2708709, 27010, 2703, 27, 'São Miguel dos Milagre
 INSERT INTO municipio VALUES (2708808, 27006, 2702, 27, 'São Sebastião');
 INSERT INTO municipio VALUES (2708907, 27011, 2703, 27, 'Satuba');
 INSERT INTO municipio VALUES (2708956, 27003, 2701, 27, 'Senador Rui Palmeira');
-INSERT INTO municipio VALUES (2709004, 27005, 2702, 27, 'Tanque d\'Arca');
+INSERT INTO municipio VALUES (2709004, 27005, 2702, 27, 'Tanque d''Arca');
 INSERT INTO municipio VALUES (2709103, 27006, 2702, 27, 'Taquarana');
 INSERT INTO municipio VALUES (2709152, 27012, 2703, 27, 'Teotônio Vilela');
 INSERT INTO municipio VALUES (2709202, 27007, 2702, 27, 'Traipu');
@@ -2597,7 +2599,7 @@ INSERT INTO municipio VALUES (2802809, 28013, 2803, 28, 'Indiaroba');
 INSERT INTO municipio VALUES (2802908, 28004, 2802, 28, 'Itabaiana');
 INSERT INTO municipio VALUES (2803005, 28012, 2803, 28, 'Itabaianinha');
 INSERT INTO municipio VALUES (2803104, 28001, 2801, 28, 'Itabi');
-INSERT INTO municipio VALUES (2803203, 28013, 2803, 28, 'Itaporanga d\'Ajuda');
+INSERT INTO municipio VALUES (2803203, 28013, 2803, 28, 'Itaporanga d''Ajuda');
 INSERT INTO municipio VALUES (2803302, 28009, 2803, 28, 'Japaratuba');
 INSERT INTO municipio VALUES (2803401, 28009, 2803, 28, 'Japoatã');
 INSERT INTO municipio VALUES (2803500, 28006, 2802, 28, 'Lagarto');
@@ -2762,7 +2764,7 @@ INSERT INTO municipio VALUES (2909703, 29002, 2901, 29, 'Cristópolis');
 INSERT INTO municipio VALUES (2909802, 29020, 2905, 29, 'Cruz das Almas');
 INSERT INTO municipio VALUES (2909901, 29004, 2902, 29, 'Curaçá');
 INSERT INTO municipio VALUES (2910008, 29028, 2906, 29, 'Dário Meira');
-INSERT INTO municipio VALUES (2910057, 29021, 2905, 29, 'Dias d\'Ávila');
+INSERT INTO municipio VALUES (2910057, 29021, 2905, 29, 'Dias d''Ávila');
 INSERT INTO municipio VALUES (2910107, 29025, 2906, 29, 'Dom Basílio');
 INSERT INTO municipio VALUES (2910206, 29020, 2905, 29, 'Dom Macedo Costa');
 INSERT INTO municipio VALUES (2910305, 29012, 2903, 29, 'Elísio Medrado');
@@ -3589,7 +3591,7 @@ INSERT INTO municipio VALUES (3145307, 31012, 3103, 31, 'Novo Cruzeiro');
 INSERT INTO municipio VALUES (3145356, 31015, 3104, 31, 'Novo Oriente de Minas');
 INSERT INTO municipio VALUES (3145372, 31005, 3102, 31, 'Novorizonte');
 INSERT INTO municipio VALUES (3145406, 31065, 3112, 31, 'Olaria');
-INSERT INTO municipio VALUES (3145455, 31009, 3102, 31, 'Olhos-d\'Água');
+INSERT INTO municipio VALUES (3145455, 31009, 3102, 31, 'Olhos-d''Água');
 INSERT INTO municipio VALUES (3145505, 31054, 3110, 31, 'Olímpio Noronha');
 INSERT INTO municipio VALUES (3145604, 31046, 3109, 31, 'Oliveira');
 INSERT INTO municipio VALUES (3145703, 31065, 3112, 31, 'Oliveira Fortes');
@@ -3650,7 +3652,7 @@ INSERT INTO municipio VALUES (3150208, 31060, 3112, 31, 'Piedade de Ponte Nova')
 INSERT INTO municipio VALUES (3150307, 31058, 3111, 31, 'Piedade do Rio Grande');
 INSERT INTO municipio VALUES (3150406, 31032, 3107, 31, 'Piedade dos Gerais');
 INSERT INTO municipio VALUES (3150505, 31044, 3109, 31, 'Pimenta');
-INSERT INTO municipio VALUES (3150539, 31040, 3108, 31, 'Pingo-d\'Água');
+INSERT INTO municipio VALUES (3150539, 31040, 3108, 31, 'Pingo-d''Água');
 INSERT INTO municipio VALUES (3150570, 31003, 3102, 31, 'Pintópolis');
 INSERT INTO municipio VALUES (3150604, 31046, 3109, 31, 'Piracema');
 INSERT INTO municipio VALUES (3150703, 31021, 3105, 31, 'Pirajuba');
@@ -4111,7 +4113,7 @@ INSERT INTO municipio VALUES (3502200, 35042, 3511, 35, 'Angatuba');
 INSERT INTO municipio VALUES (3502309, 35023, 3504, 35, 'Anhembi');
 INSERT INTO municipio VALUES (3502408, 35036, 3508, 35, 'Anhumas');
 INSERT INTO municipio VALUES (3502507, 35051, 3513, 35, 'Aparecida');
-INSERT INTO municipio VALUES (3502606, 35001, 3501, 35, 'Aparecida d\'Oeste');
+INSERT INTO municipio VALUES (3502606, 35001, 3501, 35, 'Aparecida d''Oeste');
 INSERT INTO municipio VALUES (3502705, 35044, 3511, 35, 'Apiaí');
 INSERT INTO municipio VALUES (3502754, 35046, 3512, 35, 'Araçariguama');
 INSERT INTO municipio VALUES (3502804, 35017, 3503, 35, 'Araçatuba');
@@ -4256,7 +4258,7 @@ INSERT INTO municipio VALUES (3515129, 35036, 3508, 35, 'Emilianópolis');
 INSERT INTO municipio VALUES (3515152, 35031, 3507, 35, 'Engenheiro Coelho');
 INSERT INTO municipio VALUES (3515186, 35030, 3507, 35, 'Espírito Santo do Pinhal');
 INSERT INTO municipio VALUES (3515194, 35040, 3510, 35, 'Espírito Santo do Turvo');
-INSERT INTO municipio VALUES (3515202, 35002, 3501, 35, 'Estrela d\'Oeste');
+INSERT INTO municipio VALUES (3515202, 35002, 3501, 35, 'Estrela d''Oeste');
 INSERT INTO municipio VALUES (3515301, 35036, 3508, 35, 'Estrela do Norte');
 INSERT INTO municipio VALUES (3515350, 35036, 3508, 35, 'Euclides da Cunha Paulista');
 INSERT INTO municipio VALUES (3515400, 35040, 3510, 35, 'Fartura');
@@ -4287,7 +4289,7 @@ INSERT INTO municipio VALUES (3517604, 35044, 3511, 35, 'Guapiara');
 INSERT INTO municipio VALUES (3517703, 35011, 3502, 35, 'Guará');
 INSERT INTO municipio VALUES (3517802, 35016, 3503, 35, 'Guaraçaí');
 INSERT INTO municipio VALUES (3517901, 35004, 3501, 35, 'Guaraci');
-INSERT INTO municipio VALUES (3518008, 35002, 3501, 35, 'Guarani d\'Oeste');
+INSERT INTO municipio VALUES (3518008, 35002, 3501, 35, 'Guarani d''Oeste');
 INSERT INTO municipio VALUES (3518107, 35020, 3504, 35, 'Guarantã');
 INSERT INTO municipio VALUES (3518206, 35017, 3503, 35, 'Guararapes');
 INSERT INTO municipio VALUES (3518305, 35062, 3515, 35, 'Guararema');
@@ -4479,7 +4481,7 @@ INSERT INTO municipio VALUES (3534807, 35034, 3508, 35, 'Ouro Verde');
 INSERT INTO municipio VALUES (3534906, 35035, 3508, 35, 'Pacaembu');
 INSERT INTO municipio VALUES (3535002, 35004, 3501, 35, 'Palestina');
 INSERT INTO municipio VALUES (3535101, 35005, 3501, 35, 'Palmares Paulista');
-INSERT INTO municipio VALUES (3535200, 35001, 3501, 35, 'Palmeira d\'Oeste');
+INSERT INTO municipio VALUES (3535200, 35001, 3501, 35, 'Palmeira d''Oeste');
 INSERT INTO municipio VALUES (3535309, 35039, 3510, 35, 'Palmital');
 INSERT INTO municipio VALUES (3535408, 35034, 3508, 35, 'Panorama');
 INSERT INTO municipio VALUES (3535507, 35039, 3510, 35, 'Paraguaçu Paulista');
@@ -4596,9 +4598,9 @@ INSERT INTO municipio VALUES (3545407, 35040, 3510, 35, 'Salto Grande');
 INSERT INTO municipio VALUES (3545506, 35036, 3508, 35, 'Sandovalina');
 INSERT INTO municipio VALUES (3545605, 35005, 3501, 35, 'Santa Adélia');
 INSERT INTO municipio VALUES (3545704, 35001, 3501, 35, 'Santa Albertina');
-INSERT INTO municipio VALUES (3545803, 35032, 3507, 35, 'Santa Bárbara d\'Oeste');
+INSERT INTO municipio VALUES (3545803, 35032, 3507, 35, 'Santa Bárbara d''Oeste');
 INSERT INTO municipio VALUES (3546009, 35050, 3513, 35, 'Santa Branca');
-INSERT INTO municipio VALUES (3546108, 35001, 3501, 35, 'Santa Clara d\'Oeste');
+INSERT INTO municipio VALUES (3546108, 35001, 3501, 35, 'Santa Clara d''Oeste');
 INSERT INTO municipio VALUES (3546207, 35027, 3506, 35, 'Santa Cruz da Conceição');
 INSERT INTO municipio VALUES (3546256, 35015, 3502, 35, 'Santa Cruz da Esperança');
 INSERT INTO municipio VALUES (3546306, 35029, 3507, 35, 'Santa Cruz das Palmeiras');
@@ -4612,7 +4614,7 @@ INSERT INTO municipio VALUES (3547007, 35028, 3506, 35, 'Santa Maria da Serra');
 INSERT INTO municipio VALUES (3547106, 35034, 3508, 35, 'Santa Mercedes');
 INSERT INTO municipio VALUES (3547205, 35001, 3501, 35, 'Santana da Ponte Pensa');
 INSERT INTO municipio VALUES (3547304, 35057, 3515, 35, 'Santana de Parnaíba');
-INSERT INTO municipio VALUES (3547403, 35001, 3501, 35, 'Santa Rita d\'Oeste');
+INSERT INTO municipio VALUES (3547403, 35001, 3501, 35, 'Santa Rita d''Oeste');
 INSERT INTO municipio VALUES (3547502, 35014, 3502, 35, 'Santa Rita do Passa Quatro');
 INSERT INTO municipio VALUES (3547601, 35014, 3502, 35, 'Santa Rosa de Viterbo');
 INSERT INTO municipio VALUES (3547650, 35001, 3501, 35, 'Santa Salete');
@@ -4634,7 +4636,7 @@ INSERT INTO municipio VALUES (3549003, 35001, 3501, 35, 'São Francisco');
 INSERT INTO municipio VALUES (3549102, 35030, 3507, 35, 'São João da Boa Vista');
 INSERT INTO municipio VALUES (3549201, 35002, 3501, 35, 'São João das Duas Pontes');
 INSERT INTO municipio VALUES (3549250, 35006, 3501, 35, 'São João de Iracema');
-INSERT INTO municipio VALUES (3549300, 35034, 3508, 35, 'São João do Pau d\'Alho');
+INSERT INTO municipio VALUES (3549300, 35034, 3508, 35, 'São João do Pau d''Alho');
 INSERT INTO municipio VALUES (3549409, 35010, 3502, 35, 'São Joaquim da Barra');
 INSERT INTO municipio VALUES (3549508, 35012, 3502, 35, 'São José da Bela Vista');
 INSERT INTO municipio VALUES (3549607, 35052, 3513, 35, 'São José do Barreiro');
@@ -4825,7 +4827,7 @@ INSERT INTO municipio VALUES (4106902, 41037, 4110, 41, 'Curitiba');
 INSERT INTO municipio VALUES (4107009, 41017, 4104, 41, 'Curiúva');
 INSERT INTO municipio VALUES (4107108, 41001, 4101, 41, 'Diamante do Norte');
 INSERT INTO municipio VALUES (4107124, 41023, 4106, 41, 'Diamante do Sul');
-INSERT INTO municipio VALUES (4107157, 41022, 4106, 41, 'Diamante D\'Oeste');
+INSERT INTO municipio VALUES (4107157, 41022, 4106, 41, 'Diamante D''Oeste');
 INSERT INTO municipio VALUES (4107207, 41026, 4107, 41, 'Dois Vizinhos');
 INSERT INTO municipio VALUES (4107256, 41002, 4101, 41, 'Douradina');
 INSERT INTO municipio VALUES (4107306, 41008, 4103, 41, 'Doutor Camargo');
@@ -4886,7 +4888,7 @@ INSERT INTO municipio VALUES (4110904, 41006, 4103, 41, 'Itaguajé');
 INSERT INTO municipio VALUES (4110953, 41024, 4106, 41, 'Itaipulândia');
 INSERT INTO municipio VALUES (4111001, 41015, 4104, 41, 'Itambaracá');
 INSERT INTO municipio VALUES (4111100, 41008, 4103, 41, 'Itambé');
-INSERT INTO municipio VALUES (4111209, 41027, 4107, 41, 'Itapejara d\'Oeste');
+INSERT INTO municipio VALUES (4111209, 41027, 4107, 41, 'Itapejara d''Oeste');
 INSERT INTO municipio VALUES (4111258, 41037, 4110, 41, 'Itaperuçu');
 INSERT INTO municipio VALUES (4111308, 41001, 4101, 41, 'Itaúna do Sul');
 INSERT INTO municipio VALUES (4111407, 41031, 4109, 41, 'Ivaí');
@@ -4990,7 +4992,7 @@ INSERT INTO municipio VALUES (4118709, 41033, 4109, 41, 'Paulo Frontin');
 INSERT INTO municipio VALUES (4118808, 41005, 4102, 41, 'Peabiru');
 INSERT INTO municipio VALUES (4118857, 41002, 4101, 41, 'Perobal');
 INSERT INTO municipio VALUES (4118907, 41002, 4101, 41, 'Pérola');
-INSERT INTO municipio VALUES (4119004, 41025, 4107, 41, 'Pérola d\'Oeste');
+INSERT INTO municipio VALUES (4119004, 41025, 4107, 41, 'Pérola d''Oeste');
 INSERT INTO municipio VALUES (4119103, 41039, 4110, 41, 'Piên');
 INSERT INTO municipio VALUES (4119152, 41037, 4110, 41, 'Pinhais');
 INSERT INTO municipio VALUES (4119202, 41017, 4104, 41, 'Pinhalão');
@@ -5024,7 +5026,7 @@ INSERT INTO municipio VALUES (4121109, 41005, 4102, 41, 'Quinta do Sol');
 INSERT INTO municipio VALUES (4121208, 41039, 4110, 41, 'Quitandinha');
 INSERT INTO municipio VALUES (4121257, 41024, 4106, 41, 'Ramilândia');
 INSERT INTO municipio VALUES (4121307, 41014, 4104, 41, 'Rancho Alegre');
-INSERT INTO municipio VALUES (4121356, 41004, 4102, 41, 'Rancho Alegre D\'Oeste');
+INSERT INTO municipio VALUES (4121356, 41004, 4102, 41, 'Rancho Alegre D''Oeste');
 INSERT INTO municipio VALUES (4121406, 41025, 4107, 41, 'Realeza');
 INSERT INTO municipio VALUES (4121505, 41032, 4109, 41, 'Rebouças');
 INSERT INTO municipio VALUES (4121604, 41026, 4107, 41, 'Renascença');
@@ -5072,7 +5074,7 @@ INSERT INTO municipio VALUES (4124806, 41027, 4107, 41, 'São João');
 INSERT INTO municipio VALUES (4124905, 41001, 4101, 41, 'São João do Caiuá');
 INSERT INTO municipio VALUES (4125001, 41013, 4103, 41, 'São João do Ivaí');
 INSERT INTO municipio VALUES (4125100, 41034, 4109, 41, 'São João do Triunfo');
-INSERT INTO municipio VALUES (4125209, 41026, 4107, 41, 'São Jorge d\'Oeste');
+INSERT INTO municipio VALUES (4125209, 41026, 4107, 41, 'São Jorge d''Oeste');
 INSERT INTO municipio VALUES (4125308, 41008, 4103, 41, 'São Jorge do Ivaí');
 INSERT INTO municipio VALUES (4125357, 41002, 4101, 41, 'São Jorge do Patrocínio');
 INSERT INTO municipio VALUES (4125407, 41018, 4104, 41, 'São José da Boa Vista');
@@ -5231,7 +5233,7 @@ INSERT INTO municipio VALUES (4206405, 42001, 4201, 42, 'Guaraciaba');
 INSERT INTO municipio VALUES (4206504, 42008, 4202, 42, 'Guaramirim');
 INSERT INTO municipio VALUES (4206603, 42001, 4201, 42, 'Guarujá do Sul');
 INSERT INTO municipio VALUES (4206652, 42002, 4201, 42, 'Guatambú');
-INSERT INTO municipio VALUES (4206702, 42004, 4201, 42, 'Herval d\'Oeste');
+INSERT INTO municipio VALUES (4206702, 42004, 4201, 42, 'Herval d''Oeste');
 INSERT INTO municipio VALUES (4206751, 42004, 4201, 42, 'Ibiam');
 INSERT INTO municipio VALUES (4206801, 42004, 4201, 42, 'Ibicaré');
 INSERT INTO municipio VALUES (4206900, 42011, 4204, 42, 'Ibirama');
@@ -5787,7 +5789,7 @@ INSERT INTO municipio VALUES (4316907, 43018, 4303, 43, 'Santa Maria');
 INSERT INTO municipio VALUES (4316956, 43024, 4305, 43, 'Santa Maria do Herval');
 INSERT INTO municipio VALUES (4316972, 43030, 4306, 43, 'Santa Margarida do Sul');
 INSERT INTO municipio VALUES (4317004, 43032, 4307, 43, 'Santana da Boa Vista');
-INSERT INTO municipio VALUES (4317103, 43030, 4306, 43, 'Sant\'Ana do Livramento');
+INSERT INTO municipio VALUES (4317103, 43030, 4306, 43, 'Sant''Ana do Livramento');
 INSERT INTO municipio VALUES (4317202, 43001, 4301, 43, 'Santa Rosa');
 INSERT INTO municipio VALUES (4317251, 43016, 4302, 43, 'Santa Tereza');
 INSERT INTO municipio VALUES (4317301, 43035, 4307, 43, 'Santa Vitória do Palmar');
@@ -6029,7 +6031,7 @@ INSERT INTO municipio VALUES (5103205, 51003, 5101, 51, 'Colíder');
 INSERT INTO municipio VALUES (5103254, 51001, 5101, 51, 'Colniza');
 INSERT INTO municipio VALUES (5103304, 51004, 5101, 51, 'Comodoro');
 INSERT INTO municipio VALUES (5103353, 51009, 5102, 51, 'Confresa');
-INSERT INTO municipio VALUES (5103361, 51012, 5103, 51, 'Conquista D\'Oeste');
+INSERT INTO municipio VALUES (5103361, 51012, 5103, 51, 'Conquista D''Oeste');
 INSERT INTO municipio VALUES (5103379, 51001, 5101, 51, 'Cotriguaçu');
 INSERT INTO municipio VALUES (5103403, 51017, 5104, 51, 'Cuiabá');
 INSERT INTO municipio VALUES (5103437, 51018, 5104, 51, 'Curvelândia');
@@ -6037,10 +6039,10 @@ INSERT INTO municipio VALUES (5103452, 51013, 5103, 51, 'Denise');
 INSERT INTO municipio VALUES (5103502, 51004, 5101, 51, 'Diamantino');
 INSERT INTO municipio VALUES (5103601, 51021, 5105, 51, 'Dom Aquino');
 INSERT INTO municipio VALUES (5103700, 51007, 5101, 51, 'Feliz Natal');
-INSERT INTO municipio VALUES (5103809, 51014, 5103, 51, 'Figueirópolis D\'Oeste');
+INSERT INTO municipio VALUES (5103809, 51014, 5103, 51, 'Figueirópolis D''Oeste');
 INSERT INTO municipio VALUES (5103858, 51008, 5101, 51, 'Gaúcha do Norte');
 INSERT INTO municipio VALUES (5103908, 51020, 5105, 51, 'General Carneiro');
-INSERT INTO municipio VALUES (5103957, 51014, 5103, 51, 'Glória D\'Oeste');
+INSERT INTO municipio VALUES (5103957, 51014, 5103, 51, 'Glória D''Oeste');
 INSERT INTO municipio VALUES (5104104, 51003, 5101, 51, 'Guarantã do Norte');
 INSERT INTO municipio VALUES (5104203, 51020, 5105, 51, 'Guiratinga');
 INSERT INTO municipio VALUES (5104500, 51014, 5103, 51, 'Indiavaí');
@@ -6055,13 +6057,13 @@ INSERT INTO municipio VALUES (5105101, 51005, 5101, 51, 'Juara');
 INSERT INTO municipio VALUES (5105150, 51001, 5101, 51, 'Juína');
 INSERT INTO municipio VALUES (5105176, 51001, 5101, 51, 'Juruena');
 INSERT INTO municipio VALUES (5105200, 51021, 5105, 51, 'Juscimeira');
-INSERT INTO municipio VALUES (5105234, 51014, 5103, 51, 'Lambari D\'Oeste');
+INSERT INTO municipio VALUES (5105234, 51014, 5103, 51, 'Lambari D''Oeste');
 INSERT INTO municipio VALUES (5105259, 51006, 5101, 51, 'Lucas do Rio Verde');
 INSERT INTO municipio VALUES (5105309, 51009, 5102, 51, 'Luciara');
 INSERT INTO municipio VALUES (5105507, 51012, 5103, 51, 'Vila Bela da Santíssima Trindade');
 INSERT INTO municipio VALUES (5105580, 51007, 5101, 51, 'Marcelândia');
 INSERT INTO municipio VALUES (5105606, 51003, 5101, 51, 'Matupá');
-INSERT INTO municipio VALUES (5105622, 51014, 5103, 51, 'Mirassol d\'Oeste');
+INSERT INTO municipio VALUES (5105622, 51014, 5103, 51, 'Mirassol d''Oeste');
 INSERT INTO municipio VALUES (5105903, 51006, 5101, 51, 'Nobres');
 INSERT INTO municipio VALUES (5106000, 51015, 5104, 51, 'Nortelândia');
 INSERT INTO municipio VALUES (5106109, 51017, 5104, 51, 'Nossa Senhora do Livramento');
@@ -6350,7 +6352,7 @@ INSERT INTO municipio VALUES (5219738, 52010, 5203, 52, 'Santo Antônio de Goiá
 INSERT INTO municipio VALUES (5219753, 52012, 5204, 52, 'Santo Antônio do Descoberto');
 INSERT INTO municipio VALUES (5219803, 52011, 5204, 52, 'São Domingos');
 INSERT INTO municipio VALUES (5219902, 52007, 5203, 52, 'São Francisco de Goiás');
-INSERT INTO municipio VALUES (5220009, 52005, 5202, 52, 'São João d\'Aliança');
+INSERT INTO municipio VALUES (5220009, 52005, 5202, 52, 'São João d''Aliança');
 INSERT INTO municipio VALUES (5220058, 52014, 5205, 52, 'São João da Paraúna');
 INSERT INTO municipio VALUES (5220108, 52009, 5203, 52, 'São Luís de Montes Belos');
 INSERT INTO municipio VALUES (5220157, 52006, 5203, 52, 'São Luíz do Norte');
@@ -6362,7 +6364,7 @@ INSERT INTO municipio VALUES (5220454, 52010, 5203, 52, 'Senador Canedo');
 INSERT INTO municipio VALUES (5220504, 52013, 5205, 52, 'Serranópolis');
 INSERT INTO municipio VALUES (5220603, 52016, 5205, 52, 'Silvânia');
 INSERT INTO municipio VALUES (5220686, 52011, 5204, 52, 'Simolândia');
-INSERT INTO municipio VALUES (5220702, 52011, 5204, 52, 'Sítio d\'Abadia');
+INSERT INTO municipio VALUES (5220702, 52011, 5204, 52, 'Sítio d''Abadia');
 INSERT INTO municipio VALUES (5221007, 52007, 5203, 52, 'Taquaral de Goiás');
 INSERT INTO municipio VALUES (5221080, 52005, 5202, 52, 'Teresina de Goiás');
 INSERT INTO municipio VALUES (5221197, 52010, 5203, 52, 'Terezópolis de Goiás');
@@ -6384,27 +6386,87 @@ INSERT INTO municipio VALUES (5222302, 52012, 5204, 52, 'Vila Propício');
 INSERT INTO municipio VALUES (5300108, 53001, 5301, 53, 'Brasília');
 
 --
--- Constraints for table "municipio"
+-- Constraints for table municipio
 --
-ALTER TABLE municipio
-  ADD CONSTRAINT pk_municipio
-    PRIMARY KEY (id);
-ALTER TABLE municipio
-  ADD CONSTRAINT fk_municipio_microrregiao
-    FOREIGN KEY (id_microrregiao)
-      REFERENCES microrregiao (id);
-ALTER TABLE municipio
-  ADD CONSTRAINT fk_municipio_mesorregiao
-    FOREIGN KEY (id_mesorregiao)
-      REFERENCES mesorregiao (id);
-ALTER TABLE municipio
-  ADD CONSTRAINT fk_municipio_uf
-    FOREIGN KEY (id_uf)
-      REFERENCES uf (id);
+
+ALTER TABLE municipio ADD CONSTRAINT fk_municipio_id_microrregiao FOREIGN KEY (id_microrregiao) REFERENCES microrregiao (id);
+ALTER TABLE municipio ADD CONSTRAINT fk_municipio_id_mesorregiao FOREIGN KEY (id_mesorregiao) REFERENCES mesorregiao (id);
+ALTER TABLE municipio ADD CONSTRAINT fk_municipio_id_uf FOREIGN KEY (id_uf) REFERENCES uf (id);
 
 --
--- Indexes for table "municipio"
+-- Indexes for table municipio
 --
-CREATE INDEX fk_municipio_microrregiao ON municipio (id_microrregiao);
-CREATE INDEX fk_municipio_mesorregiao ON municipio (id_mesorregiao);
-CREATE INDEX fk_municipio_uf ON municipio (id_uf);
+
+CREATE INDEX ix_municipio_id_microrregiao ON municipio (id_microrregiao);
+CREATE INDEX ix_municipio_id_mesorregiao ON municipio (id_mesorregiao);
+CREATE INDEX ix_municipio_id_uf ON municipio (id_uf);
+CREATE INDEX ix_municipio_nome ON municipio (nome);
+
+--
+-- Structure for table distrito
+--
+
+CREATE TABLE distrito (
+  id INTEGER NOT NULL,
+  id_municipio INTEGER NOT NULL,
+  id_microrregiao INTEGER NOT NULL,
+  id_mesorregiao SMALLINT NOT NULL,
+  id_uf SMALLINT NOT NULL,
+  nome VARCHAR(64) NOT NULL,
+  CONSTRAINT pk_distrito PRIMARY KEY (id)
+);
+
+--
+-- Constraints for table distrito
+--
+
+ALTER TABLE distrito ADD CONSTRAINT fk_distrito_id_municipio FOREIGN KEY (id_municipio) REFERENCES municipio (id);
+ALTER TABLE distrito ADD CONSTRAINT fk_distrito_id_microrregiao FOREIGN KEY (id_microrregiao) REFERENCES microrregiao (id);
+ALTER TABLE distrito ADD CONSTRAINT fk_distrito_id_mesorregiao FOREIGN KEY (id_mesorregiao) REFERENCES mesorregiao (id);
+ALTER TABLE distrito ADD CONSTRAINT fk_distrito_id_uf FOREIGN KEY (id_uf) REFERENCES uf (id);
+
+--
+-- Indexes for table distrito
+--
+
+CREATE INDEX ix_distrito_id_municipio ON distrito (id_municipio);
+CREATE INDEX ix_distrito_id_microrregiao ON distrito (id_microrregiao);
+CREATE INDEX ix_distrito_id_mesorregiao ON distrito (id_mesorregiao);
+CREATE INDEX ix_distrito_id_uf ON distrito (id_uf);
+CREATE INDEX ix_distrito_nome ON distrito (nome);
+
+--
+-- Structure for table subdistrito
+--
+
+CREATE TABLE subdistrito (
+  id BIGINT NOT NULL,
+  id_distrito INTEGER NOT NULL,
+  id_municipio INTEGER NOT NULL,
+  id_microrregiao INTEGER NOT NULL,
+  id_mesorregiao SMALLINT NOT NULL,
+  id_uf SMALLINT NOT NULL,
+  nome VARCHAR(64) NOT NULL,
+  CONSTRAINT pk_subdistrito PRIMARY KEY (id)
+);
+
+--
+-- Constraints for table subdistrito
+--
+
+ALTER TABLE subdistrito ADD CONSTRAINT fk_subdistrito_id_distrito FOREIGN KEY (id_distrito) REFERENCES distrito (id);
+ALTER TABLE subdistrito ADD CONSTRAINT fk_subdistrito_id_municipio FOREIGN KEY (id_municipio) REFERENCES municipio (id);
+ALTER TABLE subdistrito ADD CONSTRAINT fk_subdistrito_id_microrregiao FOREIGN KEY (id_microrregiao) REFERENCES microrregiao (id);
+ALTER TABLE subdistrito ADD CONSTRAINT fk_subdistrito_id_mesorregiao FOREIGN KEY (id_mesorregiao) REFERENCES mesorregiao (id);
+ALTER TABLE subdistrito ADD CONSTRAINT fk_subdistrito_id_uf FOREIGN KEY (id_uf) REFERENCES uf (id);
+
+--
+-- Indexes for table subdistrito
+--
+
+CREATE INDEX ix_subdistrito_id_distrito ON subdistrito (id_distrito);
+CREATE INDEX ix_subdistrito_id_municipio ON subdistrito (id_municipio);
+CREATE INDEX ix_subdistrito_id_microrregiao ON subdistrito (id_microrregiao);
+CREATE INDEX ix_subdistrito_id_mesorregiao ON subdistrito (id_mesorregiao);
+CREATE INDEX ix_subdistrito_id_uf ON subdistrito (id_uf);
+CREATE INDEX ix_subdistrito_nome ON subdistrito (nome);
