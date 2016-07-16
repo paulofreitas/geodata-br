@@ -24,6 +24,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
+from __future__ import unicode_literals
+
 # -- Metadata -----------------------------------------------------------------
 
 __author__ = 'Paulo Freitas <me@paulofreitas.me>'
@@ -45,8 +47,12 @@ import sys
 import urlparse
 import zipfile
 
+from io import open
+from os.path import dirname, join as joinpath, realpath
+
 # Dependency modules
 
+from builtins import str
 import yaml
 
 # Package modules
@@ -56,11 +62,15 @@ import parsers
 
 from value_objects import Struct
 
+# -- Constants ---------------------------------------------------------------
+
+BASE_LIST = realpath(joinpath(dirname(__file__), '../data/bases.yaml'))
+
 # -- Classes ------------------------------------------------------------------
 
 
 class TerritorialData(object):
-    _tables = (
+    tables = (
         'uf',
         'mesorregiao',
         'microrregiao',
@@ -68,7 +78,7 @@ class TerritorialData(object):
         'distrito',
         'subdistrito'
     )
-    _fields = {
+    fields = {
         'uf': (
             'id',
             'nome'
@@ -118,7 +128,7 @@ class TerritorialData(object):
         self._dict = {}
         self._rawdata = None
 
-        for table_name in self._tables:
+        for table_name in self.tables:
             self._cols.append('id_' + table_name)
             self._cols.append('nome_' + table_name)
             self._dict[table_name] = []
@@ -128,20 +138,16 @@ class TerritorialData(object):
 
 
 class TerritorialBase(object):
+    base_list = dict((str(database['year']), database)
+                     for database in yaml.load(open(BASE_LIST)))
+    bases = tuple(reversed(sorted(base_list.keys())))
+
     def __init__(self, year, logger):
-        if not self.bases.get(year):
+        if year not in self.bases:
             raise Exception('This base is not available to download.')
 
-        self._data = TerritorialData(self.bases.get(year))
+        self._data = TerritorialData(self.base_list.get(year))
         self._logger = logger
-
-    @property
-    def bases(self):
-        return dict(
-            (str(base_data['year']), base_data)
-            for base_data in yaml.load(open(os.path.realpath(
-                os.path.join(os.path.dirname(__file__), '../data/bases.yaml'))))
-        )
 
     @property
     def year(self):
@@ -174,7 +180,7 @@ class TerritorialBase(object):
         url_info = urlparse.urlparse(self.archive)
         ftp = ftplib.FTP(url_info.netloc)
         zip_data = io.BytesIO()
-        sheet_file = io.BytesIO()
+        sheet_data = io.BytesIO()
 
         self._logger.debug('Connecting to FTP server...')
         ftp.connect()
@@ -191,14 +197,16 @@ class TerritorialBase(object):
 
         with zipfile.ZipFile(zip_data, 'r') as zip_file:
             self._logger.info('Reading database...')
-            sheet_file.write(zip_file.open(self.file).read())
+            with zipfile.open(self.file, 'r') as sheet_file:
+                sheet_data.write(sheet_file.read())
 
         try:
             os.makedirs(os.path.dirname(self.sheet_file))
         except OSError:
             pass
 
-        open(self.sheet_file, 'wb').write(sheet_file.getvalue())
+        with open(self.sheet_file, 'wb') as sheet_file:
+            sheet_file.write(sheet_data.getvalue())
 
         return self
 
@@ -206,10 +214,12 @@ class TerritorialBase(object):
         if not os.path.exists(self.sheet_file):
             self.download()
 
-        sheet_file = io.BytesIO()
-        sheet_file.write(open(self.sheet_file, 'rb').read())
+        sheet_data = io.BytesIO()
 
-        self._data.load(sheet_file.getvalue())
+        with open(self.sheet_file, 'rb') as sheet_file:
+            sheet_data.write(sheet_file.read())
+
+        self._data.load(sheet_data.getvalue())
 
         return self
 
@@ -236,14 +246,18 @@ class TerritorialBase(object):
             self._logger.info('Exporting database to {} format...' \
                 .format(exporter.format))
 
-        data = str(exporter(self._data, minified))
+        data = exporter(self._data, minified).data
+        binary_data = exporter.binary_format
         self._logger.debug('Done.')
 
         if filename:
             if filename == 'auto':
                 filename = 'dtb' + exporter.extension
 
-            with open(filename, 'w') as export_file:
+            with open(filename, 'wb' if binary_data else 'w') as export_file:
+                if not binary_data and not type(data) == unicode:
+                    data = unicode(data.decode('utf-8'))
+
                 export_file.write(data)
         else:
             sys.stdout.write(data)
