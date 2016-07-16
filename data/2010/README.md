@@ -2,16 +2,16 @@
 
 ### Database records
 
-| Table          | Records |
+|          Table | Records |
 | --------------:| -------:|
-| `uf`           |      27 |
-| `mesorregiao`  |     137 |
+|           `uf` |      27 |
+|  `mesorregiao` |     137 |
 | `microrregiao` |     558 |
-| `municipio`    |    5565 |
+|    `municipio` |   5,565 |
 
 ### Database files
 
-| File          | Format         | Size      |
+| File          | Format         |      Size |
 | ------------- |:--------------:| ---------:|
 | `dtb.csv`     | CSV            |   481,838 |
 | `dtb.json`    | JSON           |   850,347 |

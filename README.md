@@ -1,4 +1,3 @@
-
 # dtb-ibge
 
 Brazilian territorial distribution data. Updated. Always.
@@ -9,7 +8,7 @@ All these data was compiled from XLS spreadsheets provided by IBGE through its F
 
 ### Database records
 
-| Base     | `uf` | `mesorregiao` | `microrregiao` | `municipio` | `distrito` | `subdistrito` |
+|     Base | `uf` | `mesorregiao` | `microrregiao` | `municipio` | `distrito` | `subdistrito` |
 | --------:| ----:| -------------:| --------------:| -----------:| ----------:| -------------:|
 | **2014** |   27 |           137 |            558 |       5,570 |     10,307 |           662 |
 | **2013** |   27 |           137 |            558 |       5,570 |     10,302 |           662 |
