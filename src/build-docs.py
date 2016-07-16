@@ -77,8 +77,8 @@ class Readme(object):
 class ProjectReadme(Readme):
     def render(self):
         return self._stub.format(
-            database_records=self.renderDatabaseRecords(),
-            database_formats=self.renderDatabaseFormats()
+            database_records=self.renderDatabaseRecords().strip(),
+            database_formats=self.renderDatabaseFormats().strip()
         )
 
     def renderDatabaseRecords(self):
@@ -114,8 +114,8 @@ class DatabaseReadme(Readme):
     def render(self):
         return self._stub.format(
             db_year=self.base,
-            db_records=self.renderDatabaseRecords(),
-            db_files=self.renderDatabaseFiles()
+            db_records=self.renderDatabaseRecords().strip(),
+            db_files=self.renderDatabaseFiles().strip()
         )
 
     def renderDatabaseRecords(self):
