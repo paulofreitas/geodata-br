@@ -24,10 +24,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
+from __future__ import absolute_import
 
 # -- Imports ------------------------------------------------------------------
-
-from __future__ import absolute_import
 
 # Built-in modules
 
@@ -47,19 +46,19 @@ class CsvExporter(BaseExporter):
     extension = '.csv'
 
     def __str__(self):
-        csv_file = io.BytesIO()
+        csv_data = io.BytesIO()
         csv_writer = csv.writer(
-            csv_file,
+            csv_data,
             quoting=(csv.QUOTE_NONNUMERIC, csv.QUOTE_MINIMAL)[self._minified],
             lineterminator='\n'
         )
 
-        csv_writer.writerow([col.encode('utf-8') for col in self._data._cols])
+        csv_writer.writerow(self._data._cols)
 
         for row in self._data._rows:
             csv_writer.writerow([
-                bytes(col) if type(col) == str else col
+                str(col.encode('utf-8')) if type(col) == unicode else col
                 for col in filter(None, row)
             ])
 
-        return csv_file.getvalue()
+        return csv_data.getvalue()
