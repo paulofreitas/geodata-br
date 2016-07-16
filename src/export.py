@@ -53,6 +53,12 @@ from core.helpers import CliParser
 
 
 class TerritorialDataExporter(CliParser):
+    def __init__(self):
+        super(self.__class__, self).__init__(description=__doc__,
+                                             usage=__usage__,
+                                             epilog=__epilog__,
+                                             version=__version__)
+
     def configure(self):
         self.addArgumentGroup('export', 'Export options')
         self.addArgument('export',
