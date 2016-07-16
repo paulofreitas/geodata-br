@@ -24,6 +24,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
+from __future__ import absolute_import
 
 # -- Metadata -----------------------------------------------------------------
 
@@ -33,7 +34,7 @@ __all__ = ['csv', 'json', 'php', 'plist', 'sql', 'sqlite', 'xml', 'yaml']
 
 # Exporters modules
 
-import csv, json, php, plist, sql, sqlite, xml, yaml
+from . import csv, json, php, plist, sql, sqlite, xml, yaml
 
 # -- Constants ----------------------------------------------------------------
 
