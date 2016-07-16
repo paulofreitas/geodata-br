@@ -24,7 +24,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
-
 # -- Imports ------------------------------------------------------------------
 
 # Built-in modules
@@ -35,6 +34,8 @@ import collections
 
 
 class BaseExporter(object):
+    binary_format = False
+
     '''Base exporter class.'''
     def __init__(self, data, minified=False):
         if type(self) == BaseExporter:
@@ -49,7 +50,7 @@ class BaseExporter(object):
     def __toDict__(self, strKeys=False, unicode=False):
         dict_obj = collections.OrderedDict()
 
-        for table_name in self._data._tables:
+        for table_name in self._data.tables:
             if not self._data._dict[table_name]:
                 continue
 
@@ -58,12 +59,16 @@ class BaseExporter(object):
             for item in self._data._dict[table_name]:
                 item_obj = collections.OrderedDict()
 
-                for key in self._data._fields[table_name]:
-                    item_obj[key] = item[key].decode('utf-8') \
-                        if unicode and (type(item[key]) == str) else item[key]
+                for key in self._data.fields[table_name]:
+                    item_obj[key] = unicode(item[key]) \
+                        if unicode and type(item[key]) == str else item[key]
 
                 item_id = str(item_obj['id']) if strKeys else item_obj['id']
                 del item_obj['id']
                 dict_obj[table_name][item_id] = item_obj
 
         return dict_obj
+
+    @property
+    def data(self):
+        return self.__str__()
