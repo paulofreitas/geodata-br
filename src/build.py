@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''Brazilian territorial distribution data builder
+'''Brazilian territorial distribution data exporter
 
 The MIT License (MIT)
 
@@ -30,7 +30,7 @@ __author__ = 'Paulo Freitas <me@paulofreitas.me>'
 __copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
 __license__ = 'MIT'
 __version__ = '1.0-dev'
-__usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
+__usage__ = '%(prog)s -b BASE -r FORMAT -m FORMAT'
 __epilog__ =\
     'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
 
@@ -42,7 +42,8 @@ MINIFIABLE_FORMATS = ['csv', 'json', 'plist', 'sql', 'xml', 'yaml']
 
 # Built-in modules
 
-import os
+from os import chdir, makedirs
+from os.path import dirname, join as path, realpath
 
 # Package modules
 
@@ -52,6 +53,12 @@ from core.helpers import CliParser
 # -- Implementation -----------------------------------------------------------
 
 class TerritorialDataBuilder(CliParser):
+    def __init__(self):
+        super(self.__class__, self).__init__(description=__doc__,
+                                             usage=__usage__,
+                                             epilog=__epilog__,
+                                             version=__version__)
+
     def configure(self):
         self.addArgumentGroup('build', 'Build options')
         self.addArgument('build',
@@ -82,28 +89,28 @@ class TerritorialDataBuilder(CliParser):
     def parse(self):
         args = super(self.__class__, self).parse()
 
-        base_dir = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
+        base_dir = realpath(path(dirname(__file__), '..'))
 
         try:
             for base in map(str, args.bases):
-                raw_dir = os.path.join(base_dir, 'data', base)
-                minified_dir = os.path.join(base_dir, 'data', 'minified', base)
+                raw_dir = path(base_dir, 'data', base)
+                minified_dir = path(base_dir, 'data', 'minified', base)
 
                 self._logger.info('> Building {} base...'.format(base))
 
                 try:
-                    os.makedirs(raw_dir)
-                    os.makedirs(minified_dir)
+                    makedirs(raw_dir)
+                    makedirs(minified_dir)
                 except:
                     pass
 
-                os.chdir(raw_dir)
+                chdir(raw_dir)
                 base_data = TerritorialBase(base, self._logger).retrieve().parse()
 
                 for raw_format in args.raw:
                     base_data.export(raw_format, False, 'auto')
 
-                os.chdir(minified_dir)
+                chdir(minified_dir)
 
                 for minifiable_format in args.min:
                     base_data.export(minifiable_format, True, 'auto')
