@@ -24,10 +24,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
+from __future__ import absolute_import, unicode_literals
 
 # -- Imports ------------------------------------------------------------------
-
-from __future__ import absolute_import
 
 # Dependency modules
 
@@ -48,7 +47,7 @@ class XmlExporter(BaseExporter):
     def __str__(self):
         database = lxml.etree.Element('database', name=self._data._name)
 
-        for table_name in self._data._tables:
+        for table_name in self._data.tables:
             if not self._data._dict[table_name]:
                 continue
 
@@ -62,9 +61,9 @@ class XmlExporter(BaseExporter):
             for item in self._data._dict[table_name]:
                 row = lxml.etree.SubElement(table, 'row')
 
-                for field_name in self._data._fields[table_name]:
+                for field_name in self._data.fields[table_name]:
                     lxml.etree.SubElement(row, 'field', name=field_name).text =\
-                        str(item[field_name]).decode('utf-8')
+                        unicode(item[field_name])
 
         return lxml.etree.tostring(database,
                                    pretty_print=not self._minified,
