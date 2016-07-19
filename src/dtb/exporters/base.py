@@ -24,6 +24,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
+from __future__ import absolute_import
+
 # -- Imports ------------------------------------------------------------------
 
 # Built-in modules
@@ -48,26 +50,26 @@ class BaseExporter(object):
         raise NotImplementedError
 
     def __toDict__(self, strKeys=False, unicode=False):
-        dict_obj = collections.OrderedDict()
+        _dict = collections.OrderedDict()
 
-        for table_name in self._data.tables:
-            if not self._data._dict[table_name]:
+        for entity in self._data.entities:
+            if not self._data._dict[entity.table]:
                 continue
 
-            dict_obj[table_name] = collections.OrderedDict()
+            _dict[entity.table] = collections.OrderedDict()
 
-            for item in self._data._dict[table_name]:
-                item_obj = collections.OrderedDict()
+            for row in self._data._dict[entity.table]:
+                row_data = collections.OrderedDict()
 
-                for key in self._data.fields[table_name]:
-                    item_obj[key] = unicode(item[key]) \
-                        if unicode and type(item[key]) == str else item[key]
+                for column in entity.columns:
+                    row_data[column] = unicode(row[column]) \
+                        if unicode and type(row[column]) == str else row[column]
 
-                item_id = str(item_obj['id']) if strKeys else item_obj['id']
-                del item_obj['id']
-                dict_obj[table_name][item_id] = item_obj
+                row_id = str(row_data['id']) if strKeys else row_data['id']
+                del row_data['id']
+                _dict[entity.table][row_id] = row_data
 
-        return dict_obj
+        return _dict
 
     @property
     def data(self):
