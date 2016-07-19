@@ -43,11 +43,9 @@ import sys
 
 # Package modules
 
-import exporters
-import parsers
-
-from core.entities import TerritorialBase, TerritorialData
-from core.helpers import CliParser
+from dtb.core.entities import TerritorialBase, TerritorialData
+from dtb.core.helpers import CliParser
+from dtb.exporters import FORMATS
 
 # -- Implementation -----------------------------------------------------------
 
@@ -67,7 +65,7 @@ class TerritorialDataExporter(CliParser):
         self.addArgument('export',
                          '-f', '--format',
                          metavar='FORMAT',
-                         choices=exporters.FORMATS.keys(),
+                         choices=FORMATS.keys(),
                          help='Format to export the database.\nOptions: %(choices)s')
         self.addArgument('export',
                          '-m', '--minify',
@@ -93,7 +91,8 @@ class TerritorialDataExporter(CliParser):
 
         try:
             base = TerritorialBase(args.base, self._logger)
-            base.retrieve().export(args.format, args.minified, args.filename)
+            base.retrieve().parse() \
+                .export(args.format, args.minified, args.filename)
         except KeyboardInterrupt as e:
             self._logger.info('> Exporting was canceled.')
         except Exception as e:
