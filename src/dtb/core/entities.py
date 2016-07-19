@@ -42,13 +42,13 @@ __epilog__ =\
 
 import ftplib
 import io
-import os
 import sys
 import urlparse
 import zipfile
 
 from io import open
-from os.path import dirname, join as joinpath, realpath
+from os import makedirs
+from os.path import dirname, exists, join as path
 
 # Dependency modules
 
@@ -57,14 +57,13 @@ import yaml
 
 # Package modules
 
-import exporters
-import parsers
-
-from value_objects import Struct
+from .. import exporters, parsers
+from ..core.helpers import PKG_DIR, SRC_DIR
+from .value_objects import Struct
 
 # -- Constants ---------------------------------------------------------------
 
-BASE_LIST = realpath(joinpath(dirname(__file__), '../data/bases.yaml'))
+BASE_LIST = path(PKG_DIR, 'data/bases.yaml')
 
 # -- Classes ------------------------------------------------------------------
 
@@ -171,10 +170,7 @@ class TerritorialBase(object):
 
     @property
     def sheet_file(self):
-        return os.path.join(
-            os.path.realpath(os.path.join(os.path.dirname(__file__), '../.cache')),
-            self.year
-        )
+        return path(SRC_DIR, '.cache', self.year)
 
     def download(self):
         url_info = urlparse.urlparse(self.archive)
@@ -187,7 +183,7 @@ class TerritorialBase(object):
 
         self._logger.debug('Logging into the FTP server...')
         ftp.login()
-        ftp.cwd(os.path.dirname(url_info.path))
+        ftp.cwd(dirname(url_info.path))
 
         self._logger.info('Retrieving database...')
         ftp.retrbinary(
@@ -201,7 +197,7 @@ class TerritorialBase(object):
                 sheet_data.write(sheet_file.read())
 
         try:
-            os.makedirs(os.path.dirname(self.sheet_file))
+            makedirs(dirname(self.sheet_file))
         except OSError:
             pass
 
@@ -211,7 +207,7 @@ class TerritorialBase(object):
         return self
 
     def retrieve(self):
-        if not os.path.exists(self.sheet_file):
+        if not exists(self.sheet_file):
             self.download()
 
         sheet_data = io.BytesIO()
@@ -236,7 +232,6 @@ class TerritorialBase(object):
     def export(self, format, minified=False, filename=None):
         if format not in exporters.FORMATS:
             raise Exception('Unsupported output format.')
-
         exporter = exporters.FORMATS.get(format)
 
         if minified:
@@ -248,6 +243,10 @@ class TerritorialBase(object):
 
         data = exporter(self._data, minified).data
         binary_data = exporter.binary_format
+
+        if not binary_data and not type(data) == unicode:
+            data = unicode(data.decode('utf-8'))
+
         self._logger.debug('Done.')
 
         if filename:
@@ -255,9 +254,6 @@ class TerritorialBase(object):
                 filename = 'dtb' + exporter.extension
 
             with open(filename, 'wb' if binary_data else 'w') as export_file:
-                if not binary_data and not type(data) == unicode:
-                    data = unicode(data.decode('utf-8'))
-
                 export_file.write(data)
         else:
             sys.stdout.write(data)
