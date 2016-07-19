@@ -34,8 +34,15 @@ import sys
 
 from collections import defaultdict
 from os import listdir
-from os.path import basename, getsize as filesize, join as path, realpath, \
-                    splitext
+from os.path import abspath, basename, dirname, getsize as filesize, \
+                    join as path, realpath, splitext
+
+# -- Constants ----------------------------------------------------------------
+
+PKG_DIR = abspath(path(dirname(__file__), '..'))
+SRC_DIR = abspath(path(PKG_DIR, '..'))
+BASE_DIR = abspath(path(SRC_DIR, '..'))
+DATA_DIR = path(BASE_DIR, 'data')
 
 # -- Implementation -----------------------------------------------------------
 
