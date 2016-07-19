@@ -52,8 +52,8 @@ from os.path import dirname, exists, join as path
 
 # Dependency modules
 
-from builtins import str
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.sql.schema import Column, ForeignKey, Index, MetaData
 from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 import yaml
@@ -86,6 +86,13 @@ class AbstractBase(Base):
 
     metadata = MetaData(naming_convention=convention)
 
+    @hybrid_property
+    def table(self):
+        return str(self.__table__.name)
+
+    @hybrid_property
+    def columns(self):
+        return (str(column.name) for column in self.__table__.columns)
 
 class Uf(AbstractBase):
     __tablename__ = 'uf'
@@ -189,59 +196,8 @@ class Subdistrito(AbstractBase):
     nome = Column(String(64), nullable=False, index=True)
 
 
-BaseEntities = (Uf, Mesorregiao, Microrregiao, Municipio, Distrito, Subdistrito)
-
-
 class TerritorialData(object):
-    tables = (
-        'uf',
-        'mesorregiao',
-        'microrregiao',
-        'municipio',
-        'distrito',
-        'subdistrito'
-    )
-    fields = {
-        'uf': (
-            'id',
-            'nome'
-        ),
-        'mesorregiao': (
-            'id',
-            'id_uf',
-            'nome'
-        ),
-        'microrregiao': (
-            'id',
-            'id_mesorregiao',
-            'id_uf',
-            'nome'
-        ),
-        'municipio': (
-            'id',
-            'id_microrregiao',
-            'id_mesorregiao',
-            'id_uf',
-            'nome'
-        ),
-        'distrito': (
-            'id',
-            'id_municipio',
-            'id_microrregiao',
-            'id_mesorregiao',
-            'id_uf',
-            'nome'
-        ),
-        'subdistrito': (
-            'id',
-            'id_distrito',
-            'id_municipio',
-            'id_microrregiao',
-            'id_mesorregiao',
-            'id_uf',
-            'nome'
-        )
-    }
+    entities = (Uf, Mesorregiao, Microrregiao, Municipio, Distrito, Subdistrito)
 
     def __init__(self, base):
         self._base = Struct(base)
@@ -251,10 +207,10 @@ class TerritorialData(object):
         self._dict = {}
         self._rawdata = None
 
-        for table_name in self.tables:
-            self._cols.append('id_' + table_name)
-            self._cols.append('nome_' + table_name)
-            self._dict[table_name] = []
+        for entity in self.entities:
+            self._cols.append('id_' + entity.table)
+            self._cols.append('nome_' + entity.table)
+            self._dict[entity.table] = []
 
     def load(self, rawdata):
         self._rawdata = rawdata
