@@ -30,7 +30,7 @@ from __future__ import absolute_import, unicode_literals
 
 # Dependency modules
 
-import lxml.etree
+from lxml.etree import Comment, Element, SubElement, tostring as xml_str
 
 # Package modules
 
@@ -45,27 +45,25 @@ class XmlExporter(BaseExporter):
     extension = '.xml'
 
     def __str__(self):
-        database = lxml.etree.Element('database', name=self._data._name)
+        database = Element('database', name=self._data._name)
 
-        for table_name in self._data.tables:
-            if not self._data._dict[table_name]:
+        for entity in self._data.entities:
+            if not self._data._dict[entity.table]:
                 continue
 
             if not self._minified:
-                database.append(
-                    lxml.etree.Comment(' Table {} '.format(table_name))
-                )
+                database.append(Comment(' Table {} '.format(entity.table)))
 
-            table = lxml.etree.SubElement(database, 'table', name=table_name)
+            table = SubElement(database, 'table', name=entity.table)
 
-            for item in self._data._dict[table_name]:
-                row = lxml.etree.SubElement(table, 'row')
+            for item in self._data._dict[entity.table]:
+                row = SubElement(table, 'row')
 
-                for field_name in self._data.fields[table_name]:
-                    lxml.etree.SubElement(row, 'field', name=field_name).text =\
-                        unicode(item[field_name])
+                for column in entity.columns:
+                    SubElement(row, 'field', name=column) \
+                        .text = unicode(item[column])
 
-        return lxml.etree.tostring(database,
-                                   pretty_print=not self._minified,
-                                   xml_declaration=True,
-                                   encoding='utf-8')
+        return xml_str(database,
+                       pretty_print=not self._minified,
+                       xml_declaration=True,
+                       encoding='utf-8')
