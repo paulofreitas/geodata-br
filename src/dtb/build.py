@@ -44,12 +44,12 @@ MINIFIABLE_FORMATS = ['csv', 'json', 'plist', 'sql', 'xml', 'yaml']
 # Built-in modules
 
 from os import chdir, makedirs
-from os.path import dirname, join as path, realpath
+from os.path import join as path
 
 # Package modules
 
-from core.entities import TerritorialBase
-from core.helpers import CliParser
+from dtb.core.entities import TerritorialBase
+from dtb.core.helpers import CliParser, DATA_DIR
 
 # -- Implementation -----------------------------------------------------------
 
@@ -90,12 +90,10 @@ class TerritorialDataBuilder(CliParser):
     def parse(self):
         args = super(self.__class__, self).parse()
 
-        base_dir = realpath(path(dirname(__file__), '..'))
-
         try:
             for base in map(str, args.bases):
-                raw_dir = path(base_dir, 'data', base)
-                minified_dir = path(base_dir, 'data', 'minified', base)
+                raw_dir = path(DATA_DIR, base)
+                minified_dir = path(DATA_DIR, 'minified', base)
 
                 self._logger.info('> Building {} base...'.format(base))
 
