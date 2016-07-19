@@ -37,10 +37,11 @@ from builtins import str
 from sqlalchemy.dialects import firebird, mssql, mysql, oracle, postgresql, sqlite, sybase
 from sqlalchemy.engine import default
 from sqlalchemy.ext.compiler import compiles
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import crud
 from sqlalchemy.sql.ddl import AddConstraint, CreateColumn, CreateIndex, CreateTable
 from sqlalchemy.sql.dml import Insert
-from sqlalchemy.sql.schema import Column, Constraint, ForeignKey, ForeignKeyConstraint, Index, MetaData, PrimaryKeyConstraint, Table
+from sqlalchemy.sql.schema import Column, ForeignKey, ForeignKeyConstraint, Index, MetaData, PrimaryKeyConstraint, Table
 from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 
 # Package modules
@@ -50,7 +51,12 @@ from .base import BaseExporter
 # -- Implementation -----------------------------------------------------------
 
 
-class SchemaGenerator(object):
+Base = declarative_base()
+
+
+class AbstractBase(Base):
+    __abstract__ = True
+
     convention = {
       'pk': 'pk_%(table_name)s',
       'fk': 'fk_%(table_name)s_%(column_0_name)s',
@@ -58,10 +64,118 @@ class SchemaGenerator(object):
       'uq': 'uq_%(table_name)s_%(column_0_name)s',
     }
 
+    metadata = MetaData(naming_convention=convention)
+
+
+class Uf(AbstractBase):
+    __tablename__ = 'uf'
+
+    id = Column(SmallInteger, nullable=False, primary_key=True)
+    nome = Column(String(32), nullable=False, index=True)
+
+
+class Mesorregiao(AbstractBase):
+    __tablename__ = 'mesorregiao'
+
+    id = Column(SmallInteger, nullable=False, primary_key=True)
+    id_uf = Column(SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True)
+    nome = Column(String(64), nullable=False, index=True)
+
+
+class Microrregiao(AbstractBase):
+    __tablename__ = 'microrregiao'
+
+    id = Column(Integer, nullable=False, primary_key=True)
+    id_mesorregiao = Column(SmallInteger,
+                            ForeignKey('mesorregiao.id', use_alter=True),
+                            nullable=False,
+                            index=True)
+    id_uf = Column(SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True)
+    nome = Column(String(64), nullable=False, index=True)
+
+
+class Municipio(AbstractBase):
+    __tablename__ = 'municipio'
+
+    id = Column(Integer, nullable=False, primary_key=True)
+    id_microrregiao = Column(Integer,
+                             ForeignKey('microrregiao.id', use_alter=True),
+                             nullable=False,
+                             index=True)
+    id_mesorregiao = Column(SmallInteger,
+                            ForeignKey('mesorregiao.id', use_alter=True),
+                            nullable=False,
+                            index=True)
+    id_uf = Column(SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True)
+    nome = Column(String(64), nullable=False, index=True)
+
+
+class Distrito(AbstractBase):
+    __tablename__ = 'distrito'
+
+    id = Column(Integer, nullable=False, primary_key=True)
+    id_municipio = Column(Integer,
+                          ForeignKey('municipio.id', use_alter=True),
+                          nullable=False,
+                          index=True)
+    id_microrregiao = Column(Integer,
+                             ForeignKey('microrregiao.id', use_alter=True),
+                             nullable=False,
+                             index=True)
+    id_mesorregiao = Column(SmallInteger,
+                            ForeignKey('mesorregiao.id', use_alter=True),
+                            nullable=False,
+                            index=True)
+    id_uf = Column(SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True)
+    nome = Column(String(64), nullable=False, index=True)
+
+
+class Subdistrito(AbstractBase):
+    __tablename__ = 'subdistrito'
+
+    id = Column(BigInteger, nullable=False, primary_key=True)
+    id_distrito = Column(Integer,
+                         ForeignKey('distrito.id', use_alter=True),
+                         nullable=False,
+                         index=True)
+    id_municipio = Column(Integer,
+                          ForeignKey('municipio.id', use_alter=True),
+                          nullable=False,
+                          index=True)
+    id_microrregiao = Column(Integer,
+                             ForeignKey('microrregiao.id', use_alter=True),
+                             nullable=False,
+                             index=True)
+    id_mesorregiao = Column(SmallInteger,
+                            ForeignKey('mesorregiao.id', use_alter=True),
+                            nullable=False,
+                            index=True)
+    id_uf = Column(SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True)
+    nome = Column(String(64), nullable=False, index=True)
+
+
+BaseEntities = (Uf, Mesorregiao, Microrregiao, Municipio, Distrito, Subdistrito)
+
+
+class SchemaGenerator(object):
     minified = False
 
     def __init__(self, dialect='default', minified=False):
-        self.metadata = MetaData(naming_convention=self.convention)
         self.tables = []
         self.dialect = dialect
         self._dialect = self.getDialect(dialect)
@@ -139,8 +253,8 @@ class SchemaGenerator(object):
                 pass
 
         constraints_ddl = compiler.create_table_constraints(
-            table
-            #_include_foreign_key_constraints=True #create.include_foreign_key_constraints
+            table,
+            _include_foreign_key_constraints=create.include_foreign_key_constraints
         )
 
         if constraints_ddl:
@@ -320,40 +434,23 @@ class SchemaGenerator(object):
 
     # Custom DDL renderers
 
-    def createTable(self, table_name, properties):
-        table = Table(table_name, self.metadata)
+    def createTable(self, entity):
+        table = entity.__table__
         table._data = []
-        table._constraints = []
-        table._indexes = []
+        table._sorted_indexes = []
 
-        # Workarounds to render table properties in the order they were declared
-        for table_property in properties:
-            if isinstance(table_property, Column):
-                column = table_property
+        # Workaround to render table indexes in the order they were declared
+        table.indexes = set()
 
-                table.append_column(column)
-
-                if column.index:
-                    table._indexes.append(Index(None,
-                                                column,
-                                                unique=bool(column.unique)))
-
-                for foreign_key in column.foreign_keys:
-                    table._constraints.append(foreign_key.constraint)
-            elif isinstance(table_property, Index):
-                index = table_property
-
-                table.append_constraint(index)
-                table._indexes.append(index)
-            elif isinstance(table_property, Constraint):
-                constraint = table_property
-
-                table.append_constraint(constraint)
-
-                if isinstance(constraint, ForeignKeyConstraint):
-                    table._constraints.append(constraint)
+        for column in table.columns:
+            if column.index:
+                table._sorted_indexes.append(Index(None,
+                                                   column,
+                                                   unique=bool(column.unique)))
 
         self.tables.append(table)
+
+        return table
 
     def render(self, createIndexes=True):
         separator = '' if self.minified else '\n\n'
@@ -365,28 +462,20 @@ class SchemaGenerator(object):
 
     def renderCreateTable(self, table, createIndexes=True):
         ddl = []
-        include_foreign_keys = None
         separator = '' if self.minified else '\n'
 
         if not self.minified:
             ddl.append('--\n-- Structure for table {}\n--\n'.format(table.name))
 
-        if not self._dialect.supports_alter:
-            include_foreign_keys = True
-
-        ddl.append(str(
-            CreateTable(table,
-                        include_foreign_key_constraints=include_foreign_keys) \
-                .compile(dialect=self._dialect)
-        ))
+        ddl.append(str(CreateTable(table).compile(dialect=self._dialect)))
 
         if len(table._data):
             ddl.append(separator + self.renderInserts(table))
 
-        if len(table._constraints) and self._dialect.supports_alter:
+        if len(table.foreign_keys) and self._dialect.supports_alter:
             ddl.append(separator + self.renderTableConstraints(table))
 
-        if createIndexes and len(table._indexes):
+        if createIndexes and len(table.indexes):
             ddl.append(separator + self.renderTableIndexes(table))
 
         return separator.join(ddl)
@@ -396,8 +485,7 @@ class SchemaGenerator(object):
         separator = '' if self.minified else '\n'
 
         if not self.minified:
-            ddl.append('--\n-- Dumping data for table {}\n--\n' \
-                .format(table.name))
+            ddl.append('--\n-- Data for table {}\n--\n'.format(table.name))
 
         for row in table._data:
             insert_ddl = str(table.insert().values(row).compile(
@@ -425,10 +513,11 @@ class SchemaGenerator(object):
             ddl.append('--\n-- Constraints for table {}\n--\n' \
                 .format(table.name))
 
-        for constraint in table._constraints:
-            ddl.append(str(
-                AddConstraint(constraint).compile(dialect=self._dialect)
-            ))
+        for constraint in table._sorted_constraints:
+            if isinstance(constraint, ForeignKeyConstraint):
+                ddl.append(str(
+                    AddConstraint(constraint).compile(dialect=self._dialect)
+                ))
 
         return separator.join(ddl)
 
@@ -439,7 +528,7 @@ class SchemaGenerator(object):
         if not self.minified:
             ddl.append('--\n-- Indexes for table {}\n--\n'.format(table.name))
 
-        for index in table._indexes:
+        for index in table._sorted_indexes:
             ddl.append(str(CreateIndex(index).compile(dialect=self._dialect)))
 
         return separator.join(ddl)
@@ -456,151 +545,14 @@ class SqlExporter(BaseExporter):
     def __init__(self, base, minified, dialect='default'):
         super(self.__class__, self).__init__(base, minified)
 
-        self.dialect = dialect
+        self.schema = SchemaGenerator(dialect, self._minified)
 
-        self._buildSchema()
+        for entity in BaseEntities:
+            data = self._data._dict[entity.__tablename__]
 
-    def _buildSchema(self):
-        self.schema = SchemaGenerator(self.dialect, self._minified)
-        self.schema.createTable('uf', [
-            Column('id',
-                   SmallInteger,
-                   nullable=False,
-                   primary_key=True),
-            Column('nome',
-                   String(32),
-                   nullable=False,
-                   index=True),
-        ]),
-        self.schema.createTable('mesorregiao', [
-            Column('id',
-                   SmallInteger,
-                   nullable=False,
-                   primary_key=True),
-            Column('id_uf',
-                   SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('nome',
-                   String(64),
-                   nullable=False,
-                   index=True),
-        ]),
-        self.schema.createTable('microrregiao', [
-            Column('id',
-                   Integer,
-                   nullable=False,
-                   primary_key=True),
-            Column('id_mesorregiao',
-                   SmallInteger,
-                   ForeignKey('mesorregiao.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('id_uf',
-                   SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('nome',
-                   String(64),
-                   nullable=False,
-                   index=True),
-        ]),
-        self.schema.createTable('municipio', [
-            Column('id',
-                   Integer,
-                   nullable=False,
-                   primary_key=True),
-            Column('id_microrregiao',
-                   Integer,
-                   ForeignKey('microrregiao.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('id_mesorregiao',
-                   SmallInteger,
-                   ForeignKey('mesorregiao.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('id_uf',
-                   SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('nome',
-                   String(64),
-                   nullable=False,
-                   index=True),
-        ]),
-        self.schema.createTable('distrito', [
-            Column('id',
-                   Integer,
-                   nullable=False,
-                   primary_key=True),
-            Column('id_municipio',
-                   Integer,
-                   ForeignKey('municipio.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('id_microrregiao',
-                   Integer,
-                   ForeignKey('microrregiao.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('id_mesorregiao',
-                   SmallInteger,
-                   ForeignKey('mesorregiao.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('id_uf',
-                   SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('nome',
-                   String(64),
-                   nullable=False,
-                   index=True),
-        ]),
-        self.schema.createTable('subdistrito', [
-            Column('id',
-                   BigInteger,
-                   nullable=False,
-                   primary_key=True),
-            Column('id_distrito',
-                   Integer,
-                   ForeignKey('distrito.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('id_municipio',
-                   Integer,
-                   ForeignKey('municipio.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('id_microrregiao',
-                   Integer,
-                   ForeignKey('microrregiao.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('id_mesorregiao',
-                   SmallInteger,
-                   ForeignKey('mesorregiao.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('id_uf',
-                   SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True),
-            Column('nome',
-                   String(64),
-                   nullable=False,
-                   index=True),
-        ])
-
-        # Insert data into tables
-        for table in self.schema.tables:
-            table._data = self._data._dict[table.name]
+            if data:
+                table = self.schema.createTable(entity)
+                table._data = data
 
     def __str__(self):
         return self.schema.render()
