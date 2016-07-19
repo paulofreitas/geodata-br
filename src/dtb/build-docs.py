@@ -44,16 +44,17 @@ from os.path import basename, getsize as filesize, join as path, realpath
 
 # Package modules
 
-from core.entities import TerritorialBase, TerritorialData
-from core.helpers import CliParser, Directory, File, Markdown, Number, String
-from core.value_objects import Struct
+from dtb.core.entities import TerritorialBase, TerritorialData
+from dtb.core.helpers import CliParser, Directory, File, Markdown, Number, \
+                             String, BASE_DIR, DATA_DIR, PKG_DIR
+from dtb.core.value_objects import Struct
 
 # -- Classes ------------------------------------------------------------------
 
 
 class Readme(object):
     data = Struct((base,
-                   json.load(open(realpath(path('../data', base, 'dtb.json')))))
+                   json.load(open(path(DATA_DIR, base, 'dtb.json'))))
                   for base in TerritorialBase.bases)
 
     def __init__(self, readme_file, stub_file=None):
@@ -159,19 +160,21 @@ class TerritorialDataDocBuilder(CliParser):
     def parse(self):
         args = super(self.__class__, self).parse()
 
-        ProjectReadme('../README.md', 'docs/README.stub.md').write()
+        ProjectReadme(path(BASE_DIR, 'README.md'),
+                      path(PKG_DIR, 'docs/README.stub.md')) \
+            .write()
 
         for base in TerritorialBase.bases:
             # Create raw database READMEs
-            DatabaseReadme(path('../data', base, 'README.md'),
-                           'docs/BASE_README.stub.md',
-                           path('../data', base)) \
+            DatabaseReadme(path(DATA_DIR, base, 'README.md'),
+                           path(PKG_DIR, 'docs/BASE_README.stub.md'),
+                           path(DATA_DIR, base)) \
                 .write()
 
             # Create minified database READMEs
-            DatabaseReadme(path('../data/minified', base, 'README.md'),
-                           'docs/BASE_README.stub.md',
-                           path('../data/minified', base)) \
+            DatabaseReadme(path(DATA_DIR, 'minified', base, 'README.md'),
+                           path(PKG_DIR, 'docs/BASE_README.stub.md'),
+                           path(DATA_DIR, 'minified', base)) \
                 .write()
 
 if __name__ == '__main__':
