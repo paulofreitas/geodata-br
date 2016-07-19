@@ -37,139 +37,16 @@ from builtins import str
 from sqlalchemy.dialects import firebird, mssql, mysql, oracle, postgresql, sqlite, sybase
 from sqlalchemy.engine import default
 from sqlalchemy.ext.compiler import compiles
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import crud
 from sqlalchemy.sql.ddl import AddConstraint, CreateColumn, CreateIndex, CreateTable
 from sqlalchemy.sql.dml import Insert
-from sqlalchemy.sql.schema import Column, ForeignKey, ForeignKeyConstraint, Index, MetaData, PrimaryKeyConstraint, Table
-from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
+from sqlalchemy.sql.schema import ForeignKeyConstraint, Index, PrimaryKeyConstraint, Table
 
 # Package modules
 
 from .base import BaseExporter
 
 # -- Implementation -----------------------------------------------------------
-
-
-Base = declarative_base()
-
-
-class AbstractBase(Base):
-    __abstract__ = True
-
-    convention = {
-      'pk': 'pk_%(table_name)s',
-      'fk': 'fk_%(table_name)s_%(column_0_name)s',
-      'ix': 'ix_%(column_0_label)s',
-      'uq': 'uq_%(table_name)s_%(column_0_name)s',
-    }
-
-    metadata = MetaData(naming_convention=convention)
-
-
-class Uf(AbstractBase):
-    __tablename__ = 'uf'
-
-    id = Column(SmallInteger, nullable=False, primary_key=True)
-    nome = Column(String(32), nullable=False, index=True)
-
-
-class Mesorregiao(AbstractBase):
-    __tablename__ = 'mesorregiao'
-
-    id = Column(SmallInteger, nullable=False, primary_key=True)
-    id_uf = Column(SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True)
-    nome = Column(String(64), nullable=False, index=True)
-
-
-class Microrregiao(AbstractBase):
-    __tablename__ = 'microrregiao'
-
-    id = Column(Integer, nullable=False, primary_key=True)
-    id_mesorregiao = Column(SmallInteger,
-                            ForeignKey('mesorregiao.id', use_alter=True),
-                            nullable=False,
-                            index=True)
-    id_uf = Column(SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True)
-    nome = Column(String(64), nullable=False, index=True)
-
-
-class Municipio(AbstractBase):
-    __tablename__ = 'municipio'
-
-    id = Column(Integer, nullable=False, primary_key=True)
-    id_microrregiao = Column(Integer,
-                             ForeignKey('microrregiao.id', use_alter=True),
-                             nullable=False,
-                             index=True)
-    id_mesorregiao = Column(SmallInteger,
-                            ForeignKey('mesorregiao.id', use_alter=True),
-                            nullable=False,
-                            index=True)
-    id_uf = Column(SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True)
-    nome = Column(String(64), nullable=False, index=True)
-
-
-class Distrito(AbstractBase):
-    __tablename__ = 'distrito'
-
-    id = Column(Integer, nullable=False, primary_key=True)
-    id_municipio = Column(Integer,
-                          ForeignKey('municipio.id', use_alter=True),
-                          nullable=False,
-                          index=True)
-    id_microrregiao = Column(Integer,
-                             ForeignKey('microrregiao.id', use_alter=True),
-                             nullable=False,
-                             index=True)
-    id_mesorregiao = Column(SmallInteger,
-                            ForeignKey('mesorregiao.id', use_alter=True),
-                            nullable=False,
-                            index=True)
-    id_uf = Column(SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True)
-    nome = Column(String(64), nullable=False, index=True)
-
-
-class Subdistrito(AbstractBase):
-    __tablename__ = 'subdistrito'
-
-    id = Column(BigInteger, nullable=False, primary_key=True)
-    id_distrito = Column(Integer,
-                         ForeignKey('distrito.id', use_alter=True),
-                         nullable=False,
-                         index=True)
-    id_municipio = Column(Integer,
-                          ForeignKey('municipio.id', use_alter=True),
-                          nullable=False,
-                          index=True)
-    id_microrregiao = Column(Integer,
-                             ForeignKey('microrregiao.id', use_alter=True),
-                             nullable=False,
-                             index=True)
-    id_mesorregiao = Column(SmallInteger,
-                            ForeignKey('mesorregiao.id', use_alter=True),
-                            nullable=False,
-                            index=True)
-    id_uf = Column(SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True)
-    nome = Column(String(64), nullable=False, index=True)
-
-
-BaseEntities = (Uf, Mesorregiao, Microrregiao, Municipio, Distrito, Subdistrito)
 
 
 class SchemaGenerator(object):
@@ -543,6 +420,7 @@ class SqlExporter(BaseExporter):
     extension = '.sql'
 
     def __init__(self, base, minified, dialect='default'):
+        from ..core.entities import BaseEntities
         super(self.__class__, self).__init__(base, minified)
 
         self.schema = SchemaGenerator(dialect, self._minified)
