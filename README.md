@@ -24,7 +24,7 @@ All these data was compiled from nonstandardized XLS spreadsheets provided by IB
 
 ### Database formats
 
-Currently we provide databases into the following formats: CSV, JSON, p-list, Serialized PHP, SQL, SQLite 3, XML and YAML
+Currently we provide databases into the following formats: CSV, Firebird, JSON, p-list, Serialized PHP, SQL, SQLite 3, XML and YAML
 
 ### Get involved!
 

@@ -16,6 +16,7 @@
 | File          | Format         |      Size |
 | ------------- |:--------------:| ---------:|
 | `dtb.csv`     | CSV            | 1,251,050 |
+| `dtb.fdb`     | Firebird       | 3,194,880 |
 | `dtb.json`    | JSON           | 2,786,600 |
 | `dtb.phpd`    | Serialized PHP | 2,482,204 |
 | `dtb.plist`   | p-list         | 4,971,013 |

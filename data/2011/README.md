@@ -14,10 +14,11 @@
 | File          | Format         |      Size |
 | ------------- |:--------------:| ---------:|
 | `dtb.csv`     | CSV            |   481,848 |
+| `dtb.fdb`     | Firebird       | 1,478,656 |
 | `dtb.json`    | JSON           |   850,352 |
 | `dtb.phpd`    | Serialized PHP |   749,161 |
 | `dtb.plist`   | p-list         | 1,525,757 |
-| `dtb.sql`     | SQL            |   459,372 |
-| `dtb.sqlite3` | SQLite 3       |   568,320 |
+| `dtb.sql`     | SQL            |   456,810 |
+| `dtb.sqlite3` | SQLite 3       |   550,912 |
 | `dtb.xml`     | XML            | 1,470,183 |
 | `dtb.yaml`    | YAML           |   615,909 |
