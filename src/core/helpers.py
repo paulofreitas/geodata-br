@@ -68,6 +68,7 @@ class Directory(object):
 class File(object):
     formats = {
         '.csv': 'CSV',
+        '.fdb': 'Firebird',
         '.json': 'JSON',
         '.phpd': 'Serialized PHP',
         '.plist': 'p-list',

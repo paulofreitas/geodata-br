@@ -35,7 +35,8 @@ __epilog__ =\
     'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
 
 BASES = [2003, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014]
-RAW_FORMATS = ['csv', 'json', 'php', 'plist', 'sql', 'sqlite3', 'xml', 'yaml']
+RAW_FORMATS = ['csv', 'firebird', 'json', 'php', 'plist', 'sql', 'sqlite3',
+               'xml', 'yaml']
 MINIFIABLE_FORMATS = ['csv', 'json', 'plist', 'sql', 'xml', 'yaml']
 
 # -- Imports ------------------------------------------------------------------

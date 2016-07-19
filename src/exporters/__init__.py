@@ -28,19 +28,21 @@ from __future__ import absolute_import
 
 # -- Metadata -----------------------------------------------------------------
 
-__all__ = ['csv', 'json', 'php', 'plist', 'sql', 'sqlite', 'xml', 'yaml']
+__all__ = ['csv', 'firebird', 'json', 'php', 'plist', 'sql', 'sqlite', 'xml',
+           'yaml']
 
 # -- Imports ------------------------------------------------------------------
 
 # Exporters modules
 
-from . import csv, json, php, plist, sql, sqlite, xml, yaml
+from . import csv, firebird, json, php, plist, sql, sqlite, xml, yaml
 
 # -- Constants ----------------------------------------------------------------
 
 
 FORMATS = {
     'csv': csv.CsvExporter,
+    'firebird': firebird.FirebirdExporter,
     'json': json.JsonExporter,
     'php': php.SerializedPhpExporter,
     'plist': plist.PlistExporter,
