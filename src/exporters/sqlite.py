@@ -53,7 +53,8 @@ class Sqlite3Exporter(BaseExporter):
         with tempfile.NamedTemporaryFile() as _sqlite_file:
             with sqlite3.connect(_sqlite_file.name) as sqlite_con:
                 sqlite_cursor = sqlite_con.cursor()
-                sqlite_cursor.execute('PRAGMA page_size = 1024;')
+                sqlite_cursor.execute('PRAGMA page_size = 1024')
+                sqlite_cursor.execute('PRAGMA foreign_keys = ON')
                 sqlite_cursor.executescript('BEGIN; {} COMMIT'.format(sql_str))
 
             with open(_sqlite_file.name, 'rb') as sqlite_file:
