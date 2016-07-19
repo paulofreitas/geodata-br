@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''Brazilian territorial distribution data
+'''Brazilian territorial distribution data exporter
 
 The MIT License (MIT)
 
@@ -53,6 +53,9 @@ from os.path import dirname, exists, join as path
 # Dependency modules
 
 from builtins import str
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.sql.schema import Column, ForeignKey, Index, MetaData
+from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 import yaml
 
 # Package modules
@@ -66,6 +69,127 @@ from .value_objects import Struct
 BASE_LIST = path(PKG_DIR, 'data/bases.yaml')
 
 # -- Classes ------------------------------------------------------------------
+
+
+Base = declarative_base()
+
+
+class AbstractBase(Base):
+    __abstract__ = True
+
+    convention = {
+      'pk': 'pk_%(table_name)s',
+      'fk': 'fk_%(table_name)s_%(column_0_name)s',
+      'ix': 'ix_%(column_0_label)s',
+      'uq': 'uq_%(table_name)s_%(column_0_name)s',
+    }
+
+    metadata = MetaData(naming_convention=convention)
+
+
+class Uf(AbstractBase):
+    __tablename__ = 'uf'
+
+    id = Column(SmallInteger, nullable=False, primary_key=True)
+    nome = Column(String(32), nullable=False, index=True)
+
+
+class Mesorregiao(AbstractBase):
+    __tablename__ = 'mesorregiao'
+
+    id = Column(SmallInteger, nullable=False, primary_key=True)
+    id_uf = Column(SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True)
+    nome = Column(String(64), nullable=False, index=True)
+
+
+class Microrregiao(AbstractBase):
+    __tablename__ = 'microrregiao'
+
+    id = Column(Integer, nullable=False, primary_key=True)
+    id_mesorregiao = Column(SmallInteger,
+                            ForeignKey('mesorregiao.id', use_alter=True),
+                            nullable=False,
+                            index=True)
+    id_uf = Column(SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True)
+    nome = Column(String(64), nullable=False, index=True)
+
+
+class Municipio(AbstractBase):
+    __tablename__ = 'municipio'
+
+    id = Column(Integer, nullable=False, primary_key=True)
+    id_microrregiao = Column(Integer,
+                             ForeignKey('microrregiao.id', use_alter=True),
+                             nullable=False,
+                             index=True)
+    id_mesorregiao = Column(SmallInteger,
+                            ForeignKey('mesorregiao.id', use_alter=True),
+                            nullable=False,
+                            index=True)
+    id_uf = Column(SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True)
+    nome = Column(String(64), nullable=False, index=True)
+
+
+class Distrito(AbstractBase):
+    __tablename__ = 'distrito'
+
+    id = Column(Integer, nullable=False, primary_key=True)
+    id_municipio = Column(Integer,
+                          ForeignKey('municipio.id', use_alter=True),
+                          nullable=False,
+                          index=True)
+    id_microrregiao = Column(Integer,
+                             ForeignKey('microrregiao.id', use_alter=True),
+                             nullable=False,
+                             index=True)
+    id_mesorregiao = Column(SmallInteger,
+                            ForeignKey('mesorregiao.id', use_alter=True),
+                            nullable=False,
+                            index=True)
+    id_uf = Column(SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True)
+    nome = Column(String(64), nullable=False, index=True)
+
+
+class Subdistrito(AbstractBase):
+    __tablename__ = 'subdistrito'
+
+    id = Column(BigInteger, nullable=False, primary_key=True)
+    id_distrito = Column(Integer,
+                         ForeignKey('distrito.id', use_alter=True),
+                         nullable=False,
+                         index=True)
+    id_municipio = Column(Integer,
+                          ForeignKey('municipio.id', use_alter=True),
+                          nullable=False,
+                          index=True)
+    id_microrregiao = Column(Integer,
+                             ForeignKey('microrregiao.id', use_alter=True),
+                             nullable=False,
+                             index=True)
+    id_mesorregiao = Column(SmallInteger,
+                            ForeignKey('mesorregiao.id', use_alter=True),
+                            nullable=False,
+                            index=True)
+    id_uf = Column(SmallInteger,
+                   ForeignKey('uf.id', use_alter=True),
+                   nullable=False,
+                   index=True)
+    nome = Column(String(64), nullable=False, index=True)
+
+
+BaseEntities = (Uf, Mesorregiao, Microrregiao, Municipio, Distrito, Subdistrito)
 
 
 class TerritorialData(object):
