@@ -24,6 +24,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
+from __future__ import absolute_import
+
 # -- Imports ------------------------------------------------------------------
 
 # Built-in imports
@@ -39,11 +41,8 @@ import xlrd
 
 # Package modules
 
-lib_path = abspath('..')
-sys.path.append(lib_path)
-
-from base import BaseParser
-from core.value_objects import Struct
+from .base import BaseParser
+from ..core.value_objects import Struct
 
 # -- Implementation -----------------------------------------------------------
 
