@@ -26,28 +26,32 @@ THE SOFTWARE.
 '''
 from __future__ import absolute_import, unicode_literals
 
-# -- Imports ------------------------------------------------------------------
+# Imports
 
-# Built-in modules
+# Built-in dependencies
 
 import sqlite3
 import tempfile
 
-# Package modules
+# Package dependencies
 
 from .base import BaseExporter
 from .sql import SqlExporter
 
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class Sqlite3Exporter(BaseExporter):
     '''SQLite3 exporter class.'''
-    format = 'SQLite3'
+
+    # Exporter settings
+    format = 'SQLite 3'
     extension = '.sqlite3'
     binary_format = True
 
-    def __str__(self):
+    @property
+    def data(self):
+        '''Binary SQLite 3 representation of data.'''
         sql_str = SqlExporter(self._data, self._minified, dialect='sqlite').data
 
         with tempfile.NamedTemporaryFile() as _sqlite_file:
