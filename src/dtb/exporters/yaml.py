@@ -24,24 +24,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
+from __future__ import absolute_import, unicode_literals
 
-# -- Imports ------------------------------------------------------------------
+# Imports
 
-from __future__ import absolute_import
-
-# Built-in modules
+# Built-in dependencies
 
 import collections
 
-# Dependency modules
+# External dependencies
 
 import yaml
 
-# Package modules
+# Package dependencies
 
 from .base import BaseExporter
 
-# -- Enhancements -------------------------------------------------------------
+# Enhancements
 
 
 def __represent_odict(dump, tag, mapping, flow_style=None):
@@ -84,25 +83,33 @@ def __represent_odict(dump, tag, mapping, flow_style=None):
 yaml.SafeDumper.add_representer(
     collections.OrderedDict,
     lambda dumper, value:
-        __represent_odict(dumper, u'tag:yaml.org,2002:map', value)
+        __represent_odict(dumper, 'tag:yaml.org,2002:map', value)
 )
 
 
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class YamlExporter(BaseExporter):
     '''YAML exporter class.'''
+
+    # Exporter settings
     format = 'YAML'
     extension = '.yaml'
+    minifiable_format = True
 
-    def __str__(self):
-        yaml_obj = self.__toDict__()
-        yaml_opts = {'default_flow_style': False}
+    @property
+    def data(self):
+        '''Formatted YAML representation of data.'''
+        data = self._data.toDict()
+        yaml_opts = dict(default_flow_style=False)
 
         if self._minified:
-            yaml_opts = {'default_flow_style': True, 'width': 2e6, 'indent': 0}
+            yaml_opts.update(default_flow_style=True, width=2e6, indent=0)
 
-        yaml_str = yaml.safe_dump(yaml_obj, **yaml_opts)
+        yaml_str = yaml.safe_dump(data, **yaml_opts)
 
-        return yaml_str.replace('}, ', '},') if self._minified else yaml_str
+        if self._minified:
+            yaml_str = yaml_str.replace('}, ', '},')
+
+        return yaml_str
