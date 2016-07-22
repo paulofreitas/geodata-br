@@ -26,26 +26,31 @@ THE SOFTWARE.
 '''
 from __future__ import absolute_import
 
-# -- Imports ------------------------------------------------------------------
+# Imports
 
-# Built-in modules
+# Built-in dependencies
 
 import csv
 import io
 
-# Package modules
+# Package dependencies
 
 from .base import BaseExporter
 
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class CsvExporter(BaseExporter):
     '''CSV exporter class.'''
+
+    # Exporter settings
     format = 'CSV'
     extension = '.csv'
+    minifiable_format = True
 
-    def __str__(self):
+    @property
+    def data(self):
+        '''Formatted CSV representation of data.'''
         csv_data = io.BytesIO()
         csv_writer = csv.writer(
             csv_data,
@@ -57,8 +62,9 @@ class CsvExporter(BaseExporter):
 
         for row in self._data._rows:
             csv_writer.writerow([
-                str(col.encode('utf-8')) if type(col) == unicode else col
-                for col in filter(None, row)
+                str(col.encode('utf-8')) if isinstance(col, unicode) else col
+                for col in row
+                if col is not None
             ])
 
         return csv_data.getvalue()
