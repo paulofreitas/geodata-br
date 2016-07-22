@@ -26,42 +26,46 @@ THE SOFTWARE.
 '''
 from __future__ import absolute_import, unicode_literals
 
-# -- Imports ------------------------------------------------------------------
+# Imports
 
-# Dependency modules
+# External dependencies
 
+from future.utils import iteritems, itervalues
 from lxml.etree import Comment, Element, SubElement, tostring as xml_str
 
-# Package modules
+# Package dependencies
 
 from .base import BaseExporter
 
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class XmlExporter(BaseExporter):
     '''XML exporter class.'''
+
+    # Exporter settings
     format = 'XML'
     extension = '.xml'
+    minifiable_format = True
 
-    def __str__(self):
+    @property
+    def data(self):
+        '''Formatted XML representation of data.'''
+        data = self._data.toDict(includeKey=True)
         database = Element('database', name=self._data._name)
 
-        for entity in self._data.entities:
-            if not self._data._dict[entity.table]:
-                continue
-
+        for table_name, rows in iteritems(data):
             if not self._minified:
-                database.append(Comment(' Table {} '.format(entity.table)))
+                database.append(Comment(' Table {} '.format(table_name)))
 
-            table = SubElement(database, 'table', name=entity.table)
+            table = SubElement(database, 'table', name=table_name)
 
-            for item in self._data._dict[entity.table]:
+            for row_data in itervalues(rows):
                 row = SubElement(table, 'row')
 
-                for column in entity.columns:
-                    SubElement(row, 'field', name=column) \
-                        .text = unicode(item[column])
+                for column_name, column_value in iteritems(row_data):
+                    SubElement(row, 'field', name=column_name).text =\
+                        unicode(column_value)
 
         return xml_str(database,
                        pretty_print=not self._minified,
