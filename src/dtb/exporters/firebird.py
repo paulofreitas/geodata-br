@@ -26,37 +26,44 @@ THE SOFTWARE.
 '''
 from __future__ import absolute_import
 
-# -- Imports ------------------------------------------------------------------
+# Imports
 
-# Builti-in modules
+# Built-in dependencies
 
 import tempfile
 
-# Dependency modules
+# External dependencies
 
 import fdb
 
-# Package modules
+# Package dependencies
 
 from .base import BaseExporter
 from .sql import SqlExporter
 
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class FirebirdExporter(BaseExporter):
     '''Firebird exporter class.'''
+
+    # Exporter settings
     format = 'Firebird'
     extension = '.fdb'
     binary_format = True
 
-    def __str__(self):
-        sql_str = SqlExporter(self._data, self._minified, dialect='firebird').data
+    @property
+    def data(self):
+        sql_str = SqlExporter(self._data,
+                              self._minified,
+                              dialect='firebird').data
 
         _fdb_file = tempfile.mktemp()
-        db = fdb.create_database("CREATE DATABASE '{}' USER '{}' PASSWORD '{}'" \
-                                     .format(_fdb_file, 'sysdba', 'masterkey'),
-                                 sql_dialect=3)
+        db = fdb.create_database(
+            "CREATE DATABASE '{}' USER '{}' PASSWORD '{}'" \
+                .format(_fdb_file, 'sysdba', 'masterkey'),
+            sql_dialect=3
+        )
         cursor = db.cursor()
         in_trans = False
 
