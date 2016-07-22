@@ -26,51 +26,42 @@ THE SOFTWARE.
 '''
 from __future__ import absolute_import
 
-# -- Imports ------------------------------------------------------------------
+# Imports
 
-# Built-in modules
+# Built-in dependencies
 
-import collections
+from abc import ABCMeta as AbstractClass
 
-# -- Implementation -----------------------------------------------------------
+# External compatibility dependencies
+
+from future.utils import with_metaclass
+
+# Classes
 
 
-class BaseExporter(object):
+class BaseExporter(object, with_metaclass(AbstractClass)):
+    '''Base abstract exporter class.'''
+
+    # Whether the exporter format is binary or not
     binary_format = False
 
-    '''Base exporter class.'''
-    def __init__(self, data, minified=False):
-        if type(self) == BaseExporter:
-            raise Exception('<BaseExporter> must be subclassed.')
+    # Whether the exporter format is minifiable or not
+    minifiable_format = False
 
+    def __init__(self, data, minified=False):
+        '''Constructor.
+
+        :param data: territorial data to export
+        :param minified: whether to minify data when formatting or not
+        '''
         self._data = data
         self._minified = minified
 
-    def __str__(self):
-        raise NotImplementedError
-
-    def __toDict__(self, strKeys=False, unicode=False):
-        _dict = collections.OrderedDict()
-
-        for entity in self._data.entities:
-            if not self._data._dict[entity.table]:
-                continue
-
-            _dict[entity.table] = collections.OrderedDict()
-
-            for row in self._data._dict[entity.table]:
-                row_data = collections.OrderedDict()
-
-                for column in entity.columns:
-                    row_data[column] = unicode(row[column]) \
-                        if unicode and type(row[column]) == str else row[column]
-
-                row_id = str(row_data['id']) if strKeys else row_data['id']
-                del row_data['id']
-                _dict[entity.table][row_id] = row_data
-
-        return _dict
-
     @property
     def data(self):
-        return self.__str__()
+        '''Formatted data representation.'''
+        raise NotImplementedError
+
+    def __str__(self):
+        '''String representation of this object.'''
+        return self.data
