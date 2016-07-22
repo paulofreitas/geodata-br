@@ -26,30 +26,36 @@ THE SOFTWARE.
 '''
 from __future__ import absolute_import
 
-# -- Imports ------------------------------------------------------------------
+# Imports
 
-# Built-in modules
+# Built-in dependencies
 
 import json
 
-# Package modules
+# Package dependencies
 
 from .base import BaseExporter
 
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class JsonExporter(BaseExporter):
     '''JSON exporter class.'''
+
+    # Exporter settings
     format = 'JSON'
     extension = '.json'
+    minifiable_format = True
 
-    def __str__(self):
-        json_obj = self.__toDict__()
+    @property
+    def data(self):
+        '''Formatted JSON representation of data.'''
+        data = self._data.toDict()
+        json_opts = dict(indent=2)
 
         if self._minified:
-            json_data = json.dumps(json_obj, separators=(',', ':'))
-        else:
-            json_data = json.dumps(json_obj, indent=2)
+            json_opts = dict(separators=(',', ':'))
 
-        return json_data
+        json_str = json.dumps(data, **json_opts)
+
+        return json_str
