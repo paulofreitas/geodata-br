@@ -26,20 +26,24 @@ THE SOFTWARE.
 '''
 from __future__ import absolute_import, unicode_literals
 
-# -- Imports ------------------------------------------------------------------
+# Imports
 
-# Built-in modules
+# Built-in dependencies
 
-import plistlib
 import re
 
 from sys import version_info
 
-# Package modules
+if version_info >= (3, 0):
+    from plistlib import _PlistWriter as PlistWriter, dumps as PlistDumper
+else:
+    from plistlib import PlistWriter, writePlistToString as PlistDumper
+
+# Package dependencies
 
 from .base import BaseExporter
 
-# -- Enhancements -------------------------------------------------------------
+# Enhancements
 
 
 def __unsortable_write_dict(self, d):
@@ -55,23 +59,27 @@ def __unsortable_write_dict(self, d):
 
     self.endElement('dict')
 
-plistwriter = plistlib._PlistWriter if version_info >= (3, 0) \
-                  else plistlib.PlistWriter
-plistwriter.writeDict = __unsortable_write_dict
+PlistWriter.writeDict = __unsortable_write_dict
 
 
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class PlistExporter(BaseExporter):
-    '''plist exporter class.'''
-    format = 'plist'
+    '''Property List exporter class.'''
+
+    # Exporter settings
+    format = 'Property List'
     extension = '.plist'
+    minifiable_format = True
 
-    def __str__(self):
-        plist_str = unicode(plistlib.writePlistToString(
-            self.__toDict__(strKeys=True, unicode=True)
-        ).decode('utf-8'))
+    @property
+    def data(self):
+        '''Formatted Property List representation of data.'''
+        data = self._data.toDict(strKeys=True, forceUnicode=True)
+        plist_str = unicode(PlistDumper(data).decode('utf-8'))
 
-        return re.sub('[\n\t]+', '', plist_str) if self._minified \
-            else plist_str
+        if self._minified:
+            plist_str = re.sub('[\n\t]+', '', plist_str)
+
+        return plist_str
