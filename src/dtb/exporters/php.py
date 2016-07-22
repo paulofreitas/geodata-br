@@ -26,25 +26,29 @@ THE SOFTWARE.
 '''
 from __future__ import absolute_import
 
-# -- Imports ------------------------------------------------------------------
+# Imports
 
-# Dependency modules
+# External dependencies
 
 import phpserialize
 
-# Package modules
+# Package dependencies
 
 from .base import BaseExporter
 
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class SerializedPhpExporter(BaseExporter):
-    '''Serialized PHP exporter class.'''
-    format = 'Serialized PHP'
+    '''PHP Serialized Data exporter class.'''
+
+    # Exporter settings
+    format = 'PHP Serialized Data'
     extension = '.phpd'
 
-    def __str__(self):
-        serialize_obj = self.__toDict__()
+    @property
+    def data(self):
+        '''Formatted PHP Serialized Data representation of data.'''
+        data = self._data.toDict()
 
-        return phpserialize.dumps(serialize_obj)
+        return phpserialize.dumps(data)
