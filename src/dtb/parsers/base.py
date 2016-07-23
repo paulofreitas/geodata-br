@@ -24,12 +24,29 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
+from __future__ import absolute_import
+
+# Imports
+
+# Built-in dependencies
+
+from abc import ABCMeta as AbstractClass
+
+# External compatibility dependencies
+
+from future.utils import with_metaclass
 
 # Classes
 
 
-class BaseParser(object):
-    '''Base parser class.'''
+class Parser(object, with_metaclass(AbstractClass)):
+    '''Abstract base parser class.'''
+
+    # Default settings
+    format = None
+    formatName = None
+    formatExtension = None
+
     def __init__(self, base, logger):
         '''Constructor.
 
@@ -46,3 +63,24 @@ class BaseParser(object):
             self._data._cols.append('id_' + entity.table)
             self._data._cols.append('nome_' + entity.table)
             self._data._dict[entity.table] = []
+
+
+class ParserFactory(object):
+    '''Parser factory class.'''
+
+    @classmethod
+    def fromFormat(cls, _format):
+        '''Factories a parser class for a given format.
+
+        :param _format: the file format to retrieve a parser'''
+        parsers = {parser.format: parser for parser in Parser.__subclasses__()}
+
+        try:
+            return parsers[_format]
+        except KeyError:
+            raise ParserError('No parser found for format {}'.format(_format))
+
+
+class ParserError(Exception):
+    '''Generic exception class for parsing errors.'''
+    pass
