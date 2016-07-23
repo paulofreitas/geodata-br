@@ -123,7 +123,7 @@ class XlsParser(BaseParser):
         elif base in [2010, 2011, 2012]:
             row.id_uf, row.nome_uf, \
             row.id_mesorregiao, row.nome_mesorregiao, \
-            row.id_microrregiao, row.nome_microrregia, \
+            row.id_microrregiao, row.nome_microrregiao, \
             row.id_municipio, row.nome_municipio = row_data
         # 15 cols
         elif base == 2014:
