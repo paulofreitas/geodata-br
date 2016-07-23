@@ -36,7 +36,7 @@ from future.utils import iteritems
 # External dependencies
 
 from sqlalchemy import dialects
-from sqlalchemy.engine import default
+from sqlalchemy.engine.default import DefaultDialect
 from sqlalchemy.exc import CompileError
 from sqlalchemy.ext.compiler import compiles
 from sqlalchemy.sql import crud
@@ -74,11 +74,11 @@ class SchemaGenerator(object):
     def getDialect(dialect):
         '''Get the given SQL dialect instance by name.'''
         if dialect == 'default':
-            return default.DefaultDialect()
+            return DefaultDialect()
 
         if dialect in ['firebird', 'mssql', 'mysql', 'oracle', 'postgresql',
                        'sqlite', 'sybase']:
-            return dialects.registry.load(dialect)
+            return dialects.registry.load(dialect)()
 
         raise Exception('Unsupported dialect: {}'.format(dialect))
 
