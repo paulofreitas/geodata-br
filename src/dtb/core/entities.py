@@ -204,6 +204,116 @@ class Subdistrito(AbstractBase):
     nome = Column(String(64), nullable=False, index=True)
 
 
+class TerritorialDatabaseRow(Struct):
+    '''Entity for territorial database row'''
+
+    def __init__(self):
+        '''Constructor.'''
+        super(self.__class__, self).__init__()
+
+        self.id_uf = None
+        self.id_mesorregiao = None
+        self.id_microrregiao = None
+        self.id_municipio = None
+        self.id_distrito = None
+        self.id_subdistrito = None
+        self.nome_uf = None
+        self.nome_mesorregiao = None
+        self.nome_microrregiao = None
+        self.nome_municipio = None
+        self.nome_distrito = None
+        self.nome_subdistrito = None
+
+    def normalize(self):
+        '''Normalize row data as needed.'''
+        # Data length fixes
+
+        if self.id_mesorregiao and len(self.id_mesorregiao) == 2:
+            self.id_mesorregiao = self.id_uf + self.id_mesorregiao
+
+        if self.id_microrregiao and len(self.id_microrregiao) == 3:
+            self.id_microrregiao = self.id_uf + self.id_microrregiao
+
+        if self.id_municipio and len(self.id_municipio) == 5:
+            self.id_municipio = self.id_uf + self.id_municipio
+
+        if self.id_distrito and len(self.id_distrito) == 2:
+            self.id_distrito = self.id_municipio + self.id_distrito
+
+        if self.id_subdistrito and len(self.id_subdistrito) == 2:
+            self.id_subdistrito = self.id_distrito + self.id_subdistrito
+
+        # Misc fixes
+
+        for key in self:
+            # Convert empty values to None
+            if not self[key]:
+                self[key] = None
+
+            # Cast numeric values to integer
+            elif self[key].isdigit():
+                self[key] = int(self[key])
+
+    @property
+    def value(self):
+        return [self.id_uf, self.nome_uf,
+                self.id_mesorregiao, self.nome_mesorregiao,
+                self.id_microrregiao, self.nome_mesorregiao,
+                self.id_distrito, self.nome_distrito,
+                self.id_subdistrito, self.nome_subdistrito]
+
+    @property
+    def uf(self):
+        '''Returns a new struct object with Uf properties.'''
+        return Struct(id=self.id_uf,
+                      nome=self.nome_uf)
+
+    @property
+    def mesorregiao(self):
+        '''Returns a new struct object with Mesorregiao properties.'''
+        return Struct(id=self.id_mesorregiao,
+                      id_uf=self.id_uf,
+                      nome=self.nome_mesorregiao)
+
+    @property
+    def microrregiao(self):
+        '''Returns a new struct object with Microrregiao properties.'''
+        return Struct(id=self.id_microrregiao,
+                      id_mesorregiao=self.id_mesorregiao,
+                      id_uf=self.id_uf,
+                      nome=self.nome_microrregiao)
+
+    @property
+    def municipio(self):
+        '''Returns a new struct object with Municipio properties.'''
+        return Struct(id=self.id_municipio,
+                      id_microrregiao=self.id_microrregiao,
+                      id_mesorregiao=self.id_mesorregiao,
+                      id_uf=self.id_uf,
+                      nome=self.nome_municipio)
+
+    @property
+    def distrito(self):
+        '''Returns a new struct object with Distrito properties.'''
+        return Struct(id=self.id_distrito,
+                      id_municipio=self.id_municipio,
+                      id_microrregiao=self.id_microrregiao,
+                      id_mesorregiao=self.id_mesorregiao,
+                      id_uf=self.id_uf,
+                      nome=self.nome_distrito)
+
+    @property
+    def subdistrito(self):
+        '''Returns a new struct object with Subdistrito properties.'''
+        return Struct(id=self.id_subdistrito,
+                      id_distrito=self.id_distrito,
+                      id_municipio=self.id_municipio,
+                      id_microrregiao=self.id_microrregiao,
+                      id_mesorregiao=self.id_mesorregiao,
+                      id_uf=self.id_uf,
+                      nome=self.nome_subdistrito)
+
+
 class TerritorialData(object):
     '''Entity for territorial data.'''
     entities = (Uf, Mesorregiao, Microrregiao, Municipio, Distrito, Subdistrito)
