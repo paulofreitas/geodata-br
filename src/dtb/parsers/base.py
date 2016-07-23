@@ -25,11 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
 
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class BaseParser(object):
     '''Base parser class.'''
-    def __init__(self, data, logger):
+    def __init__(self, base, logger):
+        '''Constructor.
+
+        :param base: a territorial base instance to parse
+        :param logger: a logger instance to log
+        '''
         self._logger = logger
-        self._data = data
+        self._base = base
+        self._data = base._data
+
+    def initialize(self):
+        '''Initialize the internal data columns and dictionary.'''
+        for entity in self._data.entities:
+            self._data._cols.append('id_' + entity.table)
+            self._data._cols.append('nome_' + entity.table)
+            self._data._dict[entity.table] = []
