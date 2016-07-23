@@ -38,6 +38,7 @@ import zipfile
 
 from collections import OrderedDict
 from io import open
+from operator import add
 from os import makedirs
 from os.path import basename, dirname, exists, join as path
 
@@ -133,7 +134,7 @@ class Microrregiao(AbstractBase):
 
 
 class Municipio(AbstractBase):
-    '''Entity for cities.'''
+    '''Entity for municipalities.'''
     __tablename__ = 'municipio'
 
     id = Column(Integer, nullable=False, primary_key=True)
@@ -251,16 +252,23 @@ class TerritorialDatabaseRow(Struct):
                 self[key] = None
 
             # Cast numeric values to integer
-            elif self[key].isdigit():
+            elif key.startswith('id'):
                 self[key] = int(self[key])
 
     @property
     def value(self):
-        return [self.id_uf, self.nome_uf,
-                self.id_mesorregiao, self.nome_mesorregiao,
-                self.id_microrregiao, self.nome_mesorregiao,
-                self.id_distrito, self.nome_distrito,
-                self.id_subdistrito, self.nome_subdistrito]
+        entities = ((self.id_uf, self.nome_uf),
+                    (self.id_mesorregiao, self.nome_mesorregiao),
+                    (self.id_microrregiao, self.nome_microrregiao),
+                    (self.id_municipio, self.nome_municipio),
+                    (self.id_distrito, self.nome_distrito),
+                    (self.id_subdistrito, self.nome_subdistrito))
+        cols = []
+        cols.extend([entity_id, entity_name]
+                    for entity_id, entity_name in entities
+                    if entity_name)
+
+        return reduce(add, cols) if cols else []
 
     @property
     def uf(self):
