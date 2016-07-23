@@ -53,8 +53,9 @@ from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 
 # Package dependencies
 
-from .. import exporters, parsers
+from .. import exporters
 from ..core.helpers import PKG_DIR, SRC_DIR
+from ..parsers.base import ParserFactory
 from .value_objects import Struct
 
 # Constants
@@ -465,7 +466,7 @@ class TerritorialBase(object):
 
     def parse(self):
         '''Parses the given territorial database.'''
-        parser = parsers.FORMATS.get(self.format)
+        parser = ParserFactory.fromFormat(self.format)
 
         try:
             self._data = parser(self, self._logger).parse()
