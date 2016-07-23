@@ -24,7 +24,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
-# -- Metadata -----------------------------------------------------------------
+# Imports
+
+# Built-in dependencies
+
+import json
+
+from os.path import basename, join as path, realpath
+
+# Package dependencies
+
+from dtb.core.entities import TerritorialBase, TerritorialData
+from dtb.core.helpers import CliParser, Directory, File, Markdown, Number, \
+                             String, BASE_DIR, DATA_DIR, PKG_DIR
+from dtb.core.value_objects import Struct
+
+# Metadata
 
 __author__ = 'Paulo Freitas <me@paulofreitas.me>'
 __copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
@@ -34,22 +49,7 @@ __usage__ = '%(prog)s'
 __epilog__ =\
     'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
 
-# -- Imports ------------------------------------------------------------------
-
-# Built-in modules
-
-import json
-
-from os.path import basename, getsize as filesize, join as path, realpath
-
-# Package modules
-
-from dtb.core.entities import TerritorialBase, TerritorialData
-from dtb.core.helpers import CliParser, Directory, File, Markdown, Number, \
-                             String, BASE_DIR, DATA_DIR, PKG_DIR
-from dtb.core.value_objects import Struct
-
-# -- Classes ------------------------------------------------------------------
+# Classes
 
 
 class Readme(object):
@@ -70,6 +70,9 @@ class Readme(object):
             with open(self._stub_file) as stub:
                 self._stub = stub.read()
 
+    def render(self):
+        raise NotImplementedError
+
     def write(self):
         with open(self._readme_file, 'w') as readme:
             readme.write(self.render())
@@ -84,14 +87,14 @@ class ProjectReadme(Readme):
 
     def renderDatabaseRecords(self):
         headers = ['Base'] + [
-            Markdown.code(table) for table in TerritorialData.tables
+            Markdown.code(entity.table) for entity in TerritorialData.entities
         ]
         alignment = ['>'] * 7
         data = [
             [Markdown.bold(base)] + [
-                '{:,d}'.format(len(self.data[base][table])) \
-                    if table in self.data[base] else '-'
-                for table in TerritorialData.tables
+                '{:,d}'.format(len(self.data[base][entity.table])) \
+                    if entity.table in self.data[base] else '-'
+                for entity in TerritorialData.entities
             ]
             for base in TerritorialBase.bases
         ]
@@ -123,10 +126,10 @@ class DatabaseReadme(Readme):
         headers = ['Table', 'Records']
         alignment = ['>', '>']
         data = [
-            [Markdown.code(table),
-             '{:,d}'.format(len(self.data[self.base][table]))]
-             for table in TerritorialData.tables
-             if table in self.data[self.base]
+            [Markdown.code(entity.table),
+             '{:,d}'.format(len(self.data[self.base][entity.table]))]
+             for entity in TerritorialData.entities
+             if entity.table in self.data[self.base]
         ]
 
         return Markdown.table([headers] + data, alignment)
@@ -135,12 +138,12 @@ class DatabaseReadme(Readme):
         headers = ['File', 'Format', 'Size', 'Savings']
         alignment = ['<', '^', '>', '>']
         data = [
-            [Markdown.code(file.basename),
-             file.format,
-             '{:9,d}'.format(file.size),
-             '{:>6.1f}%'.format(Number.percentDifference(file.size,
-                 File(file.filename.replace('minified/', '')).size))]
-            for file in Directory(self.base_dir).files(startswith='dtb')
+            [Markdown.code(base_file.basename),
+             base_file.format,
+             '{:9,d}'.format(base_file.size),
+             '{:>6.1f}%'.format(Number.percentDifference(base_file.size,
+                 File(base_file.filename.replace('minified/', '')).size))]
+            for base_file in Directory(self.base_dir).files(startswith='dtb')
         ]
 
         if 'minified' in self.base_dir:
@@ -151,6 +154,7 @@ class DatabaseReadme(Readme):
 
 
 class TerritorialDataDocBuilder(CliParser):
+    '''Documentation builder command.'''
     def __init__(self):
         super(self.__class__, self).__init__(description=__doc__,
                                              usage=__usage__,
@@ -158,6 +162,7 @@ class TerritorialDataDocBuilder(CliParser):
                                              version=__version__)
 
     def parse(self):
+        '''Parses the given command line arguments.'''
         args = super(self.__class__, self).parse()
 
         ProjectReadme(path(BASE_DIR, 'README.md'),
