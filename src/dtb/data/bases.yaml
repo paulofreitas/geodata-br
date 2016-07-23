@@ -2,7 +2,7 @@
   archive: "ftp://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/divisao_territorial/2014/dtb_2014_v2.zip"
   file: DTB_2014_v2/DTB_2014_subdistrito.xls
   format: xls
-  sheet: DTB_2014_subdistrito
+  sheet: Plan1
 - year: 2013
   archive: "ftp://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/divisao_territorial/2013/dtb_2013.zip"
   file: dtb_2013.xls
