@@ -76,7 +76,6 @@ class TerritorialDataExporter(CliParser):
                          '-o', '--out',
                          dest='filename',
                          nargs='?',
-                         const='auto',
                          help='Specify a file to write the export to.\n'
                              + 'If none are specified, %(prog)s writes data to standard output.')
 
