@@ -43,17 +43,18 @@ import xlrd
 
 # Package dependencies
 
-from .base import BaseParser
+from .base import Parser
 
 # Classes
 
 
-class XlsParser(BaseParser):
+class XlsParser(Parser):
     '''XLS parser class.'''
 
     # Parser settings
-    format = 'XLS'
-    format_extension = '.xls'
+    format = 'xls'
+    formatName = 'XLS'
+    formatExtension = '.xls'
 
     def __init__(self, base, logger):
         '''Constructor.
