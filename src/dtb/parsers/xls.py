@@ -26,173 +26,114 @@ THE SOFTWARE.
 '''
 from __future__ import absolute_import
 
-# -- Imports ------------------------------------------------------------------
+# Imports
 
-# Built-in imports
-
-import sys
+# Built-in dependencies
 
 from os import devnull
-from os.path import abspath
 
-# Dependency modules
+# External compatibility dependencies
+
+from builtins import range
+from future.utils import iteritems, itervalues
+
+# External dependencies
 
 import xlrd
 
-# Package modules
+# Package dependencies
 
 from .base import BaseParser
-from ..core.value_objects import Struct
 
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class XlsParser(BaseParser):
     '''XLS parser class.'''
-    format = 'xls'
+
+    # Parser settings
+    format = 'XLS'
+    format_extension = '.xls'
 
     def __init__(self, base, logger):
+        '''Constructor.
+
+        :param base: a territorial base instance to parse
+        :param logger: a logger instance to log
+        '''
         super(XlsParser, self).__init__(base, logger)
 
-        self._book = xlrd.open_workbook(file_contents=self._data._rawdata,
+        self._book = xlrd.open_workbook(file_contents=self._base.rawdata,
                                         encoding_override='utf-8',
-                                        logfile=open(devnull, 'w'))
-        self._sheet = self._book.sheet_by_name(self._data._base.sheet)
+                                        logfile=open(devnull, 'w'),
+                                        on_demand=True)
+        self._sheet = self._book.sheet_by_name(self._base.sheet)
 
     def parse(self):
+        '''Parses the XLS database.'''
         self._logger.debug('Parsing database...')
 
-        for row_id in xrange(self._sheet.nrows):
-            row_data = map(unicode, self._sheet.row_values(row_id))
+        # Build data records
+        self.initialize()
 
+        # Build data columns
+        self._data._cols = self._data._cols[:self._sheet.ncols]
+
+        for row_id in range(self._sheet.nrows):
+            # Skip headers
             if row_id == 0:
-                self._data._cols = self._data._cols[:len(row_data)]
                 continue
 
-            id_uf, nome_uf, id_mesorregiao, nome_mesorregiao, \
-                id_microrregiao, nome_microrregiao, id_municipio, nome_municipio, \
-                id_distrito, nome_distrito, id_subdistrito, nome_subdistrito =\
-                row_data + [None] * (12 - len(row_data))
+            row = self.parseRow([unicode(col)
+                                for col in self._sheet.row_values(row_id)])
 
-            # Normalize data as needed
-            if len(id_mesorregiao) == 2:
-                id_mesorregiao = id_uf + id_mesorregiao
-                id_microrregiao = id_uf + id_microrregiao
-                id_municipio = id_uf + id_municipio
+            # Build data rows
+            self._data._rows.append(row.value)
 
-                if id_distrito:
-                    id_distrito = id_municipio + id_distrito
+            # Append data to records
+            for (table, records) in iteritems(self._data._dict):
+                row_data = getattr(row, table)
 
-                if id_subdistrito:
-                    id_subdistrito = id_distrito + id_subdistrito
+                if None not in itervalues(row_data) \
+                        and row_data not in records:
+                    self._data._dict[table].append(row_data)
 
-            if len(id_municipio) == 5:
-                id_municipio = id_uf + id_municipio
-
-                if id_distrito:
-                    id_distrito = id_municipio + id_distrito
-
-                if id_subdistrito:
-                    id_subdistrito = id_distrito + id_subdistrito
-
-            if id_distrito:
-                if len(id_distrito) == 2:
-                    id_distrito = id_municipio + id_distrito
-
-                    if id_subdistrito:
-                        id_subdistrito = id_distrito + id_subdistrito
-
-            id_subdistrito = int(id_subdistrito) if id_subdistrito else None
-            id_distrito = int(id_distrito) if id_distrito else None
-            id_municipio = int(id_municipio)
-            id_microrregiao = int(id_microrregiao)
-            id_mesorregiao = int(id_mesorregiao)
-            id_uf = int(id_uf)
-
-            self._data._rows.append([
-                id_uf, nome_uf, id_mesorregiao, nome_mesorregiao,
-                id_microrregiao, nome_microrregiao, id_municipio,
-                nome_municipio, id_distrito, nome_distrito,
-                id_subdistrito if nome_subdistrito else None,
-                nome_subdistrito or None
-            ])
-
-            # uf
-            uf = Struct(
-                id=id_uf,
-                nome=nome_uf
-            )
-
-            if uf not in self._data._dict['uf']:
-                self._data._dict['uf'].append(uf)
-
-            # mesorregiao
-            mesorregiao = Struct(
-                id=id_mesorregiao,
-                id_uf=id_uf,
-                nome=nome_mesorregiao
-            )
-
-            if mesorregiao not in self._data._dict['mesorregiao']:
-                self._data._dict['mesorregiao'].append(mesorregiao)
-
-            # microrregiao
-            microrregiao = Struct(
-                id=id_microrregiao,
-                id_mesorregiao=id_mesorregiao,
-                id_uf=id_uf,
-                nome=nome_microrregiao
-            )
-
-            if microrregiao not in self._data._dict['microrregiao']:
-                self._data._dict['microrregiao'].append(microrregiao)
-
-            # municipio
-            municipio = Struct(
-                id=id_municipio,
-                id_microrregiao=id_microrregiao,
-                id_mesorregiao=id_mesorregiao,
-                id_uf=id_uf,
-                nome=nome_municipio
-            )
-
-            if municipio not in self._data._dict['municipio']:
-                self._data._dict['municipio'].append(municipio)
-
-            # distrito
-            if id_distrito:
-                distrito = Struct(
-                    id=id_distrito,
-                    id_municipio=id_municipio,
-                    id_microrregiao=id_microrregiao,
-                    id_mesorregiao=id_mesorregiao,
-                    id_uf=id_uf,
-                    nome=nome_distrito
-                )
-
-                if distrito not in self._data._dict['distrito']:
-                    self._data._dict['distrito'].append(distrito)
-
-            # subdistrito
-            if nome_subdistrito:
-                subdistrito = Struct(
-                    id=id_subdistrito,
-                    id_distrito=id_distrito,
-                    id_municipio=id_municipio,
-                    id_microrregiao=id_microrregiao,
-                    id_mesorregiao=id_mesorregiao,
-                    id_uf=id_uf,
-                    nome=nome_subdistrito
-                )
-
-                if subdistrito not in self._data._dict['subdistrito']:
-                    self._data._dict['subdistrito'].append(subdistrito)
-
-        # Sort data
-        for table in self._data._dict:
-            self._data._dict[table] = sorted(
-                self._data._dict[table],
-                key=lambda row: row['id']
-            )
+        # Sort data records
+        for (table, records) in iteritems(self._data._dict):
+            self._data._dict[table] = sorted(records, key=lambda row: row.id)
 
         return self._data
+
+    def parseRow(self, row_data):
+        '''Parses the database row.'''
+        from ..core.entities import TerritorialDatabaseRow
+
+        row = TerritorialDatabaseRow()
+        base = int(self._base.year)
+
+        # 12 cols
+        if base in [2005, 2006, 2007, 2008, 2009, 2013]:
+            row.id_uf, row.nome_uf, \
+            row.id_mesorregiao, row.nome_mesorregiao, \
+            row.id_microrregiao, row.nome_microrregiao, \
+            row.id_municipio, row.nome_municipio, \
+            row.id_distrito, row.nome_distrito, \
+            row.id_subdistrito, row.nome_subdistrito = row_data
+        # 8 cols
+        elif base in [2010, 2011, 2012]:
+            row.id_uf, row.nome_uf, \
+            row.id_mesorregiao, row.nome_mesorregiao, \
+            row.id_microrregiao, row.nome_microrregia, \
+            row.id_municipio, row.nome_municipio = row_data
+        # 15 cols
+        elif base == 2014:
+            row.id_uf, row.nome_uf, \
+            row.id_mesorregiao, row.nome_mesorregiao, \
+            row.id_microrregiao, row.nome_microrregiao = row_data[:6]
+            row.id_municipio, row.nome_municipio = row_data[7:9]
+            row.id_distrito, row.nome_distrito = row_data[10:12]
+            row.id_subdistrito, row.nome_subdistrito = row_data[13:15]
+
+        row.normalize()
+
+        return row
