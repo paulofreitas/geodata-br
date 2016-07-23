@@ -218,10 +218,6 @@ class TerritorialData(object):
         self._cols = []
         self._rows = []
         self._dict = {}
-        self._rawdata = None
-
-    def load(self, rawdata):
-        self._rawdata = rawdata
 
     def toDict(self, strKeys=False, forceUnicode=False, includeKey=False):
         '''Converts this territorial data into an ordered dictionary.'''
@@ -264,6 +260,7 @@ class TerritorialBase(object):
 
         self._info = Struct(self.base_list.get(year))
         self._data = TerritorialData(self._info)
+        self._rawdata = None
         self._logger = logger
 
     @property
@@ -295,6 +292,11 @@ class TerritorialBase(object):
     def cache_file(self):
         '''The cached database file.'''
         return path(SRC_DIR, '.cache', '{}.{}'.format(self.year, self.format))
+
+    @property
+    def rawdata(self):
+        '''The database raw binary data.'''
+        return self._rawdata
 
     def download(self):
         '''Downloads the given territorial database.'''
@@ -339,7 +341,7 @@ class TerritorialBase(object):
         with open(self.cache_file, 'rb') as cache_file:
             sheet_data.write(cache_file.read())
 
-        self._data.load(sheet_data.getvalue())
+        self._rawdata = sheet_data.getvalue()
 
         return self
 
@@ -348,7 +350,7 @@ class TerritorialBase(object):
         parser = parsers.FORMATS.get(self.format)
 
         try:
-            self._data = parser(self._data, self._logger).parse()
+            self._data = parser(self, self._logger).parse()
         except:
             raise Exception('Failed to parse data using the given parser')
 
