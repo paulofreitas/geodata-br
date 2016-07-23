@@ -26,19 +26,9 @@ THE SOFTWARE.
 '''
 from __future__ import unicode_literals
 
-# -- Metadata -----------------------------------------------------------------
+# Imports
 
-__author__ = 'Paulo Freitas <me@paulofreitas.me>'
-__copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
-__license__ = 'MIT'
-__version__ = '1.0-dev'
-__usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
-__epilog__ =\
-    'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
-
-# -- Imports ------------------------------------------------------------------
-
-# Built-in modules
+# Built-in dependencies
 
 import ftplib
 import io
@@ -46,55 +36,68 @@ import sys
 import urlparse
 import zipfile
 
+from collections import OrderedDict
 from io import open
 from os import makedirs
-from os.path import dirname, exists, join as path
+from os.path import basename, dirname, exists, join as path
 
-# Dependency modules
+# External dependencies
+
+import yaml
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy.sql.schema import Column, ForeignKey, Index, MetaData
+from sqlalchemy.sql.schema import Column, ForeignKey, MetaData
 from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
-import yaml
 
-# Package modules
+# Package dependencies
 
 from .. import exporters, parsers
 from ..core.helpers import PKG_DIR, SRC_DIR
 from .value_objects import Struct
 
-# -- Constants ---------------------------------------------------------------
+# Constants
 
 BASE_LIST = path(PKG_DIR, 'data/bases.yaml')
 
-# -- Classes ------------------------------------------------------------------
+# Classes
 
 
 Base = declarative_base()
 
 
 class AbstractBase(Base):
+    '''Abstract entity class.'''
     __abstract__ = True
 
     convention = {
-      'pk': 'pk_%(table_name)s',
-      'fk': 'fk_%(table_name)s_%(column_0_name)s',
-      'ix': 'ix_%(column_0_label)s',
-      'uq': 'uq_%(table_name)s_%(column_0_name)s',
+        'pk': 'pk_%(table_name)s',
+        'fk': 'fk_%(table_name)s_%(column_0_name)s',
+        'ix': 'ix_%(column_0_label)s',
+        'uq': 'uq_%(table_name)s_%(column_0_name)s',
     }
 
     metadata = MetaData(naming_convention=convention)
 
     @hybrid_property
     def table(self):
+        '''Shortcut property for table name.'''
         return str(self.__table__.name)
 
     @hybrid_property
     def columns(self):
+        '''Shortcut property for table column names.'''
         return (str(column.name) for column in self.__table__.columns)
 
+    @hybrid_property
+    def data(self):
+        '''Shortcut property for ordered table data.'''
+        return OrderedDict((column, getattr(self, column))
+                           for column in self.__table__.columns.keys())
+
+
 class Uf(AbstractBase):
+    '''Entity for states.'''
     __tablename__ = 'uf'
 
     id = Column(SmallInteger, nullable=False, primary_key=True)
@@ -102,6 +105,7 @@ class Uf(AbstractBase):
 
 
 class Mesorregiao(AbstractBase):
+    '''Entity for mesoregions.'''
     __tablename__ = 'mesorregiao'
 
     id = Column(SmallInteger, nullable=False, primary_key=True)
@@ -113,6 +117,7 @@ class Mesorregiao(AbstractBase):
 
 
 class Microrregiao(AbstractBase):
+    '''Entity for microregions.'''
     __tablename__ = 'microrregiao'
 
     id = Column(Integer, nullable=False, primary_key=True)
@@ -128,6 +133,7 @@ class Microrregiao(AbstractBase):
 
 
 class Municipio(AbstractBase):
+    '''Entity for cities.'''
     __tablename__ = 'municipio'
 
     id = Column(Integer, nullable=False, primary_key=True)
@@ -147,6 +153,7 @@ class Municipio(AbstractBase):
 
 
 class Distrito(AbstractBase):
+    '''Entity for districts.'''
     __tablename__ = 'distrito'
 
     id = Column(Integer, nullable=False, primary_key=True)
@@ -170,6 +177,7 @@ class Distrito(AbstractBase):
 
 
 class Subdistrito(AbstractBase):
+    '''Entity for subdistricts.'''
     __tablename__ = 'subdistrito'
 
     id = Column(BigInteger, nullable=False, primary_key=True)
@@ -197,26 +205,55 @@ class Subdistrito(AbstractBase):
 
 
 class TerritorialData(object):
+    '''Entity for territorial data.'''
     entities = (Uf, Mesorregiao, Microrregiao, Municipio, Distrito, Subdistrito)
 
     def __init__(self, base):
-        self._base = Struct(base)
-        self._name = 'dtb_{}'.format(self._base.year)
+        '''Constructor.
+
+        :param base: the territorial database where data will be retrieved
+        '''
+        self._base = base
+        self._name = 'dtb_{}'.format(base.year)
         self._cols = []
         self._rows = []
         self._dict = {}
         self._rawdata = None
 
-        for entity in self.entities:
-            self._cols.append('id_' + entity.table)
-            self._cols.append('nome_' + entity.table)
-            self._dict[entity.table] = []
-
     def load(self, rawdata):
         self._rawdata = rawdata
 
+    def toDict(self, strKeys=False, forceUnicode=False, includeKey=False):
+        '''Converts this territorial data into an ordered dictionary.'''
+        _dict = OrderedDict()
+
+        for entity in self.entities:
+            if not self._dict[entity.table]:
+                continue
+
+            _dict[entity.table] = OrderedDict()
+
+            for row in self._dict[entity.table]:
+                row_data = OrderedDict()
+
+                for column in entity.columns:
+                    if forceUnicode and isinstance(row[column], str):
+                        row_data[column] = unicode(row[column])
+                    else:
+                        row_data[column] = row[column]
+
+                row_id = str(row_data['id']) if strKeys else row_data['id']
+
+                if not includeKey:
+                    del row_data['id']
+
+                _dict[entity.table][row_id] = row_data
+
+        return _dict
+
 
 class TerritorialBase(object):
+    '''Entity for territorial database.'''
     base_list = dict((str(database['year']), database)
                      for database in yaml.load(open(BASE_LIST)))
     bases = tuple(reversed(sorted(base_list.keys())))
@@ -225,34 +262,42 @@ class TerritorialBase(object):
         if year not in self.bases:
             raise Exception('This base is not available to download.')
 
-        self._data = TerritorialData(self.base_list.get(year))
+        self._info = Struct(self.base_list.get(year))
+        self._data = TerritorialData(self._info)
         self._logger = logger
 
     @property
     def year(self):
-        return str(self._data._base.year)
+        '''The database year.'''
+        return str(self._info.year)
 
     @property
     def archive(self):
-        return self._data._base.archive
+        '''The database archive, if any.'''
+        return self._info.get('archive')
 
     @property
     def file(self):
-        return self._data._base.file
+        '''The database file.'''
+        return self._info.file
 
     @property
     def format(self):
-        return self._data._base.format
+        '''The database format.'''
+        return self._info.format
 
     @property
     def sheet(self):
-        return self._data._base.sheet
+        '''The database sheet, if any.'''
+        return self._info.get('sheet')
 
     @property
-    def sheet_file(self):
-        return path(SRC_DIR, '.cache', self.year)
+    def cache_file(self):
+        '''The cached database file.'''
+        return path(SRC_DIR, '.cache', '{}.{}'.format(self.year, self.format))
 
     def download(self):
+        '''Downloads the given territorial database.'''
         url_info = urlparse.urlparse(self.archive)
         ftp = ftplib.FTP(url_info.netloc)
         zip_data = io.BytesIO()
@@ -266,40 +311,40 @@ class TerritorialBase(object):
         ftp.cwd(dirname(url_info.path))
 
         self._logger.info('Retrieving database...')
-        ftp.retrbinary(
-            'RETR {}'.format(os.path.basename(url_info.path)),
-            zip_data.write
-        )
+        ftp.retrbinary('RETR {}'.format(basename(url_info.path)),
+                       zip_data.write)
 
         with zipfile.ZipFile(zip_data, 'r') as zip_file:
             self._logger.info('Reading database...')
-            with zipfile.open(self.file, 'r') as sheet_file:
+            with zip_file.open(self.file, 'r') as sheet_file:
                 sheet_data.write(sheet_file.read())
 
         try:
-            makedirs(dirname(self.sheet_file))
+            makedirs(dirname(self.cache_file))
         except OSError:
             pass
 
-        with open(self.sheet_file, 'wb') as sheet_file:
-            sheet_file.write(sheet_data.getvalue())
+        with open(self.cache_file, 'wb') as cache_file:
+            cache_file.write(sheet_data.getvalue())
 
         return self
 
     def retrieve(self):
-        if not exists(self.sheet_file):
+        '''Retrieves the given territorial database.'''
+        if not exists(self.cache_file):
             self.download()
 
         sheet_data = io.BytesIO()
 
-        with open(self.sheet_file, 'rb') as sheet_file:
-            sheet_data.write(sheet_file.read())
+        with open(self.cache_file, 'rb') as cache_file:
+            sheet_data.write(cache_file.read())
 
         self._data.load(sheet_data.getvalue())
 
         return self
 
     def parse(self):
+        '''Parses the given territorial database.'''
         parser = parsers.FORMATS.get(self.format)
 
         try:
@@ -310,8 +355,15 @@ class TerritorialBase(object):
         return self
 
     def export(self, format, minified=False, filename=None):
+        '''Exports the given territorial database.
+
+        :param format: the format to export the database
+        :param minified: whether or not the exported file should be minified
+        :param filename: the exported filename
+        '''
         if format not in exporters.FORMATS:
             raise Exception('Unsupported output format.')
+
         exporter = exporters.FORMATS.get(format)
 
         if minified:
@@ -324,7 +376,7 @@ class TerritorialBase(object):
         data = exporter(self._data, minified).data
         binary_data = exporter.binary_format
 
-        if not binary_data and not type(data) == unicode:
+        if not binary_data and not isinstance(data, unicode):
             data = unicode(data.decode('utf-8'))
 
         self._logger.debug('Done.')
