@@ -26,62 +26,77 @@ THE SOFTWARE.
 '''
 from __future__ import absolute_import, unicode_literals
 
-# -- Imports ------------------------------------------------------------------
+# Imports
 
-# Built-in modules
+# External compatibility dependencies
 
-import collections
-
-# Dependency modules
 from builtins import str
-from sqlalchemy.dialects import firebird, mssql, mysql, oracle, postgresql, sqlite, sybase
+from future.utils import iteritems
+
+# External dependencies
+
+from sqlalchemy import dialects
 from sqlalchemy.engine import default
+from sqlalchemy.exc import CompileError
 from sqlalchemy.ext.compiler import compiles
 from sqlalchemy.sql import crud
-from sqlalchemy.sql.ddl import AddConstraint, CreateColumn, CreateIndex, CreateTable
+from sqlalchemy.sql.ddl import AddConstraint, CreateColumn, CreateIndex, \
+                               CreateTable
 from sqlalchemy.sql.dml import Insert
-from sqlalchemy.sql.schema import ForeignKeyConstraint, Index, PrimaryKeyConstraint, Table
+from sqlalchemy.sql.schema import ForeignKeyConstraint, Index, \
+                                  PrimaryKeyConstraint
 
-# Package modules
+# Package dependencies
 
 from .base import BaseExporter
 
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class SchemaGenerator(object):
+    '''SQL schema generator class.'''
+
     minified = False
 
     def __init__(self, dialect='default', minified=False):
+        '''Constructor.
+
+        :param dialect: the SQL dialect to use
+        :param minified: whether the SQL statements should be minified or not
+        '''
         self.tables = []
         self.dialect = dialect
         self._dialect = self.getDialect(dialect)
 
         SchemaGenerator.minified = minified
 
-    def getDialect(self, dialect):
+    @staticmethod
+    def getDialect(dialect):
+        '''Get the given SQL dialect instance by name.'''
         if dialect == 'default':
             return default.DefaultDialect()
 
         if dialect in ['firebird', 'mssql', 'mysql', 'oracle', 'postgresql',
                        'sqlite', 'sybase']:
-            return globals()[dialect].dialect()
+            return dialects.registry.load(dialect)
 
         raise Exception('Unsupported dialect: {}'.format(dialect))
 
     # Custom DDL/DML compilers
 
+    @staticmethod
     @compiles(CreateColumn)
     def __compileCreateColumn(create, compiler, **kw):
+        '''Compiles the CREATE TABLE columns statements.'''
         column = create.element
 
         ddl = '{} {}'.format(column.name,
                              compiler.type_compiler.process(column.type))
 
-        default = compiler.get_column_default_string(column)
+        default_str = compiler.get_column_default_string(column)
 
-        if default is not None:
-            ddl += ' DEFAULT ' + default
+        if default_str is not None:
+            ddl += ' DEFAULT ' + default_str
 
         if not column.nullable:
             ddl += ' NOT NULL'
@@ -92,8 +107,10 @@ class SchemaGenerator(object):
 
         return ddl
 
+    @staticmethod
     @compiles(CreateTable)
     def __compileCreateTable(create, compiler, **kw):
+        '''Compiles the CREATE TABLE statements.'''
         table = create.element
         separator = '' if SchemaGenerator.minified else '\n'
         first_pk = False
@@ -126,12 +143,13 @@ class SchemaGenerator(object):
 
                 if column.primary_key:
                     first_pk = True
-            except:
+            except CompileError:
                 pass
 
         constraints_ddl = compiler.create_table_constraints(
             table,
-            _include_foreign_key_constraints=create.include_foreign_key_constraints
+            _include_foreign_key_constraints=
+                create.include_foreign_key_constraints
         )
 
         if constraints_ddl:
@@ -148,11 +166,13 @@ class SchemaGenerator(object):
 
         return ddl
 
+    @staticmethod
     @compiles(CreateIndex)
     def __compileCreateIndex(create,
                              compiler,
                              include_schema=False,
                              include_table_schema=True):
+        '''Compiles CREATE INDEX statements.'''
         index = create.element
 
         compiler._verify_index_table(index)
@@ -181,15 +201,19 @@ class SchemaGenerator(object):
 
         return ddl
 
+    @staticmethod
     @compiles(AddConstraint)
     def __compileAddConstraint(create, compiler):
+        '''Compiles ALTER TABLE ADD CONSTRAINT statements.'''
         return 'ALTER TABLE {} ADD {};'.format(
             compiler.preparer.format_table(create.element.table),
             compiler.process(create.element)
         )
 
+    @staticmethod
     @compiles(PrimaryKeyConstraint)
     def __compilePrimaryKeyConstraint(constraint, compiler):
+        '''Compiles PRIMARY KEY constraint statements.'''
         if len(constraint) == 0:
             return ''
 
@@ -219,8 +243,10 @@ class SchemaGenerator(object):
 
         return ddl
 
+    @staticmethod
     @compiles(ForeignKeyConstraint)
     def __compileForeignKeyConstraint(constraint, compiler):
+        '''Compiles FOREIGN KEY constraint statements.'''
         ddl = ''
         separator = ',' if SchemaGenerator.minified else ', '
 
@@ -260,8 +286,10 @@ class SchemaGenerator(object):
 
         return ddl
 
+    @staticmethod
     @compiles(Insert)
     def __compileInsert(insert_stmt, compiler, **kw):
+        '''Compiles INSERT statements.'''
         compiler.stack.append({
             'correlate_froms': set(),
             'asfrom_froms': set(),
@@ -311,25 +339,10 @@ class SchemaGenerator(object):
 
     # Custom DDL renderers
 
-    def createTable(self, entity):
-        table = entity.__table__
-        table._data = []
-        table._sorted_indexes = []
-
-        # Workaround to render table indexes in the order they were declared
-        table.indexes = set()
-
-        for column in table.columns:
-            if column.index:
-                table._sorted_indexes.append(Index(None,
-                                                   column,
-                                                   unique=bool(column.unique)))
-
-        self.tables.append(table)
-
-        return table
-
     def render(self, createIndexes=True):
+        '''Render all SQL statements for the instance tables.
+
+        :param createIndexes: whether or not it should create table indexes'''
         separator = '' if self.minified else '\n\n'
 
         return separator.join([
@@ -338,6 +351,11 @@ class SchemaGenerator(object):
         ])
 
     def renderCreateTable(self, table, createIndexes=True):
+        '''Render the CREATE TABLE statement for the given table.
+
+        :param table: the SQLAlchemy Table object to render
+        :param createIndexes: whether or not it should create table indexes
+        '''
         ddl = []
         separator = '' if self.minified else '\n'
 
@@ -358,6 +376,10 @@ class SchemaGenerator(object):
         return separator.join(ddl)
 
     def renderInserts(self, table):
+        '''Render the INSERT statements for the given table.
+
+        :param table: the SQLAchemy Table object to render
+        '''
         ddl = []
         separator = '' if self.minified else '\n'
 
@@ -365,7 +387,8 @@ class SchemaGenerator(object):
             ddl.append('--\n-- Data for table {}\n--\n'.format(table.name))
 
         for row in table._data:
-            insert_ddl = str(table.insert().values(row).compile(
+            row_data = {key: str(value) for key, value in iteritems(row)}
+            insert_ddl = str(table.insert().values(row_data).compile(
                 compile_kwargs={'literal_binds': True},
                 dialect=self._dialect,
             ))
@@ -380,6 +403,10 @@ class SchemaGenerator(object):
         return separator.join(ddl)
 
     def renderTableConstraints(self, table):
+        '''Render the ALTER TABLE ADD CONSTRAINT statements for the given table.
+
+        :param table: the SQLAlchemy Table object to render
+        '''
         if not self._dialect.supports_alter:
             return
 
@@ -399,6 +426,10 @@ class SchemaGenerator(object):
         return separator.join(ddl)
 
     def renderTableIndexes(self, table):
+        '''Render the CREATE INDEXES statements for the given table.
+
+        :param table: the SQLAlchemy Table object to render
+        '''
         ddl = []
         separator = '' if self.minified else '\n'
 
@@ -410,27 +441,62 @@ class SchemaGenerator(object):
 
         return separator.join(ddl)
 
+    # Methods
+
+    def createTable(self, entity):
+        '''Add the given entity table to schema.
+
+        :param entity: the SQLAlchemy entity object
+        '''
+        table = entity.__table__
+        table._data = []
+        table._sorted_indexes = []
+
+        # Workaround to render table indexes in the order they were declared
+        table.indexes = set()
+
+        for column in table.columns:
+            if column.index:
+                table._sorted_indexes.append(Index(None,
+                                                   column,
+                                                   unique=bool(column.unique)))
+
+        self.tables.append(table)
+
+        return table
+
     def __str__(self):
+        '''String representation of this object.'''
         return self.render()
 
 
 class SqlExporter(BaseExporter):
     '''SQL exporter class.'''
+
+    # Exporter settings
     format = 'SQL'
     extension = '.sql'
+    minifiable_format = True
 
     def __init__(self, base, minified, dialect='default'):
-        from ..core.entities import BaseEntities
+        '''Constructor.
+
+        :param base: the territorial database to export
+        :param minified: whether or not the SQL statements should be minified
+        :param dialect: the SQL dialect to use
+        '''
         super(self.__class__, self).__init__(base, minified)
 
         self.schema = SchemaGenerator(dialect, self._minified)
 
-        for entity in BaseEntities:
+        for entity in self._data.entities:
             data = self._data._dict[entity.__tablename__]
 
             if data:
                 table = self.schema.createTable(entity)
                 table._data = data
 
-    def __str__(self):
+    @property
+    def data(self):
+        '''Formatted SQL representation of data.'''
         return self.schema.render()
