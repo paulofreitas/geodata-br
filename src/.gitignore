@@ -1,2 +1,6 @@
+__pycache__
 .cache
+.tox
+.DS_Store
+*.egg-info
 *.pyc
