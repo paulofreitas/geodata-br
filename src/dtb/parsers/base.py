@@ -42,10 +42,8 @@ from future.utils import with_metaclass
 class Parser(object, with_metaclass(AbstractClass)):
     '''Abstract base parser class.'''
 
-    # Default settings
-    format = None
-    formatName = None
-    formatExtension = None
+    # Parser format
+    _format = None
 
     def __init__(self, base, logger):
         '''Constructor.
@@ -72,15 +70,22 @@ class ParserFactory(object):
     def fromFormat(cls, _format):
         '''Factories a parser class for a given format.
 
-        :param _format: the file format to retrieve a parser'''
-        parsers = {parser.format: parser for parser in Parser.__subclasses__()}
+        :param _format: the file format name to retrieve a parser'''
+        parsers = {parser._format.name: parser
+                   for parser in Parser.__subclasses__()}
 
         try:
             return parsers[_format]
         except KeyError:
-            raise ParserError('No parser found for format {}'.format(_format))
+            raise UnknownParserError('No parser found for format: {}' \
+                                         .format(_format))
 
 
 class ParserError(Exception):
     '''Generic exception class for parsing errors.'''
+    pass
+
+
+class UnknownParserError(ParserError):
+    '''Exception class raised when a given parser is not found.'''
     pass
