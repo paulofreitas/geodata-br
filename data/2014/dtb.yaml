@@ -3688,7 +3688,7 @@ municipio:
     id_microrregiao: 15019
     id_mesorregiao: 1506
     id_uf: 15
-    nome: "Eldorado dos Caraj\xE1s"
+    nome: "Eldorado do Caraj\xE1s"
   1503002:
     id_microrregiao: 15001
     id_mesorregiao: 1501
@@ -20763,7 +20763,7 @@ municipio:
     id_microrregiao: 35031
     id_mesorregiao: 3507
     id_uf: 35
-    nome: Moji Mirim
+    nome: Mogi Mirim
   3530904:
     id_microrregiao: 35028
     id_mesorregiao: 3506
@@ -31978,6 +31978,12 @@ distrito:
     id_mesorregiao: 1505
     id_uf: 15
     nome: Altamira
+  150060206:
+    id_municipio: 1500602
+    id_microrregiao: 15015
+    id_mesorregiao: 1505
+    id_uf: 15
+    nome: Cachoeira da Serra
   150060207:
     id_municipio: 1500602
     id_microrregiao: 15015
@@ -32481,7 +32487,7 @@ distrito:
     id_microrregiao: 15019
     id_mesorregiao: 1506
     id_uf: 15
-    nome: "Eldorado dos Caraj\xE1s"
+    nome: "Eldorado do Caraj\xE1s"
   150300205:
     id_municipio: 1503002
     id_microrregiao: 15001
@@ -33172,6 +33178,12 @@ distrito:
     id_mesorregiao: 1506
     id_uf: 15
     nome: "S\xE3o F\xE9lix do Xingu"
+  150730020:
+    id_municipio: 1507300
+    id_microrregiao: 15018
+    id_mesorregiao: 1506
+    id_uf: 15
+    nome: Sudoeste
   150730025:
     id_municipio: 1507300
     id_microrregiao: 15018
@@ -40816,12 +40828,6 @@ distrito:
     id_mesorregiao: 2303
     id_uf: 23
     nome: Pacajus
-  230960720:
-    id_municipio: 2309607
-    id_microrregiao: 23017
-    id_mesorregiao: 2303
-    id_uf: 23
-    nome: Itaipaba
   230960730:
     id_municipio: 2309607
     id_microrregiao: 23017
@@ -47451,7 +47457,7 @@ distrito:
     id_microrregiao: 26003
     id_mesorregiao: 2601
     id_uf: 26
-    nome: "Iragua\xE7u"
+    nome: "Jeric\xF3"
   261580505:
     id_municipio: 2615805
     id_microrregiao: 26007
@@ -54394,6 +54400,18 @@ distrito:
     id_mesorregiao: 3104
     id_uf: 31
     nome: Novo Horizonte
+  310470030:
+    id_municipio: 3104700
+    id_microrregiao: 31015
+    id_mesorregiao: 3104
+    id_uf: 31
+    nome: Tipiti
+  310470035:
+    id_municipio: 3104700
+    id_microrregiao: 31015
+    id_mesorregiao: 3104
+    id_uf: 31
+    nome: "S\xE3o Miguel"
   310480905:
     id_municipio: 3104809
     id_microrregiao: 31025
@@ -54424,6 +54442,12 @@ distrito:
     id_mesorregiao: 3107
     id_uf: 31
     nome: "S\xE3o Vicente"
+  310500420:
+    id_municipio: 3105004
+    id_microrregiao: 31027
+    id_mesorregiao: 3107
+    id_uf: 31
+    nome: Vargem Grande da Serra
   310510305:
     id_municipio: 3105103
     id_microrregiao: 31042
@@ -54946,6 +54970,12 @@ distrito:
     id_mesorregiao: 3112
     id_uf: 31
     nome: "Br\xE1s Pires"
+  310870125:
+    id_municipio: 3108701
+    id_microrregiao: 31062
+    id_mesorregiao: 3112
+    id_uf: 31
+    nome: "Ribeir\xE3o de Santo Ant\xF4nio"
   310880005:
     id_municipio: 3108800
     id_microrregiao: 31035
@@ -55684,6 +55714,12 @@ distrito:
     id_mesorregiao: 3109
     id_uf: 31
     nome: "Carm\xF3polis de Minas"
+  311450110:
+    id_municipio: 3114501
+    id_microrregiao: 31046
+    id_mesorregiao: 3109
+    id_uf: 31
+    nome: Bom Jardim das Pedras
   311455005:
     id_municipio: 3114550
     id_microrregiao: 31021
@@ -55798,6 +55834,12 @@ distrito:
     id_mesorregiao: 3107
     id_uf: 31
     nome: Catas Altas
+  311535910:
+    id_municipio: 3115359
+    id_microrregiao: 31031
+    id_mesorregiao: 3107
+    id_uf: 31
+    nome: "Morro D \xC1gua Quente"
   311540905:
     id_municipio: 3115409
     id_microrregiao: 31034
@@ -56608,6 +56650,12 @@ distrito:
     id_mesorregiao: 3103
     id_uf: 31
     nome: Datas
+  312100130:
+    id_municipio: 3121001
+    id_microrregiao: 31010
+    id_mesorregiao: 3103
+    id_uf: 31
+    nome: Tombadouro
   312110005:
     id_municipio: 3121100
     id_microrregiao: 31056
@@ -56836,6 +56884,12 @@ distrito:
     id_mesorregiao: 3101
     id_uf: 31
     nome: Dom Bosco
+  312247010:
+    id_municipio: 3122470
+    id_microrregiao: 31001
+    id_mesorregiao: 3101
+    id_uf: 31
+    nome: "Santo Ant\xF4nio do Rio Preto"
   312250405:
     id_municipio: 3122504
     id_microrregiao: 31040
@@ -57334,6 +57388,12 @@ distrito:
     id_mesorregiao: 3102
     id_uf: 31
     nome: Francisco Dumont
+  312660410:
+    id_municipio: 3126604
+    id_microrregiao: 31009
+    id_mesorregiao: 3102
+    id_uf: 31
+    nome: Covancas
   312670305:
     id_municipio: 3126703
     id_microrregiao: 31007
@@ -58138,6 +58198,12 @@ distrito:
     id_mesorregiao: 3103
     id_uf: 31
     nome: Contrato
+  313250314:
+    id_municipio: 3132503
+    id_microrregiao: 31011
+    id_mesorregiao: 3103
+    id_uf: 31
+    nome: Dom Serafim
   313250315:
     id_municipio: 3132503
     id_microrregiao: 31011
@@ -58150,6 +58216,24 @@ distrito:
     id_mesorregiao: 3103
     id_uf: 31
     nome: "Penha de Fran\xE7a"
+  313250325:
+    id_municipio: 3132503
+    id_microrregiao: 31011
+    id_mesorregiao: 3103
+    id_uf: 31
+    nome: Santa Joana
+  313250330:
+    id_municipio: 3132503
+    id_microrregiao: 31011
+    id_mesorregiao: 3103
+    id_uf: 31
+    nome: Santa Luzia de Minas
+  313250335:
+    id_municipio: 3132503
+    id_microrregiao: 31011
+    id_mesorregiao: 3103
+    id_uf: 31
+    nome: "V\xE1rzea de Santo Ant\xF4nio"
   313260205:
     id_municipio: 3132602
     id_microrregiao: 31066
@@ -58210,6 +58294,12 @@ distrito:
     id_mesorregiao: 3108
     id_uf: 31
     nome: Edgard Melo
+  313320420:
+    id_municipio: 3133204
+    id_microrregiao: 31037
+    id_mesorregiao: 3108
+    id_uf: 31
+    nome: Santa Luzia do Carneiro
   313320425:
     id_municipio: 3133204
     id_microrregiao: 31037
@@ -58966,6 +59056,12 @@ distrito:
     id_mesorregiao: 3103
     id_uf: 31
     nome: Leme do Prado
+  313835110:
+    id_municipio: 3138351
+    id_microrregiao: 31011
+    id_mesorregiao: 3103
+    id_uf: 31
+    nome: "Acau\xE3 de Minas"
   313835120:
     id_municipio: 3138351
     id_microrregiao: 31011
@@ -59272,6 +59368,24 @@ distrito:
     id_mesorregiao: 3110
     id_uf: 31
     nome: Pintos Negreiros
+  313990415:
+    id_municipio: 3139904
+    id_microrregiao: 31056
+    id_mesorregiao: 3110
+    id_uf: 31
+    nome: "S\xE3o Jo\xE3o de Maria da F\xE9"
+  313990420:
+    id_municipio: 3139904
+    id_microrregiao: 31056
+    id_mesorregiao: 3110
+    id_uf: 31
+    nome: "Posses de Maria da F\xE9"
+  313990425:
+    id_municipio: 3139904
+    id_microrregiao: 31056
+    id_mesorregiao: 3110
+    id_uf: 31
+    nome: Mata do Isidoro
   314000105:
     id_municipio: 3140001
     id_microrregiao: 31033
@@ -59602,6 +59716,24 @@ distrito:
     id_mesorregiao: 3102
     id_uf: 31
     nome: "Mirav\xE2nia"
+  314225410:
+    id_municipio: 3142254
+    id_microrregiao: 31003
+    id_mesorregiao: 3102
+    id_uf: 31
+    nome: "Brej\xE3o de Mirav\xE2nia"
+  314225415:
+    id_municipio: 3142254
+    id_microrregiao: 31003
+    id_mesorregiao: 3102
+    id_uf: 31
+    nome: Panelinhas
+  314225420:
+    id_municipio: 3142254
+    id_microrregiao: 31003
+    id_mesorregiao: 3102
+    id_uf: 31
+    nome: "Virg\xEDnio"
   314230405:
     id_municipio: 3142304
     id_microrregiao: 31032
@@ -60082,6 +60214,24 @@ distrito:
     id_mesorregiao: 3102
     id_uf: 31
     nome: "Olhos-d'\xC1gua"
+  314545510:
+    id_municipio: 3145455
+    id_microrregiao: 31009
+    id_mesorregiao: 3102
+    id_uf: 31
+    nome: "Ribeir\xE3o de Santo Agostinho"
+  314545515:
+    id_municipio: 3145455
+    id_microrregiao: 31009
+    id_mesorregiao: 3102
+    id_uf: 31
+    nome: "Tr\xEAs Dias"
+  314545520:
+    id_municipio: 3145455
+    id_microrregiao: 31009
+    id_mesorregiao: 3102
+    id_uf: 31
+    nome: "Pimenta de S\xE3o Serafim"
   314550505:
     id_municipio: 3145505
     id_microrregiao: 31054
@@ -60112,6 +60262,18 @@ distrito:
     id_mesorregiao: 3107
     id_uf: 31
     nome: "On\xE7a de Pitangui"
+  314580210:
+    id_municipio: 3145802
+    id_microrregiao: 31029
+    id_mesorregiao: 3107
+    id_uf: 31
+    nome: Capoeira Grande
+  314580215:
+    id_municipio: 3145802
+    id_microrregiao: 31029
+    id_mesorregiao: 3107
+    id_uf: 31
+    nome: Jaguara de Minas
   314585105:
     id_municipio: 3145851
     id_microrregiao: 31060
@@ -60274,6 +60436,12 @@ distrito:
     id_mesorregiao: 3102
     id_uf: 31
     nome: Pai Pedro
+  314655225:
+    id_municipio: 3146552
+    id_microrregiao: 31004
+    id_mesorregiao: 3102
+    id_uf: 31
+    nome: "Vila Sud\xE1rio"
   314660205:
     id_municipio: 3146602
     id_microrregiao: 31065
@@ -60802,6 +60970,12 @@ distrito:
     id_mesorregiao: 3112
     id_uf: 31
     nome: "Santo Ant\xF4nio do Pirapetinga"
+  315080220:
+    id_municipio: 3150802
+    id_microrregiao: 31062
+    id_mesorregiao: 3112
+    id_uf: 31
+    nome: "Santo Ant\xF4nio dos Quilombolas"
   315090105:
     id_municipio: 3150901
     id_microrregiao: 31056
@@ -61678,6 +61852,18 @@ distrito:
     id_mesorregiao: 3102
     id_uf: 31
     nome: Santa Cruz de Salinas
+  315737710:
+    id_municipio: 3157377
+    id_microrregiao: 31005
+    id_mesorregiao: 3102
+    id_uf: 31
+    nome: "\xC1gua Boa de Santa Cruz"
+  315737725:
+    id_municipio: 3157377
+    id_microrregiao: 31005
+    id_mesorregiao: 3102
+    id_uf: 31
+    nome: "Santo Ant\xF4nio da Itinga"
   315740105:
     id_municipio: 3157401
     id_microrregiao: 31060
@@ -62038,6 +62224,12 @@ distrito:
     id_mesorregiao: 3109
     id_uf: 31
     nome: "Santo Ant\xF4nio do Monte"
+  316040525:
+    id_municipio: 3160405
+    id_microrregiao: 31043
+    id_mesorregiao: 3109
+    id_uf: 31
+    nome: "S\xE3o Jos\xE9 das Rosas"
   316045405:
     id_municipio: 3160454
     id_microrregiao: 31005
@@ -62464,6 +62656,12 @@ distrito:
     id_mesorregiao: 3108
     id_uf: 31
     nome: "S\xE3o Jo\xE3o Evangelista"
+  316280707:
+    id_municipio: 3162807
+    id_microrregiao: 31035
+    id_mesorregiao: 3108
+    id_uf: 31
+    nome: Bom Jesus da Canabrava
   316280710:
     id_municipio: 3162807
     id_microrregiao: 31035
@@ -62842,6 +63040,12 @@ distrito:
     id_mesorregiao: 3111
     id_uf: 31
     nome: "Senhora dos Rem\xE9dios"
+  316620408:
+    id_municipio: 3166204
+    id_microrregiao: 31059
+    id_mesorregiao: 3111
+    id_uf: 31
+    nome: "Jap\xE3o"
   316620410:
     id_municipio: 3166204
     id_microrregiao: 31059
@@ -63028,6 +63232,12 @@ distrito:
     id_mesorregiao: 3108
     id_uf: 31
     nome: Taparuba
+  316805110:
+    id_municipio: 3168051
+    id_microrregiao: 31041
+    id_mesorregiao: 3108
+    id_uf: 31
+    nome: "S\xE3o Sebasti\xE3o de Tr\xEAs Barras"
   316810105:
     id_municipio: 3168101
     id_microrregiao: 31023
@@ -63364,6 +63574,12 @@ distrito:
     id_mesorregiao: 3104
     id_uf: 31
     nome: Umburatiba
+  317030525:
+    id_municipio: 3170305
+    id_microrregiao: 31016
+    id_mesorregiao: 3104
+    id_uf: 31
+    nome: "S\xE3o Pedro do Pamp\xE3"
   317040405:
     id_municipio: 3170404
     id_microrregiao: 31001
@@ -64210,6 +64426,12 @@ distrito:
     id_mesorregiao: 3202
     id_uf: 32
     nome: "Bra\xE7o do Rio"
+  320160508:
+    id_municipio: 3201605
+    id_microrregiao: 32005
+    id_mesorregiao: 3202
+    id_uf: 32
+    nome: "Cricar\xE9"
   320160510:
     id_municipio: 3201605
     id_microrregiao: 32005
@@ -70143,7 +70365,7 @@ distrito:
     id_microrregiao: 35031
     id_mesorregiao: 3507
     id_uf: 35
-    nome: Moji Mirim
+    nome: Mogi Mirim
   353080510:
     id_municipio: 3530805
     id_microrregiao: 35031
@@ -80830,6 +81052,12 @@ distrito:
     id_mesorregiao: 4302
     id_uf: 43
     nome: "Ant\xF4nio Prado"
+  430080207:
+    id_municipio: 4300802
+    id_microrregiao: 43016
+    id_mesorregiao: 4302
+    id_uf: 43
+    nome: Linha 21 de Abril
   430080230:
     id_municipio: 4300802
     id_microrregiao: 43016
@@ -82198,6 +82426,12 @@ distrito:
     id_mesorregiao: 4305
     id_uf: 43
     nome: Charqueadas
+  430535515:
+    id_municipio: 4305355
+    id_microrregiao: 43025
+    id_mesorregiao: 4305
+    id_uf: 43
+    nome: Fernando Kroeff
   430537105:
     id_municipio: 4305371
     id_microrregiao: 43010
@@ -88324,12 +88558,6 @@ distrito:
     id_mesorregiao: 5003
     id_uf: 50
     nome: "Ba\xFAs"
-  500325615:
-    id_municipio: 5003256
-    id_microrregiao: 50005
-    id_mesorregiao: 5003
-    id_uf: 50
-    nome: "Para\xEDso"
   500330605:
     id_municipio: 5003306
     id_microrregiao: 50003
@@ -90904,6 +91132,12 @@ distrito:
     id_mesorregiao: 5205
     id_uf: 52
     nome: "Catal\xE3o"
+  520510908:
+    id_municipio: 5205109
+    id_microrregiao: 52017
+    id_mesorregiao: 5205
+    id_uf: 52
+    nome: Pires Belo
   520510910:
     id_municipio: 5205109
     id_microrregiao: 52017
@@ -91318,6 +91552,12 @@ distrito:
     id_mesorregiao: 5205
     id_uf: 52
     nome: Indiara
+  520995210:
+    id_municipio: 5209952
+    id_microrregiao: 52014
+    id_mesorregiao: 5205
+    id_uf: 52
+    nome: "Carl\xE2ndia"
   521000005:
     id_municipio: 5210000
     id_microrregiao: 52007
@@ -91846,6 +92086,24 @@ distrito:
     id_mesorregiao: 5204
     id_uf: 52
     nome: Padre Bernardo
+  521560307:
+    id_municipio: 5215603
+    id_microrregiao: 52012
+    id_mesorregiao: 5204
+    id_uf: 52
+    nome: "Mari\xE1polis e Taboquinha"
+  521560320:
+    id_municipio: 5215603
+    id_microrregiao: 52012
+    id_mesorregiao: 5204
+    id_uf: 52
+    nome: Monte Alto
+  521560325:
+    id_municipio: 5215603
+    id_microrregiao: 52012
+    id_mesorregiao: 5204
+    id_uf: 52
+    nome: "Trajan\xF3polis"
   521565205:
     id_municipio: 5215652
     id_microrregiao: 52013
@@ -92092,6 +92350,12 @@ distrito:
     id_mesorregiao: 5203
     id_uf: 52
     nome: Santa Isabel
+  521935712:
+    id_municipio: 5219357
+    id_microrregiao: 52006
+    id_mesorregiao: 5203
+    id_uf: 52
+    nome: "Ciril\xE2ndia"
   521940705:
     id_municipio: 5219407
     id_microrregiao: 52013
@@ -94142,7 +94406,7 @@ subdistrito:
     id_microrregiao: 32009
     id_mesorregiao: 3203
     id_uf: 32
-    nome: "Regi\xE3o Administrativa III - Bento Ferreira/Jucutuquara"
+    nome: "Regi\xE3o Administrativa III - Jucutuquara"
   32053090509:
     id_distrito: 320530905
     id_municipio: 3205309
@@ -94164,13 +94428,27 @@ subdistrito:
     id_mesorregiao: 3203
     id_uf: 32
     nome: "Regi\xE3o Administrativa VII - S\xE3o Pedro"
-  32053091011:
+  32053091013:
     id_distrito: 320530910
     id_municipio: 3205309
     id_microrregiao: 32009
     id_mesorregiao: 3203
     id_uf: 32
-    nome: "Regi\xE3o Administrativa VI - Continente"
+    nome: "Regi\xE3o Administrativa VI - Goiabeiras"
+  32053091014:
+    id_distrito: 320530910
+    id_municipio: 3205309
+    id_microrregiao: 32009
+    id_mesorregiao: 3203
+    id_uf: 32
+    nome: "Regi\xE3o Administraiva VIII - Jardim Camburi"
+  32053091015:
+    id_distrito: 320530910
+    id_municipio: 3205309
+    id_microrregiao: 32009
+    id_mesorregiao: 3203
+    id_uf: 32
+    nome: "Regi\xE3o Administrativa IX - Jardim da Penha"
   33004070501:
     id_distrito: 330040705
     id_municipio: 3300407
@@ -96067,28 +96345,28 @@ subdistrito:
     id_microrregiao: 43035
     id_mesorregiao: 4307
     id_uf: 43
-    nome: "Unidade Censit\xE1ria 41"
+    nome: "Unidade Censit\xE1ria 42"
   43156022001:
     id_distrito: 431560220
     id_municipio: 4315602
     id_microrregiao: 43035
     id_mesorregiao: 4307
     id_uf: 43
-    nome: "Unidade Censit\xE1ria 42"
+    nome: "Unidade Censit\xE1ria 40"
   43156022501:
     id_distrito: 431560225
     id_municipio: 4315602
     id_microrregiao: 43035
     id_mesorregiao: 4307
     id_uf: 43
-    nome: "Unidade Censit\xE1ria 40"
+    nome: "Unidade Censit\xE1ria 42"
   43156023001:
     id_distrito: 431560230
     id_municipio: 4315602
     id_microrregiao: 43035
     id_mesorregiao: 4307
     id_uf: 43
-    nome: "Unidade Censit\xE1ria 39"
+    nome: "Unidade Censit\xE1ria 40"
   43169070506:
     id_distrito: 431690705
     id_municipio: 4316907
@@ -96277,7 +96555,7 @@ subdistrito:
     id_microrregiao: 43035
     id_mesorregiao: 4307
     id_uf: 43
-    nome: "N\xFAcleo Cidade Baixa"
+    nome: "N\xFAcleo do Terceiro Distrito"
   43185070502:
     id_distrito: 431850705
     id_municipio: 4318507
@@ -96319,14 +96597,14 @@ subdistrito:
     id_microrregiao: 43035
     id_mesorregiao: 4307
     id_uf: 43
-    nome: "N\xFAcleo do Segundo Distrito"
+    nome: "N\xFAcleo do Terceiro Distrito"
   43185071501:
     id_distrito: 431850715
     id_municipio: 4318507
     id_microrregiao: 43035
     id_mesorregiao: 4307
     id_uf: 43
-    nome: "N\xFAcleo do Terceiro Distrito"
+    nome: "N\xFAcleo do Segundo Distrito"
   50027040506:
     id_distrito: 500270405
     id_municipio: 5002704
