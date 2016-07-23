@@ -24,19 +24,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
-# -- Metadata -----------------------------------------------------------------
-
-__all__ = ['xls']
-
-# -- Imports ------------------------------------------------------------------
+# Imports
 
 # Parsers modules
 
 from . import xls
 
-# -- Constants ----------------------------------------------------------------
+# Metadata
 
-
-FORMATS = {
-    'xls': xls.XlsParser,
-}
+__all__ = ['xls']
