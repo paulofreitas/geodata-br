@@ -24,18 +24,34 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class Struct(dict):
-    def __getattr__(self, name):
-        try:
-            return self[name]
-        except KeyError:
-            raise AttributeError(name)
+    '''A dictionary object which can access/assign/delete keys with attributes.'''
 
-    def __setattr__(self, name, value):
-        self[name] = value
+    def __getattr__(self, key):
+        '''Magic method to allow accessing dictionary keys as attributes.
+
+        :param key: the dictionary key to access'''
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(key)
+
+    def __setattr__(self, key, value):
+        '''Magic method to allow assigning dictionary keys with attributes.
+
+        :param key: the dictionary key to change
+        :param value: the value to set'''
+        self[key] = value
+
+    def __delattr__(self, key):
+        '''Magic method to allow deleting dictionary keys with attributes.
+
+        :param key: the dictionary key to delete'''
+        del self[key]
 
     def copy(self):
-        return Struct(dict.copy(self))
+        '''Copies the self data into a new Struct instance.'''
+        return self.__class__(dict.copy(self))
