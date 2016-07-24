@@ -24,7 +24,22 @@ All these data was compiled from nonstandardized XLS spreadsheets provided by IB
 
 ### Database formats
 
-Currently we provide databases into the following formats: CSV, Firebird, JSON, p-list, Serialized PHP, SQL, SQLite 3, XML and YAML
+Currently we provide databases into the following formats:
+
+#### Data Interchange
+
+* [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)
+* [JSON](https://en.wikipedia.org/wiki/JSON)
+* [PHP Serialized Data](https://en.wikipedia.org/wiki/Serialization#Programming_language_support)
+* [Property List](https://en.wikipedia.org/wiki/Property_list)
+* [XML](https://en.wikipedia.org/wiki/XML)
+* [YAML](https://en.wikipedia.org/wiki/YAML)
+
+#### Database
+
+* [Firebird Embedded](https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded)
+* [SQL](https://en.wikipedia.org/wiki/SQL)
+* [SQLite 3](https://en.wikipedia.org/wiki/SQLite)
 
 ### Get involved!
 
