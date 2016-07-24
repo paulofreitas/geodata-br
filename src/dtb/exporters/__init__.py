@@ -26,28 +26,13 @@ THE SOFTWARE.
 '''
 from __future__ import absolute_import
 
-# -- Metadata -----------------------------------------------------------------
-
-__all__ = ['csv', 'firebird', 'json', 'php', 'plist', 'sql', 'sqlite', 'xml',
-           'yaml']
-
-# -- Imports ------------------------------------------------------------------
+# Imports
 
 # Exporters modules
 
 from . import csv, firebird, json, php, plist, sql, sqlite, xml, yaml
 
-# -- Constants ----------------------------------------------------------------
+# Metadata
 
-
-FORMATS = {
-    'csv': csv.CsvExporter,
-    'firebird': firebird.FirebirdExporter,
-    'json': json.JsonExporter,
-    'php': php.SerializedPhpExporter,
-    'plist': plist.PlistExporter,
-    'sql': sql.SqlExporter,
-    'sqlite3': sqlite.Sqlite3Exporter,
-    'xml': xml.XmlExporter,
-    'yaml': yaml.YamlExporter,
-}
+__all__ = ['csv', 'firebird', 'json', 'php', 'plist', 'sql', 'sqlite', 'xml',
+           'yaml']
