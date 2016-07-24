@@ -28,25 +28,27 @@ from __future__ import absolute_import, unicode_literals
 
 # Imports
 
-# External dependencies
+# External compatibility dependencies
 
 from future.utils import iteritems, itervalues
+
+# External dependencies
+
 from lxml.etree import Comment, Element, SubElement, tostring as xml_str
 
 # Package dependencies
 
-from .base import BaseExporter
+from ..formats.xml import XmlFormat
+from .base import Exporter
 
 # Classes
 
 
-class XmlExporter(BaseExporter):
+class XmlExporter(Exporter):
     '''XML exporter class.'''
 
-    # Exporter settings
-    format = 'XML'
-    extension = '.xml'
-    minifiable_format = True
+    # Exporter format
+    _format = XmlFormat
 
     @property
     def data(self):
