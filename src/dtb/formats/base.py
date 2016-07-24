@@ -31,6 +31,7 @@ from __future__ import absolute_import
 # Built-in dependencies
 
 from abc import ABCMeta as AbstractClass
+from itertools import groupby
 
 # External compatibility dependencies
 
@@ -119,25 +120,72 @@ class FormatRepository(object):
     '''File format repository class.'''
 
     @staticmethod
-    def findAllExportableFormats():
+    def findFormatByName(name):
+        '''Returns the format with the given name.
+        Raises an UnknownFormatError if no format is found.
+
+        :param name: the file format name'''
+        for _format in Format.instances():
+            if _format.name == name:
+                return _format
+
+        raise UnknownFormatError('No format found with this name: {}' \
+                                     .format(name))
+
+    @staticmethod
+    def findFormatByExtension(extension):
+        '''Returns the format with the given extension.
+        Raises an UnknownFormatError if no format is found.
+
+        :param extension: the file format extension
+        '''
+        for _format in Format.instances():
+            if _format.extension == extension:
+                return _format
+
+        raise UnknownFormatError('No format found with this extension: {}' \
+                                     .format(extension))
+
+    @staticmethod
+    def findExportableFormats():
         '''Returns a list with all exportable formats.'''
-        return [_format.name
-                for _format in Format.instances()
+        return [_format for _format in Format.instances()
                 if _format.isExportable()]
 
-    @staticmethod
-    def findAllParseableFormats():
-        '''Returns a list with all parseable formats.'''
-        return [_format.name
-                for _format in Format.instances()
-                if _format.isParseable()]
+    @classmethod
+    def findExportableFormatNames(cls):
+        '''Returns a list with all exportable format names.'''
+        return [_format.name for _format in cls.findExportableFormats()]
 
     @staticmethod
-    def findAllMinifiableFormats():
-        '''Retuns a list with all minifiable formats.'''
-        return [_format.name
-                for _format in Format.instances()
+    def findParseableFormats():
+        '''Returns a list with all parseable formats.'''
+        return [_format for _format in Format.instances()
+                if _format.isParseable()]
+
+    @classmethod
+    def findParseableFormatNames(cls):
+        '''Returns a list with all parseable format names.'''
+        return [_format.name for _format in cls.findParseableFormatNames()]
+
+    @staticmethod
+    def findMinifiableFormats():
+        '''Returns a list with all minifiable formats.'''
+        return [_format for _format in Format.instances()
                 if _format.isMinifiable()]
+
+    @classmethod
+    def findMinifiableFormatNames(cls):
+        '''Returns a list with all minifiable format names.'''
+        return [_format.name for _format in cls.findMinifiableFormats()]
+
+    @classmethod
+    def groupExportableFormatsByType(cls):
+        '''Returns a list with all exportable formats grouped by their type.'''
+        sorter = lambda _format: _format.type
+
+        return groupby(sorted(cls.findExportableFormats(), key=sorter),
+                       key=sorter)
 
 
 class FormatError(Exception):
