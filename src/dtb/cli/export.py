@@ -32,8 +32,8 @@ import sys
 
 # Package dependencies
 
+from dtb.cli.base import CliParser
 from dtb.core.entities import TerritorialBase
-from dtb.core.helpers import CliParser
 from dtb.formats.base import FormatRepository
 
 # Metadata

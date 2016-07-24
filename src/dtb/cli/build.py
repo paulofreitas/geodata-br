@@ -33,8 +33,9 @@ from os.path import join as path
 
 # Package dependencies
 
+from dtb.cli.base import CliParser
 from dtb.core.entities import TerritorialBase
-from dtb.core.helpers import CliParser, DATA_DIR
+from dtb.core.helpers import DATA_DIR
 from dtb.formats.base import FormatRepository
 
 # Metadata

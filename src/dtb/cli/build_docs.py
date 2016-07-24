@@ -32,8 +32,9 @@ from os.path import join as path
 
 # Package dependencies
 
+from dtb.cli.base import CliParser
 from dtb.core.entities import TerritorialBase
-from dtb.core.helpers import CliParser, ProjectReadme, DatabaseReadme, \
+from dtb.core.helpers import ProjectReadme, DatabaseReadme, \
                              BASE_DIR, DATA_DIR, PKG_DIR
 
 # Metadata
