@@ -35,18 +35,17 @@ import io
 
 # Package dependencies
 
-from .base import BaseExporter
+from ..formats.csv import CsvFormat
+from .base import Exporter
 
 # Classes
 
 
-class CsvExporter(BaseExporter):
+class CsvExporter(Exporter):
     '''CSV exporter class.'''
 
-    # Exporter settings
-    format = 'CSV'
-    extension = '.csv'
-    minifiable_format = True
+    # Exporter format
+    _format = CsvFormat
 
     @property
     def data(self):
