@@ -41,7 +41,8 @@ else:
 
 # Package dependencies
 
-from .base import BaseExporter
+from ..formats.plist import PlistFormat
+from .base import Exporter
 
 # Enhancements
 
@@ -65,13 +66,11 @@ PlistWriter.writeDict = __unsortable_write_dict
 # Classes
 
 
-class PlistExporter(BaseExporter):
+class PlistExporter(Exporter):
     '''Property List exporter class.'''
 
-    # Exporter settings
-    format = 'Property List'
-    extension = '.plist'
-    minifiable_format = True
+    # Exporter format
+    _format = PlistFormat
 
     @property
     def data(self):
