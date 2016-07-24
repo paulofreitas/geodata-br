@@ -132,6 +132,13 @@ class FormatRepository(object):
                 for _format in Format.instances()
                 if _format.isParseable()]
 
+    @staticmethod
+    def findAllMinifiableFormats():
+        '''Retuns a list with all minifiable formats.'''
+        return [_format.name
+                for _format in Format.instances()
+                if _format.isMinifiable()]
+
 
 class FormatError(Exception):
     '''Generic exception class for file format errors.'''
