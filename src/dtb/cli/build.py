@@ -66,8 +66,8 @@ class TerritorialDataBuilder(CliParser):
 
     def configure(self):
         bases = map(str, BASES)
-        raw_formats = map(str, FormatRepository.findAllExportableFormats())
-        minifiable_formats = map(str, FormatRepository.findAllMinifiableFormats())
+        raw_formats = FormatRepository.findExportableFormatNames()
+        minifiable_formats = FormatRepository.findMinifiableFormatNames()
 
         self.addArgumentGroup('build', 'Build options')
         self.addArgument('build',
