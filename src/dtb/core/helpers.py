@@ -24,11 +24,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
-# -- Imports ------------------------------------------------------------------
+# Imports
 
-# Built-in modules
+# Built-in dependencies
 
 import argparse
+import json
 import logging
 import sys
 
@@ -37,20 +38,25 @@ from os import listdir
 from os.path import abspath, basename, dirname, getsize as filesize, \
                     join as path, realpath, splitext
 
-# -- Constants ----------------------------------------------------------------
+# Package dependencies
+
+from .value_objects import Struct
+
+# Constants
 
 PKG_DIR = abspath(path(dirname(__file__), '..'))
 SRC_DIR = abspath(path(PKG_DIR, '..'))
 BASE_DIR = abspath(path(SRC_DIR, '..'))
 DATA_DIR = path(BASE_DIR, 'data')
 
-# -- Implementation -----------------------------------------------------------
+# Classes
 
 
 class Number(object):
     @staticmethod
     def percentDifference(from_value, to_value):
         return (1 - float(from_value) / float(to_value)) * 100
+
 
 class String(object):
     @staticmethod
@@ -316,3 +322,109 @@ class Markdown(object):
         ])
 
         return md
+
+
+class Readme(object):
+    def __init__(self, readme_file, stub_file=None):
+        from .entities import TerritorialBase
+
+        self._readme_file = realpath(readme_file)
+        self._stub_file = realpath(stub_file) if stub_file else None
+        self._readme = ''
+        self._stub = ''
+        self._data = Struct((base,
+                             json.load(open(path(DATA_DIR, base, 'dtb.json'))))
+                            for base in TerritorialBase.bases)
+
+        with open(self._readme_file) as readme:
+            self._readme = readme.read()
+
+        if stub_file:
+            with open(self._stub_file) as stub:
+                self._stub = stub.read()
+
+    def render(self):
+        raise NotImplementedError
+
+    def write(self):
+        with open(self._readme_file, 'w') as readme:
+            readme.write(self.render())
+
+
+class ProjectReadme(Readme):
+    def render(self):
+        return self._stub.format(
+            database_records=self.renderDatabaseRecords().strip(),
+            database_formats=self.renderDatabaseFormats().strip()
+        )
+
+    def renderDatabaseRecords(self):
+        from .entities import TerritorialBase, TerritorialData
+
+        headers = ['Base'] + [
+            Markdown.code(entity.table) for entity in TerritorialData.entities
+        ]
+        alignment = ['>'] * 7
+        data = [
+            [Markdown.bold(base)] + [
+                '{:,d}'.format(len(self._data[base][entity.table])) \
+                    if entity.table in self._data[base] else '-'
+                for entity in TerritorialData.entities
+            ]
+            for base in TerritorialBase.bases
+        ]
+
+        return Markdown.table([headers] + data, alignment)
+
+    def renderDatabaseFormats(self):
+        formats = ', '.join(format for format in sorted(File.formats.values(),
+                                                        key=lambda v: v.upper()))
+
+        return String.rreplace(formats, ', ', ' and ', 1)
+
+
+class DatabaseReadme(Readme):
+    def __init__(self, readme_file, stub_file, base_dir):
+        super(self.__class__, self).__init__(readme_file, stub_file)
+
+        self.base_dir = realpath(base_dir)
+        self.base = basename(base_dir)
+
+    def render(self):
+        return self._stub.format(
+            db_year=self.base,
+            db_records=self.renderDatabaseRecords().strip(),
+            db_files=self.renderDatabaseFiles().strip()
+        )
+
+    def renderDatabaseRecords(self):
+        from .entities import TerritorialData
+
+        headers = ['Table', 'Records']
+        alignment = ['>', '>']
+        data = [
+            [Markdown.code(entity.table),
+             '{:,d}'.format(len(self._data[self.base][entity.table]))]
+             for entity in TerritorialData.entities
+             if entity.table in self._data[self.base]
+        ]
+
+        return Markdown.table([headers] + data, alignment)
+
+    def renderDatabaseFiles(self):
+        headers = ['File', 'Format', 'Size', 'Savings']
+        alignment = ['<', '^', '>', '>']
+        data = [
+            [Markdown.code(base_file.basename),
+             base_file.format,
+             '{:9,d}'.format(base_file.size),
+             '{:>6.1f}%'.format(Number.percentDifference(base_file.size,
+                 File(base_file.filename.replace('minified/', '')).size))]
+            for base_file in Directory(self.base_dir).files(startswith='dtb')
+        ]
+
+        if 'minified' in self.base_dir:
+            return Markdown.table([headers] + data, alignment)
+
+        return Markdown.table([headers[:3]] + [row[:3] for row in data],
+                              alignment[:3])
