@@ -34,18 +34,17 @@ import json
 
 # Package dependencies
 
-from .base import BaseExporter
+from ..formats.json import JsonFormat
+from .base import Exporter
 
 # Classes
 
 
-class JsonExporter(BaseExporter):
+class JsonExporter(Exporter):
     '''JSON exporter class.'''
 
-    # Exporter settings
-    format = 'JSON'
-    extension = '.json'
-    minifiable_format = True
+    # Exporter format
+    _format = JsonFormat
 
     @property
     def data(self):
