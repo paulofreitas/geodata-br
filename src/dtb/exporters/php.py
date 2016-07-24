@@ -34,17 +34,17 @@ import phpserialize
 
 # Package dependencies
 
-from .base import BaseExporter
+from ..formats.php_serialized import PhpSerializedFormat
+from .base import Exporter
 
 # Classes
 
 
-class SerializedPhpExporter(BaseExporter):
+class PhpSerializedExporter(Exporter):
     '''PHP Serialized Data exporter class.'''
 
-    # Exporter settings
-    format = 'PHP Serialized Data'
-    extension = '.phpd'
+    # Exporter format
+    _format = PhpSerializedFormat
 
     @property
     def data(self):
