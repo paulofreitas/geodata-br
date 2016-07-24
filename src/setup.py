@@ -39,8 +39,8 @@ setup(
     # Package distribution
     packages=['dtb'],
     scripts=[
-        'dtb/build.py',
-        'dtb/build-docs.py',
-        'dtb/export.py'
+        'dtb/cli/build.py',
+        'dtb/cli/build_docs.py',
+        'dtb/cli/export.py'
     ],
 )
