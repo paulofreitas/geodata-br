@@ -37,6 +37,7 @@ from os.path import abspath, basename, dirname, getsize as filesize, \
 
 # Package dependencies
 
+from ..formats.base import FormatRepository, FormatError
 from .value_objects import Struct
 
 # Constants
@@ -55,12 +56,6 @@ class Number(object):
         return (1 - float(from_value) / float(to_value)) * 100
 
 
-class String(object):
-    @staticmethod
-    def rreplace(string, old, new, occurrence):
-        return new.join(string.rsplit(old, occurrence))
-
-
 class Directory(object):
     def __init__(self, dirname):
         self._dirname = dirname
@@ -76,18 +71,6 @@ class Directory(object):
 
 
 class File(object):
-    formats = {
-        '.csv': 'CSV',
-        '.fdb': 'Firebird',
-        '.json': 'JSON',
-        '.phpd': 'Serialized PHP',
-        '.plist': 'p-list',
-        '.sql': 'SQL',
-        '.sqlite3': 'SQLite 3',
-        '.xml': 'XML',
-        '.yaml': 'YAML'
-    }
-
     def __init__(self, filename):
         self._filename = filename
 
@@ -105,7 +88,10 @@ class File(object):
 
     @property
     def format(self):
-        return self.formats.get(self.extension, '-')
+        try:
+            return FormatRepository.findFormatByExtension(self.extension)
+        except FormatError:
+            return None
 
     @property
     def size(self):
@@ -134,8 +120,8 @@ class Markdown(object):
 
     @staticmethod
     def strikethrough(text):
-         '''Strikes through the provided text.'''
-         return '~~{}~~'.format(text)
+        '''Strikes through the provided text.'''
+        return '~~{}~~'.format(text)
 
     # Lists
 
@@ -143,14 +129,15 @@ class Markdown(object):
     def orderedList(items):
         '''Generates a numbered list.'''
         return '\n'.join('{}. {}'.format(index + 1, item)
-                         for index, item in enumerate(items))
+                         for index, item in enumerate(items)) + '\n'
 
     @staticmethod
     def unorderedList(items, bullet_char='*'):
         '''Generates a bullet list.'''
         assert bullet_char in ['*', '-', '+'], 'Invalid bullet char'
 
-        return '\n'.join('{} {}'.format(bullet_char, item) for item in items)
+        return '\n'.join('{} {}'.format(bullet_char, item)
+                         for item in items) + '\n'
 
     # Others
 
@@ -172,7 +159,7 @@ class Markdown(object):
     @staticmethod
     def header(heading_text, depth=1, alternative=False):
         '''Creates a header.'''
-        assert depth >=1 and depth <= 6, 'Invalid depth'
+        assert depth >= 1 and depth <= 6, 'Invalid depth'
 
         if alternative and depth in (1, 2):
             return '\n'.join([
@@ -290,12 +277,14 @@ class Readme(object):
 
 class ProjectReadme(Readme):
     def render(self):
+        '''Renders the project README file.'''
         return self._stub.format(
             database_records=self.renderDatabaseRecords().strip(),
             database_formats=self.renderDatabaseFormats().strip()
         )
 
     def renderDatabaseRecords(self):
+        '''Renders the available database records counts.'''
         from .entities import TerritorialBase, TerritorialData
 
         headers = ['Base'] + [
@@ -314,20 +303,32 @@ class ProjectReadme(Readme):
         return Markdown.table([headers] + data, alignment)
 
     def renderDatabaseFormats(self):
-        formats = ', '.join(format for format in sorted(File.formats.values(),
-                                                        key=lambda v: v.upper()))
+        '''Renders the available database formats.'''
+        grouped_formats = FormatRepository.groupExportableFormatsByType()
+        markdown = ''
 
-        return String.rreplace(formats, ', ', ' and ', 1)
+        for format_type, formats in grouped_formats:
+            markdown += '\n'.join([
+                Markdown.header(format_type, depth=4),
+                Markdown.unorderedList([
+                    Markdown.link(_format.info, _format.friendlyName)
+                    for _format in formats
+                ]) + '\n'
+            ])
 
+        return markdown
 
 class DatabaseReadme(Readme):
     def __init__(self, readme_file, stub_file, base_dir):
+        '''Constructor.'''
         super(self.__class__, self).__init__(readme_file, stub_file)
 
         self.base_dir = realpath(base_dir)
         self.base = basename(base_dir)
 
     def render(self):
+        '''Renders a database README file.'''
+
         return self._stub.format(
             db_year=self.base,
             db_records=self.renderDatabaseRecords().strip(),
@@ -335,6 +336,7 @@ class DatabaseReadme(Readme):
         )
 
     def renderDatabaseRecords(self):
+        '''Renders the database records counts.'''
         from .entities import TerritorialData
 
         headers = ['Table', 'Records']
@@ -349,16 +351,25 @@ class DatabaseReadme(Readme):
         return Markdown.table([headers] + data, alignment)
 
     def renderDatabaseFiles(self):
+        '''Renders the database files.'''
         headers = ['File', 'Format', 'Size', 'Savings']
         alignment = ['<', '^', '>', '>']
-        data = [
-            [Markdown.code(base_file.basename),
-             base_file.format,
-             '{:9,d}'.format(base_file.size),
-             '{:>6.1f}%'.format(Number.percentDifference(base_file.size,
-                 File(base_file.filename.replace('minified/', '')).size))]
-            for base_file in Directory(self.base_dir).files(startswith='dtb')
-        ]
+        data = []
+
+        for base_file in Directory(self.base_dir).files(startswith='dtb'):
+            base_format = '-'
+
+            if base_file.format:
+                base_format = Markdown.link(base_file.format.info,
+                                            base_file.format.friendlyName)
+
+            data.append([
+                Markdown.code(base_file.basename),
+                base_format,
+                '{:9,d}'.format(base_file.size),
+                '{:>6.1f}%'.format(Number.percentDifference(base_file.size,
+                     File(base_file.filename.replace('minified/', '')).size))
+            ])
 
         if 'minified' in self.base_dir:
             return Markdown.table([headers] + data, alignment)
