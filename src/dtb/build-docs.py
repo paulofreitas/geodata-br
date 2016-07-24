@@ -28,16 +28,13 @@ THE SOFTWARE.
 
 # Built-in dependencies
 
-import json
-
-from os.path import basename, join as path, realpath
+from os.path import join as path
 
 # Package dependencies
 
-from dtb.core.entities import TerritorialBase, TerritorialData
-from dtb.core.helpers import CliParser, Directory, File, Markdown, Number, \
-                             String, BASE_DIR, DATA_DIR, PKG_DIR
-from dtb.core.value_objects import Struct
+from dtb.core.entities import TerritorialBase
+from dtb.core.helpers import CliParser, ProjectReadme, DatabaseReadme, \
+                             BASE_DIR, DATA_DIR, PKG_DIR
 
 # Metadata
 
@@ -46,115 +43,15 @@ __copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
 __license__ = 'MIT'
 __version__ = '1.0-dev'
 __usage__ = '%(prog)s'
-__epilog__ =\
-    'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
+__epilog__ = 'Report bugs and feature requests to {}.' \
+    .format('https://github.com/paulofreitas/dtb-ibge/issues')
 
 # Classes
 
 
-class Readme(object):
-    data = Struct((base,
-                   json.load(open(path(DATA_DIR, base, 'dtb.json'))))
-                  for base in TerritorialBase.bases)
-
-    def __init__(self, readme_file, stub_file=None):
-        self._readme_file = realpath(readme_file)
-        self._stub_file = realpath(stub_file) if stub_file else None
-        self._readme = ''
-        self._stub = ''
-
-        with open(self._readme_file) as readme:
-            self._readme = readme.read()
-
-        if stub_file:
-            with open(self._stub_file) as stub:
-                self._stub = stub.read()
-
-    def render(self):
-        raise NotImplementedError
-
-    def write(self):
-        with open(self._readme_file, 'w') as readme:
-            readme.write(self.render())
-
-
-class ProjectReadme(Readme):
-    def render(self):
-        return self._stub.format(
-            database_records=self.renderDatabaseRecords().strip(),
-            database_formats=self.renderDatabaseFormats().strip()
-        )
-
-    def renderDatabaseRecords(self):
-        headers = ['Base'] + [
-            Markdown.code(entity.table) for entity in TerritorialData.entities
-        ]
-        alignment = ['>'] * 7
-        data = [
-            [Markdown.bold(base)] + [
-                '{:,d}'.format(len(self.data[base][entity.table])) \
-                    if entity.table in self.data[base] else '-'
-                for entity in TerritorialData.entities
-            ]
-            for base in TerritorialBase.bases
-        ]
-
-        return Markdown.table([headers] + data, alignment)
-
-    def renderDatabaseFormats(self):
-        formats = ', '.join(format for format in sorted(File.formats.values(),
-                                                        key=lambda v: v.upper()))
-
-        return String.rreplace(formats, ', ', ' and ', 1)
-
-
-class DatabaseReadme(Readme):
-    def __init__(self, readme_file, stub_file, base_dir):
-        super(self.__class__, self).__init__(readme_file, stub_file)
-
-        self.base_dir = realpath(base_dir)
-        self.base = basename(base_dir)
-
-    def render(self):
-        return self._stub.format(
-            db_year=self.base,
-            db_records=self.renderDatabaseRecords().strip(),
-            db_files=self.renderDatabaseFiles().strip()
-        )
-
-    def renderDatabaseRecords(self):
-        headers = ['Table', 'Records']
-        alignment = ['>', '>']
-        data = [
-            [Markdown.code(entity.table),
-             '{:,d}'.format(len(self.data[self.base][entity.table]))]
-             for entity in TerritorialData.entities
-             if entity.table in self.data[self.base]
-        ]
-
-        return Markdown.table([headers] + data, alignment)
-
-    def renderDatabaseFiles(self):
-        headers = ['File', 'Format', 'Size', 'Savings']
-        alignment = ['<', '^', '>', '>']
-        data = [
-            [Markdown.code(base_file.basename),
-             base_file.format,
-             '{:9,d}'.format(base_file.size),
-             '{:>6.1f}%'.format(Number.percentDifference(base_file.size,
-                 File(base_file.filename.replace('minified/', '')).size))]
-            for base_file in Directory(self.base_dir).files(startswith='dtb')
-        ]
-
-        if 'minified' in self.base_dir:
-            return Markdown.table([headers] + data, alignment)
-
-        return Markdown.table([headers[:3]] + [row[:3] for row in data],
-                              alignment[:3])
-
-
 class TerritorialDataDocBuilder(CliParser):
     '''Documentation builder command.'''
+
     def __init__(self):
         super(self.__class__, self).__init__(description=__doc__,
                                              usage=__usage__,
@@ -166,21 +63,22 @@ class TerritorialDataDocBuilder(CliParser):
         args = super(self.__class__, self).parse()
 
         ProjectReadme(path(BASE_DIR, 'README.md'),
-                      path(PKG_DIR, 'docs/README.stub.md')) \
+                      path(PKG_DIR, 'data/stubs/README.stub.md')) \
             .write()
 
         for base in TerritorialBase.bases:
             # Create raw database READMEs
             DatabaseReadme(path(DATA_DIR, base, 'README.md'),
-                           path(PKG_DIR, 'docs/BASE_README.stub.md'),
+                           path(PKG_DIR, 'data/stubs/BASE_README.stub.md'),
                            path(DATA_DIR, base)) \
                 .write()
 
             # Create minified database READMEs
             DatabaseReadme(path(DATA_DIR, 'minified', base, 'README.md'),
-                           path(PKG_DIR, 'docs/BASE_README.stub.md'),
+                           path(PKG_DIR, 'data/stubs/BASE_README.stub.md'),
                            path(DATA_DIR, 'minified', base)) \
                 .write()
+
 
 if __name__ == '__main__':
     TerritorialDataDocBuilder().parse()
