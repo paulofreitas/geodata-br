@@ -48,7 +48,8 @@ from sqlalchemy.sql.schema import ForeignKeyConstraint, Index, \
 
 # Package dependencies
 
-from .base import BaseExporter
+from ..formats.sql import SqlFormat
+from .base import Exporter
 
 # Classes
 
@@ -470,13 +471,11 @@ class SchemaGenerator(object):
         return self.render()
 
 
-class SqlExporter(BaseExporter):
+class SqlExporter(Exporter):
     '''SQL exporter class.'''
 
-    # Exporter settings
-    format = 'SQL'
-    extension = '.sql'
-    minifiable_format = True
+    # Exporter format
+    _format = SqlFormat
 
     def __init__(self, base, minified, dialect='default'):
         '''Constructor.
