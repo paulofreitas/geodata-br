@@ -12,7 +12,9 @@ All these data was compiled from nonstandardized XLS spreadsheets provided by IB
 
 ### Database formats
 
-Currently we provide databases into the following formats: {database_formats}
+Currently we provide databases into the following formats:
+
+{database_formats}
 
 ### Get involved!
 
