@@ -38,19 +38,18 @@ import fdb
 
 # Package dependencies
 
-from .base import BaseExporter
+from ..formats.firebird import FirebirdFormat
+from .base import Exporter
 from .sql import SqlExporter
 
 # Classes
 
 
-class FirebirdExporter(BaseExporter):
+class FirebirdExporter(Exporter):
     '''Firebird exporter class.'''
 
-    # Exporter settings
-    format = 'Firebird'
-    extension = '.fdb'
-    binary_format = True
+    # Exporter format
+    _format = FirebirdFormat
 
     @property
     def data(self):
