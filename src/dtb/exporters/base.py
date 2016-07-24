@@ -80,7 +80,7 @@ class ExporterFactory(object):
         '''Factories an exporter class for a given format.
 
         :param _format: the file format name to retrieve an exporter'''
-        exporters = {exporter.format.name: exporter
+        exporters = {exporter._format().name: exporter
                      for exporter in Exporter.__subclasses__()}
 
         try:
