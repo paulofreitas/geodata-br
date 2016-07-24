@@ -53,8 +53,8 @@ from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 
 # Package dependencies
 
-from .. import exporters
 from ..core.helpers import PKG_DIR, SRC_DIR
+from ..exporters.base import ExporterFactory
 from ..parsers.base import ParserFactory
 from .value_objects import Struct
 
@@ -475,38 +475,37 @@ class TerritorialBase(object):
 
         return self
 
-    def export(self, format, minified=False, filename=None):
+    def export(self, _format, minified=False, filename=None):
         '''Exports the given territorial database.
 
-        :param format: the format to export the database
+        :param _format: the format to export the database
         :param minified: whether or not the exported file should be minified
         :param filename: the exported filename
         '''
-        if format not in exporters.FORMATS:
-            raise Exception('Unsupported output format.')
-
-        exporter = exporters.FORMATS.get(format)
+        exporter = ExporterFactory.fromFormat(_format)
+        export_format = exporter._format()
 
         if minified:
             self._logger.info('Exporting database to minified {} format...' \
-                .format(exporter.format))
+                .format(export_format.friendlyName))
         else:
             self._logger.info('Exporting database to {} format...' \
-                .format(exporter.format))
+                .format(export_format.friendlyName))
 
         data = exporter(self._data, minified).data
-        binary_data = exporter.binary_format
 
-        if not binary_data and not isinstance(data, unicode):
+        if not export_format.isBinary() and not isinstance(data, unicode):
             data = unicode(data.decode('utf-8'))
 
         self._logger.debug('Done.')
 
         if filename:
             if filename == 'auto':
-                filename = 'dtb' + exporter.extension
+                filename = 'dtb' + export_format.extension
 
-            with open(filename, 'wb' if binary_data else 'w') as export_file:
+            writeMode = 'wb' if export_format.isBinary() else 'w'
+
+            with open(filename, writeMode) as export_file:
                 export_file.write(data)
         else:
             sys.stdout.write(data)
