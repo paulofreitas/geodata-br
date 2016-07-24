@@ -28,8 +28,10 @@ THE SOFTWARE.
 
 # Formats modules
 
-from . import xls
+from . import csv, firebird, json, php_serialized, plist, sql, sqlite3, xls, \
+              xml, yaml
 
 # Metadata
 
-__all__ = ['xls']
+__all__ = ['csv', 'firebird', 'json', 'php_serialized', 'plist', 'sql',
+           'sqlite3', 'xls', 'xml', 'yaml']
