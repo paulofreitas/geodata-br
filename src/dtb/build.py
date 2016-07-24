@@ -24,36 +24,39 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
-# -- Metadata -----------------------------------------------------------------
+# Imports
+
+# Built-in dependencies
+
+from os import chdir, makedirs
+from os.path import join as path
+
+# Package dependencies
+
+from dtb.core.entities import TerritorialBase
+from dtb.core.helpers import CliParser, DATA_DIR
+from dtb.formats.base import FormatRepository
+
+# Metadata
 
 __author__ = 'Paulo Freitas <me@paulofreitas.me>'
 __copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
 __license__ = 'MIT'
 __version__ = '1.0-dev'
 __usage__ = '%(prog)s -b BASE -r FORMAT -m FORMAT'
-__epilog__ =\
-    'Report bugs and feature requests to https://github.com/paulofreitas/dtb-ibge/issues.'
+__epilog__ = 'Report bugs and feature requests to {}.' \
+    .format('https://github.com/paulofreitas/dtb-ibge/issues')
+
+# Constants
 
 BASES = [2003, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014]
-RAW_FORMATS = ['csv', 'firebird', 'json', 'php', 'plist', 'sql', 'sqlite3',
-               'xml', 'yaml']
-MINIFIABLE_FORMATS = ['csv', 'json', 'plist', 'sql', 'xml', 'yaml']
 
-# -- Imports ------------------------------------------------------------------
+# Classes
 
-# Built-in modules
-
-from os import chdir, makedirs
-from os.path import join as path
-
-# Package modules
-
-from dtb.core.entities import TerritorialBase
-from dtb.core.helpers import CliParser, DATA_DIR
-
-# -- Implementation -----------------------------------------------------------
 
 class TerritorialDataBuilder(CliParser):
+    '''Territorial data builder command.'''
+
     def __init__(self):
         super(self.__class__, self).__init__(description=__doc__,
                                              usage=__usage__,
@@ -61,37 +64,42 @@ class TerritorialDataBuilder(CliParser):
                                              version=__version__)
 
     def configure(self):
+        bases = map(str, BASES)
+        raw_formats = map(str, FormatRepository.findAllExportableFormats())
+        minifiable_formats = map(str, FormatRepository.findAllMinifiableFormats())
+
         self.addArgumentGroup('build', 'Build options')
         self.addArgument('build',
                          '-b', '--bases',
                          metavar='BASE',
                          nargs='*',
-                         default=BASES,
+                         default=bases,
                          help='Database years to build.\n' \
                              + 'Defaults to all available: {}' \
-                                 .format(', '.join(map(str, BASES))))
+                                 .format(', '.join(bases)))
         self.addArgument('build',
                          '-r', '--raw',
                          metavar='FORMAT',
                          nargs='*',
-                         default=RAW_FORMATS,
+                         default=raw_formats,
                          help='Raw formats to build the database.\n' \
                              + 'Defaults to all available: {}' \
-                                 .format(', '.join(RAW_FORMATS)))
+                                 .format(', '.join(raw_formats)))
         self.addArgument('build',
                          '-m', '--min',
                          metavar='FORMAT',
                          nargs='*',
-                         default=MINIFIABLE_FORMATS,
+                         default=minifiable_formats,
                          help='Minifiable formats to build the database.\n' \
                              + 'Defaults to all available: {}' \
-                                 .format(', '.join(MINIFIABLE_FORMATS)))
+                                 .format(', '.join(minifiable_formats)))
 
     def parse(self):
+        '''Parses the given command line arguments.'''
         args = super(self.__class__, self).parse()
 
         try:
-            for base in map(str, args.bases):
+            for base in args.bases:
                 raw_dir = path(DATA_DIR, base)
                 minified_dir = path(DATA_DIR, 'minified', base)
 
@@ -100,11 +108,13 @@ class TerritorialDataBuilder(CliParser):
                 try:
                     makedirs(raw_dir)
                     makedirs(minified_dir)
-                except:
+                except OSError:
                     pass
 
                 chdir(raw_dir)
-                base_data = TerritorialBase(base, self._logger).retrieve().parse()
+                base_data = TerritorialBase(base, self._logger) \
+                    .retrieve() \
+                    .parse()
 
                 for raw_format in args.raw:
                     base_data.export(raw_format, False, 'auto')
@@ -113,7 +123,7 @@ class TerritorialDataBuilder(CliParser):
 
                 for minifiable_format in args.min:
                     base_data.export(minifiable_format, True, 'auto')
-        except KeyboardInterrupt as e:
+        except KeyboardInterrupt:
             self._logger.info('> Building was canceled.')
 
 
