@@ -66,7 +66,7 @@ class TerritorialDataExporter(CliParser):
         self.addArgument('export',
                          '-f', '--format',
                          metavar='FORMAT',
-                         choices=FormatRepository.findAllExportableFormats(),
+                         choices=FormatRepository.findExportableFormatNames(),
                          help='Format to export the database.\n'
                              + 'Options: %(choices)s')
         self.addArgument('export',
