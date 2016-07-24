@@ -35,19 +35,18 @@ import tempfile
 
 # Package dependencies
 
-from .base import BaseExporter
+from ..formats.sqlite3 import Sqlite3Format
+from .base import Exporter
 from .sql import SqlExporter
 
 # Classes
 
 
-class Sqlite3Exporter(BaseExporter):
+class Sqlite3Exporter(Exporter):
     '''SQLite3 exporter class.'''
 
-    # Exporter settings
-    format = 'SQLite 3'
-    extension = '.sqlite3'
-    binary_format = True
+    # Exporter format
+    _format = Sqlite3Format
 
     @property
     def data(self):
