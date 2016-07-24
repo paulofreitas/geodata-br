@@ -38,7 +38,8 @@ import yaml
 
 # Package dependencies
 
-from .base import BaseExporter
+from ..formats.yaml import YamlFormat
+from .base import Exporter
 
 # Enhancements
 
@@ -90,13 +91,11 @@ yaml.SafeDumper.add_representer(
 # Classes
 
 
-class YamlExporter(BaseExporter):
+class YamlExporter(Exporter):
     '''YAML exporter class.'''
 
-    # Exporter settings
-    format = 'YAML'
-    extension = '.yaml'
-    minifiable_format = True
+    # Exporter format
+    _format= YamlFormat
 
     @property
     def data(self):
