@@ -24,16 +24,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
-# -- Metadata -----------------------------------------------------------------
+# Metadata
 
-__all__ = ['core', 'exporters', 'parsers']
+__all__ = ['core', 'formats', 'exporters', 'parsers']
 
-# -- Imports ------------------------------------------------------------------
-
-# Built-in Imports
-
-from os.path import abspath, dirname, join as path
+# Imports
 
 # Package modules
 
-from . import core, exporters, parsers
+from . import core, formats, exporters, parsers
