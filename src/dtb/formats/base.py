@@ -88,6 +88,15 @@ class Format(object, with_metaclass(AbstractClass)):
         '''Tells whether the file format is minifiable or not.'''
         return False
 
+    @classmethod
+    def instances(cls):
+        '''Returns a list with all format classes instances.'''
+        return [_format() for _format in cls.__subclasses__()]
+
+    def __str__(self):
+        '''Returns a string representation of this format class.'''
+        return self.name
+
 
 class FormatFactory(object):
     '''File format factory class.'''
@@ -97,13 +106,31 @@ class FormatFactory(object):
         '''Factories a file format class for a given file format name.
 
         :param name: the file format name to retrieve a file format instance'''
-        formats = {format.name: _format for _format in Format.__subclasses__()}
+        formats = {_format.name: _format for _format in Format.instances()}
 
         try:
             return formats[name]
         except KeyError:
             raise UnknownFormatError('No format found with this name: {}' \
                                          .format(name))
+
+
+class FormatRepository(object):
+    '''File format repository class.'''
+
+    @staticmethod
+    def findAllExportableFormats():
+        '''Returns a list with all exportable formats.'''
+        return [_format.name
+                for _format in Format.instances()
+                if _format.isExportable()]
+
+    @staticmethod
+    def findAllParseableFormats():
+        '''Returns a list with all parseable formats.'''
+        return [_format.name
+                for _format in Format.instances()
+                if _format.isParseable()]
 
 
 class FormatError(Exception):
