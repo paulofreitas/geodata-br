@@ -35,7 +35,6 @@ from os import devnull
 # External compatibility dependencies
 
 from builtins import range
-from future.utils import iteritems, itervalues
 
 # External dependencies
 
@@ -53,7 +52,7 @@ class XlsParser(Parser):
     '''XLS parser class.'''
 
     # Parser format
-    _format = XlsFormat()
+    _format = XlsFormat
 
     def __init__(self, base, logger):
         '''Constructor.
@@ -61,7 +60,7 @@ class XlsParser(Parser):
         :param base: a territorial base instance to parse
         :param logger: a logger instance to log
         '''
-        super(XlsParser, self).__init__(base, logger)
+        super(self.__class__, self).__init__(base, logger)
 
         self._book = xlrd.open_workbook(file_contents=self._base.rawdata,
                                         encoding_override='utf-8',
@@ -69,40 +68,27 @@ class XlsParser(Parser):
                                         on_demand=True)
         self._sheet = self._book.sheet_by_name(self._base.sheet)
 
-    def parse(self):
-        '''Parses the XLS database.'''
-        self._logger.debug('Parsing database...')
+    def parseColumns(self):
+        '''Parses the XLS database columns.'''
+        self._logger.debug('Parsing database cols...')
 
-        # Build data records
-        self.initialize()
+        return self._data._cols[:self._sheet.ncols]
 
-        # Build data columns
-        self._data._cols = self._data._cols[:self._sheet.ncols]
+    def parseRows(self):
+        '''Parses the XLS database rows.'''
+        self._logger.debug('Parsing database rows...')
+
+        rows = []
 
         for row_id in range(self._sheet.nrows):
             # Skip headers
             if row_id == 0:
                 continue
 
-            row = self.parseRow([unicode(col)
-                                for col in self._sheet.row_values(row_id)])
+            row_data = [unicode(col) for col in self._sheet.row_values(row_id)]
+            rows.append(self.parseRow(row_data))
 
-            # Build data rows
-            self._data._rows.append(row.value)
-
-            # Append data to records
-            for (table, records) in iteritems(self._data._dict):
-                row_data = getattr(row, table)
-
-                if None not in itervalues(row_data) \
-                        and row_data not in records:
-                    self._data._dict[table].append(row_data)
-
-        # Sort data records
-        for (table, records) in iteritems(self._data._dict):
-            self._data._dict[table] = sorted(records, key=lambda row: row.id)
-
-        return self._data
+        return rows
 
     def parseRow(self, row_data):
         '''Parses the database row.'''
