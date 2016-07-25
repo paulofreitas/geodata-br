@@ -13,14 +13,14 @@
 
 ### Database files
 
-| File          | Format         |      Size |
-| ------------- |:--------------:| ---------:|
-| `dtb.csv`     | CSV            | 1,256,465 |
-| `dtb.fdb`     | Firebird       | 3,194,880 |
-| `dtb.json`    | JSON           | 2,795,018 |
-| `dtb.phpd`    | Serialized PHP | 2,489,734 |
-| `dtb.plist`   | p-list         | 4,985,685 |
-| `dtb.sql`     | SQL            | 1,388,865 |
-| `dtb.sqlite3` | SQLite 3       | 1,793,024 |
-| `dtb.xml`     | XML            | 4,726,532 |
-| `dtb.yaml`    | YAML           | 2,069,921 |
+| File                 | Format                                                                                          |      Size |
+| -------------------- |:-----------------------------------------------------------------------------------------------:| ---------:|
+| `dtb.csv`            | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)                                     | 1,256,465 |
+| `dtb.fdb`            | [Firebird Embedded](https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded)          | 3,194,880 |
+| `dtb.json`           | [JSON](https://en.wikipedia.org/wiki/JSON)                                                      | 2,795,018 |
+| `dtb.php.serialized` | [PHP Serialized Data](https://en.wikipedia.org/wiki/Serialization#Programming_language_support) | 2,489,734 |
+| `dtb.plist`          | [Property List](https://en.wikipedia.org/wiki/Property_list)                                    | 4,985,685 |
+| `dtb.sql`            | [SQL](https://en.wikipedia.org/wiki/SQL)                                                        | 1,388,865 |
+| `dtb.sqlite3`        | [SQLite 3](https://en.wikipedia.org/wiki/SQLite)                                                | 1,793,024 |
+| `dtb.xml`            | [XML](https://en.wikipedia.org/wiki/XML)                                                        | 4,726,532 |
+| `dtb.yaml`           | [YAML](https://en.wikipedia.org/wiki/YAML)                                                      | 2,069,921 |
