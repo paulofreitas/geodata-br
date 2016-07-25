@@ -31,9 +31,8 @@ THE SOFTWARE.
 import json
 
 from collections import defaultdict
-from os import listdir
-from os.path import abspath, basename, dirname, getsize as filesize, \
-                    join as path, realpath, splitext
+from os.path import abspath, basename, dirname, join as path, realpath
+from pathlib import Path
 
 # Package dependencies
 
@@ -58,36 +57,53 @@ class Number(object):
 
 class Directory(object):
     def __init__(self, dirname):
-        self._dirname = dirname
+        '''Constructor.
+
+        :param dirname: the directory path to give a new Directory object
+        '''
+        self._path = Path(dirname)
 
     @property
-    def basename(self):
-        return basename(self._dirname)
+    def name(self):
+        '''Returns the directory name.'''
+        return self._path.name
 
-    def files(self, startswith=''):
-        return [File(realpath(path(self._dirname, filename)))
-                for filename in listdir(realpath(self._dirname))
-                if filename.startswith(startswith)]
+    def files(self, pattern='*'):
+        '''Returns a list with all directory files matching the given pattern.'''
+        return [File(_file) for _file in self._path.iterdir()
+                if _file.match(pattern)]
+
+    def __str__(self):
+        '''String representation of this directory object.'''
+        return str(self._path)
 
 
 class File(object):
     def __init__(self, filename):
-        self._filename = filename
+        '''Constructor.
+
+        :param filename: the file path to give a new File object
+        '''
+        self._path = Path(filename)
 
     @property
-    def filename(self):
-        return self._filename
+    def name(self):
+        '''Returns the file name.'''
+        return self._path.name
 
     @property
-    def basename(self):
-        return basename(self._filename)
+    def path(self):
+        '''Returns the file path.'''
+        return self._path.parent
 
     @property
     def extension(self):
-        return splitext(self._filename)[1]
+        '''Returns the file extension.'''
+        return ''.join(self._path.suffixes)
 
     @property
     def format(self):
+        '''Returns the file format.'''
         try:
             return FormatRepository.findFormatByExtension(self.extension)
         except FormatError:
@@ -95,7 +111,13 @@ class File(object):
 
     @property
     def size(self):
-        return filesize(self._filename)
+        '''Returns the file size.'''
+        return self._path.stat().st_size
+
+
+    def __str__(self):
+        '''String representation of this file object.'''
+        return str(self._path)
 
 
 # Markdown generator
@@ -356,7 +378,7 @@ class DatabaseReadme(Readme):
         alignment = ['<', '^', '>', '>']
         data = []
 
-        for base_file in Directory(self.base_dir).files(startswith='dtb'):
+        for base_file in Directory(self.base_dir).files(pattern='dtb*'):
             base_format = '-'
 
             if base_file.format:
@@ -364,11 +386,11 @@ class DatabaseReadme(Readme):
                                             base_file.format.friendlyName)
 
             data.append([
-                Markdown.code(base_file.basename),
+                Markdown.code(base_file.name),
                 base_format,
                 '{:9,d}'.format(base_file.size),
                 '{:>6.1f}%'.format(Number.percentDifference(base_file.size,
-                     File(base_file.filename.replace('minified/', '')).size))
+                     File(str(base_file).replace('minified/', '')).size))
             ])
 
         if 'minified' in self.base_dir:
