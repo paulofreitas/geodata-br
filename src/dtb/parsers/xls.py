@@ -98,7 +98,7 @@ class XlsParser(Parser):
         base = int(self._base.year)
 
         # 12 cols
-        if base in [2005, 2006, 2007, 2008, 2009, 2013]:
+        if base in [2003, 2005, 2006, 2007, 2008, 2009, 2013]:
             row.id_uf, row.nome_uf, \
             row.id_mesorregiao, row.nome_mesorregiao, \
             row.id_microrregiao, row.nome_microrregiao, \
