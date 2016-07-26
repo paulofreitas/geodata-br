@@ -34,8 +34,8 @@ from os.path import join as path
 # Package dependencies
 
 from dtb.cli.base import CliParser
-from dtb.core.entities import TerritorialBase
 from dtb.core.helpers import DATA_DIR
+from dtb.databases import Database
 from dtb.formats.base import FormatRepository
 
 # Metadata
@@ -113,9 +113,7 @@ class TerritorialDataBuilder(CliParser):
                     pass
 
                 chdir(raw_dir)
-                base_data = TerritorialBase(base, self._logger) \
-                    .retrieve() \
-                    .parse()
+                base_data = Database(base, self._logger).retrieve().parse()
 
                 for raw_format in args.raw:
                     base_data.export(raw_format, False, 'auto')
