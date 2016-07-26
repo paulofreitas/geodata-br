@@ -33,7 +33,7 @@ import sys
 # Package dependencies
 
 from dtb.cli.base import CliParser
-from dtb.core.entities import TerritorialBase
+from dtb.databases import Database
 from dtb.formats.base import FormatRepository
 
 # Metadata
@@ -94,7 +94,7 @@ class TerritorialDataExporter(CliParser):
                 'You need to give the database format you want to export.')
 
         try:
-            base = TerritorialBase(args.base, self._logger)
+            base = Database(args.base, self._logger)
             base.retrieve().parse() \
                 .export(args.format, args.minified, args.filename)
         except KeyboardInterrupt:
