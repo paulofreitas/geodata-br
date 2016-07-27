@@ -13,16 +13,17 @@ This package provides utility helper modules.
 
 import json
 
-from collections import defaultdict
-from os.path import abspath, basename, dirname, join as path, realpath
-from pathlib import Path
+from os.path import basename, join as path, realpath
 
 # Package dependencies
 
 from dtb.databases import Database
+from dtb.core.constants import DATA_DIR
 from dtb.core.entities import TerritorialData
+from dtb.core.helpers.filesystem import Directory, File
+from dtb.core.helpers.markup import Markdown
 from dtb.core.value_objects import Struct
-from dtb.formats import FormatRepository, FormatError
+from dtb.formats import FormatRepository
 
 # Package metadata
 
@@ -31,13 +32,6 @@ __author__ = 'Paulo Freitas <me@paulofreitas.me>'
 __copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
 __license__ = 'MIT License'
 
-# Constants
-
-PKG_DIR = abspath(path(dirname(__file__), '..'))
-SRC_DIR = abspath(path(PKG_DIR, '..'))
-BASE_DIR = abspath(path(SRC_DIR, '..'))
-DATA_DIR = path(BASE_DIR, 'data')
-
 # Classes
 
 
@@ -45,221 +39,6 @@ class Number(object):
     @staticmethod
     def percentDifference(from_value, to_value):
         return (1 - float(from_value) / float(to_value)) * 100
-
-
-class Directory(object):
-    def __init__(self, dirname):
-        '''Constructor.
-
-        :param dirname: the directory path to give a new Directory object
-        '''
-        self._path = Path(dirname)
-
-    @property
-    def name(self):
-        '''Returns the directory name.'''
-        return self._path.name
-
-    def files(self, pattern='*'):
-        '''Returns a list with all directory files matching the given pattern.'''
-        return [File(_file) for _file in self._path.iterdir()
-                if _file.match(pattern)]
-
-    def __str__(self):
-        '''String representation of this directory object.'''
-        return str(self._path)
-
-
-class File(object):
-    def __init__(self, filename):
-        '''Constructor.
-
-        :param filename: the file path to give a new File object
-        '''
-        self._path = Path(filename)
-
-    @property
-    def name(self):
-        '''Returns the file name.'''
-        return self._path.name
-
-    @property
-    def path(self):
-        '''Returns the file path.'''
-        return self._path.parent
-
-    @property
-    def extension(self):
-        '''Returns the file extension.'''
-        return ''.join(self._path.suffixes)
-
-    @property
-    def format(self):
-        '''Returns the file format.'''
-        try:
-            return FormatRepository.findFormatByExtension(self.extension)
-        except FormatError:
-            return None
-
-    @property
-    def size(self):
-        '''Returns the file size.'''
-        return self._path.stat().st_size
-
-
-    def __str__(self):
-        '''String representation of this file object.'''
-        return str(self._path)
-
-
-# Markdown generator
-class Markdown(object):
-    # Emphasis
-
-    @staticmethod
-    def bold(text, alternative=False):
-        '''Creates a bold text.'''
-        if alternative:
-            return '__{}__'.format(text)
-
-        return '**{}**'.format(text)
-
-    @staticmethod
-    def italic(text, alternative=True):
-        '''Creates text in italics.'''
-        if alternative:
-            return '_{}_'.format(text)
-
-        return '*{}*'.format(text)
-
-    @staticmethod
-    def strikethrough(text):
-        '''Strikes through the provided text.'''
-        return '~~{}~~'.format(text)
-
-    # Lists
-
-    @staticmethod
-    def orderedList(items):
-        '''Generates a numbered list.'''
-        return '\n'.join('{}. {}'.format(index + 1, item)
-                         for index, item in enumerate(items)) + '\n'
-
-    @staticmethod
-    def unorderedList(items, bullet_char='*'):
-        '''Generates a bullet list.'''
-        assert bullet_char in ['*', '-', '+'], 'Invalid bullet char'
-
-        return '\n'.join('{} {}'.format(bullet_char, item)
-                         for item in items) + '\n'
-
-    # Others
-
-    @staticmethod
-    def blockquote(text, simple=False):
-        '''Creates a block quoted text.'''
-        if simple:
-            return '> {}\n'.format(text)
-
-        return '\n'.join(['> {}'.format(line) for line in text.splitlines()])
-
-    @staticmethod
-    def code(content, inline=True, syntax=None):
-        if inline and not syntax:
-            return '`{}`'.format(content)
-
-        return '```{}\n{}\n```'.format(syntax or '', content)
-
-    @staticmethod
-    def header(heading_text, depth=1, alternative=False):
-        '''Creates a header.'''
-        assert depth >= 1 and depth <= 6, 'Invalid depth'
-
-        if alternative and depth in (1, 2):
-            return '\n'.join([
-                heading_text,
-                ['=', '-'][depth -1] * len(heading_text)
-            ]) + '\n'
-
-        return '#' * depth + ' ' + heading_text + '\n'
-
-    @staticmethod
-    def horizontalRule(rule_char='-'):
-        '''Creates an horizontal rule.'''
-        assert rule_char in ['-', '*', '_']
-
-        return rule_char * 3 + '\n'
-
-    @staticmethod
-    def link(url, text='', title=''):
-        '''Generates a link to an URL.'''
-        if not text and not title:
-            return url
-
-        if not title:
-            return '[{}]({})'.format(text, url)
-
-        return '[{}]({} "{}")'.format(text, url, title)
-
-    @staticmethod
-    def literal(text):
-        chars = '\\`*_{}[]()#+-.!'
-
-        return ''.join('\\' + char if char in chars else char for char in text)
-
-    @staticmethod
-    def table(data, aligning=None):
-        '''Generates a table from a 2 dimentional list.'''
-        md = ''
-
-        # No aligning: default is left
-        if not aligning:
-            aligning = ['<'] * len(data[0])
-
-        if len(data[0]) > len(aligning):
-            difference = len(data[0]) - len(aligning)
-            aligning.extend(['<'] * difference)
-
-        assert len(aligning) >= len(data[0])
-
-        # Calculate max size of each column
-        column_sizes = defaultdict(int)
-
-        for row in data:
-            for column, cell in enumerate(map(str, row)):
-                column_sizes[column] = max(column_sizes[column], len(cell))
-
-        # Headers
-
-        md = '|{}|\n'.format('|'.join([
-            (' {{:' + aligning[col] + '{}}} ').format(column_sizes[col])
-                                              .replace('^', '<')
-                                              .format(cell)
-            for col, cell in enumerate(data[0])
-        ]))
-
-        # Heading separator
-        md += '|{}|\n'.format('|'.join([
-            ''.join([
-                ':' if aligning[col] == '^' else ' ', # left char
-                '-' * column_sizes[col],
-                ' ' if aligning[col] == '<' else ':', # right char
-            ])
-            for col in range(len(data[0]))
-        ]))
-
-        # Data
-        md += ''.join([
-            '|{}|\n'.format('|'.join([
-                (' {{:' + aligning[col] + '{}}} ').format(column_sizes[col])
-                                                  .replace('^', '<')
-                                                  .format(cell)
-                for col, cell in enumerate(row)
-            ]))
-            for row in data[1:]
-        ])
-
-        return md
 
 
 class Readme(object):
