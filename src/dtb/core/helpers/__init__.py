@@ -1,28 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''Brazilian territorial distribution data
+# Copyright (c) 2013-2016 Paulo Freitas
+# MIT License (see LICENSE file)
+'''
+Core helpers package
 
-The MIT License (MIT)
-
-Copyright (c) 2013-2016 Paulo Freitas
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+This package provides utility helper modules.
 '''
 # Imports
 
@@ -36,8 +19,17 @@ from pathlib import Path
 
 # Package dependencies
 
-from ..formats.base import FormatRepository, FormatError
-from .value_objects import Struct
+from dtb.databases import Database
+from dtb.core.entities import TerritorialData
+from dtb.core.value_objects import Struct
+from dtb.formats import FormatRepository, FormatError
+
+# Package metadata
+
+__version__ = '1.0-dev'
+__author__ = 'Paulo Freitas <me@paulofreitas.me>'
+__copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
+__license__ = 'MIT License'
 
 # Constants
 
@@ -272,15 +264,13 @@ class Markdown(object):
 
 class Readme(object):
     def __init__(self, readme_file, stub_file=None):
-        from .entities import TerritorialBase
-
         self._readme_file = realpath(readme_file)
         self._stub_file = realpath(stub_file) if stub_file else None
         self._readme = ''
         self._stub = ''
         self._data = Struct((base,
                              json.load(open(path(DATA_DIR, base, 'dtb.json'))))
-                            for base in TerritorialBase.bases)
+                            for base in Database.bases)
 
         with open(self._readme_file) as readme:
             self._readme = readme.read()
@@ -307,8 +297,6 @@ class ProjectReadme(Readme):
 
     def renderDatabaseRecords(self):
         '''Renders the available database records counts.'''
-        from .entities import TerritorialBase, TerritorialData
-
         headers = ['Base'] + [
             Markdown.code(entity.table) for entity in TerritorialData.entities
         ]
@@ -319,7 +307,7 @@ class ProjectReadme(Readme):
                     if entity.table in self._data[base] else '-'
                 for entity in TerritorialData.entities
             ]
-            for base in TerritorialBase.bases
+            for base in Database.bases
         ]
 
         return Markdown.table([headers] + data, alignment)
@@ -359,8 +347,6 @@ class DatabaseReadme(Readme):
 
     def renderDatabaseRecords(self):
         '''Renders the database records counts.'''
-        from .entities import TerritorialData
-
         headers = ['Table', 'Records']
         alignment = ['>', '>']
         data = [
