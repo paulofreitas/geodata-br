@@ -11,13 +11,13 @@ from __future__ import absolute_import
 
 # Imports
 
-# Built-in dependencies
-
-from abc import ABCMeta as AbstractClass
-
 # External compatibility dependencies
 
-from future.utils import iteritems, itervalues, with_metaclass
+from future.utils import itervalues
+
+# Package dependencies
+
+from dtb.core.types import AbstractClass
 
 # Package metadata
 
@@ -29,7 +29,7 @@ __license__ = 'MIT License'
 # Classes
 
 
-class Parser(object, with_metaclass(AbstractClass)):
+class Parser(AbstractClass):
     '''Abstract base parser class.'''
 
     # Parser format
@@ -38,8 +38,9 @@ class Parser(object, with_metaclass(AbstractClass)):
     def __init__(self, base, logger):
         '''Constructor.
 
-        :param base: a territorial base instance to parse
-        :param logger: a logger instance to log
+        Arguments:
+            base (dtb.databases.Database): A database instance to parse
+            logger (logging.Logger): A logger instance to log
         '''
         self._logger = logger
         self._base = base
@@ -98,15 +99,21 @@ class ParserFactory(object):
     def fromFormat(cls, _format):
         '''Factories a parser class for a given format.
 
-        :param _format: the file format name to retrieve a parser'''
-        parsers = {parser._format().name: parser
-                   for parser in Parser.__subclasses__()}
+        Arguments:
+            _format (str): The file format name to retrieve a parser
 
-        try:
-            return parsers[_format]
-        except KeyError:
-            raise UnknownParserError('No parser found for format: {}' \
-                                         .format(_format))
+        Returns:
+            Parser: The parser class instance
+
+        Raises:
+            UnknownParserError: When a given file format is not found
+        '''
+        for parser in Parser.childs():
+            if parser._format().name == _format:
+                return parser
+
+        raise UnknownParserError('No parser found for format: {}' \
+                                     .format(_format))
 
 
 class ParserError(Exception):
