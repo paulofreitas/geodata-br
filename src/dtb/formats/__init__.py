@@ -5,7 +5,8 @@
 '''
 File formats package
 
-This package provides the file format modules.
+This package provides an abstract file format class, a file format factory
+class, a file format repository class and concrete file format modules.
 '''
 from __future__ import absolute_import
 
@@ -13,12 +14,11 @@ from __future__ import absolute_import
 
 # Built-in dependencies
 
-from abc import ABCMeta as AbstractClass
 from itertools import groupby
 
-# External compatibility dependencies
+# Package dependencies
 
-from future.utils import with_metaclass
+from dtb.core.types import AbstractClass
 
 # Package metadata
 
@@ -30,7 +30,7 @@ __license__ = 'MIT License'
 # Classes
 
 
-class Format(object, with_metaclass(AbstractClass)):
+class Format(AbstractClass):
     '''Abstract file format base class.'''
 
     @property
@@ -63,26 +63,25 @@ class Format(object, with_metaclass(AbstractClass)):
         '''The file format reference info.'''
         raise NotImplementedError
 
-    def isBinary(self):
+    @classmethod
+    def isBinary(cls):
         '''Tells whether the file format is binary or not.'''
         return False
 
-    def isParseable(self):
+    @classmethod
+    def isParseable(cls):
         '''Tells whether the file format is parseable or not.'''
         return False
 
-    def isExportable(self):
+    @classmethod
+    def isExportable(cls):
         '''Tells whether the file format is exportable or not.'''
         return False
 
-    def isMinifiable(self):
+    @classmethod
+    def isMinifiable(cls):
         '''Tells whether the file format is minifiable or not.'''
         return False
-
-    @classmethod
-    def instances(cls):
-        '''Returns a list with all format classes instances.'''
-        return [_format() for _format in cls.__subclasses__()]
 
     def __str__(self):
         '''Returns a string representation of this format class.'''
@@ -96,42 +95,58 @@ class FormatFactory(object):
     def fromName(cls, name):
         '''Factories a file format class for a given file format name.
 
-        :param name: the file format name to retrieve a file format instance'''
-        formats = {_format.name: _format for _format in Format.instances()}
+        Arguments:
+            name (str): The file format name to retrieve a file format class
 
-        try:
-            return formats[name]
-        except KeyError:
-            raise UnknownFormatError('No format found with this name: {}' \
-                                         .format(name))
+        Returns:
+            Format: The file format class instance
+
+        Raises:
+            UnknownFormatError: When a given format is not found
+        '''
+        return FormatRepository.findByName(name)
 
 
 class FormatRepository(object):
     '''File format repository class.'''
 
     @staticmethod
-    def findFormatByName(name):
+    def findByName(name):
         '''Returns the format with the given name.
         Raises an UnknownFormatError if no format is found.
 
-        :param name: the file format name'''
-        for _format in Format.instances():
-            if _format.name == name:
-                return _format
+        Arguments:
+            name (str): The file format name
+
+        Returns:
+            Format: The file format class instance
+
+        Raises:
+            UnknownFormatError: When a given file format is not found
+        '''
+        for _format in Format.childs():
+            if _format().name == name:
+                return _format()
 
         raise UnknownFormatError('No format found with this name: {}' \
                                      .format(name))
 
     @staticmethod
-    def findFormatByExtension(extension):
+    def findByExtension(extension):
         '''Returns the format with the given extension.
-        Raises an UnknownFormatError if no format is found.
 
-        :param extension: the file format extension
+        Arguments:
+            extension (str): The file format extension
+
+        Returns:
+            Format: The file format class instance
+
+        Raises:
+            UnknownFormatError: When a given file format is not found
         '''
-        for _format in Format.instances():
-            if _format.extension == extension:
-                return _format
+        for _format in Format.childs():
+            if _format().extension == extension:
+                return _format()
 
         raise UnknownFormatError('No format found with this extension: {}' \
                                      .format(extension))
@@ -139,8 +154,8 @@ class FormatRepository(object):
     @staticmethod
     def findExportableFormats():
         '''Returns a list with all exportable formats.'''
-        return [_format for _format in Format.instances()
-                if _format.isExportable()]
+        return [_format() for _format in Format.childs()
+                if _format().isExportable()]
 
     @classmethod
     def findExportableFormatNames(cls):
@@ -150,19 +165,19 @@ class FormatRepository(object):
     @staticmethod
     def findParseableFormats():
         '''Returns a list with all parseable formats.'''
-        return [_format for _format in Format.instances()
-                if _format.isParseable()]
+        return [_format() for _format in Format.childs()
+                if _format().isParseable()]
 
     @classmethod
     def findParseableFormatNames(cls):
         '''Returns a list with all parseable format names.'''
-        return [_format.name for _format in cls.findParseableFormatNames()]
+        return [_format.name for _format in cls.findParseableFormats()]
 
     @staticmethod
     def findMinifiableFormats():
         '''Returns a list with all minifiable formats.'''
-        return [_format for _format in Format.instances()
-                if _format.isMinifiable()]
+        return [_format() for _format in Format.childs()
+                if _format().isMinifiable()]
 
     @classmethod
     def findMinifiableFormatNames(cls):
