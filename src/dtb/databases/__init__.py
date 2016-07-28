@@ -16,7 +16,6 @@ from __future__ import absolute_import, unicode_literals
 import ftplib
 import io
 import sys
-import urlparse
 import zipfile
 
 from io import open
@@ -29,11 +28,11 @@ import yaml
 
 # Package dependencies
 
-from ..core.helpers import PKG_DIR, SRC_DIR
-from ..core.entities import TerritorialData
-from ..core.value_objects import Struct
-from ..exporters.base import ExporterFactory
-from ..parsers.base import ParserFactory
+from dtb.core.constants import PKG_DIR, SRC_DIR
+from dtb.core.entities import TerritorialData
+from dtb.core.types import Bytes, Struct
+from dtb.exporters import ExporterFactory
+from dtb.parsers import ParserFactory
 
 # Package metadata
 
@@ -61,7 +60,6 @@ class Database(object):
 
         self._info = Struct(self.base_list.get(year))
         self._data = TerritorialData(self._info)
-        self._rawdata = None
         self._logger = logger
 
     @property
@@ -90,64 +88,66 @@ class Database(object):
         return self._info.get('sheet')
 
     @property
-    def cache_file(self):
+    def cacheFile(self):
         '''The cached database file.'''
         return path(SRC_DIR, '.cache', '{}.{}'.format(self.year, self.format))
 
-    @property
-    def rawdata(self):
-        '''The database raw binary data.'''
-        return self._rawdata
-
     def download(self):
-        '''Downloads the given territorial database.'''
-        url_info = urlparse.urlparse(self.archive)
-        ftp = ftplib.FTP(url_info.netloc)
-        zip_data = io.BytesIO()
-        sheet_data = io.BytesIO()
+        '''Downloads the given database.'''
+        ftp = ftplib.FTP('geoftp.ibge.gov.br')
+        archive_data = io.BytesIO()
+        base_data = io.BytesIO()
 
         self._logger.debug('Connecting to FTP server...')
         ftp.connect()
 
         self._logger.debug('Logging into the FTP server...')
         ftp.login()
-        ftp.cwd(dirname(url_info.path))
+        ftp.cwd(path('organizacao_do_territorio',
+                     'estrutura_territorial',
+                     'divisao_territorial',
+                     self.year))
 
         self._logger.info('Retrieving database...')
-        ftp.retrbinary('RETR {}'.format(basename(url_info.path)),
-                       zip_data.write)
 
-        with zipfile.ZipFile(zip_data, 'r') as zip_file:
-            self._logger.info('Reading database...')
-            with zip_file.open(self.file, 'r') as sheet_file:
-                sheet_data.write(sheet_file.read())
+        if self.archive:
+            ftp.retrbinary('RETR {}'.format(basename(self.archive)),
+                           archive_data.write)
+
+            with zipfile.ZipFile(archive_data, 'r') as archive_file:
+                self._logger.info('Reading database...')
+
+                with archive_file.open(self.file, 'r') as base_file:
+                    base_data.write(base_file.read())
+        else:
+            ftp.retrbinary('RETR {}'.format(self.file), base_data.write)
 
         try:
-            makedirs(dirname(self.cache_file))
+            makedirs(dirname(self.cacheFile))
         except OSError:
             pass
 
-        with open(self.cache_file, 'wb') as cache_file:
-            cache_file.write(sheet_data.getvalue())
+        with open(self.cacheFile, 'wb') as cache_file:
+            cache_file.write(base_data.getvalue())
 
         return self
 
-    def retrieve(self):
-        '''Retrieves the given territorial database.'''
-        if not exists(self.cache_file):
+    def read(self):
+        '''Reads the given database.
+
+        Returns:
+            dtb.core.types.Bytes: The database raw binary data
+        '''
+        if not exists(self.cacheFile):
             self.download()
 
-        sheet_data = io.BytesIO()
+        with open(self.cacheFile, 'rb') as cache_file:
+            base_data = cache_file.read()
 
-        with open(self.cache_file, 'rb') as cache_file:
-            sheet_data.write(cache_file.read())
-
-        self._rawdata = sheet_data.getvalue()
-
-        return self
+        return Bytes(base_data)
 
     def parse(self):
-        '''Parses the given territorial database.'''
+        '''Parses the given database.'''
         parser = ParserFactory.fromFormat(self.format)
 
         try:
@@ -158,11 +158,12 @@ class Database(object):
         return self
 
     def export(self, _format, minified=False, filename=None):
-        '''Exports the given territorial database.
+        '''Exports the given database.
 
-        :param _format: the format to export the database
-        :param minified: whether or not the exported file should be minified
-        :param filename: the exported filename
+        Arguments:
+            _format: The file format to export the database
+            minified (bool): Whether or not the exported file should be minified
+            filename (str): The exported filename
         '''
         exporter = ExporterFactory.fromFormat(_format)
         export_format = exporter._format()
