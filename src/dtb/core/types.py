@@ -68,7 +68,7 @@ class Bytes(bytes):
         compiled_format = _Struct(_format)
 
         return compiled_format.unpack_from(self) \
-            + tuple(self[compiled_format.size:])
+            + (self[compiled_format.size:],)
 
 
 class Struct(dict):
@@ -139,8 +139,7 @@ class Struct(dict):
         Returns:
             str: A string representation of this object
         '''
-        return '{}({})'.format(self.__class__.__name__,
-                               super(self.__class__, self).__repr__())
+        return '{}({})'.format(self.__class__.__name__, dict.__repr__(self))
 
     def copy(self):
         '''Copies the self data into a new Struct instance.
