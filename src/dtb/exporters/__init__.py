@@ -11,13 +11,9 @@ from __future__ import absolute_import
 
 # Imports
 
-# Built-in dependencies
+# Package dependencies
 
-from abc import ABCMeta as AbstractClass
-
-# External compatibility dependencies
-
-from future.utils import with_metaclass
+from dtb.core.types import AbstractClass
 
 # Package metadata
 
@@ -29,7 +25,7 @@ __license__ = 'MIT License'
 # Classes
 
 
-class Exporter(object, with_metaclass(AbstractClass)):
+class Exporter(AbstractClass):
     '''Abstract base exporter class.'''
 
     # Exporter format
@@ -38,8 +34,9 @@ class Exporter(object, with_metaclass(AbstractClass)):
     def __init__(self, data, minified=False):
         '''Constructor.
 
-        :param data: territorial data to export
-        :param minified: whether to minify data when formatting or not
+        Arguments:
+            data (dtb.core.entities.TerritorialData): Territorial data to export
+            minified (bool): Whether or not it should minify the data
         '''
         self._data = data
         self._minified = minified
@@ -69,14 +66,20 @@ class ExporterFactory(object):
     def fromFormat(cls, _format):
         '''Factories an exporter class for a given format.
 
-        :param _format: the file format name to retrieve an exporter'''
-        exporters = {exporter._format().name: exporter
-                     for exporter in Exporter.__subclasses__()}
+        Arguments:
+            _format (str): The file format name to retrieve an exporter
 
-        try:
-            return exporters[_format]
-        except KeyError:
-            raise UnknownExporterError('Unsupported exporting format')
+        Returns:
+            Exporter: The exporter class instance
+
+        Raises:
+            UnknownExporterError: When a given file format is not found
+        '''
+        for exporter in Exporter.childs():
+            if exporter._format().name == _format:
+                return exporter
+
+        raise UnknownExporterError('Unsupported exporting format')
 
 
 class ExporterError(Exception):
