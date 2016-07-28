@@ -13,33 +13,34 @@ import sys
 
 # Package dependencies
 
-from dtb.commands import CliParser
+from dtb.commands import Command
 from dtb.databases import Database
 from dtb.formats import FormatRepository
-
-# Module metadata
-
-__author__ = 'Paulo Freitas <me@paulofreitas.me>'
-__copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
-__license__ = 'MIT'
-__version__ = '1.0-dev'
-__usage__ = '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
-__epilog__ = 'Report bugs and feature requests to {}.' \
-    .format('https://github.com/paulofreitas/dtb-ibge/issues')
 
 # Classes
 
 
-class TerritorialDataExporter(CliParser):
-    '''Territorial data exporter command.'''
+class ExporterCommand(Command):
+    '''The database exporter command.'''
 
-    def __init__(self):
-        super(self.__class__, self).__init__(description=__doc__,
-                                             usage=__usage__,
-                                             epilog=__epilog__,
-                                             version=__version__)
+    @property
+    def usage(self):
+        '''Defines the command usage syntax.'''
+        return '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
+
+    @property
+    def description(self):
+        '''Defines the command description.'''
+        return __doc__
+
+    @property
+    def epilog(self):
+        '''Defines the command epilog message.'''
+        return 'Report bugs and feature requests to {}.' \
+            .format('https://github.com/paulofreitas/dtb-ibge/issues')
 
     def configure(self):
+        '''Configures the command arguments.'''
         self.addArgumentGroup('export', 'Export options')
         self.addArgument('export',
                          '-b', '--base',
@@ -48,8 +49,8 @@ class TerritorialDataExporter(CliParser):
                          '-f', '--format',
                          metavar='FORMAT',
                          choices=FormatRepository.findExportableFormatNames(),
-                         help='Format to export the database.\n'
-                             + 'Options: %(choices)s')
+                         help=('Format to export the database.\n'
+                               'Options: %(choices)s'))
         self.addArgument('export',
                          '-m', '--minify',
                          dest='minified',
@@ -59,12 +60,13 @@ class TerritorialDataExporter(CliParser):
                          '-o', '--out',
                          dest='filename',
                          nargs='?',
-                         help='Specify a file to write the export to.\n'
-                             + 'If none are specified, %(prog)s writes data to standard output.')
+                         help=('Specify a file to write the export to.\n'
+                               'If none are specified, %(prog)s writes data to '
+                               'standard output.'))
 
-    def parse(self):
-        '''Parses the given command line arguments.'''
-        args = super(self.__class__, self).parse()
+    def run(self):
+        '''Runs the command.'''
+        args = self.parse()
 
         if not args.base:
             self._parser.error(
@@ -76,8 +78,7 @@ class TerritorialDataExporter(CliParser):
 
         try:
             base = Database(args.base, self._logger)
-            base.retrieve().parse() \
-                .export(args.format, args.minified, args.filename)
+            base.parse().export(args.format, args.minified, args.filename)
         except KeyboardInterrupt:
             self._logger.info('> Exporting was canceled.')
         except Exception as e:
@@ -88,4 +89,4 @@ class TerritorialDataExporter(CliParser):
 
 
 if __name__ == '__main__':
-    TerritorialDataExporter().parse()
+    ExporterCommand().run()
