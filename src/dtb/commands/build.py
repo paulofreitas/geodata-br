@@ -14,20 +14,10 @@ from os.path import join as path
 
 # Package dependencies
 
-from dtb.commands import CliParser
-from dtb.core.helpers import DATA_DIR
+from dtb.commands import Command
+from dtb.core.constants import DATA_DIR
 from dtb.databases import Database
 from dtb.formats import FormatRepository
-
-# Module metadata
-
-__author__ = 'Paulo Freitas <me@paulofreitas.me>'
-__copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
-__license__ = 'MIT'
-__version__ = '1.0-dev'
-__usage__ = '%(prog)s -b BASE -r FORMAT -m FORMAT'
-__epilog__ = 'Report bugs and feature requests to {}.' \
-    .format('https://github.com/paulofreitas/dtb-ibge/issues')
 
 # Constants
 
@@ -36,16 +26,27 @@ BASES = [2003, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014]
 # Classes
 
 
-class TerritorialDataBuilder(CliParser):
-    '''Territorial data builder command.'''
+class BuilderCommand(Command):
+    '''The database builder command.'''
 
-    def __init__(self):
-        super(self.__class__, self).__init__(description=__doc__,
-                                             usage=__usage__,
-                                             epilog=__epilog__,
-                                             version=__version__)
+    @property
+    def usage(self):
+        '''Defines the command usage syntax.'''
+        return '%(prog)s -b BASE -r FORMAT -m FORMAT'
+
+    @property
+    def description(self):
+        '''Defines the command description.'''
+        return __doc__
+
+    @property
+    def epilog(self):
+        '''Defines the command epilog message.'''
+        return 'Report bugs and feature requests to {}.' \
+            .format('https://github.com/paulofreitas/dtb-ibge/issues')
 
     def configure(self):
+        '''Defines the command arguments.'''
         bases = map(str, BASES)
         raw_formats = FormatRepository.findExportableFormatNames()
         minifiable_formats = FormatRepository.findMinifiableFormatNames()
@@ -56,29 +57,29 @@ class TerritorialDataBuilder(CliParser):
                          metavar='BASE',
                          nargs='*',
                          default=bases,
-                         help='Database years to build.\n' \
-                             + 'Defaults to all available: {}' \
-                                 .format(', '.join(bases)))
+                         help=('Database years to build.\n'
+                               'Defaults to all available: {}' \
+                                   .format(', '.join(bases))))
         self.addArgument('build',
                          '-r', '--raw',
                          metavar='FORMAT',
                          nargs='*',
                          default=raw_formats,
-                         help='Raw formats to build the database.\n' \
-                             + 'Defaults to all available: {}' \
-                                 .format(', '.join(raw_formats)))
+                         help=('Raw formats to build the database.\n'
+                               'Defaults to all available: {}' \
+                                    .format(', '.join(raw_formats))))
         self.addArgument('build',
                          '-m', '--min',
                          metavar='FORMAT',
                          nargs='*',
                          default=minifiable_formats,
-                         help='Minifiable formats to build the database.\n' \
-                             + 'Defaults to all available: {}' \
-                                 .format(', '.join(minifiable_formats)))
+                         help=('Minifiable formats to build the database.\n'
+                               'Defaults to all available: {}' \
+                                   .format(', '.join(minifiable_formats))))
 
-    def parse(self):
-        '''Parses the given command line arguments.'''
-        args = super(self.__class__, self).parse()
+    def run(self):
+        '''Runs the command.'''
+        args = self.parse()
 
         try:
             for base in args.bases:
@@ -94,7 +95,7 @@ class TerritorialDataBuilder(CliParser):
                     pass
 
                 chdir(raw_dir)
-                base_data = Database(base, self._logger).retrieve().parse()
+                base_data = Database(base, self._logger).parse()
 
                 for raw_format in args.raw:
                     base_data.export(raw_format, False, 'auto')
@@ -108,4 +109,4 @@ class TerritorialDataBuilder(CliParser):
 
 
 if __name__ == '__main__':
-    TerritorialDataBuilder().parse()
+    BuilderCommand().run()
