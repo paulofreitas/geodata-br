@@ -210,6 +210,13 @@ class TerritorialDatabaseRow(Struct):
 
     def normalize(self):
         '''Normalize row data as needed.'''
+        # Initial fixes
+
+        for key in self:
+            # Convert empty and zero values to None
+            if not self[key] or (key.startswith('id') and not int(self[key])):
+                self[key] = None
+
         # Data length fixes
 
         if self.id_mesorregiao and len(self.id_mesorregiao) == 2:
@@ -227,15 +234,11 @@ class TerritorialDatabaseRow(Struct):
         if self.id_subdistrito and len(self.id_subdistrito) == 2:
             self.id_subdistrito = self.id_distrito + self.id_subdistrito
 
-        # Misc fixes
+        # Post-processing fixes
 
         for key in self:
-            # Convert empty values to None
-            if not self[key]:
-                self[key] = None
-
             # Cast numeric values to integer
-            elif key.startswith('id'):
+            if self[key] and key.startswith('id'):
                 self[key] = int(self[key])
 
     @property
