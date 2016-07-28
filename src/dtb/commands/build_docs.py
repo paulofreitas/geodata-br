@@ -13,42 +13,42 @@ from os.path import join as path
 
 # Package dependencies
 
-from dtb.commands import CliParser
-from dtb.core.entities import TerritorialBase
-from dtb.core.helpers import ProjectReadme, DatabaseReadme, \
-                             BASE_DIR, DATA_DIR, PKG_DIR
-
-# Module metadata
-
-__author__ = 'Paulo Freitas <me@paulofreitas.me>'
-__copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
-__license__ = 'MIT'
-__version__ = '1.0-dev'
-__usage__ = '%(prog)s'
-__epilog__ = 'Report bugs and feature requests to {}.' \
-    .format('https://github.com/paulofreitas/dtb-ibge/issues')
+from dtb.commands import Command
+from dtb.core.constants import BASE_DIR, DATA_DIR, PKG_DIR
+from dtb.core.helpers.documentation import ProjectReadme, DatabaseReadme
+from dtb.databases import Database
 
 # Classes
 
 
-class TerritorialDataDocBuilder(CliParser):
-    '''Documentation builder command.'''
+class DocumentationBuilderCommand(Command):
+    '''The documentation builder command.'''
 
-    def __init__(self):
-        super(self.__class__, self).__init__(description=__doc__,
-                                             usage=__usage__,
-                                             epilog=__epilog__,
-                                             version=__version__)
+    @property
+    def usage(self):
+        '''Defines the command usage syntax.'''
+        return '%(prog)s'
 
-    def parse(self):
+    @property
+    def description(self):
+        '''Defines the command description.'''
+        return __doc__
+
+    @property
+    def epilog(self):
+        '''Defines the command epilog message.'''
+        return 'Report bugs and feature requests to {}.' \
+            .format('https://github.com/paulofreitas/dtb-ibge/issues')
+
+    def run(self):
         '''Parses the given command line arguments.'''
-        args = super(self.__class__, self).parse()
+        self.parse()
 
         ProjectReadme(path(BASE_DIR, 'README.md'),
                       path(PKG_DIR, 'data/stubs/README.stub.md')) \
             .write()
 
-        for base in TerritorialBase.bases:
+        for base in Database.bases:
             # Create raw database READMEs
             DatabaseReadme(path(DATA_DIR, base, 'README.md'),
                            path(PKG_DIR, 'data/stubs/BASE_README.stub.md'),
@@ -63,4 +63,4 @@ class TerritorialDataDocBuilder(CliParser):
 
 
 if __name__ == '__main__':
-    TerritorialDataDocBuilder().parse()
+    DocumentationBuilderCommand().run()
