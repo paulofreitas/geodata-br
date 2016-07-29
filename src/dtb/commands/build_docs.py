@@ -25,25 +25,22 @@ class DocumentationBuilderCommand(Command):
     '''The documentation builder command.'''
 
     @property
-    def usage(self):
-        '''Defines the command usage syntax.'''
-        return '%(prog)s'
+    def name(self):
+        '''Defines the command name.'''
+        return 'build:docs'
 
     @property
     def description(self):
         '''Defines the command description.'''
-        return __doc__
+        return 'Builds the documentation'
 
     @property
-    def epilog(self):
-        '''Defines the command epilog message.'''
-        return 'Report bugs and feature requests to {}.' \
-            .format('https://github.com/paulofreitas/dtb-ibge/issues')
+    def usage(self):
+        '''Defines the command usage syntax.'''
+        return '%(prog)s'
 
-    def run(self):
-        '''Parses the given command line arguments.'''
-        self.parse()
-
+    def handle(self, args):
+        '''Handles the command.'''
         ProjectReadme(path(BASE_DIR, 'README.md'),
                       path(PKG_DIR, 'data/stubs/README.stub.md')) \
             .write()
@@ -60,7 +57,3 @@ class DocumentationBuilderCommand(Command):
                            path(PKG_DIR, 'data/stubs/BASE_README.stub.md'),
                            path(DATA_DIR, 'minified', base)) \
                 .write()
-
-
-if __name__ == '__main__':
-    DocumentationBuilderCommand().run()
