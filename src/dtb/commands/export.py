@@ -7,10 +7,6 @@ Export command module
 '''
 # Imports
 
-# Built-in dependencies
-
-import sys
-
 # Package dependencies
 
 from dtb.commands import Command
@@ -20,54 +16,46 @@ from dtb.formats import FormatRepository
 # Classes
 
 
-class ExporterCommand(Command):
+class DatabaseExporterCommand(Command):
     '''The database exporter command.'''
+
+    @property
+    def name(self):
+        '''Defines the command name.'''
+        return 'export'
+
+    @property
+    def description(self):
+        '''Defines the command description.'''
+        return 'Exports a database'
 
     @property
     def usage(self):
         '''Defines the command usage syntax.'''
         return '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
 
-    @property
-    def description(self):
-        '''Defines the command description.'''
-        return __doc__
-
-    @property
-    def epilog(self):
-        '''Defines the command epilog message.'''
-        return 'Report bugs and feature requests to {}.' \
-            .format('https://github.com/paulofreitas/dtb-ibge/issues')
-
     def configure(self):
-        '''Configures the command arguments.'''
-        self.addArgumentGroup('export', 'Export options')
-        self.addArgument('export',
-                         '-b', '--base',
+        '''Defines the command arguments.'''
+        self.addArgument('-b', '--base',
                          help='Database year to export.')
-        self.addArgument('export',
-                         '-f', '--format',
+        self.addArgument('-f', '--format',
                          metavar='FORMAT',
                          choices=FormatRepository.findExportableFormatNames(),
                          help=('Format to export the database.\n'
                                'Options: %(choices)s'))
-        self.addArgument('export',
-                         '-m', '--minify',
+        self.addArgument('-m', '--minify',
                          dest='minified',
                          action='store_true',
                          help='Minifies output file whenever possible.')
-        self.addArgument('export',
-                         '-o', '--out',
+        self.addArgument('-o', '--out',
                          dest='filename',
                          nargs='?',
                          help=('Specify a file to write the export to.\n'
                                'If none are specified, %(prog)s writes data to '
                                'standard output.'))
 
-    def run(self):
-        '''Runs the command.'''
-        args = self.parse()
-
+    def handle(self, args):
+        '''Handles the command.'''
         if not args.base:
             self._parser.error(
                 'You need to give the database year you want to export.')
@@ -81,12 +69,3 @@ class ExporterCommand(Command):
             base.parse().export(args.format, args.minified, args.filename)
         except KeyboardInterrupt:
             self._logger.info('> Exporting was canceled.')
-        except Exception as e:
-            sys.stderr.write(
-                'EXCEPTION CAUGHT: {}: {}\n'.format(type(e).__name__, e.message)
-            )
-            sys.exit(1)
-
-
-if __name__ == '__main__':
-    ExporterCommand().run()
