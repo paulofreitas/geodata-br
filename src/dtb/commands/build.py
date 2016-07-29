@@ -19,57 +19,48 @@ from dtb.core.constants import DATA_DIR
 from dtb.databases import Database
 from dtb.formats import FormatRepository
 
-# Constants
-
-BASES = [2003, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014]
-
 # Classes
 
 
-class BuilderCommand(Command):
+class DatabaseBuilderCommand(Command):
     '''The database builder command.'''
+
+    @property
+    def name(self):
+        '''Defines the command name.'''
+        return 'build'
+
+    @property
+    def description(self):
+        '''Defines the command description.'''
+        return 'Builds a database'
 
     @property
     def usage(self):
         '''Defines the command usage syntax.'''
         return '%(prog)s -b BASE -r FORMAT -m FORMAT'
 
-    @property
-    def description(self):
-        '''Defines the command description.'''
-        return __doc__
-
-    @property
-    def epilog(self):
-        '''Defines the command epilog message.'''
-        return 'Report bugs and feature requests to {}.' \
-            .format('https://github.com/paulofreitas/dtb-ibge/issues')
-
     def configure(self):
         '''Defines the command arguments.'''
-        bases = map(str, BASES)
+        bases = Database.bases
         raw_formats = FormatRepository.findExportableFormatNames()
         minifiable_formats = FormatRepository.findMinifiableFormatNames()
 
-        self.addArgumentGroup('build', 'Build options')
-        self.addArgument('build',
-                         '-b', '--bases',
+        self.addArgument('-b', '--bases',
                          metavar='BASE',
                          nargs='*',
                          default=bases,
                          help=('Database years to build.\n'
                                'Defaults to all available: {}' \
                                    .format(', '.join(bases))))
-        self.addArgument('build',
-                         '-r', '--raw',
+        self.addArgument('-r', '--raw',
                          metavar='FORMAT',
                          nargs='*',
                          default=raw_formats,
                          help=('Raw formats to build the database.\n'
                                'Defaults to all available: {}' \
                                     .format(', '.join(raw_formats))))
-        self.addArgument('build',
-                         '-m', '--min',
+        self.addArgument('-m', '--min',
                          metavar='FORMAT',
                          nargs='*',
                          default=minifiable_formats,
@@ -77,10 +68,8 @@ class BuilderCommand(Command):
                                'Defaults to all available: {}' \
                                    .format(', '.join(minifiable_formats))))
 
-    def run(self):
-        '''Runs the command.'''
-        args = self.parse()
-
+    def handle(self, args):
+        '''Handles the command.'''
         try:
             for base in args.bases:
                 raw_dir = path(DATA_DIR, base)
@@ -106,7 +95,3 @@ class BuilderCommand(Command):
                     base_data.export(minifiable_format, True, 'auto')
         except KeyboardInterrupt:
             self._logger.info('> Building was canceled.')
-
-
-if __name__ == '__main__':
-    BuilderCommand().run()
