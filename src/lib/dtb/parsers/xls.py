@@ -23,8 +23,13 @@ import xlrd
 
 # Package dependencies
 
+from dtb.core.logging import Logger
 from dtb.formats.xls import XlsFormat
 from dtb.parsers import Parser
+
+# Module logging
+
+logger = Logger.instance(__name__)
 
 # Classes
 
@@ -35,15 +40,15 @@ class XlsParser(Parser):
     # Parser format
     _format = XlsFormat
 
-    def __init__(self, base, logger):
+    def __init__(self, base):
         '''Constructor.
 
-        :param base: a territorial base instance to parse
-        :param logger: a logger instance to log
+        Arguments:
+            base (dtb.databases.Database): The database instance to parse
         '''
-        super(self.__class__, self).__init__(base, logger)
+        super(self.__class__, self).__init__(base)
 
-        self._book = xlrd.open_workbook(file_contents=self._base.rawdata,
+        self._book = xlrd.open_workbook(file_contents=self._base.read(),
                                         encoding_override='utf-8',
                                         logfile=open(devnull, 'w'),
                                         on_demand=True)
@@ -51,13 +56,13 @@ class XlsParser(Parser):
 
     def parseColumns(self):
         '''Parses the XLS database columns.'''
-        self._logger.debug('Parsing database cols...')
+        logger.debug('Parsing database cols...')
 
         return self._data._cols[:self._sheet.ncols]
 
     def parseRows(self):
         '''Parses the XLS database rows.'''
-        self._logger.debug('Parsing database rows...')
+        logger.debug('Parsing database rows...')
 
         rows = []
 
@@ -72,8 +77,12 @@ class XlsParser(Parser):
         return rows
 
     def parseRow(self, row_data):
-        '''Parses the database row.'''
-        from ..core.entities import TerritorialDatabaseRow
+        '''Parses the database row.
+
+        Arguments:
+            row_data (list): The database row data
+        '''
+        from dtb.core.entities import TerritorialDatabaseRow
 
         row = TerritorialDatabaseRow()
         base = int(self._base.year)
