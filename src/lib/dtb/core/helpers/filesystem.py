@@ -24,7 +24,8 @@ class Directory(object):
     def __init__(self, dirname):
         '''Constructor.
 
-        :param dirname: the directory path to give a new Directory object
+        Arguments:
+            dirname (str): The directory path to retrieve a new Directory object
         '''
         self._path = Path(dirname)
 
@@ -47,7 +48,8 @@ class File(object):
     def __init__(self, filename):
         '''Constructor.
 
-        :param filename: the file path to give a new File object
+        Arguments:
+            filename (str): The file path to retrieve a new File object
         '''
         self._path = Path(filename)
 
@@ -70,7 +72,7 @@ class File(object):
     def format(self):
         '''Returns the file format.'''
         try:
-            return FormatRepository.findFormatByExtension(self.extension)
+            return FormatRepository.findByExtension(self.extension)
         except FormatError:
             return None
 
