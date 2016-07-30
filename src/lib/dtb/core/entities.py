@@ -1,28 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''Brazilian territorial distribution data exporter
+# Copyright (c) 2013-2016 Paulo Freitas
+# MIT License (see LICENSE file)
+'''
+Core entities module
 
-The MIT License (MIT)
-
-Copyright (c) 2013-2016 Paulo Freitas
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+This module provides the common entities used across the packages.
 '''
 from __future__ import unicode_literals
 
@@ -35,52 +18,17 @@ from operator import add
 
 # External dependencies
 
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy.sql.schema import Column, ForeignKey, MetaData
+from sqlalchemy.sql.schema import Column, ForeignKey
 from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 
 # Package dependencies
 
-from .value_objects import Struct
+from dtb.core.types import Entity, Struct
 
 # Classes
 
 
-Base = declarative_base()
-
-
-class AbstractBase(Base):
-    '''Abstract entity class.'''
-    __abstract__ = True
-
-    convention = {
-        'pk': 'pk_%(table_name)s',
-        'fk': 'fk_%(table_name)s_%(column_0_name)s',
-        'ix': 'ix_%(column_0_label)s',
-        'uq': 'uq_%(table_name)s_%(column_0_name)s',
-    }
-
-    metadata = MetaData(naming_convention=convention)
-
-    @hybrid_property
-    def table(self):
-        '''Shortcut property for table name.'''
-        return str(self.__table__.name)
-
-    @hybrid_property
-    def columns(self):
-        '''Shortcut property for table column names.'''
-        return (str(column.name) for column in self.__table__.columns)
-
-    @hybrid_property
-    def data(self):
-        '''Shortcut property for ordered table data.'''
-        return OrderedDict((column, getattr(self, column))
-                           for column in self.__table__.columns.keys())
-
-
-class Uf(AbstractBase):
+class Uf(Entity):
     '''Entity for states.'''
     __tablename__ = 'uf'
 
@@ -88,7 +36,7 @@ class Uf(AbstractBase):
     nome = Column(String(32), nullable=False, index=True)
 
 
-class Mesorregiao(AbstractBase):
+class Mesorregiao(Entity):
     '''Entity for mesoregions.'''
     __tablename__ = 'mesorregiao'
 
@@ -100,7 +48,7 @@ class Mesorregiao(AbstractBase):
     nome = Column(String(64), nullable=False, index=True)
 
 
-class Microrregiao(AbstractBase):
+class Microrregiao(Entity):
     '''Entity for microregions.'''
     __tablename__ = 'microrregiao'
 
@@ -116,7 +64,7 @@ class Microrregiao(AbstractBase):
     nome = Column(String(64), nullable=False, index=True)
 
 
-class Municipio(AbstractBase):
+class Municipio(Entity):
     '''Entity for municipalities.'''
     __tablename__ = 'municipio'
 
@@ -136,7 +84,7 @@ class Municipio(AbstractBase):
     nome = Column(String(64), nullable=False, index=True)
 
 
-class Distrito(AbstractBase):
+class Distrito(Entity):
     '''Entity for districts.'''
     __tablename__ = 'distrito'
 
@@ -160,7 +108,7 @@ class Distrito(AbstractBase):
     nome = Column(String(64), nullable=False, index=True)
 
 
-class Subdistrito(AbstractBase):
+class Subdistrito(Entity):
     '''Entity for subdistricts.'''
     __tablename__ = 'subdistrito'
 
@@ -188,8 +136,8 @@ class Subdistrito(AbstractBase):
     nome = Column(String(64), nullable=False, index=True)
 
 
-class TerritorialDatabaseRow(Struct):
-    '''Entity for territorial database row'''
+class DatabaseRow(Struct):
+    '''Entity class for database rows.'''
 
     def __init__(self):
         '''Constructor.'''
