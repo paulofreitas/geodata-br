@@ -16,6 +16,7 @@ from os.path import abspath, dirname, join as path
 # Constants
 
 PKG_DIR = abspath(path(dirname(__file__), '..'))
-SRC_DIR = abspath(path(PKG_DIR, '..'))
+LIB_DIR = abspath(path(PKG_DIR, '..'))
+SRC_DIR = abspath(path(LIB_DIR, '..'))
 BASE_DIR = abspath(path(SRC_DIR, '..'))
 DATA_DIR = path(BASE_DIR, 'data')
