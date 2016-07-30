@@ -17,6 +17,7 @@ from future.utils import itervalues
 
 # Package dependencies
 
+from dtb.core.logging import Logger
 from dtb.core.types import AbstractClass
 
 # Package metadata
@@ -25,6 +26,10 @@ __version__ = '1.0-dev'
 __author__ = 'Paulo Freitas <me@paulofreitas.me>'
 __copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
 __license__ = 'MIT License'
+
+# Module logging
+
+logger = Logger.instance(__name__)
 
 # Classes
 
@@ -35,14 +40,12 @@ class Parser(AbstractClass):
     # Parser format
     _format = None
 
-    def __init__(self, base, logger):
+    def __init__(self, base):
         '''Constructor.
 
         Arguments:
             base (dtb.databases.Database): A database instance to parse
-            logger (logging.Logger): A logger instance to log
         '''
-        self._logger = logger
         self._base = base
         self._data = base._data
 
@@ -54,7 +57,7 @@ class Parser(AbstractClass):
 
     def parse(self):
         '''Parses the database.'''
-        self._logger.debug('Parsing database...')
+        logger.debug('Parsing database...')
 
         cols = self.parseColumns()
         rows = self.parseRows()
