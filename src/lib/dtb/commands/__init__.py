@@ -13,11 +13,11 @@ concrete command modules.
 # Built-in dependencies
 
 import argparse
-import logging
 import sys
 
 # Package dependencies
 
+from dtb.core.logging import Logger
 from dtb.core.types import AbstractClass
 
 # Package metadata
@@ -26,6 +26,10 @@ __version__ = '1.0-dev'
 __author__ = 'Paulo Freitas <me@paulofreitas.me>'
 __copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
 __license__ = 'MIT License'
+
+# Module logging
+
+logger = Logger.instance(__name__)
 
 # Classes
 
@@ -47,7 +51,6 @@ class Application(object):
         self._commands = {}
 
         self.setDefaults()
-        self.setLogging()
 
     def setDefaults(self):
         '''Sets the application default arguments.'''
@@ -66,14 +69,6 @@ class Application(object):
                          '-V', '--verbose',
                          action='store_true',
                          help='Display informational messages and warnings')
-
-    def setLogging(self):
-        '''Sets the application logging handlers.'''
-        self._logger = logging.getLogger(self.__class__.__name__)
-        self._logger.setLevel(logging.INFO)
-
-        # Setup stream handler
-        self._logger.addHandler(logging.StreamHandler(sys.stdout))
 
     def addParser(self, *args, **kwargs):
         '''Adds a new command parser to the application.
@@ -122,8 +117,7 @@ class Application(object):
         '''Parses the given application arguments.'''
         args = self._parser.parse_args()
 
-        if args.verbose:
-            self._logger.setLevel(logging.DEBUG)
+        Logger.setup(args.verbose)
 
         return args
 
@@ -173,21 +167,12 @@ class Command(AbstractClass):
             formatter_class=HelpFormatter)
 
         self.setDefaults()
-        self.setLogging()
 
     def setDefaults(self):
         '''Sets the command default arguments.'''
         self.addArgument('-h', '--help',
                          action='help',
                          help='Display this information')
-
-    def setLogging(self):
-        '''Sets the command logging handlers.'''
-        self._logger = logging.getLogger(self.__class__.__name__)
-        self._logger.setLevel(logging.INFO)
-
-        # Setup stream handler
-        self._logger.addHandler(logging.StreamHandler(sys.stdout))
 
     def addArgument(self, *args, **kwargs):
         '''Adds a new argument to the command.'''
