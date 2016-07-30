@@ -16,8 +16,13 @@ from os.path import join as path
 
 from dtb.commands import Command
 from dtb.core.constants import DATA_DIR
-from dtb.databases import Database
+from dtb.core.logging import Logger
+from dtb.databases import DatabaseFactory, DatabaseRepository
 from dtb.formats import FormatRepository
+
+# Module logging
+
+logger = Logger.instance(__name__)
 
 # Classes
 
@@ -42,7 +47,7 @@ class DatabaseBuilderCommand(Command):
 
     def configure(self):
         '''Defines the command arguments.'''
-        bases = Database.bases
+        bases = DatabaseRepository.listYears()
         raw_formats = FormatRepository.findExportableFormatNames()
         minifiable_formats = FormatRepository.findMinifiableFormatNames()
 
@@ -75,7 +80,7 @@ class DatabaseBuilderCommand(Command):
                 raw_dir = path(DATA_DIR, base)
                 minified_dir = path(DATA_DIR, 'minified', base)
 
-                self._logger.info('> Building {} base...'.format(base))
+                logger.info('> Building {} base...'.format(base))
 
                 try:
                     makedirs(raw_dir)
@@ -84,14 +89,14 @@ class DatabaseBuilderCommand(Command):
                     pass
 
                 chdir(raw_dir)
-                base_data = Database(base, self._logger).parse()
+                data = DatabaseFactory.fromYear(base).parse()
 
                 for raw_format in args.raw:
-                    base_data.export(raw_format, False, 'auto')
+                    data.export(raw_format, False, 'auto')
 
                 chdir(minified_dir)
 
                 for minifiable_format in args.min:
-                    base_data.export(minifiable_format, True, 'auto')
+                    data.export(minifiable_format, True, 'auto')
         except KeyboardInterrupt:
-            self._logger.info('> Building was canceled.')
+            logger.info('> Building was canceled.')
