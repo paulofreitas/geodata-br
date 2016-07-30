@@ -22,22 +22,25 @@ from dtb.core.entities import TerritorialData
 from dtb.core.helpers import Number
 from dtb.core.helpers.filesystem import Directory, File
 from dtb.core.helpers.markup import Markdown
-from dtb.core.value_objects import Struct
-from dtb.databases import Database
+from dtb.core.types import Struct
+from dtb.databases import DatabaseRepository
 from dtb.formats import FormatRepository
 
 # Classes
 
 
 class Readme(object):
+    '''A README documentation file.'''
+
     def __init__(self, readme_file, stub_file=None):
+        '''Constructor.'''
         self._readme_file = realpath(readme_file)
         self._stub_file = realpath(stub_file) if stub_file else None
         self._readme = ''
         self._stub = ''
         self._data = Struct((base,
                              json.load(open(path(DATA_DIR, base, 'dtb.json'))))
-                            for base in Database.bases)
+                            for base in DatabaseRepository.listYears())
 
         with open(self._readme_file) as readme:
             self._readme = readme.read()
@@ -47,16 +50,20 @@ class Readme(object):
                 self._stub = stub.read()
 
     def render(self):
+        '''Renders the file.'''
         raise NotImplementedError
 
     def write(self):
+        '''Writes the file to disk.'''
         with open(self._readme_file, 'w') as readme:
             readme.write(self.render())
 
 
 class ProjectReadme(Readme):
+    '''The project README documentation file.'''
+
     def render(self):
-        '''Renders the project README file.'''
+        '''Renders the file.'''
         return self._stub.format(
             database_records=self.renderDatabaseRecords().strip(),
             database_formats=self.renderDatabaseFormats().strip()
@@ -74,7 +81,7 @@ class ProjectReadme(Readme):
                     if entity.table in self._data[base] else '-'
                 for entity in TerritorialData.entities
             ]
-            for base in Database.bases
+            for base in DatabaseRepository.listYears()
         ]
 
         return Markdown.table([headers] + data, alignment)
@@ -96,6 +103,8 @@ class ProjectReadme(Readme):
         return markdown
 
 class DatabaseReadme(Readme):
+    '''A database README documentation file.'''
+
     def __init__(self, readme_file, stub_file, base_dir):
         '''Constructor.'''
         super(self.__class__, self).__init__(readme_file, stub_file)
@@ -104,7 +113,7 @@ class DatabaseReadme(Readme):
         self.base = basename(base_dir)
 
     def render(self):
-        '''Renders a database README file.'''
+        '''Renders the file.'''
 
         return self._stub.format(
             db_year=self.base,
