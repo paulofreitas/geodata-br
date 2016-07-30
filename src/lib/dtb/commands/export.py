@@ -10,8 +10,13 @@ Export command module
 # Package dependencies
 
 from dtb.commands import Command
-from dtb.databases import Database
+from dtb.core.logging import Logger
+from dtb.databases import DatabaseFactory
 from dtb.formats import FormatRepository
+
+# Module logging
+
+logger = Logger.instance(__name__)
 
 # Classes
 
@@ -65,7 +70,7 @@ class DatabaseExporterCommand(Command):
                 'You need to give the database format you want to export.')
 
         try:
-            base = Database(args.base, self._logger)
+            base = DatabaseFactory.fromYear(args.base)
             base.parse().export(args.format, args.minified, args.filename)
         except KeyboardInterrupt:
-            self._logger.info('> Exporting was canceled.')
+            logger.info('> Exporting was canceled.')
