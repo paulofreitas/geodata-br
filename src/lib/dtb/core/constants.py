@@ -9,14 +9,14 @@ This module provides the core constants.
 '''
 # Imports
 
-# Built-in dependencies
+# Package dependencies
 
-from os.path import abspath, dirname, join as path
+from dtb.core.helpers.filesystem import Directory, Path
 
 # Constants
 
-PKG_DIR = abspath(path(dirname(__file__), '..'))
-LIB_DIR = abspath(path(PKG_DIR, '..'))
-SRC_DIR = abspath(path(LIB_DIR, '..'))
-BASE_DIR = abspath(path(SRC_DIR, '..'))
-DATA_DIR = path(BASE_DIR, 'data')
+PKG_DIR = Directory(Path(__file__).parents[1])
+LIB_DIR = Directory(PKG_DIR.parent)
+SRC_DIR = Directory(LIB_DIR.parent)
+BASE_DIR = Directory(SRC_DIR.parent)
+DATA_DIR = Directory(BASE_DIR / 'data')
