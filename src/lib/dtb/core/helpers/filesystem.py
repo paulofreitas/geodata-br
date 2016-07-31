@@ -11,7 +11,8 @@ This module provides classes to work with filesystem files and directories.
 
 # Built-in dependencies
 
-from pathlib import Path
+import os
+import pathlib
 
 # Package dependencies
 
@@ -20,67 +21,238 @@ from dtb.formats import FormatRepository, FormatError
 # Classes
 
 
-class Directory(object):
-    def __init__(self, dirname):
-        '''Constructor.
+class Path(type(pathlib.Path())):
+    '''
+    A filesystem path object.
+    '''
+
+    def __enter__(self):
+        '''
+        Magic method to allow changing the working directory to this path.
+        '''
+        self._old_dir = self.cwd()
+        os.chdir(str(self))
+
+        return self
+
+    def __exit__(self, *_):
+        '''
+        Magic method to allow changing the working directory to the previous
+        path.
+        '''
+        os.chdir(self._old_dir)
+
+    def __contains__(self, segment):
+        '''
+        Magic method to test if a path segment is in this path.
 
         Arguments:
-            dirname (str): The directory path to retrieve a new Directory object
+            segment (str): A path segment
+
+        Returns:
+            bool: Whether or not the given path segment is in this path
         '''
-        self._path = Path(dirname)
+        return segment in str(self)
+
+    def __iter__(self):
+        '''
+        Magic method to allow iterating this path components.
+
+        Returns:
+            iterator: An iterator with this path components
+        '''
+        return iter(Path(part) for part in self.parts)
+
+    # Properties
 
     @property
-    def name(self):
-        '''Returns the directory name.'''
-        return self._path.name
+    def atime(self):
+        '''
+        Returns the path's last access time.
+        '''
+        return self.stat().st_atime
 
-    def files(self, pattern='*'):
-        '''Returns a list with all directory files matching the given pattern.'''
-        return [File(_file) for _file in self._path.iterdir()
-                if _file.match(pattern)]
+    @property
+    def ctime(self):
+        '''
+        Returns the path's last change time.
+        '''
+        return self.stat().st_ctime
 
-    def __str__(self):
-        '''String representation of this directory object.'''
-        return str(self._path)
+    @property
+    def gid(self):
+        '''
+        Returns the path's owner group ID.
+        '''
+        return self._gid
+
+    @property
+    def mode(self):
+        '''
+        Returns the path's mode.
+        '''
+        return self.stat().st_mode
+
+    @property
+    def mtime(self):
+        '''
+        Returns the path's last modification time.
+        '''
+        return self.stat().st_mtime
+
+    @property
+    def size(self):
+        '''
+        Returns the path's size in bytes.
+        '''
+        return self.stat().st_size
+
+    @property
+    def uid(self):
+        '''
+        Returns the path's owner user ID.
+        '''
+        return self.stat().st_uid
+
+    # Method aliases
+
+    def join(self, *args):
+        '''
+        Alias for .joinpath() method.
+        '''
+        return self.joinpath(*args)
+
+    # Property aliases
+
+    accessed = atime
+    accessTime = atime
+    changed = ctime
+    changeTime = ctime
+    groupId = gid
+    modificated = mtime
+    modificationTime = mtime
+    userId = uid
 
 
-class File(object):
-    def __init__(self, filename):
-        '''Constructor.
+class Directory(Path):
+    '''
+    A filesystem directory object.
+    '''
+
+    def __init__(self, *args):
+        '''
+        Constructor.
+        '''
+        super(self.__class__, self).__init__(*args)
+
+        if not self.exists():
+            raise IOError(2, "No such directory: '{}'".format(self))
+
+        if not self.is_dir():
+            raise OSError(20, "Not a directory: '{}'".format(self))
+
+    def directories(self, pattern='*', recursive=False):
+        '''
+        Yields a generator with all directories matching the given pattern.
 
         Arguments:
-            filename (str): The file path to retrieve a new File object
+            pattern (str): The search pattern
+            recursive (bool): Whether or not it should return directories
+                recursively
+
+        Yields:
+            A generator with all directories matching the given pattern
         '''
-        self._path = Path(filename)
+        search_method = self.rglob if recursive else self.glob
 
-    @property
-    def name(self):
-        '''Returns the file name.'''
-        return self._path.name
+        for path in search_method(pattern):
+            if path.is_dir():
+                yield Directory(path)
 
-    @property
-    def path(self):
-        '''Returns the file path.'''
-        return self._path.parent
+    def files(self, pattern='*', recursive=False):
+        '''
+        Yields a generator with all files matching the given pattern.
+
+        Arguments:
+            pattern (str): The search pattern
+            recursive (bool): Whether or not it should return files recursively
+
+        Yields:
+            A generator with all files matching the given pattern
+        '''
+        search_method = self.rglob if recursive else self.glob
+
+        for path in search_method(pattern):
+            if path.is_file():
+                yield File(path)
+
+    # Method aliases
+
+    def create(self, **kwargs):
+        '''
+        Alias for .mkdir() method.
+        '''
+        return self.mkdir(**kwargs)
+
+
+class File(Path):
+    '''
+    A filesystem file object.
+    '''
+
+    def __init__(self, *args):
+        '''
+        Constructor.
+        '''
+        super(self.__class__, self).__init__(*args)
+
+        if not self.exists():
+            raise IOError(2, "No such file: '{}'".format(self))
+
+        if self.is_dir():
+            raise OSError(21, "Is a directory: '{}'".format(self))
+
+    def read(self, **kwargs):
+        '''
+        Returns the decoded file contents as string.
+
+        Returns:
+            str: The file contents
+        '''
+        with self.open('r', **kwargs) as file_:
+            return file_.read()
+
+    def readBytes(self, **kwargs):
+        '''
+        Returns the decoded file contents as bytes.
+
+        Returns:
+            bytes: The file contents
+        '''
+        with self.open('rb', **kwargs) as file_:
+            return file_.read()
+
+    # Properties
 
     @property
     def extension(self):
-        '''Returns the file extension.'''
-        return ''.join(self._path.suffixes)
+        '''
+        Returns the full file extension.
+
+        Returns:
+            str: The full file extension
+        '''
+        return ''.join(self.suffixes)
 
     @property
     def format(self):
-        '''Returns the file format.'''
+        '''
+        Returns the file format.
+
+        Returns:
+            The file format
+        '''
         try:
             return FormatRepository.findByExtension(self.extension)
         except FormatError:
             return None
-
-    @property
-    def size(self):
-        '''Returns the file size.'''
-        return self._path.stat().st_size
-
-    def __str__(self):
-        '''String representation of this file object.'''
-        return str(self._path)
