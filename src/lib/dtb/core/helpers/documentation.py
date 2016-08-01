@@ -13,8 +13,6 @@ This module provides helper classes to write documentation files.
 
 import json
 
-from os.path import basename, join as path, realpath
-
 # Package dependencies
 
 from dtb.core.constants import DATA_DIR
@@ -30,47 +28,60 @@ from dtb.formats import FormatRepository
 
 
 class Readme(object):
-    '''A README documentation file.'''
+    '''
+    A README documentation file.
+    '''
 
-    def __init__(self, readme_file, stub_file=None):
-        '''Constructor.'''
-        self._readme_file = realpath(readme_file)
-        self._stub_file = realpath(stub_file) if stub_file else None
-        self._readme = ''
-        self._stub = ''
-        self._data = Struct((base,
-                             json.load(open(path(DATA_DIR, base, 'dtb.json'))))
-                            for base in DatabaseRepository.listYears())
+    def __init__(self, readmeFile, stubFile=None):
+        '''
+        Constructor.
 
-        with open(self._readme_file) as readme:
-            self._readme = readme.read()
+        Arguments:
+            readmeFile (dtb.core.helpers.filesystem.File): The README file
+            stubFile (dtb.core.helpers.filesystem.File): The README stub file
+        '''
+        self._readmeFile = readmeFile
+        self._stubFile = stubFile
+        self._contents = self._readmeFile.read()
+        self._stub = self._stubFile.read() if stubFile else ''
+        self._data = Struct()
 
-        if stub_file:
-            with open(self._stub_file) as stub:
-                self._stub = stub.read()
+        # Load databases
+        for base in DatabaseRepository.listYears():
+            self._data[base] = json.load(File(DATA_DIR / base / 'dtb.json'))
 
     def render(self):
-        '''Renders the file.'''
+        '''
+        Renders the file.
+        '''
         raise NotImplementedError
 
     def write(self):
-        '''Writes the file to disk.'''
-        with open(self._readme_file, 'w') as readme:
-            readme.write(self.render())
+        '''
+        Writes the file to disk.
+        '''
+        with self._readmeFile.open('w') as readmeFile:
+            readmeFile.write(self.render())
 
 
 class ProjectReadme(Readme):
-    '''The project README documentation file.'''
+    '''
+    The project README documentation file.
+    '''
 
     def render(self):
-        '''Renders the file.'''
+        '''
+        Renders the file.
+        '''
         return self._stub.format(
             database_records=self.renderDatabaseRecords().strip(),
             database_formats=self.renderDatabaseFormats().strip()
         )
 
     def renderDatabaseRecords(self):
-        '''Renders the available database records counts.'''
+        '''
+        Renders the available database records counts.
+        '''
         headers = ['Base'] + [
             Markdown.code(entity.table) for entity in TerritorialData.entities
         ]
@@ -87,7 +98,9 @@ class ProjectReadme(Readme):
         return Markdown.table([headers] + data, alignment)
 
     def renderDatabaseFormats(self):
-        '''Renders the available database formats.'''
+        '''
+        Renders the available database formats.
+        '''
         grouped_formats = FormatRepository.groupExportableFormatsByType()
         markdown = ''
 
@@ -103,59 +116,73 @@ class ProjectReadme(Readme):
         return markdown
 
 class DatabaseReadme(Readme):
-    '''A database README documentation file.'''
+    '''
+    A database README documentation file.
+    '''
 
-    def __init__(self, readme_file, stub_file, base_dir):
-        '''Constructor.'''
-        super(self.__class__, self).__init__(readme_file, stub_file)
+    def __init__(self, readmeFile, stubFile):
+        '''
+        Constructor.
 
-        self.base_dir = realpath(base_dir)
-        self.base = basename(base_dir)
+        Arguments:
+            readmeFile (dtb.core.helpers.filesystem.File): The README file
+            stubFile (dtb.core.helpers.filesystem.File): The README stub file
+        '''
+        super(self.__class__, self).__init__(readmeFile, stubFile)
+
+        self._baseDir = Directory(readmeFile.parent)
+        self._base = self._baseDir.name
 
     def render(self):
-        '''Renders the file.'''
+        '''
+        Renders the file.
+        '''
 
         return self._stub.format(
-            db_year=self.base,
+            db_year=self._base,
             db_records=self.renderDatabaseRecords().strip(),
             db_files=self.renderDatabaseFiles().strip()
         )
 
     def renderDatabaseRecords(self):
-        '''Renders the database records counts.'''
+        '''
+        Renders the database records counts.
+        '''
         headers = ['Table', 'Records']
         alignment = ['>', '>']
         data = [
             [Markdown.code(entity.table),
-             '{:,d}'.format(len(self._data[self.base][entity.table]))]
+             '{:,d}'.format(len(self._data[self._base][entity.table]))]
             for entity in TerritorialData.entities
-            if entity.table in self._data[self.base]
+            if entity.table in self._data[self._base]
         ]
 
         return Markdown.table([headers] + data, alignment)
 
     def renderDatabaseFiles(self):
-        '''Renders the database files.'''
+        '''
+        Renders the database files.
+        '''
         headers = ['File', 'Format', 'Size', 'Savings']
         alignment = ['<', '^', '>', '>']
         data = []
 
-        for base_file in Directory(self.base_dir).files(pattern='dtb*'):
-            base_format = '-'
+        for baseFile in self._baseDir.files(pattern='dtb*'):
+            baseFormat = '-'
 
-            if base_file.format:
-                base_format = Markdown.link(base_file.format.info,
-                                            base_file.format.friendlyName)
+            if baseFile.format:
+                baseFormat = Markdown.link(baseFile.format.info,
+                                           baseFile.format.friendlyName)
 
             data.append([
-                Markdown.code(base_file.name),
-                base_format,
-                '{:9,d}'.format(base_file.size),
-                '{:>6.1f}%'.format(Number.percentDifference(base_file.size,
-                    File(str(base_file).replace('minified/', '')).size))
+                Markdown.code(baseFile.name),
+                baseFormat,
+                '{:9,d}'.format(baseFile.size),
+                '{:>6.1f}%'.format(Number.percentDifference(baseFile.size,
+                    File(str(baseFile).replace('minified/', '')).size))
             ])
 
-        if 'minified' in self.base_dir:
+        if 'minified' in self._baseDir:
             return Markdown.table([headers] + data, alignment)
 
         return Markdown.table([headers[:3]] + [row[:3] for row in data],
