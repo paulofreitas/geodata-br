@@ -7,15 +7,12 @@ Build documentation command module
 '''
 # Imports
 
-# Built-in dependencies
-
-from os.path import join as path
-
 # Package dependencies
 
 from dtb.commands import Command
 from dtb.core.constants import BASE_DIR, DATA_DIR, SRC_DIR
 from dtb.core.helpers.documentation import ProjectReadme, DatabaseReadme
+from dtb.core.helpers.filesystem import File
 from dtb.databases import DatabaseRepository
 
 # Classes
@@ -41,19 +38,17 @@ class DocumentationBuilderCommand(Command):
 
     def handle(self, args):
         '''Handles the command.'''
-        ProjectReadme(path(BASE_DIR, 'README.md'),
-                      path(SRC_DIR, 'data/stubs/README.stub.md')) \
+        ProjectReadme(File(BASE_DIR / 'README.md'),
+                      File(SRC_DIR / 'data/stubs/README.stub.md')) \
             .write()
 
         for base in DatabaseRepository.listYears():
             # Create raw database READMEs
-            DatabaseReadme(path(DATA_DIR, base, 'README.md'),
-                           path(SRC_DIR, 'data/stubs/BASE_README.stub.md'),
-                           path(DATA_DIR, base)) \
+            DatabaseReadme(File(DATA_DIR / base / 'README.md'),
+                           File(SRC_DIR / 'data/stubs/BASE_README.stub.md')) \
                 .write()
 
             # Create minified database READMEs
-            DatabaseReadme(path(DATA_DIR, 'minified', base, 'README.md'),
-                           path(SRC_DIR, 'data/stubs/BASE_README.stub.md'),
-                           path(DATA_DIR, 'minified', base)) \
+            DatabaseReadme(File(DATA_DIR / 'minified' / base / 'README.md'),
+                           File(SRC_DIR / 'data/stubs/BASE_README.stub.md')) \
                 .write()
