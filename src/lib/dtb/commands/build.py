@@ -7,11 +7,6 @@ Build command module
 '''
 # Imports
 
-# Built-in dependencies
-
-from os import chdir, makedirs
-from os.path import join as path
-
 # Package dependencies
 
 from dtb.commands import Command
@@ -77,26 +72,25 @@ class DatabaseBuilderCommand(Command):
         '''Handles the command.'''
         try:
             for base in args.bases:
-                raw_dir = path(DATA_DIR, base)
-                minified_dir = path(DATA_DIR, 'minified', base)
+                raw_dir = DATA_DIR / base
+                minified_dir = DATA_DIR / 'minified' / base
 
                 logger.info('> Building {} base...'.format(base))
 
                 try:
-                    makedirs(raw_dir)
-                    makedirs(minified_dir)
+                    raw_dir.create(parents=True)
+                    minified_dir.create(parents=True)
                 except OSError:
                     pass
 
-                chdir(raw_dir)
                 data = DatabaseFactory.fromYear(base).parse()
 
-                for raw_format in args.raw:
-                    data.export(raw_format, False, 'auto')
+                with raw_dir:
+                    for raw_format in args.raw:
+                        data.export(raw_format, False, 'auto')
 
-                chdir(minified_dir)
-
-                for minifiable_format in args.min:
-                    data.export(minifiable_format, True, 'auto')
+                with minified_dir:
+                    for minifiable_format in args.min:
+                        data.export(minifiable_format, True, 'auto')
         except KeyboardInterrupt:
             logger.info('> Building was canceled.')
