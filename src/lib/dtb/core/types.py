@@ -13,6 +13,7 @@ This module provides the base types used across the packages.
 
 import json
 
+from collections import OrderedDict
 from struct import Struct as _Struct
 
 from abc import ABCMeta
@@ -20,6 +21,12 @@ from abc import ABCMeta
 # External compatibility dependencies
 
 from future.utils import with_metaclass
+
+# External dependencies
+
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.sql.schema import MetaData
 
 # Package dependencies
 
@@ -71,6 +78,36 @@ class Bytes(bytes):
             + (self[compiled_format.size:],)
 
 
+class Entity(declarative_base()):
+    '''Abstract entity class.'''
+    __abstract__ = True
+
+    convention = {
+        'pk': 'pk_%(table_name)s',
+        'fk': 'fk_%(table_name)s_%(column_0_name)s',
+        'ix': 'ix_%(column_0_label)s',
+        'uq': 'uq_%(table_name)s_%(column_0_name)s',
+    }
+
+    metadata = MetaData(naming_convention=convention)
+
+    @hybrid_property
+    def table(self):
+        '''Shortcut property for table name.'''
+        return str(self.__table__.name)
+
+    @hybrid_property
+    def columns(self):
+        '''Shortcut property for table column names.'''
+        return (str(column.name) for column in self.__table__.columns)
+
+    @hybrid_property
+    def data(self):
+        '''Shortcut property for ordered table data.'''
+        return OrderedDict((column, getattr(self, column))
+                           for column in self.__table__.columns.keys())
+
+
 class Struct(dict):
     '''An improved dictionary that provides attribute-style access to keys.'''
 
@@ -86,7 +123,7 @@ class Struct(dict):
         Raises:
             KeyError: When a given key is not found
         '''
-        value = super(self.__class__, self).__getitem__(key)
+        value = super(Struct, self).__getitem__(key)
 
         if isinstance(value, dict):
             return self.__class__(value)
