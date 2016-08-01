@@ -35,13 +35,16 @@ logger = Logger.instance(__name__)
 
 
 class Parser(AbstractClass):
-    '''Abstract base parser class.'''
+    '''
+    Abstract base parser class.
+    '''
 
     # Parser format
     _format = None
 
     def __init__(self, base):
-        '''Constructor.
+        '''
+        Constructor.
 
         Arguments:
             base (dtb.databases.Database): A database instance to parse
@@ -49,25 +52,17 @@ class Parser(AbstractClass):
         self._base = base
         self._data = base._data
 
-    def initialize(self):
-        '''Initialize the internal data columns.'''
-        for entity in self._data.entities:
-            self._data._cols.append('id_' + entity.table)
-            self._data._cols.append('nome_' + entity.table)
-
     def parse(self):
-        '''Parses the database.'''
+        '''
+        Parses the database.
+        '''
         logger.debug('Parsing database...')
 
-        cols = self.parseColumns()
-        rows = self.parseRows()
-
-        self.initialize()
-
         # Build database columns
-        self._data._cols = cols
+        self._data._cols = self.parseColumns()
 
         # Build database rows
+        rows = self.parseRows()
         self._data._rows.extend(row.value for row in rows)
 
         # Build database records
@@ -87,20 +82,27 @@ class Parser(AbstractClass):
         return self._data
 
     def parseColumns(self):
-        '''Parses the database columns.'''
+        '''
+        Parses the database columns.
+        '''
         raise NotImplementedError
 
     def parseRows(self):
-        '''Parsers the database rows.'''
+        '''
+        Parsers the database rows.
+        '''
         raise NotImplementedError
 
 
 class ParserFactory(object):
-    '''Parser factory class.'''
+    '''
+    Parser factory class.
+    '''
 
     @classmethod
     def fromFormat(cls, _format):
-        '''Factories a parser class for a given format.
+        '''
+        Factories a parser class for a given format.
 
         Arguments:
             _format (str): The file format name to retrieve a parser
@@ -120,10 +122,14 @@ class ParserFactory(object):
 
 
 class ParserError(Exception):
-    '''Generic exception class for parsing errors.'''
+    '''
+    Generic exception class for parsing errors.
+    '''
     pass
 
 
 class UnknownParserError(ParserError):
-    '''Exception class raised when a given parser is not found.'''
+    '''
+    Exception class raised when a given parser is not found.
+    '''
     pass
