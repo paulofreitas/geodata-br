@@ -36,15 +36,20 @@ from dtb.formats.sql import SqlFormat
 
 
 class SchemaGenerator(object):
-    '''SQL schema generator class.'''
+    '''
+    SQL schema generator class.
+    '''
 
     minified = False
 
     def __init__(self, dialect='default', minified=False):
-        '''Constructor.
+        '''
+        Constructor.
 
-        :param dialect: the SQL dialect to use
-        :param minified: whether the SQL statements should be minified or not
+        Arguments:
+            dialect (str): The SQL dialect to use
+            minified (bool): Whether the SQL statements should be minified
+                or not
         '''
         self.tables = []
         self.dialect = dialect
@@ -54,7 +59,15 @@ class SchemaGenerator(object):
 
     @staticmethod
     def getDialect(dialect):
-        '''Get the given SQL dialect instance by name.'''
+        '''
+        Get the given SQL dialect instance by name.
+
+        Arguments:
+            dialect (str): The SQL dialect name
+
+        Returns:
+            type: The SQL dialect instance
+        '''
         if dialect == 'default':
             return DefaultDialect()
 
@@ -69,7 +82,9 @@ class SchemaGenerator(object):
     @staticmethod
     @compiles(CreateColumn)
     def __compileCreateColumn(create, compiler, **kw):
-        '''Compiles the CREATE TABLE columns statements.'''
+        '''
+        Compiles the CREATE TABLE columns statements.
+        '''
         column = create.element
 
         ddl = '{} {}'.format(column.name,
@@ -92,7 +107,9 @@ class SchemaGenerator(object):
     @staticmethod
     @compiles(CreateTable)
     def __compileCreateTable(create, compiler, **kw):
-        '''Compiles the CREATE TABLE statements.'''
+        '''
+        Compiles the CREATE TABLE statements.
+        '''
         table = create.element
         separator = '' if SchemaGenerator.minified else '\n'
         first_pk = False
@@ -154,7 +171,9 @@ class SchemaGenerator(object):
                              compiler,
                              include_schema=False,
                              include_table_schema=True):
-        '''Compiles CREATE INDEX statements.'''
+        '''
+        Compiles CREATE INDEX statements.
+        '''
         index = create.element
 
         compiler._verify_index_table(index)
@@ -186,7 +205,9 @@ class SchemaGenerator(object):
     @staticmethod
     @compiles(AddConstraint)
     def __compileAddConstraint(create, compiler):
-        '''Compiles ALTER TABLE ADD CONSTRAINT statements.'''
+        '''
+        Compiles ALTER TABLE ADD CONSTRAINT statements.
+        '''
         return 'ALTER TABLE {} ADD {};'.format(
             compiler.preparer.format_table(create.element.table),
             compiler.process(create.element)
@@ -195,7 +216,9 @@ class SchemaGenerator(object):
     @staticmethod
     @compiles(PrimaryKeyConstraint)
     def __compilePrimaryKeyConstraint(constraint, compiler):
-        '''Compiles PRIMARY KEY constraint statements.'''
+        '''
+        Compiles PRIMARY KEY constraint statements.
+        '''
         if len(constraint) == 0:
             return ''
 
@@ -228,7 +251,9 @@ class SchemaGenerator(object):
     @staticmethod
     @compiles(ForeignKeyConstraint)
     def __compileForeignKeyConstraint(constraint, compiler):
-        '''Compiles FOREIGN KEY constraint statements.'''
+        '''
+        Compiles FOREIGN KEY constraint statements.
+        '''
         ddl = ''
         separator = ',' if SchemaGenerator.minified else ', '
 
@@ -271,7 +296,9 @@ class SchemaGenerator(object):
     @staticmethod
     @compiles(Insert)
     def __compileInsert(insert_stmt, compiler, **kw):
-        '''Compiles INSERT statements.'''
+        '''
+        Compiles INSERT statements.
+        '''
         compiler.stack.append({
             'correlate_froms': set(),
             'asfrom_froms': set(),
@@ -322,9 +349,15 @@ class SchemaGenerator(object):
     # Custom DDL renderers
 
     def render(self, createIndexes=True):
-        '''Render all SQL statements for the instance tables.
+        '''
+        Render all SQL statements for the instance tables.
 
-        :param createIndexes: whether or not it should create table indexes'''
+        Arguments:
+            createIndexes (bool): Whether or not it should create table indexes
+
+        Returns:
+            string: The compiled SQL statements
+        '''
         separator = '' if self.minified else '\n\n'
 
         return separator.join([
@@ -333,10 +366,16 @@ class SchemaGenerator(object):
         ])
 
     def renderCreateTable(self, table, createIndexes=True):
-        '''Render the CREATE TABLE statement for the given table.
+        '''
+        Render the CREATE TABLE statement for the given table.
 
-        :param table: the SQLAlchemy Table object to render
-        :param createIndexes: whether or not it should create table indexes
+        Arguments:
+            table (sqlalchemy.sql.schema.Table:): The SQLAlchemy Table object to
+                render
+            createIndexes (bool): Whether or not it should create table indexes
+
+        Returns:
+            string: The compiled CREATE TABLE statement
         '''
         ddl = []
         separator = '' if self.minified else '\n'
@@ -358,9 +397,15 @@ class SchemaGenerator(object):
         return separator.join(ddl)
 
     def renderInserts(self, table):
-        '''Render the INSERT statements for the given table.
+        '''
+        Render the INSERT statements for the given table.
 
-        :param table: the SQLAchemy Table object to render
+        Arguments:
+            table (sqlalchemy.sql.schema.Table:): The SQLAlchemy Table object to
+                render
+
+        Returns:
+            string: The compiled INSERT statements
         '''
         ddl = []
         separator = '' if self.minified else '\n'
@@ -385,9 +430,15 @@ class SchemaGenerator(object):
         return separator.join(ddl)
 
     def renderTableConstraints(self, table):
-        '''Render the ALTER TABLE ADD CONSTRAINT statements for the given table.
+        '''
+        Render the ALTER TABLE ADD CONSTRAINT statements for the given table.
 
-        :param table: the SQLAlchemy Table object to render
+        Arguments:
+            table (sqlalchemy.sql.schema.Table:): The SQLAlchemy Table object to
+                render
+
+        Returns:
+            string: The compiled ALTER TABLE ADD CONSTRAINT statements
         '''
         if not self._dialect.supports_alter:
             return
@@ -408,9 +459,15 @@ class SchemaGenerator(object):
         return separator.join(ddl)
 
     def renderTableIndexes(self, table):
-        '''Render the CREATE INDEXES statements for the given table.
+        '''
+        Render the CREATE INDEXES statements for the given table.
 
-        :param table: the SQLAlchemy Table object to render
+        Arguments:
+            table (sqlalchemy.sql.schema.Table:): The SQLAlchemy Table object to
+                render
+
+        Returns:
+            string: The compiled CREATE INDEXES statements
         '''
         ddl = []
         separator = '' if self.minified else '\n'
@@ -426,9 +483,14 @@ class SchemaGenerator(object):
     # Methods
 
     def createTable(self, entity):
-        '''Add the given entity table to schema.
+        '''
+        Add the given entity table to schema.
 
-        :param entity: the SQLAlchemy entity object
+        Arguments:
+            entity: The SQLAlchemy entity object
+
+        Returns:
+            sqlalchemy.sql.schema.Table: The SQLAlchemy table object
         '''
         table = entity.__table__
         table._data = []
@@ -448,29 +510,36 @@ class SchemaGenerator(object):
         return table
 
     def __str__(self):
-        '''String representation of this object.'''
+        '''
+        String representation of this object.
+        '''
         return self.render()
 
 
 class SqlExporter(Exporter):
-    '''SQL exporter class.'''
+    '''
+    SQL exporter class.
+    '''
 
     # Exporter format
     _format = SqlFormat
 
     def __init__(self, base, minified, dialect='default'):
-        '''Constructor.
+        '''
+        Constructor.
 
-        :param base: the territorial database to export
-        :param minified: whether or not the SQL statements should be minified
-        :param dialect: the SQL dialect to use
+        Arguments:
+            base (dtb.databases.database): The database to export
+            minified (bool): Whether or not the SQL statements should be
+                minified
+            dialect (str): The SQL dialect to use
         '''
         super(self.__class__, self).__init__(base, minified)
 
         self.schema = SchemaGenerator(dialect, self._minified)
 
         for entity in self._data.entities:
-            data = self._data._dict[entity.__tablename__]
+            data = self._data._dict[entity.__table__.name]
 
             if data:
                 table = self.schema.createTable(entity)
@@ -478,5 +547,7 @@ class SqlExporter(Exporter):
 
     @property
     def data(self):
-        '''Formatted SQL representation of data.'''
+        '''
+        Formatted SQL representation of data.
+        '''
         return self.schema.render()
