@@ -3,9 +3,9 @@
 # Copyright (c) 2013-2016 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-Core entities module
+Database entities module
 
-This module provides the common entities used across the packages.
+This module provides the database entities used across the package.
 '''
 from __future__ import unicode_literals
 
@@ -18,185 +18,336 @@ from operator import add
 
 # External dependencies
 
-from sqlalchemy.sql.schema import Column, ForeignKey
+from sqlalchemy.sql.schema import Column, ForeignKey, Table
 from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 
 # Package dependencies
 
-from dtb.core.types import Entity, Struct
+from dtb.core.i18n import _, Translator
+from dtb.core.types import Entity
+
+# Translator setup
+
+Translator.load(__package__)
 
 # Classes
 
 
-class Uf(Entity):
-    '''Entity for states.'''
-    __tablename__ = 'uf'
+class State(Entity):
+    '''
+    Entity for states.
+    '''
+    __table__ = Table(
+        _('states'),
+        Entity.metadata,
+        Column(_('id'),
+               SmallInteger,
+               nullable=False,
+               primary_key=True),
+        Column(_('name'),
+               String(32),
+               nullable=False,
+               index=True)
+    )
 
-    id = Column(SmallInteger, nullable=False, primary_key=True)
-    nome = Column(String(32), nullable=False, index=True)
-
-
-class Mesorregiao(Entity):
-    '''Entity for mesoregions.'''
-    __tablename__ = 'mesorregiao'
-
-    id = Column(SmallInteger, nullable=False, primary_key=True)
-    id_uf = Column(SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True)
-    nome = Column(String(64), nullable=False, index=True)
-
-
-class Microrregiao(Entity):
-    '''Entity for microregions.'''
-    __tablename__ = 'microrregiao'
-
-    id = Column(Integer, nullable=False, primary_key=True)
-    id_mesorregiao = Column(SmallInteger,
-                            ForeignKey('mesorregiao.id', use_alter=True),
-                            nullable=False,
-                            index=True)
-    id_uf = Column(SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True)
-    nome = Column(String(64), nullable=False, index=True)
+    # Columns mapping
+    __columns__ = {
+        _('id'): 'state_id',
+        _('name'): 'state_name',
+    }
 
 
-class Municipio(Entity):
-    '''Entity for municipalities.'''
-    __tablename__ = 'municipio'
+class Mesoregion(Entity):
+    '''
+    Entity for mesoregions.
+    '''
+    __table__ = Table(
+        _('mesoregions'),
+        Entity.metadata,
+        Column(_('id'),
+               SmallInteger,
+               nullable=False,
+               primary_key=True),
+        Column(_('state_id'),
+               SmallInteger,
+               ForeignKey(_('states.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('name'),
+               String(64),
+               nullable=False,
+               index=True)
+    )
 
-    id = Column(Integer, nullable=False, primary_key=True)
-    id_microrregiao = Column(Integer,
-                             ForeignKey('microrregiao.id', use_alter=True),
-                             nullable=False,
-                             index=True)
-    id_mesorregiao = Column(SmallInteger,
-                            ForeignKey('mesorregiao.id', use_alter=True),
-                            nullable=False,
-                            index=True)
-    id_uf = Column(SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True)
-    nome = Column(String(64), nullable=False, index=True)
-
-
-class Distrito(Entity):
-    '''Entity for districts.'''
-    __tablename__ = 'distrito'
-
-    id = Column(Integer, nullable=False, primary_key=True)
-    id_municipio = Column(Integer,
-                          ForeignKey('municipio.id', use_alter=True),
-                          nullable=False,
-                          index=True)
-    id_microrregiao = Column(Integer,
-                             ForeignKey('microrregiao.id', use_alter=True),
-                             nullable=False,
-                             index=True)
-    id_mesorregiao = Column(SmallInteger,
-                            ForeignKey('mesorregiao.id', use_alter=True),
-                            nullable=False,
-                            index=True)
-    id_uf = Column(SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True)
-    nome = Column(String(64), nullable=False, index=True)
+    # Columns mapping
+    __columns__ = {
+        _('id'): 'mesoregion_id',
+        _('state_id'): 'state_id',
+        _('name'): 'mesoregion_name',
+    }
 
 
-class Subdistrito(Entity):
-    '''Entity for subdistricts.'''
-    __tablename__ = 'subdistrito'
+class Microregion(Entity):
+    '''
+    Entity for microregions.
+    '''
+    __table__ = Table(
+        _('microregions'),
+        Entity.metadata,
+        Column(_('id'),
+               Integer,
+               nullable=False,
+               primary_key=True),
+        Column(_('mesoregion_id'),
+               SmallInteger,
+               ForeignKey(_('mesoregions.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('state_id'),
+               SmallInteger,
+               ForeignKey(_('states.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('name'),
+               String(64),
+               nullable=False,
+               index=True)
+    )
 
-    id = Column(BigInteger, nullable=False, primary_key=True)
-    id_distrito = Column(Integer,
-                         ForeignKey('distrito.id', use_alter=True),
-                         nullable=False,
-                         index=True)
-    id_municipio = Column(Integer,
-                          ForeignKey('municipio.id', use_alter=True),
-                          nullable=False,
-                          index=True)
-    id_microrregiao = Column(Integer,
-                             ForeignKey('microrregiao.id', use_alter=True),
-                             nullable=False,
-                             index=True)
-    id_mesorregiao = Column(SmallInteger,
-                            ForeignKey('mesorregiao.id', use_alter=True),
-                            nullable=False,
-                            index=True)
-    id_uf = Column(SmallInteger,
-                   ForeignKey('uf.id', use_alter=True),
-                   nullable=False,
-                   index=True)
-    nome = Column(String(64), nullable=False, index=True)
+    # Columns mapping
+    __columns__ = {
+        _('id'): 'microregion_id',
+        _('mesoregion_id'): 'mesoregion_id',
+        _('state_id'): 'state_id',
+        _('name'): 'microregion_name',
+    }
 
 
-class DatabaseRow(Struct):
-    '''Entity class for database rows.'''
+class Municipality(Entity):
+    '''
+    Entity for municipalities.
+    '''
+    __table__ = Table(
+        _('municipalities'),
+        Entity.metadata,
+        Column(_('id'),
+               Integer,
+               nullable=False,
+               primary_key=True),
+        Column(_('microregion_id'),
+               Integer,
+               ForeignKey(_('microregions.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('mesoregion_id'),
+               SmallInteger,
+               ForeignKey(_('mesoregions.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('state_id'),
+               SmallInteger,
+               ForeignKey(_('states.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('name'),
+               String(64),
+               nullable=False,
+               index=True)
+    )
+
+    # Columns mapping
+    __columns__ = {
+        _('id'): 'municipality_id',
+        _('microregion_id'): 'microregion_id',
+        _('mesoregion_id'): 'mesoregion_id',
+        _('state_id'): 'state_id',
+        _('name'): 'municipality_name',
+    }
+
+
+class District(Entity):
+    '''
+    Entity for districts.
+    '''
+    __table__ = Table(
+        _('districts'),
+        Entity.metadata,
+        Column(_('id'),
+               Integer,
+               nullable=False,
+               primary_key=True),
+        Column(_('municipality_id'),
+               Integer,
+               ForeignKey(_('municipalities.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('microregion_id'),
+               Integer,
+               ForeignKey(_('microregions.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('mesoregion_id'),
+               SmallInteger,
+               ForeignKey(_('mesoregions.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('state_id'),
+               SmallInteger,
+               ForeignKey(_('states.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('name'),
+               String(64),
+               nullable=False,
+               index=True)
+    )
+
+    # Columns mapping
+    __columns__ = {
+        _('id'): 'district_id',
+        _('municipality_id'): 'municipality_id',
+        _('microregion_id'): 'microregion_id',
+        _('mesoregion_id'): 'mesoregion_id',
+        _('state_id'): 'state_id',
+        _('name'): 'district_name',
+    }
+
+
+class Subdistrict(Entity):
+    '''
+    Entity for subdistricts.
+    '''
+    __table__ = Table(
+        _('subdistricts'),
+        Entity.metadata,
+        Column(_('id'),
+               BigInteger,
+               nullable=False,
+               primary_key=True),
+        Column(_('district_id'),
+               Integer,
+               ForeignKey(_('districts.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('municipality_id'),
+               Integer,
+               ForeignKey(_('municipalities.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('microregion_id'),
+               Integer,
+               ForeignKey(_('microregions.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('mesoregion_id'),
+               SmallInteger,
+               ForeignKey(_('mesoregions.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('state_id'),
+               SmallInteger,
+               ForeignKey(_('states.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('name'),
+               String(64),
+               nullable=False,
+               index=True)
+    )
+
+    # Columns mapping
+    __columns__ = {
+        _('id'): 'subdistrict_id',
+        _('district_id'): 'district_id',
+        _('municipality_id'): 'municipality_id',
+        _('microregion_id'): 'microregion_id',
+        _('mesoregion_id'): 'mesoregion_id',
+        _('state_id'): 'state_id',
+        _('name'): 'subdistrict_name',
+    }
+
+
+class DatabaseRow(object):
+    '''
+    Entity class for database rows.
+    '''
+
+    __slots__ = ('state_id',
+                 'state_name',
+                 'mesoregion_id',
+                 'mesoregion_name',
+                 'microregion_id',
+                 'microregion_name',
+                 'municipality_id',
+                 'municipality_name',
+                 'district_id',
+                 'district_name',
+                 'subdistrict_id',
+                 'subdistrict_name')
 
     def __init__(self):
-        '''Constructor.'''
-        super(self.__class__, self).__init__()
-
-        self.id_uf = None
-        self.id_mesorregiao = None
-        self.id_microrregiao = None
-        self.id_municipio = None
-        self.id_distrito = None
-        self.id_subdistrito = None
-        self.nome_uf = None
-        self.nome_mesorregiao = None
-        self.nome_microrregiao = None
-        self.nome_municipio = None
-        self.nome_distrito = None
-        self.nome_subdistrito = None
+        '''
+        Constructor.
+        '''
+        # Initialize attributes
+        self.state_id = None
+        self.state_name = None
+        self.mesoregion_id = None
+        self.mesoregion_name = None
+        self.microregion_id = None
+        self.microregion_name = None
+        self.municipality_id = None
+        self.municipality_name = None
+        self.district_id = None
+        self.district_name = None
+        self.subdistrict_id = None
+        self.subdistrict_name = None
 
     def normalize(self):
         '''Normalize row data as needed.'''
         # Initial fixes
 
-        for key in self:
+        for column in self.__slots__:
             # Convert empty and zero values to None
-            if not self[key] or (key.startswith('id') and not int(self[key])):
-                self[key] = None
+            value = getattr(self, column)
+
+            if not value or (column.endswith('_id') and not int(value)):
+                setattr(self, column, None)
 
         # Data length fixes
 
-        if self.id_mesorregiao and len(self.id_mesorregiao) == 2:
-            self.id_mesorregiao = self.id_uf + self.id_mesorregiao
+        if self.mesoregion_id and len(self.mesoregion_id) == 2:
+            self.mesoregion_id = self.state_id + self.mesoregion_id
 
-        if self.id_microrregiao and len(self.id_microrregiao) == 3:
-            self.id_microrregiao = self.id_uf + self.id_microrregiao
+        if self.microregion_id and len(self.microregion_id) == 3:
+            self.microregion_id = self.state_id + self.microregion_id
 
-        if self.id_municipio and len(self.id_municipio) == 5:
-            self.id_municipio = self.id_uf + self.id_municipio
+        if self.municipality_id and len(self.municipality_id) == 5:
+            self.municipality_id = self.state_id + self.municipality_id
 
-        if self.id_distrito and len(self.id_distrito) == 2:
-            self.id_distrito = self.id_municipio + self.id_distrito
+        if self.district_id and len(self.district_id) == 2:
+            self.district_id = self.municipality_id + self.district_id
 
-        if self.id_subdistrito and len(self.id_subdistrito) == 2:
-            self.id_subdistrito = self.id_distrito + self.id_subdistrito
+        if self.subdistrict_id and len(self.subdistrict_id) == 2:
+            self.subdistrict_id = self.district_id + self.subdistrict_id
 
         # Post-processing fixes
 
-        for key in self:
+        for column in self.__slots__:
             # Cast numeric values to integer
-            if self[key] and key.startswith('id'):
-                self[key] = int(self[key])
+            value = getattr(self, column)
+
+            if value and column.endswith('_id'):
+                setattr(self, column, int(value))
 
     @property
     def value(self):
-        entities = ((self.id_uf, self.nome_uf),
-                    (self.id_mesorregiao, self.nome_mesorregiao),
-                    (self.id_microrregiao, self.nome_microrregiao),
-                    (self.id_municipio, self.nome_municipio),
-                    (self.id_distrito, self.nome_distrito),
-                    (self.id_subdistrito, self.nome_subdistrito))
+        entities = ((self.state_id, self.state_name),
+                    (self.mesoregion_id, self.mesoregion_name),
+                    (self.microregion_id, self.microregion_name),
+                    (self.municipality_id, self.municipality_name),
+                    (self.district_id, self.district_name),
+                    (self.subdistrict_id, self.subdistrict_name))
         cols = []
         cols.extend([entity_id, entity_name]
                     for entity_id, entity_name in entities
@@ -205,65 +356,44 @@ class DatabaseRow(Struct):
         return reduce(add, cols) if cols else []
 
     @property
-    def uf(self):
-        '''Returns a new struct object with Uf properties.'''
-        return Struct(id=self.id_uf,
-                      nome=self.nome_uf)
+    def columns(self):
+        '''
+        Returns the translated row column names.
 
-    @property
-    def mesorregiao(self):
-        '''Returns a new struct object with Mesorregiao properties.'''
-        return Struct(id=self.id_mesorregiao,
-                      id_uf=self.id_uf,
-                      nome=self.nome_mesorregiao)
+        Returns:
+            list: The translated row column names
+        '''
+        return [_(column) for column in self.__slots__]
 
-    @property
-    def microrregiao(self):
-        '''Returns a new struct object with Microrregiao properties.'''
-        return Struct(id=self.id_microrregiao,
-                      id_mesorregiao=self.id_mesorregiao,
-                      id_uf=self.id_uf,
-                      nome=self.nome_microrregiao)
+    def __str__(self):
+        '''
+        Returns the string representation of this object.
 
-    @property
-    def municipio(self):
-        '''Returns a new struct object with Municipio properties.'''
-        return Struct(id=self.id_municipio,
-                      id_microrregiao=self.id_microrregiao,
-                      id_mesorregiao=self.id_mesorregiao,
-                      id_uf=self.id_uf,
-                      nome=self.nome_municipio)
-
-    @property
-    def distrito(self):
-        '''Returns a new struct object with Distrito properties.'''
-        return Struct(id=self.id_distrito,
-                      id_municipio=self.id_municipio,
-                      id_microrregiao=self.id_microrregiao,
-                      id_mesorregiao=self.id_mesorregiao,
-                      id_uf=self.id_uf,
-                      nome=self.nome_distrito)
-
-    @property
-    def subdistrito(self):
-        '''Returns a new struct object with Subdistrito properties.'''
-        return Struct(id=self.id_subdistrito,
-                      id_distrito=self.id_distrito,
-                      id_municipio=self.id_municipio,
-                      id_microrregiao=self.id_microrregiao,
-                      id_mesorregiao=self.id_mesorregiao,
-                      id_uf=self.id_uf,
-                      nome=self.nome_subdistrito)
+        Returns:
+            str: The string representation of this object
+        '''
+        return str(self.value)
 
 
-class TerritorialData(object):
-    '''Entity for territorial data.'''
-    entities = (Uf, Mesorregiao, Microrregiao, Municipio, Distrito, Subdistrito)
+class DatabaseData(object):
+    '''
+    Entity for database data.
+    '''
+
+    entities = (State,
+                Mesoregion,
+                Microregion,
+                Municipality,
+                District,
+                Subdistrict)
 
     def __init__(self, base):
-        '''Constructor.
+        '''
+        Constructor.
 
-        :param base: the territorial database where data will be retrieved
+        Arguments:
+            base (dtb.databases.Database): The database where data will be
+                retrieved
         '''
         self._base = base
         self._name = 'dtb_{}'.format(base.year)
@@ -272,7 +402,9 @@ class TerritorialData(object):
         self._dict = {}
 
     def toDict(self, strKeys=False, forceUnicode=False, includeKey=False):
-        '''Converts this territorial data into an ordered dictionary.'''
+        '''
+        Converts this database data into an ordered dictionary.
+        '''
         _dict = OrderedDict()
 
         for entity in self.entities:
@@ -285,10 +417,15 @@ class TerritorialData(object):
                 row_data = OrderedDict()
 
                 for column in entity.columns:
-                    if forceUnicode and isinstance(row[column], str):
-                        row_data[column] = unicode(row[column])
-                    else:
-                        row_data[column] = row[column]
+                    value = row[column]
+
+                    if forceUnicode:
+                        column = unicode(column)
+
+                        if isinstance(value, str):
+                            value = unicode(value)
+
+                    row_data[column] = value
 
                 row_id = str(row_data['id']) if strKeys else row_data['id']
 
