@@ -40,7 +40,7 @@ class Path(type(pathlib.Path())):
         Magic method to allow changing the working directory to the previous
         path.
         '''
-        os.chdir(self._old_dir)
+        os.chdir(str(self._old_dir))
 
     def __contains__(self, segment):
         '''
@@ -132,6 +132,13 @@ class Path(type(pathlib.Path())):
     modificated = mtime
     modificationTime = mtime
     userId = uid
+
+    @property
+    def basename(self):
+        '''
+        Alias for .stem property.
+        '''
+        return self.stem
 
 
 class Directory(Path):
@@ -231,6 +238,16 @@ class File(Path):
         '''
         with self.open('rb', **kwargs) as file_:
             return file_.read()
+
+    def write(self, data, **kwargs):
+        '''
+        Opens the file in text mode, write data to it, and closes the file.
+
+        Arguments:
+            data (str): The content to be written
+        '''
+        with self.open('w', **kwargs) as file_:
+            file_.write(data)
 
     # Properties
 
