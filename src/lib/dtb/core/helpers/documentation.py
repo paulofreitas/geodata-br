@@ -16,12 +16,12 @@ import json
 # Package dependencies
 
 from dtb.core.constants import DATA_DIR
-from dtb.core.entities import TerritorialData
 from dtb.core.helpers import Number
 from dtb.core.helpers.filesystem import Directory, File
 from dtb.core.helpers.markup import Markdown
 from dtb.core.types import Struct
 from dtb.databases import DatabaseRepository
+from dtb.databases.entities import DatabaseData
 from dtb.formats import FormatRepository
 
 # Classes
@@ -60,8 +60,7 @@ class Readme(object):
         '''
         Writes the file to disk.
         '''
-        with self._readmeFile.open('w') as readmeFile:
-            readmeFile.write(self.render())
+        self._readmeFile.write(self.render())
 
 
 class ProjectReadme(Readme):
@@ -83,14 +82,14 @@ class ProjectReadme(Readme):
         Renders the available database records counts.
         '''
         headers = ['Base'] + [
-            Markdown.code(entity.table) for entity in TerritorialData.entities
+            Markdown.code(entity.table) for entity in DatabaseData.entities
         ]
         alignment = ['>'] * 7
         data = [
             [Markdown.bold(base)] + [
                 '{:,d}'.format(len(self._data[base][entity.table])) \
                     if entity.table in self._data[base] else '-'
-                for entity in TerritorialData.entities
+                for entity in DatabaseData.entities
             ]
             for base in DatabaseRepository.listYears()
         ]
@@ -153,7 +152,7 @@ class DatabaseReadme(Readme):
         data = [
             [Markdown.code(entity.table),
              '{:,d}'.format(len(self._data[self._base][entity.table]))]
-            for entity in TerritorialData.entities
+            for entity in DatabaseData.entities
             if entity.table in self._data[self._base]
         ]
 
