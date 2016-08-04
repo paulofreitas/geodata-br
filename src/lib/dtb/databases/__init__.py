@@ -19,16 +19,13 @@ import io
 import sys
 import zipfile
 
-from io import open
-from os import makedirs
-from os.path import dirname, exists, join as path
-
 # Package dependencies
 
 from dtb.core.constants import SRC_DIR
-from dtb.core.entities import TerritorialData
+from dtb.core.helpers.filesystem import Directory, File, Path
 from dtb.core.logging import Logger
 from dtb.core.types import Bytes, Struct
+from dtb.databases.entities import DatabaseData
 from dtb.exporters import ExporterFactory
 from dtb.parsers import ParserFactory
 
@@ -107,49 +104,66 @@ BASE_LIST = [
 
 
 class Database(object):
-    '''Database class.'''
+    '''
+    Database class.
+    '''
 
     def __init__(self, info):
-        '''Constructor.
+        '''
+        Constructor.
 
         Arguments:
             info (Struct): The database info
         '''
         self._info = info
-        self._data = TerritorialData(self._info)
+        self._data = DatabaseData(self._info)
 
     @property
     def year(self):
-        '''The database year.'''
+        '''
+        The database year.
+        '''
         return str(self._info.year)
 
     @property
     def archive(self):
-        '''The database archive, if any.'''
+        '''
+        The database archive, if any.
+        '''
         return self._info.get('archive')
 
     @property
     def file(self):
-        '''The database file.'''
+        '''
+        The database file.
+        '''
         return self._info.file
 
     @property
     def format(self):
-        '''The database format.'''
+        '''
+        The database format.
+        '''
         return self._info.format
 
     @property
     def sheet(self):
-        '''The database sheet, if any.'''
+        '''
+        The database sheet, if any.
+        '''
         return self._info.get('sheet')
 
     @property
     def cacheFile(self):
-        '''The cached database file.'''
-        return path(SRC_DIR, '.cache', '{}.{}'.format(self.year, self.format))
+        '''
+        The cached database file.
+        '''
+        return Path(SRC_DIR, '.cache', '{}.{}'.format(self.year, self.format))
 
     def download(self):
-        '''Downloads the given database.'''
+        '''
+        Downloads the given database.
+        '''
         ftp = ftplib.FTP('geoftp.ibge.gov.br')
         archive_data = io.BytesIO()
         base_data = io.BytesIO()
@@ -159,7 +173,7 @@ class Database(object):
 
         logger.debug('Logging into the FTP server...')
         ftp.login()
-        ftp.cwd(path('organizacao_do_territorio',
+        ftp.cwd(Path('organizacao_do_territorio',
                      'estrutura_territorial',
                      'divisao_territorial',
                      self.year))
@@ -178,42 +192,45 @@ class Database(object):
             ftp.retrbinary('RETR {}'.format(self.file), base_data.write)
 
         try:
-            makedirs(dirname(self.cacheFile))
+            Directory(self.cacheFile.parent).create()
         except OSError:
             pass
 
-        with open(self.cacheFile, 'wb') as cache_file:
+        with self.cacheFile.open('wb') as cache_file:
             cache_file.write(base_data.getvalue())
 
         return self
 
     def read(self):
-        '''Reads the given database.
+        '''
+        Reads the given database.
 
         Returns:
             dtb.core.types.Bytes: The database raw binary data
         '''
-        if not exists(self.cacheFile):
+        if not self.cacheFile.exists():
             self.download()
 
-        with open(self.cacheFile, 'rb') as cache_file:
-            base_data = cache_file.read()
+        base_data = File(self.cacheFile).readBytes()
 
         return Bytes(base_data)
 
     def parse(self):
-        '''Parses the given database.'''
+        '''
+        Parses the given database.
+        '''
         parser = ParserFactory.fromFormat(self.format)
 
-        #try:
-        self._data = parser(self).parse()
-        #except:
-        #    raise Exception('Failed to parse data using the given parser')
+        try:
+            self._data = parser(self).parse()
+        except:
+            raise Exception('Failed to parse data using the given parser')
 
         return self
 
     def export(self, _format, minified=False, filename=None):
-        '''Exports the given database.
+        '''
+        Exports the given database.
 
         Arguments:
             _format: The file format to export the database
@@ -221,40 +238,43 @@ class Database(object):
             filename (str): The exported filename
         '''
         exporter = ExporterFactory.fromFormat(_format)
-        export_format = exporter._format()
+        exportFormat = exporter._format()
 
         if minified:
-            logger.info('Exporting database to minified {} format...' \
-                .format(export_format.friendlyName))
+            logger.info('Exporting database to minified %s format...',
+                        exportFormat.friendlyName)
         else:
-            logger.info('Exporting database to {} format...' \
-                .format(export_format.friendlyName))
+            logger.info('Exporting database to %s format...',
+                        exportFormat.friendlyName)
 
         data = exporter(self._data, minified).data
 
-        if not export_format.isBinary() and not isinstance(data, unicode):
+        if not exportFormat.isBinary() and not isinstance(data, unicode):
             data = unicode(data.decode('utf-8'))
 
         logger.debug('Done.')
 
         if filename:
             if filename == 'auto':
-                filename = 'dtb' + export_format.extension
+                filename = 'dtb' + exportFormat.extension
 
-            writeMode = 'wb' if export_format.isBinary() else 'w'
+            writeMode = 'wb' if exportFormat.isBinary() else 'w'
 
-            with open(filename, writeMode) as export_file:
-                export_file.write(data)
+            with Path(filename).open(writeMode) as exportFile:
+                exportFile.write(data)
         else:
             sys.stdout.write(data)
 
 
 class DatabaseFactory(object):
-    '''Database factory class.'''
+    '''
+    Database factory class.
+    '''
 
     @classmethod
     def fromYear(cls, year):
-        '''Factories a database class for a given database year.
+        '''
+        Factories a database class for a given database year.
 
         Arguments:
             year (int): The database year to retrieve a database object
@@ -266,11 +286,14 @@ class DatabaseFactory(object):
 
 
 class DatabaseRepository(object):
-    '''Database repository class.'''
+    '''
+    Database repository class.
+    '''
 
     @staticmethod
     def findByYear(year):
-        '''Returns the database for the given year.
+        '''
+        Returns the database for the given year.
 
         Arguments:
             year (int): The database year
@@ -287,15 +310,21 @@ class DatabaseRepository(object):
 
     @staticmethod
     def listYears():
-        '''Returns a list with all database years.'''
+        '''
+        Returns a list with all database years.
+        '''
         return [str(database.year) for database in BASE_LIST]
 
 
 class DatabaseError(Exception):
-    '''Generic exception class for database errors.'''
+    '''
+    Generic exception class for database errors.
+    '''
     pass
 
 
 class UnknownDatabaseError(DatabaseError):
-    '''Exception class raised when a given database is not found.'''
+    '''
+    Exception class raised when a given database is not found.
+    '''
     pass
