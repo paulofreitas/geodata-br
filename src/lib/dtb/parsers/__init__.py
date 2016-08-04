@@ -18,7 +18,7 @@ from future.utils import itervalues
 # Package dependencies
 
 from dtb.core.logging import Logger
-from dtb.core.types import AbstractClass
+from dtb.core.types import AbstractClass, Struct
 
 # Package metadata
 
@@ -67,17 +67,23 @@ class Parser(AbstractClass):
 
         # Build database records
         for entity in self._data.entities:
-            records = []
+            entities = []
+            last_entity = None
 
             for row in rows:
-                row_data = getattr(row, entity.table)
+                current_entity = Struct(entity.make(row).data)
 
-                if None not in itervalues(row_data) \
-                        and row_data not in records:
-                    records.append(row_data)
+                if (current_entity != last_entity
+                        and None not in itervalues(current_entity)
+                        and current_entity not in entities):
+                    entities.append(current_entity)
 
-            self._data._dict[entity.table] = sorted(records,
+                last_entity = current_entity
+
+            self._data._dict[entity.table] = sorted(entities,
                                                     key=lambda row: row.id)
+
+        logger.debug('Finished parsing database.')
 
         return self._data
 
@@ -89,7 +95,7 @@ class Parser(AbstractClass):
 
     def parseRows(self):
         '''
-        Parsers the database rows.
+        Parses the database rows.
         '''
         raise NotImplementedError
 
