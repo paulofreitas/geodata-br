@@ -20,7 +20,7 @@ from abc import ABCMeta
 
 # External compatibility dependencies
 
-from future.utils import with_metaclass
+from future.utils import iteritems, with_metaclass
 
 # External dependencies
 
@@ -98,14 +98,49 @@ class Entity(declarative_base()):
 
     @hybrid_property
     def columns(self):
-        '''Shortcut property for table column names.'''
-        return (str(column.name) for column in self.__table__.columns)
+        '''
+        Shortcut property for table column names.
+
+        Returns:
+            tuple: The table column names
+        '''
+        return tuple(column.name for column in self.__table__.columns)
+
+    @hybrid_property
+    def values(self):
+        '''
+        Shortcut property for table column values.
+
+        Returns:
+            tuple: The table column values
+        '''
+        return tuple(getattr(self, column.name)
+                     for column in self.__table__.columns)
 
     @hybrid_property
     def data(self):
-        '''Shortcut property for ordered table data.'''
+        '''
+        Shortcut property for ordered table data.
+
+        Returns:
+            collections.OrderedDict: The table ordered columns/values pairs
+        '''
         return OrderedDict((column, getattr(self, column))
                            for column in self.__table__.columns.keys())
+
+    @classmethod
+    def make(cls, row):
+        '''
+        Creates a new entity instance from the given database row.
+
+        Arguments:
+            row (dtb.databases.entities.DatabaseRow): The database row
+
+        Returns:
+            Entity: A new entity instance with given row data
+        '''
+        return cls(**{column: getattr(row, value)
+                      for column, value in iteritems(cls.__columns__)})
 
 
 class Struct(dict):
