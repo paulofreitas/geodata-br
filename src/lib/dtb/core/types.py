@@ -13,8 +13,7 @@ This module provides the base types used across the packages.
 
 import json
 
-from collections import OrderedDict
-from struct import Struct as _Struct
+from struct import Struct
 
 from abc import ABCMeta
 
@@ -23,6 +22,8 @@ from abc import ABCMeta
 from future.utils import iteritems, with_metaclass
 
 # External dependencies
+
+import yaml
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -36,11 +37,14 @@ from dtb.core.helpers.bootstrapping import ModuleLoader
 
 
 class AbstractClass(object, with_metaclass(ABCMeta)):
-    '''Base abstract class.'''
+    '''
+    Base abstract class.
+    '''
 
     @classmethod
     def parent(cls):
-        '''Returns the parent class (metaclass) of this class.
+        '''
+        Returns the parent class (metaclass) of this class.
 
         Returns:
             type: The parent class of this class
@@ -49,7 +53,8 @@ class AbstractClass(object, with_metaclass(ABCMeta)):
 
     @classmethod
     def childs(cls, forceLoad=True):
-        '''Returns a list of child classes (subclasses) of this class.
+        '''
+        Returns a list of child classes (subclasses) of this class.
 
         Arguments:
             forceLoad (bool): Forces the loading of the given class childs
@@ -64,22 +69,30 @@ class AbstractClass(object, with_metaclass(ABCMeta)):
 
 
 class Bytes(bytes):
-    '''An improved bytes type.'''
+    '''
+    An improved bytes type.
+    '''
 
     def unpack(self, _format):
-        '''Unpacks data from a binary string according to the given format.
+        '''
+        Unpacks data from a binary string according to the given format.
 
         Arguments:
             _format (str): The pack format
+
+        Returns:
+            tuple: The unpacked data fields
         '''
-        compiled_format = _Struct(_format)
+        compiled_format = Struct(_format)
 
         return compiled_format.unpack_from(self) \
             + (self[compiled_format.size:],)
 
 
 class Entity(declarative_base()):
-    '''Abstract entity class.'''
+    '''
+    Abstract entity class.
+    '''
     __abstract__ = True
 
     convention = {
@@ -93,7 +106,12 @@ class Entity(declarative_base()):
 
     @hybrid_property
     def table(self):
-        '''Shortcut property for table name.'''
+        '''
+        Shortcut property for table name.
+
+        Returns:
+            str: The table name
+        '''
         return str(self.__table__.name)
 
     @hybrid_property
@@ -120,13 +138,13 @@ class Entity(declarative_base()):
     @hybrid_property
     def data(self):
         '''
-        Shortcut property for ordered table data.
+        Shortcut property for table data.
 
         Returns:
-            collections.OrderedDict: The table ordered columns/values pairs
+            dict: The table columns/values pairs
         '''
-        return OrderedDict((column, getattr(self, column))
-                           for column in self.__table__.columns.keys())
+        return {column.name: getattr(self, column.name)
+                for column in self.__table__.columns}
 
     @classmethod
     def make(cls, row):
@@ -139,15 +157,32 @@ class Entity(declarative_base()):
         Returns:
             Entity: A new entity instance with given row data
         '''
-        return cls(**{column: getattr(row, value)
-                      for column, value in iteritems(cls.__columns__)})
+        return cls(**{column: getattr(row, key)
+                      for column, key in iteritems(cls.__columns__)})
+
+    def hydrate(row):
+        '''
+        Fills an existing entity instance from the given database row.
+
+        Arguments:
+            row (dtb.databases.entities.DatabaseRow): The database row
+        '''
+        for column, key in iteritems(cls.__columns__):
+            setattr(self, column, getattr(row, key))
 
 
-class Struct(dict):
+class Map(dict):
     '''An improved dictionary that provides attribute-style access to keys.'''
 
+    def __init__(self, *args, **kwargs):
+        '''
+        Constructor.
+        '''
+        super(Map, self).__init__(*args, **kwargs)
+
     def __getitem__(self, key):
-        '''Magic method to proxy nested dictionaries.
+        '''
+        Proxies nested dictionaries.
 
         Arguments:
             key (str): The dictionary key to access
@@ -158,7 +193,7 @@ class Struct(dict):
         Raises:
             KeyError: When a given key is not found
         '''
-        value = super(Struct, self).__getitem__(key)
+        value = super(Map, self).__getitem__(key)
 
         if isinstance(value, dict):
             return self.__class__(value)
@@ -166,7 +201,8 @@ class Struct(dict):
         return value
 
     def __getattr__(self, key):
-        '''Magic method to allow accessing dictionary keys as attributes.
+        '''
+        Allows accessing dictionary keys as attributes.
 
         Arguments:
             key (str): The dictionary key to access
@@ -183,7 +219,8 @@ class Struct(dict):
             raise AttributeError(key)
 
     def __setattr__(self, key, value):
-        '''Magic method to allow assigning dictionary keys with attributes.
+        '''
+        Allows assigning dictionary keys with attributes.
 
         Arguments:
             key (str): The dictionary key to change
@@ -192,7 +229,8 @@ class Struct(dict):
         self[key] = value
 
     def __delattr__(self, key):
-        '''Magic method to allow deleting dictionary keys with attributes.
+        '''
+        Allows deleting dictionary keys with attributes.
 
         Arguments:
             key (str): The dictionary key to delete
@@ -206,27 +244,41 @@ class Struct(dict):
             raise AttributeError(key)
 
     def __repr__(self):
-        '''Returns a string representation of this object.
+        '''
+        Returns a string representation of this object.
 
         Returns:
             str: A string representation of this object
         '''
-        return '{}({})'.format(self.__class__.__name__, dict.__repr__(self))
+        return '{}({})'.format(self.__class__.__name__,
+                               ', '.join('{}={}'.format(key, repr(value))
+                                         for key, value in iteritems(self)))
 
     def copy(self):
-        '''Copies the self data into a new Struct instance.
+        '''
+        Copies the self data into a new Map instance.
 
         Returns:
-            Struct: A new Struct instance with this instance data
+            Map: A new Map instance with this instance data
         '''
         return self.__class__(self)
 
     # Serialization methods
 
     def toJSON(self):
-        '''Serializes this object into a JSON string.
+        '''
+        Serializes this object into a JSON string.
 
         Returns:
             str: A JSON representation of this object
         '''
         return json.dumps(self)
+
+    def toYAML(self):
+        '''
+        Serializes this object into a YAML string.
+
+        Returns:
+            str: A YAML representation of this object
+        '''
+        return yaml.dump(dict(self))
