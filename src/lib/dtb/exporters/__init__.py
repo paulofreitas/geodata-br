@@ -11,8 +11,14 @@ from __future__ import absolute_import
 
 # Imports
 
+# Built-in dependencies
+
+import sys
+
 # Package dependencies
 
+from dtb.core.helpers.filesystem import Path
+from dtb.core.logging import Logger
 from dtb.core.types import AbstractClass
 
 # Package metadata
@@ -22,49 +28,116 @@ __author__ = 'Paulo Freitas <me@paulofreitas.me>'
 __copyright__ = 'Copyright (c) 2013-2016 Paulo Freitas'
 __license__ = 'MIT License'
 
+# Module logging
+
+logger = Logger.instance(__name__)
+
 # Classes
 
 
 class Exporter(AbstractClass):
-    '''Abstract base exporter class.'''
+    '''
+    Abstract base exporter class.
+    '''
 
     # Exporter format
     _format = None
 
-    def __init__(self, data, minified=False):
-        '''Constructor.
+    def __init__(self, data):
+        '''
+        Constructor.
 
         Arguments:
-            data (dtb.core.entities.TerritorialData): Territorial data to export
-            minified (bool): Whether or not it should minify the data
+            data (dtb.database.entities.DatabaseData): Database data to export
         '''
         self._data = data
-        self._minified = minified
 
-    @property
-    def data(self):
-        '''Formatted data representation.'''
+    def __call__(self, **options):
+        '''
+        Allows exporting the data into a stream calling the exporter instance.
+
+        Returns:
+            options (dict): The exporting options
+
+        Raises:
+            ExportError: When data fails to export
+        '''
+        return self.export(**options)
+
+    def export(self, **options):
+        '''
+        Exports the data into a file-like stream.
+
+        Arguments:
+            options (dict): The exporting options
+
+        Returns:
+            a file-like stream
+
+        Raises:
+            ExportError: When data fails to export
+        '''
         raise NotImplementedError
+
+    def exportToFile(self, filename, **options):
+        '''
+        Exports the data into a file.
+
+        Arguments:
+            filename (str): The filename to write
+            options (dict): The exporting options
+
+        Raises:
+            ExportError: When data fails to export
+        '''
+        if options.get('minify'):
+            logger.debug('Exporting database to minified %s format...',
+                         self.format.friendlyName)
+        else:
+            logger.debug('Exporting database to %s format...',
+                         self.format.friendlyName)
+
+        data = self.export(**options).read()
+
+        logger.debug('Finished exporting database.')
+
+        if not self.format.isBinary() and not isinstance(data, unicode):
+            data = unicode(data.decode('utf-8'))
+
+        if not filename:
+            return sys.stdout.write(data + '\n')
+
+        if filename == 'auto':
+            filename = 'dtb' + self.format.extension
+
+        writeMode = 'wb' if self.format.isBinary() else 'w'
+
+        with Path(filename).open(writeMode) as exportFile:
+            exportFile.write(data)
 
     @property
     def format(self):
-        '''Returns the exporter file format instance.'''
+        '''
+        Returns the exporter file format instance.
+
+        Returns:
+            dtb.formats.Format: The exporter file format
+        '''
         if callable(self._format):
             return self._format()
 
         raise UnknownExporterError('Unsupported exporting format')
 
-    def __str__(self):
-        '''String representation of this object.'''
-        return self.data
-
 
 class ExporterFactory(object):
-    '''Exporter factory class.'''
+    '''
+    Exporter factory class.
+    '''
 
     @classmethod
-    def fromFormat(cls, _format):
-        '''Factories an exporter class for a given format.
+    def fromFormat(cls, _format, *args, **kwargs):
+        '''
+        Factories an exporter class for a given format.
 
         Arguments:
             _format (str): The file format name to retrieve an exporter
@@ -77,16 +150,20 @@ class ExporterFactory(object):
         '''
         for exporter in Exporter.childs():
             if exporter._format().name == _format:
-                return exporter
+                return exporter(*args, **kwargs)
 
         raise UnknownExporterError('Unsupported exporting format')
 
 
-class ExporterError(Exception):
-    '''Generic exception class for parsing errors.'''
+class ExportError(Exception):
+    '''
+    Generic exception class for exporting errors.
+    '''
     pass
 
 
-class UnknownExporterError(ExporterError):
-    '''Exception class raised when a given exporter is not found.'''
+class UnknownExporterError(ExportError):
+    '''
+    Exception class raised when a given exporter is not found.
+    '''
     pass
