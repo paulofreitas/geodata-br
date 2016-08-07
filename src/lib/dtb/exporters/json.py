@@ -11,6 +11,7 @@ from __future__ import absolute_import
 
 # Built-in dependencies
 
+import io
 import json
 
 # Package dependencies
@@ -22,20 +23,31 @@ from dtb.formats.json import JsonFormat
 
 
 class JsonExporter(Exporter):
-    '''JSON exporter class.'''
+    '''
+    JSON exporter class.
+    '''
 
     # Exporter format
     _format = JsonFormat
 
-    @property
-    def data(self):
-        '''Formatted JSON representation of data.'''
-        data = self._data.toDict()
-        json_opts = dict(indent=2)
+    def export(self, **options):
+        '''
+        Exports the data into a JSON file-like stream.
 
-        if self._minified:
-            json_opts = dict(separators=(',', ':'))
+        Arguments:
+            options (dict): The exporting options
 
-        json_str = json.dumps(data, **json_opts)
+        Returns:
+            io.BytesIO: A JSON file-like stream
 
-        return json_str
+        Raises:
+            ExportError: When data fails to export
+        '''
+        json_options = dict(indent=2)
+
+        if options.get('minify'):
+            json_options = dict(separators=(',', ':'))
+
+        json_data = json.dumps(self._data.normalize(), **json_options)
+
+        return io.BytesIO(json_data)
