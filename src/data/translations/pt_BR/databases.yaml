@@ -1,0 +1,38 @@
+# Tables
+states: uf
+mesoregions: mesorregiao
+microregions: microrregiao
+municipalities: municipio
+districts: distrito
+subdistricts: subdistrito
+
+# Table columns
+id: id
+state_id: id_uf
+mesoregion_id: id_mesorregiao
+microregion_id: id_microrregiao
+municipality_id: id_municipio
+district_id: id_distrito
+subdistrict_id: id_subdistrito
+name: nome
+
+# Table foreign keys
+states.id: uf.id
+mesoregions.id: mesorregiao.id
+microregions.id: microrregiao.id
+municipalities.id: municipio.id
+districts.id: distrito.id
+
+# Columns mappings
+state_id: id_uf
+state_name: nome_uf
+mesoregion_id: id_mesorregiao
+mesoregion_name: nome_mesorregiao
+microregion_id: id_microrregiao
+microregion_name: nome_microrregiao
+municipality_id: id_municipio
+municipality_name: nome_municipio
+district_id: id_distrito
+district_name: nome_distrito
+subdistrict_id: id_subdistrito
+subdistrict_name: nome_subdistrito
