@@ -27,7 +27,6 @@ import yaml
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy.sql.schema import MetaData
 
 # Package dependencies
 
@@ -95,14 +94,12 @@ class Entity(declarative_base()):
     '''
     __abstract__ = True
 
-    convention = {
+    naming_convention = {
         'pk': 'pk_%(table_name)s',
         'fk': 'fk_%(table_name)s_%(column_0_name)s',
         'ix': 'ix_%(column_0_label)s',
         'uq': 'uq_%(table_name)s_%(column_0_name)s',
     }
-
-    metadata = MetaData(naming_convention=convention)
 
     @hybrid_property
     def table(self):
@@ -160,14 +157,14 @@ class Entity(declarative_base()):
         return cls(**{column: getattr(row, key)
                       for column, key in iteritems(cls.__columns__)})
 
-    def hydrate(row):
+    def hydrate(self, row):
         '''
         Fills an existing entity instance from the given database row.
 
         Arguments:
             row (dtb.databases.entities.DatabaseRow): The database row
         '''
-        for column, key in iteritems(cls.__columns__):
+        for column, key in iteritems(self.__columns__):
             setattr(self, column, getattr(row, key))
 
 
