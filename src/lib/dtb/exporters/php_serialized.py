@@ -11,6 +11,7 @@ from __future__ import absolute_import
 
 # External dependencies
 
+import io
 import phpserialize
 
 # Package dependencies
@@ -22,14 +23,27 @@ from dtb.formats.php_serialized import PhpSerializedFormat
 
 
 class PhpSerializedExporter(Exporter):
-    '''PHP Serialized Data exporter class.'''
+    '''
+    PHP Serialized Data exporter class.
+    '''
 
     # Exporter format
     _format = PhpSerializedFormat
 
-    @property
-    def data(self):
-        '''Formatted PHP Serialized Data representation of data.'''
-        data = self._data.toDict()
+    def export(self, **options):
+        '''
+        Exports the data into a PHP Serialized Data file-like stream.
 
-        return phpserialize.dumps(data)
+        Arguments:
+            options (dict): The exporting options
+
+        Returns:
+            io.BytesIO: A PHP Serialized Data file-like stream
+
+        Raises:
+            ExportError: When data fails to export
+        '''
+        data = self._data.normalize()
+        php_serialized_data = phpserialize.dumps(data)
+
+        return io.BytesIO(php_serialized_data)
