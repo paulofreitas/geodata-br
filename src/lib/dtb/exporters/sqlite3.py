@@ -11,6 +11,7 @@ from __future__ import absolute_import, unicode_literals
 
 # Built-in dependencies
 
+import io
 import sqlite3
 import tempfile
 
@@ -24,24 +25,39 @@ from dtb.formats.sqlite3 import Sqlite3Format
 
 
 class Sqlite3Exporter(Exporter):
-    '''SQLite3 exporter class.'''
+    '''
+    SQLite3 exporter class.
+    '''
 
     # Exporter format
     _format = Sqlite3Format
 
-    @property
-    def data(self):
-        '''Binary SQLite 3 representation of data.'''
-        sql_str = SqlExporter(self._data, self._minified, dialect='sqlite').data
+    def export(self, **options):
+        '''
+        Exports the data into a SQLite 3 file-like stream.
 
-        with tempfile.NamedTemporaryFile() as _sqlite_file:
-            with sqlite3.connect(_sqlite_file.name) as sqlite_con:
+        Arguments:
+            options (dict): The exporting options
+
+        Returns:
+            io.BytesIO: A SQLite 3 file-like stream
+
+        Raises:
+            ExportError: When data fails to export
+        '''
+        sql_options = dict(options, dialect='sqlite')
+        sql_data = SqlExporter(self._data).export(**sql_options)
+        sqlite_data = io.BytesIO()
+
+        with tempfile.NamedTemporaryFile() as sqlite_file:
+            with sqlite3.connect(sqlite_file.name) as sqlite_con:
                 sqlite_cursor = sqlite_con.cursor()
                 sqlite_cursor.execute('PRAGMA page_size = 1024')
                 sqlite_cursor.execute('PRAGMA foreign_keys = ON')
-                sqlite_cursor.executescript('BEGIN; {} COMMIT'.format(sql_str))
+                sqlite_cursor.executescript('BEGIN; {} COMMIT' \
+                                                .format(sql_data.read()))
 
-            with open(_sqlite_file.name, 'rb') as sqlite_file:
-                sqlite_data = sqlite_file.read()
+            sqlite_data.write(sqlite_file.read())
+            sqlite_data.seek(0)
 
         return sqlite_data
