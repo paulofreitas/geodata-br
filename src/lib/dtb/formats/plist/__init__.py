@@ -11,48 +11,69 @@ from __future__ import absolute_import
 
 # Package dependencies
 
+from dtb.core.helpers.decorators import classproperty
 from dtb.formats import Format
 
 # Classes
 
 
 class PlistFormat(Format):
-    '''The file format class for Property List file format.'''
+    '''
+    The file format class for Property List file format.
+    '''
 
-    @property
+    @classproperty
     def name(self):
-        '''The file format name.'''
+        '''
+        The file format name.
+        '''
         return 'plist'
 
-    @property
+    @classproperty
     def friendlyName(self):
-        '''The file format friendly name.'''
+        '''
+        The file format friendly name.
+        '''
         return 'Property List'
 
-    @property
+    @classproperty
     def extension(self):
-        '''The file format extension.'''
+        '''
+        The file format extension.
+        '''
         return '.plist'
 
-    @property
+    @classproperty
     def type(self):
-        '''The file format type.'''
+        '''
+        The file format type.
+        '''
         return 'Data Interchange'
 
-    @property
+    @classproperty
     def mimeType(self):
-        '''The file format media type.'''
+        '''
+        The file format media type.
+        '''
         return 'application/x-plist'
 
-    @property
+    @classproperty
     def info(self):
-        '''The file format reference info.'''
+        '''
+        The file format reference info.
+        '''
         return 'https://en.wikipedia.org/wiki/Property_list'
 
+    @classproperty
     def isExportable(self):
-        '''Tells whether the file format is exportable or not.'''
+        '''
+        Tells whether the file format is exportable or not.
+        '''
         return True
 
+    @classproperty
     def isMinifiable(self):
-        '''Tells whether the file format is minifiable or not.'''
+        '''
+        Tells whether the file format is minifiable or not.
+        '''
         return True
