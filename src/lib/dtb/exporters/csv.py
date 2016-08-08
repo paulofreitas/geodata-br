@@ -18,33 +18,47 @@ import io
 
 from dtb.exporters import Exporter
 from dtb.formats.csv import CsvFormat
+from dtb.formats.csv.utils import DictWriter
 
 # Classes
 
 
 class CsvExporter(Exporter):
-    '''CSV exporter class.'''
+    '''
+    CSV exporter class.
+    '''
 
     # Exporter format
     _format = CsvFormat
 
-    @property
-    def data(self):
-        '''Formatted CSV representation of data.'''
+    def export(self, **options):
+        '''
+        Exports the data into a CSV file-like stream.
+
+        Arguments:
+            options (dict): The exporting options
+
+        Returns:
+            io.BytesIO: A CSV file-like stream
+
+        Raises:
+            ExportError: When data fails to export
+        '''
+        csv_options = dict(delimiter=options.get('delimiter', ','),
+                           quoting=csv.QUOTE_NONNUMERIC,
+                           lineterminator='\n',
+                           extrasaction='ignore')
+
+        if options.get('minify'):
+            csv_options.update(quoting=csv.QUOTE_MINIMAL)
+
         csv_data = io.BytesIO()
-        csv_writer = csv.writer(
-            csv_data,
-            quoting=(csv.QUOTE_NONNUMERIC, csv.QUOTE_MINIMAL)[self._minified],
-            lineterminator='\n'
-        )
+        csv_writer = DictWriter(csv_data,
+                                self._data.columns,
+                                **csv_options)
 
-        csv_writer.writerow(self._data._cols)
+        csv_writer.writeheader()
+        csv_writer.writerows([row.serialize() for row in self._data.rows])
+        csv_data.seek(0)
 
-        for row in self._data._rows:
-            csv_writer.writerow([
-                str(col.encode('utf-8')) if isinstance(col, unicode) else col
-                for col in row
-                if col is not None
-            ])
-
-        return csv_data.getvalue()
+        return csv_data
