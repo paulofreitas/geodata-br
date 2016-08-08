@@ -11,48 +11,69 @@ from __future__ import absolute_import
 
 # Package dependencies
 
+from dtb.core.helpers.decorators import classproperty
 from dtb.formats import Format
 
 # Classes
 
 
 class XmlFormat(Format):
-    '''The file format class for XML file format.'''
+    '''
+    The file format class for XML file format.
+    '''
 
-    @property
+    @classproperty
     def name(self):
-        '''The file format name.'''
+        '''
+        The file format name.
+        '''
         return 'xml'
 
-    @property
+    @classproperty
     def friendlyName(self):
-        '''The file format friendly name.'''
+        '''
+        The file format friendly name.
+        '''
         return 'XML'
 
-    @property
+    @classproperty
     def extension(self):
-        '''The file format extension.'''
+        '''
+        The file format extension.
+        '''
         return '.xml'
 
-    @property
+    @classproperty
     def type(self):
-        '''The file format type.'''
+        '''
+        The file format type.
+        '''
         return 'Data Interchange'
 
-    @property
+    @classproperty
     def mimeType(self):
-        '''The file format media type.'''
+        '''
+        The file format media type.
+        '''
         return ['application/xml', 'text/xml']
 
-    @property
+    @classproperty
     def info(self):
-        '''The file format reference info.'''
+        '''
+        The file format reference info.
+        '''
         return 'https://en.wikipedia.org/wiki/XML'
 
+    @classproperty
     def isExportable(self):
-        '''Tells whether the file format is exportable or not.'''
+        '''
+        Tells whether the file format is exportable or not.
+        '''
         return True
 
+    @classproperty
     def isMinifiable(self):
-        '''Tells whether the file format is minifiable or not.'''
+        '''
+        Tells whether the file format is minifiable or not.
+        '''
         return True
