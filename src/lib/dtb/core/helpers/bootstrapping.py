@@ -19,11 +19,14 @@ import sys
 
 
 class ModuleLoader(object):
-    '''Module loader class.'''
+    '''
+    Module loader class.
+    '''
 
     @staticmethod
     def load(module):
-        '''Loads a given module.
+        '''
+        Loads a given module.
 
         Arguments:
             module (str): The module name to load
@@ -38,7 +41,8 @@ class ModuleLoader(object):
 
     @classmethod
     def loadModules(cls, package, ignoreError=False):
-        '''Loads a given package modules.
+        '''
+        Loads a given package modules.
 
         Arguments:
             package: The package name or instance to load modules
@@ -57,8 +61,11 @@ class ModuleLoader(object):
         loaded_modules = ()
 
         try:
-            for _, name, _ in pkgutil.walk_packages(package.__path__):
-                module = cls.load('{}.{}'.format(package.__name__, name))
+            namespace = package.__name__ + '.'
+
+            for _, name, _ in pkgutil.walk_packages(package.__path__,
+                                                    namespace):
+                module = cls.load(name)
                 loaded_modules += (module,)
         except ImportError:
             if not ignoreError:
@@ -69,5 +76,7 @@ class ModuleLoader(object):
         return loaded_modules
 
 class InvalidPackageError(Exception):
-    '''Exception class raised when a package is not valid.'''
+    '''
+    Exception class raised when a package is not valid.
+    '''
     pass
