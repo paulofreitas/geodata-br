@@ -17,7 +17,7 @@ from collections import OrderedDict
 
 # External dependencies
 
-from sqlalchemy.sql.schema import Column, ForeignKey, Table
+from sqlalchemy.sql.schema import Column, ForeignKey, MetaData, Table
 from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 
 # Package dependencies
@@ -29,6 +29,11 @@ from dtb.core.types import Entity
 
 Translator.load(__package__)
 
+# Metadata initialization
+
+EntityMetadata = MetaData(naming_convention=Entity.naming_convention)
+LegacyEntityMetadata = MetaData(naming_convention=Entity.naming_convention)
+
 # Classes
 
 
@@ -38,7 +43,7 @@ class State(Entity):
     '''
     __table__ = Table(
         _('states'),
-        Entity.metadata,
+        EntityMetadata,
         Column(_('id'),
                SmallInteger,
                nullable=False,
@@ -62,7 +67,7 @@ class Mesoregion(Entity):
     '''
     __table__ = Table(
         _('mesoregions'),
-        Entity.metadata,
+        EntityMetadata,
         Column(_('id'),
                SmallInteger,
                nullable=False,
@@ -92,7 +97,7 @@ class Microregion(Entity):
     '''
     __table__ = Table(
         _('microregions'),
-        Entity.metadata,
+        EntityMetadata,
         Column(_('id'),
                Integer,
                nullable=False,
@@ -128,7 +133,7 @@ class Municipality(Entity):
     '''
     __table__ = Table(
         _('municipalities'),
-        Entity.metadata,
+        EntityMetadata,
         Column(_('id'),
                Integer,
                nullable=False,
@@ -170,7 +175,7 @@ class District(Entity):
     '''
     __table__ = Table(
         _('districts'),
-        Entity.metadata,
+        EntityMetadata,
         Column(_('id'),
                Integer,
                nullable=False,
@@ -218,7 +223,7 @@ class Subdistrict(Entity):
     '''
     __table__ = Table(
         _('subdistricts'),
-        Entity.metadata,
+        EntityMetadata,
         Column(_('id'),
                BigInteger,
                nullable=False,
@@ -263,6 +268,60 @@ class Subdistrict(Entity):
         _('mesoregion_id'): 'mesoregion_id',
         _('state_id'): 'state_id',
         _('name'): 'subdistrict_name',
+    }
+
+
+class LegacyState(Entity):
+    '''
+    Legacy entity for states.
+    '''
+    __table__ = Table(
+        _('states'),
+        LegacyEntityMetadata,
+        Column(_('id'),
+               SmallInteger,
+               nullable=False,
+               primary_key=True),
+        Column(_('name'),
+               String(32),
+               nullable=False,
+               index=True)
+    )
+
+    # Columns mapping
+    __columns__ = {
+        _('id'): 'state_id',
+        _('name'): 'state_name',
+    }
+
+
+class LegacyMunicipality(Entity):
+    '''
+    Legacy entity for municipalities.
+    '''
+    __table__ = Table(
+        _('municipalities'),
+        LegacyEntityMetadata,
+        Column(_('id'),
+               Integer,
+               nullable=False,
+               primary_key=True),
+        Column(_('state_id'),
+               SmallInteger,
+               ForeignKey(_('states.id'), use_alter=True),
+               nullable=False,
+               index=True),
+        Column(_('name'),
+               String(64),
+               nullable=False,
+               index=True)
+    )
+
+    # Columns mapping
+    __columns__ = {
+        _('id'): 'municipality_id',
+        _('state_id'): 'state_id',
+        _('name'): 'municipality_name',
     }
 
 
@@ -505,3 +564,9 @@ class DatabaseData(object):
                 records[entity.table][row_id] = record
 
         return records
+
+
+# Collections
+
+Entities = (State, Mesoregion, Microregion, Municipality, District, Subdistrict)
+LegacyEntities = (LegacyState, LegacyMunicipality)
