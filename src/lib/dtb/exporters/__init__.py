@@ -101,7 +101,7 @@ class Exporter(AbstractClass):
 
         logger.debug('Finished exporting database.')
 
-        if not self.format.isBinary() and not isinstance(data, unicode):
+        if not self.format.isBinary and not isinstance(data, unicode):
             data = unicode(data.decode('utf-8'))
 
         if not filename:
@@ -110,7 +110,7 @@ class Exporter(AbstractClass):
         if filename == 'auto':
             filename = 'dtb' + self.format.extension
 
-        writeMode = 'wb' if self.format.isBinary() else 'w'
+        writeMode = 'wb' if self.format.isBinary else 'w'
 
         with Path(filename).open(writeMode) as exportFile:
             exportFile.write(data)
@@ -123,10 +123,7 @@ class Exporter(AbstractClass):
         Returns:
             dtb.formats.Format: The exporter file format
         '''
-        if callable(self._format):
-            return self._format()
-
-        raise UnknownExporterError('Unsupported exporting format')
+        return self._format
 
 
 class ExporterFactory(object):
@@ -149,7 +146,7 @@ class ExporterFactory(object):
             UnknownExporterError: When a given file format is not found
         '''
         for exporter in Exporter.childs():
-            if exporter._format().name == _format:
+            if exporter._format.name == _format:
                 return exporter(*args, **kwargs)
 
         raise UnknownExporterError('Unsupported exporting format')
