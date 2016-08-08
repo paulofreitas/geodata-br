@@ -5,61 +5,49 @@
 '''
 Property List file exporter module
 '''
-from __future__ import absolute_import, unicode_literals
+from __future__ import absolute_import
 
 # Imports
 
 # Built-in dependencies
 
+import io
 import re
-
-from sys import version_info
-
-if version_info >= (3, 0):
-    from plistlib import _PlistWriter as PlistWriter, dumps as PlistDumper
-else:
-    from plistlib import PlistWriter, writePlistToString as PlistDumper
 
 # Package dependencies
 
 from dtb.exporters import Exporter
 from dtb.formats.plist import PlistFormat
-
-# Enhancements
-
-
-def __unsortable_write_dict(self, d):
-    self.beginElement('dict')
-    items = d.items()
-
-    for key, value in items:
-        if not isinstance(key, (str, unicode)):
-            raise TypeError('keys must be strings')
-
-        self.simpleElement('key', key)
-        self.writeValue(value)
-
-    self.endElement('dict')
-
-PlistWriter.writeDict = __unsortable_write_dict
-
+from dtb.formats.plist.utils import PlistDumper, PlistWriter
 
 # Classes
 
 
 class PlistExporter(Exporter):
-    '''Property List exporter class.'''
+    '''
+    Property List exporter class.
+    '''
 
     # Exporter format
     _format = PlistFormat
 
-    @property
-    def data(self):
-        '''Formatted Property List representation of data.'''
-        data = self._data.toDict(strKeys=True, forceUnicode=True)
-        plist_str = unicode(PlistDumper(data).decode('utf-8'))
+    def export(self, **options):
+        '''
+        Exports the data into a Property List file-like stream.
 
-        if self._minified:
-            plist_str = re.sub('[\n\t]+', '', plist_str)
+        Arguments:
+            options (dict): The exporting options
 
-        return plist_str
+        Returns:
+            io.BytesIO: A Property List file-like stream
+
+        Raises:
+            ExportError: When data fails to export
+        '''
+        data = self._data.normalize(strKeys=True, forceUnicode=True)
+        plist_data = PlistDumper(data)
+
+        if options.get('minify'):
+            plist_data = re.sub('[\n\t]+', '', plist_data)
+
+        return io.BytesIO(plist_data)
