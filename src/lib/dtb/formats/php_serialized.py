@@ -11,44 +11,62 @@ from __future__ import absolute_import
 
 # Package dependencies
 
+from dtb.core.helpers.decorators import classproperty
 from dtb.formats import Format
 
 # Classes
 
 
 class PhpSerializedFormat(Format):
-    '''The file format class for PHP Serialized Data file format.'''
+    '''
+    The file format class for PHP Serialized Data file format.
+    '''
 
-    @property
+    @classproperty
     def name(self):
-        '''The file format name.'''
+        '''
+        The file format name.
+        '''
         return 'php'
 
-    @property
+    @classproperty
     def friendlyName(self):
-        '''The file format friendly name.'''
+        '''
+        The file format friendly name.
+        '''
         return 'PHP Serialized Data'
 
-    @property
+    @classproperty
     def extension(self):
-        '''The file format extension.'''
+        '''
+        The file format extension.
+        '''
         return '.php.serialized'
 
-    @property
+    @classproperty
     def type(self):
-        '''The file format type.'''
+        '''
+        The file format type.
+        '''
         return 'Data Interchange'
 
-    @property
+    @classproperty
     def mimeType(self):
-        '''The file format media type.'''
+        '''
+        The file format media type.
+        '''
         return 'application/vnd.php.serialized'
 
-    @property
+    @classproperty
     def info(self):
-        '''The file format reference info.'''
+        '''
+        The file format reference info.
+        '''
         return 'https://en.wikipedia.org/wiki/Serialization#Programming_language_support'
 
+    @classproperty
     def isExportable(self):
-        '''Tells whether the file format is exportable or not.'''
+        '''
+        Tells whether the file format is exportable or not.
+        '''
         return True
