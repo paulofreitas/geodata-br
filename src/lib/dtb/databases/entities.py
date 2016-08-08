@@ -14,7 +14,6 @@ from __future__ import unicode_literals
 # Built-in dependencies
 
 from collections import OrderedDict
-from operator import add
 
 # External dependencies
 
@@ -303,19 +302,68 @@ class DatabaseRow(object):
         self.subdistrict_id = None
         self.subdistrict_name = None
 
-    def normalize(self):
-        '''Normalize row data as needed.'''
-        # Initial fixes
+    @property
+    def columns(self):
+        '''
+        Returns the row column names.
 
-        for column in self.__slots__:
-            # Convert empty and zero values to None
+        Returns:
+            list: The row column names
+        '''
+        return self.__slots__
+
+    @property
+    def _columns(self):
+        '''
+        Returns the translated row column names.
+
+        Returns:
+            list: The translated row column names
+        '''
+        return [_(column) for column in self.columns]
+
+    @property
+    def values(self):
+        '''
+        Returns the row column values.
+
+        Returns:
+            list: The row column values
+        '''
+        return [getattr(self, column) for column in self.columns]
+
+    def _fixValues(self):
+        '''
+        Fixes the row values.
+        '''
+        # Unset empty and zero values
+        for column in self.columns:
             value = getattr(self, column)
 
             if not value or (column.endswith('_id') and not int(value)):
                 setattr(self, column, None)
 
-        # Data length fixes
+        # Unset needless values
+        if self.mesoregion_id and not self.mesoregion_name:
+            self.mesoregion_id = None
 
+        if self.microregion_id and not self.microregion_name:
+            self.microregion_id = None
+
+        if self.municipality_id and not self.municipality_name:
+            self.municipality_id = None
+
+        if self.district_id and not self.district_name:
+            self.district_id = None
+
+        if self.subdistrict_id and not self.subdistrict_name:
+            self.subdistrict_id = None
+
+    def _formatValues(self):
+        '''
+        Formats the row values.
+        '''
+        # Reformat numeric values
         if self.mesoregion_id and len(self.mesoregion_id) == 2:
             self.mesoregion_id = self.state_id + self.mesoregion_id
 
@@ -331,48 +379,43 @@ class DatabaseRow(object):
         if self.subdistrict_id and len(self.subdistrict_id) == 2:
             self.subdistrict_id = self.district_id + self.subdistrict_id
 
-        # Post-processing fixes
+        # Cast numeric values to integer
+        for column in self.columns:
+            if column.endswith('_id'):
+                value = getattr(self, column)
 
-        for column in self.__slots__:
-            # Cast numeric values to integer
-            value = getattr(self, column)
+                if value:
+                    setattr(self, column, int(value))
 
-            if value and column.endswith('_id'):
-                setattr(self, column, int(value))
-
-    @property
-    def value(self):
-        entities = ((self.state_id, self.state_name),
-                    (self.mesoregion_id, self.mesoregion_name),
-                    (self.microregion_id, self.microregion_name),
-                    (self.municipality_id, self.municipality_name),
-                    (self.district_id, self.district_name),
-                    (self.subdistrict_id, self.subdistrict_name))
-        cols = []
-        cols.extend([entity_id, entity_name]
-                    for entity_id, entity_name in entities
-                    if entity_name)
-
-        return reduce(add, cols) if cols else []
-
-    @property
-    def columns(self):
+    def normalize(self):
         '''
-        Returns the translated row column names.
+        Normalizes the row data as needed.
 
         Returns:
-            list: The translated row column names
+            DatabaseRow: The self DatabaseRow instance
         '''
-        return [_(column) for column in self.__slots__]
+        self._fixValues()
+        self._formatValues()
 
-    def __str__(self):
+        return self
+
+    def serialize(self):
+        '''
+        Returns the serialized row data dictionary.
+
+        Returns:
+            dict: The serialized row data dictionary
+        '''
+        return {_(column): getattr(self, column) for column in self.columns}
+
+    def __repr__(self):
         '''
         Returns the string representation of this object.
 
         Returns:
             str: The string representation of this object
         '''
-        return str(self.value)
+        return repr(self.serialize())
 
 
 class DatabaseData(object):
@@ -380,41 +423,68 @@ class DatabaseData(object):
     Entity for database data.
     '''
 
-    entities = (State,
-                Mesoregion,
-                Microregion,
-                Municipality,
-                District,
-                Subdistrict)
-
-    def __init__(self, base):
+    def __init__(self, base, columns, rows, records):
         '''
         Constructor.
 
         Arguments:
-            base (dtb.databases.Database): The database where data will be
-                retrieved
+            base (dtb.databases.Database): The database where data belongs
+            columns (list): The parsed columns
+            rows (list): The parsed rows
+            records (dtb.core.types.Map): The parsed records
         '''
         self._base = base
-        self._name = 'dtb_{}'.format(base.year)
-        self._cols = []
-        self._rows = []
-        self._dict = {}
+        self._columns = columns
+        self._rows = rows
+        self._records = records
 
-    def toDict(self, strKeys=False, forceUnicode=False, includeKey=False):
+    @property
+    def columns(self):
+        '''
+        Returns the database columns.
+
+        Returns:
+            list: The database columns
+        '''
+        return self._columns
+
+    @property
+    def rows(self):
+        '''
+        Returns the database rows.
+
+        Returns:
+            list: The database rows
+        '''
+        return self._rows
+
+    @property
+    def records(self):
+        '''
+        Returns the database records.
+
+        Returns:
+            dtb.core.type.Map: The database records
+        '''
+        return self._records
+
+    def normalize(self, strKeys=False, forceUnicode=False, includeKey=False):
         '''
         Converts this database data into an ordered dictionary.
-        '''
-        _dict = OrderedDict()
 
-        for entity in self.entities:
-            if not self._dict[entity.table]:
+        Returns:
+            collections.OrderedDict: The ordered dictionary
+        '''
+        records = OrderedDict()
+
+        for entity in self._base.entities:
+            if not len(self._records[entity.table]):
                 continue
 
-            _dict[entity.table] = OrderedDict()
+            records[entity.table] = OrderedDict()
 
-            for row in self._dict[entity.table]:
-                row_data = OrderedDict()
+            for row in self._records[entity.table]:
+                record = OrderedDict()
 
                 for column in entity.columns:
                     value = row[column]
@@ -425,13 +495,13 @@ class DatabaseData(object):
                         if isinstance(value, str):
                             value = unicode(value)
 
-                    row_data[column] = value
+                    record[column] = value
 
-                row_id = str(row_data['id']) if strKeys else row_data['id']
+                row_id = str(record['id']) if strKeys else record['id']
 
                 if not includeKey:
-                    del row_data['id']
+                    del record['id']
 
-                _dict[entity.table][row_id] = row_data
+                records[entity.table][row_id] = record
 
-        return _dict
+        return records
