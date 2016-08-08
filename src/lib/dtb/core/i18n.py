@@ -17,14 +17,16 @@ import yaml
 
 from dtb.core.constants import SRC_DIR
 from dtb.core.helpers.filesystem import File
-from dtb.core.helpers.decorators import cached
-from dtb.core.types import Struct
+from dtb.core.helpers.decorators import cachedmethod
+from dtb.core.types import Map
 
 # Classes
 
 
 class Translation(object):
-    '''Translation class.'''
+    '''
+    Translation class.
+    '''
 
     def __init__(self, locale_file):
         '''
@@ -38,7 +40,7 @@ class Translation(object):
 
         self._locale = str(locale_file.parent)
         self._domain = locale_file.basename
-        self._translations = Struct(yaml.load(unicode(locale_file.read())))
+        self._translations = Map(yaml.load(unicode(locale_file.read())))
 
     @property
     def locale(self):
@@ -60,7 +62,7 @@ class Translation(object):
         '''
         return self._domain
 
-    @cached
+    @cachedmethod
     def translate(self, message, **placeholders):
         '''
         Translates the given message with their placeholders.
@@ -79,7 +81,9 @@ class Translation(object):
 
 
 class Translator(object):
-    '''Translator service.'''
+    '''
+    Translator service.
+    '''
 
     LANGUAGE_DIR = SRC_DIR / 'data' / 'translations'
 
@@ -162,7 +166,7 @@ class Translator(object):
         return
 
     @classmethod
-    @cached
+    @cachedmethod
     def translate(cls, message, **placeholders):
         '''
         Translates the given message with their placeholders.
@@ -182,7 +186,9 @@ class Translator(object):
 
 
 class UnsupportedLocaleError(Exception):
-    '''Exception class raised when an unsupported localization is used.'''
+    '''
+    Exception class raised when an unsupported localization is used.
+    '''
     pass
 
 # Alias functions
