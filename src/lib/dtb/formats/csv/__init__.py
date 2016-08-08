@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2016 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-CSV file format module
+CSV file format package
 '''
 from __future__ import absolute_import
 
