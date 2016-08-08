@@ -11,48 +11,69 @@ from __future__ import absolute_import
 
 # Package dependencies
 
+from dtb.core.helpers.decorators import classproperty
 from dtb.formats import Format
 
 # Classes
 
 
 class Sqlite3Format(Format):
-    '''The file format class for SQLite 3 file format.'''
+    '''
+    The file format class for SQLite 3 file format.
+    '''
 
-    @property
+    @classproperty
     def name(self):
-        '''The file format name.'''
+        '''
+        The file format name.
+        '''
         return 'sqlite3'
 
-    @property
+    @classproperty
     def friendlyName(self):
-        '''The file format friendly name.'''
+        '''
+        The file format friendly name.
+        '''
         return 'SQLite 3'
 
-    @property
+    @classproperty
     def extension(self):
-        '''The file format extension.'''
+        '''
+        The file format extension.
+        '''
         return '.sqlite3'
 
-    @property
+    @classproperty
     def type(self):
-        '''The file format type.'''
+        '''
+        The file format type.
+        '''
         return 'Database'
 
-    @property
+    @classproperty
     def mimeType(self):
-        '''The file format media type.'''
+        '''
+        The file format media type.
+        '''
         return 'application/x-sqlite3'
 
-    @property
+    @classproperty
     def info(self):
-        '''The file format reference info.'''
+        '''
+        The file format reference info.
+        '''
         return 'https://en.wikipedia.org/wiki/SQLite'
 
+    @classproperty
     def isBinary(self):
-        '''Tells whether the file format is binary or not.'''
+        '''
+        Tells whether the file format is binary or not.
+        '''
         return True
 
+    @classproperty
     def isExportable(self):
-        '''Tells whether the file format is exportable or not.'''
+        '''
+        Tells whether the file format is exportable or not.
+        '''
         return True
