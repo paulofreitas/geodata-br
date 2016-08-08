@@ -17,23 +17,23 @@ import functools
 # Classes
 
 
-class Cached(object):
+class CachedMethod(object):
     '''
-    Cache decorator class for memoizing functions and methods.
+    A cache decorator for memoizing functions and methods.
     '''
 
     def __init__(self, func):
         '''
-        Constructor. Creates a new Cached object.
+        Constructor. Creates a new CachedMethod decorator.
 
         Arguments:
-            func: The function/method to memoize
+            func (callable): The callable to memoize
         '''
-        from dtb.core.types import Struct
+        from dtb.core.types import Map
 
         self._func = func
         self._cache = {}
-        self._cache_stats = Struct(hits=0, misses=0)
+        self._cache_stats = Map(hits=0, misses=0)
 
         self.__name__ = func.__name__
         self.__doc__ = func.__doc__
@@ -106,6 +106,36 @@ class Cached(object):
         self._cache_stats.misses = 0
 
 
+class ClassProperty(object):
+    '''
+    A data descriptor that allows declaring class properties.
+    '''
+
+    def __init__(self, fget):
+        '''
+        Constructor. Creates a new ClassProperty descriptor.
+
+        Arguments:
+            fget (callable): The function or method to use to get the value
+        '''
+        self.fget = fget
+        self.fset = None
+        self.__doc__ = fget.__doc__
+
+    def __get__(self, instance, owner):
+        '''
+        Descriptor getter.
+        '''
+        return self.fget(owner)
+
+    def __set__(self, instance, value):
+        '''
+        Descriptor setter.
+        '''
+        raise AttributeError("can't set attribute")
+
+
 # Aliases
 
-cached = Cached
+cachedmethod = CachedMethod
+classproperty = ClassProperty
