@@ -11,48 +11,69 @@ from __future__ import absolute_import
 
 # Package dependencies
 
+from dtb.core.helpers.decorators import classproperty
 from dtb.formats import Format
 
 # Classes
 
 
 class XlsFormat(Format):
-    '''The file format class for Microsoft Excel Spreadsheet file format.'''
+    '''
+    The file format class for Microsoft Excel Spreadsheet file format.
+    '''
 
-    @property
+    @classproperty
     def name(self):
-        '''The file format name.'''
+        '''
+        The file format name.
+        '''
         return 'xls'
 
-    @property
+    @classproperty
     def friendlyName(self):
-        '''The file format friendly name.'''
+        '''
+        The file format friendly name.
+        '''
         return 'Microsoft Excel Spreadsheet'
 
-    @property
+    @classproperty
     def extension(self):
-        '''The file format extension.'''
+        '''
+        The file format extension.
+        '''
         return '.xls'
 
-    @property
+    @classproperty
     def type(self):
-        '''The file format type.'''
+        '''
+        The file format type.
+        '''
         return 'Spreadsheet'
 
-    @property
+    @classproperty
     def mimeType(self):
-        '''The file format media type.'''
+        '''
+        The file format media type.
+        '''
         return 'application/vnd.ms-excel'
 
-    @property
+    @classproperty
     def info(self):
-        '''The file format reference info.'''
+        '''
+        The file format reference info.
+        '''
         return 'https://en.wikipedia.org/wiki/Microsoft_Excel_file_format'
 
+    @classproperty
     def isBinary(self):
-        '''Tells whether the file format is binary or not.'''
+        '''
+        Tells whether the file format is binary or not.
+        '''
         return True
 
+    @classproperty
     def isParseable(self):
-        '''Tells whether the file format is parseable or not.'''
+        '''
+        Tells whether the file format is parseable or not.
+        '''
         return True
