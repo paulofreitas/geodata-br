@@ -9,6 +9,10 @@ from __future__ import absolute_import, unicode_literals
 
 # Imports
 
+# Built-in dependencies
+
+import io
+
 # External compatibility dependencies
 
 from future.utils import iteritems, itervalues
@@ -26,19 +30,32 @@ from dtb.formats.xml import XmlFormat
 
 
 class XmlExporter(Exporter):
-    '''XML exporter class.'''
+    '''
+    XML exporter class.
+    '''
 
     # Exporter format
     _format = XmlFormat
 
-    @property
-    def data(self):
-        '''Formatted XML representation of data.'''
-        data = self._data.toDict(includeKey=True)
-        database = Element('database', name=self._data._name)
+    def export(self, **options):
+        '''
+        Exports the data into a XML file-like stream.
+
+        Arguments:
+            options (dict): The exporting options
+
+        Returns:
+            io.BytesIO: A XML file-like stream
+
+        Raises:
+            ExportError: When data fails to export
+        '''
+        data = self._data.normalize(includeKey=True)
+        database = Element('database',
+                           name='dtb_{}'.format(self._data._base.year))
 
         for table_name, rows in iteritems(data):
-            if not self._minified:
+            if not options.get('minify'):
                 database.append(Comment(' Table {} '.format(table_name)))
 
             table = SubElement(database, 'table', name=table_name)
@@ -50,7 +67,9 @@ class XmlExporter(Exporter):
                     SubElement(row, 'field', name=column_name).text =\
                         unicode(column_value)
 
-        return xml_str(database,
-                       pretty_print=not self._minified,
-                       xml_declaration=True,
-                       encoding='utf-8')
+        xml_data = xml_str(database,
+                           pretty_print=not options.get('minify'),
+                           xml_declaration=True,
+                           encoding='utf-8')
+
+        return io.BytesIO(xml_data)
