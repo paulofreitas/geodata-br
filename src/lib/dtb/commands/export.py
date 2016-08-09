@@ -22,34 +22,44 @@ logger = Logger.instance(__name__)
 
 
 class DatabaseExporterCommand(Command):
-    '''The database exporter command.'''
+    '''
+    The database exporter command.
+    '''
 
     @property
     def name(self):
-        '''Defines the command name.'''
+        '''
+        Defines the command name.
+        '''
         return 'export'
 
     @property
     def description(self):
-        '''Defines the command description.'''
+        '''
+        Defines the command description.
+        '''
         return 'Exports a database'
 
     @property
     def usage(self):
-        '''Defines the command usage syntax.'''
+        '''
+        Defines the command usage syntax.
+        '''
         return '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
 
     def configure(self):
-        '''Defines the command arguments.'''
+        '''
+        Defines the command arguments.
+        '''
         self.addArgument('-b', '--base',
                          help='Database year to export.')
         self.addArgument('-f', '--format',
                          metavar='FORMAT',
-                         choices=FormatRepository.findExportableFormatNames(),
+                         choices=FormatRepository.listExportableFormatNames(),
                          help=('Format to export the database.\n'
                                'Options: %(choices)s'))
         self.addArgument('-m', '--minify',
-                         dest='minified',
+                         dest='minify',
                          action='store_true',
                          help='Minifies output file whenever possible.')
         self.addArgument('-o', '--out',
@@ -60,7 +70,9 @@ class DatabaseExporterCommand(Command):
                                'standard output.'))
 
     def handle(self, args):
-        '''Handles the command.'''
+        '''
+        Handles the command.
+        '''
         if not args.base:
             self._parser.error(
                 'You need to give the database year you want to export.')
@@ -71,6 +83,6 @@ class DatabaseExporterCommand(Command):
 
         try:
             base = DatabaseFactory.fromYear(args.base)
-            base.parse().export(args.format, args.minified, args.filename)
+            base.parse().export(args.format, args.filename, minify=args.minify)
         except KeyboardInterrupt:
             logger.info('> Exporting was canceled.')
