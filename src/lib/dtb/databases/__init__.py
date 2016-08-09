@@ -16,16 +16,16 @@ from __future__ import absolute_import, unicode_literals
 
 import ftplib
 import io
-import sys
 import zipfile
 
 # Package dependencies
 
 from dtb.core.constants import SRC_DIR
+from dtb.core.helpers.decorators import classproperty
 from dtb.core.helpers.filesystem import Directory, File, Path
 from dtb.core.logging import Logger
-from dtb.core.types import Bytes, Struct
-from dtb.databases.entities import DatabaseData
+from dtb.core.types import Bytes, Map
+from dtb.databases.entities import Entities, LegacyEntities, DatabaseData
 from dtb.exporters import ExporterFactory
 from dtb.parsers import ParserFactory
 
@@ -40,66 +40,6 @@ __license__ = 'MIT License'
 
 logger = Logger.instance(__name__)
 
-# Constants
-
-BASE_LIST = [
-    Struct(year=2014,
-           archive='dtb_2014_v2.zip',
-           file='DTB_2014_v2/DTB_2014_subdistrito.xls',
-           format='xls',
-           sheet='Plan1'),
-    Struct(year=2013,
-           archive='dtb_2013.zip',
-           file='dtb_2013.xls',
-           format='xls',
-           sheet='dtb_2013'),
-    Struct(year=2012,
-           archive='dtb_2012.zip',
-           file='dtb_2012.xls',
-           format='xls',
-           sheet='Estrutura_2012___Município'),
-    Struct(year=2011,
-           archive='dtb_2011.zip',
-           file='dtb_2011.xls',
-           format='xls',
-           sheet='DTB_2011'),
-    Struct(year=2010,
-           archive='dtb_2010.zip',
-           file='dtb_2010.xls',
-           format='xls',
-           sheet='Município'),
-    Struct(year=2009,
-           archive='dtb_05_05_2009.zip',
-           file='DTB_05_05_2009.xls',
-           format='xls',
-           sheet='DTB_05_05_2009n'),
-    Struct(year=2008,
-           archive='dtb_2008.zip',
-           file='DTB_2008.xls',
-           format='xls',
-           sheet='DTB_Nome_Comum'),
-    Struct(year=2007,
-           archive='dtb_2007.zip',
-           file='DTB_2007.xls',
-           format='xls',
-           sheet='DTB_Nome_Comum'),
-    Struct(year=2006,
-           archive='dtb_2006.zip',
-           file='DTB_2006.xls',
-           format='xls',
-           sheet='Completo'),
-    Struct(year=2005,
-           archive='dtb_2005.zip',
-           file='DTB_2005.xls',
-           format='xls',
-           sheet='NomeNormal'),
-    Struct(year=2003,
-           archive='dtb17112003nome.zip',
-           file='DTB17112003nome.xls',
-           format='xls',
-           sheet='DTBnome'),
-]
-
 # Classes
 
 
@@ -108,15 +48,15 @@ class Database(object):
     Database class.
     '''
 
-    def __init__(self, info):
+    def __init__(self, **info):
         '''
         Constructor.
 
         Arguments:
-            info (Struct): The database info
+            info (dict): The database info
         '''
-        self._info = info
-        self._data = DatabaseData(self._info)
+        self._info = Map(info)
+        self._data = None
 
     @property
     def year(self):
@@ -154,6 +94,13 @@ class Database(object):
         return self._info.get('sheet')
 
     @property
+    def entities(self):
+        '''
+        The database entities.
+        '''
+        return self._info.get('entities', Entities)
+
+    @property
     def cacheFile(self):
         '''
         The cached database file.
@@ -173,10 +120,10 @@ class Database(object):
 
         logger.debug('Logging into the FTP server...')
         ftp.login()
-        ftp.cwd(Path('organizacao_do_territorio',
-                     'estrutura_territorial',
-                     'divisao_territorial',
-                     self.year))
+        ftp.cwd(str(Path('organizacao_do_territorio',
+                         'estrutura_territorial',
+                         'divisao_territorial',
+                         self.year)))
 
         logger.info('Retrieving database...')
 
@@ -215,55 +162,37 @@ class Database(object):
 
         return Bytes(base_data)
 
-    def parse(self):
+    def parse(self, **options):
         '''
         Parses the given database.
+
+        Arguments:
+            options (dict): The parsing options
+
+        Raises:
+            ParseError: When database fails to parse
         '''
         parser = ParserFactory.fromFormat(self.format)
 
-        try:
-            self._data = parser(self).parse()
-        except:
-            raise Exception('Failed to parse data using the given parser')
+        self._data = parser(self).parse(**options)
 
         return self
 
-    def export(self, _format, minified=False, filename=None):
+    def export(self, _format, filename, **options):
         '''
         Exports the given database.
 
         Arguments:
             _format: The file format to export the database
-            minified (bool): Whether or not the exported file should be minified
-            filename (str): The exported filename
+            filename (str): The filename to write
+            options (dict): The exporting options
+
+        Raises:
+            ExportError: When database fails to export
         '''
-        exporter = ExporterFactory.fromFormat(_format)
-        exportFormat = exporter._format()
+        exporter = ExporterFactory.fromFormat(_format, self._data)
 
-        if minified:
-            logger.info('Exporting database to minified %s format...',
-                        exportFormat.friendlyName)
-        else:
-            logger.info('Exporting database to %s format...',
-                        exportFormat.friendlyName)
-
-        data = exporter(self._data, minified).data
-
-        if not exportFormat.isBinary() and not isinstance(data, unicode):
-            data = unicode(data.decode('utf-8'))
-
-        logger.debug('Done.')
-
-        if filename:
-            if filename == 'auto':
-                filename = 'dtb' + exportFormat.extension
-
-            writeMode = 'wb' if exportFormat.isBinary() else 'w'
-
-            with Path(filename).open(writeMode) as exportFile:
-                exportFile.write(data)
-        else:
-            sys.stdout.write(data)
+        return exporter.exportToFile(filename, **options)
 
 
 class DatabaseFactory(object):
@@ -291,29 +220,101 @@ class DatabaseRepository(object):
     '''
 
     @staticmethod
-    def findByYear(year):
+    def findAll():
+        '''
+        Returns a list with all available databases.
+
+        Returns:
+            list: A list with all available atabases
+        '''
+        return [
+            Database(year=2014,
+                     archive='dtb_2014_v2.zip',
+                     file='DTB_2014_v2/DTB_2014_subdistrito.xls',
+                     format='xls',
+                     sheet='Plan1'),
+            Database(year=2013,
+                     archive='dtb_2013.zip',
+                     file='dtb_2013.xls',
+                     format='xls',
+                     sheet='dtb_2013'),
+            Database(year=2012,
+                     archive='dtb_2012.zip',
+                     file='dtb_2012.xls',
+                     format='xls',
+                     sheet='Estrutura_2012___Município'),
+            Database(year=2011,
+                     archive='dtb_2011.zip',
+                     file='dtb_2011.xls',
+                     format='xls',
+                     sheet='DTB_2011'),
+            Database(year=2010,
+                     archive='dtb_2010.zip',
+                     file='dtb_2010.xls',
+                     format='xls',
+                     sheet='Município'),
+            Database(year=2009,
+                     archive='dtb_05_05_2009.zip',
+                     file='DTB_05_05_2009.xls',
+                     format='xls',
+                     sheet='DTB_05_05_2009n'),
+            Database(year=2008,
+                     archive='dtb_2008.zip',
+                     file='DTB_2008.xls',
+                     format='xls',
+                     sheet='DTB_Nome_Comum'),
+            Database(year=2007,
+                     archive='dtb_2007.zip',
+                     file='DTB_2007.xls',
+                     format='xls',
+                     sheet='DTB_Nome_Comum'),
+            Database(year=2006,
+                     archive='dtb_2006.zip',
+                     file='DTB_2006.xls',
+                     format='xls',
+                     sheet='Completo'),
+            Database(year=2005,
+                     archive='dtb_2005.zip',
+                     file='DTB_2005.xls',
+                     format='xls',
+                     sheet='NomeNormal'),
+            Database(year=2003,
+                     archive='dtb17112003nome.zip',
+                     file='DTB17112003nome.xls',
+                     format='xls',
+                     sheet='DTBnome'),
+        ]
+
+    @classmethod
+    def findByYear(cls, year):
         '''
         Returns the database for the given year.
 
         Arguments:
             year (int): The database year
 
+        Returns:
+            Database: The database instance for the given year
+
         Raises:
             UnknownDatabaseError: If no database is found with the given year
         '''
-        for database_info in BASE_LIST:
-            if database_info.year == int(year):
-                return Database(database_info)
+        for database in cls.findAll():
+            if database.year == year:
+                return database
 
-        raise UnknownDatabaseError('This base is not available: {}' \
+        raise UnknownDatabaseError('This database is not available: {}' \
                                        .format(year))
 
-    @staticmethod
-    def listYears():
+    @classmethod
+    def listYears(cls):
         '''
         Returns a list with all database years.
+
+        Returns:
+            list: List with all database years
         '''
-        return [str(database.year) for database in BASE_LIST]
+        return [str(database.year) for database in cls.findAll()]
 
 
 class DatabaseError(Exception):
