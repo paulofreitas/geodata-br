@@ -46,7 +46,7 @@ class CsvExporter(Exporter):
         '''
         csv_options = dict(delimiter=options.get('delimiter', ','),
                            quoting=csv.QUOTE_NONNUMERIC,
-                           lineterminator='\n',
+                           lineterminator='\r\n',
                            extrasaction='ignore')
 
         if options.get('minify'):
