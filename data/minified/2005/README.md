@@ -15,9 +15,9 @@
 
 | File        | Format                                                       |      Size | Savings |
 | ----------- |:------------------------------------------------------------:| ---------:| -------:|
-| `dtb.csv`   | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)  | 1,073,826 |    8.9% |
+| `dtb.csv`   | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)  | 1,104,243 |   11.6% |
 | `dtb.json`  | [JSON](https://en.wikipedia.org/wiki/JSON)                   | 1,805,030 |   32.6% |
 | `dtb.plist` | [Property List](https://en.wikipedia.org/wiki/Property_list) | 4,017,269 |   16.0% |
 | `dtb.sql`   | [SQL](https://en.wikipedia.org/wiki/SQL)                     | 1,221,676 |    8.4% |
 | `dtb.xml`   | [XML](https://en.wikipedia.org/wiki/XML)                     | 3,713,959 |   18.1% |
-| `dtb.yaml`  | [YAML](https://en.wikipedia.org/wiki/YAML)                   | 1,735,577 |   12.5% |
+| `dtb.yaml`  | [YAML](https://en.wikipedia.org/wiki/YAML)                   | 1,582,143 |   20.2% |
