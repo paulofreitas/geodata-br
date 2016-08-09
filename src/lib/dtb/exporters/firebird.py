@@ -20,6 +20,7 @@ import fdb
 
 # Package dependencies
 
+from dtb.core.helpers.filesystem import File
 from dtb.exporters import Exporter
 from dtb.exporters.sql import SqlExporter
 from dtb.formats.firebird import FirebirdFormat
@@ -70,7 +71,7 @@ class FirebirdExporter(Exporter):
 
             fdb_cursor.execute(stmt)
 
-        fdb_data.write(fdb_file.read())
+        fdb_data.write(File(fdb_file).readBytes())
         fdb_data.seek(0)
 
         return fdb_data
