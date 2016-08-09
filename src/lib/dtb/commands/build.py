@@ -23,28 +23,38 @@ logger = Logger.instance(__name__)
 
 
 class DatabaseBuilderCommand(Command):
-    '''The database builder command.'''
+    '''
+    The database builder command.
+    '''
 
     @property
     def name(self):
-        '''Defines the command name.'''
+        '''
+        Defines the command name.
+        '''
         return 'build'
 
     @property
     def description(self):
-        '''Defines the command description.'''
+        '''
+        Defines the command description.
+        '''
         return 'Builds a database'
 
     @property
     def usage(self):
-        '''Defines the command usage syntax.'''
+        '''
+        Defines the command usage syntax.
+        '''
         return '%(prog)s -b BASE -r FORMAT -m FORMAT'
 
     def configure(self):
-        '''Defines the command arguments.'''
+        '''
+        Defines the command arguments.
+        '''
         bases = DatabaseRepository.listYears()
-        raw_formats = FormatRepository.findExportableFormatNames()
-        minifiable_formats = FormatRepository.findMinifiableFormatNames()
+        raw_formats = FormatRepository.listExportableFormatNames()
+        minifiable_formats = FormatRepository.listMinifiableFormatNames()
 
         self.addArgument('-b', '--bases',
                          metavar='BASE',
@@ -69,13 +79,15 @@ class DatabaseBuilderCommand(Command):
                                    .format(', '.join(minifiable_formats))))
 
     def handle(self, args):
-        '''Handles the command.'''
+        '''
+        Handles the command.
+        '''
         try:
             for base in args.bases:
                 raw_dir = DATA_DIR / base
                 minified_dir = DATA_DIR / 'minified' / base
 
-                logger.info('> Building {} base...'.format(base))
+                logger.info('> Building %s base...', base)
 
                 try:
                     raw_dir.create(parents=True)
@@ -87,10 +99,10 @@ class DatabaseBuilderCommand(Command):
 
                 with raw_dir:
                     for raw_format in args.raw:
-                        data.export(raw_format, False, 'auto')
+                        data.export(raw_format, 'auto')
 
                 with minified_dir:
                     for minifiable_format in args.min:
-                        data.export(minifiable_format, True, 'auto')
+                        data.export(minifiable_format, 'auto', minify=True)
         except KeyboardInterrupt:
             logger.info('> Building was canceled.')
