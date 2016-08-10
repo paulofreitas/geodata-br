@@ -27,6 +27,7 @@ import yaml
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.sql.schema import MetaData
 
 # Package dependencies
 
@@ -101,6 +102,8 @@ class Entity(declarative_base()):
         'uq': 'uq_%(table_name)s_%(column_0_name)s',
     }
 
+    metadata = MetaData(naming_convention=naming_convention)
+
     @hybrid_property
     def table(self):
         '''
@@ -166,6 +169,15 @@ class Entity(declarative_base()):
         '''
         for column, key in iteritems(self.__columns__):
             setattr(self, column, getattr(row, key))
+
+
+class LegacyEntity(Entity):
+    '''
+    Abstract legacy entity class.
+    '''
+    __abstract__ = True
+
+    metadata = MetaData(naming_convention=Entity.naming_convention)
 
 
 class Map(dict):
