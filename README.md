@@ -22,6 +22,7 @@ All these data was compiled from nonstandardized XLS spreadsheets provided by IB
 | **2005** |   27 |           137 |            558 |       5,564 |     10,001 |           413 |
 | **2003** |   27 |           137 |            558 |       5,560 |      9,927 |           405 |
 | **1980** |   27 |             - |              - |       3,992 |          - |             - |
+| **1970** |   27 |             - |              - |       3,952 |          - |             - |
 
 ### Database formats
 
