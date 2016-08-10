@@ -278,7 +278,7 @@ class LegacyState(LegacyEntity):
                nullable=False,
                primary_key=True),
         Column(_('name'),
-               String(32),
+               String(64),
                nullable=False,
                index=True)
     )
