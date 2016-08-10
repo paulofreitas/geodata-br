@@ -18,7 +18,8 @@ from future.utils import itervalues
 # Package dependencies
 
 from dtb.core.logging import Logger
-from dtb.core.types import AbstractClass, Struct
+from dtb.core.types import AbstractClass, Map
+from dtb.databases.entities import DatabaseData
 
 # Package metadata
 
@@ -50,54 +51,92 @@ class Parser(AbstractClass):
             base (dtb.databases.Database): A database instance to parse
         '''
         self._base = base
-        self._data = base._data
 
-    def parse(self):
+    def __call__(self, **options):
+        '''
+        Allows parsing the database calling the parser instance.
+
+        Arguments:
+            options (dict): The parsing options
+
+        Returns:
+            dtb.databases.DatabaseData: The parsed database data
+
+        Raises:
+            ParseError: When a database fails to parse
+        '''
+        return self.parse()
+
+    def parse(self, **options):
         '''
         Parses the database.
+
+        Arguments:
+            options (dict): The parsing options
+
+        Returns:
+            dtb.databases.DatabaseData: The parsed database data
+
+        Raises:
+            ParseError: When a database fails to parse
         '''
-        logger.debug('Parsing database...')
+        try:
+            logger.debug('Parsing database...')
 
-        # Build database columns
-        self._data._cols = self.parseColumns()
+            # Build database columns
+            columns = self._parseColumns()
 
-        # Build database rows
-        rows = self.parseRows()
-        self._data._rows.extend(row.value for row in rows)
+            # Build database rows
+            rows = self._parseRows()
 
-        # Build database records
-        for entity in self._data.entities:
-            entities = []
-            last_entity = None
+            # Build database records
+            records = self._parseRecords(rows)
 
-            for row in rows:
-                current_entity = Struct(entity.make(row).data)
+            logger.debug('Finished parsing database.')
 
-                if (current_entity != last_entity
-                        and None not in itervalues(current_entity)
-                        and current_entity not in entities):
-                    entities.append(current_entity)
+            return DatabaseData(self._base, columns, rows, records)
+        except:
+            raise ParseError('Failed to parse data using the given parser')
 
-                last_entity = current_entity
-
-            self._data._dict[entity.table] = sorted(entities,
-                                                    key=lambda row: row.id)
-
-        logger.debug('Finished parsing database.')
-
-        return self._data
-
-    def parseColumns(self):
+    def _parseColumns(self):
         '''
         Parses the database columns.
         '''
         raise NotImplementedError
 
-    def parseRows(self):
+    def _parseRows(self):
         '''
         Parses the database rows.
         '''
         raise NotImplementedError
+
+    def _parseRecords(self, rows):
+        '''
+        Parses the database records
+
+        Returns:
+            dict: The database records
+        '''
+        records = {}
+
+        for entity in self._base.entities:
+            entity_records = []
+            last_entity = None
+
+            for row in rows:
+                current_entity = entity.make(row).data
+
+                if (current_entity != last_entity
+                        and None not in itervalues(current_entity)
+                        and current_entity not in entity_records):
+                    entity_records.append(current_entity)
+
+                last_entity = current_entity
+
+            records[entity.table] = sorted(entity_records,
+                                           key=lambda row: row['id'])
+
+        return records
 
 
 class ParserFactory(object):
@@ -127,14 +166,14 @@ class ParserFactory(object):
                                      .format(_format))
 
 
-class ParserError(Exception):
+class ParseError(Exception):
     '''
     Generic exception class for parsing errors.
     '''
     pass
 
 
-class UnknownParserError(ParserError):
+class UnknownParserError(ParseError):
     '''
     Exception class raised when a given parser is not found.
     '''
