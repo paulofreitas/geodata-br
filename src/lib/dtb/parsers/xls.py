@@ -58,15 +58,21 @@ class XlsParser(Parser):
                                         on_demand=True)
         self._sheet = self._book.sheet_by_name(self._base.sheet)
 
-    def parseColumns(self):
+    def _parseColumns(self):
         '''
         Parses the database columns.
         '''
         logger.debug('Parsing database cols...')
 
-        return DatabaseRow().columns[:self._sheet.ncols]
+        columns = DatabaseRow()._columns
+        base_year = int(self._base.year)
 
-    def parseRows(self):
+        if base_year in (1940, 1950, 1960, 1970, 1980):
+            return columns[:2] + columns[6:8]
+
+        return columns[:self._sheet.ncols]
+
+    def _parseRows(self):
         '''
         Parses the database rows.
         '''
@@ -80,11 +86,11 @@ class XlsParser(Parser):
                 continue
 
             row_data = [unicode(col) for col in self._sheet.row_values(row_id)]
-            rows.append(self.parseRow(row_data))
+            rows.append(self._parseRow(row_data))
 
         return rows
 
-    def parseRow(self, row_data):
+    def _parseRow(self, row_data):
         '''
         Parses a given database row.
 
@@ -92,24 +98,24 @@ class XlsParser(Parser):
             row_data (list): The database row data
         '''
         row = DatabaseRow()
-        base = int(self._base.year)
+        base_year = int(self._base.year)
 
-        # 12 cols
-        if base in [2003, 2005, 2006, 2007, 2008, 2009, 2013]:
+        if base_year in (1940, 1950, 1960, 1970, 1980):
+            (row.state_id, row.state_name) = row_data[:2]
+            (row.municipality_id, row.municipality_name) = row_data[3:5]
+        elif base_year in (2003, 2005, 2006, 2007, 2008, 2009, 2013):
             (row.state_id, row.state_name,
              row.mesoregion_id, row.mesoregion_name,
              row.microregion_id, row.microregion_name,
              row.municipality_id, row.municipality_name,
              row.district_id, row.district_name,
              row.subdistrict_id, row.subdistrict_name) = row_data
-        # 8 cols
-        elif base in [2010, 2011, 2012]:
+        elif base_year in (2010, 2011, 2012):
             (row.state_id, row.state_name,
              row.mesoregion_id, row.mesoregion_name,
              row.microregion_id, row.microregion_name,
              row.municipality_id, row.municipality_name) = row_data
-        # 15 cols
-        elif base == 2014:
+        elif base_year == 2014:
             (row.state_id, row.state_name,
              row.mesoregion_id, row.mesoregion_name,
              row.microregion_id, row.microregion_name) = row_data[:6]
@@ -117,6 +123,4 @@ class XlsParser(Parser):
             row.district_id, row.district_name = row_data[10:12]
             row.subdistrict_id, row.subdistrict_name = row_data[13:15]
 
-        row.normalize()
-
-        return row
+        return row.normalize()
