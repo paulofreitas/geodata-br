@@ -48,7 +48,7 @@ class YamlExporter(Exporter):
         Raises:
             ExportError: When data fails to export
         '''
-        yaml_options = dict(default_flow_style=False)
+        yaml_options = dict(allow_unicode=True, default_flow_style=False)
 
         if options.get('minify'):
             yaml_options.update(default_flow_style=True,
