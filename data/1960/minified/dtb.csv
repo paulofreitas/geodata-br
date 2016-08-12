@@ -1,0 +1,2767 @@
+id_uf,nome_uf,id_municipio,nome_municipio
+11,Território de Rondônia,1100106,Guajará-Mirim
+11,Território de Rondônia,1100205,Porto Velho
+12,Estado do Acre,1200104,Brasiléia
+12,Estado do Acre,1200203,Cruzeiro do Sul
+12,Estado do Acre,1200302,Feijó
+12,Estado do Acre,1200401,Rio Branco
+12,Estado do Acre,1200500,Sena Madureira
+12,Estado do Acre,1200609,Tarauacá
+12,Estado do Acre,1200708,Xapuri
+13,Estado do Amazonas,1300102,Anori
+13,Estado do Amazonas,1300201,Atalaia do Norte
+13,Estado do Amazonas,1300300,Autazes
+13,Estado do Amazonas,1300409,Barcelos
+13,Estado do Amazonas,1300508,Barreirinha
+13,Estado do Amazonas,1300607,Benjamin Constant
+13,Estado do Amazonas,1300706,Boca do Acre
+13,Estado do Amazonas,1300805,Borba
+13,Estado do Amazonas,1300904,Canutama
+13,Estado do Amazonas,1301001,Carauari
+13,Estado do Amazonas,1301100,Careiro
+13,Estado do Amazonas,1301209,Coari
+13,Estado do Amazonas,1301308,Codajás
+13,Estado do Amazonas,1301407,Eirunepé
+13,Estado do Amazonas,1301506,Envira
+13,Estado do Amazonas,1301605,Fonte Boa
+13,Estado do Amazonas,1301704,Humaitá
+13,Estado do Amazonas,1301803,Ipixuna
+13,Estado do Amazonas,1301902,Itacoatiara
+13,Estado do Amazonas,1302009,Itapiranga
+13,Estado do Amazonas,1302108,Japurá
+13,Estado do Amazonas,1302207,Juruá
+13,Estado do Amazonas,1302306,Jutaí
+13,Estado do Amazonas,1302405,Lábrea
+13,Estado do Amazonas,1302504,Manacapuru
+13,Estado do Amazonas,1302603,Manaus
+13,Estado do Amazonas,1302702,Manicoré
+13,Estado do Amazonas,1302801,Maraã
+13,Estado do Amazonas,1302900,Maués
+13,Estado do Amazonas,1303007,Nhamundá
+13,Estado do Amazonas,1303106,Nova Olinda do Norte
+13,Estado do Amazonas,1303205,Airão
+13,Estado do Amazonas,1303304,Novo Aripuanã
+13,Estado do Amazonas,1303403,Parintins
+13,Estado do Amazonas,1303502,Pauini
+13,Estado do Amazonas,1303601,Ilha Grande
+13,Estado do Amazonas,1303700,Santo Antônio do Içá
+13,Estado do Amazonas,1303809,Uaupés
+13,Estado do Amazonas,1303908,São Paulo de Olivença
+13,Estado do Amazonas,1304005,Silves
+13,Estado do Amazonas,1304104,Tapauá
+13,Estado do Amazonas,1304203,Tefé
+13,Estado do Amazonas,1304302,Urucará
+13,Estado do Amazonas,1304401,Urucurituba
+14,Território de Roraima,1400100,Boa Vista
+14,Território de Roraima,1400209,Caracaraí
+15,Estado do Pará,1500107,Abaetetuba
+15,Estado do Pará,1500206,Acará
+15,Estado do Pará,1500305,Afuá
+15,Estado do Pará,1500404,Alenquer
+15,Estado do Pará,1500503,Almeirim
+15,Estado do Pará,1500602,Altamira
+15,Estado do Pará,1500701,Anajás
+15,Estado do Pará,1500800,Ananindeua
+15,Estado do Pará,1501204,Baião
+15,Estado do Pará,1501303,Barcarena
+15,Estado do Pará,1501402,Belém
+15,Estado do Pará,1501709,Bragança
+15,Estado do Pará,1501808,Breves
+15,Estado do Pará,1501907,Bujaru
+15,Estado do Pará,1502004,Cachoeira do Arari
+15,Estado do Pará,1502103,Cametá
+15,Estado do Pará,1502202,Capanema
+15,Estado do Pará,1502400,Castanhal
+15,Estado do Pará,1502509,Chaves
+15,Estado do Pará,1502707,Conceição do Araguaia
+15,Estado do Pará,1502806,Curralinho
+15,Estado do Pará,1502905,Curuçá
+15,Estado do Pará,1503002,Faro
+15,Estado do Pará,1503101,Gurupá
+15,Estado do Pará,1503200,Igarapé-Açu
+15,Estado do Pará,1503309,Igarapé-Miri
+15,Estado do Pará,1503408,Inhangapi
+15,Estado do Pará,1503507,Irituia
+15,Estado do Pará,1503606,Itaituba
+15,Estado do Pará,1503705,Itupiranga
+15,Estado do Pará,1503903,Juruti
+15,Estado do Pará,1504208,Marabá
+15,Estado do Pará,1504307,Maracanã
+15,Estado do Pará,1504406,Marapanim
+15,Estado do Pará,1504604,Mocajuba
+15,Estado do Pará,1504703,Moju
+15,Estado do Pará,1504802,Monte Alegre
+15,Estado do Pará,1504901,Muaná
+15,Estado do Pará,1505007,Nova Timboteua
+15,Estado do Pará,1505106,Óbidos
+15,Estado do Pará,1505205,Oeiras do Pará
+15,Estado do Pará,1505304,Oriximiná
+15,Estado do Pará,1505403,Ourém
+15,Estado do Pará,1505700,Ponta de Pedras
+15,Estado do Pará,1505809,Portel
+15,Estado do Pará,1505908,Porto de Moz
+15,Estado do Pará,1506005,Prainha
+15,Estado do Pará,1506203,Salinópolis
+15,Estado do Pará,1506500,Santa Isabel do Pará
+15,Estado do Pará,1506807,Santarém
+15,Estado do Pará,1507102,São Caetano de Odivelas
+15,Estado do Pará,1507201,Capim
+15,Estado do Pará,1507409,Anhanga
+15,Estado do Pará,1507607,Guamá
+15,Estado do Pará,1507706,São Sebastião da Boa Vista
+15,Estado do Pará,1507904,Soure
+15,Estado do Pará,1508001,Tomé-Açu
+15,Estado do Pará,1508100,Tucuruí
+15,Estado do Pará,1508209,Vigia
+15,Estado do Pará,1508308,Viseu
+16,Território do Amapá,1600105,Amapá
+16,Território do Amapá,1600204,Calçoene
+16,Território do Amapá,1600303,Macapá
+16,Território do Amapá,1600402,Mazagão
+16,Território do Amapá,1600501,Oiapoque
+20,Território de Fernando de Noronha,2000107,Fernando de Noronha
+21,Estado do Maranhão,2100204,Alcântara
+21,Estado do Maranhão,2100501,Alto Parnaíba
+21,Estado do Maranhão,2100600,Amarante do Maranhão
+21,Estado do Maranhão,2100709,Anajatuba
+21,Estado do Maranhão,2100907,Araioses
+21,Estado do Maranhão,2101004,Arari
+21,Estado do Maranhão,2101103,Axixá
+21,Estado do Maranhão,2101202,Bacabal
+21,Estado do Maranhão,2101400,Balsas
+21,Estado do Maranhão,2101509,Barão de Grajaú
+21,Estado do Maranhão,2101608,Barra do Corda
+21,Estado do Maranhão,2101707,Barreirinhas
+21,Estado do Maranhão,2101806,Benedito Leite
+21,Estado do Maranhão,2101905,Bequimão
+21,Estado do Maranhão,2102101,Brejo
+21,Estado do Maranhão,2102200,Buriti
+21,Estado do Maranhão,2102309,Buriti Bravo
+21,Estado do Maranhão,2102408,Cajapió
+21,Estado do Maranhão,2102507,Cajari
+21,Estado do Maranhão,2102606,Cândido Mendes
+21,Estado do Maranhão,2102705,Cantanhede
+21,Estado do Maranhão,2102804,Carolina
+21,Estado do Maranhão,2102903,Carutapera
+21,Estado do Maranhão,2103000,Caxias
+21,Estado do Maranhão,2103208,Chapadinha
+21,Estado do Maranhão,2103307,Codó
+21,Estado do Maranhão,2103406,Coelho Neto
+21,Estado do Maranhão,2103505,Colinas
+21,Estado do Maranhão,2103604,Coroatá
+21,Estado do Maranhão,2103703,Cururupu
+21,Estado do Maranhão,2103802,Dom Pedro
+21,Estado do Maranhão,2103901,Duque Bacelar
+21,Estado do Maranhão,2104008,Esperantinópolis
+21,Estado do Maranhão,2104404,Gonçalves Dias
+21,Estado do Maranhão,2104800,Grajaú
+21,Estado do Maranhão,2104909,Guimarães
+21,Estado do Maranhão,2105005,Humberto de Campos
+21,Estado do Maranhão,2105104,Icatu
+21,Estado do Maranhão,2105302,Imperatriz
+21,Estado do Maranhão,2105401,Itapecuru Mirim
+21,Estado do Maranhão,2105708,Lago da Pedra
+21,Estado do Maranhão,2106102,Loreto
+21,Estado do Maranhão,2106300,Magalhães de Almeida
+21,Estado do Maranhão,2106508,Matinha
+21,Estado do Maranhão,2106607,Matões
+21,Estado do Maranhão,2106706,Mirador
+21,Estado do Maranhão,2106904,Monção
+21,Estado do Maranhão,2107001,Montes Altos
+21,Estado do Maranhão,2107100,Morros
+21,Estado do Maranhão,2107308,Nova Iorque
+21,Estado do Maranhão,2107704,Paraibano
+21,Estado do Maranhão,2107803,Parnarama
+21,Estado do Maranhão,2107902,Passagem Franca
+21,Estado do Maranhão,2108009,Pastos Bons
+21,Estado do Maranhão,2108207,Pedreiras
+21,Estado do Maranhão,2108306,Penalva
+21,Estado do Maranhão,2108405,Peri Mirim
+21,Estado do Maranhão,2108504,Pindaré-Mirim
+21,Estado do Maranhão,2108603,Pinheiro
+21,Estado do Maranhão,2108702,Pio XII
+21,Estado do Maranhão,2108801,Pirapemas
+21,Estado do Maranhão,2109007,Porto Franco
+21,Estado do Maranhão,2109106,Presidente Dutra
+21,Estado do Maranhão,2109403,Primeira Cruz
+21,Estado do Maranhão,2109502,Riachão
+21,Estado do Maranhão,2109601,Rosário
+21,Estado do Maranhão,2109700,Sambaíba
+21,Estado do Maranhão,2109809,Santa Helena
+21,Estado do Maranhão,2110104,Santa Quitéria do Maranhão
+21,Estado do Maranhão,2110401,São Benedito do Rio Preto
+21,Estado do Maranhão,2110500,São Bento
+21,Estado do Maranhão,2110609,São Bernardo
+21,Estado do Maranhão,2110708,São Domingos do Maranhão
+21,Estado do Maranhão,2110906,São Francisco do Maranhão
+21,Estado do Maranhão,2111003,São João Batista
+21,Estado do Maranhão,2111102,São João dos Patos
+21,Estado do Maranhão,2111201,Ribamar
+21,Estado do Maranhão,2111300,São Luís
+21,Estado do Maranhão,2111409,Ipixuna
+21,Estado do Maranhão,2111607,São Raimundo das Mangabeiras
+21,Estado do Maranhão,2111706,São Vicente Ferrer
+21,Estado do Maranhão,2112100,Timbiras
+21,Estado do Maranhão,2112209,Timon
+21,Estado do Maranhão,2112308,Tuntum
+21,Estado do Maranhão,2112407,Turiaçu
+21,Estado do Maranhão,2112506,Tutóia
+21,Estado do Maranhão,2112605,Urbano Santos
+21,Estado do Maranhão,2112704,Vargem Grande
+21,Estado do Maranhão,2112803,Viana
+21,Estado do Maranhão,2112902,Vitória do Mearim
+21,Estado do Maranhão,2113009,Vitorino Freire
+22,Estado do Piauí,2200202,Água Branca
+22,Estado do Piauí,2200301,Alto Longá
+22,Estado do Piauí,2200400,Altos
+22,Estado do Piauí,2200509,Amarante
+22,Estado do Piauí,2200608,Angical do Piauí
+22,Estado do Piauí,2201200,Barras
+22,Estado do Piauí,2201507,Batalha
+22,Estado do Piauí,2201606,Beneditinos
+22,Estado do Piauí,2201705,Bertolínia
+22,Estado do Piauí,2201903,Bom Jesus
+22,Estado do Piauí,2202000,Buriti dos Lopes
+22,Estado do Piauí,2202208,Campo Maior
+22,Estado do Piauí,2202307,Canto do Buriti
+22,Estado do Piauí,2202406,Capitão de Campos
+22,Estado do Piauí,2202505,Caracol
+22,Estado do Piauí,2202604,Castelo do Piauí
+22,Estado do Piauí,2202703,Cocal
+22,Estado do Piauí,2202802,Conceição do Canindé
+22,Estado do Piauí,2202901,Corrente
+22,Estado do Piauí,2203107,Cristino Castro
+22,Estado do Piauí,2203206,Curimatá
+22,Estado do Piauí,2203503,Elesbão Veloso
+22,Estado do Piauí,2203602,Eliseu Martins
+22,Estado do Piauí,2203701,Esperantina
+22,Estado do Piauí,2203909,Floriano
+22,Estado do Piauí,2204303,Fronteiras
+22,Estado do Piauí,2204402,Gilbués
+22,Estado do Piauí,2204501,Guadalupe
+22,Estado do Piauí,2204709,Inhuma
+22,Estado do Piauí,2205003,Itainópolis
+22,Estado do Piauí,2205102,Itaueira
+22,Estado do Piauí,2205201,Jaicós
+22,Estado do Piauí,2205300,Jerumenha
+22,Estado do Piauí,2205508,José de Freitas
+22,Estado do Piauí,2205607,Landri Sales
+22,Estado do Piauí,2205706,Luís Correia
+22,Estado do Piauí,2205805,Luzilândia
+22,Estado do Piauí,2206100,Matias Olímpio
+22,Estado do Piauí,2206209,Miguel Alves
+22,Estado do Piauí,2206506,Monsenhor Hipólito
+22,Estado do Piauí,2206605,Monte Alegre do Piauí
+22,Estado do Piauí,2206704,Nazaré do Piauí
+22,Estado do Piauí,2207009,Oeiras
+22,Estado do Piauí,2207504,Palmeirais
+22,Estado do Piauí,2207603,Parnaguá
+22,Estado do Piauí,2207702,Parnaíba
+22,Estado do Piauí,2207801,Paulistana
+22,Estado do Piauí,2207900,Pedro II
+22,Estado do Piauí,2208007,Picos
+22,Estado do Piauí,2208106,Pimenteiras
+22,Estado do Piauí,2208205,Pio IX
+22,Estado do Piauí,2208304,Piracuruca
+22,Estado do Piauí,2208403,Piripiri
+22,Estado do Piauí,2208502,Porto
+22,Estado do Piauí,2208809,Regeneração
+22,Estado do Piauí,2208908,Ribeiro Gonçalves
+22,Estado do Piauí,2209104,Santa Cruz do Piauí
+22,Estado do Piauí,2209203,Santa Filomena
+22,Estado do Piauí,2209609,São Félix do Piauí
+22,Estado do Piauí,2209708,São Francisco do Piauí
+22,Estado do Piauí,2210003,São João do Piauí
+22,Estado do Piauí,2210102,São José do Peixe
+22,Estado do Piauí,2210409,São Miguel do Tapuio
+22,Estado do Piauí,2210508,São Pedro do Piauí
+22,Estado do Piauí,2210607,São Raimundo Nonato
+22,Estado do Piauí,2210706,Simões
+22,Estado do Piauí,2210805,Simplício Mendes
+22,Estado do Piauí,2211001,Teresina
+22,Estado do Piauí,2211100,União
+22,Estado do Piauí,2211209,Uruçuí
+22,Estado do Piauí,2211308,Valença do Piauí
+23,Estado do Ceará,2300101,Abaiara
+23,Estado do Ceará,2300200,Acaraú
+23,Estado do Ceará,2300309,Acopiara
+23,Estado do Ceará,2300408,Aiuaba
+23,Estado do Ceará,2300507,Alcântaras
+23,Estado do Ceará,2300606,Altaneira
+23,Estado do Ceará,2300705,Alto Santo
+23,Estado do Ceará,2300804,Antonina do Norte
+23,Estado do Ceará,2300903,Apuiarés
+23,Estado do Ceará,2301000,Aquiraz
+23,Estado do Ceará,2301109,Aracati
+23,Estado do Ceará,2301208,Aracoiaba
+23,Estado do Ceará,2301307,Araripe
+23,Estado do Ceará,2301406,Aratuba
+23,Estado do Ceará,2301505,Arneiroz
+23,Estado do Ceará,2301604,Assaré
+23,Estado do Ceará,2301703,Aurora
+23,Estado do Ceará,2301802,Baixio
+23,Estado do Ceará,2301901,Barbalha
+23,Estado do Ceará,2302008,Barro
+23,Estado do Ceará,2302107,Baturité
+23,Estado do Ceará,2302206,Beberibe
+23,Estado do Ceará,2302305,Bela Cruz
+23,Estado do Ceará,2302404,Boa Viagem
+23,Estado do Ceará,2302503,Brejo Santo
+23,Estado do Ceará,2302602,Camocim
+23,Estado do Ceará,2302701,Campos Sales
+23,Estado do Ceará,2302800,Canindé
+23,Estado do Ceará,2302909,Capistrano
+23,Estado do Ceará,2303006,Caridade
+23,Estado do Ceará,2303105,Cariré
+23,Estado do Ceará,2303204,Caririaçu
+23,Estado do Ceará,2303303,Cariús
+23,Estado do Ceará,2303402,Carnaubal
+23,Estado do Ceará,2303501,Cascavel
+23,Estado do Ceará,2303600,Catarina
+23,Estado do Ceará,2303709,Caucaia
+23,Estado do Ceará,2303808,Cedro
+23,Estado do Ceará,2303907,Chaval
+23,Estado do Ceará,2304004,Coreaú
+23,Estado do Ceará,2304103,Crateús
+23,Estado do Ceará,2304202,Crato
+23,Estado do Ceará,2304301,Farias Brito
+23,Estado do Ceará,2304400,Fortaleza
+23,Estado do Ceará,2304509,Frecheirinha
+23,Estado do Ceará,2304608,General Sampaio
+23,Estado do Ceará,2304707,Granja
+23,Estado do Ceará,2304806,Granjeiro
+23,Estado do Ceará,2304905,Groaíras
+23,Estado do Ceará,2305001,Guaraciaba do Norte
+23,Estado do Ceará,2305100,Guaramiranga
+23,Estado do Ceará,2305209,Batoque
+23,Estado do Ceará,2305308,Ibiapina
+23,Estado do Ceará,2305407,Icó
+23,Estado do Ceará,2305506,Iguatu
+23,Estado do Ceará,2305605,Independência
+23,Estado do Ceará,2305704,Ipaumirim
+23,Estado do Ceará,2305803,Ipu
+23,Estado do Ceará,2305902,Ipueiras
+23,Estado do Ceará,2306009,Iracema
+23,Estado do Ceará,2306108,Irauçuba
+23,Estado do Ceará,2306207,Itaiçaba
+23,Estado do Ceará,2306306,Itapagé
+23,Estado do Ceará,2306405,Itapipoca
+23,Estado do Ceará,2306504,Itapiúna
+23,Estado do Ceará,2306603,Itatira
+23,Estado do Ceará,2306702,Jaguaretama
+23,Estado do Ceará,2306801,Jaguaribara
+23,Estado do Ceará,2306900,Jaguaribe
+23,Estado do Ceará,2307007,Jaguaruana
+23,Estado do Ceará,2307106,Jardim
+23,Estado do Ceará,2307205,Jati
+23,Estado do Ceará,2307304,Juazeiro do Norte
+23,Estado do Ceará,2307403,Jucás
+23,Estado do Ceará,2307502,Lavras da Mangabeira
+23,Estado do Ceará,2307601,Limoeiro do Norte
+23,Estado do Ceará,2307700,Maranguape
+23,Estado do Ceará,2307809,Marco
+23,Estado do Ceará,2307908,Martinópole
+23,Estado do Ceará,2308005,Massapê
+23,Estado do Ceará,2308104,Mauriti
+23,Estado do Ceará,2308203,Meruoca
+23,Estado do Ceará,2308302,Milagres
+23,Estado do Ceará,2308401,Missão Velha
+23,Estado do Ceará,2308500,Mombaça
+23,Estado do Ceará,2308609,Monsenhor Tabosa
+23,Estado do Ceará,2308708,Morada Nova
+23,Estado do Ceará,2308807,Moraújo
+23,Estado do Ceará,2308906,Morrinhos
+23,Estado do Ceará,2309003,Mucambo
+23,Estado do Ceará,2309102,Mulungu
+23,Estado do Ceará,2309201,Nova Olinda
+23,Estado do Ceará,2309300,Nova Russas
+23,Estado do Ceará,2309409,Novo Oriente
+23,Estado do Ceará,2309508,Orós
+23,Estado do Ceará,2309607,Pacajus
+23,Estado do Ceará,2309706,Pacatuba
+23,Estado do Ceará,2309805,Pacoti
+23,Estado do Ceará,2309904,Pacujá
+23,Estado do Ceará,2310001,Palhano
+23,Estado do Ceará,2310100,Palmácia
+23,Estado do Ceará,2310209,Paracuru
+23,Estado do Ceará,2310308,Parambu
+23,Estado do Ceará,2310407,Paramoti
+23,Estado do Ceará,2310506,Pedra Branca
+23,Estado do Ceará,2310605,Penaforte
+23,Estado do Ceará,2310704,Pentecoste
+23,Estado do Ceará,2310803,Pereiro
+23,Estado do Ceará,2310902,Piquet Carneiro
+23,Estado do Ceará,2311009,Poranga
+23,Estado do Ceará,2311108,Porteiras
+23,Estado do Ceará,2311207,Potengi
+23,Estado do Ceará,2311306,Quixadá
+23,Estado do Ceará,2311405,Quixeramobim
+23,Estado do Ceará,2311504,Quixeré
+23,Estado do Ceará,2311603,Redenção
+23,Estado do Ceará,2311702,Reriutaba
+23,Estado do Ceará,2311801,Russas
+23,Estado do Ceará,2311900,Saboeiro
+23,Estado do Ceará,2312007,Santana do Acaraú
+23,Estado do Ceará,2312106,Santana do Cariri
+23,Estado do Ceará,2312205,Santa Quitéria
+23,Estado do Ceará,2312304,São Benedito
+23,Estado do Ceará,2312403,São Gonçalo do Amarante
+23,Estado do Ceará,2312502,São João do Jaguaribe
+23,Estado do Ceará,2312601,São Luís do Curu
+23,Estado do Ceará,2312700,Senador Pompeu
+23,Estado do Ceará,2312809,Senador Sá
+23,Estado do Ceará,2312908,Sobral
+23,Estado do Ceará,2313005,Solonópole
+23,Estado do Ceará,2313104,Tabuleiro do Norte
+23,Estado do Ceará,2313203,Tamboril
+23,Estado do Ceará,2313302,Tauá
+23,Estado do Ceará,2313401,Tianguá
+23,Estado do Ceará,2313500,Trairi
+23,Estado do Ceará,2313609,Ubajara
+23,Estado do Ceará,2313708,Umari
+23,Estado do Ceará,2313807,Uruburetama
+23,Estado do Ceará,2313906,Uruoca
+23,Estado do Ceará,2314003,Várzea Alegre
+23,Estado do Ceará,2314102,Viçosa do Ceará
+23,Estado do Ceará,2399903,Cococi
+24,Estado do Rio Grande do Norte,2400109,Acari
+24,Estado do Rio Grande do Norte,2400208,Açu
+24,Estado do Rio Grande do Norte,2400307,Afonso Bezerra
+24,Estado do Rio Grande do Norte,2400505,Alexandria
+24,Estado do Rio Grande do Norte,2400604,Almino Afonso
+24,Estado do Rio Grande do Norte,2400802,Angicos
+24,Estado do Rio Grande do Norte,2401008,Apodi
+24,Estado do Rio Grande do Norte,2401107,Areia Branca
+24,Estado do Rio Grande do Norte,2401206,Arês
+24,Estado do Rio Grande do Norte,2401305,Augusto Severo
+24,Estado do Rio Grande do Norte,2401404,Baía Formosa
+24,Estado do Rio Grande do Norte,2401503,Barcelona
+24,Estado do Rio Grande do Norte,2401602,Barreto
+24,Estado do Rio Grande do Norte,2402006,Caicó
+24,Estado do Rio Grande do Norte,2402105,Campo Redondo
+24,Estado do Rio Grande do Norte,2402204,Canguaretama
+24,Estado do Rio Grande do Norte,2402303,Caraúbas
+24,Estado do Rio Grande do Norte,2402402,Carnaúba dos Dantas
+24,Estado do Rio Grande do Norte,2402600,Ceará-Mirim
+24,Estado do Rio Grande do Norte,2402709,Cerro Corá
+24,Estado do Rio Grande do Norte,2402808,Coronel Ezequiel
+24,Estado do Rio Grande do Norte,2403004,Cruzeta
+24,Estado do Rio Grande do Norte,2403103,Currais Novos
+24,Estado do Rio Grande do Norte,2403251,Parnamirim
+24,Estado do Rio Grande do Norte,2403806,Florânia
+24,Estado do Rio Grande do Norte,2404200,Goianinha
+24,Estado do Rio Grande do Norte,2404408,Grossos
+24,Estado do Rio Grande do Norte,2404705,Ipanguaçu
+24,Estado do Rio Grande do Norte,2404903,Itaú
+24,Estado do Rio Grande do Norte,2405306,Januário Cicco
+24,Estado do Rio Grande do Norte,2405405,Japi
+24,Estado do Rio Grande do Norte,2405603,Jardim de Piranhas
+24,Estado do Rio Grande do Norte,2405702,Jardim do Seridó
+24,Estado do Rio Grande do Norte,2405801,João Câmara
+24,Estado do Rio Grande do Norte,2406007,José da Penha
+24,Estado do Rio Grande do Norte,2406106,Jucurutu
+24,Estado do Rio Grande do Norte,2406700,Lajes
+24,Estado do Rio Grande do Norte,2406809,Lajes Pintadas
+24,Estado do Rio Grande do Norte,2407005,Luís Gomes
+24,Estado do Rio Grande do Norte,2407104,Macaíba
+24,Estado do Rio Grande do Norte,2407203,Macau
+24,Estado do Rio Grande do Norte,2407302,Marcelino Vieira
+24,Estado do Rio Grande do Norte,2407401,Martins
+24,Estado do Rio Grande do Norte,2407500,Maxaranguape
+24,Estado do Rio Grande do Norte,2407807,Monte Alegre
+24,Estado do Rio Grande do Norte,2408003,Mossoró
+24,Estado do Rio Grande do Norte,2408102,Natal
+24,Estado do Rio Grande do Norte,2408201,Nísia Floresta
+24,Estado do Rio Grande do Norte,2408300,Nova Cruz
+24,Estado do Rio Grande do Norte,2408508,Ouro Branco
+24,Estado do Rio Grande do Norte,2408904,Parelhas
+24,Estado do Rio Grande do Norte,2409308,Patu
+24,Estado do Rio Grande do Norte,2409407,Pau dos Ferros
+24,Estado do Rio Grande do Norte,2409704,Pedro Avelino
+24,Estado do Rio Grande do Norte,2409803,Pedro Velho
+24,Estado do Rio Grande do Norte,2409902,Pendências
+24,Estado do Rio Grande do Norte,2410207,Portalegre
+24,Estado do Rio Grande do Norte,2410306,Serra Caiada
+24,Estado do Rio Grande do Norte,2411205,Santa Cruz
+24,Estado do Rio Grande do Norte,2411403,Santana do Matos
+24,Estado do Rio Grande do Norte,2411502,Santo Antônio
+24,Estado do Rio Grande do Norte,2411601,São Bento do Norte
+24,Estado do Rio Grande do Norte,2411700,São Bento do Trairí
+24,Estado do Rio Grande do Norte,2411809,São Fernando
+24,Estado do Rio Grande do Norte,2412005,São Gonçalo do Amarante
+24,Estado do Rio Grande do Norte,2412104,São João do Sabugi
+24,Estado do Rio Grande do Norte,2412203,São José de Mipibu
+24,Estado do Rio Grande do Norte,2412302,São José do Campestre
+24,Estado do Rio Grande do Norte,2412500,São Miguel
+24,Estado do Rio Grande do Norte,2412609,São Paulo do Potengi
+24,Estado do Rio Grande do Norte,2412807,São Rafael
+24,Estado do Rio Grande do Norte,2412906,São Tomé
+24,Estado do Rio Grande do Norte,2413003,São Vicente
+24,Estado do Rio Grande do Norte,2413102,Caiada
+24,Estado do Rio Grande do Norte,2413300,Serra de São Bento
+24,Estado do Rio Grande do Norte,2413409,Serra Negra do Norte
+24,Estado do Rio Grande do Norte,2413706,Sítio Novo
+24,Estado do Rio Grande do Norte,2413904,Taipu
+24,Estado do Rio Grande do Norte,2414001,Tangará
+24,Estado do Rio Grande do Norte,2414407,Touros
+24,Estado do Rio Grande do Norte,2414506,Umarizal
+24,Estado do Rio Grande do Norte,2414605,Upanema
+24,Estado do Rio Grande do Norte,2414704,Várzea
+25,Estado da Paraíba,2500106,Água Branca
+25,Estado da Paraíba,2500304,Alagoa Grande
+25,Estado da Paraíba,2500403,Alagoa Nova
+25,Estado da Paraíba,2500502,Alagoinha
+25,Estado da Paraíba,2500601,Alhandra
+25,Estado da Paraíba,2500700,Antenor Navarro
+25,Estado da Paraíba,2500809,Araçagi
+25,Estado da Paraíba,2501005,Araruna
+25,Estado da Paraíba,2501104,Areia
+25,Estado da Paraíba,2501302,Aroeiras
+25,Estado da Paraíba,2501500,Bananeiras
+25,Estado da Paraíba,2501609,Barra de Santa Rosa
+25,Estado da Paraíba,2501807,Bayeux
+25,Estado da Paraíba,2501906,Belém
+25,Estado da Paraíba,2502409,Bonito de Santa Fé
+25,Estado da Paraíba,2502508,Carnoió
+25,Estado da Paraíba,2502706,Borborema
+25,Estado da Paraíba,2502805,Brejo do Cruz
+25,Estado da Paraíba,2503100,Cabaceiras
+25,Estado da Paraíba,2503209,Cabedelo
+25,Estado da Paraíba,2503506,Cacimba de Dentro
+25,Estado da Paraíba,2503605,Caiçara
+25,Estado da Paraíba,2503704,Cajazeiras
+25,Estado da Paraíba,2504009,Campina Grande
+25,Estado da Paraíba,2504207,Catingueira
+25,Estado da Paraíba,2504306,Catolé do Rocha
+25,Estado da Paraíba,2504405,Conceição
+25,Estado da Paraíba,2504702,Congo
+25,Estado da Paraíba,2504801,Coremas
+25,Estado da Paraíba,2504900,Cruz do Espírito Santo
+25,Estado da Paraíba,2505006,Cubati
+25,Estado da Paraíba,2505105,Cuité
+25,Estado da Paraíba,2505402,Desterro
+25,Estado da Paraíba,2505709,Dona Inês
+25,Estado da Paraíba,2506004,Esperança
+25,Estado da Paraíba,2506301,Guarabira
+25,Estado da Paraíba,2506400,Gurinhém
+25,Estado da Paraíba,2506608,Ibiara
+25,Estado da Paraíba,2506806,Ingá
+25,Estado da Paraíba,2506905,Itabaiana
+25,Estado da Paraíba,2507002,Itaporanga
+25,Estado da Paraíba,2507408,Jericó
+25,Estado da Paraíba,2507507,João Pessoa
+25,Estado da Paraíba,2507606,Juarez Távora
+25,Estado da Paraíba,2507705,Juazeirinho
+25,Estado da Paraíba,2508802,Malta
+25,Estado da Paraíba,2508901,Mamanguape
+25,Estado da Paraíba,2509107,Mari
+25,Estado da Paraíba,2509701,Monteiro
+25,Estado da Paraíba,2509800,Mulungu
+25,Estado da Paraíba,2510105,Nova Floresta
+25,Estado da Paraíba,2510808,Patos
+25,Estado da Paraíba,2511103,Pedra Lavrada
+25,Estado da Paraíba,2511202,Pedras de Fogo
+25,Estado da Paraíba,2511301,Piancó
+25,Estado da Paraíba,2511400,Picuí
+25,Estado da Paraíba,2511509,Pilar
+25,Estado da Paraíba,2511608,Pilões
+25,Estado da Paraíba,2511806,Pirpirituba
+25,Estado da Paraíba,2512002,Pocinhos
+25,Estado da Paraíba,2512101,Pombal
+25,Estado da Paraíba,2512200,Prata
+25,Estado da Paraíba,2512309,Princesa Isabel
+25,Estado da Paraíba,2512705,Remígio
+25,Estado da Paraíba,2512903,Rio Tinto
+25,Estado da Paraíba,2513406,Santa Luzia
+25,Estado da Paraíba,2513703,Santa Rita
+25,Estado da Paraíba,2513901,São Bento
+25,Estado da Paraíba,2514008,São João do Cariri
+25,Estado da Paraíba,2514206,São José da Lagoa Tapada
+25,Estado da Paraíba,2514503,São José de Piranhas
+25,Estado da Paraíba,2514909,São Mamede
+25,Estado da Paraíba,2515203,São Sebastião do Umbuzeiro
+25,Estado da Paraíba,2515302,Sapé
+25,Estado da Paraíba,2515500,Serra Branca
+25,Estado da Paraíba,2515609,Serra da Raiz
+25,Estado da Paraíba,2515807,Serra Redonda
+25,Estado da Paraíba,2515906,Serraria
+25,Estado da Paraíba,2516003,Solânea
+25,Estado da Paraíba,2516102,Soledade
+25,Estado da Paraíba,2516201,Sousa
+25,Estado da Paraíba,2516300,Sumé
+25,Estado da Paraíba,2516409,Tacima
+25,Estado da Paraíba,2516508,Taperoá
+25,Estado da Paraíba,2516607,Tavares
+25,Estado da Paraíba,2516706,Teixeira
+25,Estado da Paraíba,2516904,Uiraúna
+25,Estado da Paraíba,2517001,Umbuzeiro
+26,Estado de Pernambuco,2600104,Afogados da Ingazeira
+26,Estado de Pernambuco,2600302,Agrestina
+26,Estado de Pernambuco,2600401,Água Preta
+26,Estado de Pernambuco,2600500,Águas Belas
+26,Estado de Pernambuco,2600609,Alagoinha
+26,Estado de Pernambuco,2600708,Aliança
+26,Estado de Pernambuco,2600807,Altinho
+26,Estado de Pernambuco,2600906,Amaraji
+26,Estado de Pernambuco,2601003,Angelim
+26,Estado de Pernambuco,2601102,Araripina
+26,Estado de Pernambuco,2601201,Arcoverde
+26,Estado de Pernambuco,2601409,Barreiros
+26,Estado de Pernambuco,2601607,Belém de São Francisco
+26,Estado de Pernambuco,2601706,Belo Jardim
+26,Estado de Pernambuco,2601904,Bezerros
+26,Estado de Pernambuco,2602001,Bodocó
+26,Estado de Pernambuco,2602100,Bom Conselho
+26,Estado de Pernambuco,2602209,Bom Jardim
+26,Estado de Pernambuco,2602308,Bonito
+26,Estado de Pernambuco,2602605,Brejo da Madre de Deus
+26,Estado de Pernambuco,2602803,Buíque
+26,Estado de Pernambuco,2602902,Cabo
+26,Estado de Pernambuco,2603009,Cabrobó
+26,Estado de Pernambuco,2603504,Camocim de São Félix
+26,Estado de Pernambuco,2603702,Canhotinho
+26,Estado de Pernambuco,2603900,Carnaíba
+26,Estado de Pernambuco,2604007,Carpina
+26,Estado de Pernambuco,2604106,Caruaru
+26,Estado de Pernambuco,2604205,Catende
+26,Estado de Pernambuco,2604700,Correntes
+26,Estado de Pernambuco,2604809,Cortês
+26,Estado de Pernambuco,2605004,Cupira
+26,Estado de Pernambuco,2605103,Custódia
+26,Estado de Pernambuco,2605202,Escada
+26,Estado de Pernambuco,2605301,Exu
+26,Estado de Pernambuco,2605608,Flores
+26,Estado de Pernambuco,2605707,Floresta
+26,Estado de Pernambuco,2605905,Gameleira
+26,Estado de Pernambuco,2606002,Garanhuns
+26,Estado de Pernambuco,2606101,Glória do Goitá
+26,Estado de Pernambuco,2606200,Goiana
+26,Estado de Pernambuco,2606408,Gravatá
+26,Estado de Pernambuco,2606804,Igarassu
+26,Estado de Pernambuco,2607000,Inajá
+26,Estado de Pernambuco,2607208,Ipojuca
+26,Estado de Pernambuco,2607653,També
+26,Estado de Pernambuco,2607703,Itapetim
+26,Estado de Pernambuco,2607901,Jaboatão
+26,Estado de Pernambuco,2608107,João Alfredo
+26,Estado de Pernambuco,2608206,Joaquim Nabuco
+26,Estado de Pernambuco,2608404,Jurema
+26,Estado de Pernambuco,2608701,Lagoa dos Gatos
+26,Estado de Pernambuco,2608800,Lajedo
+26,Estado de Pernambuco,2608909,Limoeiro
+26,Estado de Pernambuco,2609006,Macaparana
+26,Estado de Pernambuco,2609204,Maraial
+26,Estado de Pernambuco,2609402,Moreno
+26,Estado de Pernambuco,2609501,Nazaré da Mata
+26,Estado de Pernambuco,2609600,Olinda
+26,Estado de Pernambuco,2609709,Orobó
+26,Estado de Pernambuco,2609907,Ouricuri
+26,Estado de Pernambuco,2610004,Palmares
+26,Estado de Pernambuco,2610103,Palmeirina
+26,Estado de Pernambuco,2610202,Panelas
+26,Estado de Pernambuco,2610400,Parnamirim
+26,Estado de Pernambuco,2610608,Paudalho
+26,Estado de Pernambuco,2610707,Paulista
+26,Estado de Pernambuco,2610806,Pedra
+26,Estado de Pernambuco,2610905,Pesqueira
+26,Estado de Pernambuco,2611002,Petrolândia
+26,Estado de Pernambuco,2611101,Petrolina
+26,Estado de Pernambuco,2611200,Poção
+26,Estado de Pernambuco,2611507,Quipapá
+26,Estado de Pernambuco,2611606,Recife
+26,Estado de Pernambuco,2611705,Riacho das Almas
+26,Estado de Pernambuco,2611804,Ribeirão
+26,Estado de Pernambuco,2611903,Rio Formoso
+26,Estado de Pernambuco,2612208,Salgueiro
+26,Estado de Pernambuco,2612406,Sanharó
+26,Estado de Pernambuco,2612505,Santa Cruz do Capibaribe
+26,Estado de Pernambuco,2612604,Santa Maria da Boa Vista
+26,Estado de Pernambuco,2613008,São Bento do Una
+26,Estado de Pernambuco,2613107,São Caitano
+26,Estado de Pernambuco,2613305,São Joaquim do Monte
+26,Estado de Pernambuco,2613503,São José do Belmonte
+26,Estado de Pernambuco,2613602,São José do Egito
+26,Estado de Pernambuco,2613701,São Lourenço da Mata
+26,Estado de Pernambuco,2613800,São Vicente Ferrer
+26,Estado de Pernambuco,2613909,Serra Talhada
+26,Estado de Pernambuco,2614006,Serrita
+26,Estado de Pernambuco,2614105,Sertânia
+26,Estado de Pernambuco,2614204,Sirinhaém
+26,Estado de Pernambuco,2614501,Surubim
+26,Estado de Pernambuco,2614600,Tabira
+26,Estado de Pernambuco,2614808,Tacaratu
+26,Estado de Pernambuco,2615003,Taquaritinga do Norte
+26,Estado de Pernambuco,2615300,Timbaúba
+26,Estado de Pernambuco,2615409,Toritama
+26,Estado de Pernambuco,2615706,Triunfo
+26,Estado de Pernambuco,2616209,Vertentes
+26,Estado de Pernambuco,2616308,Vicência
+26,Estado de Pernambuco,2616407,Vitória de Santo Antão
+27,Estado de Alagoas,2700102,Água Branca
+27,Estado de Alagoas,2700201,Anadia
+27,Estado de Alagoas,2700300,Arapiraca
+27,Estado de Alagoas,2700409,Atalaia
+27,Estado de Alagoas,2700706,Batalha
+27,Estado de Alagoas,2700904,Belo Monte
+27,Estado de Alagoas,2701001,Boca da Mata
+27,Estado de Alagoas,2701209,Cacimbinhas
+27,Estado de Alagoas,2701308,Cajueiro
+27,Estado de Alagoas,2701407,Campo Alegre
+27,Estado de Alagoas,2701506,Campo Grande
+27,Estado de Alagoas,2701704,Capela
+27,Estado de Alagoas,2702108,Colônia Leopoldina
+27,Estado de Alagoas,2702306,Coruripe
+27,Estado de Alagoas,2702405,Delmiro Gouveia
+27,Estado de Alagoas,2702504,Dois Riachos
+27,Estado de Alagoas,2702603,Feira Grande
+27,Estado de Alagoas,2702801,Flexeiras
+27,Estado de Alagoas,2702900,Girau do Ponciano
+27,Estado de Alagoas,2703007,Ibateguara
+27,Estado de Alagoas,2703106,Igaci
+27,Estado de Alagoas,2703205,Igreja Nova
+27,Estado de Alagoas,2703403,Jacaré dos Homens
+27,Estado de Alagoas,2703502,Jacuípe
+27,Estado de Alagoas,2704005,Junqueiro
+27,Estado de Alagoas,2704203,Limoeiro de Anadia
+27,Estado de Alagoas,2704302,Maceió
+27,Estado de Alagoas,2704401,Major Isidoro
+27,Estado de Alagoas,2704500,Maragogi
+27,Estado de Alagoas,2704609,Maravilha
+27,Estado de Alagoas,2704708,Marechal Deodoro
+27,Estado de Alagoas,2705002,Mata Grande
+27,Estado de Alagoas,2705101,Matriz de Camaragibe
+27,Estado de Alagoas,2705408,Monteirópolis
+27,Estado de Alagoas,2705507,Murici
+27,Estado de Alagoas,2705705,Olho d'Água das Flores
+27,Estado de Alagoas,2706000,Olivença
+27,Estado de Alagoas,2706307,Palmeira dos Índios
+27,Estado de Alagoas,2706406,Pão de Açúcar
+27,Estado de Alagoas,2706505,Passo de Camaragibe
+27,Estado de Alagoas,2706604,Paulo Jacinto
+27,Estado de Alagoas,2706703,Penedo
+27,Estado de Alagoas,2706802,Piaçabuçu
+27,Estado de Alagoas,2706901,Pilar
+27,Estado de Alagoas,2707008,Pindoba
+27,Estado de Alagoas,2707107,Piranhas
+27,Estado de Alagoas,2707206,Poço das Trincheiras
+27,Estado de Alagoas,2707305,Porto Calvo
+27,Estado de Alagoas,2707404,Porto de Pedras
+27,Estado de Alagoas,2707503,Porto Real do Colégio
+27,Estado de Alagoas,2707602,Quebrangulo
+27,Estado de Alagoas,2707701,Rio Largo
+27,Estado de Alagoas,2708006,Santana do Ipanema
+27,Estado de Alagoas,2708105,Santana do Mundaú
+27,Estado de Alagoas,2708204,São Brás
+27,Estado de Alagoas,2708303,São José da Laje
+27,Estado de Alagoas,2708402,São José da Tapera
+27,Estado de Alagoas,2708501,São Luís do Quitunde
+27,Estado de Alagoas,2708600,São Miguel dos Campos
+27,Estado de Alagoas,2708709,São Miguel dos Milagres
+27,Estado de Alagoas,2708808,São Sebastião
+27,Estado de Alagoas,2709202,Traipu
+27,Estado de Alagoas,2709301,União dos Palmares
+27,Estado de Alagoas,2709400,Viçosa
+28,Estado de Sergipe,2800100,Amparo de São Francisco
+28,Estado de Sergipe,2800209,Aquidabã
+28,Estado de Sergipe,2800308,Aracaju
+28,Estado de Sergipe,2800407,Arauá
+28,Estado de Sergipe,2800605,Barra dos Coqueiros
+28,Estado de Sergipe,2800670,Buquim
+28,Estado de Sergipe,2800704,Brejo Grande
+28,Estado de Sergipe,2801009,Campo do Brito
+28,Estado de Sergipe,2801108,Canhoba
+28,Estado de Sergipe,2801207,Canindé de São Francisco
+28,Estado de Sergipe,2801306,Capela
+28,Estado de Sergipe,2801405,Carira
+28,Estado de Sergipe,2801504,Carmópolis
+28,Estado de Sergipe,2801603,Cedro de São João
+28,Estado de Sergipe,2801702,Cristinápolis
+28,Estado de Sergipe,2801900,Cumbe
+28,Estado de Sergipe,2802007,Divina Pastora
+28,Estado de Sergipe,2802106,Estância
+28,Estado de Sergipe,2802304,Frei Paulo
+28,Estado de Sergipe,2802403,Gararu
+28,Estado de Sergipe,2802601,Gracho Cardoso
+28,Estado de Sergipe,2802700,Ilha das Flores
+28,Estado de Sergipe,2802809,Indiaroba
+28,Estado de Sergipe,2802908,Itabaiana
+28,Estado de Sergipe,2803005,Itabaianinha
+28,Estado de Sergipe,2803104,Itabi
+28,Estado de Sergipe,2803203,Itaporanga d'Ajuda
+28,Estado de Sergipe,2803302,Japaratuba
+28,Estado de Sergipe,2803401,Japoatã
+28,Estado de Sergipe,2803500,Lagarto
+28,Estado de Sergipe,2803609,Laranjeiras
+28,Estado de Sergipe,2803708,Macambira
+28,Estado de Sergipe,2803807,Malhada dos Bois
+28,Estado de Sergipe,2803906,Malhador
+28,Estado de Sergipe,2804003,Maruim
+28,Estado de Sergipe,2804201,Monte Alegre de Sergipe
+28,Estado de Sergipe,2804300,Muribeca
+28,Estado de Sergipe,2804409,Neópolis
+28,Estado de Sergipe,2804508,Nossa Senhora da Glória
+28,Estado de Sergipe,2804607,Nossa Senhora das Dores
+28,Estado de Sergipe,2804805,Nossa Senhora do Socorro
+28,Estado de Sergipe,2804904,Pacatuba
+28,Estado de Sergipe,2805109,Pedrinhas
+28,Estado de Sergipe,2805208,Pinhão
+28,Estado de Sergipe,2805406,Poço Redondo
+28,Estado de Sergipe,2805505,Poço Verde
+28,Estado de Sergipe,2805604,Porto da Folha
+28,Estado de Sergipe,2805703,Propriá
+28,Estado de Sergipe,2805802,Riachão do Dantas
+28,Estado de Sergipe,2805901,Riachuelo
+28,Estado de Sergipe,2806008,Ribeirópolis
+28,Estado de Sergipe,2806107,Rosário do Catete
+28,Estado de Sergipe,2806206,Salgado
+28,Estado de Sergipe,2806305,Santa Luzia do Itanhy
+28,Estado de Sergipe,2806503,Santa Rosa de Lima
+28,Estado de Sergipe,2806602,Santo Amaro das Brotas
+28,Estado de Sergipe,2806701,São Cristóvão
+28,Estado de Sergipe,2807105,Simão Dias
+28,Estado de Sergipe,2807204,Siriri
+28,Estado de Sergipe,2807402,Tobias Barreto
+28,Estado de Sergipe,2807501,Tomar do Geru
+28,Estado de Sergipe,2807600,Umbaúba
+29,Estado da Bahia,2900306,Acajutiba
+29,Estado da Bahia,2900702,Alagoinhas
+29,Estado da Bahia,2900801,Alcobaça
+29,Estado da Bahia,2901007,Amargosa
+29,Estado da Bahia,2901304,Andaraí
+29,Estado da Bahia,2901403,Angical
+29,Estado da Bahia,2901601,Antas
+29,Estado da Bahia,2901908,Aporá
+29,Estado da Bahia,2902104,Araci
+29,Estado da Bahia,2902302,Aratuípe
+29,Estado da Bahia,2902609,Baixa Grande
+29,Estado da Bahia,2902708,Barra
+29,Estado da Bahia,2902807,Barra da Estiva
+29,Estado da Bahia,2903003,Barra do Mendes
+29,Estado da Bahia,2903201,Barreiras
+29,Estado da Bahia,2903409,Belmonte
+29,Estado da Bahia,2903706,Boa Nova
+29,Estado da Bahia,2903904,Bom Jesus da Lapa
+29,Estado da Bahia,2904308,Brejões
+29,Estado da Bahia,2904506,Brotas de Macaúbas
+29,Estado da Bahia,2904605,Brumado
+29,Estado da Bahia,2904902,Cachoeira
+29,Estado da Bahia,2905008,Caculé
+29,Estado da Bahia,2905206,Caetité
+29,Estado da Bahia,2905404,Cairu
+29,Estado da Bahia,2905701,Camaçari
+29,Estado da Bahia,2905800,Camamu
+29,Estado da Bahia,2906006,Campo Formoso
+29,Estado da Bahia,2906303,Canavieiras
+29,Estado da Bahia,2906501,Candeias
+29,Estado da Bahia,2906808,Cansanção
+29,Estado da Bahia,2906907,Caravelas
+29,Estado da Bahia,2907103,Carinhanha
+29,Estado da Bahia,2907202,Casa Nova
+29,Estado da Bahia,2907301,Castro Alves
+29,Estado da Bahia,2907509,Catu
+29,Estado da Bahia,2907608,Central
+29,Estado da Bahia,2907707,Chorrochó
+29,Estado da Bahia,2907806,Cícero Dantas
+29,Estado da Bahia,2907905,Cipó
+29,Estado da Bahia,2908002,Coaraci
+29,Estado da Bahia,2908101,Cocos
+29,Estado da Bahia,2908200,Conceição da Feira
+29,Estado da Bahia,2908309,Conceição do Almeida
+29,Estado da Bahia,2908408,Conceição do Coité
+29,Estado da Bahia,2908606,Conde
+29,Estado da Bahia,2908705,Condeúba
+29,Estado da Bahia,2908903,Coração de Maria
+29,Estado da Bahia,2909109,Coribe
+29,Estado da Bahia,2909307,Correntina
+29,Estado da Bahia,2909406,Cotegipe
+29,Estado da Bahia,2909802,Cruz das Almas
+29,Estado da Bahia,2909901,Curaçá
+29,Estado da Bahia,2910404,Encruzilhada
+29,Estado da Bahia,2910503,Entre Rios
+29,Estado da Bahia,2910602,Esplanada
+29,Estado da Bahia,2910701,Euclides da Cunha
+29,Estado da Bahia,2910800,Feira de Santana
+29,Estado da Bahia,2911204,Gandu
+29,Estado da Bahia,2911303,Gentio do Ouro
+29,Estado da Bahia,2911402,Glória
+29,Estado da Bahia,2911709,Guanambi
+29,Estado da Bahia,2911907,Iaçu
+29,Estado da Bahia,2912103,Ibicaraí
+29,Estado da Bahia,2912301,Ibicuí
+29,Estado da Bahia,2912608,Ibiquera
+29,Estado da Bahia,2913002,Ibitiara
+29,Estado da Bahia,2913200,Ibotirama
+29,Estado da Bahia,2913408,Igaporã
+29,Estado da Bahia,2913507,Iguaí
+29,Estado da Bahia,2913606,Ilhéus
+29,Estado da Bahia,2913705,Inhambupe
+29,Estado da Bahia,2913903,Ipiaú
+29,Estado da Bahia,2914000,Ipirá
+29,Estado da Bahia,2914109,Ipupiara
+29,Estado da Bahia,2914505,Irará
+29,Estado da Bahia,2914604,Irecê
+29,Estado da Bahia,2914703,Itaberaba
+29,Estado da Bahia,2914802,Itabuna
+29,Estado da Bahia,2914901,Itacaré
+29,Estado da Bahia,2915205,Itagibá
+29,Estado da Bahia,2915502,Itajuípe
+29,Estado da Bahia,2915809,Itambé
+29,Estado da Bahia,2916005,Itanhém
+29,Estado da Bahia,2916104,Itaparica
+29,Estado da Bahia,2916302,Itapebi
+29,Estado da Bahia,2916401,Itapetinga
+29,Estado da Bahia,2916500,Itapicuru
+29,Estado da Bahia,2916708,Itaquara
+29,Estado da Bahia,2916906,Itiruçu
+29,Estado da Bahia,2917003,Itiúba
+29,Estado da Bahia,2917102,Itororó
+29,Estado da Bahia,2917201,Ituaçu
+29,Estado da Bahia,2917300,Ituberá
+29,Estado da Bahia,2917409,Jacaraci
+29,Estado da Bahia,2917508,Jacobina
+29,Estado da Bahia,2917607,Jaguaquara
+29,Estado da Bahia,2917706,Jaguarari
+29,Estado da Bahia,2917805,Jaguaripe
+29,Estado da Bahia,2917904,Jandaíra
+29,Estado da Bahia,2918001,Jequié
+29,Estado da Bahia,2918100,Jeremoabo
+29,Estado da Bahia,2918209,Jiquiriçá
+29,Estado da Bahia,2918407,Juazeiro
+29,Estado da Bahia,2918803,Laje
+29,Estado da Bahia,2919306,Lençóis
+29,Estado da Bahia,2919504,Livramento do Brumado
+29,Estado da Bahia,2919603,Macajuba
+29,Estado da Bahia,2919702,Macarani
+29,Estado da Bahia,2919801,Macaúbas
+29,Estado da Bahia,2920106,Mairi
+29,Estado da Bahia,2920502,Maracás
+29,Estado da Bahia,2920601,Maragogipe
+29,Estado da Bahia,2920700,Maraú
+29,Estado da Bahia,2921005,Mata de São João
+29,Estado da Bahia,2921104,Medeiros Neto
+29,Estado da Bahia,2921203,Miguel Calmon
+29,Estado da Bahia,2921500,Monte Santo
+29,Estado da Bahia,2921708,Morro do Chapéu
+29,Estado da Bahia,2921906,Mucugê
+29,Estado da Bahia,2922003,Mucuri
+29,Estado da Bahia,2922102,Mundo Novo
+29,Estado da Bahia,2922300,Muritiba
+29,Estado da Bahia,2922409,Mutuípe
+29,Estado da Bahia,2922508,Nazaré
+29,Estado da Bahia,2922607,Nilo Peçanha
+29,Estado da Bahia,2922904,Nova Soure
+29,Estado da Bahia,2923100,Olindina
+29,Estado da Bahia,2923209,Oliveira dos Brejinhos
+29,Estado da Bahia,2923407,Palmas de Monte Alto
+29,Estado da Bahia,2923506,Palmeiras
+29,Estado da Bahia,2923605,Paramirim
+29,Estado da Bahia,2923704,Paratinga
+29,Estado da Bahia,2923803,Paripiranga
+29,Estado da Bahia,2924009,Paulo Afonso
+29,Estado da Bahia,2924306,Piatã
+29,Estado da Bahia,2924405,Pilão Arcado
+29,Estado da Bahia,2924603,Pindobaçu
+29,Estado da Bahia,2924801,Piritiba
+29,Estado da Bahia,2925105,Poções
+29,Estado da Bahia,2925204,Pojuca
+29,Estado da Bahia,2925303,Porto Seguro
+29,Estado da Bahia,2925402,Potiraguá
+29,Estado da Bahia,2925501,Prado
+29,Estado da Bahia,2925808,Queimadas
+29,Estado da Bahia,2926004,Remanso
+29,Estado da Bahia,2926301,Riachão do Jacuípe
+29,Estado da Bahia,2926400,Riacho de Santana
+29,Estado da Bahia,2926509,Ribeira do Amparo
+29,Estado da Bahia,2926608,Ribeira do Pombal
+29,Estado da Bahia,2926707,Rio de Contas
+29,Estado da Bahia,2927002,Rio Real
+29,Estado da Bahia,2927200,Ruy Barbosa
+29,Estado da Bahia,2927408,Salvador
+29,Estado da Bahia,2927705,Santa Cruz Cabrália
+29,Estado da Bahia,2927903,Santa Inês
+29,Estado da Bahia,2928000,Santaluz
+29,Estado da Bahia,2928109,Santa Maria da Vitória
+29,Estado da Bahia,2928208,Santana
+29,Estado da Bahia,2928406,Ibipetuba
+29,Estado da Bahia,2928505,Santa Teresinha
+29,Estado da Bahia,2928604,Santo Amaro
+29,Estado da Bahia,2928703,Santo Antônio de Jesus
+29,Estado da Bahia,2928802,Santo Estêvão
+29,Estado da Bahia,2929008,São Félix
+29,Estado da Bahia,2929107,São Felipe
+29,Estado da Bahia,2929206,São Francisco do Conde
+29,Estado da Bahia,2929305,São Gonçalo dos Campos
+29,Estado da Bahia,2929404,São Miguel das Matas
+29,Estado da Bahia,2929503,São Sebastião do Passé
+29,Estado da Bahia,2929602,Sapeaçu
+29,Estado da Bahia,2929701,Sátiro Dias
+29,Estado da Bahia,2929800,Saúde
+29,Estado da Bahia,2929909,Seabra
+29,Estado da Bahia,2930105,Senhor do Bonfim
+29,Estado da Bahia,2930204,Sento Sé
+29,Estado da Bahia,2930402,Serra Preta
+29,Estado da Bahia,2930501,Serrinha
+29,Estado da Bahia,2931103,Tanquinho
+29,Estado da Bahia,2931202,Taperoá
+29,Estado da Bahia,2931806,Tremedal
+29,Estado da Bahia,2931905,Tucano
+29,Estado da Bahia,2932002,Uauá
+29,Estado da Bahia,2932101,Ubaíra
+29,Estado da Bahia,2932200,Ubaitaba
+29,Estado da Bahia,2932309,Ubatã
+29,Estado da Bahia,2932507,Una
+29,Estado da Bahia,2932606,Urandi
+29,Estado da Bahia,2932705,Uruçuca
+29,Estado da Bahia,2932804,Utinga
+29,Estado da Bahia,2932903,Valença
+29,Estado da Bahia,2933000,Valente
+29,Estado da Bahia,2933307,Vitória da Conquista
+29,Estado da Bahia,2933604,Xique-Xique
+30,Distrito Federal,3099901,Rio de Janeiro
+31,Estado de Minas Gerais,3100104,Abadia dos Dourados
+31,Estado de Minas Gerais,3100203,Abaeté
+31,Estado de Minas Gerais,3100302,Abre Campo
+31,Estado de Minas Gerais,3100500,Açucena
+31,Estado de Minas Gerais,3100609,Água Boa
+31,Estado de Minas Gerais,3100708,Água Comprida
+31,Estado de Minas Gerais,3100906,Águas Formosas
+31,Estado de Minas Gerais,3101102,Aimorés
+31,Estado de Minas Gerais,3101201,Aiuruoca
+31,Estado de Minas Gerais,3101508,Além Paraíba
+31,Estado de Minas Gerais,3101607,Alfenas
+31,Estado de Minas Gerais,3101706,Almenara
+31,Estado de Minas Gerais,3101904,Alpinópolis
+31,Estado de Minas Gerais,3102001,Alterosa
+31,Estado de Minas Gerais,3102100,Alto Rio Doce
+31,Estado de Minas Gerais,3102308,Alvinópolis
+31,Estado de Minas Gerais,3102605,Andradas
+31,Estado de Minas Gerais,3102803,Andrelândia
+31,Estado de Minas Gerais,3102902,Antônio Carlos
+31,Estado de Minas Gerais,3103009,Antônio Dias
+31,Estado de Minas Gerais,3103405,Araçuaí
+31,Estado de Minas Gerais,3103504,Araguari
+31,Estado de Minas Gerais,3103900,Araújos
+31,Estado de Minas Gerais,3104007,Araxá
+31,Estado de Minas Gerais,3104106,Arceburgo
+31,Estado de Minas Gerais,3104205,Arcos
+31,Estado de Minas Gerais,3104304,Areado
+31,Estado de Minas Gerais,3104601,Astolfo Dutra
+31,Estado de Minas Gerais,3104700,Ataléia
+31,Estado de Minas Gerais,3104908,Baependi
+31,Estado de Minas Gerais,3105004,Baldim
+31,Estado de Minas Gerais,3105103,Bambuí
+31,Estado de Minas Gerais,3105400,Barão de Cocais
+31,Estado de Minas Gerais,3105608,Barbacena
+31,Estado de Minas Gerais,3105707,Barra Longa
+31,Estado de Minas Gerais,3105905,Barroso
+31,Estado de Minas Gerais,3106200,Belo Horizonte
+31,Estado de Minas Gerais,3106408,Belo Vale
+31,Estado de Minas Gerais,3106705,Betim
+31,Estado de Minas Gerais,3106804,Bias Fortes
+31,Estado de Minas Gerais,3106903,Bicas
+31,Estado de Minas Gerais,3107109,Boa Esperança
+31,Estado de Minas Gerais,3107208,Bocaina de Minas
+31,Estado de Minas Gerais,3107307,Bocaiúva
+31,Estado de Minas Gerais,3107406,Bom Despacho
+31,Estado de Minas Gerais,3107505,Bom Jardim de Minas
+31,Estado de Minas Gerais,3107703,Bom Jesus do Amparo
+31,Estado de Minas Gerais,3107802,Bom Jesus do Galho
+31,Estado de Minas Gerais,3107901,Bom Repouso
+31,Estado de Minas Gerais,3108008,Bom Sucesso
+31,Estado de Minas Gerais,3108107,Bonfim
+31,Estado de Minas Gerais,3108305,Borda da Mata
+31,Estado de Minas Gerais,3108404,Botelhos
+31,Estado de Minas Gerais,3108602,Brasília
+31,Estado de Minas Gerais,3108701,Brás Pires
+31,Estado de Minas Gerais,3108800,Braúnas
+31,Estado de Minas Gerais,3108909,Brasópolis
+31,Estado de Minas Gerais,3109006,Brumadinho
+31,Estado de Minas Gerais,3109105,Bueno Brandão
+31,Estado de Minas Gerais,3109204,Buenópolis
+31,Estado de Minas Gerais,3109501,Cabo Verde
+31,Estado de Minas Gerais,3109709,Cachoeira de Minas
+31,Estado de Minas Gerais,3109907,Caetanópolis
+31,Estado de Minas Gerais,3110004,Caeté
+31,Estado de Minas Gerais,3110301,Caldas
+31,Estado de Minas Gerais,3110509,Camanducaia
+31,Estado de Minas Gerais,3110608,Cambuí
+31,Estado de Minas Gerais,3110707,Cambuquira
+31,Estado de Minas Gerais,3110905,Campanha
+31,Estado de Minas Gerais,3111002,Campestre
+31,Estado de Minas Gerais,3111101,Campina Verde
+31,Estado de Minas Gerais,3111200,Campo Belo
+31,Estado de Minas Gerais,3111309,Campo do Meio
+31,Estado de Minas Gerais,3111408,Campo Florido
+31,Estado de Minas Gerais,3111507,Campos Altos
+31,Estado de Minas Gerais,3111606,Campos Gerais
+31,Estado de Minas Gerais,3111804,Canápolis
+31,Estado de Minas Gerais,3112000,Candeias
+31,Estado de Minas Gerais,3112208,Capela Nova
+31,Estado de Minas Gerais,3112307,Capelinha
+31,Estado de Minas Gerais,3112406,Capetinga
+31,Estado de Minas Gerais,3112505,Capim Branco
+31,Estado de Minas Gerais,3112604,Capinópolis
+31,Estado de Minas Gerais,3112802,Capitólio
+31,Estado de Minas Gerais,3113008,Caraí
+31,Estado de Minas Gerais,3113206,Carandaí
+31,Estado de Minas Gerais,3113305,Carangola
+31,Estado de Minas Gerais,3113404,Caratinga
+31,Estado de Minas Gerais,3113602,Careaçu
+31,Estado de Minas Gerais,3113701,Carlos Chagas
+31,Estado de Minas Gerais,3113909,Carmo da Cachoeira
+31,Estado de Minas Gerais,3114006,Carmo da Mata
+31,Estado de Minas Gerais,3114105,Carmo de Minas
+31,Estado de Minas Gerais,3114204,Carmo do Cajuru
+31,Estado de Minas Gerais,3114303,Carmo do Paranaíba
+31,Estado de Minas Gerais,3114402,Carmo do Rio Claro
+31,Estado de Minas Gerais,3114501,Carmópolis de Minas
+31,Estado de Minas Gerais,3114600,Carrancas
+31,Estado de Minas Gerais,3114709,Cana do Reino
+31,Estado de Minas Gerais,3114808,Carvalhos
+31,Estado de Minas Gerais,3115003,Cascalho Rico
+31,Estado de Minas Gerais,3115102,Cássia
+31,Estado de Minas Gerais,3115300,Cataguases
+31,Estado de Minas Gerais,3115508,Caxambu
+31,Estado de Minas Gerais,3115805,Centralina
+31,Estado de Minas Gerais,3116209,Chiador
+31,Estado de Minas Gerais,3116308,Cipotânea
+31,Estado de Minas Gerais,3116407,Claraval
+31,Estado de Minas Gerais,3116605,Cláudio
+31,Estado de Minas Gerais,3116704,Coimbra
+31,Estado de Minas Gerais,3116803,Coluna
+31,Estado de Minas Gerais,3116902,Comendador Gomes
+31,Estado de Minas Gerais,3117009,Comercinho
+31,Estado de Minas Gerais,3117108,Conceição da Aparecida
+31,Estado de Minas Gerais,3117306,Conceição das Alagoas
+31,Estado de Minas Gerais,3117405,Conceição de Ipanema
+31,Estado de Minas Gerais,3117504,Conceição do Mato Dentro
+31,Estado de Minas Gerais,3117702,Conceição do Rio Verde
+31,Estado de Minas Gerais,3117801,Conceição dos Ouros
+31,Estado de Minas Gerais,3117900,Congonhal
+31,Estado de Minas Gerais,3118007,Congonhas
+31,Estado de Minas Gerais,3118205,Conquista
+31,Estado de Minas Gerais,3118304,Conselheiro Lafaiete
+31,Estado de Minas Gerais,3118403,Conselheiro Pena
+31,Estado de Minas Gerais,3118601,Contagem
+31,Estado de Minas Gerais,3118700,Coqueiral
+31,Estado de Minas Gerais,3118809,Coração de Jesus
+31,Estado de Minas Gerais,3118908,Cordisburgo
+31,Estado de Minas Gerais,3119104,Corinto
+31,Estado de Minas Gerais,3119203,Coroaci
+31,Estado de Minas Gerais,3119302,Coromandel
+31,Estado de Minas Gerais,3119401,Coronel Fabriciano
+31,Estado de Minas Gerais,3119500,Coronel Murta
+31,Estado de Minas Gerais,3119807,Córrego Danta
+31,Estado de Minas Gerais,3119906,Córrego do Bom Jesus
+31,Estado de Minas Gerais,3120201,Cristais
+31,Estado de Minas Gerais,3120508,Cristina
+31,Estado de Minas Gerais,3120607,Crucilândia
+31,Estado de Minas Gerais,3120805,Cruzília
+31,Estado de Minas Gerais,3120904,Curvelo
+31,Estado de Minas Gerais,3121100,Delfim Moreira
+31,Estado de Minas Gerais,3121209,Delfinópolis
+31,Estado de Minas Gerais,3121308,Descoberto
+31,Estado de Minas Gerais,3121407,Desterro de Entre Rios
+31,Estado de Minas Gerais,3121605,Diamantina
+31,Estado de Minas Gerais,3121803,Dionísio
+31,Estado de Minas Gerais,3122009,Divino
+31,Estado de Minas Gerais,3122306,Divinópolis
+31,Estado de Minas Gerais,3122405,Divisa Nova
+31,Estado de Minas Gerais,3122603,Dom Joaquim
+31,Estado de Minas Gerais,3122702,Dom Silvério
+31,Estado de Minas Gerais,3122801,Dom Viçoso
+31,Estado de Minas Gerais,3123007,Dores de Campos
+31,Estado de Minas Gerais,3123205,Dores do Indaiá
+31,Estado de Minas Gerais,3123304,Dores do Turvo
+31,Estado de Minas Gerais,3123601,Elói Mendes
+31,Estado de Minas Gerais,3123908,Entre Rios de Minas
+31,Estado de Minas Gerais,3124005,Ervália
+31,Estado de Minas Gerais,3124104,Esmeraldas
+31,Estado de Minas Gerais,3124203,Espera Feliz
+31,Estado de Minas Gerais,3124302,Espinosa
+31,Estado de Minas Gerais,3124500,Estiva
+31,Estado de Minas Gerais,3124609,Estrela Dalva
+31,Estado de Minas Gerais,3124708,Estrela do Indaiá
+31,Estado de Minas Gerais,3124807,Estrela do Sul
+31,Estado de Minas Gerais,3124906,Eugenópolis
+31,Estado de Minas Gerais,3125101,Extrema
+31,Estado de Minas Gerais,3125200,Fama
+31,Estado de Minas Gerais,3125309,Faria Lemos
+31,Estado de Minas Gerais,3125705,Felixlândia
+31,Estado de Minas Gerais,3125903,Ferros
+31,Estado de Minas Gerais,3126109,Formiga
+31,Estado de Minas Gerais,3126703,Francisco Sá
+31,Estado de Minas Gerais,3127107,Frutal
+31,Estado de Minas Gerais,3127305,Galiléia
+31,Estado de Minas Gerais,3127602,Gouveia
+31,Estado de Minas Gerais,3127701,Governador Valadares
+31,Estado de Minas Gerais,3127800,Grão Mogol
+31,Estado de Minas Gerais,3128006,Guanhães
+31,Estado de Minas Gerais,3128105,Guapé
+31,Estado de Minas Gerais,3128204,Guaraciaba
+31,Estado de Minas Gerais,3128303,Guaranésia
+31,Estado de Minas Gerais,3128402,Guarani
+31,Estado de Minas Gerais,3128501,Guarará
+31,Estado de Minas Gerais,3128709,Guaxupé
+31,Estado de Minas Gerais,3128808,Guidoval
+31,Estado de Minas Gerais,3129004,Guiricema
+31,Estado de Minas Gerais,3129202,Heliodora
+31,Estado de Minas Gerais,3129301,Iapu
+31,Estado de Minas Gerais,3129509,Ibiá
+31,Estado de Minas Gerais,3129707,Ibiraci
+31,Estado de Minas Gerais,3130309,Iguatama
+31,Estado de Minas Gerais,3130507,Ilicínea
+31,Estado de Minas Gerais,3130705,Indianópolis
+31,Estado de Minas Gerais,3130903,Inhapim
+31,Estado de Minas Gerais,3131000,Inhaúma
+31,Estado de Minas Gerais,3131208,Ipanema
+31,Estado de Minas Gerais,3131505,Ipuiúna
+31,Estado de Minas Gerais,3131703,Itabira
+31,Estado de Minas Gerais,3131901,Itabirito
+31,Estado de Minas Gerais,3132206,Itaguara
+31,Estado de Minas Gerais,3132404,Itajubá
+31,Estado de Minas Gerais,3132503,Itamarandiba
+31,Estado de Minas Gerais,3132701,Itambacuri
+31,Estado de Minas Gerais,3132909,Itamogi
+31,Estado de Minas Gerais,3133006,Itamonte
+31,Estado de Minas Gerais,3133105,Itanhandu
+31,Estado de Minas Gerais,3133204,Itanhomi
+31,Estado de Minas Gerais,3133402,Itapagipe
+31,Estado de Minas Gerais,3133501,Itapecerica
+31,Estado de Minas Gerais,3133808,Itaúna
+31,Estado de Minas Gerais,3134004,Itinga
+31,Estado de Minas Gerais,3134103,Itueta
+31,Estado de Minas Gerais,3134202,Ituiutaba
+31,Estado de Minas Gerais,3134301,Itumirim
+31,Estado de Minas Gerais,3134400,Iturama
+31,Estado de Minas Gerais,3134509,Itutinga
+31,Estado de Minas Gerais,3134608,Jaboticatubas
+31,Estado de Minas Gerais,3134707,Jacinto
+31,Estado de Minas Gerais,3134806,Jacuí
+31,Estado de Minas Gerais,3134905,Jacutinga
+31,Estado de Minas Gerais,3135001,Jaguaraçu
+31,Estado de Minas Gerais,3135100,Janaúba
+31,Estado de Minas Gerais,3135209,Januária
+31,Estado de Minas Gerais,3135407,Jeceaba
+31,Estado de Minas Gerais,3135506,Jequeri
+31,Estado de Minas Gerais,3135605,Jequitaí
+31,Estado de Minas Gerais,3135704,Jequitibá
+31,Estado de Minas Gerais,3135803,Jequitinhonha
+31,Estado de Minas Gerais,3135902,Jesuânia
+31,Estado de Minas Gerais,3136009,Joaíma
+31,Estado de Minas Gerais,3136108,Joanésia
+31,Estado de Minas Gerais,3136306,João Pinheiro
+31,Estado de Minas Gerais,3136504,Jordânia
+31,Estado de Minas Gerais,3136702,Juiz de Fora
+31,Estado de Minas Gerais,3136801,Juramento
+31,Estado de Minas Gerais,3136900,Juruaia
+31,Estado de Minas Gerais,3137007,Ladainha
+31,Estado de Minas Gerais,3137205,Lagoa da Prata
+31,Estado de Minas Gerais,3137403,Lagoa Dourada
+31,Estado de Minas Gerais,3137601,Lagoa Santa
+31,Estado de Minas Gerais,3137700,Lajinha
+31,Estado de Minas Gerais,3137809,Lambari
+31,Estado de Minas Gerais,3138005,Laranjal
+31,Estado de Minas Gerais,3138104,Lassance
+31,Estado de Minas Gerais,3138203,Lavras
+31,Estado de Minas Gerais,3138401,Leopoldina
+31,Estado de Minas Gerais,3138500,Liberdade
+31,Estado de Minas Gerais,3138609,Lima Duarte
+31,Estado de Minas Gerais,3138708,Luminárias
+31,Estado de Minas Gerais,3138807,Luz
+31,Estado de Minas Gerais,3138906,Machacalis
+31,Estado de Minas Gerais,3139003,Machado
+31,Estado de Minas Gerais,3139102,Madre de Deus de Minas
+31,Estado de Minas Gerais,3139201,Malacacheta
+31,Estado de Minas Gerais,3139300,Manga
+31,Estado de Minas Gerais,3139409,Manhuaçu
+31,Estado de Minas Gerais,3139508,Manhumirim
+31,Estado de Minas Gerais,3139706,Maravilhas
+31,Estado de Minas Gerais,3139805,Mar de Espanha
+31,Estado de Minas Gerais,3139904,Maria da Fé
+31,Estado de Minas Gerais,3140001,Mariana
+31,Estado de Minas Gerais,3140308,Marliéria
+31,Estado de Minas Gerais,3140506,Martinho Campos
+31,Estado de Minas Gerais,3140704,Mateus Leme
+31,Estado de Minas Gerais,3140803,Matias Barbosa
+31,Estado de Minas Gerais,3140902,Matipó
+31,Estado de Minas Gerais,3141009,Mato Verde
+31,Estado de Minas Gerais,3141108,Matozinhos
+31,Estado de Minas Gerais,3141207,Matutina
+31,Estado de Minas Gerais,3141405,Medina
+31,Estado de Minas Gerais,3141603,Mercês
+31,Estado de Minas Gerais,3141702,Mesquita
+31,Estado de Minas Gerais,3141801,Minas Novas
+31,Estado de Minas Gerais,3141900,Minduri
+31,Estado de Minas Gerais,3142106,Miradouro
+31,Estado de Minas Gerais,3142205,Miraí
+31,Estado de Minas Gerais,3142304,Moeda
+31,Estado de Minas Gerais,3142403,Moema
+31,Estado de Minas Gerais,3142601,Monsenhor Paulo
+31,Estado de Minas Gerais,3142809,Monte Alegre de Minas
+31,Estado de Minas Gerais,3142908,Monte Azul
+31,Estado de Minas Gerais,3143005,Monte Belo
+31,Estado de Minas Gerais,3143104,Monte Carmelo
+31,Estado de Minas Gerais,3143203,Monte Santo de Minas
+31,Estado de Minas Gerais,3143302,Montes Claros
+31,Estado de Minas Gerais,3143401,Monte Sião
+31,Estado de Minas Gerais,3143500,Morada Nova de Minas
+31,Estado de Minas Gerais,3143708,Morro do Pilar
+31,Estado de Minas Gerais,3143807,Munhoz
+31,Estado de Minas Gerais,3143906,Muriaé
+31,Estado de Minas Gerais,3144003,Mutum
+31,Estado de Minas Gerais,3144102,Muzambinho
+31,Estado de Minas Gerais,3144300,Nanuque
+31,Estado de Minas Gerais,3144409,Natércia
+31,Estado de Minas Gerais,3144508,Nazareno
+31,Estado de Minas Gerais,3144607,Nepomuceno
+31,Estado de Minas Gerais,3144706,Nova Era
+31,Estado de Minas Gerais,3144805,Nova Lima
+31,Estado de Minas Gerais,3145000,Nova Ponte
+31,Estado de Minas Gerais,3145109,Nova Resende
+31,Estado de Minas Gerais,3145208,Nova Serrana
+31,Estado de Minas Gerais,3145307,Novo Cruzeiro
+31,Estado de Minas Gerais,3145604,Oliveira
+31,Estado de Minas Gerais,3145703,Oliveira Fortes
+31,Estado de Minas Gerais,3145901,Ouro Branco
+31,Estado de Minas Gerais,3146008,Ouro Fino
+31,Estado de Minas Gerais,3146107,Ouro Preto
+31,Estado de Minas Gerais,3146503,Pains
+31,Estado de Minas Gerais,3146602,Paiva
+31,Estado de Minas Gerais,3146701,Palma
+31,Estado de Minas Gerais,3146909,Papagaios
+31,Estado de Minas Gerais,3147006,Paracatu
+31,Estado de Minas Gerais,3147105,Pará de Minas
+31,Estado de Minas Gerais,3147204,Paraguaçu
+31,Estado de Minas Gerais,3147303,Paraisópolis
+31,Estado de Minas Gerais,3147402,Paraopeba
+31,Estado de Minas Gerais,3147600,Passa Quatro
+31,Estado de Minas Gerais,3147709,Passa Tempo
+31,Estado de Minas Gerais,3147808,Passa-Vinte
+31,Estado de Minas Gerais,3147907,Passos
+31,Estado de Minas Gerais,3148004,Patos de Minas
+31,Estado de Minas Gerais,3148103,Patrocínio
+31,Estado de Minas Gerais,3148202,Patrocínio do Muriaé
+31,Estado de Minas Gerais,3148301,Paula Cândido
+31,Estado de Minas Gerais,3148400,Paulistas
+31,Estado de Minas Gerais,3148608,Peçanha
+31,Estado de Minas Gerais,3148707,Pedra Azul
+31,Estado de Minas Gerais,3149101,Pedralva
+31,Estado de Minas Gerais,3149309,Pedro Leopoldo
+31,Estado de Minas Gerais,3149507,Pequeri
+31,Estado de Minas Gerais,3149606,Pequi
+31,Estado de Minas Gerais,3149705,Perdigão
+31,Estado de Minas Gerais,3149804,Perdizes
+31,Estado de Minas Gerais,3149903,Perdões
+31,Estado de Minas Gerais,3150109,Piau
+31,Estado de Minas Gerais,3150307,Piedade do Rio Grande
+31,Estado de Minas Gerais,3150505,Pimenta
+31,Estado de Minas Gerais,3150604,Piracema
+31,Estado de Minas Gerais,3150703,Pirajuba
+31,Estado de Minas Gerais,3150802,Piranga
+31,Estado de Minas Gerais,3151107,Pirapetinga
+31,Estado de Minas Gerais,3151206,Pirapora
+31,Estado de Minas Gerais,3151305,Piraúba
+31,Estado de Minas Gerais,3151404,Pitangui
+31,Estado de Minas Gerais,3151503,Piui
+31,Estado de Minas Gerais,3151701,Poço Fundo
+31,Estado de Minas Gerais,3151800,Poços de Caldas
+31,Estado de Minas Gerais,3151909,Pocrane
+31,Estado de Minas Gerais,3152006,Pompéu
+31,Estado de Minas Gerais,3152105,Ponte Nova
+31,Estado de Minas Gerais,3152204,Porteirinha
+31,Estado de Minas Gerais,3152303,Porto Firme
+31,Estado de Minas Gerais,3152402,Poté
+31,Estado de Minas Gerais,3152501,Pouso Alegre
+31,Estado de Minas Gerais,3152600,Pouso Alto
+31,Estado de Minas Gerais,3152709,Prados
+31,Estado de Minas Gerais,3152808,Prata
+31,Estado de Minas Gerais,3152907,Pratápolis
+31,Estado de Minas Gerais,3153004,Pratinha
+31,Estado de Minas Gerais,3153103,Presidente Bernardes
+31,Estado de Minas Gerais,3153400,Presidente Olegário
+31,Estado de Minas Gerais,3153509,Presidente Soares
+31,Estado de Minas Gerais,3153707,Quartel Geral
+31,Estado de Minas Gerais,3153905,Raposos
+31,Estado de Minas Gerais,3154002,Raul Soares
+31,Estado de Minas Gerais,3154101,Recreio
+31,Estado de Minas Gerais,3154200,Resende Costa
+31,Estado de Minas Gerais,3154309,Resplendor
+31,Estado de Minas Gerais,3154408,Ressaquinha
+31,Estado de Minas Gerais,3154606,Ribeirão das Neves
+31,Estado de Minas Gerais,3154705,Ribeirão Vermelho
+31,Estado de Minas Gerais,3154804,Rio Acima
+31,Estado de Minas Gerais,3154903,Rio Casca
+31,Estado de Minas Gerais,3155108,Rio do Prado
+31,Estado de Minas Gerais,3155207,Rio Espera
+31,Estado de Minas Gerais,3155405,Rio Novo
+31,Estado de Minas Gerais,3155504,Rio Paranaíba
+31,Estado de Minas Gerais,3155603,Rio Pardo de Minas
+31,Estado de Minas Gerais,3155702,Rio Piracicaba
+31,Estado de Minas Gerais,3155801,Rio Pomba
+31,Estado de Minas Gerais,3155900,Rio Preto
+31,Estado de Minas Gerais,3156007,Rio Vermelho
+31,Estado de Minas Gerais,3156601,Rubim
+31,Estado de Minas Gerais,3156700,Sabará
+31,Estado de Minas Gerais,3156809,Sabinópolis
+31,Estado de Minas Gerais,3156908,Sacramento
+31,Estado de Minas Gerais,3157005,Salinas
+31,Estado de Minas Gerais,3157104,Salto da Divisa
+31,Estado de Minas Gerais,3157203,Santa Bárbara
+31,Estado de Minas Gerais,3157401,Santa Cruz do Escalvado
+31,Estado de Minas Gerais,3157708,Santa Juliana
+31,Estado de Minas Gerais,3157807,Santa Luzia
+31,Estado de Minas Gerais,3157906,Santa Margarida
+31,Estado de Minas Gerais,3158003,Santa Maria de Itabira
+31,Estado de Minas Gerais,3158201,Santa Maria do Suaçuí
+31,Estado de Minas Gerais,3158508,Santana de Pirapama
+31,Estado de Minas Gerais,3158607,Santana do Deserto
+31,Estado de Minas Gerais,3158805,Santana do Jacaré
+31,Estado de Minas Gerais,3159209,Santa Rita de Caldas
+31,Estado de Minas Gerais,3159308,Santa Rita de Jacutinga
+31,Estado de Minas Gerais,3159605,Santa Rita do Sapucaí
+31,Estado de Minas Gerais,3159803,Santa Vitória
+31,Estado de Minas Gerais,3159902,Santo Antônio do Amparo
+31,Estado de Minas Gerais,3160108,Santo Antônio do Grama
+31,Estado de Minas Gerais,3160405,Santo Antônio do Monte
+31,Estado de Minas Gerais,3160702,Santos Dumont
+31,Estado de Minas Gerais,3160900,São Brás do Suaçuí
+31,Estado de Minas Gerais,3161007,São Domingos do Prata
+31,Estado de Minas Gerais,3161106,São Francisco
+31,Estado de Minas Gerais,3161403,São Francisco do Glória
+31,Estado de Minas Gerais,3161502,São Geraldo
+31,Estado de Minas Gerais,3161700,São Gonçalo do Abaeté
+31,Estado de Minas Gerais,3161809,São Gonçalo do Pará
+31,Estado de Minas Gerais,3162005,São Gonçalo do Sapucaí
+31,Estado de Minas Gerais,3162104,São Gotardo
+31,Estado de Minas Gerais,3162203,São João Batista do Glória
+31,Estado de Minas Gerais,3162401,São João da Ponte
+31,Estado de Minas Gerais,3162500,São João del Rei
+31,Estado de Minas Gerais,3162708,São João do Paraíso
+31,Estado de Minas Gerais,3162807,São João Evangelista
+31,Estado de Minas Gerais,3162906,São João Nepomuceno
+31,Estado de Minas Gerais,3163201,São José do Alegre
+31,Estado de Minas Gerais,3163409,São José do Goiabal
+31,Estado de Minas Gerais,3163508,São José do Jacuri
+31,Estado de Minas Gerais,3163706,São Lourenço
+31,Estado de Minas Gerais,3163805,São Miguel do Anta
+31,Estado de Minas Gerais,3163904,São Pedro da União
+31,Estado de Minas Gerais,3164001,São Pedro dos Ferros
+31,Estado de Minas Gerais,3164209,São Romão
+31,Estado de Minas Gerais,3164308,Guia Lopes
+31,Estado de Minas Gerais,3164506,São Sebastião do Maranhão
+31,Estado de Minas Gerais,3164704,São Sebastião do Paraíso
+31,Estado de Minas Gerais,3165008,São Tiago
+31,Estado de Minas Gerais,3165107,São Tomás de Aquino
+31,Estado de Minas Gerais,3165305,São Vicente de Minas
+31,Estado de Minas Gerais,3165404,Sapucaí-Mirim
+31,Estado de Minas Gerais,3165701,Senador Firmino
+31,Estado de Minas Gerais,3166006,Senhora de Oliveira
+31,Estado de Minas Gerais,3166105,Senhora do Porto
+31,Estado de Minas Gerais,3166204,Senhora dos Remédios
+31,Estado de Minas Gerais,3166808,Serra do Salitre
+31,Estado de Minas Gerais,3166907,Serrania
+31,Estado de Minas Gerais,3167004,Serranos
+31,Estado de Minas Gerais,3167103,Serro
+31,Estado de Minas Gerais,3167202,Sete Lagoas
+31,Estado de Minas Gerais,3167400,Silvianópolis
+31,Estado de Minas Gerais,3167608,Simonésia
+31,Estado de Minas Gerais,3167806,Soledade de Minas
+31,Estado de Minas Gerais,3167905,Tabuleiro
+31,Estado de Minas Gerais,3168002,Taiobeiras
+31,Estado de Minas Gerais,3168200,Tapiraí
+31,Estado de Minas Gerais,3168408,Tarumirim
+31,Estado de Minas Gerais,3168507,Teixeiras
+31,Estado de Minas Gerais,3168606,Teófilo Otoni
+31,Estado de Minas Gerais,3168804,Tiradentes
+31,Estado de Minas Gerais,3168903,Tiros
+31,Estado de Minas Gerais,3169000,Tocantins
+31,Estado de Minas Gerais,3169109,Toledo
+31,Estado de Minas Gerais,3169208,Tombos
+31,Estado de Minas Gerais,3169307,Três Corações
+31,Estado de Minas Gerais,3169406,Três Pontas
+31,Estado de Minas Gerais,3169505,Tumiritinga
+31,Estado de Minas Gerais,3169604,Tupaciguara
+31,Estado de Minas Gerais,3169703,Turmalina
+31,Estado de Minas Gerais,3169901,Ubá
+31,Estado de Minas Gerais,3170107,Uberaba
+31,Estado de Minas Gerais,3170206,Uberlândia
+31,Estado de Minas Gerais,3170404,Unaí
+31,Estado de Minas Gerais,3170602,Vargem Bonita
+31,Estado de Minas Gerais,3170701,Varginha
+31,Estado de Minas Gerais,3170800,Várzea da Palma
+31,Estado de Minas Gerais,3171006,Vazante
+31,Estado de Minas Gerais,3171105,Veríssimo
+31,Estado de Minas Gerais,3171204,Vespasiano
+31,Estado de Minas Gerais,3171303,Viçosa
+31,Estado de Minas Gerais,3171402,Vieiras
+31,Estado de Minas Gerais,3171600,Virgem da Lapa
+31,Estado de Minas Gerais,3171709,Virgínia
+31,Estado de Minas Gerais,3171808,Virginópolis
+31,Estado de Minas Gerais,3171907,Virgolândia
+31,Estado de Minas Gerais,3172004,Visconde do Rio Branco
+31,Estado de Minas Gerais,3172103,Volta Grande
+32,Estado do Espírito Santo,3200102,Afonso Cláudio
+32,Estado do Espírito Santo,3200201,Alegre
+32,Estado do Espírito Santo,3200300,Alfredo Chaves
+32,Estado do Espírito Santo,3200409,Anchieta
+32,Estado do Espírito Santo,3200508,Apiacá
+32,Estado do Espírito Santo,3200607,Aracruz
+32,Estado do Espírito Santo,3200805,Baixo Guandu
+32,Estado do Espírito Santo,3201209,Cachoeiro de Itapemirim
+35,Estado de São Paulo,3540903,Pradópolis
+32,Estado do Espírito Santo,3201308,Cariacica
+32,Estado do Espírito Santo,3201407,Castelo
+32,Estado do Espírito Santo,3201506,Colatina
+32,Estado do Espírito Santo,3201605,Conceição da Barra
+32,Estado do Espírito Santo,3201902,Domingos Martins
+32,Estado do Espírito Santo,3202207,Fundão
+32,Estado do Espírito Santo,3202306,Guaçuí
+32,Estado do Espírito Santo,3202405,Guarapari
+32,Estado do Espírito Santo,3202504,Ibiraçu
+32,Estado do Espírito Santo,3202603,Iconha
+32,Estado do Espírito Santo,3202702,Itaguaçu
+32,Estado do Espírito Santo,3202801,Itapemirim
+32,Estado do Espírito Santo,3203007,Iúna
+32,Estado do Espírito Santo,3203106,Jerônimo Monteiro
+32,Estado do Espírito Santo,3203205,Linhares
+32,Estado do Espírito Santo,3203403,Mimoso do Sul
+32,Estado do Espírito Santo,3203601,Mucurici
+32,Estado do Espírito Santo,3203700,Muniz Freire
+32,Estado do Espírito Santo,3203809,Muqui
+32,Estado do Espírito Santo,3203908,Nova Venécia
+32,Estado do Espírito Santo,3204401,Rio Novo do Sul
+32,Estado do Espírito Santo,3204500,Santa Leopoldina
+32,Estado do Espírito Santo,3204609,Santa Teresa
+32,Estado do Espírito Santo,3204807,São José do Calçado
+32,Estado do Espírito Santo,3204906,São Mateus
+32,Estado do Espírito Santo,3205002,Serra
+32,Estado do Espírito Santo,3205101,Viana
+32,Estado do Espírito Santo,3205200,Vila Velha
+32,Estado do Espírito Santo,3205309,Vitória
+33,Estado do Rio de Janeiro,3300100,Angra dos Reis
+33,Estado do Rio de Janeiro,3300209,Araruama
+33,Estado do Rio de Janeiro,3300308,Barra do Piraí
+33,Estado do Rio de Janeiro,3300407,Barra Mansa
+33,Estado do Rio de Janeiro,3300506,Bom Jardim
+33,Estado do Rio de Janeiro,3300605,Bom Jesus do Itabapoana
+33,Estado do Rio de Janeiro,3300704,Cabo Frio
+33,Estado do Rio de Janeiro,3300803,Cachoeiras de Macacu
+33,Estado do Rio de Janeiro,3300902,Cambuci
+33,Estado do Rio de Janeiro,3301009,Campos
+33,Estado do Rio de Janeiro,3301108,Cantagalo
+33,Estado do Rio de Janeiro,3301207,Carmo
+33,Estado do Rio de Janeiro,3301306,Casimiro de Abreu
+33,Estado do Rio de Janeiro,3301405,Conceição de Macabu
+33,Estado do Rio de Janeiro,3301504,Cordeiro
+33,Estado do Rio de Janeiro,3301603,Duas Barras
+33,Estado do Rio de Janeiro,3301702,Duque de Caxias
+33,Estado do Rio de Janeiro,3301801,Engenheiro Paulo de Frontin
+33,Estado do Rio de Janeiro,3301900,Itaboraí
+33,Estado do Rio de Janeiro,3302007,Itaguaí
+33,Estado do Rio de Janeiro,3302106,Itaocara
+33,Estado do Rio de Janeiro,3302205,Itaperuna
+33,Estado do Rio de Janeiro,3302403,Macaé
+33,Estado do Rio de Janeiro,3302502,Magé
+33,Estado do Rio de Janeiro,3302601,Mangaratiba
+33,Estado do Rio de Janeiro,3302700,Maricá
+33,Estado do Rio de Janeiro,3302809,Mendes
+33,Estado do Rio de Janeiro,3302908,Miguel Pereira
+33,Estado do Rio de Janeiro,3303005,Miracema
+33,Estado do Rio de Janeiro,3303104,Natividade de Carangola
+33,Estado do Rio de Janeiro,3303203,Nilópolis
+33,Estado do Rio de Janeiro,3303302,Niterói
+33,Estado do Rio de Janeiro,3303401,Nova Friburgo
+33,Estado do Rio de Janeiro,3303500,Nova Iguaçu
+33,Estado do Rio de Janeiro,3303708,Paraíba do Sul
+33,Estado do Rio de Janeiro,3303807,Parati
+33,Estado do Rio de Janeiro,3303906,Petrópolis
+33,Estado do Rio de Janeiro,3304003,Piraí
+33,Estado do Rio de Janeiro,3304102,Porciúncula
+33,Estado do Rio de Janeiro,3304201,Resende
+33,Estado do Rio de Janeiro,3304300,Rio Bonito
+33,Estado do Rio de Janeiro,3304409,Rio Claro
+33,Estado do Rio de Janeiro,3304508,Rio das Flores
+33,Estado do Rio de Janeiro,3304607,Santa Maria Madalena
+33,Estado do Rio de Janeiro,3304706,Santo Antônio de Pádua
+33,Estado do Rio de Janeiro,3304805,São Fidélis
+33,Estado do Rio de Janeiro,3304904,São Gonçalo
+33,Estado do Rio de Janeiro,3305000,São João da Barra
+33,Estado do Rio de Janeiro,3305109,São João de Meriti
+33,Estado do Rio de Janeiro,3305208,São Pedro da Aldeia
+33,Estado do Rio de Janeiro,3305307,São Sebastião do Alto
+33,Estado do Rio de Janeiro,3305406,Sapucaia
+33,Estado do Rio de Janeiro,3305505,Saquarema
+33,Estado do Rio de Janeiro,3305604,Silva Jardim
+33,Estado do Rio de Janeiro,3305703,Sumidouro
+33,Estado do Rio de Janeiro,3305802,Teresópolis
+33,Estado do Rio de Janeiro,3305901,Trajano de Morais
+33,Estado do Rio de Janeiro,3306008,Três Rios
+33,Estado do Rio de Janeiro,3306107,Valença
+33,Estado do Rio de Janeiro,3306206,Vassouras
+33,Estado do Rio de Janeiro,3306305,Volta Redonda
+35,Estado de São Paulo,3500105,Adamantina
+35,Estado de São Paulo,3500204,Adolfo
+35,Estado de São Paulo,3500303,Aguaí
+35,Estado de São Paulo,3500402,Águas da Prata
+35,Estado de São Paulo,3500501,Águas de Lindóia
+35,Estado de São Paulo,3500550,Santa Bárbara do Rio Pardo
+35,Estado de São Paulo,3500600,Águas de São Pedro
+35,Estado de São Paulo,3500709,Agudos
+35,Estado de São Paulo,3500808,Alfredo Marcondes
+35,Estado de São Paulo,3500907,Altair
+35,Estado de São Paulo,3501004,Altinópolis
+35,Estado de São Paulo,3501103,Alto Alegre
+35,Estado de São Paulo,3501202,Álvares Florence
+35,Estado de São Paulo,3501301,Álvares Machado
+35,Estado de São Paulo,3501400,Álvaro de Carvalho
+35,Estado de São Paulo,3501509,Alvinlândia
+35,Estado de São Paulo,3501608,Americana
+35,Estado de São Paulo,3501806,Américo de Campos
+35,Estado de São Paulo,3501905,Amparo
+35,Estado de São Paulo,3502002,Analândia
+35,Estado de São Paulo,3502101,Andradina
+35,Estado de São Paulo,3502200,Angatuba
+35,Estado de São Paulo,3502309,Anhembi
+35,Estado de São Paulo,3502408,Anhumas
+35,Estado de São Paulo,3502507,Aparecida
+35,Estado de São Paulo,3502705,Apiaí
+35,Estado de São Paulo,3502804,Araçatuba
+35,Estado de São Paulo,3502903,Araçoiaba da Serra
+35,Estado de São Paulo,3503208,Araraquara
+35,Estado de São Paulo,3503307,Araras
+35,Estado de São Paulo,3503406,Arealva
+35,Estado de São Paulo,3503505,Areias
+35,Estado de São Paulo,3503604,Areiópolis
+35,Estado de São Paulo,3503703,Ariranha
+35,Estado de São Paulo,3503802,Artur Nogueira
+35,Estado de São Paulo,3503901,Arujá
+35,Estado de São Paulo,3504008,Assis
+35,Estado de São Paulo,3504107,Atibaia
+35,Estado de São Paulo,3504206,Auriflama
+35,Estado de São Paulo,3504305,Avaí
+35,Estado de São Paulo,3504404,Avanhandava
+35,Estado de São Paulo,3504503,Avaré
+35,Estado de São Paulo,3504602,Borboleta
+35,Estado de São Paulo,3504701,Balbinos
+35,Estado de São Paulo,3504800,Bálsamo
+35,Estado de São Paulo,3504909,Bananal
+35,Estado de São Paulo,3505104,Barbosa
+35,Estado de São Paulo,3505203,Bariri
+35,Estado de São Paulo,3505302,Barra Bonita
+35,Estado de São Paulo,3505500,Barretos
+35,Estado de São Paulo,3505609,Barrinha
+35,Estado de São Paulo,3505708,Barueri
+35,Estado de São Paulo,3505807,Bastos
+35,Estado de São Paulo,3505906,Batatais
+35,Estado de São Paulo,3506003,Bauru
+35,Estado de São Paulo,3506102,Bebedouro
+35,Estado de São Paulo,3506201,Bento de Abreu
+35,Estado de São Paulo,3506300,Bernardino de Campos
+35,Estado de São Paulo,3506409,Bilac
+35,Estado de São Paulo,3506508,Birigui
+35,Estado de São Paulo,3506706,Boa Esperança do Sul
+35,Estado de São Paulo,3506805,Bocaina
+35,Estado de São Paulo,3506904,Bofete
+35,Estado de São Paulo,3507001,Boituva
+35,Estado de São Paulo,3507100,Bom Jesus dos Perdões
+35,Estado de São Paulo,3507308,Boracéia
+35,Estado de São Paulo,3507407,Borborema
+35,Estado de São Paulo,3507506,Botucatu
+35,Estado de São Paulo,3507605,Bragança Paulista
+35,Estado de São Paulo,3507704,Braúna
+35,Estado de São Paulo,3507803,Brodowski
+35,Estado de São Paulo,3507902,Brotas
+35,Estado de São Paulo,3508009,Buri
+35,Estado de São Paulo,3508108,Buritama
+35,Estado de São Paulo,3508207,Buritizal
+35,Estado de São Paulo,3508306,Cabrália Paulista
+35,Estado de São Paulo,3508405,Cabreúva
+35,Estado de São Paulo,3508504,Caçapava
+35,Estado de São Paulo,3508603,Cachoeira Paulista
+35,Estado de São Paulo,3508702,Caconde
+35,Estado de São Paulo,3508801,Cafelândia
+35,Estado de São Paulo,3508900,Caiabu
+35,Estado de São Paulo,3509007,Caieiras
+35,Estado de São Paulo,3509106,Caiuá
+35,Estado de São Paulo,3509205,Cajamar
+35,Estado de São Paulo,3509304,Cajobi
+35,Estado de São Paulo,3509403,Cajuru
+35,Estado de São Paulo,3509502,Campinas
+35,Estado de São Paulo,3509700,Campos do Jordão
+35,Estado de São Paulo,3509809,Campos Novos Paulista
+35,Estado de São Paulo,3509908,Cananéia
+35,Estado de São Paulo,3510005,Cândido Mota
+35,Estado de São Paulo,3510104,Cândido Rodrigues
+35,Estado de São Paulo,3510203,Capão Bonito
+35,Estado de São Paulo,3510401,Capivari
+35,Estado de São Paulo,3510500,Caraguatatuba
+35,Estado de São Paulo,3510708,Cardoso
+35,Estado de São Paulo,3510807,Casa Branca
+35,Estado de São Paulo,3510906,Cássia dos Coqueiros
+35,Estado de São Paulo,3511003,Castilho
+35,Estado de São Paulo,3511102,Catanduva
+35,Estado de São Paulo,3511201,Catiguá
+35,Estado de São Paulo,3511300,Cedral
+35,Estado de São Paulo,3511409,Cerqueira César
+35,Estado de São Paulo,3511508,Cerquilho
+35,Estado de São Paulo,3511607,Cesário Lange
+35,Estado de São Paulo,3511706,Charqueada
+35,Estado de São Paulo,3511904,Clementina
+35,Estado de São Paulo,3512001,Colina
+35,Estado de São Paulo,3512100,Colômbia
+35,Estado de São Paulo,3512209,Conchal
+35,Estado de São Paulo,3512308,Conchas
+35,Estado de São Paulo,3512407,Cordeirópolis
+35,Estado de São Paulo,3512506,Coroados
+35,Estado de São Paulo,3512704,Corumbataí
+35,Estado de São Paulo,3512803,Cosmópolis
+35,Estado de São Paulo,3512902,Cosmorama
+35,Estado de São Paulo,3513009,Cotia
+35,Estado de São Paulo,3513108,Cravinhos
+35,Estado de São Paulo,3513207,Guapuã
+35,Estado de São Paulo,3513405,Cruzeiro
+35,Estado de São Paulo,3513504,Cubatão
+35,Estado de São Paulo,3513603,Cunha
+35,Estado de São Paulo,3513702,Descalvado
+35,Estado de São Paulo,3513801,Diadema
+35,Estado de São Paulo,3513900,Divinolândia
+35,Estado de São Paulo,3514106,Dois Córregos
+35,Estado de São Paulo,3514205,Dolcinópolis
+35,Estado de São Paulo,3514304,Dourado
+35,Estado de São Paulo,3514403,Dracena
+35,Estado de São Paulo,3514502,Duartina
+35,Estado de São Paulo,3514700,Echaporã
+35,Estado de São Paulo,3514809,Eldorado
+35,Estado de São Paulo,3514908,Elias Fausto
+35,Estado de São Paulo,3515004,Embu
+35,Estado de São Paulo,3515186,Pinhal
+35,Estado de São Paulo,3515202,Estrela d'Oeste
+35,Estado de São Paulo,3515400,Fartura
+35,Estado de São Paulo,3515509,Fernandópolis
+35,Estado de São Paulo,3515608,Fernando Prestes
+35,Estado de São Paulo,3515707,Ferraz de Vasconcelos
+35,Estado de São Paulo,3515806,Flora Rica
+35,Estado de São Paulo,3515905,Floreal
+35,Estado de São Paulo,3516002,Flórida Paulista
+35,Estado de São Paulo,3516101,Florínia
+35,Estado de São Paulo,3516200,Franca
+35,Estado de São Paulo,3516408,Franco da Rocha
+35,Estado de São Paulo,3516507,Gabriel Monteiro
+35,Estado de São Paulo,3516606,Gália
+35,Estado de São Paulo,3516705,Garça
+35,Estado de São Paulo,3516804,Gastão Vidigal
+35,Estado de São Paulo,3516903,General Salgado
+35,Estado de São Paulo,3517000,Getulina
+35,Estado de São Paulo,3517109,Glicério
+35,Estado de São Paulo,3517208,Guaiçara
+35,Estado de São Paulo,3517307,Guaimbê
+35,Estado de São Paulo,3517406,Guaíra
+35,Estado de São Paulo,3517505,Guapiaçu
+35,Estado de São Paulo,3517604,Guapiara
+35,Estado de São Paulo,3517703,Guará
+35,Estado de São Paulo,3517802,Guaraçaí
+35,Estado de São Paulo,3517901,Guaraci
+35,Estado de São Paulo,3518008,Guarani d'Oeste
+35,Estado de São Paulo,3518107,Guarantã
+35,Estado de São Paulo,3518206,Guararapes
+35,Estado de São Paulo,3518305,Guararema
+35,Estado de São Paulo,3518404,Guaratinguetá
+35,Estado de São Paulo,3518503,Guareí
+35,Estado de São Paulo,3518602,Guariba
+35,Estado de São Paulo,3518701,Guarujá
+35,Estado de São Paulo,3518800,Guarulhos
+35,Estado de São Paulo,3519006,Herculândia
+35,Estado de São Paulo,3519105,Iacanga
+35,Estado de São Paulo,3519204,Iacri
+35,Estado de São Paulo,3519303,Ibaté
+35,Estado de São Paulo,3519402,Ibirá
+35,Estado de São Paulo,3519501,Ibirarema
+35,Estado de São Paulo,3519600,Ibitinga
+35,Estado de São Paulo,3519709,Ibiúna
+35,Estado de São Paulo,3519808,Icém
+35,Estado de São Paulo,3519907,Iepê
+35,Estado de São Paulo,3520004,Igaraçu do Tietê
+35,Estado de São Paulo,3520103,Igarapava
+35,Estado de São Paulo,3520202,Igaratá
+35,Estado de São Paulo,3520301,Iguape
+35,Estado de São Paulo,3520400,Ilhabela
+35,Estado de São Paulo,3520509,Indaiatuba
+35,Estado de São Paulo,3520608,Indiana
+35,Estado de São Paulo,3520707,Indiaporã
+35,Estado de São Paulo,3520806,Inúbia Paulista
+35,Estado de São Paulo,3520905,Ipaussu
+35,Estado de São Paulo,3521200,Iporanga
+35,Estado de São Paulo,3521309,Ipuã
+35,Estado de São Paulo,3521408,Iracemápolis
+35,Estado de São Paulo,3521507,Irapuã
+35,Estado de São Paulo,3521606,Irapuru
+35,Estado de São Paulo,3521705,Itaberá
+35,Estado de São Paulo,3521804,Itaí
+35,Estado de São Paulo,3521903,Itajobi
+35,Estado de São Paulo,3522000,Itaju
+35,Estado de São Paulo,3522109,Itanhaém
+35,Estado de São Paulo,3522208,Itapecerica da Serra
+35,Estado de São Paulo,3522307,Itapetininga
+35,Estado de São Paulo,3522406,Itapeva
+35,Estado de São Paulo,3522505,Itapevi
+35,Estado de São Paulo,3522604,Itapira
+35,Estado de São Paulo,3522703,Itápolis
+35,Estado de São Paulo,3522802,Itaporanga
+35,Estado de São Paulo,3522901,Itapuí
+35,Estado de São Paulo,3523107,Itaquaquecetuba
+35,Estado de São Paulo,3523206,Itararé
+35,Estado de São Paulo,3523305,Itariri
+35,Estado de São Paulo,3523404,Itatiba
+35,Estado de São Paulo,3523503,Itatinga
+35,Estado de São Paulo,3523602,Itirapina
+35,Estado de São Paulo,3523701,Itirapuã
+35,Estado de São Paulo,3523800,Itobi
+35,Estado de São Paulo,3523909,Itu
+35,Estado de São Paulo,3524105,Ituverava
+35,Estado de São Paulo,3524204,Jaborandi
+35,Estado de São Paulo,3524303,Jaboticabal
+35,Estado de São Paulo,3524402,Jacareí
+35,Estado de São Paulo,3524501,Jaci
+35,Estado de São Paulo,3524600,Jacupiranga
+35,Estado de São Paulo,3524709,Jaguariúna
+35,Estado de São Paulo,3524808,Jales
+35,Estado de São Paulo,3524907,Jambeiro
+35,Estado de São Paulo,3525102,Jardinópolis
+35,Estado de São Paulo,3525201,Jarinu
+35,Estado de São Paulo,3525300,Jaú
+35,Estado de São Paulo,3525508,Joanópolis
+35,Estado de São Paulo,3525607,João Ramalho
+35,Estado de São Paulo,3525706,José Bonifácio
+35,Estado de São Paulo,3525805,Júlio Mesquita
+35,Estado de São Paulo,3525904,Jundiaí
+35,Estado de São Paulo,3526001,Junqueirópolis
+35,Estado de São Paulo,3526100,Juquiá
+35,Estado de São Paulo,3526308,Lagoinha
+35,Estado de São Paulo,3526407,Laranjal Paulista
+35,Estado de São Paulo,3526506,Lavínia
+35,Estado de São Paulo,3526605,Lavrinhas
+35,Estado de São Paulo,3526704,Leme
+35,Estado de São Paulo,3526803,Lençóis Paulista
+35,Estado de São Paulo,3526902,Limeira
+35,Estado de São Paulo,3527108,Lins
+35,Estado de São Paulo,3527207,Lorena
+35,Estado de São Paulo,3527405,Lucélia
+35,Estado de São Paulo,3527504,Lucianópolis
+35,Estado de São Paulo,3527603,Luís Antônio
+35,Estado de São Paulo,3527702,Luiziânia
+35,Estado de São Paulo,3527801,Lupércio
+35,Estado de São Paulo,3527900,Lutécia
+35,Estado de São Paulo,3528007,Macatuba
+35,Estado de São Paulo,3528106,Macaubal
+35,Estado de São Paulo,3528304,Magda
+35,Estado de São Paulo,3528403,Mairinque
+35,Estado de São Paulo,3528502,Mairiporã
+35,Estado de São Paulo,3528601,Manduri
+35,Estado de São Paulo,3528700,Marabá Paulista
+35,Estado de São Paulo,3528809,Maracaí
+35,Estado de São Paulo,3528908,Mariápolis
+35,Estado de São Paulo,3529005,Marília
+35,Estado de São Paulo,3529203,Martinópolis
+35,Estado de São Paulo,3529302,Matão
+35,Estado de São Paulo,3529401,Mauá
+35,Estado de São Paulo,3529500,Mendonça
+35,Estado de São Paulo,3529609,Meridiano
+35,Estado de São Paulo,3529708,Miguelópolis
+35,Estado de São Paulo,3529807,Mineiros do Tietê
+35,Estado de São Paulo,3529906,Miracatu
+35,Estado de São Paulo,3530102,Mirandópolis
+35,Estado de São Paulo,3530201,Mirante do Paranapanema
+35,Estado de São Paulo,3530300,Mirassol
+35,Estado de São Paulo,3530409,Mirassolândia
+35,Estado de São Paulo,3530508,Mococa
+35,Estado de São Paulo,3530607,Mogi das Cruzes
+35,Estado de São Paulo,3530706,Mogi Guaçu
+35,Estado de São Paulo,3530805,Moji Mirim
+35,Estado de São Paulo,3531100,Mongaguá
+35,Estado de São Paulo,3531209,Monte Alegre do Sul
+35,Estado de São Paulo,3531308,Monte Alto
+35,Estado de São Paulo,3531407,Monte Aprazível
+35,Estado de São Paulo,3531506,Monte Azul Paulista
+35,Estado de São Paulo,3531605,Monte Castelo
+35,Estado de São Paulo,3531704,Monteiro Lobato
+35,Estado de São Paulo,3531803,Monte Mor
+35,Estado de São Paulo,3531902,Morro Agudo
+35,Estado de São Paulo,3532108,Murutinga do Sul
+35,Estado de São Paulo,3532306,Natividade da Serra
+35,Estado de São Paulo,3532405,Nazaré Paulista
+35,Estado de São Paulo,3532504,Neves Paulista
+35,Estado de São Paulo,3532603,Nhandeara
+35,Estado de São Paulo,3532702,Nipoã
+35,Estado de São Paulo,3532801,Nova Aliança
+35,Estado de São Paulo,3532900,Nova Europa
+35,Estado de São Paulo,3533007,Nova Granada
+35,Estado de São Paulo,3533106,Nova Guataporanga
+35,Estado de São Paulo,3533403,Nova Odessa
+35,Estado de São Paulo,3533502,Novo Horizonte
+35,Estado de São Paulo,3533601,Nuporanga
+35,Estado de São Paulo,3533700,Ocauçu
+35,Estado de São Paulo,3533809,Óleo
+35,Estado de São Paulo,3533908,Olímpia
+35,Estado de São Paulo,3534104,Oriente
+35,Estado de São Paulo,3534302,Orlândia
+35,Estado de São Paulo,3534500,Oscar Bressane
+35,Estado de São Paulo,3534609,Osvaldo Cruz
+35,Estado de São Paulo,3534708,Ourinhos
+35,Estado de São Paulo,3534807,Ouro Verde
+35,Estado de São Paulo,3534906,Pacaembu
+35,Estado de São Paulo,3535002,Palestina
+35,Estado de São Paulo,3535200,Palmeira d'Oeste
+35,Estado de São Paulo,3535309,Palmital
+35,Estado de São Paulo,3535408,Panorama
+35,Estado de São Paulo,3535507,Paraguaçu Paulista
+35,Estado de São Paulo,3535606,Paraibuna
+35,Estado de São Paulo,3535705,Paraíso
+35,Estado de São Paulo,3535804,Paranapanema
+35,Estado de São Paulo,3536000,Parapuã
+35,Estado de São Paulo,3536109,Pardinho
+35,Estado de São Paulo,3536208,Pariquera-Açu
+35,Estado de São Paulo,3536307,Patrocínio Paulista
+35,Estado de São Paulo,3536406,Paulicéia
+35,Estado de São Paulo,3536604,Paulo de Faria
+35,Estado de São Paulo,3536703,Pederneiras
+35,Estado de São Paulo,3537008,Pedregulho
+35,Estado de São Paulo,3537107,Pedreira
+35,Estado de São Paulo,3537206,Pedro de Toledo
+35,Estado de São Paulo,3537305,Penápolis
+35,Estado de São Paulo,3537404,Pereira Barreto
+35,Estado de São Paulo,3537503,Pereiras
+35,Estado de São Paulo,3537602,Peruíbe
+35,Estado de São Paulo,3537701,Piacatu
+35,Estado de São Paulo,3537800,Piedade
+35,Estado de São Paulo,3537909,Pilar do Sul
+35,Estado de São Paulo,3538006,Pindamonhangaba
+35,Estado de São Paulo,3538105,Pindorama
+35,Estado de São Paulo,3538303,Piquerobi
+35,Estado de São Paulo,3538501,Piquete
+35,Estado de São Paulo,3538600,Piracaia
+35,Estado de São Paulo,3538709,Piracicaba
+35,Estado de São Paulo,3538808,Piraju
+35,Estado de São Paulo,3538907,Pirajuí
+35,Estado de São Paulo,3539004,Pirangi
+35,Estado de São Paulo,3539103,Pirapora do Bom Jesus
+35,Estado de São Paulo,3539202,Pirapozinho
+35,Estado de São Paulo,3539301,Pirassununga
+35,Estado de São Paulo,3539400,Piratininga
+35,Estado de São Paulo,3539509,Pitangueiras
+35,Estado de São Paulo,3539608,Planalto
+35,Estado de São Paulo,3539707,Platina
+35,Estado de São Paulo,3539806,Poá
+35,Estado de São Paulo,3539905,Poloni
+35,Estado de São Paulo,3540002,Pompéia
+35,Estado de São Paulo,3540101,Pongaí
+35,Estado de São Paulo,3540200,Pontal
+35,Estado de São Paulo,3540408,Populina
+35,Estado de São Paulo,3540507,Porangaba
+35,Estado de São Paulo,3540606,Porto Feliz
+35,Estado de São Paulo,3540705,Porto Ferreira
+35,Estado de São Paulo,3540804,Potirendaba
+35,Estado de São Paulo,3541109,Presidente Alves
+35,Estado de São Paulo,3541208,Presidente Bernardes
+35,Estado de São Paulo,3541307,Presidente Epitácio
+35,Estado de São Paulo,3541406,Presidente Prudente
+35,Estado de São Paulo,3541505,Presidente Venceslau
+35,Estado de São Paulo,3541604,Promissão
+35,Estado de São Paulo,3541703,Quatá
+35,Estado de São Paulo,3541901,Queluz
+35,Estado de São Paulo,3542008,Quintana
+35,Estado de São Paulo,3542206,Rancharia
+35,Estado de São Paulo,3542305,Redenção da Serra
+35,Estado de São Paulo,3542404,Regente Feijó
+35,Estado de São Paulo,3542503,Reginópolis
+35,Estado de São Paulo,3542602,Registro
+35,Estado de São Paulo,3542800,Ribeira
+35,Estado de São Paulo,3542909,Ribeirão Bonito
+35,Estado de São Paulo,3543006,Ribeirão Branco
+35,Estado de São Paulo,3543303,Ribeirão Pires
+35,Estado de São Paulo,3543402,Ribeirão Preto
+35,Estado de São Paulo,3543501,Ribeirão Vermelho do Sul
+35,Estado de São Paulo,3543600,Rifaina
+35,Estado de São Paulo,3543709,Rincão
+35,Estado de São Paulo,3543808,Rinópolis
+35,Estado de São Paulo,3543907,Rio Claro
+35,Estado de São Paulo,3544004,Rio das Pedras
+35,Estado de São Paulo,3544202,Riolândia
+35,Estado de São Paulo,3544301,Roseira
+35,Estado de São Paulo,3544400,Rubiácea
+35,Estado de São Paulo,3544608,Sabino
+35,Estado de São Paulo,3544707,Sagres
+35,Estado de São Paulo,3544806,Sales
+35,Estado de São Paulo,3544905,Sales Oliveira
+35,Estado de São Paulo,3545001,Salesópolis
+35,Estado de São Paulo,3545100,Salmourão
+35,Estado de São Paulo,3545209,Salto
+35,Estado de São Paulo,3545308,Salto de Pirapora
+35,Estado de São Paulo,3545407,Salto Grande
+35,Estado de São Paulo,3545506,Sandovalina
+35,Estado de São Paulo,3545605,Santa Adélia
+35,Estado de São Paulo,3545704,Santa Albertina
+35,Estado de São Paulo,3545803,Santa Bárbara d'Oeste
+35,Estado de São Paulo,3546009,Santa Branca
+35,Estado de São Paulo,3546207,Santa Cruz da Conceição
+35,Estado de São Paulo,3546306,Santa Cruz das Palmeiras
+35,Estado de São Paulo,3546405,Santa Cruz do Rio Pardo
+35,Estado de São Paulo,3546603,Santa Fé do Sul
+35,Estado de São Paulo,3546702,Santa Gertrudes
+35,Estado de São Paulo,3546801,Santa Isabel
+35,Estado de São Paulo,3546900,Santa Lúcia
+35,Estado de São Paulo,3547007,Santa Maria da Serra
+35,Estado de São Paulo,3547106,Santa Mercedes
+35,Estado de São Paulo,3547304,Santana de Parnaíba
+35,Estado de São Paulo,3547502,Santa Rita do Passa Quatro
+35,Estado de São Paulo,3547601,Santa Rosa de Viterbo
+35,Estado de São Paulo,3547700,Santo Anastácio
+35,Estado de São Paulo,3547809,Santo André
+35,Estado de São Paulo,3547908,Santo Antônio da Alegria
+35,Estado de São Paulo,3548005,Santo Antônio de Posse
+35,Estado de São Paulo,3548104,Santo Antônio do Jardim
+35,Estado de São Paulo,3548203,Santo Antônio do Pinhal
+35,Estado de São Paulo,3548302,Santo Expedito
+35,Estado de São Paulo,3548401,Santópolis do Aguapeí
+35,Estado de São Paulo,3548500,Santos
+35,Estado de São Paulo,3548609,São Bento do Sapucaí
+35,Estado de São Paulo,3548708,São Bernardo do Campo
+35,Estado de São Paulo,3548807,São Caetano do Sul
+35,Estado de São Paulo,3548906,São Carlos
+35,Estado de São Paulo,3549102,São João da Boa Vista
+35,Estado de São Paulo,3549300,São João do Pau d'Alho
+35,Estado de São Paulo,3549409,São Joaquim da Barra
+35,Estado de São Paulo,3549508,São José da Bela Vista
+35,Estado de São Paulo,3549607,São José do Barreiro
+35,Estado de São Paulo,3549706,São José do Rio Pardo
+35,Estado de São Paulo,3549805,São José do Rio Preto
+35,Estado de São Paulo,3549904,São José dos Campos
+35,Estado de São Paulo,3550001,São Luís do Paraitinga
+35,Estado de São Paulo,3550100,São Manuel
+35,Estado de São Paulo,3550209,São Miguel Arcanjo
+35,Estado de São Paulo,3550308,São Paulo
+35,Estado de São Paulo,3550407,São Pedro
+35,Estado de São Paulo,3550506,São Pedro do Turvo
+35,Estado de São Paulo,3550605,São Roque
+35,Estado de São Paulo,3550704,São Sebastião
+35,Estado de São Paulo,3550803,São Sebastião da Grama
+35,Estado de São Paulo,3550902,São Simão
+35,Estado de São Paulo,3551009,São Vicente
+35,Estado de São Paulo,3551108,Sarapuí
+35,Estado de São Paulo,3551207,Sarutaiá
+35,Estado de São Paulo,3551405,Serra Azul
+35,Estado de São Paulo,3551504,Serrana
+35,Estado de São Paulo,3551603,Serra Negra
+35,Estado de São Paulo,3551702,Sertãozinho
+35,Estado de São Paulo,3551801,Sete Barras
+35,Estado de São Paulo,3551900,Severínia
+35,Estado de São Paulo,3552007,Silveiras
+35,Estado de São Paulo,3552106,Socorro
+35,Estado de São Paulo,3552205,Sorocaba
+35,Estado de São Paulo,3552304,Sud Mennucci
+35,Estado de São Paulo,3552403,Sumaré
+35,Estado de São Paulo,3552502,Suzano
+35,Estado de São Paulo,3552601,Tabapuã
+35,Estado de São Paulo,3552700,Tabatinga
+35,Estado de São Paulo,3552809,Taboão da Serra
+35,Estado de São Paulo,3552908,Taciba
+35,Estado de São Paulo,3553005,Taguaí
+35,Estado de São Paulo,3553104,Taiaçu
+35,Estado de São Paulo,3553203,Taiúva
+35,Estado de São Paulo,3553302,Tambaú
+35,Estado de São Paulo,3553401,Tanabi
+35,Estado de São Paulo,3553500,Tapiraí
+35,Estado de São Paulo,3553609,Tapiratiba
+35,Estado de São Paulo,3553708,Taquaritinga
+35,Estado de São Paulo,3553807,Taquarituba
+35,Estado de São Paulo,3553906,Tarabai
+35,Estado de São Paulo,3554003,Tatuí
+35,Estado de São Paulo,3554102,Taubaté
+35,Estado de São Paulo,3554409,Terra Roxa
+35,Estado de São Paulo,3554508,Tietê
+35,Estado de São Paulo,3554607,Timburi
+35,Estado de São Paulo,3554706,Torrinha
+35,Estado de São Paulo,3554805,Tremembé
+35,Estado de São Paulo,3554904,Três Fronteiras
+35,Estado de São Paulo,3555000,Tupã
+35,Estado de São Paulo,3555109,Tupi Paulista
+35,Estado de São Paulo,3555208,Turiúba
+35,Estado de São Paulo,3555406,Ubatuba
+35,Estado de São Paulo,3555505,Ubirajara
+35,Estado de São Paulo,3555604,Uchoa
+35,Estado de São Paulo,3555802,Urânia
+35,Estado de São Paulo,3555901,Uru
+35,Estado de São Paulo,3556008,Urupês
+35,Estado de São Paulo,3556107,Valentim Gentil
+35,Estado de São Paulo,3556206,Valinhos
+35,Estado de São Paulo,3556305,Valparaíso
+35,Estado de São Paulo,3556404,Vargem Grande do Sul
+35,Estado de São Paulo,3556602,Vera Cruz
+35,Estado de São Paulo,3556701,Vinhedo
+35,Estado de São Paulo,3556800,Viradouro
+35,Estado de São Paulo,3556909,Vista Alegre do Alto
+35,Estado de São Paulo,3557105,Votuporanga
+35,Estado de São Paulo,3557204,Chavantes
+41,Estado do Paraná,4100103,Abatiá
+41,Estado do Paraná,4100400,Almirante Tamandaré
+41,Estado do Paraná,4100608,Alto Paraná
+41,Estado do Paraná,4100806,Alvorada do Sul
+41,Estado do Paraná,4101101,Andirá
+41,Estado do Paraná,4101200,Antonina
+41,Estado do Paraná,4101408,Apucarana
+41,Estado do Paraná,4101507,Arapongas
+41,Estado do Paraná,4101606,Arapoti
+41,Estado do Paraná,4101705,Araruna
+41,Estado do Paraná,4101804,Araucária
+41,Estado do Paraná,4101903,Assaí
+41,Estado do Paraná,4102109,Astorga
+41,Estado do Paraná,4102406,Bandeirantes
+41,Estado do Paraná,4102604,Barracão
+41,Estado do Paraná,4102802,Bela Vista do Paraíso
+41,Estado do Paraná,4102901,Bituruna
+41,Estado do Paraná,4103107,Bocaiúva do Sul
+41,Estado do Paraná,4103206,Bom Sucesso
+41,Estado do Paraná,4103305,Borrazópolis
+41,Estado do Paraná,4103404,Cafeara
+41,Estado do Paraná,4103503,Califórnia
+41,Estado do Paraná,4103602,Cambará
+41,Estado do Paraná,4103701,Cambé
+41,Estado do Paraná,4104006,Campina Grande do Sul
+41,Estado do Paraná,4104204,Campo Largo
+41,Estado do Paraná,4104303,Campo Mourão
+41,Estado do Paraná,4104402,Cândido de Abreu
+41,Estado do Paraná,4104501,Capanema
+41,Estado do Paraná,4104709,Carlópolis
+41,Estado do Paraná,4104808,Cascavel
+41,Estado do Paraná,4104907,Castro
+41,Estado do Paraná,4105102,Centenário do Sul
+41,Estado do Paraná,4105201,Cerro Azul
+41,Estado do Paraná,4105409,Chopinzinho
+41,Estado do Paraná,4105508,Cianorte
+41,Estado do Paraná,4105706,Clevelândia
+41,Estado do Paraná,4105805,Colombo
+41,Estado do Paraná,4105904,Colorado
+41,Estado do Paraná,4106001,Congonhinhas
+41,Estado do Paraná,4106209,Contenda
+41,Estado do Paraná,4106407,Cornélio Procópio
+41,Estado do Paraná,4106506,Coronel Vivida
+41,Estado do Paraná,4106605,Cruzeiro do Oeste
+41,Estado do Paraná,4106704,Cruzeiro do Sul
+41,Estado do Paraná,4106803,Cruz Machado
+41,Estado do Paraná,4106902,Curitiba
+41,Estado do Paraná,4107009,Curiúva
+41,Estado do Paraná,4107504,Engenheiro Beltrão
+41,Estado do Paraná,4107603,Faxinal
+41,Estado do Paraná,4107801,Floraí
+41,Estado do Paraná,4108007,Florestópolis
+41,Estado do Paraná,4108304,Foz do Iguaçu
+41,Estado do Paraná,4108403,Francisco Beltrão
+41,Estado do Paraná,4108601,Goio-Erê
+41,Estado do Paraná,4108809,Guaíra
+41,Estado do Paraná,4109203,Guaraci
+41,Estado do Paraná,4109302,Guaraniaçu
+41,Estado do Paraná,4109401,Guarapuava
+41,Estado do Paraná,4109500,Guaraqueçaba
+41,Estado do Paraná,4109609,Guaratuba
+41,Estado do Paraná,4109708,Ibaiti
+41,Estado do Paraná,4109807,Ibiporã
+41,Estado do Paraná,4110003,Iguaraçu
+41,Estado do Paraná,4110102,Imbituva
+41,Estado do Paraná,4110508,Ipiranga
+41,Estado do Paraná,4110706,Irati
+41,Estado do Paraná,4110904,Itaguajé
+41,Estado do Paraná,4111001,Itambaracá
+41,Estado do Paraná,4111704,Jaboti
+41,Estado do Paraná,4111803,Jacarezinho
+41,Estado do Paraná,4111902,Jaguapitã
+41,Estado do Paraná,4112009,Jaguariaíva
+41,Estado do Paraná,4112108,Jandaia do Sul
+41,Estado do Paraná,4112306,Japira
+41,Estado do Paraná,4112702,Jataizinho
+41,Estado do Paraná,4112801,Joaquim Távora
+41,Estado do Paraná,4112900,Jundiaí do Sul
+41,Estado do Paraná,4113007,Jussara
+41,Estado do Paraná,4113205,Lapa
+41,Estado do Paraná,4113304,Laranjeiras do Sul
+41,Estado do Paraná,4113403,Leópolis
+41,Estado do Paraná,4113502,Loanda
+41,Estado do Paraná,4113601,Lobato
+41,Estado do Paraná,4113700,Londrina
+41,Estado do Paraná,4113809,Lupionópolis
+41,Estado do Paraná,4113908,Mallet
+41,Estado do Paraná,4114104,Mandaguaçu
+41,Estado do Paraná,4114203,Mandaguari
+41,Estado do Paraná,4114401,Mangueirinha
+41,Estado do Paraná,4114500,Manoel Ribas
+41,Estado do Paraná,4114807,Marialva
+41,Estado do Paraná,4114906,Araruva
+41,Estado do Paraná,4115200,Maringá
+41,Estado do Paraná,4116208,Morretes
+41,Estado do Paraná,4116307,Munhoz de Melo
+41,Estado do Paraná,4116901,Nova Esperança
+41,Estado do Paraná,4117008,Nova Fátima
+41,Estado do Paraná,4117107,Nova Londrina
+41,Estado do Paraná,4117305,Ortigueira
+41,Estado do Paraná,4117602,Palmas
+41,Estado do Paraná,4117701,Palmeira
+41,Estado do Paraná,4118006,Paraíso do Norte
+41,Estado do Paraná,4118105,Paranacity
+41,Estado do Paraná,4118204,Paranaguá
+41,Estado do Paraná,4118402,Paranavaí
+41,Estado do Paraná,4118501,Pato Branco
+41,Estado do Paraná,4118709,Paulo Frontin
+41,Estado do Paraná,4118808,Peabiru
+41,Estado do Paraná,4119202,Pinhalão
+41,Estado do Paraná,4119400,Piraí do Sul
+41,Estado do Paraná,4119509,Piraquara
+41,Estado do Paraná,4119608,Pitanga
+41,Estado do Paraná,4119905,Ponta Grossa
+41,Estado do Paraná,4120002,Porecatu
+41,Estado do Paraná,4120101,Porto Amazonas
+41,Estado do Paraná,4120507,Primeiro de Maio
+41,Estado do Paraná,4120606,Prudentópolis
+41,Estado do Paraná,4120705,Quatiguá
+41,Estado do Paraná,4121000,Querência do Norte
+41,Estado do Paraná,4121505,Rebouças
+41,Estado do Paraná,4121703,Reserva
+41,Estado do Paraná,4121802,Ribeirão Claro
+41,Estado do Paraná,4121901,Ribeirão do Pinhal
+41,Estado do Paraná,4122008,Rio Azul
+41,Estado do Paraná,4122206,Rio Branco do Sul
+41,Estado do Paraná,4122305,Rio Negro
+41,Estado do Paraná,4122404,Rolândia
+41,Estado do Paraná,4122602,Rondon
+41,Estado do Paraná,4122701,Sabáudia
+41,Estado do Paraná,4123105,Santa Amélia
+41,Estado do Paraná,4123303,Santa Cruz de Monte Castelo
+41,Estado do Paraná,4123402,Santa Fé
+41,Estado do Paraná,4123709,Santa Isabel do Ivaí
+41,Estado do Paraná,4123907,Santa Mariana
+41,Estado do Paraná,4124103,Santo Antônio da Platina
+41,Estado do Paraná,4124400,Santo Antônio
+41,Estado do Paraná,4124509,Santo Inácio
+41,Estado do Paraná,4124608,São Carlos do Ivaí
+41,Estado do Paraná,4124707,São Jerônimo da Serra
+41,Estado do Paraná,4124905,São João do Caiuá
+41,Estado do Paraná,4125100,São João do Triunfo
+41,Estado do Paraná,4125308,São Jorge
+41,Estado do Paraná,4125506,São José dos Pinhais
+41,Estado do Paraná,4125605,São Mateus do Sul
+41,Estado do Paraná,4125803,São Pedro do Ivaí
+41,Estado do Paraná,4126009,Amoreira
+41,Estado do Paraná,4126306,Sengés
+41,Estado do Paraná,4126405,Sertaneja
+41,Estado do Paraná,4126504,Sertanópolis
+41,Estado do Paraná,4126603,Siqueira Campos
+41,Estado do Paraná,4126702,Tamboara
+41,Estado do Paraná,4127007,Teixeira Soares
+41,Estado do Paraná,4127205,Terra Boa
+41,Estado do Paraná,4127304,Terra Rica
+41,Estado do Paraná,4127502,Tibagi
+41,Estado do Paraná,4127601,Tijucas do Sul
+41,Estado do Paraná,4127700,Toledo
+41,Estado do Paraná,4127809,Tomazina
+41,Estado do Paraná,4128203,União da Vitória
+41,Estado do Paraná,4128401,Uraí
+41,Estado do Paraná,4128500,Wenceslau Braz
+42,Estado de Santa Catarina,4200101,Abelardo Luz
+42,Estado de Santa Catarina,4200408,Água Doce
+42,Estado de Santa Catarina,4201307,Araquari
+42,Estado de Santa Catarina,4201406,Araranguá
+42,Estado de Santa Catarina,4201505,Armazém
+42,Estado de Santa Catarina,4202305,Biguaçu
+42,Estado de Santa Catarina,4202404,Blumenau
+42,Estado de Santa Catarina,4202602,Bom Retiro
+42,Estado de Santa Catarina,4202800,Braço do Norte
+42,Estado de Santa Catarina,4202909,Brusque
+42,Estado de Santa Catarina,4203006,Caçador
+42,Estado de Santa Catarina,4203204,Camboriú
+42,Estado de Santa Catarina,4203303,Campo Alegre
+42,Estado de Santa Catarina,4203501,Campo Erê
+42,Estado de Santa Catarina,4203600,Campos Novos
+42,Estado de Santa Catarina,4203808,Canoinhas
+42,Estado de Santa Catarina,4203907,Capinzal
+42,Estado de Santa Catarina,4204202,Chapecó
+42,Estado de Santa Catarina,4204301,Concórdia
+42,Estado de Santa Catarina,4204509,Corupá
+42,Estado de Santa Catarina,4204608,Criciúma
+42,Estado de Santa Catarina,4204707,Cunha Porã
+42,Estado de Santa Catarina,4204806,Curitibanos
+42,Estado de Santa Catarina,4204905,Descanso
+42,Estado de Santa Catarina,4205001,Dionísio Cerqueira
+42,Estado de Santa Catarina,4205308,Faxinal dos Guedes
+42,Estado de Santa Catarina,4205407,Florianópolis
+42,Estado de Santa Catarina,4205902,Gaspar
+42,Estado de Santa Catarina,4206108,Grão Pará
+42,Estado de Santa Catarina,4206504,Guaramirim
+42,Estado de Santa Catarina,4206702,Herval d'Oeste
+42,Estado de Santa Catarina,4206900,Ibirama
+42,Estado de Santa Catarina,4207106,Ilhota
+42,Estado de Santa Catarina,4207205,Imaruí
+42,Estado de Santa Catarina,4207304,Imbituba
+42,Estado de Santa Catarina,4207502,Indaial
+42,Estado de Santa Catarina,4208005,Itá
+42,Estado de Santa Catarina,4208104,Itaiópolis
+42,Estado de Santa Catarina,4208203,Itajaí
+42,Estado de Santa Catarina,4208401,Itapiranga
+42,Estado de Santa Catarina,4208500,Ituporanga
+42,Estado de Santa Catarina,4208708,Jacinto Machado
+42,Estado de Santa Catarina,4208807,Jaguaruna
+42,Estado de Santa Catarina,4208906,Jaraguá do Sul
+42,Estado de Santa Catarina,4209003,Joaçaba
+42,Estado de Santa Catarina,4209102,Joinville
+42,Estado de Santa Catarina,4209300,Lages
+42,Estado de Santa Catarina,4209409,Laguna
+42,Estado de Santa Catarina,4209607,Lauro Muller
+42,Estado de Santa Catarina,4209706,Lebon Régis
+42,Estado de Santa Catarina,4210001,Luiz Alves
+42,Estado de Santa Catarina,4210100,Mafra
+42,Estado de Santa Catarina,4210506,Maravilha
+42,Estado de Santa Catarina,4211009,Mondaí
+42,Estado de Santa Catarina,4211504,Nova Trento
+42,Estado de Santa Catarina,4211603,Nova Veneza
+42,Estado de Santa Catarina,4211702,Orleães
+42,Estado de Santa Catarina,4211900,Palhoça
+42,Estado de Santa Catarina,4212106,Palmitos
+42,Estado de Santa Catarina,4212205,Papanduva
+42,Estado de Santa Catarina,4212502,Penha
+42,Estado de Santa Catarina,4213104,Piratuba
+42,Estado de Santa Catarina,4213203,Pomerode
+42,Estado de Santa Catarina,4213401,Ponte Serrada
+42,Estado de Santa Catarina,4213500,Porto Belo
+42,Estado de Santa Catarina,4213609,Porto União
+42,Estado de Santa Catarina,4213708,Pouso Redondo
+42,Estado de Santa Catarina,4213807,Praia Grande
+42,Estado de Santa Catarina,4214003,Presidente Getúlio
+42,Estado de Santa Catarina,4214409,Rio das Antas
+42,Estado de Santa Catarina,4214607,Rio do Oeste
+42,Estado de Santa Catarina,4214805,Rio do Sul
+42,Estado de Santa Catarina,4214904,Rio Fortuna
+42,Estado de Santa Catarina,4215000,Rio Negrinho
+42,Estado de Santa Catarina,4215109,Rodeio
+42,Estado de Santa Catarina,4215505,Santa Cecília
+42,Estado de Santa Catarina,4215703,Santo Amaro da Imperatriz
+42,Estado de Santa Catarina,4215802,São Bento do Sul
+42,Estado de Santa Catarina,4216008,São Carlos
+42,Estado de Santa Catarina,4216206,São Francisco do Sul
+42,Estado de Santa Catarina,4216305,São João Batista
+42,Estado de Santa Catarina,4216503,São Joaquim
+42,Estado de Santa Catarina,4216602,São José
+42,Estado de Santa Catarina,4216701,São José do Cedro
+42,Estado de Santa Catarina,4216909,São Lourenço do Oeste
+42,Estado de Santa Catarina,4217204,São Miguel do Oeste
+42,Estado de Santa Catarina,4217501,Seara
+42,Estado de Santa Catarina,4217600,Siderópolis
+42,Estado de Santa Catarina,4217709,Sombrio
+42,Estado de Santa Catarina,4217808,Taió
+42,Estado de Santa Catarina,4217907,Tangará
+42,Estado de Santa Catarina,4218004,Tijucas
+42,Estado de Santa Catarina,4218202,Timbó
+42,Estado de Santa Catarina,4218608,Trombudo Central
+42,Estado de Santa Catarina,4218707,Tubarão
+42,Estado de Santa Catarina,4218806,Turvo
+42,Estado de Santa Catarina,4218905,Urubici
+42,Estado de Santa Catarina,4219002,Urussanga
+42,Estado de Santa Catarina,4219200,Vidal Ramos
+42,Estado de Santa Catarina,4219309,Videira
+42,Estado de Santa Catarina,4219507,Xanxerê
+42,Estado de Santa Catarina,4219705,Xaxim
+43,Estado do Rio Grande do Sul,4300109,Agudo
+43,Estado do Rio Grande do Sul,4300406,Alegrete
+43,Estado do Rio Grande do Sul,4300802,Antônio Prado
+43,Estado do Rio Grande do Sul,4300901,Aratiba
+43,Estado do Rio Grande do Sul,4301008,Arroio do Meio
+43,Estado do Rio Grande do Sul,4301305,Arroio Grande
+43,Estado do Rio Grande do Sul,4301404,Arvorezinha
+43,Estado do Rio Grande do Sul,4301602,Bagé
+43,Estado do Rio Grande do Sul,4301909,Barra do Ribeiro
+43,Estado do Rio Grande do Sul,4302105,Bento Gonçalves
+43,Estado do Rio Grande do Sul,4302303,Bom Jesus
+43,Estado do Rio Grande do Sul,4302402,Bom Retiro do Sul
+43,Estado do Rio Grande do Sul,4302808,Caçapava do Sul
+43,Estado do Rio Grande do Sul,4302907,Cacequi
+43,Estado do Rio Grande do Sul,4303004,Cachoeira do Sul
+43,Estado do Rio Grande do Sul,4303509,Camaquã
+43,Estado do Rio Grande do Sul,4303806,Campinas do Sul
+43,Estado do Rio Grande do Sul,4303905,Campo Bom
+43,Estado do Rio Grande do Sul,4304002,Campo Novo
+43,Estado do Rio Grande do Sul,4304200,Candelária
+43,Estado do Rio Grande do Sul,4304408,Canela
+43,Estado do Rio Grande do Sul,4304507,Canguçu
+43,Estado do Rio Grande do Sul,4304606,Canoas
+43,Estado do Rio Grande do Sul,4304705,Carazinho
+43,Estado do Rio Grande do Sul,4304804,Carlos Barbosa
+43,Estado do Rio Grande do Sul,4304903,Casca
+43,Estado do Rio Grande do Sul,4305108,Caxias do Sul
+43,Estado do Rio Grande do Sul,4305207,Cerro Largo
+43,Estado do Rio Grande do Sul,4305306,Chapada
+43,Estado do Rio Grande do Sul,4305801,Constantina
+43,Estado do Rio Grande do Sul,4306007,Crissiumal
+43,Estado do Rio Grande do Sul,4306106,Cruz Alta
+43,Estado do Rio Grande do Sul,4306403,Dois Irmãos
+43,Estado do Rio Grande do Sul,4306601,Dom Pedrito
+43,Estado do Rio Grande do Sul,4306809,Encantado
+43,Estado do Rio Grande do Sul,4306908,Encruzilhada do Sul
+43,Estado do Rio Grande do Sul,4307005,Erechim
+43,Estado do Rio Grande do Sul,4307104,Erval
+43,Estado do Rio Grande do Sul,4307203,Erval Grande
+43,Estado do Rio Grande do Sul,4307500,Espumoso
+43,Estado do Rio Grande do Sul,4307609,Estância Velha
+43,Estado do Rio Grande do Sul,4307708,Esteio
+43,Estado do Rio Grande do Sul,4307807,Estrela
+43,Estado do Rio Grande do Sul,4307906,Farroupilha
+43,Estado do Rio Grande do Sul,4308003,Faxinal do Soturno
+43,Estado do Rio Grande do Sul,4308102,Feliz
+43,Estado do Rio Grande do Sul,4308201,Flores da Cunha
+43,Estado do Rio Grande do Sul,4308508,Frederico Westphalen
+43,Estado do Rio Grande do Sul,4308607,Garibaldi
+43,Estado do Rio Grande do Sul,4308706,Gaurama
+43,Estado do Rio Grande do Sul,4308805,General Câmara
+43,Estado do Rio Grande do Sul,4308904,Getúlio Vargas
+43,Estado do Rio Grande do Sul,4309001,Giruá
+43,Estado do Rio Grande do Sul,4309100,Gramado
+43,Estado do Rio Grande do Sul,4309209,Gravataí
+43,Estado do Rio Grande do Sul,4309308,Guaíba
+43,Estado do Rio Grande do Sul,4309407,Guaporé
+43,Estado do Rio Grande do Sul,4309506,Guarani das Missões
+43,Estado do Rio Grande do Sul,4309605,Horizontina
+43,Estado do Rio Grande do Sul,4309704,Humaitá
+43,Estado do Rio Grande do Sul,4310009,Ibirubá
+43,Estado do Rio Grande do Sul,4310207,Ijuí
+43,Estado do Rio Grande do Sul,4310504,Iraí
+43,Estado do Rio Grande do Sul,4310603,Itaqui
+43,Estado do Rio Grande do Sul,4311007,Jaguarão
+43,Estado do Rio Grande do Sul,4311106,Jaguari
+43,Estado do Rio Grande do Sul,4311205,Júlio de Castilhos
+43,Estado do Rio Grande do Sul,4311304,Lagoa Vermelha
+43,Estado do Rio Grande do Sul,4311403,Lajeado
+43,Estado do Rio Grande do Sul,4311502,Lavras do Sul
+43,Estado do Rio Grande do Sul,4311700,Machadinho
+43,Estado do Rio Grande do Sul,4311809,Marau
+43,Estado do Rio Grande do Sul,4311908,Marcelino Ramos
+43,Estado do Rio Grande do Sul,4312401,Montenegro
+43,Estado do Rio Grande do Sul,4312609,Muçum
+43,Estado do Rio Grande do Sul,4312658,Não-Me-Toque
+43,Estado do Rio Grande do Sul,4312708,Nonoai
+43,Estado do Rio Grande do Sul,4313201,Nova Petrópolis
+43,Estado do Rio Grande do Sul,4313300,Nova Prata
+43,Estado do Rio Grande do Sul,4313409,Novo Hamburgo
+43,Estado do Rio Grande do Sul,4313508,Osório
+43,Estado do Rio Grande do Sul,4313706,Palmeira das Missões
+43,Estado do Rio Grande do Sul,4313904,Panambi
+43,Estado do Rio Grande do Sul,4314100,Passo Fundo
+43,Estado do Rio Grande do Sul,4314209,Pedro Osório
+43,Estado do Rio Grande do Sul,4314407,Pelotas
+43,Estado do Rio Grande do Sul,4314506,Pinheiro Machado
+43,Estado do Rio Grande do Sul,4314605,Piratini
+43,Estado do Rio Grande do Sul,4314902,Porto Alegre
+43,Estado do Rio Grande do Sul,4315008,Porto Lucena
+43,Estado do Rio Grande do Sul,4315305,Quaraí
+43,Estado do Rio Grande do Sul,4315503,Restinga Seca
+43,Estado do Rio Grande do Sul,4315602,Rio Grande
+43,Estado do Rio Grande do Sul,4315701,Rio Pardo
+43,Estado do Rio Grande do Sul,4315800,Roca Sales
+43,Estado do Rio Grande do Sul,4316006,Rolante
+43,Estado do Rio Grande do Sul,4316402,Rosário do Sul
+43,Estado do Rio Grande do Sul,4316600,Sananduva
+43,Estado do Rio Grande do Sul,4316709,Santa Bárbara do Sul
+43,Estado do Rio Grande do Sul,4316808,Santa Cruz do Sul
+43,Estado do Rio Grande do Sul,4316907,Santa Maria
+43,Estado do Rio Grande do Sul,4317103,Santana do Livramento
+43,Estado do Rio Grande do Sul,4317202,Santa Rosa
+43,Estado do Rio Grande do Sul,4317301,Santa Vitória do Palmar
+43,Estado do Rio Grande do Sul,4317400,Santiago
+43,Estado do Rio Grande do Sul,4317509,Santo Ângelo
+43,Estado do Rio Grande do Sul,4317608,Santo Antônio
+43,Estado do Rio Grande do Sul,4317806,Santo Augusto
+43,Estado do Rio Grande do Sul,4317905,Santo Cristo
+43,Estado do Rio Grande do Sul,4318002,São Borja
+43,Estado do Rio Grande do Sul,4318101,São Francisco de Assis
+43,Estado do Rio Grande do Sul,4318200,São Francisco de Paula
+43,Estado do Rio Grande do Sul,4318309,São Gabriel
+43,Estado do Rio Grande do Sul,4318408,São Jerônimo
+43,Estado do Rio Grande do Sul,4318507,São José do Norte
+43,Estado do Rio Grande do Sul,4318606,São José do Ouro
+43,Estado do Rio Grande do Sul,4318705,São Leopoldo
+43,Estado do Rio Grande do Sul,4318804,São Lourenço do Sul
+43,Estado do Rio Grande do Sul,4318903,São Luiz Gonzaga
+43,Estado do Rio Grande do Sul,4319406,São Pedro do Sul
+43,Estado do Rio Grande do Sul,4319505,São Sebastião do Caí
+43,Estado do Rio Grande do Sul,4319604,São Sepé
+43,Estado do Rio Grande do Sul,4319703,São Valentim
+43,Estado do Rio Grande do Sul,4319802,General Vargas
+43,Estado do Rio Grande do Sul,4319901,Sapiranga
+43,Estado do Rio Grande do Sul,4320107,Sarandi
+43,Estado do Rio Grande do Sul,4320206,Seberi
+43,Estado do Rio Grande do Sul,4320701,Sobradinho
+43,Estado do Rio Grande do Sul,4320800,Soledade
+43,Estado do Rio Grande do Sul,4320909,Tapejara
+43,Estado do Rio Grande do Sul,4321006,Tapera
+43,Estado do Rio Grande do Sul,4321105,Tapes
+43,Estado do Rio Grande do Sul,4321204,Taquara
+43,Estado do Rio Grande do Sul,4321303,Taquari
+43,Estado do Rio Grande do Sul,4321402,Tenente Portela
+43,Estado do Rio Grande do Sul,4321501,Torres
+43,Estado do Rio Grande do Sul,4321709,Três Coroas
+43,Estado do Rio Grande do Sul,4321808,Três de Maio
+43,Estado do Rio Grande do Sul,4321907,Três Passos
+43,Estado do Rio Grande do Sul,4322004,Triunfo
+43,Estado do Rio Grande do Sul,4322103,Tucunduva
+43,Estado do Rio Grande do Sul,4322202,Tupanciretã
+43,Estado do Rio Grande do Sul,4322301,Tuparendi
+43,Estado do Rio Grande do Sul,4322400,Uruguaiana
+43,Estado do Rio Grande do Sul,4322509,Vacaria
+43,Estado do Rio Grande do Sul,4322608,Venâncio Aires
+43,Estado do Rio Grande do Sul,4322707,Vera Cruz
+43,Estado do Rio Grande do Sul,4322806,Veranópolis
+43,Estado do Rio Grande do Sul,4322905,Viadutos
+43,Estado do Rio Grande do Sul,4323002,Viamão
+51,Estado do Mato Grosso,5100102,Acorizal
+51,Estado do Mato Grosso,5100202,Água Clara
+51,Estado do Mato Grosso,5100300,Alto Araguaia
+51,Estado do Mato Grosso,5100409,Alto Garças
+51,Estado do Mato Grosso,5100508,Alto Paraguai
+51,Estado do Mato Grosso,5100606,Amambai
+51,Estado do Mato Grosso,5101008,Aparecida do Taboado
+51,Estado do Mato Grosso,5101101,Aquidauana
+51,Estado do Mato Grosso,5101308,Arenápolis
+51,Estado do Mato Grosso,5101407,Aripuanã
+51,Estado do Mato Grosso,5101605,Barão de Melgaço
+51,Estado do Mato Grosso,5101704,Barra do Bugres
+51,Estado do Mato Grosso,5101803,Barra do Garças
+51,Estado do Mato Grosso,5101901,Bataguaçu
+51,Estado do Mato Grosso,5102103,Bela Vista
+51,Estado do Mato Grosso,5102202,Bonito
+51,Estado do Mato Grosso,5102404,Caarapó
+51,Estado do Mato Grosso,5102504,Cáceres
+51,Estado do Mato Grosso,5102602,Camapuã
+51,Estado do Mato Grosso,5102705,Campo Grande
+51,Estado do Mato Grosso,5102907,Cassilândia
+51,Estado do Mato Grosso,5103007,Chapada dos Guimarães
+51,Estado do Mato Grosso,5103109,Corguinho
+51,Estado do Mato Grosso,5103206,Corumbá
+51,Estado do Mato Grosso,5103303,Coxim
+51,Estado do Mato Grosso,5103403,Cuiabá
+51,Estado do Mato Grosso,5103502,Diamantino
+51,Estado do Mato Grosso,5103601,Mutum
+51,Estado do Mato Grosso,5103709,Dourados
+51,Estado do Mato Grosso,5104109,Guia Lopes da Laguna
+51,Estado do Mato Grosso,5104203,Guiratinga
+51,Estado do Mato Grosso,5104408,Inocência
+51,Estado do Mato Grosso,5104509,Itaporã
+51,Estado do Mato Grosso,5104609,Itiquira
+51,Estado do Mato Grosso,5104807,Jaciara
+51,Estado do Mato Grosso,5104909,Jaraguari
+51,Estado do Mato Grosso,5105007,Jardim
+51,Estado do Mato Grosso,5105201,Ladário
+51,Estado do Mato Grosso,5105401,Maracaju
+51,Estado do Mato Grosso,5105507,Mato Grosso
+51,Estado do Mato Grosso,5105607,Miranda
+51,Estado do Mato Grosso,5105809,Nioaque
+51,Estado do Mato Grosso,5106000,Nortelândia
+51,Estado do Mato Grosso,5106109,Nossa Senhora do Livramento
+51,Estado do Mato Grosso,5106207,Nova Andradina
+51,Estado do Mato Grosso,5106304,Paranaíba
+51,Estado do Mato Grosso,5106505,Poconé
+51,Estado do Mato Grosso,5106603,Ponta Porã
+51,Estado do Mato Grosso,5106703,Ponte Branca
+51,Estado do Mato Grosso,5106902,Porto Murtinho
+51,Estado do Mato Grosso,5107008,Poxoréo
+51,Estado do Mato Grosso,5107100,Ribas do Rio Pardo
+51,Estado do Mato Grosso,5107209,Rio Brilhante
+51,Estado do Mato Grosso,5107403,Rio Verde de Mato Grosso
+51,Estado do Mato Grosso,5107506,Rochedo
+51,Estado do Mato Grosso,5107602,Rondonópolis
+51,Estado do Mato Grosso,5107701,Rosário Oeste
+51,Estado do Mato Grosso,5107800,Santo Antônio do Leverger
+51,Estado do Mato Grosso,5107902,Sidrolândia
+51,Estado do Mato Grosso,5108009,Terenos
+51,Estado do Mato Grosso,5108105,Tesouro
+51,Estado do Mato Grosso,5108204,Torixoréu
+51,Estado do Mato Grosso,5108304,Três Lagoas
+51,Estado do Mato Grosso,5108402,Várzea Grande
+52,Estado de Goiás,5200100,Abadiânia
+52,Estado de Goiás,5200209,Água Limpa
+52,Estado de Goiás,5200308,Olho d'Água
+52,Estado de Goiás,5200407,Almas
+52,Estado de Goiás,5200506,Aloândia
+52,Estado de Goiás,5200605,Veadeiros
+52,Estado de Goiás,5200902,Amorinópolis
+52,Estado de Goiás,5201108,Anápolis
+52,Estado de Goiás,5201207,Anhanguera
+52,Estado de Goiás,5201306,Anicuns
+52,Estado de Goiás,5201504,Aporé
+52,Estado de Goiás,5201603,Araçu
+52,Estado de Goiás,5201702,Aragarças
+52,Estado de Goiás,5201801,Aragoiânia
+52,Estado de Goiás,5201900,Araguacema
+52,Estado de Goiás,5202007,Araguaçu
+52,Estado de Goiás,5202106,Araguaína
+52,Estado de Goiás,5202205,Araguatins
+52,Estado de Goiás,5202403,Arraias
+52,Estado de Goiás,5202502,Aruanã
+52,Estado de Goiás,5202601,Aurilândia
+52,Estado de Goiás,5203005,Babaçulândia
+52,Estado de Goiás,5203104,Baliza
+52,Estado de Goiás,5203203,Barro Alto
+52,Estado de Goiás,5203302,Bela Vista de Goiás
+52,Estado de Goiás,5203401,Bom Jardim de Goiás
+52,Estado de Goiás,5203609,Brazabrantes
+52,Estado de Goiás,5203708,Brejinho de Nazaré
+52,Estado de Goiás,5203906,Buriti Alegre
+52,Estado de Goiás,5204003,Cabeceiras
+52,Estado de Goiás,5204102,Cachoeira Alta
+52,Estado de Goiás,5204201,Cachoeira de Goiás
+52,Estado de Goiás,5204300,Caçu
+52,Estado de Goiás,5204409,Caiapônia
+52,Estado de Goiás,5204508,Caldas Novas
+52,Estado de Goiás,5204805,Campo Alegre de Goiás
+52,Estado de Goiás,5204904,Campos Belos
+52,Estado de Goiás,5205000,Carmo do Rio Verde
+52,Estado de Goiás,5205109,Catalão
+52,Estado de Goiás,5205208,Caturaí
+52,Estado de Goiás,5205307,Cavalcante
+52,Estado de Goiás,5205406,Ceres
+52,Estado de Goiás,5205703,Córrego do Ouro
+52,Estado de Goiás,5205802,Corumbá de Goiás
+52,Estado de Goiás,5205901,Corumbaíba
+52,Estado de Goiás,5206107,Cristalândia
+52,Estado de Goiás,5206206,Cristalina
+52,Estado de Goiás,5206305,Cristianópolis
+52,Estado de Goiás,5206404,Crixás
+52,Estado de Goiás,5206503,Cromínia
+52,Estado de Goiás,5206602,Cumari
+52,Estado de Goiás,5206701,Damianópolis
+52,Estado de Goiás,5206800,Damolândia
+52,Estado de Goiás,5207006,Dianópolis
+52,Estado de Goiás,5207105,Diorama
+52,Estado de Goiás,5207303,Dueré
+52,Estado de Goiás,5207402,Edéia
+52,Estado de Goiás,5207501,Estrela do Norte
+52,Estado de Goiás,5207600,Fazenda Nova
+52,Estado de Goiás,5207709,Filadélfia
+52,Estado de Goiás,5207808,Firminópolis
+52,Estado de Goiás,5208004,Formosa
+52,Estado de Goiás,5208301,Galheiros
+52,Estado de Goiás,5208400,Goianápolis
+52,Estado de Goiás,5208509,Goiandira
+52,Estado de Goiás,5208608,Goianésia
+52,Estado de Goiás,5208707,Goiânia
+52,Estado de Goiás,5208806,Goianira
+52,Estado de Goiás,5208905,Goiás
+52,Estado de Goiás,5209002,Piacá
+52,Estado de Goiás,5209101,Goiatuba
+52,Estado de Goiás,5209200,Guapó
+52,Estado de Goiás,5209309,Tupirama
+52,Estado de Goiás,5209507,Gurupi
+52,Estado de Goiás,5209705,Hidrolândia
+52,Estado de Goiás,5209804,Hidrolina
+52,Estado de Goiás,5209903,Iaciara
+52,Estado de Goiás,5210000,Inhumas
+52,Estado de Goiás,5210109,Ipameri
+52,Estado de Goiás,5210208,Iporá
+52,Estado de Goiás,5210307,Israelândia
+52,Estado de Goiás,5210406,Itaberaí
+52,Estado de Goiás,5210505,Itacajá
+52,Estado de Goiás,5210604,Itaguaru
+52,Estado de Goiás,5210703,Itaguatins
+52,Estado de Goiás,5210802,Itajá
+52,Estado de Goiás,5210901,Itapaci
+52,Estado de Goiás,5211008,Itapirapuã
+52,Estado de Goiás,5211206,Itapuranga
+52,Estado de Goiás,5211305,Itarumã
+52,Estado de Goiás,5211404,Itauçu
+52,Estado de Goiás,5211503,Itumbiara
+52,Estado de Goiás,5211602,Ivolândia
+52,Estado de Goiás,5211701,Jandaia
+52,Estado de Goiás,5211800,Jaraguá
+52,Estado de Goiás,5211909,Jataí
+52,Estado de Goiás,5212006,Jaupaci
+52,Estado de Goiás,5212105,Joviânia
+52,Estado de Goiás,5212204,Juçara
+52,Estado de Goiás,5212303,Leopoldo de Bulhões
+52,Estado de Goiás,5212402,Lizarda
+52,Estado de Goiás,5212501,Luziânia
+52,Estado de Goiás,5212600,Mairipotaba
+52,Estado de Goiás,5212709,Mambaí
+52,Estado de Goiás,5212808,Amaro Leite
+52,Estado de Goiás,5212907,Marzagão
+52,Estado de Goiás,5213103,Mineiros
+52,Estado de Goiás,5213202,Miracema do Norte
+52,Estado de Goiás,5213400,Moiporá
+52,Estado de Goiás,5213509,Monte Alegre de Goiás
+52,Estado de Goiás,5213806,Morrinhos
+52,Estado de Goiás,5213905,Mossâmedes
+52,Estado de Goiás,5214101,Mutunópolis
+52,Estado de Goiás,5214200,Natividade
+52,Estado de Goiás,5214309,Nazaré
+52,Estado de Goiás,5214408,Nazário
+52,Estado de Goiás,5214507,Nerópolis
+52,Estado de Goiás,5214606,Niquelândia
+52,Estado de Goiás,5214705,Nova América
+52,Estado de Goiás,5214804,Nova Aurora
+52,Estado de Goiás,5214903,Nova Roma
+52,Estado de Goiás,5215009,Nova Veneza
+52,Estado de Goiás,5215108,Novo Acordo
+52,Estado de Goiás,5215207,Novo Brasil
+52,Estado de Goiás,5215306,Orizona
+52,Estado de Goiás,5215504,Ouvidor
+52,Estado de Goiás,5215702,Palmeiras de Goiás
+52,Estado de Goiás,5215801,Palmelo
+52,Estado de Goiás,5216007,Panamá
+52,Estado de Goiás,5216205,Paranã
+52,Estado de Goiás,5216304,Mateira
+52,Estado de Goiás,5216403,Paraúna
+52,Estado de Goiás,5216502,Pedro Afonso
+52,Estado de Goiás,5216601,Peixe
+52,Estado de Goiás,5216809,Petrolina de Goiás
+52,Estado de Goiás,5216908,Pilar de Goiás
+52,Estado de Goiás,5217104,Piracanjuba
+52,Estado de Goiás,5217203,Piranhas
+52,Estado de Goiás,5217302,Pirenópolis
+52,Estado de Goiás,5217401,Pires do Rio
+52,Estado de Goiás,5217500,Pium
+52,Estado de Goiás,5217609,Planaltina
+52,Estado de Goiás,5217708,Pontalina
+52,Estado de Goiás,5217807,Ponte Alta do Bom Jesus
+52,Estado de Goiás,5217906,Ponte Alta do Norte
+52,Estado de Goiás,5218003,Porangatu
+52,Estado de Goiás,5218201,Porto Nacional
+52,Estado de Goiás,5218300,Posse
+52,Estado de Goiás,5218409,Tupiratins
+52,Estado de Goiás,5218508,Quirinópolis
+52,Estado de Goiás,5218607,Rialma
+52,Estado de Goiás,5218706,Rianápolis
+52,Estado de Goiás,5218805,Rio Verde
+52,Estado de Goiás,5218904,Rubiataba
+52,Estado de Goiás,5219209,Santa Cruz de Goiás
+52,Estado de Goiás,5219308,Santa Helena de Goiás
+52,Estado de Goiás,5219407,Santa Rita do Araguaia
+52,Estado de Goiás,5219506,Brasilânia
+52,Estado de Goiás,5219803,São Domingos
+52,Estado de Goiás,5219902,São Francisco de Goiás
+52,Estado de Goiás,5220009,São João d'Aliança
+52,Estado de Goiás,5220108,São Luís de Montes Belos
+52,Estado de Goiás,5220207,São Miguel do Araguaia
+52,Estado de Goiás,5220405,São Simão
+52,Estado de Goiás,5220504,Serranópolis
+52,Estado de Goiás,5220603,Silvânia
+52,Estado de Goiás,5220702,Sítio d'Abadia
+52,Estado de Goiás,5220900,Taguatinga
+52,Estado de Goiás,5221106,Tocantínia
+52,Estado de Goiás,5221205,Tocantinópolis
+52,Estado de Goiás,5221304,Três Ranchos
+52,Estado de Goiás,5221403,Trindade
+52,Estado de Goiás,5221502,Turvânia
+52,Estado de Goiás,5221601,Uruaçu
+52,Estado de Goiás,5221700,Uruana
+52,Estado de Goiás,5221809,Urutaí
+52,Estado de Goiás,5221908,Varjão
+52,Estado de Goiás,5222005,Vianópolis
+52,Estado de Goiás,5222104,Xambioá
+53,Distrito Federal,5300108,Brasília
+27,Estado de Alagoas,2700508,Barra de Santo Antônio
+27,Estado de Alagoas,2702702,Feliz Deserto
+27,Estado de Alagoas,2703601,Japaratinga
+27,Estado de Alagoas,2703908,Jundiá
+27,Estado de Alagoas,2708907,Satuba
