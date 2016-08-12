@@ -152,11 +152,27 @@ class Directory(Path):
         '''
         super(self.__class__, self).__init__(*args)
 
-        if not self.exists():
-            raise IOError(2, "No such directory: '{}'".format(self))
-
         if not self.is_dir():
             raise OSError(20, "Not a directory: '{}'".format(self))
+
+    def create(self, mode=0o777, parents=False):
+        '''
+        Creates a new directory at this given path.
+
+        Arguments:
+            mode (int): The file mode
+            parents (bool): Whether the missing parents of this path should be
+                created as needed or not
+
+        Returns:
+            bool: Whether the directory has been created or not
+        '''
+        try:
+            self.mkdir(mode, parents)
+
+            return True
+        except OSError:
+            return False
 
     def directories(self, pattern='*', recursive=False):
         '''
@@ -193,14 +209,6 @@ class Directory(Path):
             if path.is_file():
                 yield File(path)
 
-    # Method aliases
-
-    def create(self, **kwargs):
-        '''
-        Alias for .mkdir() method.
-        '''
-        return self.mkdir(**kwargs)
-
 
 class File(Path):
     '''
@@ -212,9 +220,6 @@ class File(Path):
         Constructor.
         '''
         super(self.__class__, self).__init__(*args)
-
-        if not self.exists():
-            raise IOError(2, "No such file: '{}'".format(self))
 
         if self.is_dir():
             raise OSError(21, "Is a directory: '{}'".format(self))
@@ -247,6 +252,16 @@ class File(Path):
             data (str): The content to be written
         '''
         with self.open('w', **kwargs) as file_:
+            file_.write(data)
+
+    def writeBytes(self, data, **kwargs):
+        '''
+        Opens the file in binary mode, write data to it, and closes the file.
+
+        Arguments:
+            data (bytes): The content to be written
+        '''
+        with self.open('wb', **kwargs) as file_:
             file_.write(data)
 
     # Properties
