@@ -22,5 +22,6 @@
 | `dtb.plist`          | [Property List](https://en.wikipedia.org/wiki/Property_list)                                    | 4,858,184 |
 | `dtb.sql`            | [SQL](https://en.wikipedia.org/wiki/SQL)                                                        | 1,354,170 |
 | `dtb.sqlite3`        | [SQLite 3](https://en.wikipedia.org/wiki/SQLite)                                                | 1,746,944 |
+| `dtb.tsv`            | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)                                       | 1,279,779 |
 | `dtb.xml`            | [XML](https://en.wikipedia.org/wiki/XML)                                                        | 4,607,159 |
 | `dtb.yaml`           | [YAML](https://en.wikipedia.org/wiki/YAML)                                                      | 1,984,427 |
