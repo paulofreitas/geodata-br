@@ -19,36 +19,55 @@ from dtb.databases import DatabaseRepository
 
 
 class DocumentationBuilderCommand(Command):
-    '''The documentation builder command.'''
+    '''
+    The documentation builder command.
+    '''
 
     @property
     def name(self):
-        '''Defines the command name.'''
+        '''
+        Defines the command name.
+        '''
         return 'build:docs'
 
     @property
     def description(self):
-        '''Defines the command description.'''
+        '''
+        Defines the command description.
+        '''
         return 'Builds the documentation'
 
     @property
     def usage(self):
-        '''Defines the command usage syntax.'''
+        '''
+        Defines the command usage syntax.
+        '''
         return '%(prog)s'
 
     def handle(self, args):
-        '''Handles the command.'''
+        '''
+        Handles the command.
+        '''
         ProjectReadme(File(BASE_DIR / 'README.md'),
                       File(SRC_DIR / 'data/stubs/README.stub.md')) \
             .write()
 
-        for base in DatabaseRepository.listYears():
-            # Create raw database READMEs
-            DatabaseReadme(File(DATA_DIR / base / 'README.md'),
-                           File(SRC_DIR / 'data/stubs/BASE_README.stub.md')) \
-                .write()
+        base_readme_stub = File(SRC_DIR / 'data/stubs/BASE_README.stub.md')
 
-            # Create minified database READMEs
-            DatabaseReadme(File(DATA_DIR / 'minified' / base / 'README.md'),
-                           File(SRC_DIR / 'data/stubs/BASE_README.stub.md')) \
-                .write()
+        for base in DatabaseRepository.findAll():
+            base_dir = DATA_DIR / base.year
+            min_base_dir = base_dir / 'minified'
+
+            if base_dir.exists():
+                # Create raw database READMEs
+                DatabaseReadme(base,
+                               File(base_dir / 'README.md'),
+                               base_readme_stub) \
+                    .write()
+
+            if min_base_dir.exists():
+                # Create minified database READMEs
+                DatabaseReadme(base,
+                               File(min_base_dir / 'README.md'),
+                               base_readme_stub) \
+                    .write()
