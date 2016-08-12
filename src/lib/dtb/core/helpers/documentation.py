@@ -13,15 +13,16 @@ This module provides helper classes to write documentation files.
 
 import json
 
+from collections import OrderedDict
+
 # Package dependencies
 
 from dtb.core.constants import DATA_DIR
 from dtb.core.helpers import Number
 from dtb.core.helpers.filesystem import Directory, File
-from dtb.core.helpers.markup import Markdown
-from dtb.core.types import Struct
+from dtb.core.helpers.markup import GithubMarkdown as Markdown
 from dtb.databases import DatabaseRepository
-from dtb.databases.entities import DatabaseData
+from dtb.databases.entities import Entities
 from dtb.formats import FormatRepository
 
 # Classes
@@ -42,13 +43,15 @@ class Readme(object):
         '''
         self._readmeFile = readmeFile
         self._stubFile = stubFile
-        self._contents = self._readmeFile.read()
         self._stub = self._stubFile.read() if stubFile else ''
-        self._data = Struct()
+        self._data = OrderedDict()
 
         # Load databases
-        for base in DatabaseRepository.listYears():
-            self._data[base] = json.load(File(DATA_DIR / base / 'dtb.json'))
+        for base_year in DatabaseRepository.listYears():
+            base_file = DATA_DIR / base_year / 'dtb.json'
+
+            if base_file.exists():
+                self._data[base_year] = json.load(File(base_file))
 
     def render(self):
         '''
@@ -82,16 +85,16 @@ class ProjectReadme(Readme):
         Renders the available database records counts.
         '''
         headers = ['Base'] + [
-            Markdown.code(entity.table) for entity in DatabaseData.entities
+            Markdown.code(entity.table) for entity in Entities
         ]
         alignment = ['>'] * 7
         data = [
             [Markdown.bold(base)] + [
                 '{:,d}'.format(len(self._data[base][entity.table])) \
                     if entity.table in self._data[base] else '-'
-                for entity in DatabaseData.entities
+                for entity in Entities
             ]
-            for base in DatabaseRepository.listYears()
+            for base in self._data
         ]
 
         return Markdown.table([headers] + data, alignment)
@@ -119,18 +122,19 @@ class DatabaseReadme(Readme):
     A database README documentation file.
     '''
 
-    def __init__(self, readmeFile, stubFile):
+    def __init__(self, base, readmeFile, stubFile):
         '''
         Constructor.
 
         Arguments:
+            base (dtb.databases.Database): The database instance
             readmeFile (dtb.core.helpers.filesystem.File): The README file
             stubFile (dtb.core.helpers.filesystem.File): The README stub file
         '''
         super(self.__class__, self).__init__(readmeFile, stubFile)
 
+        self._base = base
         self._baseDir = Directory(readmeFile.parent)
-        self._base = self._baseDir.name
 
     def render(self):
         '''
@@ -138,7 +142,7 @@ class DatabaseReadme(Readme):
         '''
 
         return self._stub.format(
-            db_year=self._base,
+            db_year=self._base.year,
             db_records=self.renderDatabaseRecords().strip(),
             db_files=self.renderDatabaseFiles().strip()
         )
@@ -151,9 +155,9 @@ class DatabaseReadme(Readme):
         alignment = ['>', '>']
         data = [
             [Markdown.code(entity.table),
-             '{:,d}'.format(len(self._data[self._base][entity.table]))]
-            for entity in DatabaseData.entities
-            if entity.table in self._data[self._base]
+             '{:,d}'.format(len(self._data[self._base.year][entity.table]))]
+            for entity in Entities
+            if entity.table in self._data[self._base.year]
         ]
 
         return Markdown.table([headers] + data, alignment)
@@ -166,20 +170,25 @@ class DatabaseReadme(Readme):
         alignment = ['<', '^', '>', '>']
         data = []
 
-        for baseFile in self._baseDir.files(pattern='dtb*'):
-            baseFormat = '-'
+        for base_file in self._baseDir.files(pattern='dtb*'):
+            raw_file = File(self._baseDir.parent / base_file.name)
+            base_format = '-'
 
-            if baseFile.format:
-                baseFormat = Markdown.link(baseFile.format.info,
-                                           baseFile.format.friendlyName)
+            if base_file.format:
+                base_format = Markdown.link(base_file.format.info,
+                                            base_file.format.friendlyName)
 
-            data.append([
-                Markdown.code(baseFile.name),
-                baseFormat,
-                '{:9,d}'.format(baseFile.size),
-                '{:>6.1f}%'.format(Number.percentDifference(baseFile.size,
-                    File(str(baseFile).replace('minified/', '')).size))
-            ])
+            base_info = [
+                Markdown.code(base_file.name),
+                base_format,
+                '{:9,d}'.format(base_file.size),
+            ]
+
+            if raw_file.exists():
+                savings = Number.percentDifference(base_file.size, raw_file.size)
+                base_info.append('{:>6.1f}%'.format(savings))
+
+            data.append(base_info)
 
         if 'minified' in self._baseDir:
             return Markdown.table([headers] + data, alignment)
