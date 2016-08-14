@@ -1,0 +1,1575 @@
+id_uf	nome_uf	id_municipio	nome_municipio
+12	Território do Acre	1200104	Brasília
+12	Território do Acre	1200203	Cruzeiro do Sul
+12	Território do Acre	1200302	Feijó
+12	Território do Acre	1200401	Rio Branco
+12	Território do Acre	1200500	Sena Madureira
+12	Território do Acre	1200609	Seabra
+12	Território do Acre	1200708	Xapuri
+13	Estado do Amazonas	1300409	Barcelos
+13	Estado do Amazonas	1300508	Barreirinha
+13	Estado do Amazonas	1300607	Benjamin Constant
+13	Estado do Amazonas	1300706	Boca do Acre
+13	Estado do Amazonas	1300805	Borba
+13	Estado do Amazonas	1300904	Canutama
+13	Estado do Amazonas	1301001	Carauari
+13	Estado do Amazonas	1301209	Coari
+13	Estado do Amazonas	1301308	Codajás
+13	Estado do Amazonas	1301407	João Pessoa
+13	Estado do Amazonas	1301605	Fonte Boa
+13	Estado do Amazonas	1301704	Humaitá
+13	Estado do Amazonas	1301902	Itacoatiara
+13	Estado do Amazonas	1302009	Itapiranga
+13	Estado do Amazonas	1302405	Lábrea
+13	Estado do Amazonas	1302504	Manacapuru
+13	Estado do Amazonas	1302603	Manaus
+13	Estado do Amazonas	1302702	Manicoré
+13	Estado do Amazonas	1302900	Maués
+13	Estado do Amazonas	1303403	Parintins
+13	Estado do Amazonas	1303809	São Gabriel
+13	Estado do Amazonas	1303908	São Paulo de Olivença
+13	Estado do Amazonas	1304203	Tefé
+13	Estado do Amazonas	1304302	Urucará
+13	Estado do Amazonas	1304401	Urucurituba
+13	Estado do Amazonas	1399901	Boa Vista
+13	Estado do Amazonas	1399902	Moura
+13	Estado do Amazonas	1399903	Porto Velho
+15	Estado do Pará	1500107	Abaeté
+15	Estado do Pará	1500206	Acará
+15	Estado do Pará	1500305	Afuá
+15	Estado do Pará	1500404	Alenquer
+15	Estado do Pará	1500503	Almeirim
+15	Estado do Pará	1500602	Altamira
+15	Estado do Pará	1500701	Anajás
+15	Estado do Pará	1501204	Baião
+15	Estado do Pará	1501402	Belém
+15	Estado do Pará	1501709	Bragança
+15	Estado do Pará	1501808	Breves
+15	Estado do Pará	1502004	Cachoeira
+15	Estado do Pará	1502103	Cametá
+15	Estado do Pará	1502202	Capanema
+15	Estado do Pará	1502400	Castanhal
+15	Estado do Pará	1502509	Chaves
+15	Estado do Pará	1502707	Conceição do Araguaia
+15	Estado do Pará	1502806	Curralinho
+15	Estado do Pará	1502905	Curuçá
+15	Estado do Pará	1503002	Faro
+15	Estado do Pará	1503101	Gurupá
+15	Estado do Pará	1503200	Igarapé-Açu
+15	Estado do Pará	1503309	Igarapé-Miri
+15	Estado do Pará	1503507	Irituia
+15	Estado do Pará	1503606	Itaituba
+15	Estado do Pará	1503903	Juruti
+15	Estado do Pará	1504208	Marabá
+15	Estado do Pará	1504307	Maracanã
+15	Estado do Pará	1504406	Marapanim
+15	Estado do Pará	1504604	Mocajuba
+15	Estado do Pará	1504703	Moju
+15	Estado do Pará	1504802	Monte Alegre
+15	Estado do Pará	1504901	Muaná
+15	Estado do Pará	1505106	Óbidos
+15	Estado do Pará	1505205	Oeiras
+15	Estado do Pará	1505304	Oriximiná
+15	Estado do Pará	1505403	Ourém
+15	Estado do Pará	1505700	Ponta de Pedras
+15	Estado do Pará	1505809	Portel
+15	Estado do Pará	1505908	Porto de Moz
+15	Estado do Pará	1506005	Prainha
+15	Estado do Pará	1506203	Salinas
+15	Estado do Pará	1506500	Santa Isabel
+15	Estado do Pará	1506807	Santarém
+15	Estado do Pará	1507102	São Caetano de Odivelas
+15	Estado do Pará	1507201	São Domingos do Capim
+15	Estado do Pará	1507607	São Miguel do Guamá
+15	Estado do Pará	1507904	Soure
+15	Estado do Pará	1508209	Vigia
+15	Estado do Pará	1508308	Viseu
+15	Estado do Pará	1599901	Amapá
+15	Estado do Pará	1599902	Macapá
+15	Estado do Pará	1599903	Mazagão
+21	Estado do Maranhão	2100204	Alcântara
+21	Estado do Maranhão	2100501	Vitória do Alto Parnaíba
+21	Estado do Maranhão	2100709	Anajatuba
+21	Estado do Maranhão	2100907	Araioses
+21	Estado do Maranhão	2101004	Arari
+21	Estado do Maranhão	2101103	Axixá
+21	Estado do Maranhão	2101202	Bacabal
+21	Estado do Maranhão	2101400	Santo Antônio de Balsas
+21	Estado do Maranhão	2101509	Barão de Grajaú
+21	Estado do Maranhão	2101608	Barra do Corda
+21	Estado do Maranhão	2101707	Barreirinhas
+21	Estado do Maranhão	2101806	Benedito Leite
+21	Estado do Maranhão	2101905	Bequimão
+21	Estado do Maranhão	2102101	Brejo
+21	Estado do Maranhão	2102200	Buriti
+21	Estado do Maranhão	2102309	Buriti Bravo
+21	Estado do Maranhão	2102408	Cajapió
+21	Estado do Maranhão	2102804	Carolina
+21	Estado do Maranhão	2102903	Carutapera
+21	Estado do Maranhão	2103000	Caxias
+21	Estado do Maranhão	2103208	Chapadinha
+21	Estado do Maranhão	2103307	Codó
+21	Estado do Maranhão	2103406	Coelho Neto
+21	Estado do Maranhão	2103505	Picos
+21	Estado do Maranhão	2103604	Coroatá
+21	Estado do Maranhão	2103703	Cururupu
+21	Estado do Maranhão	2104800	Grajaú
+21	Estado do Maranhão	2104909	Guimarães
+21	Estado do Maranhão	2105005	Humberto de Campos
+21	Estado do Maranhão	2105104	Icatu
+21	Estado do Maranhão	2105302	Imperatriz
+21	Estado do Maranhão	2105401	Itapecuru Mirim
+21	Estado do Maranhão	2106102	Loreto
+21	Estado do Maranhão	2106706	Mirador
+21	Estado do Maranhão	2106904	Monção
+21	Estado do Maranhão	2107100	Morros
+21	Estado do Maranhão	2107308	Nova Iorque
+21	Estado do Maranhão	2107803	São José de Matões
+21	Estado do Maranhão	2107902	Passagem Franca
+21	Estado do Maranhão	2108009	Pastos Bons
+21	Estado do Maranhão	2108207	Pedreiras
+21	Estado do Maranhão	2108306	Penalva
+21	Estado do Maranhão	2108405	Macapá
+21	Estado do Maranhão	2108504	São Pedro
+21	Estado do Maranhão	2108603	Pinheiro
+21	Estado do Maranhão	2109007	Porto Franco
+21	Estado do Maranhão	2109502	Riachão
+21	Estado do Maranhão	2109601	Rosário
+21	Estado do Maranhão	2109809	Santa Helena
+21	Estado do Maranhão	2110104	Santa Quitéria
+21	Estado do Maranhão	2110500	São Bento
+21	Estado do Maranhão	2110609	São Bernardo
+21	Estado do Maranhão	2110906	São Francisco
+21	Estado do Maranhão	2111102	São João dos Patos
+21	Estado do Maranhão	2111300	São Luís
+21	Estado do Maranhão	2111409	São Luís Gonzaga
+21	Estado do Maranhão	2111706	São Vicente Ferrer
+21	Estado do Maranhão	2112100	Monte Alegre
+21	Estado do Maranhão	2112209	Flores
+21	Estado do Maranhão	2112407	Turiaçu
+21	Estado do Maranhão	2112506	Tutóia
+21	Estado do Maranhão	2112605	Urbano Santos
+21	Estado do Maranhão	2112704	Vargem Grande
+21	Estado do Maranhão	2112803	Viana
+21	Estado do Maranhão	2112902	Baixo Mearim
+22	Estado do Piauí	2200301	Alto Longá
+22	Estado do Piauí	2200400	Altos
+22	Estado do Piauí	2200509	Amarante
+22	Estado do Piauí	2201200	Barras
+22	Estado do Piauí	2201507	Batalha
+22	Estado do Piauí	2201606	São Benedito
+22	Estado do Piauí	2201705	Aparecida
+22	Estado do Piauí	2201903	Bom Jesus
+22	Estado do Piauí	2202000	Buriti dos Lopes
+22	Estado do Piauí	2202208	Campo Maior
+22	Estado do Piauí	2202307	Canto do Buriti
+22	Estado do Piauí	2202604	Castelo
+22	Estado do Piauí	2202901	Corrente
+22	Estado do Piauí	2203701	Boa Esperança
+22	Estado do Piauí	2203909	Floriano
+22	Estado do Piauí	2204303	Socorro
+22	Estado do Piauí	2204402	Gilbués
+22	Estado do Piauí	2204501	Porto Seguro
+22	Estado do Piauí	2205201	Jaicós
+22	Estado do Piauí	2205300	Jerumenha
+22	Estado do Piauí	2205508	José de Freitas
+22	Estado do Piauí	2205706	Luís Correia
+22	Estado do Piauí	2205805	Porto Alegre
+22	Estado do Piauí	2206209	Miguel Alves
+22	Estado do Piauí	2207009	Oeiras
+22	Estado do Piauí	2207504	Belém
+22	Estado do Piauí	2207603	Parnaguá
+22	Estado do Piauí	2207702	Parnaíba
+22	Estado do Piauí	2207801	Paulista
+22	Estado do Piauí	2207900	Pedro II
+22	Estado do Piauí	2208007	Picos
+22	Estado do Piauí	2208205	Patrocínio
+22	Estado do Piauí	2208304	Piracuruca
+22	Estado do Piauí	2208403	Piripiri
+22	Estado do Piauí	2208502	João Pessoa
+22	Estado do Piauí	2208809	Regeneração
+22	Estado do Piauí	2208908	Ribeiro Gonçalves
+22	Estado do Piauí	2209203	Santa Filomena
+22	Estado do Piauí	2210003	São João do Piauí
+22	Estado do Piauí	2210409	São Miguel do Tapuio
+22	Estado do Piauí	2210508	São Pedro
+22	Estado do Piauí	2210607	São Raimundo Nonato
+22	Estado do Piauí	2210805	Simplício Mendes
+22	Estado do Piauí	2211001	Teresina
+22	Estado do Piauí	2211100	União
+22	Estado do Piauí	2211209	Uruçuí
+22	Estado do Piauí	2211308	Valença
+23	Estado do Ceará	2300200	Acaraú
+23	Estado do Ceará	2300309	Afonso Pena
+23	Estado do Ceará	2301000	Aquiraz
+23	Estado do Ceará	2301109	Aracati
+23	Estado do Ceará	2301208	Aracoiaba
+23	Estado do Ceará	2301307	Araripe
+23	Estado do Ceará	2301604	Assaré
+23	Estado do Ceará	2301703	Aurora
+23	Estado do Ceará	2301901	Barbalha
+23	Estado do Ceará	2302107	Baturité
+23	Estado do Ceará	2302404	Boa Viagem
+23	Estado do Ceará	2302503	Brejo Santo
+23	Estado do Ceará	2302602	Camocim
+23	Estado do Ceará	2302701	Campos Sales
+23	Estado do Ceará	2302800	Canindé
+23	Estado do Ceará	2303105	Cariré
+23	Estado do Ceará	2303204	São Pedro
+23	Estado do Ceará	2303501	Cascavel
+23	Estado do Ceará	2303709	Soure
+23	Estado do Ceará	2303808	Cedro
+23	Estado do Ceará	2304004	Palma
+23	Estado do Ceará	2304103	Crateús
+23	Estado do Ceará	2304202	Crato
+23	Estado do Ceará	2304301	Quixará
+23	Estado do Ceará	2304400	Fortaleza
+23	Estado do Ceará	2304707	Granja
+23	Estado do Ceará	2305001	Campo Grande
+23	Estado do Ceará	2305308	Ibiapina
+23	Estado do Ceará	2305407	Icó
+23	Estado do Ceará	2305506	Iguatu
+23	Estado do Ceará	2305605	Independência
+23	Estado do Ceará	2305803	Ipu
+23	Estado do Ceará	2305902	Ipueiras
+23	Estado do Ceará	2306306	São Francisco
+23	Estado do Ceará	2306405	Itapipoca
+23	Estado do Ceará	2306702	Frade
+23	Estado do Ceará	2306900	Jaguaribe
+23	Estado do Ceará	2307007	União
+23	Estado do Ceará	2307106	Jardim
+23	Estado do Ceará	2307304	Juazeiro
+23	Estado do Ceará	2307403	São Mateus
+23	Estado do Ceará	2307502	Lavras
+23	Estado do Ceará	2307601	Limoeiro
+23	Estado do Ceará	2307700	Maranguape
+23	Estado do Ceará	2308005	Massapê
+23	Estado do Ceará	2308104	Mauriti
+23	Estado do Ceará	2308302	Milagres
+23	Estado do Ceará	2308401	Missão Velha
+23	Estado do Ceará	2308500	Maria Pereira
+23	Estado do Ceará	2308708	Morada Nova
+23	Estado do Ceará	2309300	Nova Russas
+23	Estado do Ceará	2309607	Pacajus
+23	Estado do Ceará	2309706	Pacatuba
+23	Estado do Ceará	2309805	Pacoti
+23	Estado do Ceará	2310506	Pedra Branca
+23	Estado do Ceará	2310704	Pentecoste
+23	Estado do Ceará	2310803	Pereiro
+23	Estado do Ceará	2311306	Quixadá
+23	Estado do Ceará	2311405	Quixeramobim
+23	Estado do Ceará	2311603	Redenção
+23	Estado do Ceará	2311702	Santa Cruz
+23	Estado do Ceará	2311801	Russas
+23	Estado do Ceará	2311900	Saboeiro
+23	Estado do Ceará	2312007	Santana
+23	Estado do Ceará	2312106	Santanópole
+23	Estado do Ceará	2312205	Santa Quitéria
+23	Estado do Ceará	2312304	São Benedito
+23	Estado do Ceará	2312403	São Gonçalo
+23	Estado do Ceará	2312700	Senador Pompeu
+23	Estado do Ceará	2312908	Sobral
+23	Estado do Ceará	2313005	Cachoeira
+23	Estado do Ceará	2313203	Tamboril
+23	Estado do Ceará	2313302	Tauá
+23	Estado do Ceará	2313401	Tianguá
+23	Estado do Ceará	2313609	Ubajara
+23	Estado do Ceará	2313807	Uruburetama
+23	Estado do Ceará	2314003	Várzea Alegre
+23	Estado do Ceará	2314102	Viçosa
+23	Estado do Ceará	2399901	Baixio
+24	Estado do Rio Grande do Norte	2400109	Acari
+24	Estado do Rio Grande do Norte	2400208	Açu
+24	Estado do Rio Grande do Norte	2400505	Alexandria
+24	Estado do Rio Grande do Norte	2400802	Angicos
+24	Estado do Rio Grande do Norte	2401008	Apodi
+24	Estado do Rio Grande do Norte	2401107	Areia Branca
+24	Estado do Rio Grande do Norte	2401206	Arês
+24	Estado do Rio Grande do Norte	2401305	Augusto Severo
+24	Estado do Rio Grande do Norte	2402006	Caicó
+24	Estado do Rio Grande do Norte	2402204	Canguaretama
+24	Estado do Rio Grande do Norte	2402303	Caraúbas
+24	Estado do Rio Grande do Norte	2402600	Ceará-Mirim
+24	Estado do Rio Grande do Norte	2403103	Currais Novos
+24	Estado do Rio Grande do Norte	2403806	Flores
+24	Estado do Rio Grande do Norte	2404200	Goianinha
+24	Estado do Rio Grande do Norte	2405702	Jardim do Seridó
+24	Estado do Rio Grande do Norte	2405801	Baixa Verde
+24	Estado do Rio Grande do Norte	2406106	Jucurutu
+24	Estado do Rio Grande do Norte	2406700	Lajes
+24	Estado do Rio Grande do Norte	2407005	Luís Gomes
+24	Estado do Rio Grande do Norte	2407104	Macaíba
+24	Estado do Rio Grande do Norte	2407203	Macau
+24	Estado do Rio Grande do Norte	2407401	Martins
+24	Estado do Rio Grande do Norte	2408003	Mossoró
+24	Estado do Rio Grande do Norte	2408102	Natal
+24	Estado do Rio Grande do Norte	2408201	Papari
+24	Estado do Rio Grande do Norte	2408300	Nova Cruz
+24	Estado do Rio Grande do Norte	2408904	Parelhas
+24	Estado do Rio Grande do Norte	2409308	Patu
+24	Estado do Rio Grande do Norte	2409407	Pau dos Ferros
+24	Estado do Rio Grande do Norte	2409803	Pedro Velho
+24	Estado do Rio Grande do Norte	2410207	Portalegre
+24	Estado do Rio Grande do Norte	2411205	Santa Cruz
+24	Estado do Rio Grande do Norte	2411403	Santana do Matos
+24	Estado do Rio Grande do Norte	2411502	Santo Antônio
+24	Estado do Rio Grande do Norte	2412203	São José de Mipibu
+24	Estado do Rio Grande do Norte	2412500	São Miguel
+24	Estado do Rio Grande do Norte	2412906	São Tomé
+24	Estado do Rio Grande do Norte	2413409	Serra Negra
+24	Estado do Rio Grande do Norte	2413904	Taipu
+24	Estado do Rio Grande do Norte	2414407	Touros
+24	Estado do Rio Grande do Norte	2499901	São Gonçalo
+25	Estado da Paraíba	2500304	Alagoa Grande
+25	Estado da Paraíba	2500403	Laranjeiras
+25	Estado da Paraíba	2500700	Antenor Navarro
+25	Estado da Paraíba	2501005	Araruna
+25	Estado da Paraíba	2501104	Areia
+25	Estado da Paraíba	2501500	Bananeiras
+25	Estado da Paraíba	2502409	Bonito
+25	Estado da Paraíba	2502805	Brejo do Cruz
+25	Estado da Paraíba	2503100	Cabaceiras
+25	Estado da Paraíba	2503605	Caiçara
+25	Estado da Paraíba	2503704	Cajazeiras
+25	Estado da Paraíba	2504009	Campina Grande
+25	Estado da Paraíba	2504306	Catolé do Rocha
+25	Estado da Paraíba	2504405	Conceição
+25	Estado da Paraíba	2504900	Espírito Santo
+25	Estado da Paraíba	2505105	Cuité
+25	Estado da Paraíba	2506004	Esperança
+25	Estado da Paraíba	2506301	Guarabira
+25	Estado da Paraíba	2506806	Ingá
+25	Estado da Paraíba	2506905	Itabaiana
+25	Estado da Paraíba	2507002	Itaporanga
+25	Estado da Paraíba	2507507	João Pessoa
+25	Estado da Paraíba	2508901	Mamanguape
+25	Estado da Paraíba	2509701	Monteiro
+25	Estado da Paraíba	2510808	Patos
+25	Estado da Paraíba	2511301	Piancó
+25	Estado da Paraíba	2511400	Picuí
+25	Estado da Paraíba	2511509	Pilar
+25	Estado da Paraíba	2512101	Pombal
+25	Estado da Paraíba	2512309	Princesa Isabel
+25	Estado da Paraíba	2513406	Santa Luzia
+25	Estado da Paraíba	2513703	Santa Rita
+25	Estado da Paraíba	2514008	São João do Cariri
+25	Estado da Paraíba	2514503	Jatobá
+25	Estado da Paraíba	2515302	Sapé
+25	Estado da Paraíba	2515906	Serraria
+25	Estado da Paraíba	2516102	Juazeiro
+25	Estado da Paraíba	2516201	Sousa
+25	Estado da Paraíba	2516508	Taperoá
+25	Estado da Paraíba	2516706	Teixeira
+25	Estado da Paraíba	2517001	Umbuzeiro
+26	Estado de Pernambuco	2600104	Afogados da Ingazeira
+26	Estado de Pernambuco	2600302	Bebedouro
+26	Estado de Pernambuco	2600401	Água Preta
+26	Estado de Pernambuco	2600500	Águas Belas
+26	Estado de Pernambuco	2600708	Aliança
+26	Estado de Pernambuco	2600807	Altinho
+26	Estado de Pernambuco	2600906	Amaraji
+26	Estado de Pernambuco	2601003	Angelim
+26	Estado de Pernambuco	2601102	São Gonçalo
+26	Estado de Pernambuco	2601201	Rio Branco
+26	Estado de Pernambuco	2601409	Barreiros
+26	Estado de Pernambuco	2601607	Belém
+26	Estado de Pernambuco	2601706	Belo Jardim
+26	Estado de Pernambuco	2601904	Bezerros
+26	Estado de Pernambuco	2602001	Bodocó
+26	Estado de Pernambuco	2602100	Bom Conselho
+26	Estado de Pernambuco	2602209	Bom Jardim
+26	Estado de Pernambuco	2602308	Bonito
+26	Estado de Pernambuco	2602605	Madre de Deus
+26	Estado de Pernambuco	2602803	Buíque
+26	Estado de Pernambuco	2602902	Cabo
+26	Estado de Pernambuco	2603009	Cabrobó
+26	Estado de Pernambuco	2603702	Canhotinho
+26	Estado de Pernambuco	2604007	Carpina
+26	Estado de Pernambuco	2604106	Caruaru
+26	Estado de Pernambuco	2604205	Catende
+26	Estado de Pernambuco	2604700	Correntes
+26	Estado de Pernambuco	2605103	Custódia
+26	Estado de Pernambuco	2605202	Escada
+26	Estado de Pernambuco	2605301	Exu
+26	Estado de Pernambuco	2605608	Flores
+26	Estado de Pernambuco	2605707	Floresta
+26	Estado de Pernambuco	2605905	Gameleira
+26	Estado de Pernambuco	2606002	Garanhuns
+26	Estado de Pernambuco	2606101	Glória do Goitá
+26	Estado de Pernambuco	2606200	Goiana
+26	Estado de Pernambuco	2606408	Gravatá
+26	Estado de Pernambuco	2606804	Igarassu
+26	Estado de Pernambuco	2607000	Moxotó
+26	Estado de Pernambuco	2607208	Ipojuca
+26	Estado de Pernambuco	2607653	També
+26	Estado de Pernambuco	2607901	Jaboatão
+26	Estado de Pernambuco	2608107	João Alfredo
+26	Estado de Pernambuco	2608404	Jurema
+26	Estado de Pernambuco	2608701	Lagoa dos Gatos
+26	Estado de Pernambuco	2608909	Limoeiro
+26	Estado de Pernambuco	2609006	Macapá
+26	Estado de Pernambuco	2609204	Maraial
+26	Estado de Pernambuco	2609402	Moreno
+26	Estado de Pernambuco	2609501	Nazaré
+26	Estado de Pernambuco	2609600	Olinda
+26	Estado de Pernambuco	2609709	Queimadas
+26	Estado de Pernambuco	2609907	Ouricuri
+26	Estado de Pernambuco	2610004	Palmares
+26	Estado de Pernambuco	2610202	Panelas
+26	Estado de Pernambuco	2610400	Leopoldina
+26	Estado de Pernambuco	2610608	Paudalho
+26	Estado de Pernambuco	2610707	Paulista
+26	Estado de Pernambuco	2610806	Pedra
+26	Estado de Pernambuco	2610905	Pesqueira
+26	Estado de Pernambuco	2611002	Itaparica
+26	Estado de Pernambuco	2611101	Petrolina
+26	Estado de Pernambuco	2611507	Quipapá
+26	Estado de Pernambuco	2611606	Recife
+26	Estado de Pernambuco	2611804	Ribeirão
+26	Estado de Pernambuco	2611903	Rio Formoso
+26	Estado de Pernambuco	2612208	Salgueiro
+26	Estado de Pernambuco	2612604	Boa Vista
+26	Estado de Pernambuco	2613008	São Bento
+26	Estado de Pernambuco	2613107	São Caitano
+26	Estado de Pernambuco	2613305	São Joaquim
+26	Estado de Pernambuco	2613503	Belmonte
+26	Estado de Pernambuco	2613602	São José do Egito
+26	Estado de Pernambuco	2613701	São Lourenço
+26	Estado de Pernambuco	2613909	Serra Talhada
+26	Estado de Pernambuco	2614006	Serrinha
+26	Estado de Pernambuco	2614105	Alagoa de Baixo
+26	Estado de Pernambuco	2614204	Sirinhaém
+26	Estado de Pernambuco	2614501	Surubim
+26	Estado de Pernambuco	2615003	Taquaritinga
+26	Estado de Pernambuco	2615300	Timbaúba
+26	Estado de Pernambuco	2615706	Triunfo
+26	Estado de Pernambuco	2616209	Vertentes
+26	Estado de Pernambuco	2616308	Vicência
+26	Estado de Pernambuco	2616407	Vitória
+27	Estado de Alagoas	2700102	Água Branca
+27	Estado de Alagoas	2700201	Anadia
+27	Estado de Alagoas	2700300	Arapiraca
+27	Estado de Alagoas	2700409	Atalaia
+27	Estado de Alagoas	2701704	Capela
+27	Estado de Alagoas	2702108	Leopoldina
+27	Estado de Alagoas	2702306	Coruripe
+27	Estado de Alagoas	2703205	Igreja Nova
+27	Estado de Alagoas	2704203	Limoeiro
+27	Estado de Alagoas	2704302	Maceió
+27	Estado de Alagoas	2704500	Maragogi
+27	Estado de Alagoas	2704708	Marechal Deodoro
+27	Estado de Alagoas	2705002	Mata Grande
+27	Estado de Alagoas	2705507	Murici
+27	Estado de Alagoas	2706307	Palmeira dos Índios
+27	Estado de Alagoas	2706406	Pão de Açúcar
+27	Estado de Alagoas	2706505	Passo de Camaragibe
+27	Estado de Alagoas	2706703	Penedo
+27	Estado de Alagoas	2706802	Piaçabuçu
+27	Estado de Alagoas	2706901	Pilar
+27	Estado de Alagoas	2707107	Marechal Floriano
+27	Estado de Alagoas	2707305	Porto Calvo
+27	Estado de Alagoas	2707404	Porto de Pedras
+27	Estado de Alagoas	2707503	Porto Real do Colégio
+27	Estado de Alagoas	2707602	Quebrangulo
+27	Estado de Alagoas	2707701	Rio Largo
+27	Estado de Alagoas	2708006	Santana do Ipanema
+27	Estado de Alagoas	2708303	São José da Laje
+27	Estado de Alagoas	2708501	São Luís do Quitunde
+27	Estado de Alagoas	2708600	São Miguel dos Campos
+27	Estado de Alagoas	2709202	Traipu
+27	Estado de Alagoas	2709301	União
+27	Estado de Alagoas	2709400	Viçosa
+28	Estado de Sergipe	2800209	Aquidabã
+28	Estado de Sergipe	2800308	Aracaju
+28	Estado de Sergipe	2800407	Arauá
+28	Estado de Sergipe	2800670	Buquim
+28	Estado de Sergipe	2800704	São Francisco
+28	Estado de Sergipe	2801009	Campo do Brito
+28	Estado de Sergipe	2801108	Canhoba
+28	Estado de Sergipe	2801306	Capela
+28	Estado de Sergipe	2801504	Carmo
+28	Estado de Sergipe	2801603	Cedro
+28	Estado de Sergipe	2801702	Cristina
+28	Estado de Sergipe	2802007	Divina Pastora
+28	Estado de Sergipe	2802106	Estância
+28	Estado de Sergipe	2802304	São Paulo
+28	Estado de Sergipe	2802403	Gararu
+28	Estado de Sergipe	2802809	Espírito Santo
+28	Estado de Sergipe	2802908	Itabaiana
+28	Estado de Sergipe	2803005	Itabaianinha
+28	Estado de Sergipe	2803203	Itaporanga
+28	Estado de Sergipe	2803302	Japaratuba
+28	Estado de Sergipe	2803401	Jaboatão
+28	Estado de Sergipe	2803500	Lagarto
+28	Estado de Sergipe	2803609	Laranjeiras
+28	Estado de Sergipe	2804003	Maruim
+28	Estado de Sergipe	2804300	Muribeca
+28	Estado de Sergipe	2804409	Neópolis
+28	Estado de Sergipe	2804508	Nossa Senhora da Glória
+28	Estado de Sergipe	2804607	Nossa Senhora das Dores
+28	Estado de Sergipe	2804805	Socorro
+28	Estado de Sergipe	2805604	Porto da Folha
+28	Estado de Sergipe	2805703	Propriá
+28	Estado de Sergipe	2805802	Riachão
+28	Estado de Sergipe	2805901	Riachuelo
+28	Estado de Sergipe	2806008	Ribeirópolis
+28	Estado de Sergipe	2806107	Rosário
+28	Estado de Sergipe	2806206	Salgado
+28	Estado de Sergipe	2806305	Santa Luzia
+28	Estado de Sergipe	2806602	Santo Amaro
+28	Estado de Sergipe	2806701	São Cristóvão
+28	Estado de Sergipe	2807105	Anápolis
+28	Estado de Sergipe	2807204	Siriri
+28	Estado de Sergipe	2807402	Campos
+29	Estado da Bahia	2900702	Alagoinhas
+29	Estado da Bahia	2900801	Alcobaça
+29	Estado da Bahia	2901007	Amargosa
+29	Estado da Bahia	2901304	Andaraí
+29	Estado da Bahia	2901403	Angical
+29	Estado da Bahia	2902302	Aratuípe
+29	Estado da Bahia	2902609	Baixa Grande
+29	Estado da Bahia	2902708	Barra
+29	Estado da Bahia	2902807	Barra da Estiva
+29	Estado da Bahia	2903201	Barreiras
+29	Estado da Bahia	2903409	Belmonte
+29	Estado da Bahia	2903706	Boa Nova
+29	Estado da Bahia	2903904	Bom Jesus da Lapa
+29	Estado da Bahia	2904308	Brejões
+29	Estado da Bahia	2904506	Brotas
+29	Estado da Bahia	2904605	Brumado
+29	Estado da Bahia	2904902	Cachoeira
+29	Estado da Bahia	2905008	Caculé
+29	Estado da Bahia	2905206	Caetité
+29	Estado da Bahia	2905404	Cairu
+29	Estado da Bahia	2905701	Camaçari
+29	Estado da Bahia	2905800	Camamu
+29	Estado da Bahia	2906006	Campo Formoso
+29	Estado da Bahia	2906303	Canavieiras
+29	Estado da Bahia	2906907	Caravelas
+29	Estado da Bahia	2907103	Carinhanha
+29	Estado da Bahia	2907202	Casa Nova
+29	Estado da Bahia	2907301	Castro Alves
+29	Estado da Bahia	2907509	Catu
+29	Estado da Bahia	2907806	Cícero Dantas
+29	Estado da Bahia	2907905	Cipó
+29	Estado da Bahia	2908309	Afonso Pena
+29	Estado da Bahia	2908408	Conceição do Coité
+29	Estado da Bahia	2908606	Conde
+29	Estado da Bahia	2908705	Condeúba
+29	Estado da Bahia	2908903	Coração de Maria
+29	Estado da Bahia	2909307	Correntina
+29	Estado da Bahia	2909406	Cotegipe
+29	Estado da Bahia	2909802	Cruz das Almas
+29	Estado da Bahia	2909901	Curaçá
+29	Estado da Bahia	2910503	Entre Rios
+29	Estado da Bahia	2910602	Esplanada
+29	Estado da Bahia	2910701	Euclides da Cunha
+29	Estado da Bahia	2910800	Feira de Santana
+29	Estado da Bahia	2911303	Santo Inácio
+29	Estado da Bahia	2911402	Glória
+29	Estado da Bahia	2911709	Guanambi
+29	Estado da Bahia	2913002	Bom Sucesso
+29	Estado da Bahia	2913606	Ilhéus
+29	Estado da Bahia	2913705	Inhambupe
+29	Estado da Bahia	2913903	Rio Novo
+29	Estado da Bahia	2914000	Ipirá
+29	Estado da Bahia	2914505	Irará
+29	Estado da Bahia	2914604	Irecê
+29	Estado da Bahia	2914703	Itaberaba
+29	Estado da Bahia	2914802	Itabuna
+29	Estado da Bahia	2914901	Itacaré
+29	Estado da Bahia	2915809	Itambé
+29	Estado da Bahia	2916104	Itaparica
+29	Estado da Bahia	2916500	Itapicuru
+29	Estado da Bahia	2917003	Itiúba
+29	Estado da Bahia	2917201	Ituaçu
+29	Estado da Bahia	2917300	Santarém
+29	Estado da Bahia	2917409	Jacaraci
+29	Estado da Bahia	2917508	Jacobina
+29	Estado da Bahia	2917607	Jaguaquara
+29	Estado da Bahia	2917805	Jaguaripe
+29	Estado da Bahia	2918001	Jequié
+29	Estado da Bahia	2918100	Jeremoabo
+29	Estado da Bahia	2918407	Juazeiro
+29	Estado da Bahia	2918803	Laje
+29	Estado da Bahia	2919306	Lençóis
+29	Estado da Bahia	2919504	Livramento
+29	Estado da Bahia	2919702	Encruzilhada
+29	Estado da Bahia	2919801	Macaúbas
+29	Estado da Bahia	2920106	Monte Alegre
+29	Estado da Bahia	2920502	Maracás
+29	Estado da Bahia	2920601	Maragogipe
+29	Estado da Bahia	2920700	Maraú
+29	Estado da Bahia	2921005	Mata de São João
+29	Estado da Bahia	2921203	Djalma Dutra
+29	Estado da Bahia	2921500	Monte Santo
+29	Estado da Bahia	2921708	Morro do Chapéu
+29	Estado da Bahia	2921906	Mucugê
+29	Estado da Bahia	2922003	Mucuri
+29	Estado da Bahia	2922102	Mundo Novo
+29	Estado da Bahia	2922300	Muritiba
+29	Estado da Bahia	2922409	Mutuípe
+29	Estado da Bahia	2922508	Nazaré
+29	Estado da Bahia	2922607	Nilo Peçanha
+29	Estado da Bahia	2923209	Oliveira dos Brejinhos
+29	Estado da Bahia	2923407	Monte Alto
+29	Estado da Bahia	2923506	Palmeiras
+29	Estado da Bahia	2923605	Paramirim
+29	Estado da Bahia	2923704	Rio Branco
+29	Estado da Bahia	2923803	Paripiranga
+29	Estado da Bahia	2924306	Anchieta
+29	Estado da Bahia	2924405	Pilão Arcado
+29	Estado da Bahia	2925105	Poções
+29	Estado da Bahia	2925204	Pojuca
+29	Estado da Bahia	2925303	Porto Seguro
+29	Estado da Bahia	2925501	Prado
+29	Estado da Bahia	2925808	Queimadas
+29	Estado da Bahia	2926004	Remanso
+29	Estado da Bahia	2926301	Riachão do Jacuípe
+29	Estado da Bahia	2926400	Riacho de Santana
+29	Estado da Bahia	2926608	Pombal
+29	Estado da Bahia	2926707	Rio de Contas
+29	Estado da Bahia	2927002	Rio Real
+29	Estado da Bahia	2927200	Ruy Barbosa
+29	Estado da Bahia	2927408	Salvador
+29	Estado da Bahia	2927705	Santa Cruz Cabrália
+29	Estado da Bahia	2927903	Santa Inês
+29	Estado da Bahia	2928000	Santa Luzia
+29	Estado da Bahia	2928109	Santa Maria
+29	Estado da Bahia	2928208	Santana
+29	Estado da Bahia	2928406	Rio Preto
+29	Estado da Bahia	2928505	Santa Teresinha
+29	Estado da Bahia	2928604	Santo Amaro
+29	Estado da Bahia	2928703	Santo Antônio de Jesus
+29	Estado da Bahia	2928802	Santo Estêvão
+29	Estado da Bahia	2929008	São Félix
+29	Estado da Bahia	2929107	São Felipe
+29	Estado da Bahia	2929206	São Francisco
+29	Estado da Bahia	2929305	São Gonçalo
+29	Estado da Bahia	2929503	São Sebastião
+29	Estado da Bahia	2929800	Saúde
+29	Estado da Bahia	2929909	Seabra
+29	Estado da Bahia	2930105	Bonfim
+29	Estado da Bahia	2930204	Sento Sé
+29	Estado da Bahia	2930501	Serrinha
+29	Estado da Bahia	2931202	Taperoá
+29	Estado da Bahia	2931905	Tucano
+29	Estado da Bahia	2932002	Uauá
+29	Estado da Bahia	2932101	Areia
+29	Estado da Bahia	2932200	Itapira
+29	Estado da Bahia	2932507	Una
+29	Estado da Bahia	2932606	Urandi
+29	Estado da Bahia	2932903	Valença
+29	Estado da Bahia	2933307	Conquista
+29	Estado da Bahia	2933604	Xique-Xique
+29	Estado da Bahia	2999901	Jaguarari
+29	Estado da Bahia	2999902	Conceição da Feira
+29	Estado da Bahia	2999903	Itaquara
+29	Estado da Bahia	2999904	Itiruçu
+29	Estado da Bahia	2999905	Jandaíra
+29	Estado da Bahia	2999906	Jequiriçá
+29	Estado da Bahia	2999907	Soure
+29	Estado da Bahia	2999908	São Miguel
+29	Estado da Bahia	2999909	Capivari
+30	Distrito Federal	3099901	Rio de Janeiro
+31	Estado de Minas Gerais	3100203	Abaeté
+31	Estado de Minas Gerais	3100302	Abre Campo
+31	Estado de Minas Gerais	3100906	Águas Belas
+31	Estado de Minas Gerais	3101102	Aimorés
+31	Estado de Minas Gerais	3101201	Aiuruoca
+31	Estado de Minas Gerais	3101508	Além Paraíba
+31	Estado de Minas Gerais	3101607	Alfenas
+31	Estado de Minas Gerais	3101706	Vigia
+31	Estado de Minas Gerais	3101904	Alpinópolis
+31	Estado de Minas Gerais	3102001	Serra Negra
+31	Estado de Minas Gerais	3102100	Alto Rio Doce
+31	Estado de Minas Gerais	3102308	Alvinópolis
+31	Estado de Minas Gerais	3102605	Andradas
+31	Estado de Minas Gerais	3102803	Andrelândia
+31	Estado de Minas Gerais	3103009	Antônio Dias
+31	Estado de Minas Gerais	3103405	Araçuaí
+31	Estado de Minas Gerais	3103504	Araguari
+31	Estado de Minas Gerais	3104007	Araxá
+31	Estado de Minas Gerais	3104106	Arceburgo
+31	Estado de Minas Gerais	3104205	Arcos
+31	Estado de Minas Gerais	3104304	Areado
+31	Estado de Minas Gerais	3104601	Astolfo Dutra
+31	Estado de Minas Gerais	3104908	Baependi
+31	Estado de Minas Gerais	3105103	Bambuí
+31	Estado de Minas Gerais	3105608	Barbacena
+31	Estado de Minas Gerais	3105707	Barra Longa
+31	Estado de Minas Gerais	3106200	Belo Horizonte
+31	Estado de Minas Gerais	3106408	Belo Vale
+31	Estado de Minas Gerais	3106705	Betim
+31	Estado de Minas Gerais	3106804	Bias Fortes
+31	Estado de Minas Gerais	3106903	Bicas
+31	Estado de Minas Gerais	3107109	Boa Esperança
+31	Estado de Minas Gerais	3107307	Bocaiúva
+31	Estado de Minas Gerais	3107406	Bom Despacho
+31	Estado de Minas Gerais	3107505	Bom Jardim
+31	Estado de Minas Gerais	3108008	Bom Sucesso
+31	Estado de Minas Gerais	3108107	Bonfim
+31	Estado de Minas Gerais	3108305	Borda da Mata
+31	Estado de Minas Gerais	3108404	Botelhos
+31	Estado de Minas Gerais	3108602	Brasília
+31	Estado de Minas Gerais	3108909	Brasópolis
+31	Estado de Minas Gerais	3109006	Brumadinho
+31	Estado de Minas Gerais	3109105	Bueno Brandão
+31	Estado de Minas Gerais	3109204	Buenópolis
+31	Estado de Minas Gerais	3109501	Cabo Verde
+31	Estado de Minas Gerais	3109709	Cachoeiras
+31	Estado de Minas Gerais	3110004	Caeté
+31	Estado de Minas Gerais	3110301	Parreiras
+31	Estado de Minas Gerais	3110509	Camanducaia
+31	Estado de Minas Gerais	3110608	Cambuí
+31	Estado de Minas Gerais	3110707	Cambuquira
+31	Estado de Minas Gerais	3110905	Campanha
+31	Estado de Minas Gerais	3111002	Campestre
+31	Estado de Minas Gerais	3111101	Campina Verde
+31	Estado de Minas Gerais	3111200	Campo Belo
+31	Estado de Minas Gerais	3111408	Campo Formoso
+31	Estado de Minas Gerais	3111606	Campos Gerais
+31	Estado de Minas Gerais	3112000	Candeias
+31	Estado de Minas Gerais	3112307	Capelinha
+31	Estado de Minas Gerais	3112406	Capetinga
+31	Estado de Minas Gerais	3113206	Carandaí
+31	Estado de Minas Gerais	3113305	Carangola
+31	Estado de Minas Gerais	3113404	Caratinga
+31	Estado de Minas Gerais	3113701	Carlos Chagas
+31	Estado de Minas Gerais	3113909	Carmo da Cachoeira
+31	Estado de Minas Gerais	3114006	Carmo da Mata
+31	Estado de Minas Gerais	3114105	Silvestre Ferraz
+31	Estado de Minas Gerais	3114303	Carmo do Paranaíba
+31	Estado de Minas Gerais	3114402	Carmo do Rio Claro
+31	Estado de Minas Gerais	3115102	Cássia
+31	Estado de Minas Gerais	3115300	Cataguases
+31	Estado de Minas Gerais	3115508	Caxambu
+31	Estado de Minas Gerais	3116605	Cláudio
+31	Estado de Minas Gerais	3117306	Conceição das Alagoas
+31	Estado de Minas Gerais	3117504	Conceição
+31	Estado de Minas Gerais	3117702	Conceição do Rio Verde
+31	Estado de Minas Gerais	3118007	Congonhas do Campo
+31	Estado de Minas Gerais	3118205	Conquista
+31	Estado de Minas Gerais	3118304	Conselheiro Lafaiete
+31	Estado de Minas Gerais	3118403	Conselheiro Pena
+31	Estado de Minas Gerais	3118809	Coração de Jesus
+31	Estado de Minas Gerais	3118908	Cordisburgo
+31	Estado de Minas Gerais	3119104	Corinto
+31	Estado de Minas Gerais	3119302	Coromandel
+31	Estado de Minas Gerais	3120508	Cristina
+31	Estado de Minas Gerais	3120904	Curvelo
+31	Estado de Minas Gerais	3121100	Delfim Moreira
+31	Estado de Minas Gerais	3121209	Delfinópolis
+31	Estado de Minas Gerais	3121605	Diamantina
+31	Estado de Minas Gerais	3122009	Divino
+31	Estado de Minas Gerais	3122306	Divinópolis
+31	Estado de Minas Gerais	3122405	Divisa Nova
+31	Estado de Minas Gerais	3122603	Dom Joaquim
+31	Estado de Minas Gerais	3122702	Dom Silvério
+31	Estado de Minas Gerais	3123007	Dores de Campos
+31	Estado de Minas Gerais	3123205	Dores do Indaiá
+31	Estado de Minas Gerais	3123601	Elói Mendes
+31	Estado de Minas Gerais	3123908	João Ribeiro
+31	Estado de Minas Gerais	3124005	Erval
+31	Estado de Minas Gerais	3124104	Santa Quitéria
+31	Estado de Minas Gerais	3124203	Espera Feliz
+31	Estado de Minas Gerais	3124302	Espinosa
+31	Estado de Minas Gerais	3124807	Estrela do Sul
+31	Estado de Minas Gerais	3124906	São Manuel
+31	Estado de Minas Gerais	3125101	Extrema
+31	Estado de Minas Gerais	3125903	Ferros
+31	Estado de Minas Gerais	3126109	Formiga
+31	Estado de Minas Gerais	3126703	Francisco Sá
+31	Estado de Minas Gerais	3127107	Frutal
+31	Estado de Minas Gerais	3127701	Governador Valadares
+31	Estado de Minas Gerais	3127800	Grão Mogol
+31	Estado de Minas Gerais	3128006	Guanhães
+31	Estado de Minas Gerais	3128105	Guapé
+31	Estado de Minas Gerais	3128303	Guaranésia
+31	Estado de Minas Gerais	3128402	Guarani
+31	Estado de Minas Gerais	3128501	Guarará
+31	Estado de Minas Gerais	3128709	Guaxupé
+31	Estado de Minas Gerais	3129004	Guiricema
+31	Estado de Minas Gerais	3129509	Ibiá
+31	Estado de Minas Gerais	3129707	Ibiraci
+31	Estado de Minas Gerais	3130705	Indianópolis
+31	Estado de Minas Gerais	3130903	Inhapim
+31	Estado de Minas Gerais	3131208	Ipanema
+31	Estado de Minas Gerais	3131703	Itabira
+31	Estado de Minas Gerais	3131901	Itabirito
+31	Estado de Minas Gerais	3132404	Itajubá
+31	Estado de Minas Gerais	3132503	Itamarandiba
+31	Estado de Minas Gerais	3132701	Itambacuri
+31	Estado de Minas Gerais	3132909	Arari
+31	Estado de Minas Gerais	3133006	Itamonte
+31	Estado de Minas Gerais	3133105	Itanhandu
+31	Estado de Minas Gerais	3133501	Itapecerica
+31	Estado de Minas Gerais	3133808	Itaúna
+31	Estado de Minas Gerais	3134202	Ituiutaba
+31	Estado de Minas Gerais	3134608	Jaboticatubas
+31	Estado de Minas Gerais	3134806	Jacuí
+31	Estado de Minas Gerais	3134905	Jacutinga
+31	Estado de Minas Gerais	3135209	Januária
+31	Estado de Minas Gerais	3135506	Jequeri
+31	Estado de Minas Gerais	3135803	Jequitinhonha
+31	Estado de Minas Gerais	3136306	João Pinheiro
+31	Estado de Minas Gerais	3136702	Juiz de Fora
+31	Estado de Minas Gerais	3137205	Lagoa da Prata
+31	Estado de Minas Gerais	3137403	Lagoa Dourada
+31	Estado de Minas Gerais	3137601	Lagoa Santa
+31	Estado de Minas Gerais	3137700	Lajinha
+31	Estado de Minas Gerais	3137809	Lambari
+31	Estado de Minas Gerais	3138005	Laranjal
+31	Estado de Minas Gerais	3138203	Lavras
+31	Estado de Minas Gerais	3138401	Leopoldina
+31	Estado de Minas Gerais	3138500	Liberdade
+31	Estado de Minas Gerais	3138609	Lima Duarte
+31	Estado de Minas Gerais	3138807	Luz
+31	Estado de Minas Gerais	3139003	Machado
+31	Estado de Minas Gerais	3139201	Malacacheta
+31	Estado de Minas Gerais	3139300	Manga
+31	Estado de Minas Gerais	3139409	Manhuaçu
+31	Estado de Minas Gerais	3139508	Manhumirim
+31	Estado de Minas Gerais	3139805	Mar de Espanha
+31	Estado de Minas Gerais	3139904	Maria da Fé
+31	Estado de Minas Gerais	3140001	Mariana
+31	Estado de Minas Gerais	3140506	Martinho Campos
+31	Estado de Minas Gerais	3140704	Mateus Leme
+31	Estado de Minas Gerais	3140803	Matias Barbosa
+31	Estado de Minas Gerais	3140902	Matipó
+31	Estado de Minas Gerais	3141405	Medina
+31	Estado de Minas Gerais	3141603	Mercês
+31	Estado de Minas Gerais	3141702	Mesquita
+31	Estado de Minas Gerais	3141801	Minas Novas
+31	Estado de Minas Gerais	3142106	Glória
+31	Estado de Minas Gerais	3142205	Miraí
+31	Estado de Minas Gerais	3142809	Monte Alegre
+31	Estado de Minas Gerais	3142908	Monte Azul
+31	Estado de Minas Gerais	3143005	Monte Belo
+31	Estado de Minas Gerais	3143104	Monte Carmelo
+31	Estado de Minas Gerais	3143203	Monte Santo
+31	Estado de Minas Gerais	3143302	Montes Claros
+31	Estado de Minas Gerais	3143401	Monte Sião
+31	Estado de Minas Gerais	3143906	Muriaé
+31	Estado de Minas Gerais	3144003	Mutum
+31	Estado de Minas Gerais	3144102	Muzambinho
+31	Estado de Minas Gerais	3144409	Santa Catarina
+31	Estado de Minas Gerais	3144607	Nepomuceno
+31	Estado de Minas Gerais	3144706	Presidente Vargas
+31	Estado de Minas Gerais	3144805	Nova Lima
+31	Estado de Minas Gerais	3145000	Nova Ponte
+31	Estado de Minas Gerais	3145109	Nova Resende
+31	Estado de Minas Gerais	3145604	Oliveira
+31	Estado de Minas Gerais	3146008	Ouro Fino
+31	Estado de Minas Gerais	3146107	Ouro Preto
+31	Estado de Minas Gerais	3146701	Palma
+31	Estado de Minas Gerais	3147006	Paracatu
+31	Estado de Minas Gerais	3147105	Pará de Minas
+31	Estado de Minas Gerais	3147204	Paraguaçu
+31	Estado de Minas Gerais	3147303	Paraisópolis
+31	Estado de Minas Gerais	3147402	Paraopeba
+31	Estado de Minas Gerais	3147600	Passa Quatro
+31	Estado de Minas Gerais	3147709	Passa Tempo
+31	Estado de Minas Gerais	3147907	Passos
+31	Estado de Minas Gerais	3148004	Patos
+31	Estado de Minas Gerais	3148103	Patrocínio
+31	Estado de Minas Gerais	3148608	Peçanha
+31	Estado de Minas Gerais	3148707	Fortaleza
+31	Estado de Minas Gerais	3149101	Pedra Branca
+31	Estado de Minas Gerais	3149309	Pedro Leopoldo
+31	Estado de Minas Gerais	3149606	Pequi
+31	Estado de Minas Gerais	3149804	Perdizes
+31	Estado de Minas Gerais	3149903	Perdões
+31	Estado de Minas Gerais	3150802	Piranga
+31	Estado de Minas Gerais	3151107	Pirapetinga
+31	Estado de Minas Gerais	3151206	Pirapora
+31	Estado de Minas Gerais	3151404	Pitangui
+31	Estado de Minas Gerais	3151503	Piui
+31	Estado de Minas Gerais	3151701	Gimirim
+31	Estado de Minas Gerais	3151800	Poços de Caldas
+31	Estado de Minas Gerais	3152006	Pompéu
+31	Estado de Minas Gerais	3152105	Ponte Nova
+31	Estado de Minas Gerais	3152204	Porteirinha
+31	Estado de Minas Gerais	3152402	Poté
+31	Estado de Minas Gerais	3152501	Pouso Alegre
+31	Estado de Minas Gerais	3152600	Pouso Alto
+31	Estado de Minas Gerais	3152709	Prados
+31	Estado de Minas Gerais	3152808	Prata
+31	Estado de Minas Gerais	3153400	Presidente Olegário
+31	Estado de Minas Gerais	3154002	Raul Soares
+31	Estado de Minas Gerais	3154101	Recreio
+31	Estado de Minas Gerais	3154200	Resende Costa
+31	Estado de Minas Gerais	3154309	Resplendor
+31	Estado de Minas Gerais	3154903	Rio Casca
+31	Estado de Minas Gerais	3155207	Rio Espera
+31	Estado de Minas Gerais	3155405	Rio Novo
+31	Estado de Minas Gerais	3155504	Rio Paranaíba
+31	Estado de Minas Gerais	3155603	Rio Pardo
+31	Estado de Minas Gerais	3155702	Rio Piracicaba
+31	Estado de Minas Gerais	3155801	Pomba
+31	Estado de Minas Gerais	3155900	Rio Preto
+31	Estado de Minas Gerais	3156007	Rio Vermelho
+31	Estado de Minas Gerais	3156700	Sabará
+31	Estado de Minas Gerais	3156809	Sabinópolis
+31	Estado de Minas Gerais	3156908	Sacramento
+31	Estado de Minas Gerais	3157005	Salinas
+31	Estado de Minas Gerais	3157203	Santa Bárbara
+31	Estado de Minas Gerais	3157708	Santa Juliana
+31	Estado de Minas Gerais	3157807	Santa Luzia
+31	Estado de Minas Gerais	3158201	Santa Maria do Suaçuí
+31	Estado de Minas Gerais	3159605	Santa Rita do Sapucaí
+31	Estado de Minas Gerais	3159902	Santo Antônio do Amparo
+31	Estado de Minas Gerais	3160405	Santo Antônio do Monte
+31	Estado de Minas Gerais	3160702	Santos Dumont
+31	Estado de Minas Gerais	3161007	São Domingos do Prata
+31	Estado de Minas Gerais	3161106	São Francisco
+31	Estado de Minas Gerais	3162005	São Gonçalo do Sapucaí
+31	Estado de Minas Gerais	3162104	São Gotardo
+31	Estado de Minas Gerais	3162500	São João del Rei
+31	Estado de Minas Gerais	3162807	São João Evangelista
+31	Estado de Minas Gerais	3162906	São João Nepomuceno
+31	Estado de Minas Gerais	3163706	São Lourenço
+31	Estado de Minas Gerais	3164209	São Romão
+31	Estado de Minas Gerais	3164308	Guia Lopes
+31	Estado de Minas Gerais	3164704	São Sebastião do Paraíso
+31	Estado de Minas Gerais	3165107	São Tomás de Aquino
+31	Estado de Minas Gerais	3165305	Francisco Sales
+31	Estado de Minas Gerais	3165404	Sapucaí-Mirim
+31	Estado de Minas Gerais	3165701	Senador Firmino
+31	Estado de Minas Gerais	3166907	Serrania
+31	Estado de Minas Gerais	3167103	Serro
+31	Estado de Minas Gerais	3167202	Sete Lagoas
+31	Estado de Minas Gerais	3167400	Silvianópolis
+31	Estado de Minas Gerais	3167806	Soledade
+31	Estado de Minas Gerais	3168408	Tarumirim
+31	Estado de Minas Gerais	3168507	Teixeiras
+31	Estado de Minas Gerais	3168606	Teófilo Otoni
+31	Estado de Minas Gerais	3168804	Tiradentes
+31	Estado de Minas Gerais	3168903	Tiros
+31	Estado de Minas Gerais	3169208	Tombos
+31	Estado de Minas Gerais	3169307	Três Corações
+31	Estado de Minas Gerais	3169406	Três Pontas
+31	Estado de Minas Gerais	3169604	Tupaciguara
+31	Estado de Minas Gerais	3169901	Ubá
+31	Estado de Minas Gerais	3170107	Uberaba
+31	Estado de Minas Gerais	3170206	Uberlândia
+31	Estado de Minas Gerais	3170701	Varginha
+31	Estado de Minas Gerais	3171105	Veríssimo
+31	Estado de Minas Gerais	3171303	Viçosa
+31	Estado de Minas Gerais	3171709	Virgínia
+31	Estado de Minas Gerais	3171808	Virginópolis
+31	Estado de Minas Gerais	3172004	Rio Branco
+31	Estado de Minas Gerais	3172103	Volta Grande
+32	Estado do Espírito Santo	3200102	Afonso Cláudio
+32	Estado do Espírito Santo	3200201	Alegre
+32	Estado do Espírito Santo	3200300	Alfredo Chaves
+32	Estado do Espírito Santo	3200409	Anchieta
+32	Estado do Espírito Santo	3200607	Santa Cruz
+32	Estado do Espírito Santo	3200805	Baixo Guandu
+32	Estado do Espírito Santo	3201209	Cachoeiro de Itapemirim
+32	Estado do Espírito Santo	3201308	Cariacica
+32	Estado do Espírito Santo	3201407	Castelo
+32	Estado do Espírito Santo	3201506	Colatina
+32	Estado do Espírito Santo	3201605	Conceição da Barra
+32	Estado do Espírito Santo	3201902	Domingos Martins
+32	Estado do Espírito Santo	3202207	Fundão
+32	Estado do Espírito Santo	3202306	Siqueira Campos
+32	Estado do Espírito Santo	3202405	Guarapari
+32	Estado do Espírito Santo	3202504	Pau Gigante
+32	Estado do Espírito Santo	3202603	Iconha
+32	Estado do Espírito Santo	3202702	Itaguaçu
+32	Estado do Espírito Santo	3202801	Itapemirim
+32	Estado do Espírito Santo	3203007	Rio Pardo
+32	Estado do Espírito Santo	3203403	João Pessoa
+32	Estado do Espírito Santo	3203700	Muniz Freire
+32	Estado do Espírito Santo	3203809	São João do Muqui
+32	Estado do Espírito Santo	3204401	Rio Novo
+32	Estado do Espírito Santo	3204500	Cachoeira de Santa Leopoldina
+32	Estado do Espírito Santo	3204609	Santa Teresa
+32	Estado do Espírito Santo	3204807	São José do Calçado
+32	Estado do Espírito Santo	3204906	São Mateus
+32	Estado do Espírito Santo	3205002	Serra
+32	Estado do Espírito Santo	3205101	Viana
+32	Estado do Espírito Santo	3205309	Vitória
+32	Estado do Espírito Santo	3299902	Espírito Santo
+33	Estado do Rio de Janeiro	3300100	Angra dos Reis
+33	Estado do Rio de Janeiro	3300209	Araruama
+33	Estado do Rio de Janeiro	3300308	Barra do Piraí
+33	Estado do Rio de Janeiro	3300407	Barra Mansa
+33	Estado do Rio de Janeiro	3300506	Bom Jardim
+33	Estado do Rio de Janeiro	3300605	Bom Jesus do Itabapoana
+33	Estado do Rio de Janeiro	3300704	Cabo Frio
+33	Estado do Rio de Janeiro	3300803	Cachoeiras
+33	Estado do Rio de Janeiro	3300902	Cambuci
+33	Estado do Rio de Janeiro	3301009	Campos
+33	Estado do Rio de Janeiro	3301108	Cantagalo
+33	Estado do Rio de Janeiro	3301207	Carmo
+33	Estado do Rio de Janeiro	3301306	Casimiro de Abreu
+33	Estado do Rio de Janeiro	3301603	Duas Barras
+33	Estado do Rio de Janeiro	3301900	Itaboraí
+33	Estado do Rio de Janeiro	3302007	Itaguaí
+33	Estado do Rio de Janeiro	3302106	Itaocara
+33	Estado do Rio de Janeiro	3302205	Itaperuna
+33	Estado do Rio de Janeiro	3302403	Macaé
+33	Estado do Rio de Janeiro	3302502	Magé
+33	Estado do Rio de Janeiro	3302601	Mangaratiba
+33	Estado do Rio de Janeiro	3302700	Maricá
+33	Estado do Rio de Janeiro	3303005	Miracema
+33	Estado do Rio de Janeiro	3303302	Niterói
+33	Estado do Rio de Janeiro	3303401	Nova Friburgo
+33	Estado do Rio de Janeiro	3303500	Nova Iguaçu
+33	Estado do Rio de Janeiro	3303708	Paraíba do Sul
+33	Estado do Rio de Janeiro	3303807	Parati
+33	Estado do Rio de Janeiro	3303906	Petrópolis
+33	Estado do Rio de Janeiro	3304003	Piraí
+33	Estado do Rio de Janeiro	3304201	Resende
+33	Estado do Rio de Janeiro	3304300	Rio Bonito
+33	Estado do Rio de Janeiro	3304409	Rio Claro
+33	Estado do Rio de Janeiro	3304508	Santa Teresa
+33	Estado do Rio de Janeiro	3304607	Santa Maria Madalena
+33	Estado do Rio de Janeiro	3304706	Santo Antônio de Pádua
+33	Estado do Rio de Janeiro	3304805	São Fidélis
+33	Estado do Rio de Janeiro	3304904	São Gonçalo
+33	Estado do Rio de Janeiro	3305000	São João da Barra
+33	Estado do Rio de Janeiro	3305208	São Pedro da Aldeia
+33	Estado do Rio de Janeiro	3305307	São Sebastião do Alto
+33	Estado do Rio de Janeiro	3305406	Sapucaia
+33	Estado do Rio de Janeiro	3305505	Saquarema
+33	Estado do Rio de Janeiro	3305604	Capivari
+33	Estado do Rio de Janeiro	3305703	Sumidouro
+33	Estado do Rio de Janeiro	3305802	Teresópolis
+33	Estado do Rio de Janeiro	3305901	Trajano de Morais
+33	Estado do Rio de Janeiro	3306008	Entre Rios
+33	Estado do Rio de Janeiro	3306107	Valença
+33	Estado do Rio de Janeiro	3306206	Vassouras
+35	Estado de São Paulo	3500402	Águas da Prata
+35	Estado de São Paulo	3500501	Lindóia
+35	Estado de São Paulo	3500550	Santa Bárbara do Rio Pardo
+35	Estado de São Paulo	3500709	Agudos
+35	Estado de São Paulo	3501004	Altinópolis
+35	Estado de São Paulo	3501608	Americana
+35	Estado de São Paulo	3501905	Amparo
+35	Estado de São Paulo	3502002	Anápolis
+35	Estado de São Paulo	3502101	Andradina
+35	Estado de São Paulo	3502200	Angatuba
+35	Estado de São Paulo	3502309	Piramboia
+35	Estado de São Paulo	3502507	Aparecida
+35	Estado de São Paulo	3502705	Apiaí
+35	Estado de São Paulo	3502804	Araçatuba
+35	Estado de São Paulo	3502903	Campo Largo
+35	Estado de São Paulo	3503208	Araraquara
+35	Estado de São Paulo	3503307	Araras
+35	Estado de São Paulo	3503505	Areias
+35	Estado de São Paulo	3503703	Ariranha
+35	Estado de São Paulo	3504008	Assis
+35	Estado de São Paulo	3504107	Atibaia
+35	Estado de São Paulo	3504305	Avaí
+35	Estado de São Paulo	3504404	Avanhandava
+35	Estado de São Paulo	3504503	Avaré
+35	Estado de São Paulo	3504909	Bananal
+35	Estado de São Paulo	3505203	Bariri
+35	Estado de São Paulo	3505302	Barra Bonita
+35	Estado de São Paulo	3505500	Barretos
+35	Estado de São Paulo	3505906	Batatais
+35	Estado de São Paulo	3506003	Bauru
+35	Estado de São Paulo	3506102	Bebedouro
+35	Estado de São Paulo	3506300	Bernardino de Campos
+35	Estado de São Paulo	3506508	Birigui
+35	Estado de São Paulo	3506706	Boa Esperança
+35	Estado de São Paulo	3506805	Bocaina
+35	Estado de São Paulo	3506904	Bofete
+35	Estado de São Paulo	3507001	Boituva
+35	Estado de São Paulo	3507407	Borborema
+35	Estado de São Paulo	3507506	Botucatu
+35	Estado de São Paulo	3507605	Bragança
+35	Estado de São Paulo	3507803	Brodosquii
+35	Estado de São Paulo	3507902	Brotas
+35	Estado de São Paulo	3508009	Buri
+35	Estado de São Paulo	3508405	Cabreúva
+35	Estado de São Paulo	3508504	Caçapava
+35	Estado de São Paulo	3508603	Cachoeira
+35	Estado de São Paulo	3508702	Caconde
+35	Estado de São Paulo	3508801	Cafelândia
+35	Estado de São Paulo	3509304	Cajobi
+35	Estado de São Paulo	3509403	Cajuru
+35	Estado de São Paulo	3509502	Campinas
+35	Estado de São Paulo	3509700	Campos do Jordão
+35	Estado de São Paulo	3509908	Cananéia
+35	Estado de São Paulo	3510005	Cândido Mota
+35	Estado de São Paulo	3510203	Capão Bonito
+35	Estado de São Paulo	3510401	Capivari
+35	Estado de São Paulo	3510500	Caraguatatuba
+35	Estado de São Paulo	3510807	Casa Branca
+35	Estado de São Paulo	3511102	Catanduva
+35	Estado de São Paulo	3511300	Cedral
+35	Estado de São Paulo	3511409	Cerqueira César
+35	Estado de São Paulo	3512001	Colina
+35	Estado de São Paulo	3512308	Conchas
+35	Estado de São Paulo	3512506	Coroados
+35	Estado de São Paulo	3513009	Cotia
+35	Estado de São Paulo	3513108	Cravinhos
+35	Estado de São Paulo	3513405	Cruzeiro
+35	Estado de São Paulo	3513603	Cunha
+35	Estado de São Paulo	3513702	Descalvado
+35	Estado de São Paulo	3514106	Dois Córregos
+35	Estado de São Paulo	3514304	Dourado
+35	Estado de São Paulo	3514502	Duartina
+35	Estado de São Paulo	3514700	Bela Vista
+35	Estado de São Paulo	3514809	Xiririca
+35	Estado de São Paulo	3515186	Pinhal
+35	Estado de São Paulo	3515400	Fartura
+35	Estado de São Paulo	3515608	Fernando Prestes
+35	Estado de São Paulo	3516200	Franca
+35	Estado de São Paulo	3516606	Gália
+35	Estado de São Paulo	3516705	Garça
+35	Estado de São Paulo	3517000	Getulina
+35	Estado de São Paulo	3517109	Glicério
+35	Estado de São Paulo	3517406	Guaíra
+35	Estado de São Paulo	3517703	Guará
+35	Estado de São Paulo	3518206	Guararapes
+35	Estado de São Paulo	3518305	Guararema
+35	Estado de São Paulo	3518404	Guaratinguetá
+35	Estado de São Paulo	3518503	Guareí
+35	Estado de São Paulo	3518602	Guariba
+35	Estado de São Paulo	3518701	Guarujá
+35	Estado de São Paulo	3518800	Guarulhos
+35	Estado de São Paulo	3519105	Iacanga
+35	Estado de São Paulo	3519402	Ibirá
+35	Estado de São Paulo	3519600	Ibitinga
+35	Estado de São Paulo	3519709	Una
+35	Estado de São Paulo	3520103	Igarapava
+35	Estado de São Paulo	3520301	Iguape
+35	Estado de São Paulo	3520400	Formosa
+35	Estado de São Paulo	3520509	Indaiatuba
+35	Estado de São Paulo	3520905	Ipauçu
+35	Estado de São Paulo	3521200	Iporanga
+35	Estado de São Paulo	3521705	Itaberá
+35	Estado de São Paulo	3521804	Itaí
+35	Estado de São Paulo	3521903	Itajobi
+35	Estado de São Paulo	3522109	Itanhaém
+35	Estado de São Paulo	3522208	Itapecerica
+35	Estado de São Paulo	3522307	Itapetininga
+35	Estado de São Paulo	3522406	Itapeva
+35	Estado de São Paulo	3522604	Itapira
+35	Estado de São Paulo	3522703	Itápolis
+35	Estado de São Paulo	3522802	Itaporanga
+35	Estado de São Paulo	3522901	Itapuí
+35	Estado de São Paulo	3523206	Itararé
+35	Estado de São Paulo	3523404	Itatiba
+35	Estado de São Paulo	3523503	Itatinga
+35	Estado de São Paulo	3523602	Itirapina
+35	Estado de São Paulo	3523909	Itu
+35	Estado de São Paulo	3524105	Ituverava
+35	Estado de São Paulo	3524303	Jaboticabal
+35	Estado de São Paulo	3524402	Jacareí
+35	Estado de São Paulo	3524600	Jacupiranga
+35	Estado de São Paulo	3524907	Jambeiro
+35	Estado de São Paulo	3525102	Jardinópolis
+35	Estado de São Paulo	3525300	Jaú
+35	Estado de São Paulo	3525508	Joanópolis
+35	Estado de São Paulo	3525706	José Bonifácio
+35	Estado de São Paulo	3525904	Jundiaí
+35	Estado de São Paulo	3526407	Laranjal
+35	Estado de São Paulo	3526704	Leme
+35	Estado de São Paulo	3526803	Lençóis
+35	Estado de São Paulo	3526902	Limeira
+35	Estado de São Paulo	3527108	Lins
+35	Estado de São Paulo	3527207	Lorena
+35	Estado de São Paulo	3528007	Bocaiuva
+35	Estado de São Paulo	3528502	Juqueri
+35	Estado de São Paulo	3528809	Maracaí
+35	Estado de São Paulo	3529005	Marília
+35	Estado de São Paulo	3529203	Martinópolis
+35	Estado de São Paulo	3529302	Matão
+35	Estado de São Paulo	3529807	Mineiros
+35	Estado de São Paulo	3529906	Prainha
+35	Estado de São Paulo	3530300	Mirassol
+35	Estado de São Paulo	3530508	Mococa
+35	Estado de São Paulo	3530607	Mogi das Cruzes
+35	Estado de São Paulo	3530706	Mogi Guaçu
+35	Estado de São Paulo	3530805	Mogi Mirim
+35	Estado de São Paulo	3531308	Monte Alto
+35	Estado de São Paulo	3531407	Monte Aprazível
+35	Estado de São Paulo	3531506	Monte Azul
+35	Estado de São Paulo	3531803	Monte Mor
+35	Estado de São Paulo	3531902	Morro Agudo
+35	Estado de São Paulo	3532306	Natividade
+35	Estado de São Paulo	3532405	Nazaré
+35	Estado de São Paulo	3533007	Nova Granada
+35	Estado de São Paulo	3533502	Novo Horizonte
+35	Estado de São Paulo	3533601	Nuporanga
+35	Estado de São Paulo	3533809	Óleo
+35	Estado de São Paulo	3533908	Olímpia
+35	Estado de São Paulo	3534302	Orlândia
+35	Estado de São Paulo	3534708	Ourinhos
+35	Estado de São Paulo	3535002	Palestina
+35	Estado de São Paulo	3535309	Palmital
+35	Estado de São Paulo	3535507	Paraguaçu
+35	Estado de São Paulo	3535606	Paraibuna
+35	Estado de São Paulo	3536307	Patrocínio do Sapucaí
+35	Estado de São Paulo	3536604	Paulo de Faria
+35	Estado de São Paulo	3536703	Pederneiras
+35	Estado de São Paulo	3537008	Pedregulho
+35	Estado de São Paulo	3537107	Pedreira
+35	Estado de São Paulo	3537305	Penápolis
+35	Estado de São Paulo	3537404	Pereira Barreto
+35	Estado de São Paulo	3537503	Pereiras
+35	Estado de São Paulo	3537800	Piedade
+35	Estado de São Paulo	3537909	Pilar
+35	Estado de São Paulo	3538006	Pindamonhangaba
+35	Estado de São Paulo	3538105	Pindorama
+35	Estado de São Paulo	3538501	Piquete
+35	Estado de São Paulo	3538600	Piracaia
+35	Estado de São Paulo	3538709	Piracicaba
+35	Estado de São Paulo	3538808	Piraju
+35	Estado de São Paulo	3538907	Pirajuí
+35	Estado de São Paulo	3539004	Pirangi
+35	Estado de São Paulo	3539301	Pirassununga
+35	Estado de São Paulo	3539400	Piratininga
+35	Estado de São Paulo	3539509	Pitangueiras
+35	Estado de São Paulo	3540002	Pompéia
+35	Estado de São Paulo	3540200	Pontal
+35	Estado de São Paulo	3540507	Porangaba
+35	Estado de São Paulo	3540606	Porto Feliz
+35	Estado de São Paulo	3540705	Porto Ferreira
+35	Estado de São Paulo	3540804	Potirendaba
+35	Estado de São Paulo	3541109	Presidente Alves
+35	Estado de São Paulo	3541208	Presidente Bernardes
+35	Estado de São Paulo	3541406	Presidente Prudente
+35	Estado de São Paulo	3541505	Presidente Venceslau
+35	Estado de São Paulo	3541604	Promissão
+35	Estado de São Paulo	3541703	Quatá
+35	Estado de São Paulo	3541901	Queluz
+35	Estado de São Paulo	3542206	Rancharia
+35	Estado de São Paulo	3542305	Redenção
+35	Estado de São Paulo	3542404	Regente Feijó
+35	Estado de São Paulo	3542800	Ribeira
+35	Estado de São Paulo	3542909	Ribeirão Bonito
+35	Estado de São Paulo	3543402	Ribeirão Preto
+35	Estado de São Paulo	3543907	Rio Claro
+35	Estado de São Paulo	3544004	Rio das Pedras
+35	Estado de São Paulo	3545001	Salesópolis
+35	Estado de São Paulo	3545209	Salto
+35	Estado de São Paulo	3545407	Salto Grande
+35	Estado de São Paulo	3545605	Santa Adélia
+35	Estado de São Paulo	3545803	Santa Bárbara
+35	Estado de São Paulo	3546009	Santa Branca
+35	Estado de São Paulo	3546306	Palmeiras
+35	Estado de São Paulo	3546405	Santa Cruz do Rio Pardo
+35	Estado de São Paulo	3546801	Santa Isabel
+35	Estado de São Paulo	3547304	Parnaíba
+35	Estado de São Paulo	3547502	Santa Rita
+35	Estado de São Paulo	3547601	Santa Rosa
+35	Estado de São Paulo	3547700	Santo Anastácio
+35	Estado de São Paulo	3547809	Santo André
+35	Estado de São Paulo	3547908	Santo Antônio da Alegria
+35	Estado de São Paulo	3548500	Santos
+35	Estado de São Paulo	3548609	São Bento do Sapucaí
+35	Estado de São Paulo	3548906	São Carlos
+35	Estado de São Paulo	3549102	São João da Boa Vista
+35	Estado de São Paulo	3549409	São Joaquim
+35	Estado de São Paulo	3549607	Barreiro
+35	Estado de São Paulo	3549706	São José do Rio Pardo
+35	Estado de São Paulo	3549805	Rio Preto
+35	Estado de São Paulo	3549904	São José dos Campos
+35	Estado de São Paulo	3550001	São Luís do Paraitinga
+35	Estado de São Paulo	3550100	São Manuel
+35	Estado de São Paulo	3550209	São Miguel Arcanjo
+35	Estado de São Paulo	3550308	São Paulo
+35	Estado de São Paulo	3550407	São Pedro
+35	Estado de São Paulo	3550506	São Pedro do Turvo
+35	Estado de São Paulo	3550605	São Roque
+35	Estado de São Paulo	3550704	São Sebastião
+35	Estado de São Paulo	3550803	Grama
+35	Estado de São Paulo	3550902	São Simão
+35	Estado de São Paulo	3551009	São Vicente
+35	Estado de São Paulo	3551108	Sarapuí
+35	Estado de São Paulo	3551405	Serra Azul
+35	Estado de São Paulo	3551603	Serra Negra
+35	Estado de São Paulo	3551702	Sertãozinho
+35	Estado de São Paulo	3552007	Silveiras
+35	Estado de São Paulo	3552106	Socorro
+35	Estado de São Paulo	3552205	Sorocaba
+35	Estado de São Paulo	3552601	Tabapuã
+35	Estado de São Paulo	3552700	Tabatinga
+35	Estado de São Paulo	3553302	Tambaú
+35	Estado de São Paulo	3553401	Tanabi
+35	Estado de São Paulo	3553609	Tapiratiba
+35	Estado de São Paulo	3553708	Taquaritinga
+35	Estado de São Paulo	3553807	Taquari
+35	Estado de São Paulo	3554003	Tatuí
+35	Estado de São Paulo	3554102	Taubaté
+35	Estado de São Paulo	3554508	Tietê
+35	Estado de São Paulo	3554706	Torrinha
+35	Estado de São Paulo	3554805	Tremembé
+35	Estado de São Paulo	3555000	Tupã
+35	Estado de São Paulo	3555406	Ubatuba
+35	Estado de São Paulo	3555604	Uchoa
+35	Estado de São Paulo	3556008	Mundo Novo
+35	Estado de São Paulo	3556305	Valparaíso
+35	Estado de São Paulo	3556404	Vargem Grande
+35	Estado de São Paulo	3556602	Vera Cruz
+35	Estado de São Paulo	3556800	Viradouro
+35	Estado de São Paulo	3557204	Xavantes
+35	Estado de São Paulo	3599901	Pinheiros
+41	Estado do Paraná	4101200	Antonina
+41	Estado do Paraná	4101804	Araucária
+41	Estado do Paraná	4102406	Bandeirantes
+41	Estado do Paraná	4103107	Bocaiúva
+41	Estado do Paraná	4103602	Cambará
+41	Estado do Paraná	4104204	Campo Largo
+41	Estado do Paraná	4104709	Carlópolis
+41	Estado do Paraná	4104907	Castro
+41	Estado do Paraná	4105201	Cerro Azul
+41	Estado do Paraná	4106407	Cornélio Procópio
+41	Estado do Paraná	4106902	Curitiba
+41	Estado do Paraná	4109401	Guarapuava
+41	Estado do Paraná	4110102	Imbituva
+41	Estado do Paraná	4110508	Ipiranga
+41	Estado do Paraná	4110706	Irati
+41	Estado do Paraná	4111803	Jacarezinho
+41	Estado do Paraná	4112009	Jaguariaíva
+41	Estado do Paraná	4112801	Joaquim Távora
+41	Estado do Paraná	4113205	Lapa
+41	Estado do Paraná	4113700	Londrina
+41	Estado do Paraná	4113908	Mallet
+41	Estado do Paraná	4116208	Morretes
+41	Estado do Paraná	4117602	Palmas
+41	Estado do Paraná	4117701	Palmeira
+41	Estado do Paraná	4118204	Paranaguá
+41	Estado do Paraná	4119400	Piraí
+41	Estado do Paraná	4119509	Piraquara
+41	Estado do Paraná	4119905	Ponta Grossa
+41	Estado do Paraná	4120606	Prudentópolis
+41	Estado do Paraná	4121505	Rebouças
+41	Estado do Paraná	4121703	Reserva
+41	Estado do Paraná	4121802	Ribeirão Claro
+41	Estado do Paraná	4122008	Rio Azul
+41	Estado do Paraná	4122305	Rio Negro
+41	Estado do Paraná	4124103	Santo Antônio da Platina
+41	Estado do Paraná	4125100	São João do Triunfo
+41	Estado do Paraná	4125506	São José dos Pinhais
+41	Estado do Paraná	4125605	São Mateus
+41	Estado do Paraná	4126306	Sengés
+41	Estado do Paraná	4126504	Sertanópolis
+41	Estado do Paraná	4126603	Siqueira Campos
+41	Estado do Paraná	4127007	Teixeira Soares
+41	Estado do Paraná	4127502	Tibagi
+41	Estado do Paraná	4127809	Tomazina
+41	Estado do Paraná	4128203	União da Vitória
+41	Estado do Paraná	4128500	Wenceslau Braz
+41	Estado do Paraná	4199901	Clevelândia
+41	Estado do Paraná	4199902	Foz do Iguaçu
+41	Estado do Paraná	4199903	São Jerônimo
+42	Estado de Santa Catarina	4201307	Parati
+42	Estado de Santa Catarina	4201406	Araranguá
+42	Estado de Santa Catarina	4202305	Biguaçu
+42	Estado de Santa Catarina	4202404	Blumenau
+42	Estado de Santa Catarina	4202602	Bom Retiro
+42	Estado de Santa Catarina	4202909	Brusque
+42	Estado de Santa Catarina	4203006	Caçador
+42	Estado de Santa Catarina	4203204	Camboriú
+42	Estado de Santa Catarina	4203303	Campo Alegre
+42	Estado de Santa Catarina	4203600	Campos Novos
+42	Estado de Santa Catarina	4203808	Canoinhas
+42	Estado de Santa Catarina	4204301	Concórdia
+42	Estado de Santa Catarina	4204608	Cresciuma
+42	Estado de Santa Catarina	4204806	Curitibanos
+42	Estado de Santa Catarina	4205407	Florianópolis
+42	Estado de Santa Catarina	4205902	Gaspar
+42	Estado de Santa Catarina	4206900	Harmonia
+42	Estado de Santa Catarina	4207205	Imaruí
+42	Estado de Santa Catarina	4207502	Indaial
+42	Estado de Santa Catarina	4208104	Itaiópolis
+42	Estado de Santa Catarina	4208203	Itajaí
+42	Estado de Santa Catarina	4208807	Jaguaruna
+42	Estado de Santa Catarina	4208906	Jaraguá
+42	Estado de Santa Catarina	4209003	Cruzeiro
+42	Estado de Santa Catarina	4209102	Joinville
+42	Estado de Santa Catarina	4209300	Lajes
+42	Estado de Santa Catarina	4209409	Laguna
+42	Estado de Santa Catarina	4210100	Mafra
+42	Estado de Santa Catarina	4211504	Nova Trento
+42	Estado de Santa Catarina	4211702	Orleans
+42	Estado de Santa Catarina	4211900	Palhoça
+42	Estado de Santa Catarina	4213500	Porto Belo
+42	Estado de Santa Catarina	4213609	Porto União
+42	Estado de Santa Catarina	4214805	Rio do Sul
+42	Estado de Santa Catarina	4215109	Rodeio
+42	Estado de Santa Catarina	4215802	São Bento
+42	Estado de Santa Catarina	4216206	São Francisco
+42	Estado de Santa Catarina	4216503	São Joaquim
+42	Estado de Santa Catarina	4216602	São José
+42	Estado de Santa Catarina	4218004	Tijucas
+42	Estado de Santa Catarina	4218202	Timbó
+42	Estado de Santa Catarina	4218707	Tubarão
+42	Estado de Santa Catarina	4219002	Urussanga
+42	Estado de Santa Catarina	4299901	Xapecó
+43	Estado do Rio Grande do Sul	4300406	Alegrete
+43	Estado do Rio Grande do Sul	4300802	Antônio Prado
+43	Estado do Rio Grande do Sul	4301008	Arroio do Meio
+43	Estado do Rio Grande do Sul	4301305	Arroio Grande
+43	Estado do Rio Grande do Sul	4301602	Bagé
+43	Estado do Rio Grande do Sul	4302105	Bento Gonçalves
+43	Estado do Rio Grande do Sul	4302303	Bom Jesus
+43	Estado do Rio Grande do Sul	4302808	Caçapava
+43	Estado do Rio Grande do Sul	4303004	Cachoeira
+43	Estado do Rio Grande do Sul	4303509	Camaquã
+43	Estado do Rio Grande do Sul	4304200	Candelária
+43	Estado do Rio Grande do Sul	4304507	Canguçu
+43	Estado do Rio Grande do Sul	4304606	Canoas
+43	Estado do Rio Grande do Sul	4304705	Carazinho
+43	Estado do Rio Grande do Sul	4305108	Caxias
+43	Estado do Rio Grande do Sul	4306106	Cruz Alta
+43	Estado do Rio Grande do Sul	4306601	Dom Pedrito
+43	Estado do Rio Grande do Sul	4306809	Encantado
+43	Estado do Rio Grande do Sul	4306908	Encruzilhada
+43	Estado do Rio Grande do Sul	4307005	José Bonifácio
+43	Estado do Rio Grande do Sul	4307104	Erval
+43	Estado do Rio Grande do Sul	4307807	Estrela
+43	Estado do Rio Grande do Sul	4307906	Farroupilha
+43	Estado do Rio Grande do Sul	4308201	Flores da Cunha
+43	Estado do Rio Grande do Sul	4308607	Garibaldi
+43	Estado do Rio Grande do Sul	4308805	General Câmara
+43	Estado do Rio Grande do Sul	4308904	Getúlio Vargas
+43	Estado do Rio Grande do Sul	4309209	Gravataí
+43	Estado do Rio Grande do Sul	4309308	Guaíba
+43	Estado do Rio Grande do Sul	4309407	Guaporé
+43	Estado do Rio Grande do Sul	4310207	Ijuí
+43	Estado do Rio Grande do Sul	4310504	Iraí
+43	Estado do Rio Grande do Sul	4310603	Itaqui
+43	Estado do Rio Grande do Sul	4311007	Jaguarão
+43	Estado do Rio Grande do Sul	4311106	Jaguari
+43	Estado do Rio Grande do Sul	4311205	Júlio de Castilhos
+43	Estado do Rio Grande do Sul	4311304	Lagoa Vermelha
+43	Estado do Rio Grande do Sul	4311403	Lajeado
+43	Estado do Rio Grande do Sul	4311502	Lavras
+43	Estado do Rio Grande do Sul	4312401	Montenegro
+43	Estado do Rio Grande do Sul	4313300	Prata
+43	Estado do Rio Grande do Sul	4313409	Novo Hamburgo
+43	Estado do Rio Grande do Sul	4313508	Osório
+43	Estado do Rio Grande do Sul	4313706	Palmeira
+43	Estado do Rio Grande do Sul	4314100	Passo Fundo
+43	Estado do Rio Grande do Sul	4314407	Pelotas
+43	Estado do Rio Grande do Sul	4314506	Pinheiro Machado
+43	Estado do Rio Grande do Sul	4314605	Piratini
+43	Estado do Rio Grande do Sul	4314902	Porto Alegre
+43	Estado do Rio Grande do Sul	4315305	Quaraí
+43	Estado do Rio Grande do Sul	4315602	Rio Grande
+43	Estado do Rio Grande do Sul	4315701	Rio Pardo
+43	Estado do Rio Grande do Sul	4316402	Rosário
+43	Estado do Rio Grande do Sul	4316808	Santa Cruz
+43	Estado do Rio Grande do Sul	4316907	Santa Maria
+43	Estado do Rio Grande do Sul	4317103	Livramento
+43	Estado do Rio Grande do Sul	4317202	Santa Rosa
+43	Estado do Rio Grande do Sul	4317301	Santa Vitória do Palmar
+43	Estado do Rio Grande do Sul	4317400	Santiago
+43	Estado do Rio Grande do Sul	4317509	Santo Ângelo
+43	Estado do Rio Grande do Sul	4317608	Santo Antônio
+43	Estado do Rio Grande do Sul	4318002	São Borja
+43	Estado do Rio Grande do Sul	4318101	São Francisco de Assis
+43	Estado do Rio Grande do Sul	4318200	São Francisco de Paula
+43	Estado do Rio Grande do Sul	4318309	São Gabriel
+43	Estado do Rio Grande do Sul	4318408	São Jerônimo
+43	Estado do Rio Grande do Sul	4318507	São José do Norte
+43	Estado do Rio Grande do Sul	4318705	São Leopoldo
+43	Estado do Rio Grande do Sul	4318804	São Lourenço
+43	Estado do Rio Grande do Sul	4318903	São Luiz Gonzaga
+43	Estado do Rio Grande do Sul	4319406	São Pedro
+43	Estado do Rio Grande do Sul	4319505	Caí
+43	Estado do Rio Grande do Sul	4319604	São Sepé
+43	Estado do Rio Grande do Sul	4319802	São Vicente
+43	Estado do Rio Grande do Sul	4320107	Sarandi
+43	Estado do Rio Grande do Sul	4320701	Sobradinho
+43	Estado do Rio Grande do Sul	4320800	Soledade
+43	Estado do Rio Grande do Sul	4321105	Tapes
+43	Estado do Rio Grande do Sul	4321204	Taquara
+43	Estado do Rio Grande do Sul	4321303	Taquari
+43	Estado do Rio Grande do Sul	4321501	Torres
+43	Estado do Rio Grande do Sul	4322004	Triunfo
+43	Estado do Rio Grande do Sul	4322202	Tupanciretã
+43	Estado do Rio Grande do Sul	4322400	Uruguaiana
+43	Estado do Rio Grande do Sul	4322509	Vacaria
+43	Estado do Rio Grande do Sul	4322608	Venâncio Aires
+43	Estado do Rio Grande do Sul	4322806	Alfredo Chaves
+43	Estado do Rio Grande do Sul	4323002	Viamão
+51	Estado do Mato Grosso	5100300	Alto Araguaia
+51	Estado do Mato Grosso	5101101	Aquidauana
+51	Estado do Mato Grosso	5101803	Araguaiana
+51	Estado do Mato Grosso	5102504	Cáceres
+51	Estado do Mato Grosso	5102705	Campo Grande
+51	Estado do Mato Grosso	5103206	Corumbá
+51	Estado do Mato Grosso	5103303	Herculânea
+51	Estado do Mato Grosso	5103403	Cuiabá
+51	Estado do Mato Grosso	5103502	Diamantino
+51	Estado do Mato Grosso	5104203	Lajeado
+51	Estado do Mato Grosso	5105507	Mato Grosso
+51	Estado do Mato Grosso	5106109	Livramento
+51	Estado do Mato Grosso	5106304	Paranaíba
+51	Estado do Mato Grosso	5106505	Poconé
+51	Estado do Mato Grosso	5107008	Poxoréo
+51	Estado do Mato Grosso	5107209	Rio Brilhante
+51	Estado do Mato Grosso	5107701	Rosário Oeste
+51	Estado do Mato Grosso	5107800	Santo Antônio
+51	Estado do Mato Grosso	5108304	Três Lagoas
+51	Estado do Mato Grosso	5199901	Bela Vista
+51	Estado do Mato Grosso	5199902	Dourados
+51	Estado do Mato Grosso	5199903	Maracaju
+51	Estado do Mato Grosso	5199904	Guajará-Mirim
+51	Estado do Mato Grosso	5199905	Miranda
+51	Estado do Mato Grosso	5199906	Nioaque
+51	Estado do Mato Grosso	5199907	Ponta Porã
+51	Estado do Mato Grosso	5199908	Porto Murtinho
+51	Estado do Mato Grosso	5199909	Alto Madeira
+52	Estado de Goiás	5201108	Anápolis
+52	Estado de Goiás	5201306	Anicuns
+52	Estado de Goiás	5201900	Santa Maria do Araguaia
+52	Estado de Goiás	5202403	Arraias
+52	Estado de Goiás	5203302	Bela Vista
+52	Estado de Goiás	5203906	Buriti Alegre
+52	Estado de Goiás	5204409	Rio Bonito
+52	Estado de Goiás	5204508	Caldas Novas
+52	Estado de Goiás	5205109	Catalão
+52	Estado de Goiás	5205307	Cavalcante
+52	Estado de Goiás	5205802	Corumbá
+52	Estado de Goiás	5205901	Corumbaíba
+52	Estado de Goiás	5206206	Cristalina
+52	Estado de Goiás	5207006	Dianópolis
+52	Estado de Goiás	5208004	Formosa
+52	Estado de Goiás	5208509	Goiandira
+52	Estado de Goiás	5208707	Goiânia
+52	Estado de Goiás	5208905	Goiás
+52	Estado de Goiás	5209101	Goiatuba
+52	Estado de Goiás	5210000	Inhumas
+52	Estado de Goiás	5210109	Ipameri
+52	Estado de Goiás	5210406	Itaberaí
+52	Estado de Goiás	5210703	São Vicente
+52	Estado de Goiás	5210901	Pilar
+52	Estado de Goiás	5211503	Santa Rita do Parnaíba
+52	Estado de Goiás	5211800	Jaraguá
+52	Estado de Goiás	5211909	Jataí
+52	Estado de Goiás	5212501	Santa Luzia
+52	Estado de Goiás	5213103	Mineiros
+52	Estado de Goiás	5213806	Morrinhos
+52	Estado de Goiás	5214200	Natividade
+52	Estado de Goiás	5214606	São José do Tocantins
+52	Estado de Goiás	5215306	Campo Formoso
+52	Estado de Goiás	5215702	Palmeiras
+52	Estado de Goiás	5216205	Palma
+52	Estado de Goiás	5216403	Paraúna
+52	Estado de Goiás	5216502	Pedro Afonso
+52	Estado de Goiás	5216601	Peixe
+52	Estado de Goiás	5217104	Pouso Alto
+52	Estado de Goiás	5217302	Pirenópolis
+52	Estado de Goiás	5217401	Pires do Rio
+52	Estado de Goiás	5217609	Planaltina
+52	Estado de Goiás	5217708	Pontalina
+52	Estado de Goiás	5218201	Porto Nacional
+52	Estado de Goiás	5218300	Posse
+52	Estado de Goiás	5218805	Rio Verde
+52	Estado de Goiás	5219803	São Domingos
+52	Estado de Goiás	5220603	Bonfim
+52	Estado de Goiás	5220702	Sítio d'Abadia
+52	Estado de Goiás	5220900	Taguatinga
+52	Estado de Goiás	5221205	Boa Vista
+52	Estado de Goiás	5221601	Santana
