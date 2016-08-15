@@ -105,7 +105,7 @@ class Database(object):
         '''
         The cached database file.
         '''
-        return Path(SRC_DIR, '.cache', '{}.{}'.format(self.year, self.format))
+        return File(SRC_DIR / '.cache' / Path(self.file).name)
 
     def download(self):
         '''
@@ -283,6 +283,10 @@ class DatabaseRepository(object):
                      file='DTB17112003nome.xls',
                      format='xls',
                      sheet='DTBnome'),
+            Database(year=1994,
+                     archive='brasil.zip',
+                     file='DTB94BR.DAT',
+                     format='dat'),
             Database(year=1980,
                      file='h_dtb_1980.xls',
                      format='xls',
