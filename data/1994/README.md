@@ -15,7 +15,7 @@
 
 | File                 | Format                                                                                          |      Size |
 | -------------------- |:-----------------------------------------------------------------------------------------------:| ---------:|
-| `dtb.csv`            | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)                                     |   558,603 |
+| `dtb.csv`            | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)                                     | 1,639,729 |
 | `dtb.fdb`            | [Firebird Embedded](https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded)          | 2,834,432 |
 | `dtb.json`           | [JSON](https://en.wikipedia.org/wiki/JSON)                                                      | 2,367,065 |
 | `dtb.php.serialized` | [PHP Serialized Data](https://en.wikipedia.org/wiki/Serialization#Programming_language_support) | 2,131,660 |
