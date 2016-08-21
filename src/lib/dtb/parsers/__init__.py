@@ -11,6 +11,10 @@ from __future__ import absolute_import
 
 # Imports
 
+# Built-in imports
+
+from collections import OrderedDict
+
 # External compatibility dependencies
 
 from future.utils import itervalues
@@ -51,6 +55,7 @@ class Parser(AbstractClass):
             base (dtb.databases.Database): A database instance to parse
         '''
         self._base = base
+        self._names = OrderedDict()
 
     def __call__(self, **options):
         '''
@@ -137,6 +142,27 @@ class Parser(AbstractClass):
                                            key=lambda row: row['id'])
 
         return records
+
+    def _bindNames(self, row):
+        '''
+        Binds recorded names into given row.
+
+        Arguments:
+            row (dtb.databases.entities.DatabaseRow): The database row to bind
+        '''
+        columns = zip(*[reversed(row.columns(localized=False))] * 2)
+        column_names = [column_name for (column_name, column_id) in columns]
+
+        for idx, (column_name, column_id) in enumerate(columns):
+            value = row.__dict__[column_id]
+
+            if value and int(value):
+                self._names[column_name] = row._name
+
+                for column in column_names[idx:]:
+                    row.__dict__[column] = self._names[column]
+
+                break
 
 
 class ParserFactory(object):
