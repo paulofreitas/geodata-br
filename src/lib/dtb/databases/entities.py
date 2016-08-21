@@ -320,63 +320,89 @@ class LegacyMunicipality(LegacyEntity):
     }
 
 
+class DatabaseColumn(object):
+    '''
+    Entity class for database columns.
+    '''
+
+    def __init__(self, name, **rules):
+        '''
+        Constructor.
+
+        Arguments:
+            name (str): The column name
+            rules (dict): The column rules
+        '''
+        self.name = name
+        self.localized_name = _(name)
+        self.rules = rules
+
+
 class DatabaseRow(object):
     '''
     Entity class for database rows.
     '''
 
-    __slots__ = ('state_id',
-                 'state_name',
-                 'mesoregion_id',
-                 'mesoregion_name',
-                 'microregion_id',
-                 'microregion_name',
-                 'municipality_id',
-                 'municipality_name',
-                 'district_id',
-                 'district_name',
-                 'subdistrict_id',
-                 'subdistrict_name')
+    __columns__ = [
+        DatabaseColumn('state_id',
+                       requires='state_name',
+                       cast_type=int),
+        DatabaseColumn('state_name'),
+        DatabaseColumn('mesoregion_id',
+                       requires='mesoregion_name',
+                       min_length=2,
+                       suffix='state_id',
+                       cast_type=int),
+        DatabaseColumn('mesoregion_name'),
+        DatabaseColumn('microregion_id',
+                       requires='microregion_name',
+                       min_length=3,
+                       suffix='state_id',
+                       cast_type=int),
+        DatabaseColumn('microregion_name'),
+        DatabaseColumn('municipality_id',
+                       requires='municipality_name',
+                       min_length=5,
+                       suffix='state_id',
+                       cast_type=int),
+        DatabaseColumn('municipality_name'),
+        DatabaseColumn('district_id',
+                       requires='district_name',
+                       min_length=2,
+                       suffix='municipality_id',
+                       cast_type=int),
+        DatabaseColumn('district_name'),
+        DatabaseColumn('subdistrict_id',
+                       requires='subdistrict_name',
+                       min_length=2,
+                       suffix='district_id',
+                       cast_type=int),
+        DatabaseColumn('subdistrict_name'),
+    ]
 
     def __init__(self):
         '''
         Constructor.
         '''
         # Initialize attributes
-        self.state_id = None
-        self.state_name = None
-        self.mesoregion_id = None
-        self.mesoregion_name = None
-        self.microregion_id = None
-        self.microregion_name = None
-        self.municipality_id = None
-        self.municipality_name = None
-        self.district_id = None
-        self.district_name = None
-        self.subdistrict_id = None
-        self.subdistrict_name = None
+        for column in self.__columns__:
+            self.__dict__[column.name] = None
 
-    @property
-    def columns(self):
+        self._name = None
+
+    def columns(self, localized=True):
         '''
         Returns the row column names.
+
+        Arguments:
+            localized (bool): Whether or not it should localize column names
 
         Returns:
             list: The row column names
         '''
-        return self.__slots__
+        return [column.localized_name if localized else column.name
+                for column in self.__columns__]
 
-    @property
-    def _columns(self):
-        '''
-        Returns the translated row column names.
-
-        Returns:
-            list: The translated row column names
-        '''
-        return [_(column) for column in self.columns]
-
-    @property
     def values(self):
         '''
         Returns the row column values.
@@ -384,83 +410,73 @@ class DatabaseRow(object):
         Returns:
             list: The row column values
         '''
-        return [getattr(self, column) for column in self.columns]
+        return [self.__dict__[column.name] for column in self.__columns__]
 
-    def _fixValues(self):
-        '''
-        Fixes the row values.
-        '''
-        # Unset empty and zero values
-        for column in self.columns:
-            value = getattr(self, column)
-
-            if not value or (column.endswith('_id') and not int(value)):
-                setattr(self, column, None)
-
-        # Unset needless values
-        if self.mesoregion_id and not self.mesoregion_name:
-            self.mesoregion_id = None
-
-        if self.microregion_id and not self.microregion_name:
-            self.microregion_id = None
-
-        if self.municipality_id and not self.municipality_name:
-            self.municipality_id = None
-
-        if self.district_id and not self.district_name:
-            self.district_id = None
-
-        if self.subdistrict_id and not self.subdistrict_name:
-            self.subdistrict_id = None
-
-    def _formatValues(self):
-        '''
-        Formats the row values.
-        '''
-        # Reformat numeric values
-        if self.mesoregion_id and len(self.mesoregion_id) == 2:
-            self.mesoregion_id = self.state_id + self.mesoregion_id
-
-        if self.microregion_id and len(self.microregion_id) == 3:
-            self.microregion_id = self.state_id + self.microregion_id
-
-        if self.municipality_id and len(self.municipality_id) == 5:
-            self.municipality_id = self.state_id + self.municipality_id
-
-        if self.district_id and len(self.district_id) == 2:
-            self.district_id = self.municipality_id + self.district_id
-
-        if self.subdistrict_id and len(self.subdistrict_id) == 2:
-            self.subdistrict_id = self.district_id + self.subdistrict_id
-
-        # Cast numeric values to integer
-        for column in self.columns:
-            if column.endswith('_id'):
-                value = getattr(self, column)
-
-                if value:
-                    setattr(self, column, int(value))
-
-    def normalize(self):
+    def normalize(self, force_str=False):
         '''
         Normalizes the row data as needed.
+
+        Arguments:
+            force_str (bool): Whether or not it should convert columns to string
 
         Returns:
             DatabaseRow: The self DatabaseRow instance
         '''
-        self._fixValues()
-        self._formatValues()
+        # pylint: disable=unidiomatic-typecheck
+        for column in self.__columns__:
+            value = self.__dict__[column.name]
+
+            # Skip unset values
+            if not value:
+                continue
+
+            # Convert non-string columns
+            if force_str:
+                if type(value) == float:
+                    value = '{:.0f}'.format(value)
+
+            # Unset/skip unused columns
+            if (('requires' in column.rules
+                    and not self.__dict__[column.rules['requires']])
+                    or ('cast_type' in column.rules
+                        and not column.rules['cast_type'](value))):
+                self.__dict__[column.name] = None
+                continue
+
+            # Reformat columns as needed
+            if 'min_length' in column.rules:
+                if len(value) < column.rules['min_length']:
+                    value = '{:0>{}}'.format(value, column.rules['min_length'])
+
+                if ('suffix' in column.rules
+                        and len(value) == column.rules['min_length']):
+                    value = str(self.__dict__[column.rules['suffix']]) + value
+
+            # Cast columns
+            if 'cast_type' in column.rules:
+                value = column.rules['cast_type'](value)
+
+            # Save normalized value
+            self.__dict__[column.name] = value
 
         return self
 
-    def serialize(self):
+    def serialize(self, localized=True):
         '''
         Returns the serialized row data dictionary.
+
+        Arguments:
+            localized (bool): Whether or not it should localize column names
 
         Returns:
             dict: The serialized row data dictionary
         '''
-        return {_(column): getattr(self, column) for column in self.columns}
+        if localized:
+            return {column.localized_name: self.__dict__[column.name]
+                    for column in self.__columns__}
+
+        return {column.name: self.__dict__[column.name]
+                for column in self.__columns__}
 
     def __repr__(self):
         '''
