@@ -9,10 +9,6 @@ from __future__ import absolute_import
 
 # Imports
 
-# Built-in dependencies
-
-from collections import OrderedDict
-
 # Package dependencies
 
 from dtb.core.logging import Logger
@@ -46,18 +42,18 @@ class DatParser(Parser):
         super(self.__class__, self).__init__(base)
 
         self._rows = self._base.read().splitlines()
-        self._names = OrderedDict()
 
-    def _parseColumns(self):
+    def _parseColumns(self, **options):
         '''
         Parses the database columns.
+
+        Arguments:
+            options (dict): The parsing options
 
         Returns:
             list: A list with parsed database columns
         '''
-        logger.debug('Parsing database cols...')
-
-        return DatabaseRow().columns
+        return DatabaseRow().columns(options.get('localized', True))
 
     def _parseRows(self):
         '''
@@ -66,8 +62,6 @@ class DatParser(Parser):
         Returns:
             list: A list with parsed database rows
         '''
-        logger.debug('Parsing database rows...')
-
         rows = []
 
         for row_data in self._rows:
@@ -94,17 +88,8 @@ class DatParser(Parser):
         row.state_id, row.mesoregion_id, row.microregion_id, \
         row.municipality_id, row.district_id, row.subdistrict_id, \
         name = row_data.unpack('2s2s3s5s2s2s')
+        row._name = name.replace('\x8c', '\x55')
 
-        columns = zip(*[reversed(row.columns)] * 2)
-        column_names = [column_name for (column_name, column_id) in columns]
-
-        for idx, (column_name, column_id) in enumerate(columns):
-            if int(getattr(row, column_id)):
-                self._names[column_name] = name.replace('\x8c', '\x55')
-
-                for column in column_names[idx:]:
-                    setattr(row, column, self._names[column])
-
-                break
+        self._bindNames(row)
 
         return row.normalize()
