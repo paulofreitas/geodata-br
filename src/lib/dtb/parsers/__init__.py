@@ -55,6 +55,7 @@ class Parser(AbstractClass):
             base (dtb.databases.Database): A database instance to parse
         '''
         self._base = base
+        self._columns = self._parseColumns(localized=False)
         self._names = OrderedDict()
 
     def __call__(self, **options):
@@ -103,15 +104,24 @@ class Parser(AbstractClass):
         except:
             raise ParseError('Failed to parse data using the given parser')
 
-    def _parseColumns(self):
+    def _parseColumns(self, **options):
         '''
         Parses the database columns.
+
+        Arguments:
+            options (dict): The parsing options
+
+        Returns:
+            list: A list with parsed database columns
         '''
         raise NotImplementedError
 
     def _parseRows(self):
         '''
         Parses the database rows.
+
+        Returns:
+            list: A list with parsed database rows
         '''
         raise NotImplementedError
 
@@ -150,7 +160,7 @@ class Parser(AbstractClass):
         Arguments:
             row (dtb.databases.entities.DatabaseRow): The database row to bind
         '''
-        columns = zip(*[reversed(row.columns(localized=False))] * 2)
+        columns = zip(*[reversed(self._columns)] * 2)
         column_names = [column_name for (column_name, column_id) in columns]
 
         for idx, (column_name, column_id) in enumerate(columns):
