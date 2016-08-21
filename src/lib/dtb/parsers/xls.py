@@ -58,26 +58,35 @@ class XlsParser(Parser):
                                         on_demand=True)
         self._sheet = self._book.sheet_by_name(self._base.sheet)
 
-    def _parseColumns(self):
+    def _parseColumns(self, **options):
         '''
         Parses the database columns.
-        '''
-        logger.debug('Parsing database cols...')
 
-        columns = DatabaseRow()._columns
+        Arguments:
+            options (dict): The parsing options
+
+        Returns:
+            list: A list with parsed database columns
+        '''
+        columns = DatabaseRow().columns(options.get('localized', True))
         base_year = int(self._base.year)
 
         if base_year in (1940, 1950, 1960, 1970, 1980):
             return columns[:2] + columns[6:8]
+        elif base_year == 2004:
+            return columns[:2] + columns[6:]
+        elif base_year in (2010, 2011, 2012):
+            return columns[:8]
 
-        return columns[:self._sheet.ncols]
+        return columns
 
     def _parseRows(self):
         '''
         Parses the database rows.
-        '''
-        logger.debug('Parsing database rows...')
 
+        Returns:
+            list: A list with parsed database rows
+        '''
         rows = []
 
         for row_id in range(self._sheet.nrows):
@@ -85,7 +94,12 @@ class XlsParser(Parser):
             if row_id == 0:
                 continue
 
-            row_data = [unicode(col) for col in self._sheet.row_values(row_id)]
+            row_data = [col or None for col in self._sheet.row_values(row_id)]
+
+            # Break on incomplete rows
+            if len(filter(None, row_data)) <= 1:
+                break
+
             rows.append(self._parseRow(row_data))
 
         return rows
@@ -96,13 +110,28 @@ class XlsParser(Parser):
 
         Arguments:
             row_data (list): The database row data
+
+        Returns:
+            dtb.databases.entities.DatabaseRow: The parsed database row
         '''
         row = DatabaseRow()
+        normalization_options = {}
         base_year = int(self._base.year)
 
         if base_year in (1940, 1950, 1960, 1970, 1980):
             (row.state_id, row.state_name) = row_data[:2]
             (row.municipality_id, row.municipality_name) = row_data[3:5]
+        elif base_year in (2000, 2004):
+            if base_year == 2000:
+                row.state_id, row.mesoregion_id, row.microregion_id, \
+                row.municipality_id, row.district_id, row.subdistrict_id, \
+                row._name = row_data[2:]
+                normalization_options = dict(force_str=True)
+            elif base_year == 2004:
+                row.state_id, row.municipality_id, row.district_id, \
+                row.subdistrict_id, row._name = row_data[1:]
+
+            self._bindNames(row)
         elif base_year in (2003, 2005, 2006, 2007, 2008, 2009, 2013):
             (row.state_id, row.state_name,
              row.mesoregion_id, row.mesoregion_name,
@@ -123,4 +152,4 @@ class XlsParser(Parser):
             row.district_id, row.district_name = row_data[10:12]
             row.subdistrict_id, row.subdistrict_name = row_data[13:15]
 
-        return row.normalize()
+        return row.normalize(**normalization_options)
