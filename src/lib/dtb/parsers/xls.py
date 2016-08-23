@@ -57,6 +57,7 @@ class XlsParser(Parser):
                                         logfile=open(devnull, 'w'),
                                         on_demand=True)
         self._sheet = self._book.sheet_by_name(self._base.sheet)
+        self._lastrow = None
 
     def _parseColumns(self, **options):
         '''
@@ -73,8 +74,6 @@ class XlsParser(Parser):
 
         if base_year in (1940, 1950, 1960, 1970, 1980):
             return columns[:2] + columns[6:8]
-        elif base_year == 2004:
-            return columns[:2] + columns[6:]
         elif base_year in (2010, 2011, 2012):
             return columns[:8]
 
@@ -97,7 +96,7 @@ class XlsParser(Parser):
             row_data = [col or None for col in self._sheet.row_values(row_id)]
 
             # Break on incomplete rows
-            if len(filter(None, row_data)) <= 1:
+            if len([col for col in row_data if col]) <= 1:
                 break
 
             rows.append(self._parseRow(row_data))
@@ -128,8 +127,21 @@ class XlsParser(Parser):
                 row._name = row_data[2:]
                 normalization_options = dict(force_str=True)
             elif base_year == 2004:
-                row.state_id, row.municipality_id, row.district_id, \
-                row.subdistrict_id, row._name = row_data[1:]
+                level, row.state_id, _id, row.district_id, \
+                row.subdistrict_id, row._name = row_data
+                level = int(level)
+
+                if level in (5, 6, 7):
+                    row.municipality_id = _id
+                    row.microregion_id = str(self._lastrow.microregion_id)
+                    row.mesoregion_id = str(self._lastrow.mesoregion_id)
+                elif level == 8:
+                    row.mesoregion_id = _id[:2]
+                elif level == 9:
+                    row.microregion_id = _id[:3]
+                    row.mesoregion_id = str(self._lastrow.mesoregion_id)
+
+                self._lastrow = row
 
             self._bindNames(row)
         elif base_year in (2003, 2005, 2006, 2007, 2008, 2009, 2013):
