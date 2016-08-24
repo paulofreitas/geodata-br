@@ -17,10 +17,12 @@ from collections import OrderedDict
 
 # Package dependencies
 
-from dtb.core.constants import DATA_DIR
+from dtb.core.constants import BASE_DIR, DATA_DIR, SRC_DIR
 from dtb.core.helpers import Number
-from dtb.core.helpers.filesystem import Directory, File
+from dtb.core.helpers.decorators import cachedmethod
+from dtb.core.helpers.filesystem import File
 from dtb.core.helpers.markup import GithubMarkdown as Markdown
+from dtb.core.i18n import _, Translator
 from dtb.databases import DatabaseRepository
 from dtb.databases.entities import Entities
 from dtb.formats import FormatRepository
@@ -28,30 +30,46 @@ from dtb.formats import FormatRepository
 # Classes
 
 
+class DatasetUtils(object):
+    @staticmethod
+    @cachedmethod
+    def getDatasetsByLocale(locale):
+        '''
+        Returns the datasets available for a given localization.
+
+        Arguments:
+            locale (str): The localization name
+
+        Returns:
+            collections.OrderedDict: The localization datasets
+        '''
+        data = OrderedDict()
+
+        for dataset in DatabaseRepository.listYears():
+            dataset_file = DATA_DIR / locale / dataset / 'places.json'
+
+            if dataset_file.exists():
+                data[dataset] = json.load(File(dataset_file))
+
+        return data
+
+
 class Readme(object):
     '''
     A README documentation file.
     '''
 
-    def __init__(self, readmeFile, stubFile=None):
+    def __init__(self, readme_file, stub_file=None):
         '''
         Constructor.
 
         Arguments:
-            readmeFile (dtb.core.helpers.filesystem.File): The README file
-            stubFile (dtb.core.helpers.filesystem.File): The README stub file
+            readme_file (dtb.core.helpers.filesystem.File): The README file
+            stub_file (dtb.core.helpers.filesystem.File): The README stub file
         '''
-        self._readmeFile = readmeFile
-        self._stubFile = stubFile
-        self._stub = self._stubFile.read() if stubFile else ''
-        self._data = OrderedDict()
-
-        # Load databases
-        for base_year in DatabaseRepository.listYears():
-            base_file = DATA_DIR / base_year / 'dtb.json'
-
-            if base_file.exists():
-                self._data[base_year] = json.load(File(base_file))
+        self._readme_file = readme_file
+        self._stub_file = stub_file
+        self._stub = self._stub_file.read() if stub_file else ''
 
     def render(self):
         '''
@@ -63,7 +81,7 @@ class Readme(object):
         '''
         Writes the file to disk.
         '''
-        self._readmeFile.write(self.render())
+        self._readme_file.write(self.render())
 
 
 class ProjectReadme(Readme):
@@ -71,37 +89,57 @@ class ProjectReadme(Readme):
     The project README documentation file.
     '''
 
+    def __init__(self):
+        '''
+        Constructor.
+        '''
+        readme_file = File(BASE_DIR / 'README.md')
+        stub_file = File(SRC_DIR / 'data/stubs/README.stub.md')
+
+        super(self.__class__, self).__init__(readme_file, stub_file)
+
+        # Setup translator
+        Translator.locale = 'pt'
+        Translator.load('databases')
+
     def render(self):
         '''
         Renders the file.
         '''
         return self._stub.format(
-            database_records=self.renderDatabaseRecords().strip(),
-            database_formats=self.renderDatabaseFormats().strip()
+            dataset_records=self.renderDatasetRecords().strip(),
+            dataset_formats=self.renderDatasetFormats().strip()
         )
 
-    def renderDatabaseRecords(self):
+    def renderDatasetRecords(self):
         '''
-        Renders the available database records counts.
+        Renders the available dataset records counts.
+
+        Returns:
+            str: The available dataset records counts
         '''
-        headers = ['Base'] + [
+        headers = ['Dataset'] + [
             Markdown.code(entity.table) for entity in Entities
         ]
         alignment = ['>'] * 7
+        datasets = DatasetUtils.getDatasetsByLocale('pt')
         data = [
-            [Markdown.bold(base)] + [
-                '{:,d}'.format(len(self._data[base][entity.table])) \
-                    if entity.table in self._data[base] else '-'
+            [Markdown.bold(dataset)] + [
+                '{:,d}'.format(len(datasets[dataset][_(entity.table)])) \
+                    if _(entity.table) in datasets[dataset] else '-'
                 for entity in Entities
             ]
-            for base in self._data
+            for dataset in datasets
         ]
 
         return Markdown.table([headers] + data, alignment)
 
-    def renderDatabaseFormats(self):
+    def renderDatasetFormats(self):
         '''
-        Renders the available database formats.
+        Renders the available dataset formats.
+
+        Returns:
+            str: The available dataset formats
         '''
         grouped_formats = FormatRepository.groupExportableFormatsByType()
         markdown = ''
@@ -117,80 +155,95 @@ class ProjectReadme(Readme):
 
         return markdown
 
-class DatabaseReadme(Readme):
+class DatasetReadme(Readme):
     '''
-    A database README documentation file.
+    A dataset README documentation file.
     '''
 
-    def __init__(self, base, readmeFile, stubFile):
+    def __init__(self, dataset, dataset_dir, locale):
         '''
         Constructor.
 
         Arguments:
-            base (dtb.databases.Database): The database instance
-            readmeFile (dtb.core.helpers.filesystem.File): The README file
-            stubFile (dtb.core.helpers.filesystem.File): The README stub file
+            dataset (dtb.databases.Database): The dataset instance
+            dataset_dir (str): The dataset directory
+            locale (str): The dataset localization
         '''
-        super(self.__class__, self).__init__(readmeFile, stubFile)
+        readme_file = File(dataset_dir / 'README.md')
+        stub_file = File(SRC_DIR / 'data/stubs/BASE_README.stub.md')
 
-        self._base = base
-        self._baseDir = Directory(readmeFile.parent)
+        super(self.__class__, self).__init__(readme_file, stub_file)
+
+        self._dataset = dataset
+        self._dataset_dir = dataset_dir
+        self._locale = locale
+
+        # Setup translator
+        Translator.locale = locale
+        Translator.load('databases')
 
     def render(self):
         '''
         Renders the file.
         '''
-
         return self._stub.format(
-            db_year=self._base.year,
-            db_records=self.renderDatabaseRecords().strip(),
-            db_files=self.renderDatabaseFiles().strip()
+            dataset=self._dataset.year,
+            dataset_records=self.renderDatasetRecords().strip(),
+            dataset_files=self.renderDatasetFiles().strip()
         )
 
-    def renderDatabaseRecords(self):
+    def renderDatasetRecords(self):
         '''
-        Renders the database records counts.
+        Renders the dataset records counts.
+
+        Returns:
+            str: The dataset records counts
         '''
         headers = ['Table', 'Records']
         alignment = ['>', '>']
+        datasets = DatasetUtils.getDatasetsByLocale(self._locale)
         data = [
-            [Markdown.code(entity.table),
-             '{:,d}'.format(len(self._data[self._base.year][entity.table]))]
+            [Markdown.code(_(entity.table)),
+             '{:,d}'.format(len(datasets[self._dataset.year][_(entity.table)]))]
             for entity in Entities
-            if entity.table in self._data[self._base.year]
+            if _(entity.table) in datasets[self._dataset.year]
         ]
 
         return Markdown.table([headers] + data, alignment)
 
-    def renderDatabaseFiles(self):
+    def renderDatasetFiles(self):
         '''
-        Renders the database files.
+        Renders the dataset files info.
+
+        Returns:
+            str: The dataset files info
         '''
         headers = ['File', 'Format', 'Size', 'Savings']
         alignment = ['<', '^', '>', '>']
         data = []
 
-        for base_file in self._baseDir.files(pattern='dtb*'):
-            raw_file = File(self._baseDir.parent / base_file.name)
-            base_format = '-'
+        for dataset_file in self._dataset_dir.files(pattern='places*'):
+            raw_file = File(self._dataset_dir.parent / dataset_file.name)
+            dataset_format = '-'
 
-            if base_file.format:
-                base_format = Markdown.link(base_file.format.info,
-                                            base_file.format.friendlyName)
+            if dataset_file.format:
+                dataset_format = Markdown.link(dataset_file.format.info,
+                                               dataset_file.format.friendlyName)
 
-            base_info = [
-                Markdown.code(base_file.name),
-                base_format,
-                '{:9,d}'.format(base_file.size),
+            dataset_info = [
+                Markdown.code(dataset_file.name),
+                dataset_format,
+                '{:9,d}'.format(dataset_file.size),
             ]
 
             if raw_file.exists():
-                savings = Number.percentDifference(base_file.size, raw_file.size)
-                base_info.append('{:>6.1f}%'.format(savings))
+                savings = Number.percentDifference(dataset_file.size,
+                                                   raw_file.size)
+                dataset_info.append('{:>6.1f}%'.format(savings))
 
-            data.append(base_info)
+            data.append(dataset_info)
 
-        if 'minified' in self._baseDir:
+        if 'minified' in self._dataset_dir:
             return Markdown.table([headers] + data, alignment)
 
         return Markdown.table([headers[:3]] + [row[:3] for row in data],
