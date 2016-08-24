@@ -1,9 +1,9 @@
-## {db_year} database
+# {dataset} dataset
 
-### Database records
+## Records
 
-{db_records}
+{dataset_records}
 
-### Database files
+## Files
 
-{db_files}
+{dataset_files}
