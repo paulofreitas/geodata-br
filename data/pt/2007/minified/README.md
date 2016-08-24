@@ -1,6 +1,6 @@
-## 2007 database
+# 2007 dataset
 
-### Database records
+## Records
 
 |          Table | Records |
 | --------------:| -------:|
@@ -11,14 +11,14 @@
 |     `distrito` |  10,090 |
 |  `subdistrito` |     471 |
 
-### Database files
+## Files
 
-| File        | Format                                                       |      Size | Savings |
-| ----------- |:------------------------------------------------------------:| ---------:| -------:|
-| `dtb.csv`   | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)  | 1,122,030 |   11.6% |
-| `dtb.json`  | [JSON](https://en.wikipedia.org/wiki/JSON)                   | 1,791,173 |   33.0% |
-| `dtb.plist` | [Property List](https://en.wikipedia.org/wiki/Property_list) | 4,059,338 |   16.0% |
-| `dtb.sql`   | [SQL](https://en.wikipedia.org/wiki/SQL)                     | 1,234,404 |    8.3% |
-| `dtb.tsv`   | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)    | 1,122,028 |   11.6% |
-| `dtb.xml`   | [XML](https://en.wikipedia.org/wiki/XML)                     | 3,752,535 |   18.1% |
-| `dtb.yaml`  | [YAML](https://en.wikipedia.org/wiki/YAML)                   | 1,568,746 |   20.5% |
+| File           | Format                                                       |      Size | Savings |
+| -------------- |:------------------------------------------------------------:| ---------:| -------:|
+| `places.csv`   | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)  | 1,122,030 |   11.6% |
+| `places.json`  | [JSON](https://en.wikipedia.org/wiki/JSON)                   | 1,791,173 |   33.0% |
+| `places.plist` | [Property List](https://en.wikipedia.org/wiki/Property_list) | 4,059,338 |   16.0% |
+| `places.sql`   | [SQL](https://en.wikipedia.org/wiki/SQL)                     | 1,234,404 |    8.3% |
+| `places.tsv`   | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)    | 1,122,028 |   11.6% |
+| `places.xml`   | [XML](https://en.wikipedia.org/wiki/XML)                     | 3,752,535 |   18.1% |
+| `places.yaml`  | [YAML](https://en.wikipedia.org/wiki/YAML)                   | 1,568,746 |   20.5% |

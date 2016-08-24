@@ -1,6 +1,6 @@
-## 2004 database
+# 2004 dataset
 
-### Database records
+## Records
 
 |          Table | Records |
 | --------------:| -------:|
@@ -11,9 +11,17 @@
 |     `distrito` |   9,947 |
 |  `subdistrito` |     413 |
 
-### Database files
+## Files
 
-| File       | Format                                                      |      Size |
-| ---------- |:-----------------------------------------------------------:| ---------:|
-| `dtb.csv`  | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) | 1,075,065 |
-| `dtb.json` | [JSON](https://en.wikipedia.org/wiki/JSON)                  | 2,636,035 |
+| File                    | Format                                                                                          |      Size |
+| ----------------------- |:-----------------------------------------------------------------------------------------------:| ---------:|
+| `places.csv`            | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)                                     | 1,852,444 |
+| `places.fdb`            | [Firebird Embedded](https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded)          | 3,194,880 |
+| `places.json`           | [JSON](https://en.wikipedia.org/wiki/JSON)                                                      | 2,636,035 |
+| `places.php.serialized` | [PHP Serialized Data](https://en.wikipedia.org/wiki/Serialization#Programming_language_support) | 2,376,532 |
+| `places.plist`          | [Property List](https://en.wikipedia.org/wiki/Property_list)                                    | 4,763,376 |
+| `places.sql`            | [SQL](https://en.wikipedia.org/wiki/SQL)                                                        | 1,328,058 |
+| `places.sqlite3`        | [SQLite 3](https://en.wikipedia.org/wiki/SQLite)                                                | 1,711,104 |
+| `places.tsv`            | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)                                       | 1,852,444 |
+| `places.xml`            | [XML](https://en.wikipedia.org/wiki/XML)                                                        | 4,518,121 |
+| `places.yaml`           | [YAML](https://en.wikipedia.org/wiki/YAML)                                                      | 1,944,418 |
