@@ -88,10 +88,10 @@ class Translator(object):
     LANGUAGE_DIR = SRC_DIR / 'data' / 'translations'
 
     # Default locale
-    locale = 'pt_BR'
+    locale = 'en'
 
     # Default fallback locale
-    fallbackLocale = 'pt_BR'
+    fallbackLocale = 'en'
 
     # Translation instance
     _translation = None
@@ -166,7 +166,6 @@ class Translator(object):
         return
 
     @classmethod
-    @cachedmethod
     def translate(cls, message, **placeholders):
         '''
         Translates the given message with their placeholders.
