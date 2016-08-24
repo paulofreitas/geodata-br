@@ -1,21 +1,27 @@
-# dtb-ibge
+# places.br
 
-Brazilian territorial distribution data. Updated. Always.
+Always-updated multi-language geographic data of Brazil.
 
-### Data source
+## Data Source
 
-All these data was compiled from nonstandardized XLS spreadsheets provided by IBGE through its FTP server. You can download them at <ftp://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/divisao_territorial/>.
+All these data was compiled from nonstandardized spreadsheets provided by IBGE (Brazilian Institute of Geography and Statistics) through their FTP server at <ftp://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/divisao_territorial/>.
 
-### Database records
+## Datasets
 
-{database_records}
+### Records
 
-### Database formats
+{dataset_records}
 
-Currently we provide databases into the following formats:
+### Data formats
 
-{database_formats}
+Currently we provide these datasets into the following formats:
 
-### Get involved!
+{dataset_formats}
 
-Report any mislead information, enhancement or feature request to [our bug tracker](https://github.com/paulofreitas/dtb-ibge/issues)!
+## License
+
+The project source code are available under the [MIT License](src/LICENSE). The data compiled here are [public domain](data/LICENSE) and falls within fair use.
+
+## Contributing
+
+Found any misleading information? Have an idea for a missing feature? You are always welcome to [open an issue](https://github.com/paulofreitas/places.br/issues) or provide a pull-request!
