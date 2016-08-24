@@ -10,10 +10,15 @@ Build documentation command module
 # Package dependencies
 
 from dtb.commands import Command
-from dtb.core.constants import BASE_DIR, DATA_DIR, SRC_DIR
-from dtb.core.helpers.documentation import ProjectReadme, DatabaseReadme
+from dtb.core.constants import DATA_DIR
+from dtb.core.helpers.documentation import ProjectReadme, DatasetReadme
 from dtb.core.helpers.filesystem import File
+from dtb.core.logging import Logger
 from dtb.databases import DatabaseRepository
+
+# Module logging
+
+logger = Logger.instance(__name__)
 
 # Classes
 
@@ -48,26 +53,23 @@ class DocumentationBuilderCommand(Command):
         '''
         Handles the command.
         '''
-        ProjectReadme(File(BASE_DIR / 'README.md'),
-                      File(SRC_DIR / 'data/stubs/README.stub.md')) \
-            .write()
+        logger.info('Generating project README...')
 
-        base_readme_stub = File(SRC_DIR / 'data/stubs/BASE_README.stub.md')
+        ProjectReadme().write()
 
-        for base in DatabaseRepository.findAll():
-            base_dir = DATA_DIR / base.year
-            min_base_dir = base_dir / 'minified'
+        for language_dir in DATA_DIR.directories():
+            language = language_dir.name
 
-            if base_dir.exists():
-                # Create raw database READMEs
-                DatabaseReadme(base,
-                               File(base_dir / 'README.md'),
-                               base_readme_stub) \
-                    .write()
+            logger.info('Generating "{}" dataset READMEs...'.format(language))
 
-            if min_base_dir.exists():
-                # Create minified database READMEs
-                DatabaseReadme(base,
-                               File(min_base_dir / 'README.md'),
-                               base_readme_stub) \
-                    .write()
+            for dataset in DatabaseRepository.findAll():
+                dataset_dir = language_dir / dataset.year
+                min_dataset_dir = dataset_dir / 'minified'
+
+                if dataset_dir.exists():
+                    # Create raw dataset READMEs
+                    DatasetReadme(dataset, dataset_dir, language).write()
+
+                if min_dataset_dir.exists():
+                    # Create minified dataset READMEs
+                    DatasetReadme(dataset, min_dataset_dir, language).write()
