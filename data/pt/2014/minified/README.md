@@ -15,10 +15,10 @@
 
 | File           | Format                                                       |      Size | Savings |
 | -------------- |:------------------------------------------------------------:| ---------:| -------:|
-| `places.csv`   | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)  | 1,176,701 |   11.5% |
-| `places.json`  | [JSON](https://en.wikipedia.org/wiki/JSON)                   | 1,850,201 |   33.0% |
-| `places.plist` | [Property List](https://en.wikipedia.org/wiki/Property_list) | 4,189,928 |   16.0% |
-| `places.sql`   | [SQL](https://en.wikipedia.org/wiki/SQL)                     | 1,273,005 |    8.3% |
-| `places.tsv`   | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)    | 1,176,699 |   11.5% |
-| `places.xml`   | [XML](https://en.wikipedia.org/wiki/XML)                     | 3,872,156 |   18.1% |
-| `places.yaml`  | [YAML](https://en.wikipedia.org/wiki/YAML)                   | 1,620,962 |   20.5% |
+| `brasil.csv`   | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)  | 1,176,701 |   11.5% |
+| `brasil.json`  | [JSON](https://en.wikipedia.org/wiki/JSON)                   | 1,850,201 |   33.0% |
+| `brasil.plist` | [Property List](https://en.wikipedia.org/wiki/Property_list) | 4,189,928 |   16.0% |
+| `brasil.sql`   | [SQL](https://en.wikipedia.org/wiki/SQL)                     | 1,273,005 |    8.3% |
+| `brasil.tsv`   | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)    | 1,176,699 |   11.5% |
+| `brasil.xml`   | [XML](https://en.wikipedia.org/wiki/XML)                     | 3,872,156 |   18.1% |
+| `brasil.yaml`  | [YAML](https://en.wikipedia.org/wiki/YAML)                   | 1,620,962 |   20.5% |
