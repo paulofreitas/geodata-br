@@ -22,11 +22,11 @@ if sys.version_info[:2] < (2, 7) or (3, 0) <= sys.version_info[:2] < (3, 2):
 
 setup(
     # Package metadata
-    name='dtb',
+    name='places',
     version='1.0.0-dev',
     description='Brazilian territorial distribution data exporter',
     license='MIT',
-    url='https://github.com/paulofreitas/dtb-ibge',
+    url='https://github.com/paulofreitas/places.br',
     author='Paulo Freitas',
     author_email='me@paulofreitas.me',
 
@@ -35,22 +35,22 @@ setup(
     package_dir={'': 'lib'},
     entry_points={
         'console_scripts': [
-            'dtb = dtb.__main__:main'
+            'places = places.__main__:main'
         ],
     },
 
     # Package dependencies
     python_requires='>=2.7,!=3.0.*,!=3.1.*',
     install_requires=[
-        # dtb package
+        # places package
         'future',
-        # dtb.exporters package
+        # places.exporters package
         'fdb',
         'lxml',
         'phpserialize',
         'pyyaml',
         'sqlalchemy',
-        # dtb.parsers package
+        # places.parsers package
         'xlrd',
     ]
 )
