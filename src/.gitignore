@@ -1,6 +1,7 @@
 __pycache__
-.cache
 .tox
 .DS_Store
+build
+dist
 *.egg-info
 *.pyc
