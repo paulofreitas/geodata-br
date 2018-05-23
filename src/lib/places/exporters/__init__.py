@@ -18,6 +18,7 @@ import sys
 # Package dependencies
 
 from places.core.helpers.filesystem import Path
+from places.core.i18n import _, Translator
 from places.core.logging import Logger
 from places.core.types import AbstractClass
 
@@ -31,6 +32,10 @@ __license__ = 'MIT License'
 # Module logging
 
 logger = Logger.instance(__name__)
+
+# Translator setup
+
+Translator.load('databases')
 
 # Classes
 
@@ -108,7 +113,7 @@ class Exporter(AbstractClass):
             return sys.stdout.write(data + '\n')
 
         if filename == 'auto':
-            filename = 'dtb' + self.format.extension
+            filename = _('database') + self.format.extension
 
         writeMode = 'wb' if self.format.isBinary else 'w'
 
