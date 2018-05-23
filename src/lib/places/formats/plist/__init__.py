@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2013-2016 Paulo Freitas
+# Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
 Property List file format module
