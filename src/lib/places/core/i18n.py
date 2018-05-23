@@ -126,7 +126,7 @@ class Translator(object):
         if not locale_dir:
             raise UnsupportedLocaleError('Unsupported localization')
 
-        return {domain_file.baename: domain_file
+        return {domain_file.basename: domain_file
                 for domain_file in locale_dir.files(pattern='*.yaml')}
 
     @classmethod
@@ -156,14 +156,8 @@ class Translator(object):
         if '.' in domain:
             domain = '_'.join(domain.split('.')[1:])
 
-        translations = cls.translations(domain)
-
-        if cls.locale in translations:
-            cls._translation = Translation(translations.get(cls.locale))
-
-            return cls._translation
-
-        return
+        cls._translations = {locale: Translation(domain_file)
+                             for locale, domain_file in cls.translations(domain).items()}
 
     @classmethod
     def translate(cls, message, **placeholders):
@@ -177,8 +171,12 @@ class Translator(object):
         Returns:
             str: The translated message
         '''
-        if cls._translation:
-            return cls._translation.translate(message, **placeholders)
+        if cls.locale in cls._translations:
+            return cls._translations[cls.locale].translate(message, **placeholders)
+
+        # Try using the fallback locale
+        if cls.fallbackLocale in cls._translations:
+            return cls._translations[cls.fallbackLocale].translate(message, **placeholders)
 
         # Fallback to the original message
         return message.format(**placeholders)
