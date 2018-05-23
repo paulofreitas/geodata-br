@@ -16,16 +16,27 @@ from future.utils import iteritems
 
 # External dependencies
 
-from sqlalchemy import dialects
+from sqlalchemy import dialects, util
 from sqlalchemy.engine.default import DefaultDialect
 from sqlalchemy.exc import CompileError
 from sqlalchemy.ext.compiler import compiles
-from sqlalchemy.sql import crud
+from sqlalchemy.sql import crud, elements
 from sqlalchemy.sql.ddl import AddConstraint, CreateColumn, CreateIndex, \
                                CreateTable
 from sqlalchemy.sql.dml import Insert
-from sqlalchemy.sql.schema import ForeignKeyConstraint, Index, \
+from sqlalchemy.sql.schema import Column, ForeignKeyConstraint, Index, \
                                   PrimaryKeyConstraint
+
+# Package dependencies
+
+from places.core.i18n import _, Translator
+
+# Translator setup
+
+Translator.load('databases')
+
+# Classes
+
 
 class SchemaGenerator(object):
     '''
@@ -79,7 +90,7 @@ class SchemaGenerator(object):
         '''
         column = create.element
 
-        ddl = '{} {}'.format(column.name,
+        ddl = '{} {}'.format(_(column.name),
                              compiler.type_compiler.process(column.type))
 
         default_str = compiler.get_column_default_string(column)
@@ -111,7 +122,7 @@ class SchemaGenerator(object):
         if table._prefixes:
             ddl += ' '.join(table._prefixes) + ' '
 
-        ddl += 'TABLE ' + compiler.preparer.format_table(table)
+        ddl += 'TABLE ' + SchemaGenerator.formatTable(table, compiler.preparer)
         ddl += '(' if SchemaGenerator.minified else ' ('
 
         for create_column in create.columns:
@@ -177,32 +188,80 @@ class SchemaGenerator(object):
             ddl += 'UNIQUE '
 
         ddl += 'INDEX {} ON {}'.format(
-            compiler._prepared_index_name(index, include_schema=include_schema),
-            compiler.preparer.format_table(index.table,
-                                           use_schema=include_table_schema)
+            SchemaGenerator.formatIndex(index,
+                                        compiler.preparer,
+                                        include_schema=include_schema),
+            SchemaGenerator.formatTable(index.table,
+                                        compiler.preparer,
+                                        use_schema=include_table_schema)
         )
 
         if not SchemaGenerator.minified:
             ddl += ' '
 
         ddl += '({});'.format(separator.join(
-            compiler.sql_compiler.process(expression,
-                                          include_table=False,
-                                          literal_binds=True)
+            compiler.process(expression,
+                             include_table=False,
+                             literal_binds=True)
             for expression in index.expressions
         ))
 
         return ddl
 
     @staticmethod
+    @compiles(Column)
+    def __compileColumn(column,
+                        compiler,
+                        add_to_result_map=None,
+                        include_table=True,
+                        **options):
+        name = orig_name = column.name
+
+        if name is None:
+            raise CompileError('Cannot compile Column object until'
+                               " its 'name' is assigned.")
+
+        is_literal = column.is_literal
+
+        if not is_literal and isinstance(name, elements._truncated_label):
+            name = compiler._truncated_identifier('colident', name)
+
+        if add_to_result_map is not None:
+            add_to_result_map(
+                name,
+                orig_name,
+                (column, name, column.key),
+                column.type
+            )
+
+        if is_literal:
+            name = compiler.escape_literal_column(name) if is_literal \
+                else compiler.preparer.quote(name)
+
+        table = column.table
+
+        if table is None or not include_table or not table.named_with_column:
+            return _(name)
+
+        schema_prefix = '' if not table.schema \
+            else compiler.preparer.quote_schema(table.schema) + '.' \
+
+        table_name = table.name
+
+        if isinstance(table_name, elements._truncated_label):
+            table_name = compiler._truncated_identifier('alias', table_name)
+
+        return schema_prefix + compiler.preparer.quote(_(table_name)) + '.' + _(name)
+
+    @staticmethod
     @compiles(AddConstraint)
-    def __compileAddConstraint(create, compiler):
+    def __compileAddConstraint(constraint, compiler):
         '''
         Compiles ALTER TABLE ADD CONSTRAINT statements.
         '''
         return 'ALTER TABLE {} ADD {};'.format(
-            compiler.preparer.format_table(create.element.table),
-            compiler.process(create.element)
+            SchemaGenerator.formatTable(constraint.element.table, compiler.preparer),
+            compiler.process(constraint.element)
         )
 
     @staticmethod
@@ -218,7 +277,8 @@ class SchemaGenerator(object):
         separator = ',' if SchemaGenerator.minified else ', '
 
         if constraint.name is not None:
-            formatted_name = compiler.preparer.format_constraint(constraint)
+            formatted_name = SchemaGenerator.formatConstraint(constraint,
+                                                              compiler.preparer)
 
             if formatted_name is not None:
                 ddl += 'CONSTRAINT {} '.format(formatted_name)
@@ -229,7 +289,7 @@ class SchemaGenerator(object):
             ddl += ' '
 
         ddl += '({})'.format(separator.join(
-            compiler.preparer.quote(_constraint.name)
+            compiler.preparer.quote(_(_constraint.name))
             for _constraint in (
                 constraint.columns_autoinc_first \
                     if hasattr(constraint, '_implicit_generated')
@@ -250,7 +310,8 @@ class SchemaGenerator(object):
         separator = ',' if SchemaGenerator.minified else ', '
 
         if constraint.name is not None:
-            formatted_name = compiler.preparer.format_constraint(constraint)
+            formatted_name = SchemaGenerator.formatConstraint(constraint,
+                                                              compiler.preparer)
 
             if formatted_name is not None:
                 ddl += 'CONSTRAINT {} '.format(formatted_name)
@@ -264,19 +325,17 @@ class SchemaGenerator(object):
 
         ddl += '({}) REFERENCES {}'.format(
             separator.join(
-                compiler.preparer.quote(element.parent.name)
+                compiler.preparer.quote(_(element.parent.name))
                 for element in constraint.elements
             ),
-            compiler.define_constraint_remote_table(constraint,
-                                                    remote_table,
-                                                    compiler.preparer)
+            SchemaGenerator.formatTable(remote_table, compiler.preparer)
         )
 
         if not SchemaGenerator.minified:
             ddl += ' '
 
         ddl += '({})'.format(separator.join(
-            compiler.preparer.quote(element.column.name)
+            compiler.preparer.quote(_(element.column.name))
             for element in constraint.elements
         ))
         ddl += compiler.define_constraint_match(constraint)
@@ -287,7 +346,7 @@ class SchemaGenerator(object):
 
     @staticmethod
     @compiles(Insert)
-    def __compileInsert(insert_stmt, compiler, **kw):
+    def __compileInsert(insert_stmt, compiler, **options):
         '''
         Compiles INSERT statements.
         '''
@@ -297,7 +356,7 @@ class SchemaGenerator(object):
             'selectable': insert_stmt,
         })
         compiler.isinsert = True
-        crud_params = crud._get_crud_params(compiler, insert_stmt, **kw)
+        crud_params = crud._get_crud_params(compiler, insert_stmt, **options)
 
         if not crud_params:
             return
@@ -306,12 +365,13 @@ class SchemaGenerator(object):
                 and not compiler.dialect.supports_multivalues_insert:
             return
 
-        dml = 'INSERT INTO ' + compiler.preparer.format_table(insert_stmt.table)
+        dml = 'INSERT INTO ' + SchemaGenerator.formatTable(insert_stmt.table,
+                                                           compiler.preparer)
         separator = ',' if SchemaGenerator.minified else ', '
 
         if insert_stmt.select is not None:
             dml += ' {}'.format(
-                compiler.process(compiler._insert_from_select, **kw))
+                compiler.process(compiler._insert_from_select, **options))
         elif insert_stmt._has_multi_parameters:
             dml += ' VALUES'
 
@@ -337,6 +397,52 @@ class SchemaGenerator(object):
         compiler.stack.pop(-1)
 
         return dml + ';'
+
+    # Custom DDL formatters
+
+    @staticmethod
+    def formatTable(table, preparer, use_schema=True, name=None):
+        '''
+        Prepares a quoted table and schema name.
+        '''
+        if name is None:
+            name = _(table.name)
+
+        result = preparer.quote(name)
+
+        if not preparer.omit_schema and use_schema \
+                and getattr(table, 'schema', None):
+            result = preparer.quote_schema(table.schema) + '.' + result
+
+        return result
+
+    @staticmethod
+    @util.dependencies('sqlalchemy.sql.naming')
+    def formatConstraint(naming, constraint, preparer):
+        if isinstance(constraint.name, elements._defer_name):
+            name = naming._constraint_name_for_table(constraint,
+                                                     constraint.table)
+            if name:
+                return preparer.quote(_(name))
+            elif isinstance(constraint.name, elements._defer_none_name):
+                return None
+
+        return preparer.quote(_(constraint.name))
+
+    @staticmethod
+    def formatIndex(index, preparer, include_schema=False):
+        if include_schema and index.table is not None and index.table.schema:
+            schema = index.table.schema
+            schema_name = preparer.quote_schema(schema)
+        else:
+            schema_name = None
+
+        index_name = preparer.quote(_(index.name))
+
+        if schema_name:
+            index_name = schema_name + '.' + index_name
+
+        return index_name
 
     # Custom DDL renderers
 
@@ -373,7 +479,7 @@ class SchemaGenerator(object):
         separator = '' if self.minified else '\n'
 
         if not self.minified:
-            ddl.append('--\n-- Structure for table {}\n--\n'.format(table.name))
+            ddl.append('--\n-- Structure for table {}\n--\n'.format(_(table.name)))
 
         ddl.append(str(CreateTable(table).compile(dialect=self._dialect)))
 
@@ -403,7 +509,7 @@ class SchemaGenerator(object):
         separator = '' if self.minified else '\n'
 
         if not self.minified:
-            ddl.append('--\n-- Data for table {}\n--\n'.format(table.name))
+            ddl.append('--\n-- Data for table {}\n--\n'.format(_(table.name)))
 
         for row in table._data:
             row_data = {key: str(value) for key, value in iteritems(row)}
@@ -440,7 +546,7 @@ class SchemaGenerator(object):
 
         if not self.minified:
             ddl.append('--\n-- Constraints for table {}\n--\n' \
-                .format(table.name))
+                .format(_(table.name)))
 
         for constraint in table._sorted_constraints:
             if isinstance(constraint, ForeignKeyConstraint):
@@ -465,7 +571,7 @@ class SchemaGenerator(object):
         separator = '' if self.minified else '\n'
 
         if not self.minified:
-            ddl.append('--\n-- Indexes for table {}\n--\n'.format(table.name))
+            ddl.append('--\n-- Indexes for table {}\n--\n'.format(_(table.name)))
 
         for index in table._sorted_indexes:
             ddl.append(str(CreateIndex(index).compile(dialect=self._dialect)))
