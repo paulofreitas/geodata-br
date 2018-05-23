@@ -152,9 +152,6 @@ class Directory(Path):
         '''
         super(self.__class__, self).__init__(*args)
 
-        if not self.is_dir():
-            raise OSError(20, "Not a directory: '{}'".format(self))
-
     def create(self, mode=0o777, parents=False):
         '''
         Creates a new directory at this given path.
@@ -220,9 +217,6 @@ class File(Path):
         Constructor.
         '''
         super(self.__class__, self).__init__(*args)
-
-        if self.is_dir():
-            raise OSError(21, "Is a directory: '{}'".format(self))
 
     def read(self, **kwargs):
         '''
