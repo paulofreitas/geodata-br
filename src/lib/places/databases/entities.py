@@ -27,7 +27,7 @@ from places.core.types import Entity, LegacyEntity
 
 # Translator setup
 
-Translator.load(__package__)
+Translator.load('databases')
 
 # Classes
 
@@ -37,13 +37,13 @@ class State(Entity):
     Entity for states.
     '''
     __table__ = Table(
-        _('states'),
+        'states',
         Entity.metadata,
-        Column(_('id'),
+        Column('id',
                SmallInteger,
                nullable=False,
                primary_key=True),
-        Column(_('name'),
+        Column('name',
                String(32),
                nullable=False,
                index=True)
@@ -51,8 +51,8 @@ class State(Entity):
 
     # Columns mapping
     __columns__ = {
-        _('id'): 'state_id',
-        _('name'): 'state_name',
+        'id': 'state_id',
+        'name': 'state_name',
     }
 
 
@@ -61,18 +61,18 @@ class Mesoregion(Entity):
     Entity for mesoregions.
     '''
     __table__ = Table(
-        _('mesoregions'),
+        'mesoregions',
         Entity.metadata,
-        Column(_('id'),
+        Column('id',
                SmallInteger,
                nullable=False,
                primary_key=True),
-        Column(_('state_id'),
+        Column('state_id',
                SmallInteger,
-               ForeignKey(_('states.id'), use_alter=True),
+               ForeignKey('states.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('name'),
+        Column('name',
                String(64),
                nullable=False,
                index=True)
@@ -80,9 +80,9 @@ class Mesoregion(Entity):
 
     # Columns mapping
     __columns__ = {
-        _('id'): 'mesoregion_id',
-        _('state_id'): 'state_id',
-        _('name'): 'mesoregion_name',
+        'id': 'mesoregion_id',
+        'state_id': 'state_id',
+        'name': 'mesoregion_name',
     }
 
 
@@ -91,23 +91,23 @@ class Microregion(Entity):
     Entity for microregions.
     '''
     __table__ = Table(
-        _('microregions'),
+        'microregions',
         Entity.metadata,
-        Column(_('id'),
+        Column('id',
                Integer,
                nullable=False,
                primary_key=True),
-        Column(_('mesoregion_id'),
+        Column('mesoregion_id',
                SmallInteger,
-               ForeignKey(_('mesoregions.id'), use_alter=True),
+               ForeignKey('mesoregions.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('state_id'),
+        Column('state_id',
                SmallInteger,
-               ForeignKey(_('states.id'), use_alter=True),
+               ForeignKey('states.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('name'),
+        Column('name',
                String(64),
                nullable=False,
                index=True)
@@ -115,10 +115,10 @@ class Microregion(Entity):
 
     # Columns mapping
     __columns__ = {
-        _('id'): 'microregion_id',
-        _('mesoregion_id'): 'mesoregion_id',
-        _('state_id'): 'state_id',
-        _('name'): 'microregion_name',
+        'id': 'microregion_id',
+        'mesoregion_id': 'mesoregion_id',
+        'state_id': 'state_id',
+        'name': 'microregion_name',
     }
 
 
@@ -127,28 +127,28 @@ class Municipality(Entity):
     Entity for municipalities.
     '''
     __table__ = Table(
-        _('municipalities'),
+        'municipalities',
         Entity.metadata,
-        Column(_('id'),
+        Column('id',
                Integer,
                nullable=False,
                primary_key=True),
-        Column(_('microregion_id'),
+        Column('microregion_id',
                Integer,
-               ForeignKey(_('microregions.id'), use_alter=True),
+               ForeignKey('microregions.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('mesoregion_id'),
+        Column('mesoregion_id',
                SmallInteger,
-               ForeignKey(_('mesoregions.id'), use_alter=True),
+               ForeignKey('mesoregions.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('state_id'),
+        Column('state_id',
                SmallInteger,
-               ForeignKey(_('states.id'), use_alter=True),
+               ForeignKey('states.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('name'),
+        Column('name',
                String(64),
                nullable=False,
                index=True)
@@ -156,11 +156,11 @@ class Municipality(Entity):
 
     # Columns mapping
     __columns__ = {
-        _('id'): 'municipality_id',
-        _('microregion_id'): 'microregion_id',
-        _('mesoregion_id'): 'mesoregion_id',
-        _('state_id'): 'state_id',
-        _('name'): 'municipality_name',
+        'id': 'municipality_id',
+        'microregion_id': 'microregion_id',
+        'mesoregion_id': 'mesoregion_id',
+        'state_id': 'state_id',
+        'name': 'municipality_name',
     }
 
 
@@ -169,33 +169,33 @@ class District(Entity):
     Entity for districts.
     '''
     __table__ = Table(
-        _('districts'),
+        'districts',
         Entity.metadata,
-        Column(_('id'),
+        Column('id',
                Integer,
                nullable=False,
                primary_key=True),
-        Column(_('municipality_id'),
+        Column('municipality_id',
                Integer,
-               ForeignKey(_('municipalities.id'), use_alter=True),
+               ForeignKey('municipalities.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('microregion_id'),
+        Column('microregion_id',
                Integer,
-               ForeignKey(_('microregions.id'), use_alter=True),
+               ForeignKey('microregions.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('mesoregion_id'),
+        Column('mesoregion_id',
                SmallInteger,
-               ForeignKey(_('mesoregions.id'), use_alter=True),
+               ForeignKey('mesoregions.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('state_id'),
+        Column('state_id',
                SmallInteger,
-               ForeignKey(_('states.id'), use_alter=True),
+               ForeignKey('states.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('name'),
+        Column('name',
                String(64),
                nullable=False,
                index=True)
@@ -203,12 +203,12 @@ class District(Entity):
 
     # Columns mapping
     __columns__ = {
-        _('id'): 'district_id',
-        _('municipality_id'): 'municipality_id',
-        _('microregion_id'): 'microregion_id',
-        _('mesoregion_id'): 'mesoregion_id',
-        _('state_id'): 'state_id',
-        _('name'): 'district_name',
+        'id': 'district_id',
+        'municipality_id': 'municipality_id',
+        'microregion_id': 'microregion_id',
+        'mesoregion_id': 'mesoregion_id',
+        'state_id': 'state_id',
+        'name': 'district_name',
     }
 
 
@@ -217,38 +217,38 @@ class Subdistrict(Entity):
     Entity for subdistricts.
     '''
     __table__ = Table(
-        _('subdistricts'),
+        'subdistricts',
         Entity.metadata,
-        Column(_('id'),
+        Column('id',
                BigInteger,
                nullable=False,
                primary_key=True),
-        Column(_('district_id'),
+        Column('district_id',
                Integer,
-               ForeignKey(_('districts.id'), use_alter=True),
+               ForeignKey('districts.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('municipality_id'),
+        Column('municipality_id',
                Integer,
-               ForeignKey(_('municipalities.id'), use_alter=True),
+               ForeignKey('municipalities.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('microregion_id'),
+        Column('microregion_id',
                Integer,
-               ForeignKey(_('microregions.id'), use_alter=True),
+               ForeignKey('microregions.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('mesoregion_id'),
+        Column('mesoregion_id',
                SmallInteger,
-               ForeignKey(_('mesoregions.id'), use_alter=True),
+               ForeignKey('mesoregions.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('state_id'),
+        Column('state_id',
                SmallInteger,
-               ForeignKey(_('states.id'), use_alter=True),
+               ForeignKey('states.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('name'),
+        Column('name',
                String(64),
                nullable=False,
                index=True)
@@ -256,13 +256,13 @@ class Subdistrict(Entity):
 
     # Columns mapping
     __columns__ = {
-        _('id'): 'subdistrict_id',
-        _('district_id'): 'district_id',
-        _('municipality_id'): 'municipality_id',
-        _('microregion_id'): 'microregion_id',
-        _('mesoregion_id'): 'mesoregion_id',
-        _('state_id'): 'state_id',
-        _('name'): 'subdistrict_name',
+        'id': 'subdistrict_id',
+        'district_id': 'district_id',
+        'municipality_id': 'municipality_id',
+        'microregion_id': 'microregion_id',
+        'mesoregion_id': 'mesoregion_id',
+        'state_id': 'state_id',
+        'name': 'subdistrict_name',
     }
 
 
@@ -271,13 +271,13 @@ class LegacyState(LegacyEntity):
     Legacy entity for states.
     '''
     __table__ = Table(
-        _('states'),
+        'states',
         LegacyEntity.metadata,
-        Column(_('id'),
+        Column('id',
                SmallInteger,
                nullable=False,
                primary_key=True),
-        Column(_('name'),
+        Column('name',
                String(64),
                nullable=False,
                index=True)
@@ -285,8 +285,8 @@ class LegacyState(LegacyEntity):
 
     # Columns mapping
     __columns__ = {
-        _('id'): 'state_id',
-        _('name'): 'state_name',
+        'id': 'state_id',
+        'name': 'state_name',
     }
 
 
@@ -295,18 +295,18 @@ class LegacyMunicipality(LegacyEntity):
     Legacy entity for municipalities.
     '''
     __table__ = Table(
-        _('municipalities'),
+        'municipalities',
         LegacyEntity.metadata,
-        Column(_('id'),
+        Column('id',
                Integer,
                nullable=False,
                primary_key=True),
-        Column(_('state_id'),
+        Column('state_id',
                SmallInteger,
-               ForeignKey(_('states.id'), use_alter=True),
+               ForeignKey('states.id', use_alter=True),
                nullable=False,
                index=True),
-        Column(_('name'),
+        Column('name',
                String(64),
                nullable=False,
                index=True)
@@ -314,9 +314,9 @@ class LegacyMunicipality(LegacyEntity):
 
     # Columns mapping
     __columns__ = {
-        _('id'): 'municipality_id',
-        _('state_id'): 'state_id',
-        _('name'): 'municipality_name',
+        'id': 'municipality_id',
+        'state_id': 'state_id',
+        'name': 'municipality_name',
     }
 
 
