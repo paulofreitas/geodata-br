@@ -1,3 +1,6 @@
+# Database
+database: brasil
+
 # Tables
 states: uf
 mesoregions: mesorregiao
@@ -6,7 +9,7 @@ municipalities: municipio
 districts: distrito
 subdistricts: subdistrito
 
-# Table columns
+# Tables columns
 id: id
 state_id: id_uf
 mesoregion_id: id_mesorregiao
@@ -16,12 +19,53 @@ district_id: id_distrito
 subdistrict_id: id_subdistrito
 name: nome
 
-# Table foreign keys
-states.id: uf.id
-mesoregions.id: mesorregiao.id
-microregions.id: microrregiao.id
-municipalities.id: municipio.id
-districts.id: distrito.id
+# Tables primary keys
+pk_states: pk_uf
+pk_mesoregions: pk_mesorregiao
+pk_microregions: pk_microrregiao
+pk_municipalities: pk_municipio
+pk_districts: pk_distrito
+pk_subdistricts: pk_subdistrito
+
+# Tables foreign keys
+fk_mesoregions_state_id: fk_mesorregiao_id_uf
+fk_microregions_mesoregion_id: fk_microrregiao_id_mesorregiao
+fk_microregions_state_id: fk_microrregiao_id_uf
+fk_municipalities_microregion_id: fk_municipio_id_microrregiao
+fk_municipalities_mesoregion_id: fk_municipio_id_mesorregiao
+fk_municipalities_state_id: fk_municipio_id_uf
+fk_districts_municipality_id: fk_distrito_id_municipio
+fk_districts_microregion_id: fk_distrito_id_microrregiao
+fk_districts_mesoregion_id: fk_distrito_id_mesorregiao
+fk_districts_state_id: fk_distrito_id_uf
+fk_subdistricts_district_id: fk_subdistrito_id_distrito
+fk_subdistricts_municipality_id: fk_subdistrito_id_municipio
+fk_subdistricts_microregion_id: fk_subdistrito_id_microrregiao
+fk_subdistricts_mesoregion_id: fk_subdistrito_id_mesorregiao
+fk_subdistricts_state_id: fk_subdistrito_id_uf
+
+# Tables indexes
+ix_states_name: ix_uf_nome
+ix_mesoregions_state_id: ix_mesorregiao_id_uf
+ix_mesoregions_name: ix_mesorregiao_nome
+ix_microregions_mesoregion_id: ix_microrregiao_id_mesorregiao
+ix_microregions_state_id: ix_microrregiao_id_uf
+ix_microregions_name: ix_microrregiao_nome
+ix_municipalities_microregion_id: ix_municipio_id_microrregiao
+ix_municipalities_mesoregion_id: ix_municipio_id_mesorregiao
+ix_municipalities_state_id: ix_municipio_id_uf
+ix_municipalities_name: ix_municipio_nome
+ix_districts_municipality_id: ix_distrito_id_municipio
+ix_districts_microregion_id: ix_distrito_id_microrregiao
+ix_districts_mesoregion_id: ix_distrito_id_mesorregiao
+ix_districts_state_id: ix_distrito_id_uf
+ix_districts_name: ix_distrito_nome
+ix_subdistricts_district_id: ix_subdistrito_id_distrito
+ix_subdistricts_municipality_id: ix_subdistrito_id_municipio
+ix_subdistricts_microregion_id: ix_subdistrito_id_microrregiao
+ix_subdistricts_mesoregion_id: ix_subdistrito_id_mesorregiao
+ix_subdistricts_state_id: ix_subdistrito_id_uf
+ix_subdistricts_name: ix_subdistrito_nome
 
 # Columns mappings
 state_id: id_uf
