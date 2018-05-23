@@ -9,10 +9,13 @@ Build command module
 
 # Package dependencies
 
+import places.databases.entities
+
 from places.commands import Command
 from places.core.constants import DATA_DIR
+from places.core.i18n import Translator
 from places.core.logging import Logger
-from places.databases import DatabaseFactory, DatabaseRepository
+from places.databases import DatabaseFactory, DatabaseHelper, DatabaseRepository
 from places.formats import FormatRepository
 
 # Module logging
@@ -53,6 +56,7 @@ class DatasetBuilderCommand(Command):
         Defines the command arguments.
         '''
         datasets = DatabaseRepository.listYears()
+        locales = Translator.locales()
         raw_formats = FormatRepository.listExportableFormatNames()
         minifiable_formats = FormatRepository.listMinifiableFormatNames()
 
@@ -63,6 +67,13 @@ class DatasetBuilderCommand(Command):
                          help=('Datasets to build.\n'
                                'Defaults to all available: {}' \
                                    .format(', '.join(datasets))))
+        self.addArgument('-l', '--locales',
+                         metavar='LOCALE',
+                         nargs='*',
+                         default=locales,
+                         help=('Locales to build.\n'
+                               'Defaults to all available: {}' \
+                                   .format(', '.join(locales))))
         self.addArgument('-r', '--raw',
                          metavar='FORMAT',
                          nargs='*',
@@ -83,23 +94,28 @@ class DatasetBuilderCommand(Command):
         Handles the command.
         '''
         try:
-            for dataset in args.datasets:
-                raw_dir = DATA_DIR / dataset
-                minified_dir = DATA_DIR / dataset / 'minified'
+            for locale in args.locales:
+                Translator.locale = locale
 
-                logger.info('> Building %s dataset...', dataset)
+                logger.info('> Building locale: %s', locale)
 
-                raw_dir.create(parents=True)
-                minified_dir.create(parents=True)
+                for dataset in args.datasets:
+                    raw_dir = DATA_DIR / locale / dataset
+                    minified_dir = DATA_DIR / locale / dataset / 'minified'
 
-                data = DatabaseFactory.fromYear(dataset).parse()
+                    logger.info('> Building dataset: %s', dataset)
 
-                with raw_dir:
-                    for raw_format in args.raw:
-                        data.export(raw_format, 'auto')
+                    raw_dir.create(parents=True)
+                    minified_dir.create(parents=True)
 
-                with minified_dir:
-                    for minifiable_format in args.min:
-                        data.export(minifiable_format, 'auto', minify=True)
+                    data = DatabaseFactory.fromYear(dataset).parse()
+
+                    with raw_dir:
+                        for raw_format in args.raw:
+                            data.export(raw_format, 'auto')
+
+                    with minified_dir:
+                        for minifiable_format in args.min:
+                            data.export(minifiable_format, 'auto', minify=True)
         except KeyboardInterrupt:
             logger.info('> Building was canceled.')
