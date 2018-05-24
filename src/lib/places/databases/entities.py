@@ -334,7 +334,6 @@ class DatabaseColumn(object):
             rules (dict): The column rules
         '''
         self.name = name
-        self.localized_name = _(name)
         self.rules = rules
 
 
@@ -390,7 +389,7 @@ class DatabaseRow(object):
 
         self._name = None
 
-    def columns(self, localized=True):
+    def columns(self, localized=False):
         '''
         Returns the row column names.
 
@@ -400,7 +399,7 @@ class DatabaseRow(object):
         Returns:
             list: The row column names
         '''
-        return [column.localized_name if localized else column.name
+        return [_(column.name) if localized else column.name
                 for column in self.__columns__]
 
     def values(self):
@@ -461,21 +460,14 @@ class DatabaseRow(object):
 
         return self
 
-    def serialize(self, localized=True):
+    def serialize(self):
         '''
         Returns the serialized row data dictionary.
-
-        Arguments:
-            localized (bool): Whether or not it should localize column names
 
         Returns:
             dict: The serialized row data dictionary
         '''
-        if localized:
-            return {column.localized_name: self.__dict__[column.name]
-                    for column in self.__columns__}
-
-        return {column.name: self.__dict__[column.name]
+        return {_(column.name): self.__dict__[column.name]
                 for column in self.__columns__}
 
     def __repr__(self):
@@ -542,22 +534,29 @@ class DatabaseData(object):
         '''
         Converts this database data into an ordered dictionary.
 
+        Arguments:
+            strKeys (bool): Whether or not it should coerce dictionary keys to string
+            forceUnicode (bool): Whether or not it should force coercing data to Unicode
+            includeKey (bool): Whether or not it should include the primary key
+
         Returns:
             collections.OrderedDict: The ordered dictionary
         '''
         records = OrderedDict()
 
         for entity in self._base.entities:
-            if not len(self._records[entity.table]):
+            if not len(self._records[entity.__table__.name]):
                 continue
 
-            records[entity.table] = OrderedDict()
+            table = _(entity.__table__.name)
+            records[table] = OrderedDict()
 
-            for row in self._records[entity.table]:
+            for row in self._records[entity.__table__.name]:
                 record = OrderedDict()
 
                 for column in entity.columns:
                     value = row[column]
+                    column = _(column)
 
                     if forceUnicode:
                         column = unicode(column)
@@ -572,7 +571,7 @@ class DatabaseData(object):
                 if not includeKey:
                     del record['id']
 
-                records[entity.table][row_id] = record
+                records[table][row_id] = record
 
         return records
 
