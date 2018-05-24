@@ -40,7 +40,6 @@ Currently we provide these datasets into the following formats:
 
 * [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)
 * [JSON](https://en.wikipedia.org/wiki/JSON)
-* [PHP Serialized Data](https://en.wikipedia.org/wiki/Serialization#Programming_language_support)
 * [Property List](https://en.wikipedia.org/wiki/Property_list)
 * [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)
 * [XML](https://en.wikipedia.org/wiki/XML)
