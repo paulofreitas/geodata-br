@@ -11,9 +11,10 @@ This module provides methods to bootstrap packages and modules.
 
 # Built-in dependencies
 
-import importlib
-import pkgutil
 import sys
+
+from importlib import import_module
+from pkgutil import walk_packages
 
 # Classes
 
@@ -37,7 +38,7 @@ class ModuleLoader(object):
         if module in sys.modules:
             return sys.modules[module]
 
-        return importlib.import_module(module)
+        return import_module(module)
 
     @classmethod
     def loadModules(cls, package, ignoreError=False):
@@ -48,9 +49,6 @@ class ModuleLoader(object):
             package: The package name or instance to load modules
             ignoreError (bool): Whether it should ignore import errors or not
 
-        Returns:
-            tuple: The loaded package module classes
-
         Raises:
             ImportError: When a package module can't be imported
             InvalidPackageError: When a given package is not valid
@@ -58,22 +56,17 @@ class ModuleLoader(object):
         if isinstance(package, str):
             package = cls.load(package)
 
-        loaded_modules = ()
-
         try:
             namespace = package.__name__ + '.'
 
-            for _, name, _ in pkgutil.walk_packages(package.__path__,
-                                                    namespace):
-                module = cls.load(name)
-                loaded_modules += (module,)
+            for _, name, _ in walk_packages(package.__path__, namespace):
+                cls.load(name)
         except ImportError:
             if not ignoreError:
                 raise
         except AttributeError:
             raise InvalidPackageError('The given package is not valid')
 
-        return loaded_modules
 
 class InvalidPackageError(Exception):
     '''
