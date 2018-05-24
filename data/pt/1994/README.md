@@ -21,7 +21,7 @@
 | `brasil.php.serialized` | [PHP Serialized Data](https://en.wikipedia.org/wiki/Serialization#Programming_language_support) | 2,131,660 |
 | `brasil.plist`          | [Property List](https://en.wikipedia.org/wiki/Property_list)                                    | 4,288,706 |
 | `brasil.sql`            | [SQL](https://en.wikipedia.org/wiki/SQL)                                                        | 1,187,863 |
-| `brasil.sqlite3`        | [SQLite 3](https://en.wikipedia.org/wiki/SQLite)                                                | 1,522,688 |
-| `brasil.tsv`            | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)                                       |   558,603 |
+| `brasil.sqlite3`        | [SQLite 3](https://en.wikipedia.org/wiki/SQLite)                                                | 1,521,664 |
+| `brasil.tsv`            | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)                                       | 1,639,729 |
 | `brasil.xml`            | [XML](https://en.wikipedia.org/wiki/XML)                                                        | 4,068,727 |
 | `brasil.yaml`           | [YAML](https://en.wikipedia.org/wiki/YAML)                                                      | 1,741,680 |
