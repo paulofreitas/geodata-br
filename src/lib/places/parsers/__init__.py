@@ -148,8 +148,8 @@ class Parser(AbstractClass):
 
                 last_entity = current_entity
 
-            records[entity.table] = sorted(entity_records,
-                                           key=lambda row: row['id'])
+            records[entity.__table__.name] = sorted(entity_records,
+                                                    key=lambda row: row['id'])
 
         return records
 
