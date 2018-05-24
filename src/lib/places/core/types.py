@@ -105,16 +105,6 @@ class Entity(declarative_base()):
     metadata = MetaData(naming_convention=naming_convention)
 
     @hybrid_property
-    def table(self):
-        '''
-        Shortcut property for table name.
-
-        Returns:
-            str: The table name
-        '''
-        return str(self.__table__.name)
-
-    @hybrid_property
     def columns(self):
         '''
         Shortcut property for table column names.
