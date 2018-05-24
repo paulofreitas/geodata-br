@@ -20,7 +20,7 @@ import zipfile
 
 # Package dependencies
 
-from places.core.constants import SRC_DIR
+from places.core.constants import DATA_DIR
 from places.core.helpers.decorators import classproperty
 from places.core.helpers.filesystem import Directory, File, Path
 from places.core.logging import Logger
@@ -105,7 +105,7 @@ class Database(object):
         '''
         The cached database file.
         '''
-        return File(SRC_DIR / '.cache' / Path(self.file).name)
+        return File(DATA_DIR / '.cache' / Path(self.file).name)
 
     def download(self):
         '''
