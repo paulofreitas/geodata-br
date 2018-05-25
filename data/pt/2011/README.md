@@ -23,3 +23,15 @@
 | `brasil.tsv`     | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)                              |   487,414 |
 | `brasil.xml`     | [XML](https://en.wikipedia.org/wiki/XML)                                               | 1,470,183 |
 | `brasil.yaml`    | [YAML](https://en.wikipedia.org/wiki/YAML)                                             |   604,423 |
+
+## Minified files
+
+| File               | Format                                                       |      Size | Savings |
+| ------------------ |:------------------------------------------------------------:| ---------:| -------:|
+| `brasil.min.csv`   | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)  |   442,878 |    9.1% |
+| `brasil.min.json`  | [JSON](https://en.wikipedia.org/wiki/JSON)                   |   550,592 |   34.3% |
+| `brasil.min.plist` | [Property List](https://en.wikipedia.org/wiki/Property_list) | 1,275,264 |   16.4% |
+| `brasil.min.sql`   | [SQL](https://en.wikipedia.org/wiki/SQL)                     |   419,255 |    8.2% |
+| `brasil.min.tsv`   | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)    |   442,878 |    9.1% |
+| `brasil.min.xml`   | [XML](https://en.wikipedia.org/wiki/XML)                     | 1,193,527 |   18.8% |
+| `brasil.min.yaml`  | [YAML](https://en.wikipedia.org/wiki/YAML)                   |   476,967 |   21.1% |
