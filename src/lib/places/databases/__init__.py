@@ -137,22 +137,22 @@ class Database(object):
         logger.info('Extracting database...')
 
         with zipfile.ZipFile(self._contents, 'r') as archive:
-            if type(self.file) == str:
-                with archive.open(self.file, 'r') as database:
-                    self._contents = io.BytesIO()
-                    self._contents.write(database.read())
+            if type(self.file) == list:
+                logger.info('Merging database files...')
+
+                merger = XlsMerger(self.sheet)
+
+                for base_file in self.file:
+                    with archive.open(base_file) as base:
+                        merger.merge(base, 0)
+
+                self._contents = merger.save()
 
                 return
 
-            logger.info('Merging database files...')
-
-            merger = XlsMerger(self.sheet)
-
-            for base_file in self.file:
-                with archive.open(base_file) as base:
-                    merger.merge(base, 0)
-
-            self._contents = merger.save()
+            with archive.open(self.file, 'r') as database:
+                self._contents = io.BytesIO()
+                self._contents.write(database.read())
 
     def cache(self):
         '''
