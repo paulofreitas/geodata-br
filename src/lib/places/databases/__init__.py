@@ -28,6 +28,7 @@ from places.core.types import Bytes, Map
 from places.databases.entities import Entities, LegacyEntities, DatabaseData
 from places.exporters import ExporterFactory
 from places.parsers import ParserFactory
+from places.parsers.xls import XlsMerger
 
 # Package metadata
 
@@ -56,6 +57,7 @@ class Database(object):
             info (dict): The database info
         '''
         self._info = Map(info)
+        self._contents = io.BytesIO()
         self._data = None
 
     @property
@@ -105,15 +107,13 @@ class Database(object):
         '''
         The cached database file.
         '''
-        return File(DATA_DIR / '.cache' / Path(self.file).name)
+        return File(DATA_DIR / '.cache' / str(self.year + '.' + self.format))
 
     def download(self):
         '''
-        Downloads the given database.
+        Downloads the database archive/file.
         '''
         ftp = ftplib.FTP('geoftp.ibge.gov.br')
-        archive_data = io.BytesIO()
-        base_data = io.BytesIO()
 
         logger.debug('Connecting to FTP server...')
         ftp.connect()
@@ -127,26 +127,44 @@ class Database(object):
 
         logger.info('Retrieving database...')
 
-        if self.archive:
-            ftp.retrbinary('RETR {}'.format(self.archive), archive_data.write)
+        ftp.retrbinary('RETR {}'.format(self.archive or self.file),
+                       self._contents.write)
 
-            with zipfile.ZipFile(archive_data, 'r') as archive_file:
-                logger.info('Reading database...')
+    def process(self):
+        '''
+        Process the database archive.
+        '''
+        logger.info('Extracting database...')
 
-                with archive_file.open(self.file, 'r') as base_file:
-                    base_data.write(base_file.read())
-        else:
-            ftp.retrbinary('RETR {}'.format(self.file), base_data.write)
+        with zipfile.ZipFile(self._contents, 'r') as archive:
+            if type(self.file) == str:
+                with archive.open(self.file, 'r') as database:
+                    self._contents = io.BytesIO()
+                    self._contents.write(database.read())
 
+                return
+
+            logger.info('Merging database files...')
+
+            merger = XlsMerger(self.sheet)
+
+            for base_file in self.file:
+                with archive.open(base_file) as base:
+                    merger.merge(base, 0)
+
+            self._contents = merger.save()
+
+    def cache(self):
+        '''
+        Caches the database file.
+        '''
         try:
             Directory(self.cacheFile.parent).create()
         except OSError:
             pass
 
-        with self.cacheFile.open('wb') as cache_file:
-            cache_file.write(base_data.getvalue())
-
-        return self
+        with self.cacheFile.open('wb') as cache:
+            cache.write(self._contents.getvalue())
 
     def read(self):
         '''
@@ -157,6 +175,11 @@ class Database(object):
         '''
         if not self.cacheFile.exists():
             self.download()
+
+            if self.archive:
+                self.process()
+
+            self.cache()
 
         base_data = File(self.cacheFile).readBytes()
 
@@ -228,6 +251,24 @@ class DatabaseRepository(object):
             list: A list with all available atabases
         '''
         return [
+            Database(year=2016,
+                     archive='DTB_2016_v2.zip',
+                     file=[
+                         'DTB_2016_v2/DTB_2016/DTB_BRASIL_SUBDISTRITO.xls',
+                         'DTB_2016_v2/DTB_2016/DTB_BRASIL_DISTRITO.xls',
+                         'DTB_2016_v2/DTB_2016/DTB_BRASIL_MUNICIPIO.xls',
+                     ],
+                     format='xls',
+                     sheet='DTB_2016_SubDistrito'),
+            Database(year=2015,
+                     archive='dtb_2015.zip',
+                     file=[
+                         'dtb_2015/RELATORIO_DTB_BRASIL_SUBDISTRITO.xls',
+                         'dtb_2015/RELATORIO_DTB_BRASIL_DISTRITO.xls',
+                         'dtb_2015/RELATORIO_DTB_BRASIL_MUNICIPIO.xls',
+                     ],
+                     format='xls',
+                     sheet='DTB_2016_SubDistrito'),
             Database(year=2014,
                      archive='dtb_2014_v2.zip',
                      file='DTB_2014_v2/DTB_2014_subdistrito.xls',
