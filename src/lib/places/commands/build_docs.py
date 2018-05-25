@@ -13,6 +13,7 @@ from places.commands import Command
 from places.core.constants import DATA_DIR
 from places.core.helpers.documentation import ProjectReadme, DatasetReadme
 from places.core.helpers.filesystem import File
+from places.core.i18n import Translator
 from places.core.logging import Logger
 from places.databases import DatabaseRepository
 
@@ -57,19 +58,17 @@ class DocumentationBuilderCommand(Command):
 
         ProjectReadme().write()
 
-        for language_dir in DATA_DIR.directories():
-            language = language_dir.name
-
-            logger.info('Generating "{}" dataset READMEs...'.format(language))
+        for locale in Translator.locales():
+            logger.info('Generating "{}" language dataset READMEs...'.format(locale))
 
             for dataset in DatabaseRepository.findAll():
-                dataset_dir = language_dir / dataset.year
+                dataset_dir = DATA_DIR / locale / dataset.year
                 min_dataset_dir = dataset_dir / 'minified'
 
                 if dataset_dir.exists():
                     # Create raw dataset READMEs
-                    DatasetReadme(dataset, dataset_dir, language).write()
+                    DatasetReadme(dataset, dataset_dir, locale).write()
 
                 if min_dataset_dir.exists():
                     # Create minified dataset READMEs
-                    DatasetReadme(dataset, min_dataset_dir, language).write()
+                    DatasetReadme(dataset, min_dataset_dir, locale).write()
