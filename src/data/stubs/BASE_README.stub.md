@@ -6,4 +6,8 @@
 
 ## Files
 
-{dataset_files}
+{dataset_raw_files}
+
+## Minified files
+
+{dataset_min_files}
