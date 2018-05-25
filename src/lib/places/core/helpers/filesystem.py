@@ -263,12 +263,12 @@ class File(Path):
     @property
     def extension(self):
         '''
-        Returns the full file extension.
+        Returns the file extension.
 
         Returns:
-            str: The full file extension
+            str: The file extension
         '''
-        return ''.join(self.suffixes)
+        return self.suffixes[-1] if self.suffixes else ''
 
     @property
     def format(self):
