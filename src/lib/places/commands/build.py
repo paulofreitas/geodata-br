@@ -15,7 +15,7 @@ from places.commands import Command
 from places.core.constants import DATA_DIR
 from places.core.i18n import Translator
 from places.core.logging import Logger
-from places.databases import DatabaseFactory, DatabaseHelper, DatabaseRepository
+from places.databases import DatabaseFactory, DatabaseRepository
 from places.formats import FormatRepository
 
 # Module logging
@@ -100,21 +100,17 @@ class DatasetBuilderCommand(Command):
                 logger.info('> Building locale: %s', locale)
 
                 for dataset in args.datasets:
-                    raw_dir = DATA_DIR / locale / dataset
-                    minified_dir = DATA_DIR / locale / dataset / 'minified'
+                    dataset_dir = DATA_DIR / locale / dataset
+                    dataset_dir.create(parents=True)
 
                     logger.info('> Building dataset: %s', dataset)
 
-                    raw_dir.create(parents=True)
-                    minified_dir.create(parents=True)
-
                     data = DatabaseFactory.fromYear(dataset).parse()
 
-                    with raw_dir:
+                    with dataset_dir:
                         for raw_format in args.raw:
                             data.export(raw_format, 'auto')
 
-                    with minified_dir:
                         for minifiable_format in args.min:
                             data.export(minifiable_format, 'auto', minify=True)
         except KeyboardInterrupt:
