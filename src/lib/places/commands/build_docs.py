@@ -63,12 +63,7 @@ class DocumentationBuilderCommand(Command):
 
             for dataset in DatabaseRepository.findAll():
                 dataset_dir = DATA_DIR / locale / dataset.year
-                min_dataset_dir = dataset_dir / 'minified'
 
                 if dataset_dir.exists():
-                    # Create raw dataset READMEs
+                    # Create dataset README
                     DatasetReadme(dataset, dataset_dir, locale).write()
-
-                if min_dataset_dir.exists():
-                    # Create minified dataset READMEs
-                    DatasetReadme(dataset, min_dataset_dir, locale).write()
