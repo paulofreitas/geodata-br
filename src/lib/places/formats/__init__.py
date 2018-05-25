@@ -235,7 +235,8 @@ class FormatRepository(object):
         Returns:
             list: A list with all minifiable formats
         '''
-        return [format_ for format_ in Format.childs() if format_.isMinifiable]
+        return [format_ for format_ in Format.childs()
+                if format_.isExportable and format_.isMinifiable]
 
     @classmethod
     def listMinifiableFormatNames(cls):
