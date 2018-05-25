@@ -16,6 +16,7 @@
 | `brasil.csv`     | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)                            |   487,424 |
 | `brasil.fdb`     | [Firebird Embedded](https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded) | 1,478,656 |
 | `brasil.json`    | [JSON](https://en.wikipedia.org/wiki/JSON)                                             |   837,902 |
+| `brasil.msgpack` | [MessagePack](https://en.wikipedia.org/wiki/MessagePack)                               |   410,557 |
 | `brasil.plist`   | [Property List](https://en.wikipedia.org/wiki/Property_list)                           | 1,525,767 |
 | `brasil.sql`     | [SQL](https://en.wikipedia.org/wiki/SQL)                                               |   456,820 |
 | `brasil.sqlite3` | [SQLite 3](https://en.wikipedia.org/wiki/SQLite)                                       |   550,912 |

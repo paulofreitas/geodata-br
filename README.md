@@ -42,6 +42,7 @@ Currently we provide these datasets into the following formats:
 
 * [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)
 * [JSON](https://en.wikipedia.org/wiki/JSON)
+* [MessagePack](https://en.wikipedia.org/wiki/MessagePack)
 * [Property List](https://en.wikipedia.org/wiki/Property_list)
 * [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)
 * [XML](https://en.wikipedia.org/wiki/XML)
