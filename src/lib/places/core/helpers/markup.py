@@ -296,13 +296,13 @@ class GithubMarkdown(Markdown):
 
         Arguments:
             table (list): A two-dimensional list
-            aligning (str): The table alignment
+            aligning (list): The table alignments
 
         Returns:
             str: A table
         '''
         assert isinstance(data, list)
-        assert aligning in ['<', '^', '>']
+        assert set(aligning).issubset(set(['<', '^', '>']))
 
         md = ''
 
