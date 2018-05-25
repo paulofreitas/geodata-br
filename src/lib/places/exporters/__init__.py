@@ -95,12 +95,14 @@ class Exporter(AbstractClass):
         Raises:
             ExportError: When data fails to export
         '''
+        formatName = self.format.friendlyName
+        extension = self.format.extension
+
         if options.get('minify'):
-            logger.debug('Exporting database to minified %s format...',
-                         self.format.friendlyName)
-        else:
-            logger.debug('Exporting database to %s format...',
-                         self.format.friendlyName)
+            formatName = 'minified ' + formatName
+            extension = '.min' + extension
+
+        logger.debug('Exporting database to %s format...', formatName)
 
         data = self.export(**options).read()
 
@@ -113,7 +115,7 @@ class Exporter(AbstractClass):
             return sys.stdout.write(data + '\n')
 
         if filename == 'auto':
-            filename = _('database') + self.format.extension
+            filename = _('dataset') + extension
 
         writeMode = 'wb' if self.format.isBinary else 'w'
 
