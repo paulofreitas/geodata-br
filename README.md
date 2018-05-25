@@ -12,6 +12,7 @@ All these data was compiled from nonstandardized spreadsheets provided by IBGE (
 
 |  Dataset | `states` | `mesoregions` | `microregions` | `municipalities` | `districts` | `subdistricts` |
 | --------:| --------:| -------------:| --------------:| ----------------:| -----------:| --------------:|
+| **2016** |       27 |           137 |            558 |            5,570 |      10,434 |            800 |
 | **2015** |       27 |           137 |            558 |            5,570 |      10,424 |            800 |
 | **2014** |       27 |           137 |            558 |            5,570 |      10,351 |            664 |
 | **2013** |       27 |           137 |            558 |            5,570 |      10,302 |            662 |
