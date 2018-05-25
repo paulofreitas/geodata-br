@@ -11,6 +11,8 @@ from __future__ import absolute_import
 
 # Built-in dependencies
 
+import io
+
 from os import devnull
 
 # External compatibility dependencies
@@ -20,6 +22,7 @@ from builtins import range
 # External dependencies
 
 import xlrd
+import xlwt
 
 # Package dependencies
 
@@ -156,7 +159,7 @@ class XlsParser(Parser):
              row.mesoregion_id, row.mesoregion_name,
              row.microregion_id, row.microregion_name,
              row.municipality_id, row.municipality_name) = row_data
-        elif base_year == 2014:
+        elif base_year in (2014, 2015, 2016):
             (row.state_id, row.state_name,
              row.mesoregion_id, row.mesoregion_name,
              row.microregion_id, row.microregion_name) = row_data[:6]
@@ -165,3 +168,52 @@ class XlsParser(Parser):
             row.subdistrict_id, row.subdistrict_name = row_data[13:15]
 
         return row.normalize(**normalization_options)
+
+
+class XlsMerger(object):
+    '''
+    Microsoft Excel Spreadsheet file merger class.
+    '''
+
+    def __init__(self, sheetname):
+        '''
+        Constructor.
+
+        Arguments:
+            sheetname (str): The final sheet name
+        '''
+        self._workbook = xlwt.Workbook()
+        self._sheet = self._workbook.add_sheet(sheetname)
+        self._row_idx = 0
+
+    def merge(self, workbook, sheetIndex):
+        '''
+        Merges the file stream sheet.
+
+        Arguments:
+            workbook (io.BufferedIOBase): The workbook file stream
+            sheetIndex (int): The workbook sheet index
+        '''
+        workbook = xlrd.open_workbook(file_contents=workbook.read(),
+                                      logfile=open(devnull, 'w'),
+                                      on_demand=True)
+        sheet = workbook.sheet_by_index(sheetIndex)
+
+        for row_idx in xrange(0 if not self._row_idx else 1, sheet.nrows):
+            for col_idx in xrange(sheet.ncols):
+                self._sheet.write(self._row_idx, col_idx,
+                                  sheet.cell_value(row_idx, col_idx))
+
+            self._row_idx += 1
+
+    def save(self):
+        '''
+        Saves the merged workbook.
+
+        Returns:
+            io.BytesIO: The workbook contents
+        '''
+        contents = io.BytesIO()
+        self._workbook.save(contents)
+
+        return contents
