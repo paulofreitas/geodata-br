@@ -1,10 +1,10 @@
 # places.br
 
-Always-updated multi-language geographic data of Brazil.
+Always-updated multi-language and multi-format geographic data of Brazil.
 
 ## Data Source
 
-All these data was compiled from nonstandardized spreadsheets provided by IBGE (Brazilian Institute of Geography and Statistics) through their FTP server at <ftp://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/divisao_territorial/>.
+All these data was compiled from nonstandardized spreadsheets provided by IBGE (Brazilian Institute of Geography and Statistics) through their FTP server [here](http://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/divisao_territorial/).
 
 ## Datasets
 
@@ -12,6 +12,7 @@ All these data was compiled from nonstandardized spreadsheets provided by IBGE (
 
 |  Dataset | `states` | `mesoregions` | `microregions` | `municipalities` | `districts` | `subdistricts` |
 | --------:| --------:| -------------:| --------------:| ----------------:| -----------:| --------------:|
+| **2015** |       27 |           137 |            558 |            5,570 |      10,424 |            800 |
 | **2014** |       27 |           137 |            558 |            5,570 |      10,351 |            664 |
 | **2013** |       27 |           137 |            558 |            5,570 |      10,302 |            662 |
 | **2012** |       27 |           137 |            558 |            5,565 |           - |              - |
@@ -57,4 +58,15 @@ The project source code are available under the [MIT License](src/LICENSE). The 
 
 ## Contributing
 
-Found any misleading information? Have an idea for a missing feature? You are always welcome to [open an issue](https://github.com/paulofreitas/places.br/issues) or provide a pull-request!
+Thank you for considering to contribute to this project. Have you found any misleading information or have an idea for a missing feature? You are always welcome to [open an issue](https://github.com/paulofreitas/places.br/issues) or provide a pull-request!
+
+## Supporting
+
+Do you like this project? Please consider supporting it by donating:
+
+- Donate using Bitcoin: 13v5TJ3XLA1gn6XdL9Z2mLpRJ4N13gaaW9
+- Donate using Bitcoin Cash: qq0l5q7hvwj2ckeqpc6e3x389wnueqaygswuqqhwqj
+- Donate using Ethereum: 0x3C7cA579a636881E7446bbff9a84D8579a0057F7
+- [Donate using other criptocurrencies](https://shapeshift.io/shifty.html?destination=13v5TJ3XLA1gn6XdL9Z2mLpRJ4N13gaaW9&output=BTC)
+- [Donate using PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HZ6JYNLYX3P7Y)
+- [Donate using Patreon](https://www.patreon.com/paulofreitas)
