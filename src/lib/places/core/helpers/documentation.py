@@ -44,9 +44,10 @@ class DatasetUtils(object):
             collections.OrderedDict: The localization datasets
         '''
         data = OrderedDict()
+        Translator.locale = locale
 
         for dataset in DatabaseRepository.listYears():
-            dataset_file = DATA_DIR / locale / dataset / 'places.json'
+            dataset_file = DATA_DIR / locale / dataset / '{}.json'.format(_('dataset'))
 
             if dataset_file.exists():
                 data[dataset] = json.load(File(dataset_file))
@@ -119,14 +120,14 @@ class ProjectReadme(Readme):
             str: The available dataset records counts
         '''
         headers = ['Dataset'] + [
-            Markdown.code(entity.table) for entity in Entities
+            Markdown.code(entity.__table__.name) for entity in Entities
         ]
         alignment = ['>'] * 7
         datasets = DatasetUtils.getDatasetsByLocale('pt')
         data = [
             [Markdown.bold(dataset)] + [
-                '{:,d}'.format(len(datasets[dataset][_(entity.table)])) \
-                    if _(entity.table) in datasets[dataset] else '-'
+                '{:,d}'.format(len(datasets[dataset][_(entity.__table__.name)])) \
+                    if _(entity.__table__.name) in datasets[dataset] else '-'
                 for entity in Entities
             ]
             for dataset in datasets
@@ -203,10 +204,10 @@ class DatasetReadme(Readme):
         alignment = ['>', '>']
         datasets = DatasetUtils.getDatasetsByLocale(self._locale)
         data = [
-            [Markdown.code(_(entity.table)),
-             '{:,d}'.format(len(datasets[self._dataset.year][_(entity.table)]))]
+            [Markdown.code(_(entity.__table__.name)),
+             '{:,d}'.format(len(datasets[self._dataset.year][_(entity.__table__.name)]))]
             for entity in Entities
-            if _(entity.table) in datasets[self._dataset.year]
+            if _(entity.__table__.name) in datasets[self._dataset.year]
         ]
 
         return Markdown.table([headers] + data, alignment)
@@ -222,7 +223,7 @@ class DatasetReadme(Readme):
         alignment = ['<', '^', '>', '>']
         data = []
 
-        for dataset_file in self._dataset_dir.files(pattern='places*'):
+        for dataset_file in self._dataset_dir.files(pattern=_('dataset') + '*'):
             raw_file = File(self._dataset_dir.parent / dataset_file.name)
             dataset_format = '-'
 
