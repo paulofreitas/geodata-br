@@ -15,14 +15,14 @@
 
 | File             | Format                                                                                 |      Size |
 | ---------------- |:--------------------------------------------------------------------------------------:| ---------:|
-| `brasil.csv`     | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)                            | 1,852,444 |
+| `brasil.csv`     | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)                            | 1,605,870 |
 | `brasil.fdb`     | [Firebird Embedded](https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded) | 3,194,880 |
 | `brasil.json`    | [JSON](https://en.wikipedia.org/wiki/JSON)                                             | 2,636,035 |
 | `brasil.msgpack` | [MessagePack](https://en.wikipedia.org/wiki/MessagePack)                               | 1,312,390 |
 | `brasil.plist`   | [Property List](https://en.wikipedia.org/wiki/Property_list)                           | 4,763,376 |
 | `brasil.sql`     | [SQL](https://en.wikipedia.org/wiki/SQL)                                               | 1,328,058 |
 | `brasil.sqlite3` | [SQLite 3](https://en.wikipedia.org/wiki/SQLite)                                       | 1,710,080 |
-| `brasil.tsv`     | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)                              | 1,852,444 |
+| `brasil.tsv`     | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)                              | 1,605,868 |
 | `brasil.xml`     | [XML](https://en.wikipedia.org/wiki/XML)                                               | 4,518,121 |
 | `brasil.yaml`    | [YAML](https://en.wikipedia.org/wiki/YAML)                                             | 1,944,418 |
 
@@ -30,9 +30,7 @@
 
 | File               | Format                                                       |      Size | Savings |
 | ------------------ |:------------------------------------------------------------:| ---------:| -------:|
-| `brasil.min.csv`   | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)  | 1,605,870 |   13.3% |
 | `brasil.min.json`  | [JSON](https://en.wikipedia.org/wiki/JSON)                   | 1,765,079 |   33.0% |
 | `brasil.min.plist` | [Property List](https://en.wikipedia.org/wiki/Property_list) | 4,002,132 |   16.0% |
-| `brasil.min.tsv`   | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)    | 1,605,868 |   13.3% |
 | `brasil.min.xml`   | [XML](https://en.wikipedia.org/wiki/XML)                     | 3,700,012 |   18.1% |
 | `brasil.min.yaml`  | [YAML](https://en.wikipedia.org/wiki/YAML)                   | 1,545,647 |   20.5% |
