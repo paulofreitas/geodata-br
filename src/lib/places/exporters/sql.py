@@ -43,8 +43,7 @@ class SqlExporter(Exporter):
         Raises:
             ExportError: When data fails to export
         '''
-        schema = SchemaGenerator(options.get('dialect', 'default'),
-                                 options.get('minify'))
+        schema = SchemaGenerator(options.get('dialect', 'default'))
 
         for entity in self._data._base.entities:
             data = self._data.records[entity.__table__.name]

@@ -43,22 +43,16 @@ class SchemaGenerator(object):
     SQL schema generator class.
     '''
 
-    minified = False
-
-    def __init__(self, dialect='default', minified=False):
+    def __init__(self, dialect='default'):
         '''
         Constructor.
 
         Arguments:
             dialect (str): The SQL dialect to use
-            minified (bool): Whether the SQL statements should be minified
-                or not
         '''
         self.tables = []
         self.dialect = dialect
         self._dialect = self.getDialect(dialect)
-
-        SchemaGenerator.minified = minified
 
     @staticmethod
     def getDialect(dialect):
@@ -114,7 +108,7 @@ class SchemaGenerator(object):
         Compiles the CREATE TABLE statements.
         '''
         table = create.element
-        separator = '' if SchemaGenerator.minified else '\n'
+        separator = '\n'
         first_pk = False
 
         ddl = 'CREATE '
@@ -122,8 +116,8 @@ class SchemaGenerator(object):
         if table._prefixes:
             ddl += ' '.join(table._prefixes) + ' '
 
-        ddl += 'TABLE ' + SchemaGenerator.formatTable(table, compiler.preparer)
-        ddl += '(' if SchemaGenerator.minified else ' ('
+        ddl += 'TABLE {} ('.format(SchemaGenerator.formatTable(table,
+                                                               compiler.preparer))
 
         for create_column in create.columns:
             column = create_column.element
@@ -131,17 +125,11 @@ class SchemaGenerator(object):
             try:
                 column_ddl = compiler.process(
                     create_column,
-                    first_pk=column.primary_key and not first_pk
-                )
+                    first_pk=column.primary_key and not first_pk)
 
                 if column_ddl is not None:
-                    ddl += separator
-                    separator = ',' if SchemaGenerator.minified else ',\n'
-
-                    if not SchemaGenerator.minified:
-                        ddl += '  '
-
-                    ddl += column_ddl
+                    ddl += separator + '  ' + column_ddl
+                    separator = ',\n'
 
                 if column.primary_key:
                     first_pk = True
@@ -151,20 +139,12 @@ class SchemaGenerator(object):
         constraints_ddl = compiler.create_table_constraints(
             table,
             _include_foreign_key_constraints=
-                create.include_foreign_key_constraints
-        )
+                create.include_foreign_key_constraints)
 
         if constraints_ddl:
-            ddl += ',' if SchemaGenerator.minified else ',\n  '
-            ddl += constraints_ddl.replace(
-                ', \n\t',
-                ',' if SchemaGenerator.minified else ',\n  '
-            )
+            ddl += ',\n  ' + constraints_ddl.replace(', \n\t', ',\n  ')
 
-        if not SchemaGenerator.minified:
-            ddl += '\n'
-
-        ddl += '){};'.format(compiler.post_create_table(table))
+        ddl += '\n){};'.format(compiler.post_create_table(table))
 
         return ddl
 
@@ -182,29 +162,21 @@ class SchemaGenerator(object):
         compiler._verify_index_table(index)
 
         ddl = 'CREATE '
-        separator = ',' if SchemaGenerator.minified else ', '
 
         if index.unique:
             ddl += 'UNIQUE '
 
-        ddl += 'INDEX {} ON {}'.format(
+        ddl += 'INDEX {} ON {} ({});'.format(
             SchemaGenerator.formatIndex(index,
                                         compiler.preparer,
                                         include_schema=include_schema),
             SchemaGenerator.formatTable(index.table,
                                         compiler.preparer,
-                                        use_schema=include_table_schema)
-        )
-
-        if not SchemaGenerator.minified:
-            ddl += ' '
-
-        ddl += '({});'.format(separator.join(
-            compiler.process(expression,
-                             include_table=False,
-                             literal_binds=True)
-            for expression in index.expressions
-        ))
+                                        use_schema=include_table_schema),
+            ', '.join(compiler.process(expression,
+                                       include_table=False,
+                                       literal_binds=True)
+                      for expression in index.expressions))
 
         return ddl
 
@@ -227,12 +199,10 @@ class SchemaGenerator(object):
             name = compiler._truncated_identifier('colident', name)
 
         if add_to_result_map is not None:
-            add_to_result_map(
-                name,
-                orig_name,
-                (column, name, column.key),
-                column.type
-            )
+            add_to_result_map(name,
+                              orig_name,
+                              (column, name, column.key),
+                              column.type)
 
         if is_literal:
             name = compiler.escape_literal_column(name) if is_literal \
@@ -260,9 +230,9 @@ class SchemaGenerator(object):
         Compiles ALTER TABLE ADD CONSTRAINT statements.
         '''
         return 'ALTER TABLE {} ADD {};'.format(
-            SchemaGenerator.formatTable(constraint.element.table, compiler.preparer),
-            compiler.process(constraint.element)
-        )
+            SchemaGenerator.formatTable(constraint.element.table,
+                                        compiler.preparer),
+            compiler.process(constraint.element))
 
     @staticmethod
     @compiles(PrimaryKeyConstraint)
@@ -274,7 +244,6 @@ class SchemaGenerator(object):
             return ''
 
         ddl = ''
-        separator = ',' if SchemaGenerator.minified else ', '
 
         if constraint.name is not None:
             formatted_name = SchemaGenerator.formatConstraint(constraint,
@@ -283,12 +252,7 @@ class SchemaGenerator(object):
             if formatted_name is not None:
                 ddl += 'CONSTRAINT {} '.format(formatted_name)
 
-        ddl += 'PRIMARY KEY'
-
-        if not SchemaGenerator.minified:
-            ddl += ' '
-
-        ddl += '({})'.format(separator.join(
+        ddl += 'PRIMARY KEY ({})'.format(', '.join(
             compiler.preparer.quote(_(_constraint.name))
             for _constraint in (
                 constraint.columns_autoinc_first \
@@ -307,7 +271,6 @@ class SchemaGenerator(object):
         Compiles FOREIGN KEY constraint statements.
         '''
         ddl = ''
-        separator = ',' if SchemaGenerator.minified else ', '
 
         if constraint.name is not None:
             formatted_name = SchemaGenerator.formatConstraint(constraint,
@@ -318,26 +281,14 @@ class SchemaGenerator(object):
 
         remote_table = list(constraint.elements)[0].column.table
 
-        ddl += 'FOREIGN KEY'
-
-        if not SchemaGenerator.minified:
-            ddl += ' '
-
-        ddl += '({}) REFERENCES {}'.format(
-            separator.join(
-                compiler.preparer.quote(_(element.parent.name))
-                for element in constraint.elements
-            ),
-            SchemaGenerator.formatTable(remote_table, compiler.preparer)
+        ddl += 'FOREIGN KEY ({}) REFERENCES {} ({})'.format(
+            ', '.join(compiler.preparer.quote(_(element.parent.name))
+                      for element in constraint.elements),
+            SchemaGenerator.formatTable(remote_table, compiler.preparer),
+            ', '.join(compiler.preparer.quote(_(element.column.name))
+                      for element in constraint.elements)
         )
 
-        if not SchemaGenerator.minified:
-            ddl += ' '
-
-        ddl += '({})'.format(separator.join(
-            compiler.preparer.quote(_(element.column.name))
-            for element in constraint.elements
-        ))
         ddl += compiler.define_constraint_match(constraint)
         ddl += compiler.define_constraint_cascades(constraint)
         ddl += compiler.define_constraint_deferrability(constraint)
@@ -367,32 +318,19 @@ class SchemaGenerator(object):
 
         dml = 'INSERT INTO ' + SchemaGenerator.formatTable(insert_stmt.table,
                                                            compiler.preparer)
-        separator = ',' if SchemaGenerator.minified else ', '
 
         if insert_stmt.select is not None:
             dml += ' {}'.format(
                 compiler.process(compiler._insert_from_select, **options))
         elif insert_stmt._has_multi_parameters:
-            dml += ' VALUES'
-
-            if not SchemaGenerator.minified:
-                dml += ' '
-
-            dml += separator.join(
-                '({})'.format(separator.join(
-                    param[1] for param in crud_param_set
-                ))
-                for crud_param_set in crud_params
-            )
+            dml += ' VALUES {}'.format(
+                ', '.join(
+                    '({})'.format(
+                        ', '.join(param[1] for param in crud_param_set))
+                    for crud_param_set in crud_params))
         else:
-            dml += ' VALUES'
-
-            if not SchemaGenerator.minified:
-                dml += ' '
-
-            dml += '({})'.format(separator.join([
-                param[1] for param in crud_params
-            ]))
+            dml += ' VALUES ({})'.format(
+                ', '.join(param[1] for param in crud_params))
 
         compiler.stack.pop(-1)
 
@@ -456,9 +394,7 @@ class SchemaGenerator(object):
         Returns:
             string: The compiled SQL statements
         '''
-        separator = '' if self.minified else '\n\n'
-
-        return separator.join([
+        return '\n\n'.join([
             self.renderCreateTable(table, createIndexes=createIndexes)
             for table in self.tables
         ])
@@ -476,23 +412,19 @@ class SchemaGenerator(object):
             string: The compiled CREATE TABLE statement
         '''
         ddl = []
-        separator = '' if self.minified else '\n'
-
-        if not self.minified:
-            ddl.append('--\n-- Structure for table {}\n--\n'.format(_(table.name)))
-
+        ddl.append('--\n-- Structure for table {}\n--\n'.format(_(table.name)))
         ddl.append(str(CreateTable(table).compile(dialect=self._dialect)))
 
         if len(table._data):
-            ddl.append(separator + self.renderInserts(table))
+            ddl.append('\n' + self.renderInserts(table))
 
         if len(table.foreign_keys) and self._dialect.supports_alter:
-            ddl.append(separator + self.renderTableConstraints(table))
+            ddl.append('\n' + self.renderTableConstraints(table))
 
         if createIndexes and len(table.indexes):
-            ddl.append(separator + self.renderTableIndexes(table))
+            ddl.append('\n' + self.renderTableIndexes(table))
 
-        return separator.join(ddl)
+        return '\n'.join(ddl)
 
     def renderInserts(self, table):
         '''
@@ -506,26 +438,17 @@ class SchemaGenerator(object):
             string: The compiled INSERT statements
         '''
         ddl = []
-        separator = '' if self.minified else '\n'
-
-        if not self.minified:
-            ddl.append('--\n-- Data for table {}\n--\n'.format(_(table.name)))
+        ddl.append('--\n-- Data for table {}\n--\n'.format(_(table.name)))
 
         for row in table._data:
             row_data = {key: str(value) for key, value in iteritems(row)}
             insert_ddl = str(table.insert().values(row_data).compile(
                 compile_kwargs={'literal_binds': True},
-                dialect=self._dialect,
-            ))
-
-            if self.minified and "''" in insert_ddl:
-                insert_ddl = insert_ddl.replace("''", "\\'") \
-                                       .replace("'", '"') \
-                                       .replace('\\"', "'")
+                dialect=self._dialect))
 
             ddl.append(insert_ddl)
 
-        return separator.join(ddl)
+        return '\n'.join(ddl)
 
     def renderTableConstraints(self, table):
         '''
@@ -542,19 +465,14 @@ class SchemaGenerator(object):
             return
 
         ddl = []
-        separator = '' if self.minified else '\n'
-
-        if not self.minified:
-            ddl.append('--\n-- Constraints for table {}\n--\n' \
-                .format(_(table.name)))
+        ddl.append('--\n-- Constraints for table {}\n--\n'.format(_(table.name)))
 
         for constraint in table._sorted_constraints:
             if isinstance(constraint, ForeignKeyConstraint):
                 ddl.append(str(
-                    AddConstraint(constraint).compile(dialect=self._dialect)
-                ))
+                    AddConstraint(constraint).compile(dialect=self._dialect)))
 
-        return separator.join(ddl)
+        return '\n'.join(ddl)
 
     def renderTableIndexes(self, table):
         '''
@@ -568,15 +486,12 @@ class SchemaGenerator(object):
             string: The compiled CREATE INDEXES statements
         '''
         ddl = []
-        separator = '' if self.minified else '\n'
-
-        if not self.minified:
-            ddl.append('--\n-- Indexes for table {}\n--\n'.format(_(table.name)))
+        ddl.append('--\n-- Indexes for table {}\n--\n'.format(_(table.name)))
 
         for index in table._sorted_indexes:
             ddl.append(str(CreateIndex(index).compile(dialect=self._dialect)))
 
-        return separator.join(ddl)
+        return '\n'.join(ddl)
 
     # Methods
 
