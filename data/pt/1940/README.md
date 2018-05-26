@@ -29,7 +29,6 @@
 | `brasil.min.csv`   | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)  |    69,102 |    8.4% |
 | `brasil.min.json`  | [JSON](https://en.wikipedia.org/wiki/JSON)                   |    68,491 |   40.2% |
 | `brasil.min.plist` | [Property List](https://en.wikipedia.org/wiki/Property_list) |   175,070 |   18.5% |
-| `brasil.min.sql`   | [SQL](https://en.wikipedia.org/wiki/SQL)                     |    86,509 |    7.1% |
 | `brasil.min.tsv`   | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)    |    69,102 |    8.4% |
 | `brasil.min.xml`   | [XML](https://en.wikipedia.org/wiki/XML)                     |   175,116 |   22.0% |
 | `brasil.min.yaml`  | [YAML](https://en.wikipedia.org/wiki/YAML)                   |    55,764 |   23.8% |
