@@ -44,18 +44,15 @@ class CsvExporter(Exporter):
         Raises:
             ExportError: When data fails to export
         '''
-        csv_options = dict(delimiter=options.get('delimiter', ','),
-                           quoting=csv.QUOTE_NONNUMERIC,
-                           lineterminator='\r\n',
-                           extrasaction='ignore')
-
-        if options.get('minify'):
-            csv_options.update(quoting=csv.QUOTE_MINIMAL)
-
         csv_data = io.BytesIO()
         csv_writer = DictWriter(csv_data,
                                 self._data.columns,
-                                **csv_options)
+                                delimiter=options.get('delimiter', ','),
+                                quotechar='"',
+                                doublequote=True,
+                                lineterminator='\r\n',
+                                quoting=csv.QUOTE_MINIMAL,
+                                extrasaction='ignore')
 
         csv_writer.writeheader()
         csv_writer.writerows([row.serialize() for row in self._data.rows])
