@@ -47,10 +47,11 @@ setup(
         # places.exporters package
         'fdb',
         'lxml',
-        'phpserialize',
+        'msgpack',
         'pyyaml',
         'sqlalchemy',
         # places.parsers package
         'xlrd',
+        'xlwt',
     ]
 )
