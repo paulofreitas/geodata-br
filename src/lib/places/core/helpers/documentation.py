@@ -190,9 +190,7 @@ class DatasetReadme(Readme):
         return self._stub.format(
             dataset=self._dataset.year,
             dataset_records=self.renderDatasetRecords().strip(),
-            dataset_raw_files=self.renderDatasetFiles().strip(),
-            dataset_min_files=self.renderDatasetFiles(minified=True).strip()
-        )
+            dataset_files=self.renderDatasetFiles().strip())
 
     def renderDatasetRecords(self):
         '''
@@ -213,27 +211,19 @@ class DatasetReadme(Readme):
 
         return Markdown.table([headers] + data, alignment)
 
-    def renderDatasetFiles(self, minified=False):
+    def renderDatasetFiles(self):
         '''
         Renders the dataset files info.
-
-        Arguments:
-            minified (bool): Whether to report raw or minified files
 
         Returns:
             str: The dataset files info
         '''
-        headers = ['File', 'Format', 'Size', 'Savings']
-        alignment = ['<', '^', '>', '>']
+        headers = ['File', 'Format', 'Size']
+        alignment = ['<', '^', '>']
         data = []
 
         for dataset_file in self._dataset_dir.files(pattern=_('dataset') + '*'):
             dataset_format = '-'
-
-            # Skip files
-            if (not minified and '.min' in dataset_file.name) \
-                    or (minified and not '.min' in dataset_file.name):
-                continue
 
             if dataset_file.format:
                 dataset_format = Markdown.link(dataset_file.format.info,
@@ -245,18 +235,6 @@ class DatasetReadme(Readme):
                 '{:9,d}'.format(dataset_file.size),
             ]
 
-            if minified:
-                raw_file = File(self._dataset_dir / dataset_file.name.replace('.min', ''))
-
-                if raw_file.exists():
-                    savings = Number.percentDifference(dataset_file.size,
-                                                       raw_file.size)
-                    dataset_info.append('{:>6.1f}%'.format(savings))
-
             data.append(dataset_info)
 
-        if minified:
-            return Markdown.table([headers] + data, alignment)
-
-        return Markdown.table([headers[:3]] + [row[:3] for row in data],
-                              alignment[:3])
+        return Markdown.table([headers] + data, alignment)
