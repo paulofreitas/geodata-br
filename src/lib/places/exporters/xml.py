@@ -49,9 +49,7 @@ class XmlExporter(Exporter):
                            name='dtb_{}'.format(self._data._base.year))
 
         for table_name, rows in iter(data.items()):
-            if not options.get('minify'):
-                database.append(Comment(' Table {} '.format(table_name)))
-
+            database.append(Comment(' Table {} '.format(table_name)))
             table = SubElement(database, 'table', name=table_name)
 
             for row_data in iter(rows.values()):
@@ -64,6 +62,6 @@ class XmlExporter(Exporter):
         xml_data = xml_str(database,
                            xml_declaration=True,
                            encoding='utf-8',
-                           pretty_print=not options.get('minify'))
+                           pretty_print=True)
 
         return io.StringIO(xml_data.decode())
