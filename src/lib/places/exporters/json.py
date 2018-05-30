@@ -43,12 +43,10 @@ class JsonExporter(Exporter):
         Raises:
             ExportError: When data fails to export
         '''
-        json_options = dict(indent=2, ensure_ascii=False)
-
-        if options.get('minify'):
-            json_options.update(indent=None, separators=(',', ':'))
-
         data = self._data.normalize()
-        json_data = json.dumps(data, **json_options).encode('utf-8')
+        json_data = json.dumps(data,
+                               indent=2,
+                               separators=(',', ': '),
+                               ensure_ascii=False)
 
-        return io.BytesIO(json_data)
+        return io.BytesIO(json_data.encode('utf-8'))

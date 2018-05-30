@@ -70,10 +70,3 @@ class JsonFormat(Format):
         Tells whether the file format is exportable or not.
         '''
         return True
-
-    @classproperty
-    def isMinifiable(self):
-        '''
-        Tells whether the file format is minifiable or not.
-        '''
-        return True
