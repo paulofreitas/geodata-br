@@ -48,17 +48,10 @@ class YamlExporter(Exporter):
         Raises:
             ExportError: When data fails to export
         '''
-        yaml_options = dict(allow_unicode=True, default_flow_style=False)
-
-        if options.get('minify'):
-            yaml_options.update(default_flow_style=True,
-                                width=2e6,
-                                indent=0)
-
         data = self._data.normalize(forceUnicode=True)
-        yaml_data = yaml.dump(data, Dumper=OrderedDumper, **yaml_options)
-
-        if options.get('minify'):
-            yaml_data = re.sub('(?<=[,:])\s+', '', yaml_data)
+        yaml_data = yaml.dump(data,
+                              Dumper=OrderedDumper,
+                              allow_unicode=True,
+                              default_flow_style=False)
 
         return io.BytesIO(yaml_data)
