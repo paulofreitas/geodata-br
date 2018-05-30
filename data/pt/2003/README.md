@@ -17,7 +17,7 @@
 | ---------------- |:--------------------------------------------------------------------------------------:| ---------:|
 | `brasil.csv`     | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)                            | 1,094,685 |
 | `brasil.fdb`     | [Firebird Embedded](https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded) | 3,194,880 |
-| `brasil.json`    | [JSON](https://en.wikipedia.org/wiki/JSON)                                             | 2,630,644 |
+| `brasil.json`    | [JSON](https://en.wikipedia.org/wiki/JSON)                                             | 2,554,365 |
 | `brasil.msgpack` | [MessagePack](https://en.wikipedia.org/wiki/MessagePack)                               | 1,309,505 |
 | `brasil.plist`   | [Property List](https://en.wikipedia.org/wiki/Property_list)                           | 4,753,921 |
 | `brasil.sql`     | [SQL](https://en.wikipedia.org/wiki/SQL)                                               | 1,325,310 |
@@ -30,7 +30,5 @@
 
 | File               | Format                                                       |      Size | Savings |
 | ------------------ |:------------------------------------------------------------:| ---------:| -------:|
-| `brasil.min.json`  | [JSON](https://en.wikipedia.org/wiki/JSON)                   | 1,761,328 |   33.0% |
 | `brasil.min.plist` | [Property List](https://en.wikipedia.org/wiki/Property_list) | 3,994,113 |   16.0% |
 | `brasil.min.xml`   | [XML](https://en.wikipedia.org/wiki/XML)                     | 3,692,637 |   18.1% |
-| `brasil.min.yaml`  | [YAML](https://en.wikipedia.org/wiki/YAML)                   | 1,542,304 |   20.5% |
