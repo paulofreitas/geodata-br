@@ -14,6 +14,7 @@ This module provides helper classes to write documentation files.
 import json
 
 from collections import OrderedDict
+from itertools import groupby
 
 # Package dependencies
 
@@ -218,23 +219,30 @@ class DatasetReadme(Readme):
         Returns:
             str: The dataset files info
         '''
-        headers = ['File', 'Format', 'Size']
-        alignment = ['<', '^', '>']
-        data = []
+        files = list(self._dataset_dir.files(pattern=_('dataset') + '*'))
+        grouped_files = groupby(sorted(files, key=lambda file: file.format.type),
+                                key=lambda file: file.format.type)
+        listing = []
 
-        for dataset_file in self._dataset_dir.files(pattern=_('dataset') + '*'):
-            dataset_format = '-'
+        for dataset_type, dataset_files in grouped_files:
+            listing.append(Markdown.header(dataset_type, depth=4))
+            headers = ['File', 'Format', 'Size']
+            alignment = ['<', '^', '>']
+            rows = []
 
-            if dataset_file.format:
-                dataset_format = Markdown.link(dataset_file.format.info,
-                                               dataset_file.format.friendlyName)
+            for dataset_file in dataset_files:
+                dataset_format = '-'
 
-            dataset_info = [
-                Markdown.code(dataset_file.name),
-                dataset_format,
-                '{:9,d}'.format(dataset_file.size),
-            ]
+                if dataset_file.format:
+                    dataset_format = Markdown.link(dataset_file.format.info,
+                                                   dataset_file.format.friendlyName)
 
-            data.append(dataset_info)
+                rows.append([
+                    Markdown.code(dataset_file.name),
+                    dataset_format,
+                    '{:9,d}'.format(dataset_file.size),
+                ])
 
-        return Markdown.table([headers] + data, alignment)
+            listing.append(Markdown.table([headers] + rows, alignment))
+
+        return '\n'.join(listing)
