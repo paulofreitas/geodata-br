@@ -40,11 +40,9 @@ Currently we provide these datasets into the following formats:
 
 #### Data Interchange
 
-* [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)
 * [JSON](https://en.wikipedia.org/wiki/JSON)
 * [MessagePack](https://en.wikipedia.org/wiki/MessagePack)
 * [Property List](https://en.wikipedia.org/wiki/Property_list)
-* [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)
 * [XML](https://en.wikipedia.org/wiki/XML)
 * [YAML](https://en.wikipedia.org/wiki/YAML)
 
@@ -53,6 +51,11 @@ Currently we provide these datasets into the following formats:
 * [Firebird Embedded](https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded)
 * [SQL](https://en.wikipedia.org/wiki/SQL)
 * [SQLite 3](https://en.wikipedia.org/wiki/SQLite)
+
+#### Tabular Text
+
+* [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)
+* [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)
 
 ## License
 
