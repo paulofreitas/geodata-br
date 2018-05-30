@@ -46,7 +46,7 @@ class TsvFormat(Format):
         '''
         The file format type.
         '''
-        return 'Data Interchange'
+        return 'Tabular Text'
 
     @classproperty
     def mimeType(self):
