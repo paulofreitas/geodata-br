@@ -1,22 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
 CSV file format utils module
 '''
-from __future__ import absolute_import
-
 # Imports
 
 # Built-in dependencies
 
 from csv import DictWriter
 from sys import version_info
-
-# External compatibility dependencies
-
-from future.utils import iteritems
 
 # Classes
 
@@ -34,7 +28,7 @@ class UnicodeDictWriter(DictWriter, object):
             csvfile (file): The file object to write
             fieldnames (collections.abc.Sequence): The CSV header field names
         '''
-        super(self.__class__, self).__init__(csvfile, fieldnames, **kwargs)
+        super().__init__(csvfile, fieldnames, **kwargs)
 
     def writerow(self, row):
         '''
@@ -43,9 +37,9 @@ class UnicodeDictWriter(DictWriter, object):
         Arguments:
             row (collections.abc.Mapping): The row object
         '''
-        return super(UnicodeDictWriter, self).writerow({
+        return super().writerow({
             key: value.encode('utf-8') if isinstance(value, unicode) else value
-            for key, value in iteritems(row)
+            for key, value in iter(row.items())
         })
 
     def writerows(self, rows):

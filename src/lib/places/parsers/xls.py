@@ -1,12 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
 Microsoft Excel Spreadsheet file parser
 '''
-from __future__ import absolute_import
-
 # Imports
 
 # Built-in dependencies
@@ -14,10 +12,6 @@ from __future__ import absolute_import
 import io
 
 from os import devnull
-
-# External compatibility dependencies
-
-from builtins import range
 
 # External dependencies
 
@@ -53,7 +47,7 @@ class XlsParser(Parser):
         Arguments:
             base (places.databases.Database): The database instance to parse
         '''
-        super(self.__class__, self).__init__(base)
+        super().__init__(base)
 
         self._book = xlrd.open_workbook(file_contents=self._base.read(),
                                         encoding_override='utf-8',
@@ -199,8 +193,8 @@ class XlsMerger(object):
                                       on_demand=True)
         sheet = workbook.sheet_by_index(sheetIndex)
 
-        for row_idx in xrange(0 if not self._row_idx else 1, sheet.nrows):
-            for col_idx in xrange(sheet.ncols):
+        for row_idx in range(0 if not self._row_idx else 1, sheet.nrows):
+            for col_idx in range(sheet.ncols):
                 self._sheet.write(self._row_idx, col_idx,
                                   sheet.cell_value(row_idx, col_idx))
 

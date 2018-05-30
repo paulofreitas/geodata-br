@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
@@ -7,8 +7,6 @@ Core internationalization module
 
 This module provides the internationalization facilities.
 '''
-from __future__ import unicode_literals
-
 # External dependencies
 
 import yaml
@@ -40,7 +38,7 @@ class Translation(object):
 
         self._locale = str(locale_file.parent)
         self._domain = locale_file.basename
-        self._translations = Map(yaml.load(unicode(locale_file.read())))
+        self._translations = Map(yaml.load(locale_file.read()))
 
     @property
     def locale(self):

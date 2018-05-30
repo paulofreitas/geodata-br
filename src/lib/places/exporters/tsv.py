@@ -1,12 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
 TSV file exporter module
 '''
-from __future__ import absolute_import
-
 # Imports
 
 # Package dependencies
@@ -34,7 +32,7 @@ class TsvExporter(Exporter):
             options (dict): The exporting options
 
         Returns:
-            io.BytesIO: A TSV file-like stream
+            io.StringIO: A TSV file-like stream
 
         Raises:
             ExportError: When data fails to export

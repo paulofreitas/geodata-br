@@ -1,12 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
 Generic Data File file parser module
 '''
-from __future__ import absolute_import
-
 # Imports
 
 # Package dependencies
@@ -39,7 +37,7 @@ class DatParser(Parser):
         Arguments:
             base (places.databases.Database): The database instance to parse
         '''
-        super(self.__class__, self).__init__(base)
+        super().__init__(base)
 
         self._rows = self._base.read().splitlines()
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
@@ -7,8 +7,6 @@ Database exporters package
 
 This package provides the database exporter modules.
 '''
-from __future__ import absolute_import
-
 # Imports
 
 # Built-in dependencies
@@ -107,9 +105,6 @@ class Exporter(AbstractClass):
         data = self.export(**options).read()
 
         logger.debug('Finished exporting database.')
-
-        if not self.format.isBinary and not isinstance(data, unicode):
-            data = unicode(data.decode('utf-8'))
 
         if not filename:
             return sys.stdout.write(data + '\n')

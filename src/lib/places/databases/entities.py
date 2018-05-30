@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
@@ -7,8 +7,6 @@ Database entities module
 
 This module provides the database entities used across the package.
 '''
-from __future__ import unicode_literals
-
 # Imports
 
 # Built-in dependencies
@@ -530,13 +528,13 @@ class DatabaseData(object):
         '''
         return self._records
 
-    def normalize(self, strKeys=False, forceUnicode=False, includeKey=False):
+    def normalize(self, strKeys=False, forceStr=False, includeKey=False):
         '''
         Converts this database data into an ordered dictionary.
 
         Arguments:
             strKeys (bool): Whether or not it should coerce dictionary keys to string
-            forceUnicode (bool): Whether or not it should force coercing data to Unicode
+            forceStr (bool): Whether or not it should coerce dictionary values to string
             includeKey (bool): Whether or not it should include the primary key
 
         Returns:
@@ -557,14 +555,7 @@ class DatabaseData(object):
                 for column in entity.columns:
                     value = row[column]
                     column = _(column)
-
-                    if forceUnicode:
-                        column = unicode(column)
-
-                        if isinstance(value, str):
-                            value = unicode(value)
-
-                    record[column] = value
+                    record[column] = str(value) if forceStr else value
 
                 row_id = str(record['id']) if strKeys else record['id']
 

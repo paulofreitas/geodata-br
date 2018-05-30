@@ -1,21 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
 YAML file format utils module
 '''
-from __future__ import unicode_literals
-
 # Imports
 
 # Built-in dependencies
 
 import collections
-
-# External compatibility dependencies
-
-from future.utils import iteritems
 
 # External dependencies
 
@@ -34,7 +28,7 @@ class OrderedDumper(yaml.SafeDumper):
         '''
         Constructor.
         '''
-        super(OrderedDumper, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.add_representer(collections.OrderedDict, self.representOrderedDict)
 
@@ -49,4 +43,4 @@ class OrderedDumper(yaml.SafeDumper):
             yaml.nodes.MappingNode: A YAML mapping node
         '''
         return self.represent_mapping('tag:yaml.org,2002:map',
-                                      iteritems(mapping))
+                                      iter(mapping.items()))

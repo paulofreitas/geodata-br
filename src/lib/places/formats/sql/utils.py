@@ -1,18 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
 SQL file format utils module
 '''
-from __future__ import absolute_import, unicode_literals
-
 # Imports
 
 # External compatibility dependencies
 
 from builtins import str
-from future.utils import iteritems
 
 # External dependencies
 
@@ -441,7 +438,7 @@ class SchemaGenerator(object):
         ddl.append('--\n-- Data for table {}\n--\n'.format(_(table.name)))
 
         for row in table._data:
-            row_data = {key: str(value) for key, value in iteritems(row)}
+            row_data = {key: str(value) for key, value in iter(row.items())}
             insert_ddl = str(table.insert().values(row_data).compile(
                 compile_kwargs={'literal_binds': True},
                 dialect=self._dialect))

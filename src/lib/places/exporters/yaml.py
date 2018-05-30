@@ -1,12 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
 YAML file exporter module
 '''
-from __future__ import absolute_import
-
 # Imports
 
 # Built-in dependencies
@@ -43,15 +41,15 @@ class YamlExporter(Exporter):
             options (dict): The exporting options
 
         Returns:
-            io.BytesIO: A YAML file-like stream
+            io.StringIO: A YAML file-like stream
 
         Raises:
             ExportError: When data fails to export
         '''
-        data = self._data.normalize(forceUnicode=True)
+        data = self._data.normalize()
         yaml_data = yaml.dump(data,
                               Dumper=OrderedDumper,
                               allow_unicode=True,
                               default_flow_style=False)
 
-        return io.BytesIO(yaml_data)
+        return io.StringIO(yaml_data)

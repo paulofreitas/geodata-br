@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
@@ -15,8 +15,8 @@ from setuptools import setup, find_packages
 
 # Compatibility check
 
-if sys.version_info[:2] < (2, 7) or (3, 0) <= sys.version_info[:2] < (3, 2):
-    raise RuntimeError('Python version 2.7 or >= 3.2 required')
+if sys.version_info[:2] < (3, 4):
+    raise RuntimeError('Python version >= 3.4 required')
 
 # Routines
 
@@ -40,10 +40,8 @@ setup(
     },
 
     # Package dependencies
-    python_requires='>=2.7,!=3.0.*,!=3.1.*',
+    python_requires='>=3.4',
     install_requires=[
-        # places package
-        'future',
         # places.exporters package
         'fdb',
         'lxml',

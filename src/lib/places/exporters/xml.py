@@ -1,21 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
 XML file exporter module
 '''
-from __future__ import absolute_import, unicode_literals
-
 # Imports
 
 # Built-in dependencies
 
 import io
-
-# External compatibility dependencies
-
-from future.utils import iteritems, itervalues
 
 # External dependencies
 
@@ -45,31 +39,31 @@ class XmlExporter(Exporter):
             options (dict): The exporting options
 
         Returns:
-            io.BytesIO: A XML file-like stream
+            io.StringIO: A XML file-like stream
 
         Raises:
             ExportError: When data fails to export
         '''
-        data = self._data.normalize(includeKey=True)
+        data = self._data.normalize(forceStr=True, includeKey=True)
         database = Element('database',
                            name='dtb_{}'.format(self._data._base.year))
 
-        for table_name, rows in iteritems(data):
+        for table_name, rows in iter(data.items()):
             if not options.get('minify'):
                 database.append(Comment(' Table {} '.format(table_name)))
 
             table = SubElement(database, 'table', name=table_name)
 
-            for row_data in itervalues(rows):
+            for row_data in iter(rows.values()):
                 row = SubElement(table, 'row')
 
-                for column_name, column_value in iteritems(row_data):
+                for column_name, column_value in iter(row_data.items()):
                     SubElement(row, 'field', name=column_name).text =\
-                        unicode(column_value)
+                        column_value
 
         xml_data = xml_str(database,
-                           pretty_print=not options.get('minify'),
                            xml_declaration=True,
-                           encoding='utf-8')
+                           encoding='utf-8',
+                           pretty_print=not options.get('minify'))
 
-        return io.BytesIO(xml_data)
+        return io.StringIO(xml_data.decode())

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
@@ -8,8 +8,6 @@ Databases package
 This package provides a database class, a database factory class and a database
 repository class.
 '''
-from __future__ import absolute_import, unicode_literals
-
 # Imports
 
 # Built-in dependencies

@@ -1,12 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
 Property List file exporter module
 '''
-from __future__ import absolute_import
-
 # Imports
 
 # Built-in dependencies
@@ -39,15 +37,15 @@ class PlistExporter(Exporter):
             options (dict): The exporting options
 
         Returns:
-            io.BytesIO: A Property List file-like stream
+            io.StringIO: A Property List file-like stream
 
         Raises:
             ExportError: When data fails to export
         '''
-        data = self._data.normalize(strKeys=True, forceUnicode=True)
-        plist_data = PlistDumper(data)
+        data = self._data.normalize(strKeys=True)
+        plist_data = PlistDumper(data, sort_keys=False).decode()
 
         if options.get('minify'):
             plist_data = re.sub('[\n\t]+', '', plist_data)
 
-        return io.BytesIO(plist_data)
+        return io.StringIO(plist_data)

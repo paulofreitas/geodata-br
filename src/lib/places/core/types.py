@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
@@ -13,13 +13,8 @@ This module provides the base types used across the packages.
 
 import json
 
-from struct import Struct
-
 from abc import ABCMeta
-
-# External compatibility dependencies
-
-from future.utils import iteritems, with_metaclass
+from struct import Struct
 
 # External dependencies
 
@@ -36,7 +31,7 @@ from places.core.helpers.bootstrapping import ModuleLoader
 # Classes
 
 
-class AbstractClass(object, with_metaclass(ABCMeta)):
+class AbstractClass(object, metaclass=ABCMeta):
     '''
     Base abstract class.
     '''
@@ -148,7 +143,7 @@ class Entity(declarative_base()):
             Entity: A new entity instance with given row data
         '''
         return cls(**{column: getattr(row, key)
-                      for column, key in iteritems(cls.__columns__)})
+                      for column, key in iter(cls.__columns__.items())})
 
     def hydrate(self, row):
         '''
@@ -157,7 +152,7 @@ class Entity(declarative_base()):
         Arguments:
             row (places.databases.entities.DatabaseRow): The database row
         '''
-        for column, key in iteritems(self.__columns__):
+        for column, key in iter(self.__columns__.items()):
             setattr(self, column, getattr(row, key))
 
 
@@ -177,7 +172,7 @@ class Map(dict):
         '''
         Constructor.
         '''
-        super(Map, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def __getitem__(self, key):
         '''
@@ -192,7 +187,7 @@ class Map(dict):
         Raises:
             KeyError: When a given key is not found
         '''
-        value = super(Map, self).__getitem__(key)
+        value = super().__getitem__(key)
 
         if isinstance(value, dict):
             return self.__class__(value)
@@ -251,7 +246,7 @@ class Map(dict):
         '''
         return '{}({})'.format(self.__class__.__name__,
                                ', '.join('{}={}'.format(key, repr(value))
-                                         for key, value in iteritems(self)))
+                                         for key, value in iter(self.items())))
 
     def copy(self):
         '''

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
@@ -146,12 +146,6 @@ class Directory(Path):
     A filesystem directory object.
     '''
 
-    def __init__(self, *args):
-        '''
-        Constructor.
-        '''
-        super(self.__class__, self).__init__(*args)
-
     def create(self, mode=0o777, parents=False):
         '''
         Creates a new directory at this given path.
@@ -211,12 +205,6 @@ class File(Path):
     '''
     A filesystem file object.
     '''
-
-    def __init__(self, *args):
-        '''
-        Constructor.
-        '''
-        super(self.__class__, self).__init__(*args)
 
     def read(self, **kwargs):
         '''

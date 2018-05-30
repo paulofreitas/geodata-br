@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
@@ -97,7 +97,7 @@ class ProjectReadme(Readme):
         readme_file = File(BASE_DIR / 'README.md')
         stub_file = File(SRC_DIR / 'data/stubs/README.stub.md')
 
-        super(self.__class__, self).__init__(readme_file, stub_file)
+        super().__init__(readme_file, stub_file)
 
         # Setup translator
         Translator.locale = 'pt'
@@ -173,7 +173,7 @@ class DatasetReadme(Readme):
         readme_file = File(dataset_dir / 'README.md')
         stub_file = File(SRC_DIR / 'data/stubs/BASE_README.stub.md')
 
-        super(self.__class__, self).__init__(readme_file, stub_file)
+        super().__init__(readme_file, stub_file)
 
         self._dataset = dataset
         self._dataset_dir = dataset_dir

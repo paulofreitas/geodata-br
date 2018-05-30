@@ -1,12 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
 CSV file exporter module
 '''
-from __future__ import absolute_import
-
 # Imports
 
 # Built-in dependencies
@@ -39,12 +37,12 @@ class CsvExporter(Exporter):
             options (dict): The exporting options
 
         Returns:
-            io.BytesIO: A CSV file-like stream
+            io.StringIO: A CSV file-like stream
 
         Raises:
             ExportError: When data fails to export
         '''
-        csv_data = io.BytesIO()
+        csv_data = io.StringIO()
         csv_writer = DictWriter(csv_data,
                                 self._data.columns,
                                 delimiter=options.get('delimiter', ','),

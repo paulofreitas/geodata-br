@@ -1,12 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
 JSON file exporter module
 '''
-from __future__ import absolute_import
-
 # Imports
 
 # Built-in dependencies
@@ -38,7 +36,7 @@ class JsonExporter(Exporter):
             options (dict): The exporting options
 
         Returns:
-            io.BytesIO: A JSON file-like stream
+            io.StringIO: A JSON file-like stream
 
         Raises:
             ExportError: When data fails to export
@@ -49,4 +47,4 @@ class JsonExporter(Exporter):
                                separators=(',', ': '),
                                ensure_ascii=False)
 
-        return io.BytesIO(json_data.encode('utf-8'))
+        return io.StringIO(json_data)

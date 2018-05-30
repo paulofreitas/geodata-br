@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
@@ -7,17 +7,11 @@ Database parsers package
 
 This package provides the database parser modules.
 '''
-from __future__ import absolute_import
-
 # Imports
 
 # Built-in imports
 
 from collections import OrderedDict
-
-# External compatibility dependencies
-
-from future.utils import itervalues
 
 # Package dependencies
 
@@ -142,7 +136,7 @@ class Parser(AbstractClass):
                 current_entity = entity.make(row).data
 
                 if (current_entity != last_entity
-                        and None not in itervalues(current_entity)
+                        and None not in iter(current_entity.values())
                         and current_entity not in entity_records):
                     entity_records.append(current_entity)
 

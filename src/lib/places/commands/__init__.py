@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
@@ -217,4 +217,4 @@ class HelpFormatter(argparse.HelpFormatter):
     def start_section(self, heading):
         heading = heading.replace('optional arguments', 'Arguments')
 
-        return super(self.__class__, self).start_section(heading)
+        return super().start_section(heading)
