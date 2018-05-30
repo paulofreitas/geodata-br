@@ -25,10 +25,3 @@
 | `brasil.tsv`     | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)                              | 1,589,116 |
 | `brasil.xml`     | [XML](https://en.wikipedia.org/wiki/XML)                                               | 4,473,293 |
 | `brasil.yaml`    | [YAML](https://en.wikipedia.org/wiki/YAML)                                             | 1,924,818 |
-
-## Minified files
-
-| File               | Format                                                       |      Size | Savings |
-| ------------------ |:------------------------------------------------------------:| ---------:| -------:|
-| `brasil.min.plist` | [Property List](https://en.wikipedia.org/wiki/Property_list) | 3,962,264 |   16.0% |
-| `brasil.min.xml`   | [XML](https://en.wikipedia.org/wiki/XML)                     | 3,663,196 |   18.1% |
