@@ -10,7 +10,6 @@ Property List file exporter module
 # Built-in dependencies
 
 import io
-import re
 
 # Package dependencies
 
@@ -44,8 +43,5 @@ class PlistExporter(Exporter):
         '''
         data = self._data.normalize(strKeys=True)
         plist_data = PlistDumper(data, sort_keys=False).decode()
-
-        if options.get('minify'):
-            plist_data = re.sub('[\n\t]+', '', plist_data)
 
         return io.StringIO(plist_data)
