@@ -19,7 +19,7 @@
 | ---------------- |:------------------------------------------------------------:| ---------:|
 | `brasil.json`    | [JSON](https://en.wikipedia.org/wiki/JSON)                   | 2,596,589 |
 | `brasil.msgpack` | [MessagePack](https://en.wikipedia.org/wiki/MessagePack)     | 1,332,083 |
-| `brasil.plist`   | [Property List](https://en.wikipedia.org/wiki/Property_list) | 4,831,059 |
+| `brasil.plist`   | [Property List](https://en.wikipedia.org/wiki/Property_list) |   962,179 |
 | `brasil.xml`     | [XML](https://en.wikipedia.org/wiki/XML)                     | 4,581,682 |
 | `brasil.yaml`    | [YAML](https://en.wikipedia.org/wiki/YAML)                   | 1,973,117 |
 
