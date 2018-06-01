@@ -64,7 +64,7 @@ class DatParser(Parser):
 
         for row_data in self._rows:
             # Stop at EOF
-            if row_data == '\x1a':
+            if row_data == b'\x1a':
                 break
 
             rows.append(self._parseRow(Bytes(row_data)))
@@ -86,7 +86,7 @@ class DatParser(Parser):
         row.state_id, row.mesoregion_id, row.microregion_id, \
         row.municipality_id, row.district_id, row.subdistrict_id, \
         name = row_data.unpack('2s2s3s5s2s2s')
-        row._name = name.replace('\x8c', '\x55')
+        row._name = name.replace(b'\x8c', b'\x55')
 
         self._bindNames(row)
 
