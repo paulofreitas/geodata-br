@@ -97,13 +97,6 @@ class Format(AbstractClass):
         '''
         return False
 
-    @classproperty
-    def isMinifiable(self):
-        '''
-        Tells whether the file format is minifiable or not.
-        '''
-        return False
-
     def __repr__(self):
         '''
         Returns a string representation of this format class.
@@ -224,27 +217,6 @@ class FormatRepository(object):
             list: A list with all parseable format names
         '''
         return [format_.name for format_ in cls.findParseableFormats()]
-
-    @staticmethod
-    def findMinifiableFormats():
-        '''
-        Returns a list with all minifiable formats.
-
-        Returns:
-            list: A list with all minifiable formats
-        '''
-        return [format_ for format_ in Format.childs()
-                if format_.isExportable and format_.isMinifiable]
-
-    @classmethod
-    def listMinifiableFormatNames(cls):
-        '''
-        Returns a list with all minifiable format names.
-
-        Returns:
-            list: A list with all minifiable format names
-        '''
-        return [format_.name for format_ in cls.findMinifiableFormats()]
 
     @classmethod
     def groupExportableFormatsByType(cls):
