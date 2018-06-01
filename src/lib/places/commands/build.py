@@ -49,7 +49,7 @@ class DatasetBuilderCommand(Command):
         '''
         Defines the command usage syntax.
         '''
-        return '%(prog)s -d DATASET -r FORMAT -m FORMAT'
+        return '%(prog)s -l LOCALE -d DATASET -f FORMAT'
 
     def configure(self):
         '''
@@ -57,8 +57,7 @@ class DatasetBuilderCommand(Command):
         '''
         datasets = DatabaseRepository.listYears()
         locales = Translator.locales()
-        raw_formats = FormatRepository.listExportableFormatNames()
-        minifiable_formats = FormatRepository.listMinifiableFormatNames()
+        formats = FormatRepository.listExportableFormatNames()
 
         self.addArgument('-d', '--datasets',
                          metavar='DATASET',
@@ -74,20 +73,13 @@ class DatasetBuilderCommand(Command):
                          help=('Locales to build.\n'
                                'Defaults to all available: {}' \
                                    .format(', '.join(locales))))
-        self.addArgument('-r', '--raw',
+        self.addArgument('-f', '--formats',
                          metavar='FORMAT',
                          nargs='*',
-                         default=raw_formats,
-                         help=('Raw formats to build the dataset.\n'
+                         default=formats,
+                         help=('Formats to build the dataset.\n'
                                'Defaults to all available: {}' \
-                                    .format(', '.join(raw_formats))))
-        self.addArgument('-m', '--min',
-                         metavar='FORMAT',
-                         nargs='*',
-                         default=minifiable_formats,
-                         help=('Minifiable formats to build the dataset.\n'
-                               'Defaults to all available: {}' \
-                                   .format(', '.join(minifiable_formats))))
+                                    .format(', '.join(formats))))
 
     def handle(self, args):
         '''
@@ -108,10 +100,7 @@ class DatasetBuilderCommand(Command):
                     data = DatabaseFactory.fromYear(dataset).parse()
 
                     with dataset_dir:
-                        for raw_format in args.raw:
-                            data.export(raw_format, 'auto')
-
-                        for minifiable_format in args.min:
-                            data.export(minifiable_format, 'auto', minify=True)
+                        for dataset_format in args.formats:
+                            data.export(dataset_format, 'auto')
         except KeyboardInterrupt:
             logger.info('> Building was canceled.')
