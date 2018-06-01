@@ -154,7 +154,7 @@ class Parser(AbstractClass):
         Arguments:
             row (geodatabr.databases.entities.DatabaseRow): The database row to bind
         '''
-        columns = zip(*[reversed(self._columns)] * 2)
+        columns = list(zip(*[reversed(self._columns)] * 2))
         column_names = [column_name for (column_name, column_id) in columns]
 
         for idx, (column_name, column_id) in enumerate(columns):

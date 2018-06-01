@@ -90,4 +90,4 @@ class DatParser(Parser):
 
         self._bindNames(row)
 
-        return row.normalize()
+        return row.normalize(forceStr=True)

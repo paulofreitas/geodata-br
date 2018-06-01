@@ -122,7 +122,7 @@ class XlsParser(Parser):
                 row.state_id, row.mesoregion_id, row.microregion_id, \
                 row.municipality_id, row.district_id, row.subdistrict_id, \
                 row._name = row_data[2:]
-                normalization_options = dict(force_str=True)
+                normalization_options = dict(forceStr=True)
             elif base_year == 2004:
                 level, row.state_id, _id, row.district_id, \
                 row.subdistrict_id, row._name = row_data

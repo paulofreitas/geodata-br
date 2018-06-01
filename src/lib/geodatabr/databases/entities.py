@@ -409,12 +409,12 @@ class DatabaseRow(object):
         '''
         return [self.__dict__[column.name] for column in self.__columns__]
 
-    def normalize(self, force_str=False):
+    def normalize(self, forceStr=False):
         '''
         Normalizes the row data as needed.
 
         Arguments:
-            force_str (bool): Whether or not it should convert columns to string
+            forceStr (bool): Whether or not it should convert columns to string
 
         Returns:
             DatabaseRow: The self DatabaseRow instance
@@ -428,9 +428,10 @@ class DatabaseRow(object):
                 continue
 
             # Convert non-string columns
-            if force_str:
-                if type(value) == float:
-                    value = '{:.0f}'.format(value)
+            if forceStr:
+                value = '{:.0f}'.format(value) if type(value) == float \
+                    else value.decode() if type(value) == bytes \
+                    else str(value)
 
             # Unset/skip unused columns
             if (('requires' in column.rules
