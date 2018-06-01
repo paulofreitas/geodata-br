@@ -63,6 +63,13 @@ class PlistFormat(Format):
         return 'https://en.wikipedia.org/wiki/Property_list'
 
     @classproperty
+    def isBinary(self):
+        '''
+        Tells whether the file format is binary or not.
+        '''
+        return True
+
+    @classproperty
     def isExportable(self):
         '''
         Tells whether the file format is exportable or not.

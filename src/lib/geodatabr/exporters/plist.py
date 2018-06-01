@@ -15,7 +15,7 @@ import io
 
 from geodatabr.exporters import Exporter
 from geodatabr.formats.plist import PlistFormat
-from geodatabr.formats.plist.utils import PlistDumper, PlistWriter
+from geodatabr.formats.plist.utils import PlistDumper, BinaryFormat
 
 # Classes
 
@@ -36,12 +36,14 @@ class PlistExporter(Exporter):
             options (dict): The exporting options
 
         Returns:
-            io.StringIO: A Property List file-like stream
+            io.BytesIO: A Property List file-like stream
 
         Raises:
             ExportError: When data fails to export
         '''
         data = self._data.normalize(strKeys=True)
-        plist_data = PlistDumper(data, sort_keys=False).decode()
+        plist_data = PlistDumper(data,
+                                 fmt=BinaryFormat,
+                                 sort_keys=False)
 
-        return io.StringIO(plist_data)
+        return io.BytesIO(plist_data)

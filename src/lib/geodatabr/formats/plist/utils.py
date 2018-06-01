@@ -9,7 +9,8 @@ Property List file format utils module
 
 # Built-in dependencies
 
-from plistlib import _PlistWriter as PlistWriter, dumps as PlistDumper
+from plistlib import _PlistWriter as PlistWriter, dumps as PlistDumper, \
+    FMT_BINARY as BinaryFormat
 
 # Functions
 
