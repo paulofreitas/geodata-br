@@ -1,4 +1,4 @@
-# places.br
+# geodata-br
 
 Always-updated multi-language and multi-format geographic data of Brazil.
 
@@ -63,7 +63,7 @@ The project source code are available under the [MIT License](src/LICENSE). The 
 
 ## Contributing
 
-Thank you for considering to contribute to this project. Have you found any misleading information or have an idea for a missing feature? You are always welcome to [open an issue](https://github.com/paulofreitas/places.br/issues) or provide a pull-request!
+Thank you for considering to contribute to this project. Have you found any misleading information or have an idea for a missing feature? You are always welcome to [open an issue](https://github.com/paulofreitas/geodata-br/issues) or provide a pull-request!
 
 ## Supporting
 

@@ -22,11 +22,11 @@ if sys.version_info[:2] < (3, 4):
 
 setup(
     # Package metadata
-    name='places',
+    name='geodatabr',
     version='1.0.0-dev',
     description='Brazilian territorial distribution data exporter',
     license='MIT',
-    url='https://github.com/paulofreitas/places.br',
+    url='https://github.com/paulofreitas/geodata-br',
     author='Paulo Freitas',
     author_email='me@paulofreitas.me',
 
@@ -35,20 +35,20 @@ setup(
     package_dir={'': 'lib'},
     entry_points={
         'console_scripts': [
-            'places = places.__main__:main'
+            'geodatabr = geodatabr.__main__:main'
         ],
     },
 
     # Package dependencies
     python_requires='>=3.4',
     install_requires=[
-        # places.exporters package
+        # geodatabr.exporters package
         'fdb',
         'lxml',
         'msgpack',
         'pyyaml',
         'sqlalchemy',
-        # places.parsers package
+        # geodatabr.parsers package
         'xlrd',
         'xlwt',
     ]
