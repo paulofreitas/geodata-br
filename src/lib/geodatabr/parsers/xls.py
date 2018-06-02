@@ -66,15 +66,7 @@ class XlsParser(Parser):
         Returns:
             list: A list with parsed database columns
         '''
-        columns = DatabaseRow().columns(options.get('localized', True))
-        base_year = int(self._base.year)
-
-        if base_year in (1940, 1950, 1960, 1970, 1980):
-            return columns[:2] + columns[6:8]
-        elif base_year in (2010, 2011, 2012):
-            return columns[:8]
-
-        return columns
+        return DatabaseRow().columns(options.get('localized', True))
 
     def _parseRows(self):
         '''
@@ -111,57 +103,15 @@ class XlsParser(Parser):
             geodatabr.databases.entities.DatabaseRow: The parsed database row
         '''
         row = DatabaseRow()
-        normalization_options = {}
-        base_year = int(self._base.year)
 
-        if base_year in (1940, 1950, 1960, 1970, 1980):
-            (row.state_id, row.state_name) = row_data[:2]
-            (row.municipality_id, row.municipality_name) = row_data[3:5]
-        elif base_year in (2000, 2004):
-            if base_year == 2000:
-                row.state_id, row.mesoregion_id, row.microregion_id, \
-                row.municipality_id, row.district_id, row.subdistrict_id, \
-                row._name = row_data[2:]
-                normalization_options = dict(forceStr=True)
-            elif base_year == 2004:
-                level, row.state_id, _id, row.district_id, \
-                row.subdistrict_id, row._name = row_data
-                level = int(level)
+        (row.state_id, row.state_name,
+         row.mesoregion_id, row.mesoregion_name,
+         row.microregion_id, row.microregion_name) = row_data[:6]
+        row.municipality_id, row.municipality_name = row_data[7:9]
+        row.district_id, row.district_name = row_data[10:12]
+        row.subdistrict_id, row.subdistrict_name = row_data[13:15]
 
-                if level in (5, 6, 7):
-                    row.municipality_id = _id
-                    row.microregion_id = str(self._lastrow.microregion_id)
-                    row.mesoregion_id = str(self._lastrow.mesoregion_id)
-                elif level == 8:
-                    row.mesoregion_id = _id[:2]
-                elif level == 9:
-                    row.microregion_id = _id[:3]
-                    row.mesoregion_id = str(self._lastrow.mesoregion_id)
-
-                self._lastrow = row
-
-            self._bindNames(row)
-        elif base_year in (2003, 2005, 2006, 2007, 2008, 2009, 2013):
-            (row.state_id, row.state_name,
-             row.mesoregion_id, row.mesoregion_name,
-             row.microregion_id, row.microregion_name,
-             row.municipality_id, row.municipality_name,
-             row.district_id, row.district_name,
-             row.subdistrict_id, row.subdistrict_name) = row_data
-        elif base_year in (2010, 2011, 2012):
-            (row.state_id, row.state_name,
-             row.mesoregion_id, row.mesoregion_name,
-             row.microregion_id, row.microregion_name,
-             row.municipality_id, row.municipality_name) = row_data
-        elif base_year in (2014, 2015, 2016):
-            (row.state_id, row.state_name,
-             row.mesoregion_id, row.mesoregion_name,
-             row.microregion_id, row.microregion_name) = row_data[:6]
-            row.municipality_id, row.municipality_name = row_data[7:9]
-            row.district_id, row.district_name = row_data[10:12]
-            row.subdistrict_id, row.subdistrict_name = row_data[13:15]
-
-        return row.normalize(**normalization_options)
+        return row.normalize()
 
 
 class XlsMerger(object):

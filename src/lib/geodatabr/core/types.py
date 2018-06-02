@@ -156,15 +156,6 @@ class Entity(declarative_base()):
             setattr(self, column, getattr(row, key))
 
 
-class LegacyEntity(Entity):
-    '''
-    Abstract legacy entity class.
-    '''
-    __abstract__ = True
-
-    metadata = MetaData(naming_convention=Entity.naming_convention)
-
-
 class Map(dict):
     '''An improved dictionary that provides attribute-style access to keys.'''
 

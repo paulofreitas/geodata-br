@@ -11,11 +11,10 @@ Build documentation command module
 
 from geodatabr.commands import Command
 from geodatabr.core.constants import DATA_DIR
-from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
+from geodatabr.core.helpers.documentation import DatasetUtils, ProjectReadme, DatasetReadme
 from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import Logger
-from geodatabr.databases import DatabaseRepository
 
 # Module logging
 
@@ -59,11 +58,11 @@ class DocumentationBuilderCommand(Command):
         ProjectReadme().write()
 
         for locale in Translator.locales():
-            logger.info('Generating "{}" language dataset READMEs...'.format(locale))
+            logger.info('Generating dataset README for language "{}"...' \
+                .format(locale))
 
-            for dataset in DatabaseRepository.findAll():
-                dataset_dir = DATA_DIR / locale / dataset.year
+            dataset = DatasetUtils.getDatasetByLocale(locale)
+            dataset_dir = DATA_DIR / locale
 
-                if dataset_dir.exists():
-                    # Create dataset README
-                    DatasetReadme(dataset, dataset_dir, locale).write()
+            if dataset_dir.exists():
+                DatasetReadme(dataset, dataset_dir, locale).write()

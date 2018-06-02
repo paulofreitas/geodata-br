@@ -24,7 +24,6 @@ from geodatabr.core.helpers.decorators import cachedmethod
 from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.helpers.markup import GithubMarkdown as Markdown
 from geodatabr.core.i18n import _, Translator
-from geodatabr.databases import DatabaseRepository
 from geodatabr.databases.entities import Entities
 from geodatabr.formats import FormatRepository
 
@@ -34,24 +33,23 @@ from geodatabr.formats import FormatRepository
 class DatasetUtils(object):
     @staticmethod
     @cachedmethod
-    def getDatasetsByLocale(locale):
+    def getDatasetByLocale(locale):
         '''
-        Returns the datasets available for a given localization.
+        Returns the dataset for a given localization.
 
         Arguments:
             locale (str): The localization name
 
         Returns:
-            collections.OrderedDict: The localization datasets
+            collections.OrderedDict: The localization dataset
         '''
-        data = OrderedDict()
         Translator.locale = locale
 
-        for dataset in DatabaseRepository.listYears():
-            dataset_file = DATA_DIR / locale / dataset / '{}.json'.format(_('dataset'))
+        data = OrderedDict()
+        dataset_file = DATA_DIR / locale / '{}.json'.format(_('dataset'))
 
-            if dataset_file.exists():
-                data[dataset] = json.load(File(dataset_file))
+        if dataset_file.exists():
+            data = json.load(File(dataset_file))
 
         return data
 
@@ -101,7 +99,7 @@ class ProjectReadme(Readme):
         super().__init__(readme_file, stub_file)
 
         # Setup translator
-        Translator.locale = 'pt'
+        Translator.locale = 'en'
         Translator.load('databases')
 
     def render(self):
@@ -120,18 +118,14 @@ class ProjectReadme(Readme):
         Returns:
             str: The available dataset records counts
         '''
-        headers = ['Dataset'] + [
-            Markdown.code(entity.__table__.name) for entity in Entities
-        ]
-        alignment = ['>'] * 7
-        datasets = DatasetUtils.getDatasetsByLocale('pt')
+        headers = ['Table/Collection', 'Records']
+        alignment = ['>'] * 2
+        dataset = DatasetUtils.getDatasetByLocale('en')
         data = [
-            [Markdown.bold(dataset)] + [
-                '{:,d}'.format(len(datasets[dataset][_(entity.__table__.name)])) \
-                    if _(entity.__table__.name) in datasets[dataset] else '-'
-                for entity in Entities
-            ]
-            for dataset in datasets
+            [Markdown.code(_(entity.__table__.name)),
+             '{:,d}'.format(len(dataset[_(entity.__table__.name)]))]
+            for entity in Entities
+            if _(entity.__table__.name) in dataset
         ]
 
         return Markdown.table([headers] + data, alignment)
@@ -189,7 +183,6 @@ class DatasetReadme(Readme):
         Renders the file.
         '''
         return self._stub.format(
-            dataset=self._dataset.year,
             dataset_records=self.renderDatasetRecords().strip(),
             dataset_files=self.renderDatasetFiles().strip())
 
@@ -200,14 +193,14 @@ class DatasetReadme(Readme):
         Returns:
             str: The dataset records counts
         '''
-        headers = ['Table', 'Records']
+        headers = ['Table/Collection', 'Records']
         alignment = ['>', '>']
-        datasets = DatasetUtils.getDatasetsByLocale(self._locale)
+        dataset = DatasetUtils.getDatasetByLocale(self._locale)
         data = [
             [Markdown.code(_(entity.__table__.name)),
-             '{:,d}'.format(len(datasets[self._dataset.year][_(entity.__table__.name)]))]
+             '{:,d}'.format(len(dataset[_(entity.__table__.name)]))]
             for entity in Entities
-            if _(entity.__table__.name) in datasets[self._dataset.year]
+            if _(entity.__table__.name) in dataset
         ]
 
         return Markdown.table([headers] + data, alignment)

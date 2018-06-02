@@ -21,7 +21,7 @@ from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 # Package dependencies
 
 from geodatabr.core.i18n import _, Translator
-from geodatabr.core.types import Entity, LegacyEntity
+from geodatabr.core.types import Entity
 
 # Translator setup
 
@@ -264,60 +264,6 @@ class Subdistrict(Entity):
     }
 
 
-class LegacyState(LegacyEntity):
-    '''
-    Legacy entity for states.
-    '''
-    __table__ = Table(
-        'states',
-        LegacyEntity.metadata,
-        Column('id',
-               SmallInteger,
-               nullable=False,
-               primary_key=True),
-        Column('name',
-               String(64),
-               nullable=False,
-               index=True)
-    )
-
-    # Columns mapping
-    __columns__ = {
-        'id': 'state_id',
-        'name': 'state_name',
-    }
-
-
-class LegacyMunicipality(LegacyEntity):
-    '''
-    Legacy entity for municipalities.
-    '''
-    __table__ = Table(
-        'municipalities',
-        LegacyEntity.metadata,
-        Column('id',
-               Integer,
-               nullable=False,
-               primary_key=True),
-        Column('state_id',
-               SmallInteger,
-               ForeignKey('states.id', use_alter=True),
-               nullable=False,
-               index=True),
-        Column('name',
-               String(64),
-               nullable=False,
-               index=True)
-    )
-
-    # Columns mapping
-    __columns__ = {
-        'id': 'municipality_id',
-        'state_id': 'state_id',
-        'name': 'municipality_name',
-    }
-
-
 class DatabaseColumn(object):
     '''
     Entity class for database columns.
@@ -429,9 +375,7 @@ class DatabaseRow(object):
 
             # Convert non-string columns
             if forceStr:
-                value = '{:.0f}'.format(value) if type(value) == float \
-                    else value.decode() if type(value) == bytes \
-                    else str(value)
+                value = value.decode() if type(value) == bytes else str(value)
 
             # Unset/skip unused columns
             if (('requires' in column.rules
@@ -571,4 +515,3 @@ class DatabaseData(object):
 # Collections
 
 Entities = (State, Mesoregion, Microregion, Municipality, District, Subdistrict)
-LegacyEntities = (LegacyState, LegacyMunicipality)

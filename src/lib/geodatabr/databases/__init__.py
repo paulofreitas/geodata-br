@@ -23,7 +23,7 @@ from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.core.helpers.filesystem import Directory, File, Path
 from geodatabr.core.logging import Logger
 from geodatabr.core.types import Bytes, Map
-from geodatabr.databases.entities import Entities, LegacyEntities, DatabaseData
+from geodatabr.databases.entities import Entities, DatabaseData
 from geodatabr.exporters import ExporterFactory
 from geodatabr.parsers import ParserFactory
 from geodatabr.parsers.xls import XlsMerger
@@ -221,189 +221,27 @@ class DatabaseFactory(object):
     Database factory class.
     '''
 
-    @classmethod
-    def fromYear(cls, year):
-        '''
-        Factories a database class for a given database year.
-
-        Arguments:
-            year (int): The database year to retrieve a database object
-
-        Raises:
-            UnknownDatabaseError: If no database is found with the given year
-        '''
-        return DatabaseRepository.findByYear(year)
-
-
-class DatabaseRepository(object):
-    '''
-    Database repository class.
-    '''
-
     @staticmethod
-    def findAll():
+    def create():
         '''
-        Returns a list with all available databases.
+        Factories a database object for the latest dataset available.
 
         Returns:
-            list: A list with all available atabases
+            geodatabr.databases.Database: A database object for the latest dataset
         '''
-        return [
-            Database(year=2016,
-                     archive='DTB_2016_v2.zip',
-                     file=[
-                         'DTB_2016_v2/DTB_2016/DTB_BRASIL_SUBDISTRITO.xls',
-                         'DTB_2016_v2/DTB_2016/DTB_BRASIL_DISTRITO.xls',
-                         'DTB_2016_v2/DTB_2016/DTB_BRASIL_MUNICIPIO.xls',
-                     ],
-                     format='xls',
-                     sheet='DTB_2016_SubDistrito'),
-            Database(year=2015,
-                     archive='dtb_2015.zip',
-                     file=[
-                         'dtb_2015/RELATORIO_DTB_BRASIL_SUBDISTRITO.xls',
-                         'dtb_2015/RELATORIO_DTB_BRASIL_DISTRITO.xls',
-                         'dtb_2015/RELATORIO_DTB_BRASIL_MUNICIPIO.xls',
-                     ],
-                     format='xls',
-                     sheet='DTB_2016_SubDistrito'),
-            Database(year=2014,
-                     archive='dtb_2014_v2.zip',
-                     file='DTB_2014_v2/DTB_2014_subdistrito.xls',
-                     format='xls',
-                     sheet='Plan1'),
-            Database(year=2013,
-                     archive='dtb_2013.zip',
-                     file='dtb_2013.xls',
-                     format='xls',
-                     sheet='dtb_2013'),
-            Database(year=2012,
-                     archive='dtb_2012.zip',
-                     file='dtb_2012.xls',
-                     format='xls',
-                     sheet='Estrutura_2012___Município'),
-            Database(year=2011,
-                     archive='dtb_2011.zip',
-                     file='dtb_2011.xls',
-                     format='xls',
-                     sheet='DTB_2011'),
-            Database(year=2010,
-                     archive='dtb_2010.zip',
-                     file='dtb_2010.xls',
-                     format='xls',
-                     sheet='Município'),
-            Database(year=2009,
-                     archive='dtb_05_05_2009.zip',
-                     file='DTB_05_05_2009.xls',
-                     format='xls',
-                     sheet='DTB_05_05_2009n'),
-            Database(year=2008,
-                     archive='dtb_2008.zip',
-                     file='DTB_2008.xls',
-                     format='xls',
-                     sheet='DTB_Nome_Comum'),
-            Database(year=2007,
-                     archive='dtb_2007.zip',
-                     file='DTB_2007.xls',
-                     format='xls',
-                     sheet='DTB_Nome_Comum'),
-            Database(year=2006,
-                     archive='dtb_2006.zip',
-                     file='DTB 2006.xls',
-                     format='xls',
-                     sheet='Completo'),
-            Database(year=2005,
-                     archive='dtb_2005.zip',
-                     file='DTB 2005.xls',
-                     format='xls',
-                     sheet='NomeNormal'),
-            Database(year=2004,
-                     archive='dtb_2004.zip',
-                     file='DTB_2004.xls',
-                     format='xls',
-                     sheet='DTB2004'),
-            Database(year=2003,
-                     archive='dtb17112003nome.zip',
-                     file='DTB17112003nome.xls',
-                     format='xls',
-                     sheet='DTBnome'),
-            Database(year=2000,
-                     archive='dtb_2000.zip',
-                     file='DTB - 2000.xls',
-                     format='xls',
-                     sheet='A991229'),
-            Database(year=1994,
-                     archive='brasil.zip',
-                     file='DTB94BR.DAT',
-                     format='dat'),
-            Database(year=1980,
-                     file='h_dtb_1980.xls',
-                     format='xls',
-                     sheet='H__DTB___1980',
-                     entities=LegacyEntities),
-            Database(year=1970,
-                     file='g_dtb_1970.xls',
-                     format='xls',
-                     sheet='G__DTB___1970',
-                     entities=LegacyEntities),
-            Database(year=1960,
-                     file='f_dtb_1960.xls',
-                     format='xls',
-                     sheet='F__DTB___1960',
-                     entities=LegacyEntities),
-            Database(year=1950,
-                     file='e_dtb_1950.xls',
-                     format='xls',
-                     sheet='E__DTB___1950',
-                     entities=LegacyEntities),
-            Database(year=1940,
-                     file='d_dtb_1940.xls',
-                     format='xls',
-                     sheet='D__DTB___1940',
-                     entities=LegacyEntities),
-        ]
-
-    @classmethod
-    def findByYear(cls, year):
-        '''
-        Returns the database for the given year.
-
-        Arguments:
-            year (int): The database year
-
-        Returns:
-            Database: The database instance for the given year
-
-        Raises:
-            UnknownDatabaseError: If no database is found with the given year
-        '''
-        for database in cls.findAll():
-            if database.year == year:
-                return database
-
-        raise UnknownDatabaseError('This database is not available: {}' \
-                                       .format(year))
-
-    @classmethod
-    def listYears(cls):
-        '''
-        Returns a list with all database years.
-
-        Returns:
-            list: List with all database years
-        '''
-        return [str(database.year) for database in cls.findAll()]
+        return Database(year=2016,
+                        archive='DTB_2016_v2.zip',
+                        file=[
+                            'DTB_2016_v2/DTB_2016/DTB_BRASIL_SUBDISTRITO.xls',
+                            'DTB_2016_v2/DTB_2016/DTB_BRASIL_DISTRITO.xls',
+                            'DTB_2016_v2/DTB_2016/DTB_BRASIL_MUNICIPIO.xls',
+                        ],
+                        format='xls',
+                        sheet='DTB_2016_SubDistrito')
 
 
 class DatabaseError(Exception):
     '''
     Generic exception class for database errors.
-    '''
-    pass
-
-
-class UnknownDatabaseError(DatabaseError):
-    '''
-    Exception class raised when a given database is not found.
     '''
     pass

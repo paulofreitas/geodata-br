@@ -15,7 +15,7 @@ from geodatabr.commands import Command
 from geodatabr.core.constants import DATA_DIR
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import Logger
-from geodatabr.databases import DatabaseFactory, DatabaseRepository
+from geodatabr.databases import DatabaseFactory
 from geodatabr.formats import FormatRepository
 
 # Module logging
@@ -49,23 +49,15 @@ class DatasetBuilderCommand(Command):
         '''
         Defines the command usage syntax.
         '''
-        return '%(prog)s -l LOCALE -d DATASET -f FORMAT'
+        return '%(prog)s [-l LOCALE] [-f FORMAT]'
 
     def configure(self):
         '''
         Defines the command arguments.
         '''
-        datasets = DatabaseRepository.listYears()
         locales = Translator.locales()
         formats = FormatRepository.listExportableFormatNames()
 
-        self.addArgument('-d', '--datasets',
-                         metavar='DATASET',
-                         nargs='*',
-                         default=datasets,
-                         help=('Datasets to build.\n'
-                               'Defaults to all available: {}' \
-                                   .format(', '.join(datasets))))
         self.addArgument('-l', '--locales',
                          metavar='LOCALE',
                          nargs='*',
@@ -91,16 +83,12 @@ class DatasetBuilderCommand(Command):
 
                 logger.info('> Building locale: %s', locale)
 
-                for dataset in args.datasets:
-                    dataset_dir = DATA_DIR / locale / dataset
-                    dataset_dir.create(parents=True)
+                dataset_dir = DATA_DIR / locale
+                dataset_dir.create(parents=True)
+                data = DatabaseFactory.create().parse()
 
-                    logger.info('> Building dataset: %s', dataset)
-
-                    data = DatabaseFactory.fromYear(dataset).parse()
-
-                    with dataset_dir:
-                        for dataset_format in args.formats:
-                            data.export(dataset_format, 'auto')
+                with dataset_dir:
+                    for dataset_format in args.formats:
+                        data.export(dataset_format, 'auto')
         except KeyboardInterrupt:
             logger.info('> Building was canceled.')

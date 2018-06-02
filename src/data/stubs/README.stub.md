@@ -1,6 +1,6 @@
 # geodata-br
 
-Always-updated multi-language and multi-format geographic data of Brazil.
+Free open public domain geographic data of Brazil available in multiple languages and formats.
 
 ## Data Source
 

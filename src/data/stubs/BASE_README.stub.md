@@ -1,4 +1,4 @@
-# {dataset} dataset
+# Dataset info
 
 ## Records
 

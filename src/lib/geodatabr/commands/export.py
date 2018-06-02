@@ -45,23 +45,17 @@ class DatabaseExporterCommand(Command):
         '''
         Defines the command usage syntax.
         '''
-        return '%(prog)s -b BASE -f FORMAT [-m] [-o FILENAME]'
+        return '%(prog)s -f FORMAT [-o FILENAME]'
 
     def configure(self):
         '''
         Defines the command arguments.
         '''
-        self.addArgument('-b', '--base',
-                         help='Database year to export.')
         self.addArgument('-f', '--format',
                          metavar='FORMAT',
                          choices=FormatRepository.listExportableFormatNames(),
                          help=('Format to export the database.\n'
                                'Options: %(choices)s'))
-        self.addArgument('-m', '--minify',
-                         dest='minify',
-                         action='store_true',
-                         help='Minifies output file whenever possible.')
         self.addArgument('-o', '--out',
                          dest='filename',
                          nargs='?',
@@ -73,16 +67,12 @@ class DatabaseExporterCommand(Command):
         '''
         Handles the command.
         '''
-        if not args.base:
-            self._parser.error(
-                'You need to give the database year you want to export.')
-
         if not args.format:
             self._parser.error(
                 'You need to give the database format you want to export.')
 
         try:
-            base = DatabaseFactory.fromYear(args.base)
-            base.parse().export(args.format, args.filename, minify=args.minify)
+            base = DatabaseFactory.create()
+            base.parse().export(args.format, args.filename)
         except KeyboardInterrupt:
             logger.info('> Exporting was canceled.')

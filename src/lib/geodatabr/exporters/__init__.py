@@ -96,11 +96,7 @@ class Exporter(AbstractClass):
         formatName = self.format.friendlyName
         extension = self.format.extension
 
-        if options.get('minify'):
-            formatName = 'minified ' + formatName
-            extension = '.min' + extension
-
-        logger.debug('Exporting database to %s format...', formatName)
+        logger.info('Exporting database to %s format...', formatName)
 
         data = self.export(**options).read()
 
