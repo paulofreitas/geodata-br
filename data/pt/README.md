@@ -1,15 +1,15 @@
-# 2016 dataset
+# Dataset info
 
 ## Records
 
-|          Table | Records |
-| --------------:| -------:|
-|           `uf` |      27 |
-|  `mesorregiao` |     137 |
-| `microrregiao` |     558 |
-|    `municipio` |   5,570 |
-|     `distrito` |  10,434 |
-|  `subdistrito` |     800 |
+| Table/Collection | Records |
+| ----------------:| -------:|
+|             `uf` |      27 |
+|    `mesorregiao` |     137 |
+|   `microrregiao` |     558 |
+|      `municipio` |   5,570 |
+|       `distrito` |  10,434 |
+|    `subdistrito` |     800 |
 
 ## Files
 
