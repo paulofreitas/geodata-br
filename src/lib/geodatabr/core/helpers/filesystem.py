@@ -13,6 +13,7 @@ This module provides classes to work with filesystem files and directories.
 
 import os
 import pathlib
+import uuid
 
 # Package dependencies
 
@@ -201,6 +202,18 @@ class Directory(Path):
                 yield File(path)
 
 
+class CacheDirectory(Directory):
+    '''
+    A filesystem cache directory object.
+    '''
+
+    def __new__(cls, *args, **kwargs):
+        '''
+        Constructor.
+        '''
+        return Directory(Path.home() / '.geodatabr', *args, **kwargs)
+
+
 class File(Path):
     '''
     A filesystem file object.
@@ -270,3 +283,18 @@ class File(Path):
             return FormatRepository.findByExtension(self.extension)
         except FormatError:
             return None
+
+
+class CacheFile(File):
+    '''
+    A filesystem cache file object.
+    '''
+
+    def __new__(cls, *args, **kwargs):
+        '''
+        Constructor.
+        '''
+        if not args:
+            args += (str(uuid.uuid4()),)
+
+        return File(CacheDirectory(), *args, **kwargs)
