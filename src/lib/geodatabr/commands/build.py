@@ -9,13 +9,13 @@ Build command module
 
 # Package dependencies
 
-import geodatabr.databases.entities
+import geodatabr.dataset.entities
 
 from geodatabr.commands import Command
 from geodatabr.core.constants import DATA_DIR
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import Logger
-from geodatabr.databases import DatabaseFactory
+from geodatabr.dataset import DatabaseFactory
 from geodatabr.formats import FormatRepository
 
 # Module logging

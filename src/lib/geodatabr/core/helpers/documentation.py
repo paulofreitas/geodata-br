@@ -24,7 +24,7 @@ from geodatabr.core.helpers.decorators import cachedmethod
 from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.helpers.markup import GithubMarkdown as Markdown
 from geodatabr.core.i18n import _, Translator
-from geodatabr.databases.entities import Entities
+from geodatabr.dataset.entities import Entities
 from geodatabr.formats import FormatRepository
 
 # Classes
@@ -161,7 +161,7 @@ class DatasetReadme(Readme):
         Constructor.
 
         Arguments:
-            dataset (geodatabr.databases.Database): The dataset instance
+            dataset (geodatabr.dataset.Database): The dataset instance
             dataset_dir (str): The dataset directory
             locale (str): The dataset localization
         '''

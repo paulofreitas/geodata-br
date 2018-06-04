@@ -11,7 +11,7 @@ Export command module
 
 from geodatabr.commands import Command
 from geodatabr.core.logging import Logger
-from geodatabr.databases import DatabaseFactory
+from geodatabr.dataset import DatabaseFactory
 from geodatabr.formats import FormatRepository
 
 # Module logging

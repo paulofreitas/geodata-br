@@ -23,7 +23,7 @@ from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.core.helpers.filesystem import Directory, File, Path
 from geodatabr.core.logging import Logger
 from geodatabr.core.types import Bytes, Map
-from geodatabr.databases.entities import Entities, DatabaseData
+from geodatabr.dataset.entities import Entities, DatabaseData
 from geodatabr.exporters import ExporterFactory
 from geodatabr.parsers import ParserFactory
 from geodatabr.parsers.xls import XlsMerger
@@ -227,7 +227,7 @@ class DatabaseFactory(object):
         Factories a database object for the latest dataset available.
 
         Returns:
-            geodatabr.databases.Database: A database object for the latest dataset
+            geodatabr.dataset.Database: A database object for the latest dataset
         '''
         return Database(year=2016,
                         archive='DTB_2016_v2.zip',

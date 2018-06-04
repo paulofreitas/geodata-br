@@ -21,7 +21,7 @@ import xlwt
 # Package dependencies
 
 from geodatabr.core.logging import Logger
-from geodatabr.databases.entities import DatabaseRow
+from geodatabr.dataset.entities import DatabaseRow
 from geodatabr.formats.xls import XlsFormat
 from geodatabr.parsers import Parser
 
@@ -45,7 +45,7 @@ class XlsParser(Parser):
         Constructor.
 
         Arguments:
-            base (geodatabr.databases.Database): The database instance to parse
+            base (geodatabr.dataset.Database): The database instance to parse
         '''
         super().__init__(base)
 
@@ -100,7 +100,7 @@ class XlsParser(Parser):
             row_data (list): The database row data
 
         Returns:
-            geodatabr.databases.entities.DatabaseRow: The parsed database row
+            geodatabr.dataset.entities.DatabaseRow: The parsed database row
         '''
         row = DatabaseRow()
 

@@ -137,7 +137,7 @@ class Entity(declarative_base()):
         Creates a new entity instance from the given database row.
 
         Arguments:
-            row (geodatabr.databases.entities.DatabaseRow): The database row
+            row (geodatabr.dataset.entities.DatabaseRow): The database row
 
         Returns:
             Entity: A new entity instance with given row data
@@ -150,7 +150,7 @@ class Entity(declarative_base()):
         Fills an existing entity instance from the given database row.
 
         Arguments:
-            row (geodatabr.databases.entities.DatabaseRow): The database row
+            row (geodatabr.dataset.entities.DatabaseRow): The database row
         '''
         for column, key in iter(self.__columns__.items()):
             setattr(self, column, getattr(row, key))

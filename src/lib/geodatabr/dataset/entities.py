@@ -433,7 +433,7 @@ class DatabaseData(object):
         Constructor.
 
         Arguments:
-            base (geodatabr.databases.Database): The database where data belongs
+            base (geodatabr.dataset.Database): The database where data belongs
             columns (list): The parsed columns
             rows (list): The parsed rows
             records (geodatabr.core.types.Map): The parsed records

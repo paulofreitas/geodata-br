@@ -17,7 +17,7 @@ from collections import OrderedDict
 
 from geodatabr.core.logging import Logger
 from geodatabr.core.types import AbstractClass, Map
-from geodatabr.databases.entities import DatabaseData
+from geodatabr.dataset.entities import DatabaseData
 
 # Package metadata
 
@@ -46,7 +46,7 @@ class Parser(AbstractClass):
         Constructor.
 
         Arguments:
-            base (geodatabr.databases.Database): A database instance to parse
+            base (geodatabr.dataset.Database): A database instance to parse
         '''
         self._base = base
         self._columns = self._parseColumns(localized=False)
@@ -60,7 +60,7 @@ class Parser(AbstractClass):
             options (dict): The parsing options
 
         Returns:
-            geodatabr.databases.DatabaseData: The parsed database data
+            geodatabr.dataset.DatabaseData: The parsed database data
 
         Raises:
             ParseError: When a database fails to parse
@@ -75,7 +75,7 @@ class Parser(AbstractClass):
             options (dict): The parsing options
 
         Returns:
-            geodatabr.databases.DatabaseData: The parsed database data
+            geodatabr.dataset.DatabaseData: The parsed database data
 
         Raises:
             ParseError: When a database fails to parse
@@ -152,7 +152,7 @@ class Parser(AbstractClass):
         Binds recorded names into given row.
 
         Arguments:
-            row (geodatabr.databases.entities.DatabaseRow): The database row to bind
+            row (geodatabr.dataset.entities.DatabaseRow): The database row to bind
         '''
         columns = list(zip(*[reversed(self._columns)] * 2))
         column_names = [column_name for (column_name, column_id) in columns]

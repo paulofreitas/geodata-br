@@ -11,7 +11,7 @@ Generic Data File file parser module
 
 from geodatabr.core.logging import Logger
 from geodatabr.core.types import Bytes
-from geodatabr.databases.entities import DatabaseRow
+from geodatabr.dataset.entities import DatabaseRow
 from geodatabr.formats.dat import DatFormat
 from geodatabr.parsers import Parser
 
@@ -35,7 +35,7 @@ class DatParser(Parser):
         Constructor.
 
         Arguments:
-            base (geodatabr.databases.Database): The database instance to parse
+            base (geodatabr.dataset.Database): The database instance to parse
         '''
         super().__init__(base)
 
@@ -79,7 +79,7 @@ class DatParser(Parser):
             row_data (bytes): The database row data
 
         Returns:
-            geodatabr.databases.entities.DatabaseRow: The parsed database row
+            geodatabr.dataset.entities.DatabaseRow: The parsed database row
         '''
         row = DatabaseRow()
 
