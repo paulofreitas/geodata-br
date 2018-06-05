@@ -20,15 +20,18 @@ if sys.version_info[:2] < (3, 4):
 
 # Routines
 
+with open('lib/geodatabr/__init__.py') as metadata:
+    exec(metadata.read())
+
 setup(
     # Package metadata
-    name='geodatabr',
-    version='1.0.0-dev',
-    description='Brazilian territorial distribution data exporter',
-    license='MIT',
-    url='https://github.com/paulofreitas/geodata-br',
-    author='Paulo Freitas',
-    author_email='me@paulofreitas.me',
+    name=__name__,
+    version=__version__,
+    description=__description__,
+    license=__license__,
+    url=__url__,
+    author=__author_name__,
+    author_email=__author_email__,
 
     # Package distribution
     packages=find_packages('lib'),
@@ -42,6 +45,9 @@ setup(
     # Package dependencies
     python_requires='>=3.4',
     install_requires=[
+        # geodatabr package
+        'requests',
+        'ratelimit',
         # geodatabr.exporters package
         'fdb',
         'lxml',
