@@ -3,11 +3,18 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-Brazilian territorial distribution data exporter package
+Brazilian geographic data exporter package
 '''
 # Package metadata
 
-__version__ = '1.0-dev'
-__author__ = 'Paulo Freitas <me@paulofreitas.me>'
+VERSION = (18, 6, 'dev') # CalVer YY.MM[.ID] (see https://calver.org/)
+
+__name__ = 'geodatabr'
+__description__ = 'Brazilian geographic data exporter'
+__version__ = '.'.join(map(str, VERSION))
+__author_name__ = 'Paulo Freitas'
+__author_email__ = 'me@paulofreitas.me'
+__author__ = '{0} <{1}>'.format(__author_name__, __author_email__)
 __copyright__ = 'Copyright (c) 2013-2018 Paulo Freitas'
-__license__ = 'MIT License'
+__license__ = 'MIT'
+__url__ = 'https://github.com/paulofreitas/geodata-br'
