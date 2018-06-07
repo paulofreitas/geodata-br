@@ -3,9 +3,9 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-Database exporters package
+Dataset exporters package
 
-This package provides the database exporter modules.
+This package provides the dataset exporter modules.
 '''
 # Imports
 
@@ -15,17 +15,11 @@ import sys
 
 # Package dependencies
 
-from geodatabr.core.helpers.filesystem import Path
+from geodatabr import __version__, __author__, __copyright__, __license__
+from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.i18n import _, Translator
 from geodatabr.core.logging import Logger
 from geodatabr.core.types import AbstractClass
-
-# Package metadata
-
-__version__ = '1.0-dev'
-__author__ = 'Paulo Freitas <me@paulofreitas.me>'
-__copyright__ = 'Copyright (c) 2013-2018 Paulo Freitas'
-__license__ = 'MIT License'
 
 # Module logging
 
@@ -45,15 +39,6 @@ class Exporter(AbstractClass):
 
     # Exporter format
     _format = None
-
-    def __init__(self, data):
-        '''
-        Constructor.
-
-        Arguments:
-            data (geodatabr.database.entities.DatabaseData): Database data to export
-        '''
-        self._data = data
 
     def __call__(self, **options):
         '''
@@ -82,12 +67,12 @@ class Exporter(AbstractClass):
         '''
         raise NotImplementedError
 
-    def exportToFile(self, filename, **options):
+    def exportToFile(self, filename='auto', **options):
         '''
         Exports the data into a file.
 
         Arguments:
-            filename (str): The filename to write
+            filename (str): The filename to write, if any
             options (dict): The exporting options
 
         Raises:
@@ -96,7 +81,7 @@ class Exporter(AbstractClass):
         formatName = self.format.friendlyName
         extension = self.format.extension
 
-        logger.info('Exporting database to %s format...', formatName)
+        logger.info('Exporting dataset to %s format...', formatName)
 
         data = self.export(**options).read()
 
@@ -110,7 +95,7 @@ class Exporter(AbstractClass):
 
         writeMode = 'wb' if self.format.isBinary else 'w'
 
-        with Path(filename).open(writeMode) as exportFile:
+        with File(filename).open(writeMode) as exportFile:
             exportFile.write(data)
 
     @property
