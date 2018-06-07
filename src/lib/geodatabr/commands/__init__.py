@@ -17,15 +17,10 @@ import sys
 
 # Package dependencies
 
+from geodatabr import __version__, __author__, __copyright__, __license__, \
+    __description__, __url__
 from geodatabr.core.logging import Logger
 from geodatabr.core.types import AbstractClass
-
-# Package metadata
-
-__version__ = '1.0-dev'
-__author__ = 'Paulo Freitas <me@paulofreitas.me>'
-__copyright__ = 'Copyright (c) 2013-2018 Paulo Freitas'
-__license__ = 'MIT License'
 
 # Module logging
 
@@ -43,7 +38,7 @@ class Application(object):
             epilog=self.epilog,
             add_help=False,
             conflict_handler='resolve',
-            formatter_class=HelpFormatter)
+            formatter_class=argparse.RawTextHelpFormatter)
         self._subparsers = self._parser.add_subparsers(
             title='Commands',
             dest='command',
@@ -139,13 +134,12 @@ class Application(object):
     @property
     def description(self):
         '''Defines the application description.'''
-        return 'Brazilian territorial data exporter'''
+        return __description__
 
     @property
     def epilog(self):
         '''Defines the application epilog message.'''
-        return 'Report bugs and feature requests to {}.' \
-            .format('https://github.com/paulofreitas/dtb-ibge/issues')
+        return 'Report bugs and feature requests to {}/issues.'.format(__url__)
 
 
 class Command(AbstractClass):
@@ -164,7 +158,7 @@ class Command(AbstractClass):
             description=self.description,
             epilog=self.epilog,
             conflict_handler='resolve',
-            formatter_class=HelpFormatter)
+            formatter_class=argparse.RawTextHelpFormatter)
 
         self.setDefaults()
 
