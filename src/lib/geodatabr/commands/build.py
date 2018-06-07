@@ -9,13 +9,11 @@ Build command module
 
 # Package dependencies
 
-import geodatabr.dataset.entities
-
 from geodatabr.commands import Command
 from geodatabr.core.constants import DATA_DIR
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import Logger
-from geodatabr.dataset import DatabaseFactory
+from geodatabr.exporters import ExporterFactory
 from geodatabr.formats import FormatRepository
 
 # Module logging
@@ -42,7 +40,7 @@ class DatasetBuilderCommand(Command):
         '''
         Defines the command description.
         '''
-        return 'Builds a dataset'
+        return 'Builds the dataset distribution data'
 
     @property
     def usage(self):
@@ -85,10 +83,10 @@ class DatasetBuilderCommand(Command):
 
                 dataset_dir = DATA_DIR / locale
                 dataset_dir.create(parents=True)
-                data = DatabaseFactory.create().parse()
 
                 with dataset_dir:
                     for dataset_format in args.formats:
-                        data.export(dataset_format, 'auto')
+                        exporter = ExporterFactory.fromFormat(dataset_format)
+                        exporter.exportToFile()
         except KeyboardInterrupt:
             logger.info('> Building was canceled.')
