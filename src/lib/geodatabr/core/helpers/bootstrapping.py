@@ -41,13 +41,13 @@ class ModuleLoader(object):
         return import_module(module)
 
     @classmethod
-    def loadModules(cls, package, ignoreError=False):
+    def loadModules(cls, package, ignore_error=True):
         '''
         Loads a given package modules.
 
         Arguments:
             package: The package name or instance to load modules
-            ignoreError (bool): Whether it should ignore import errors or not
+            ignore_error (bool): Whether it should ignore import errors or not
 
         Raises:
             ImportError: When a package module can't be imported
@@ -62,10 +62,12 @@ class ModuleLoader(object):
             for _, name, _ in walk_packages(package.__path__, namespace):
                 cls.load(name)
         except ImportError:
-            if not ignoreError:
+            if not ignore_error:
                 raise
         except AttributeError:
-            raise InvalidPackageError('The given package is not valid')
+            if not ignore_error:
+                raise InvalidPackageError(
+                    'The given package is not valid: {}'.format(package))
 
 
 class InvalidPackageError(Exception):
