@@ -12,98 +12,9 @@ functions.
 
 # Built-in dependencies
 
-import functools
+from functools import lru_cache
 
 # Classes
-
-
-class CachedMethod(object):
-    '''
-    A cache decorator for memoizing functions and methods.
-    '''
-
-    def __init__(self, func):
-        '''
-        Constructor. Creates a new CachedMethod decorator.
-
-        Arguments:
-            func (callable): The callable to memoize
-        '''
-        from geodatabr.core.types import Map
-
-        self._func = func
-        self._cache = {}
-        self._cache_stats = Map(hits=0, misses=0)
-
-        self.__name__ = func.__name__
-        self.__doc__ = func.__doc__
-
-    def __call__(self, *args):
-        '''
-        Receives the call to the decorated function/method.
-
-        Arguments:
-            args: All the arguments passed to the function/method
-
-        Returns:
-            The function/method result
-        '''
-        try:
-            # Hits the cache
-            result = self._cache[args]
-            self._cache_stats.hits += 1
-
-            return result
-        except KeyError:
-            # Caches the function/method result
-            result = self._func(*args)
-
-            self._cache[args] = result
-            self._cache_stats.misses += 1
-
-            return result
-        except TypeError:
-            # Skips caching for non-hashable arguments
-            return self._func(*args)
-
-    def __get__(self, instance, owner):
-        '''
-        Handles the special case for methods in classes (instance methods).
-
-        Arguments:
-            instance (type): The class that contains the decorated method
-        '''
-        if instance is None:
-            return self._func
-
-        return functools.partial(self.__call__, instance)
-
-    def __repr__(self):
-        '''
-        Returns the function's docstring.
-
-        Returns:
-            str: The function's docstring
-        '''
-        return repr(self._func)
-
-    @property
-    def stats(self):
-        '''
-        Reports cache statistics.
-
-        Returns:
-            geodatabr.core.types.Struct: The cache statistics
-        '''
-        return self._cache_stats
-
-    def invalidate(self):
-        '''
-        Clears the cache and cache statistics.
-        '''
-        self._cache.clear()
-        self._cache_stats.hits = 0
-        self._cache_stats.misses = 0
 
 
 class ClassProperty(object):
@@ -113,29 +24,69 @@ class ClassProperty(object):
 
     def __init__(self, fget):
         '''
-        Constructor. Creates a new ClassProperty descriptor.
+        Creates a new ClassProperty descriptor.
 
-        Arguments:
+        Args:
             fget (callable): The function or method to use to get the value
         '''
         self.fget = fget
         self.fset = None
+        self.fdel = None
         self.__doc__ = fget.__doc__
 
     def __get__(self, instance, owner):
         '''
         Descriptor getter.
+
+        Args:
+            instance (object): The property class instance
+            owner (class): The property class
         '''
         return self.fget(owner)
 
     def __set__(self, instance, value):
         '''
         Descriptor setter.
+
+        Args:
+            instance (object): The property class instance
+            value: The new property value
+
+        Raises:
+            AttributeError: When trying to set a class property
         '''
         raise AttributeError("can't set attribute")
+
+    def __delete__(self, instance):
+        '''
+        Descriptor deleter.
+
+        Args:
+            instance (object): The property class instance
+
+        Raises:
+            AttributeError: When trying to delete a class property
+        '''
+        raise AttributeError("can't delete attribute")
+
+
+# Functions
+
+
+def cachedmethod(maxsize=None):
+    '''
+    A cache decorator for memoizing functions and methods.
+
+    Args:
+        maxsize (int): The max cache size. If set, a LRU (least recently used)
+            cache is used.
+
+    Returns:
+        function: The cache decorating function
+    '''
+    return lru_cache(maxsize=maxsize)
 
 
 # Aliases
 
-cachedmethod = CachedMethod
 classproperty = ClassProperty
