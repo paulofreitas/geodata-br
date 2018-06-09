@@ -26,24 +26,29 @@ class Translation(object):
     Translation class.
     '''
 
-    def __init__(self, locale_file):
+    def __init__(self, locale_file, domain=None):
         '''
         Constructor.
 
         Arguments:
-            locale_file: The localization file
+            locale_file (geodatabr.core.helpers.filesystem.File): The localization file
+            domain (str): An optional domain to load the translations
         '''
         if not isinstance(locale_file, File):
             raise UnsupportedLocaleError('Unsupported localization')
 
-        self._locale = str(locale_file.parent)
-        self._domain = locale_file.basename
+        self._locale = str(locale_file.basename)
+        self._domain = domain
         self._translations = Map(yaml.load(locale_file.read()))
+        self._domains = self._translations.keys()
+
+        if domain in self._domains:
+           self._translations = self._translations.get(domain)
 
     @property
     def locale(self):
         '''
-        Returns the translation localization.
+        Returns the translation localization name.
 
         Returns:
             str: The translation localization name
@@ -53,14 +58,24 @@ class Translation(object):
     @property
     def domain(self):
         '''
-        Returns the translation domain.
+        Returns the translation domain name.
 
         Returns:
             str: The translation domain name
         '''
         return self._domain
 
-    @cachedmethod
+    @property
+    def domains(self):
+        '''
+        Returns the list of available translation domain names.
+
+        Returns:
+            list: The list of available translation domain names
+        '''
+        return self._domains
+
+    @cachedmethod()
     def translate(self, message, **placeholders):
         '''
         Translates the given message with their placeholders.
@@ -102,8 +117,8 @@ class Translator(object):
         Returns:
             dict: The available localizations mapping
         '''
-        return {locale_dir.name: locale_dir
-                for locale_dir in cls.LANGUAGE_DIR.directories()}
+        return {locale_file.basename: locale_file
+                for locale_file in cls.LANGUAGE_DIR.files(pattern='*.yaml')}
 
     @classmethod
     def domains(cls, locale):
@@ -114,18 +129,17 @@ class Translator(object):
             locale (str): The localization name
 
         Returns:
-            dict: The available localization domains mapping
+            list: The available localization domain names
 
         Raises:
             UnsupportedLocaleError: When an unsupported localization is used
         '''
-        locale_dir = cls.locales().get(locale)
+        locale_file = cls.locales().get(locale)
 
-        if not locale_dir:
+        if not locale_file:
             raise UnsupportedLocaleError('Unsupported localization')
 
-        return {domain_file.basename: domain_file
-                for domain_file in locale_dir.files(pattern='*.yaml')}
+        return Translation(locale_file).domains
 
     @classmethod
     def translations(cls, domain):
@@ -133,14 +147,14 @@ class Translator(object):
         Returns the available localizations for the given domain.
 
         Arguments:
-            domain (str): The localization domain
+            domain (str): The localization domain name
 
         Returns:
             dict: The available localizations mapping
         '''
-        return {locale_dir.name: domain_file
-                for locale_dir in cls.LANGUAGE_DIR.directories()
-                for domain_file in locale_dir.files(pattern=domain + '.yaml')}
+        return {locale: locale_file
+                for locale, locale_file in cls.locales().items()
+                if domain in Translation(locale_file).domains}
 
     @classmethod
     def load(cls, domain):
@@ -150,12 +164,9 @@ class Translator(object):
         Arguments:
             domain (str): The localization domain
         '''
-        # Normalize domain name
-        if '.' in domain:
-            domain = '_'.join(domain.split('.')[1:])
-
-        cls._translations = {locale: Translation(domain_file)
-                             for locale, domain_file in cls.translations(domain).items()}
+        cls._translations = {
+            locale: Translation(locale_file, domain)
+            for locale, locale_file in cls.translations(domain).items()}
 
     @classmethod
     def translate(cls, message, **placeholders):
@@ -170,11 +181,13 @@ class Translator(object):
             str: The translated message
         '''
         if cls.locale in cls._translations:
-            return cls._translations[cls.locale].translate(message, **placeholders)
+            return cls._translations[cls.locale] \
+                .translate(message, **placeholders)
 
         # Try using the fallback locale
         if cls.fallbackLocale in cls._translations:
-            return cls._translations[cls.fallbackLocale].translate(message, **placeholders)
+            return cls._translations[cls.fallbackLocale] \
+                .translate(message, **placeholders)
 
         # Fallback to the original message
         return message.format(**placeholders)
