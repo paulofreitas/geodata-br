@@ -11,7 +11,7 @@ Build documentation command module
 
 from geodatabr.commands import Command
 from geodatabr.core.constants import DATA_DIR
-from geodatabr.core.helpers.documentation import DatasetUtils, ProjectReadme, DatasetReadme
+from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
 from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import Logger
@@ -61,8 +61,8 @@ class DocumentationBuilderCommand(Command):
             logger.info('Generating dataset README for language "{}"...' \
                 .format(locale))
 
-            dataset = DatasetUtils.getDatasetByLocale(locale)
+            Translator.locale = locale
             dataset_dir = DATA_DIR / locale
 
             if dataset_dir.exists():
-                DatasetReadme(dataset, dataset_dir, locale).write()
+                DatasetReadme(dataset_dir).write()
