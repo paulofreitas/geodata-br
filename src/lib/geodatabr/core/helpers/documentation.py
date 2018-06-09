@@ -11,47 +11,23 @@ This module provides helper classes to write documentation files.
 
 # Built-in dependencies
 
-import json
-
-from collections import OrderedDict
 from itertools import groupby
 
 # Package dependencies
 
-from geodatabr.core.constants import BASE_DIR, DATA_DIR, SRC_DIR
-from geodatabr.core.helpers import Number
-from geodatabr.core.helpers.decorators import cachedmethod
+from geodatabr.core.constants import BASE_DIR, SRC_DIR
 from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.helpers.markup import GithubMarkdown as Markdown
 from geodatabr.core.i18n import _, Translator
-from geodatabr.dataset.entities import Entities
+from geodatabr.dataset.serializers import Serializer
 from geodatabr.formats import FormatRepository
 
+# Setup translator
+
+Translator.locale = 'en'
+Translator.load('databases')
+
 # Classes
-
-
-class DatasetUtils(object):
-    @staticmethod
-    @cachedmethod
-    def getDatasetByLocale(locale):
-        '''
-        Returns the dataset for a given localization.
-
-        Arguments:
-            locale (str): The localization name
-
-        Returns:
-            collections.OrderedDict: The localization dataset
-        '''
-        Translator.locale = locale
-
-        data = OrderedDict()
-        dataset_file = DATA_DIR / locale / '{}.json'.format(_('dataset'))
-
-        if dataset_file.exists():
-            data = json.load(File(dataset_file))
-
-        return data
 
 
 class Readme(object):
@@ -98,13 +74,12 @@ class ProjectReadme(Readme):
 
         super().__init__(readme_file, stub_file)
 
-        # Setup translator
-        Translator.locale = 'en'
-        Translator.load('databases')
-
     def render(self):
         '''
         Renders the file.
+
+        Returns:
+            str: The rendered project README contents
         '''
         return self._stub.format(
             dataset_records=self.renderDatasetRecords().strip(),
@@ -120,12 +95,11 @@ class ProjectReadme(Readme):
         '''
         headers = ['Table/Collection', 'Records']
         alignment = ['>'] * 2
-        dataset = DatasetUtils.getDatasetByLocale('en')
+        dataset = Serializer().serialize()
         data = [
-            [Markdown.code(_(entity.__table__.name)),
-             '{:,d}'.format(len(dataset[_(entity.__table__.name)]))]
-            for entity in Entities
-            if _(entity.__table__.name) in dataset
+            [Markdown.code(entity),
+             '{:,d}'.format(len(dataset[entity]))]
+            for entity in dataset
         ]
 
         return Markdown.table([headers] + data, alignment)
@@ -156,31 +130,26 @@ class DatasetReadme(Readme):
     A dataset README documentation file.
     '''
 
-    def __init__(self, dataset, dataset_dir, locale):
+    def __init__(self, dataset_dir):
         '''
         Constructor.
 
         Arguments:
-            dataset (geodatabr.dataset.Database): The dataset instance
             dataset_dir (str): The dataset directory
-            locale (str): The dataset localization
         '''
         readme_file = File(dataset_dir / 'README.md')
         stub_file = File(SRC_DIR / 'data/stubs/BASE_README.stub.md')
 
         super().__init__(readme_file, stub_file)
 
-        self._dataset = dataset
         self._dataset_dir = dataset_dir
-        self._locale = locale
-
-        # Setup translator
-        Translator.locale = locale
-        Translator.load('databases')
 
     def render(self):
         '''
         Renders the file.
+
+        Returns:
+            str: The rendered dataset README contents
         '''
         return self._stub.format(
             dataset_records=self.renderDatasetRecords().strip(),
@@ -195,12 +164,11 @@ class DatasetReadme(Readme):
         '''
         headers = ['Table/Collection', 'Records']
         alignment = ['>', '>']
-        dataset = DatasetUtils.getDatasetByLocale(self._locale)
+        dataset = Serializer().serialize()
         data = [
-            [Markdown.code(_(entity.__table__.name)),
-             '{:,d}'.format(len(dataset[_(entity.__table__.name)]))]
-            for entity in Entities
-            if _(entity.__table__.name) in dataset
+            [Markdown.code(entity),
+             '{:,d}'.format(len(dataset[entity]))]
+            for entity in dataset
         ]
 
         return Markdown.table([headers] + data, alignment)
