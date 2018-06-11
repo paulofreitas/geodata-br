@@ -19,7 +19,7 @@ from geodatabr.dataset.repositories import StateRepository
 
 # Translator setup
 
-Translator.load('databases')
+Translator.load('dataset')
 
 # Classes
 
@@ -31,7 +31,7 @@ class BaseSerializer(object):
 
     @property
     @cachedmethod()
-    def __records__(cls):
+    def __records__(self):
         '''
         Retrieves the dataset records.
 
@@ -59,7 +59,7 @@ class BaseSerializer(object):
         '''
         self._options = OrderedMap(options)
 
-    def serialize(cls):
+    def serialize(self):
         '''
         Abstract serialization method.
         '''
@@ -143,13 +143,6 @@ class FlattenedSerializer(BaseSerializer):
     Flattened serialization implementation.
     '''
 
-    _columns = ['state_id', 'state_name',
-                'mesoregion_id', 'mesoregion_name',
-                'microregion_id', 'microregion_name',
-                'municipality_id', 'municipality_name',
-                'district_id', 'district_name',
-                'subdistrict_id', 'subdistrict_name']
-
     @cachedmethod()
     def serialize(self):
         '''
@@ -158,27 +151,18 @@ class FlattenedSerializer(BaseSerializer):
         Returns:
             list: The serialized dataset records list
         '''
-        def _filledList(_list, size):
-            _list = list(_list)
-
-            return _list + [None] * (size - len(_list))
-
         records = []
 
         for entity in Entities:
-            _records = cls.__records__[entity.__table__.name]
+            for record in self.__records__[entity.__table__.name]:
+                records.append(OrderedMap(
+                    [(_(key), value)
+                     for key, value in record.serialize(flatten=True).items()]))
 
-            for _record in _records:
-                records.append(_record.serialize(flatten=True))
-
-        records = sorted(records,
-                         key=lambda record: (record.get('state_id') or 0,
-                                             record.get('mesoregion_id') or 0,
-                                             record.get('microregion_id') or 0,
-                                             record.get('municipality_id') or 0,
-                                             record.get('district_id') or 0,
-                                             record.get('subdistrict_id') or 0))
-
-        return [[_(column) for column in self._columns]] \
-            + [_filledList(record.values(), len(self._columns))
-               for record in records]
+        return sorted(records,
+                      key=lambda record: (record.get('state_id') or 0,
+                                          record.get('mesoregion_id') or 0,
+                                          record.get('microregion_id') or 0,
+                                          record.get('municipality_id') or 0,
+                                          record.get('district_id') or 0,
+                                          record.get('subdistrict_id') or 0))
