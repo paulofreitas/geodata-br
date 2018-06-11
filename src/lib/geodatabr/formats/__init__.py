@@ -16,15 +16,9 @@ from itertools import groupby
 
 # Package dependencies
 
+from geodatabr import __version__, __author__, __copyright__, __license__
 from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.core.types import AbstractClass
-
-# Package metadata
-
-__version__ = '1.0-dev'
-__author__ = 'Paulo Freitas <me@paulofreitas.me>'
-__copyright__ = 'Copyright (c) 2013-2018 Paulo Freitas'
-__license__ = 'MIT License'
 
 # Classes
 
@@ -80,13 +74,6 @@ class Format(AbstractClass):
     def isBinary(self):
         '''
         Tells whether the file format is binary or not.
-        '''
-        return False
-
-    @classproperty
-    def isParseable(self):
-        '''
-        Tells whether the file format is parseable or not.
         '''
         return False
 
@@ -197,26 +184,6 @@ class FormatRepository(object):
             list: A list with all exportable format names
         '''
         return [format_.name for format_ in cls.findExportableFormats()]
-
-    @staticmethod
-    def findParseableFormats():
-        '''
-        Returns a list with all parseable formats.
-
-        Returns:
-            list: A list with all parseable formats
-        '''
-        return [format_ for format_ in Format.childs() if format_.isParseable]
-
-    @classmethod
-    def listParseableFormatNames(cls):
-        '''
-        Returns a list with all parseable format names.
-
-        Returns:
-            list: A list with all parseable format names
-        '''
-        return [format_.name for format_ in cls.findParseableFormats()]
 
     @classmethod
     def groupExportableFormatsByType(cls):
