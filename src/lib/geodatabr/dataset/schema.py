@@ -55,11 +55,11 @@ class Entity(declarative_base()):
             geodatabr.core.types.OrderedMap: The entity columns/values pairs
         '''
         if not flatten:
-            return Map({column.name: getattr(self, column.name)
+            return OrderedMap({column.name: getattr(self, column.name)
                        for column in self.__table__.columns})
 
         def _flatten(entity):
-            flattened = Map()
+            flattened = OrderedMap()
 
             for column in entity.__table__.columns:
                 if not column.foreign_keys:
@@ -68,7 +68,7 @@ class Entity(declarative_base()):
 
             return flattened
 
-        flattened = Map()
+        flattened = OrderedMap()
 
         for column in reversed(list(self.__table__.columns)):
             for foreign_key in column.foreign_keys:
