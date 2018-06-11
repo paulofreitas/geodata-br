@@ -9,7 +9,11 @@ YAML file format utils module
 
 # Built-in dependencies
 
-import collections
+from collections import OrderedDict
+
+# Package dependencies
+
+from geodatabr.core.types import Map, OrderedMap
 
 # External dependencies
 
@@ -18,9 +22,9 @@ import yaml
 # Classes
 
 
-class OrderedDumper(yaml.SafeDumper):
+class OrderedDumper(yaml.Dumper):
     '''
-    A YAML dumper which is able to serialize OrderedDict objects.
+    A YAML dumper which is able to serialize ordered mapping objects.
     Usage: `yaml.dump(data, Dumper=OrderedDumper)`
     '''
 
@@ -30,17 +34,20 @@ class OrderedDumper(yaml.SafeDumper):
         '''
         super().__init__(*args, **kwargs)
 
-        self.add_representer(collections.OrderedDict, self.representOrderedDict)
+        for mapping in (OrderedDict, Map, OrderedMap):
+            yaml.add_representer(mapping, self._mappingRepresenter)
+            yaml.add_representer(mapping, self._mappingRepresenter,
+                                 Dumper=yaml.SafeDumper)
 
-    def representOrderedDict(self, _, mapping):
+    def _mappingRepresenter(self, dumper, mapping):
         '''
-        Represents OrderedDict objects.
+        Represents mapping objects.
 
         Arguments:
-            mapping (collections.OrderedDict): The ordered dictionary to render
+            dumper (yaml.dumper.BaseDumper): The YAML dumper to use
+            mapping (collections.MutableMapping): The mapping to represent
 
         Returns:
             yaml.nodes.MappingNode: A YAML mapping node
         '''
-        return self.represent_mapping('tag:yaml.org,2002:map',
-                                      iter(mapping.items()))
+        return dumper.represent_dict(mapping.items())
