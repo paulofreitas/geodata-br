@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-CSV file format package
+CSV file format module
 '''
 # Imports
 
