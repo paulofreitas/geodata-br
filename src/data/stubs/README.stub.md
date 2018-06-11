@@ -4,7 +4,7 @@ Free open public domain geographic data of Brazil available in multiple language
 
 ## Data Source
 
-All these data was compiled from nonstandardized spreadsheets provided by IBGE (Brazilian Institute of Geography and Statistics) through their FTP server [here](http://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/divisao_territorial/).
+All these data was compiled from SIDRA (IBGE's Automatic Recovery System) database by IBGE (Brazilian Institute of Geography and Statistics).
 
 ## Datasets
 
