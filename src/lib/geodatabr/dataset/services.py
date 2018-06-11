@@ -23,6 +23,8 @@ from geodatabr.core.types import Map
 # External dependencies
 
 from requests import Session
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 from ratelimit import limits, sleep_and_retry
 
 # Logging setup
@@ -31,6 +33,9 @@ logging.getLogger('requests').setLevel(logging.ERROR)
 
 # Settings
 
+HTTP_MAX_RETRIES = 5
+HTTP_BACKOFF_FACTOR = 0.5
+HTTP_RETRY_STATUSES = (500, 502, 503, 504)
 HTTP_THROTTLING_INTERVAL = 5
 HTTP_CONNECT_TIMEOUT = 3
 HTTP_READ_TIMEOUT = 5
@@ -67,6 +72,13 @@ class HttpSession(Session):
             'User-Agent': 'geodatabr/{version} ({url})' \
                 .format(version=__version__, url=__url__),
         })
+
+        # Automatic retries
+        for protocol in ('http://', 'https://'):
+            self.mount(protocol, HTTPAdapter(
+                max_retries=Retry(total=HTTP_MAX_RETRIES,
+                                  backoff_factor=HTTP_BACKOFF_FACTOR,
+                                  status_forcelist=HTTP_RETRY_STATUSES)))
 
     @sleep_and_retry
     @limits(calls=1, period=HTTP_THROTTLING_INTERVAL)
