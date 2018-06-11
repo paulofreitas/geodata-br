@@ -36,12 +36,9 @@ class Seeder(AbstractClass):
         '''
         self._sidra = SidraDataset()
 
-    def run(self, reset=False):
+    def run(self):
         '''
         Runs the database seeder.
-
-        Args:
-            reset (bool): Whether or not it should clear the existing table data
         '''
         raise NotImplementedError
 
@@ -50,26 +47,24 @@ class StateSeeder(Seeder):
     '''
     Database seeder for states.
     '''
+    entity = State
 
-    def run(self, reset=False):
+    def run(self):
         '''
         Runs the database seeder.
 
-        Args:
-            reset (bool): Whether or not it should clear the existing states
+        Raises:
+            NothingToSeedError:
+                Should be thrown when the entity table is not empty.
         '''
-        if StateRepository.count() and not reset:
-            return
-
-        # Clear existing data
-        StateRepository.clear()
+        if StateRepository.count():
+            raise NothingToSeedError
 
         states = self._sidra.findAll(SIDRA_STATE)
 
         for state in states:
-            StateRepository.add(
-                State(id=state.id,
-                      name=state.name))
+            StateRepository.add(State(id=state.id,
+                                      name=state.name))
 
         Database.commit()
 
@@ -78,19 +73,18 @@ class MesoregionSeeder(Seeder):
     '''
     Database seeder for mesoregions.
     '''
+    entity = Mesoregion
 
-    def run(self, reset=False):
+    def run(self):
         '''
         Runs the database seeder.
 
-        Args:
-            reset (bool): Whether or not it should clear the existing mesoregions
+        Raises:
+            NothingToSeedError:
+                Should be thrown when the entity table is not empty.
         '''
-        if MesoregionRepository.count() and not reset:
-            return
-
-        # Clear existing data
-        MesoregionRepository.clear()
+        if MesoregionRepository.count():
+            raise NothingToSeedError
 
         states = StateRepository.findAll()
 
@@ -101,10 +95,9 @@ class MesoregionSeeder(Seeder):
                               state.id)
 
             for mesoregion in mesoregions:
-                MesoregionRepository.add(
-                    Mesoregion(id=mesoregion.id,
-                               state_id=state.id,
-                               name=mesoregion.name))
+                MesoregionRepository.add(Mesoregion(id=mesoregion.id,
+                                                    state_id=state.id,
+                                                    name=mesoregion.name))
 
         Database.commit()
 
@@ -113,19 +106,18 @@ class MicroregionSeeder(Seeder):
     '''
     Database seeder for microregions.
     '''
+    entity = Microregion
 
-    def run(self, reset=False):
+    def run(self):
         '''
         Runs the database seeder.
 
-        Args:
-            reset (bool): Whether or not it should clear the existing microregions
+        Raises:
+            NothingToSeedError:
+                Should be thrown when the entity table is not empty.
         '''
-        if MicroregionRepository.count() and not reset:
-            return
-
-        # Clear existing data
-        MicroregionRepository.clear()
+        if MicroregionRepository.count():
+            raise NothingToSeedError
 
         mesoregions = MesoregionRepository.findAll()
 
@@ -149,19 +141,18 @@ class MunicipalitySeeder(Seeder):
     '''
     Database seeder for microregions.
     '''
+    entity = Municipality
 
-    def run(self, reset=False):
+    def run(self):
         '''
         Runs the database seeder.
 
-        Args:
-            reset (bool): Whether or not it should clear the existing municipalities
+        Raises:
+            NothingToSeedError:
+                Should be thrown when the entity table is not empty.
         '''
-        if MunicipalityRepository.count() and not reset:
-            return
-
-        # Clear existing data
-        MunicipalityRepository.clear()
+        if MunicipalityRepository.count():
+            raise NothingToSeedError
 
         microregions = MicroregionRepository.findAll()
 
@@ -186,19 +177,18 @@ class DistrictSeeder(Seeder):
     '''
     Database seeder for districts.
     '''
+    entity = District
 
-    def run(self, reset=False):
+    def run(self):
         '''
         Runs the database seeder.
 
-        Args:
-            reset (bool): Whether or not it should clear the existing districts
+        Raises:
+            NothingToSeedError:
+                Should be thrown when the entity table is not empty.
         '''
-        if DistrictRepository.count() and not reset:
-            return
-
-        # Clear existing data
-        DistrictRepository.clear()
+        if DistrictRepository.count():
+            raise NothingToSeedError
 
         municipalities = MunicipalityRepository.findAll()
 
@@ -224,19 +214,18 @@ class SubdistrictSeeder(Seeder):
     '''
     Database seeder for subdistricts.
     '''
+    entity = Subdistrict
 
-    def run(self, reset=False):
+    def run(self):
         '''
         Runs the database seeder.
 
-        Args:
-            reset (bool): Whether or not it should clear the existing subdistricts
+        Raises:
+            NothingToSeedError:
+                Should be thrown when the entity table is not empty.
         '''
-        if SubdistrictRepository.count() and not reset:
-            return
-
-        # Clear existing data
-        SubdistrictRepository.clear()
+        if SubdistrictRepository.count():
+            raise NothingToSeedError
 
         districts = DistrictRepository.findAll()
 
@@ -257,3 +246,44 @@ class SubdistrictSeeder(Seeder):
                                 name=subdistrict.name))
 
         Database.commit()
+
+
+class SeederFactory(object):
+    '''
+    Factory class for instantiation of concrete seeder classes.
+    '''
+
+    def __new__(cls, entity):
+        '''
+        Factories a seeder class for a given entity class.
+
+        Args:
+            entity (geodatabr.dataset.schema.Entity):
+                The entity class to retrieve a seeder
+
+        Returns:
+            geodatabr.dataset.seeders.Seeder:
+                The seeder class instance
+
+        Raises:
+            UnknownEntityError: When a given entity is not supported
+        '''
+        for seeder in Seeder.childs():
+            if seeder.entity is entity:
+                return seeder()
+
+        raise UnknownEntityError(
+            'No seeder for entity "{}"'.format(entity.__name__))
+
+
+class UnknownEntityError(Exception):
+    '''
+    Exception class raised when a given entity does not belong to any seeder.
+    '''
+    pass
+
+
+class NothingToSeedError(Exception):
+    '''
+    Exception class raised when a given entity table is not empty.
+    '''
