@@ -13,6 +13,7 @@ import io
 
 # Package dependencies
 
+from geodatabr.dataset.serializers import Serializer
 from geodatabr.exporters import Exporter
 from geodatabr.formats.plist import PlistFormat
 from geodatabr.formats.plist.utils import PlistDumper, BinaryFormat
@@ -41,7 +42,7 @@ class PlistExporter(Exporter):
         Raises:
             ExportError: When data fails to export
         '''
-        data = self._data.normalize(strKeys=True)
+        data = Serializer(forceStrKeys=True).serialize()
         plist_data = PlistDumper(data,
                                  fmt=BinaryFormat,
                                  sort_keys=False)

@@ -27,7 +27,7 @@ logger = Logger.instance(__name__)
 
 # Translator setup
 
-Translator.load('databases')
+Translator.load('dataset')
 
 # Classes
 

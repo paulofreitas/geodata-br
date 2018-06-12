@@ -48,7 +48,7 @@ class FirebirdExporter(Exporter):
             ExportError: When data fails to export
         '''
         sql_options = dict(options, dialect='firebird')
-        sql_data = SqlExporter(self._data).export(**sql_options)
+        sql_data = SqlExporter().export(**sql_options)
         fdb_data = io.BytesIO()
         fdb_file = tempfile.mktemp()
         fdb_con = fdb.create_database(

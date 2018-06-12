@@ -39,4 +39,4 @@ class TsvExporter(Exporter):
         '''
         tsv_options = dict(options, delimiter='\t')
 
-        return CsvExporter(self._data).export(**tsv_options)
+        return CsvExporter().export(**tsv_options)

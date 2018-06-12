@@ -17,8 +17,14 @@ from lxml.etree import Comment, Element, SubElement, tostring as xml_str
 
 # Package dependencies
 
+from geodatabr.core.i18n import _, Translator
+from geodatabr.dataset.serializers import Serializer
 from geodatabr.exporters import Exporter
 from geodatabr.formats.xml import XmlFormat
+
+# Translator setup
+
+Translator.load('dataset')
 
 # Classes
 
@@ -44,9 +50,8 @@ class XmlExporter(Exporter):
         Raises:
             ExportError: When data fails to export
         '''
-        data = self._data.normalize(forceStr=True, includeKey=True)
-        database = Element('database',
-                           name='dtb_{}'.format(self._data._base.year))
+        data = Serializer(forceStr=True, includeKey=True).serialize()
+        database = Element('database', name=_('dataset'))
 
         for table_name, rows in iter(data.items()):
             database.append(Comment(' Table {} '.format(table_name)))

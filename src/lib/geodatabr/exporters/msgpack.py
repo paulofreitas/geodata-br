@@ -14,6 +14,7 @@ import msgpack
 
 # Package dependencies
 
+from geodatabr.dataset.serializers import Serializer
 from geodatabr.exporters import Exporter
 from geodatabr.formats.msgpack import MessagePackFormat
 
@@ -41,7 +42,7 @@ class MessagePackExporter(Exporter):
         Raises:
             ExportError: When data fails to export
         '''
-        unpacked = self._data.normalize()
+        unpacked = Serializer().serialize()
         packed = msgpack.packb(unpacked, use_bin_type=False)
 
         return io.BytesIO(packed)

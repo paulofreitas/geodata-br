@@ -18,6 +18,7 @@ import yaml
 
 # Package dependencies
 
+from geodatabr.dataset.serializers import Serializer
 from geodatabr.exporters import Exporter
 from geodatabr.formats.yaml import YamlFormat
 from geodatabr.formats.yaml.utils import OrderedDumper
@@ -46,7 +47,7 @@ class YamlExporter(Exporter):
         Raises:
             ExportError: When data fails to export
         '''
-        data = self._data.normalize()
+        data = Serializer().serialize()
         yaml_data = yaml.dump(data,
                               Dumper=OrderedDumper,
                               allow_unicode=True,

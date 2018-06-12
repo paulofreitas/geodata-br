@@ -44,7 +44,7 @@ class Sqlite3Exporter(Exporter):
             ExportError: When data fails to export
         '''
         sql_options = dict(options, dialect='sqlite')
-        sql_data = SqlExporter(self._data).export(**sql_options)
+        sql_data = SqlExporter().export(**sql_options)
         sqlite_data = io.BytesIO()
 
         with tempfile.NamedTemporaryFile() as sqlite_file:

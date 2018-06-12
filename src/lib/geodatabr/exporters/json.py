@@ -14,6 +14,7 @@ import json
 
 # Package dependencies
 
+from geodatabr.dataset.serializers import Serializer
 from geodatabr.exporters import Exporter
 from geodatabr.formats.json import JsonFormat
 
@@ -41,7 +42,7 @@ class JsonExporter(Exporter):
         Raises:
             ExportError: When data fails to export
         '''
-        data = self._data.normalize()
+        data = Serializer().serialize()
         json_data = json.dumps(data,
                                indent=2,
                                separators=(',', ': '),

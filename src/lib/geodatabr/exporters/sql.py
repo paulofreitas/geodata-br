@@ -14,6 +14,8 @@ import io
 # Package dependencies
 
 from geodatabr.exporters import Exporter
+from geodatabr.dataset.schema import Entities
+from geodatabr.dataset.serializers import Serializer
 from geodatabr.formats.sql import SqlFormat
 from geodatabr.formats.sql.utils import SchemaGenerator
 
@@ -41,13 +43,13 @@ class SqlExporter(Exporter):
         Raises:
             ExportError: When data fails to export
         '''
+        data = Serializer(localize=False, includeKey=True).serialize()
         schema = SchemaGenerator(options.get('dialect', 'default'))
 
-        for entity in self._data._base.entities:
-            data = self._data.records[entity.__table__.name]
+        for entity in Entities:
+            records = data.get(entity.__table__.name)
 
-            if data:
-                table = schema.createTable(entity)
-                table._data = data
+            if records:
+                schema.addTable(entity.__table__, records)
 
         return io.StringIO(schema.render())

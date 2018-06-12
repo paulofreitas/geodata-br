@@ -12,11 +12,13 @@ CSV file exporter module
 import csv
 import io
 
+from csv import DictWriter
+
 # Package dependencies
 
 from geodatabr.exporters import Exporter
+from geodatabr.dataset.serializers import FlattenedSerializer
 from geodatabr.formats.csv import CsvFormat
-from geodatabr.formats.csv.utils import DictWriter
 
 # Classes
 
@@ -42,18 +44,18 @@ class CsvExporter(Exporter):
         Raises:
             ExportError: When data fails to export
         '''
+        rows = FlattenedSerializer().serialize()
         csv_data = io.StringIO()
         csv_writer = DictWriter(csv_data,
-                                self._data.columns,
+                                rows[-1].keys(),
                                 delimiter=options.get('delimiter', ','),
                                 quotechar='"',
                                 doublequote=True,
                                 lineterminator='\r\n',
                                 quoting=csv.QUOTE_MINIMAL,
                                 extrasaction='ignore')
-
         csv_writer.writeheader()
-        csv_writer.writerows([row.serialize() for row in self._data.rows])
+        csv_writer.writerows(rows)
         csv_data.seek(0)
 
         return csv_data
