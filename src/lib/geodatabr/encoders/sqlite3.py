@@ -107,8 +107,8 @@ class Sqlite3Encoder(Encoder):
                 sqlite_cursor = sqlite_con.cursor()
                 sqlite_cursor.execute('PRAGMA page_size = 1024')
                 sqlite_cursor.execute('PRAGMA foreign_keys = ON')
-                sqlite_cursor.executescript('BEGIN; {} COMMIT' \
-                                                .format(sql_data.read()))
+                sqlite_cursor.executescript(
+                    'BEGIN; {} COMMIT'.format(sql_data.read()))
 
             sqlite_data.write(sqlite_file.read())
             sqlite_data.seek(0)

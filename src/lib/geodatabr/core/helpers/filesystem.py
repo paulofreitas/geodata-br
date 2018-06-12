@@ -22,6 +22,7 @@ class Path(type(pathlib.Path())):
     '''
     A filesystem path object.
     '''
+    _old_dir = None
 
     def __enter__(self):
         '''

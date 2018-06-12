@@ -21,12 +21,8 @@ from geodatabr import __version__, __author__, __copyright__, __license__
 from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.i18n import _, Translator
-from geodatabr.core.logging import Logger
+from geodatabr.core.logging import logger
 from geodatabr.core.types import AbstractClass
-
-# Module logging
-
-logger = Logger.instance(__name__)
 
 # Translator setup
 
@@ -251,11 +247,11 @@ class Encoder(AbstractClass):
         formatName = self.format.friendlyName
         extension = self.format.extension
 
-        logger.info('Encoding dataset to %s format...', formatName)
+        logger().info('Encoding dataset to %s format...', formatName)
 
         data = self.encode(**options).read()
 
-        logger.debug('Finished encoding dataset.')
+        logger().debug('Finished encoding dataset.')
 
         if not filename:
             return sys.stdout.write(data + '\n')

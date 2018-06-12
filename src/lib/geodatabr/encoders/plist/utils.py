@@ -9,16 +9,15 @@ Property List file format utils module
 
 # Built-in dependencies
 
-from plistlib import _PlistWriter as PlistWriter, dumps as PlistDumper, \
-    FMT_BINARY as BinaryFormat
+from plistlib import _PlistWriter as PlistWriter
 
 # Functions
 
 
-def writeOrderedDict(self, d):
+def writeOrderedDict(self, _dict):
     self.beginElement('dict')
 
-    for key, value in iter(d.items()):
+    for key, value in iter(_dict.items()):
         if not isinstance(key, str):
             raise TypeError('keys must be strings')
 

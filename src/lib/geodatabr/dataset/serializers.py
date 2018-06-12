@@ -43,7 +43,7 @@ class BaseSerializer(object):
         for _entity in Entities:
             entity = _entity.__table__.name
 
-            if not entity in records:
+            if entity not in records:
                 records[entity] = [item
                                    for state in records.states
                                    for item in getattr(state, entity)]

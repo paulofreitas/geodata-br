@@ -13,6 +13,7 @@ from geodatabr.commands import Application
 
 # Functions
 
+
 def main():
     '''Main entry point.'''
     app = Application()

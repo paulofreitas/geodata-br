@@ -107,8 +107,8 @@ class FirebirdEncoder(Encoder):
         fdb_data = io.BytesIO()
         fdb_file = tempfile.mktemp()
         fdb_con = fdb.create_database(
-            "CREATE DATABASE '{}' USER '{}' PASSWORD '{}'" \
-                .format(fdb_file, 'sysdba', 'masterkey'),
+            "CREATE DATABASE '{}' USER 'sysdba' PASSWORD 'masterkey'"
+            .format(fdb_file),
             sql_dialect=3
         )
         fdb_cursor = fdb_con.cursor()

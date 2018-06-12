@@ -13,12 +13,8 @@ from geodatabr.commands import Command
 from geodatabr.core.constants import DATA_DIR
 from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
 from geodatabr.core.i18n import Translator
-from geodatabr.core.logging import Logger
+from geodatabr.core.logging import logger
 from geodatabr.encoders import EncoderFactory, EncoderFormatRepository
-
-# Module logging
-
-logger = Logger.instance(__name__)
 
 # Classes
 
@@ -61,15 +57,15 @@ class BuildCommand(Command):
                          nargs='*',
                          default=locales,
                          help=('Locales to build the dataset.\n'
-                               'Defaults to all available: {}' \
-                                   .format(', '.join(locales))))
+                               'Defaults to all available: {}'
+                               .format(', '.join(locales))))
         self.addArgument('-f', '--formats',
                          metavar='FORMAT',
                          nargs='*',
                          default=formats,
                          help=('Formats to build the dataset.\n'
-                               'Defaults to all available: {}' \
-                                    .format(', '.join(formats))))
+                               'Defaults to all available: {}'
+                               .format(', '.join(formats))))
 
     def handle(self, args):
         '''
@@ -79,7 +75,7 @@ class BuildCommand(Command):
             for locale in args.locales:
                 Translator.locale = locale
 
-                logger.info('> Building locale: %s', locale)
+                logger().info('> Building locale: %s', locale)
 
                 dataset_dir = DATA_DIR / locale
                 dataset_dir.create(parents=True)
@@ -89,12 +85,12 @@ class BuildCommand(Command):
                         encoder = EncoderFactory.fromFormat(dataset_format)
                         encoder.encodeToFile()
 
-                    logger.info('Generating dataset README file...')
+                    logger().info('Generating dataset README file...')
 
                     DatasetReadme(dataset_dir).write()
 
-            logger.info('Generating project README file...')
+            logger().info('Generating project README file...')
 
             ProjectReadme().write()
         except KeyboardInterrupt:
-            logger.info('Building was canceled.')
+            logger().info('Building was canceled.')

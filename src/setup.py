@@ -21,7 +21,7 @@ if sys.version_info[:2] < (3, 4):
 # Routines
 
 with open('lib/geodatabr/__init__.py') as package:
-    __metadata__ = exec(package.read()) # pylint: disable=exec-used
+    __metadata__ = exec(package.read())  # pylint: disable=exec-used
 
 setup(
     # Package metadata

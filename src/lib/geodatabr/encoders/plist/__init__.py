@@ -10,13 +10,13 @@ Property List file encoder module
 # Built-in dependencies
 
 import io
+import plistlib
 
 # Package dependencies
 
 from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.dataset.serializers import Serializer
 from geodatabr.encoders import Encoder, EncoderFormat
-from geodatabr.encoders.plist.utils import PlistDumper, BinaryFormat
 
 # Classes
 
@@ -98,8 +98,8 @@ class PropertyListEncoder(Encoder):
             geodatabr.encoders.EncodeError: When data fails to encode
         '''
         data = Serializer(forceStrKeys=True).serialize()
-        plist_data = PlistDumper(data,
-                                 fmt=BinaryFormat,
-                                 sort_keys=False)
+        plist_data = plistlib.dumps(data,
+                                    fmt=plistlib.FMT_BINARY,
+                                    sort_keys=False)
 
         return io.BytesIO(plist_data)

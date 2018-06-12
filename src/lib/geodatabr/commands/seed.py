@@ -10,14 +10,10 @@ Seed command module
 # Package dependencies
 
 from geodatabr.commands import Command
-from geodatabr.core.logging import Logger
+from geodatabr.core.logging import logger
 from geodatabr.dataset.base import DatabaseHelper
 from geodatabr.dataset.schema import Entities
 from geodatabr.dataset.seeders import SeederFactory, NothingToSeedError
-
-# Module logging
-
-logger = Logger.instance(__name__)
 
 # Classes
 
@@ -56,11 +52,11 @@ class SeedCommand(Command):
             DatabaseHelper.create()
 
             for entity in Entities:
-                logger.info('> Seeding table "%s"...', entity.__table__.name)
+                logger().info('> Seeding table "%s"...', entity.__table__.name)
 
                 try:
                     SeederFactory(entity).run()
                 except NothingToSeedError:
-                    logger.warning('Nothing to seed.')
+                    logger().warning('Nothing to seed.')
         except KeyboardInterrupt:
-            logger.warning('Seeding was canceled.')
+            logger().warning('Seeding was canceled.')

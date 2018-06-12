@@ -167,7 +167,7 @@ class Map(dict):
         Returns:
             str: A YAML representation of this object
         '''
-        from geodatabr.formats.yaml.utils import OrderedDumper
+        from geodatabr.encoders.yaml.utils import OrderedDumper
 
         return yaml.dump(self, Dumper=OrderedDumper)
 

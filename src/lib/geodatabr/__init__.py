@@ -7,7 +7,7 @@ Brazilian geographic data exporter package
 '''
 # Package metadata
 
-VERSION = (18, 6, 'dev') # CalVer YY.MM[.ID] (see https://calver.org/)
+VERSION = (18, 6, 'dev')  # CalVer YY.MM[.ID] (see https://calver.org/)
 
 __package_name__ = 'geodatabr'
 __description__ = 'Brazilian geographic data exporter'

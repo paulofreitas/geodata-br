@@ -13,7 +13,6 @@ concrete command modules.
 # Built-in dependencies
 
 import argparse
-import sys
 
 # Package dependencies
 
@@ -22,11 +21,8 @@ from geodatabr import __version__, __author__, __copyright__, __license__, \
 from geodatabr.core.logging import Logger
 from geodatabr.core.types import AbstractClass
 
-# Module logging
-
-logger = Logger.instance(__name__)
-
 # Classes
+
 
 class Application(object):
     '''Main application class.'''

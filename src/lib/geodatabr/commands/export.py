@@ -11,12 +11,8 @@ Export command module
 
 from geodatabr.commands import Command
 from geodatabr.core.i18n import Translator
-from geodatabr.core.logging import Logger
+from geodatabr.core.logging import logger
 from geodatabr.encoders import EncoderFactory, EncoderFormatRepository
-
-# Module logging
-
-logger = Logger.instance(__name__)
 
 # Classes
 
@@ -89,4 +85,4 @@ class DatasetExporterCommand(Command):
             encoder = EncoderFactory.fromFormat(args.format)
             encoder.encodeToFile(args.filename)
         except KeyboardInterrupt:
-            logger.info('> Exporting was canceled.')
+            logger().info('> Exporting was canceled.')

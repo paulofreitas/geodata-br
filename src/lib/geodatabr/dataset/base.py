@@ -85,4 +85,5 @@ class DatabaseHelper(object):
 
 # Instances
 
+
 Database = DatabaseSession()

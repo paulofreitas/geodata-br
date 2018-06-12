@@ -12,8 +12,6 @@ CSV file encoder module
 import csv
 import io
 
-from csv import DictWriter
-
 # Package dependencies
 
 from geodatabr.core.helpers.decorators import classproperty
@@ -94,14 +92,14 @@ class CsvEncoder(Encoder):
         '''
         rows = FlattenedSerializer().serialize()
         csv_data = io.StringIO()
-        csv_writer = DictWriter(csv_data,
-                                rows[-1].keys(),
-                                delimiter=options.get('delimiter', ','),
-                                quotechar='"',
-                                doublequote=True,
-                                lineterminator='\r\n',
-                                quoting=csv.QUOTE_MINIMAL,
-                                extrasaction='ignore')
+        csv_writer = csv.DictWriter(csv_data,
+                                    rows[-1].keys(),
+                                    delimiter=options.get('delimiter', ','),
+                                    quotechar='"',
+                                    doublequote=True,
+                                    lineterminator='\r\n',
+                                    quoting=csv.QUOTE_MINIMAL,
+                                    extrasaction='ignore')
         csv_writer.writeheader()
         csv_writer.writerows(rows)
         csv_data.seek(0)

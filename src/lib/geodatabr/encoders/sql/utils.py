@@ -380,8 +380,8 @@ class SqlCompiler(object):
         '''
         def _compileLiterals(record):
             return ', '.join(
-                table.columns.get(column).type \
-                    .literal_processor(dialect=self._dialect)(value)
+                table.columns.get(column).type.literal_processor(
+                    dialect=self._dialect)(value)
                 for column, value in record.items())
 
         dml = 'INSERT INTO ' + _(table.name)

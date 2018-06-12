@@ -11,8 +11,8 @@ This module provides the entities used to describe the database.
 
 # External dependencies
 
+from sqlalchemy import orm
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import Column, ForeignKey, MetaData, Table
 from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 
@@ -22,8 +22,10 @@ from geodatabr.core.types import OrderedMap
 
 # Aliases
 
-Relationship = lambda entity, backref, **kwargs: \
-    relationship(entity, back_populates=backref, **kwargs)
+
+def Relationship(entity, backref, **kwargs):
+    return orm.relationship(entity, back_populates=backref, **kwargs)
+
 
 # Classes
 

@@ -69,8 +69,8 @@ class HttpSession(Session):
 
         # Custom headers
         self.headers.update({
-            'User-Agent': 'geodatabr/{version} ({url})' \
-                .format(version=__version__, url=__url__),
+            'User-Agent': 'geodatabr/{version} ({url})'
+                          .format(version=__version__, url=__url__),
         })
 
         # Automatic retries
@@ -165,7 +165,7 @@ class SidraApiResponse(object):
                 keys = _record.keys()
 
             for key in keys:
-                if not key in _record:
+                if key not in _record:
                     raise KeyError('Invalid key')
 
                 record.append(_record[key])

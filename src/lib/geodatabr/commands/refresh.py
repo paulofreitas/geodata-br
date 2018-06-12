@@ -11,12 +11,8 @@ Refresh command module
 
 from geodatabr.commands import Command
 from geodatabr.commands.seed import SeedCommand
-from geodatabr.core.logging import Logger
+from geodatabr.core.logging import logger
 from geodatabr.dataset.base import DatabaseHelper
-
-# Module logging
-
-logger = Logger.instance(__name__)
 
 # Classes
 
@@ -52,9 +48,9 @@ class RefreshCommand(Command):
         Handles the command.
         '''
         try:
-            logger.info('> Clearing the dataset...')
+            logger().info('> Clearing the dataset...')
             DatabaseHelper.clear()
 
             SeedCommand(self.application).handle(args)
         except KeyboardInterrupt:
-            logger.warning('Refreshing was canceled.')
+            logger().warning('Refreshing was canceled.')

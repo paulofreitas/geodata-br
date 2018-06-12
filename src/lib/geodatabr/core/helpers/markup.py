@@ -15,6 +15,7 @@ from collections import defaultdict
 
 # Classes
 
+
 class Markdown(object):
     '''
     Markdown markup generator.
@@ -39,7 +40,7 @@ class Markdown(object):
         if alternative and depth in (1, 2):
             return '\n'.join([
                 heading_text,
-                ['=', '-'][depth -1] * len(heading_text)
+                ['=', '-'][depth - 1] * len(heading_text)
             ]) + '\n'
 
         return '#' * depth + ' ' + heading_text + '\n'
@@ -304,7 +305,7 @@ class GithubMarkdown(Markdown):
         assert isinstance(data, list)
         assert set(aligning).issubset(set(['<', '^', '>']))
 
-        md = ''
+        markdown = ''
 
         # No aligning: default is left
         if not aligning:
@@ -325,32 +326,30 @@ class GithubMarkdown(Markdown):
 
         # Headers
 
-        md = '|{}|\n'.format('|'.join([
-            (' {{:' + aligning[col] + '{}}} ').format(column_sizes[col]) \
-                                              .replace('^', '<') \
-                                              .format(cell)
+        markdown += '|{}|\n'.format('|'.join([
+            (' {{:' + aligning[col] + '{}}} ')
+            .format(column_sizes[col]).replace('^', '<').format(cell)
             for col, cell in enumerate(data[0])
         ]))
 
         # Heading separator
-        md += '|{}|\n'.format('|'.join([
+        markdown += '|{}|\n'.format('|'.join([
             ''.join([
-                ':' if aligning[col] == '^' else ' ', # left char
+                ':' if aligning[col] == '^' else ' ',  # left char
                 '-' * column_sizes[col],
-                ' ' if aligning[col] == '<' else ':', # right char
+                ' ' if aligning[col] == '<' else ':',  # right char
             ])
             for col in range(len(data[0]))
         ]))
 
         # Data
-        md += ''.join([
+        markdown += ''.join([
             '|{}|\n'.format('|'.join([
-                (' {{:' + aligning[col] + '{}}} ').format(column_sizes[col]) \
-                                                  .replace('^', '<') \
-                                                  .format(cell)
+                (' {{:' + aligning[col] + '{}}} ')
+                .format(column_sizes[col]).replace('^', '<').format(cell)
                 for col, cell in enumerate(row)
             ]))
             for row in data[1:]
         ])
 
-        return md
+        return markdown
