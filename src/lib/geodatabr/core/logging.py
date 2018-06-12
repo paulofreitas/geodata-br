@@ -11,6 +11,7 @@ from __future__ import absolute_import
 
 # Built-in dependencies
 
+import inspect
 import logging
 import sys
 
@@ -18,11 +19,14 @@ import sys
 
 
 class Logger(object):
-    '''Base logger class.'''
+    '''
+    Base logger class.
+    '''
 
     @staticmethod
     def instance(name=None, level=logging.NOTSET):
-        '''Returns a logger instance.
+        '''
+        Returns a logger instance.
 
         Arguments:
             name (str): The logger name
@@ -38,7 +42,8 @@ class Logger(object):
 
     @staticmethod
     def setup(verbose=False, filename=None):
-        '''Setups the root logger.
+        '''
+        Setups the root logger.
 
         Arguments:
             verbose (bool): Whether or not the logger should be verbose
@@ -57,3 +62,22 @@ class Logger(object):
             file_handler = logging.FileHandler(filename)
             file_handler.setLevel(logging.ERROR)
             logger.addHandler(file_handler)
+
+
+# Functions
+
+
+def logger(level=logging.NOTSET):
+    '''
+    Logger factory method.
+
+    Arguments:
+        level (int): The logger level
+
+    Returns:
+        geodatabr.core.logging.Logger: A module-level logger instance
+    '''
+    frame = inspect.stack()[1]
+    module = inspect.getmodule(frame[0])
+
+    return Logger.instance(module.__name__ if module else None, level)
