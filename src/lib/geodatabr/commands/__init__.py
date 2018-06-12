@@ -149,8 +149,11 @@ class Command(AbstractClass):
         '''Constructor.
 
         Arguments:
-            application (Application): The application class instance
+            application (geodatabr.commands.Application):
+                The application class instance
         '''
+        self.application = application
+
         self._parser = application.addParser(
             self.name,
             help=self.description,
