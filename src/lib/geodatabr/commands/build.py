@@ -14,7 +14,7 @@ from geodatabr.core.constants import DATA_DIR
 from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import Logger
-from geodatabr.encoders import EncoderFactory, FormatRepository
+from geodatabr.encoders import EncoderFactory, EncoderFormatRepository
 
 # Module logging
 
@@ -54,7 +54,7 @@ class BuildCommand(Command):
         Defines the command arguments.
         '''
         locales = Translator.locales()
-        formats = FormatRepository.listExportableFormatNames()
+        formats = EncoderFormatRepository.listNames()
 
         self.addArgument('-l', '--locales',
                          metavar='LOCALE',

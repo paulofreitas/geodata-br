@@ -16,12 +16,12 @@ import json
 
 from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import Encoder, Format
+from geodatabr.encoders import Encoder, EncoderFormat
 
 # Classes
 
 
-class JsonFormat(Format):
+class JsonFormat(EncoderFormat):
     '''
     The file format class for JSON file format.
     '''
@@ -67,13 +67,6 @@ class JsonFormat(Format):
         The file format reference info.
         '''
         return 'https://en.wikipedia.org/wiki/JSON'
-
-    @classproperty
-    def isExportable(self):
-        '''
-        Tells whether the file format is exportable or not.
-        '''
-        return True
 
 
 class JsonEncoder(Encoder):

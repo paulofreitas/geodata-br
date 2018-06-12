@@ -16,12 +16,12 @@ import msgpack
 
 from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import Encoder, Format
+from geodatabr.encoders import Encoder, EncoderFormat
 
 # Classes
 
 
-class MessagePackFormat(Format):
+class MessagePackFormat(EncoderFormat):
     '''
     The file format class for MessagePack file format.
     '''
@@ -72,13 +72,6 @@ class MessagePackFormat(Format):
     def isBinary(self):
         '''
         Tells whether the file format is binary or not.
-        '''
-        return True
-
-    @classproperty
-    def isExportable(self):
-        '''
-        Tells whether the file format is exportable or not.
         '''
         return True
 

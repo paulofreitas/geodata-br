@@ -10,12 +10,12 @@ Microsoft Excel Spreadsheet file encoder module
 # Package dependencies
 
 from geodatabr.core.helpers.decorators import classproperty
-from geodatabr.encoders import Format
+from geodatabr.encoders import EncoderFormat
 
 # Classes
 
 
-class XlsFormat(Format):
+class XlsFormat(EncoderFormat):
     '''
     The file format class for Microsoft Excel Spreadsheet file format.
     '''
@@ -66,12 +66,5 @@ class XlsFormat(Format):
     def isBinary(self):
         '''
         Tells whether the file format is binary or not.
-        '''
-        return True
-
-    @classproperty
-    def isParseable(self):
-        '''
-        Tells whether the file format is parseable or not.
         '''
         return True

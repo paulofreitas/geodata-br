@@ -18,12 +18,12 @@ from csv import DictWriter
 
 from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.dataset.serializers import FlattenedSerializer
-from geodatabr.encoders import Encoder, Format
+from geodatabr.encoders import Encoder, EncoderFormat
 
 # Classes
 
 
-class CsvFormat(Format):
+class CsvFormat(EncoderFormat):
     '''
     The file format class for CSV file format.
     '''
@@ -69,13 +69,6 @@ class CsvFormat(Format):
         The file format reference info.
         '''
         return 'https://en.wikipedia.org/wiki/Comma-separated_values'
-
-    @classproperty
-    def isExportable(self):
-        '''
-        Tells whether the file format is exportable or not.
-        '''
-        return True
 
 
 class CsvEncoder(Encoder):

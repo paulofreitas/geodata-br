@@ -20,7 +20,7 @@ from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.helpers.markup import GithubMarkdown as Markdown
 from geodatabr.core.i18n import _, Translator
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import FormatRepository
+from geodatabr.encoders import EncoderFormatRepository
 
 # Setup translator
 
@@ -111,7 +111,7 @@ class ProjectReadme(Readme):
         Returns:
             str: The available dataset formats
         '''
-        grouped_formats = FormatRepository.groupExportableFormatsByType()
+        grouped_formats = EncoderFormatRepository.groupByType()
         markdown = ''
 
         for format_type, formats in grouped_formats:

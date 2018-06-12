@@ -275,11 +275,12 @@ class File(Path):
         Returns:
             The file format
         '''
-        from geodatabr.encoders import FormatRepository, FormatError
+        from geodatabr.encoders import \
+            EncoderFormatRepository, UnknownEncoderFormatError
 
         try:
-            return FormatRepository.findByExtension(self.extension)
-        except FormatError:
+            return EncoderFormatRepository.findByExtension(self.extension)
+        except UnknownEncoderFormatError:
             return None
 
 

@@ -35,9 +35,9 @@ Translator.load('dataset')
 # Classes
 
 
-class Format(AbstractClass):
+class EncoderFormat(AbstractClass):
     '''
-    Abstract file format base class.
+    Abstract encoder file format base class.
     '''
 
     @classproperty
@@ -89,13 +89,6 @@ class Format(AbstractClass):
         '''
         return False
 
-    @classproperty
-    def isExportable(self):
-        '''
-        Tells whether the file format is exportable or not.
-        '''
-        return False
-
     def __repr__(self):
         '''
         Returns a string representation of this format class.
@@ -103,112 +96,110 @@ class Format(AbstractClass):
         return self.name
 
 
-class FormatFactory(object):
+class EncoderFormatFactory(object):
     '''
-    File format factory class.
+    Encoder file format factory class.
     '''
 
     @classmethod
     def fromName(cls, name):
         '''
-        Factories a file format class for a given file format name.
+        Factories a encoder file format class for a given file format name.
 
         Arguments:
-            name (str): The file format name to retrieve a file format class
+            name (str):
+                The file format name to retrieve a encoder file format class
 
         Returns:
-            Format: The file format class instance
+            geodatabr.encoders.EncoderFormat:
+                The encoder file format class instance
 
         Raises:
-            UnknownFormatError: When a given format is not found
+            geodatabr.encoders.UnknownEncoderFormatError:
+                When a given encoder format is not found
         '''
-        format_ = FormatRepository.findByName(name)
+        format_ = EncoderFormatRepository.findByName(name)
 
         return format_()
 
 
-class FormatRepository(object):
+class EncoderFormatRepository(object):
     '''
-    File format repository class.
+    Encoder file format repository class.
     '''
 
     @staticmethod
     def findByName(name, strict=False):
         '''
-        Returns the format with the given name.
+        Returns the encoder file format with the given name.
 
         Arguments:
-            name (str): The file format name
+            name (str): The encoder file format name
             strict (bool): Whether it should do a loose or strict search
 
         Returns:
-            Format: The file format class
+            geodatabr.encoders.EncoderFormat: The encoder file format class
 
         Raises:
-            UnknownFormatError: When a given file format is not found
+            geodatabr.encoders.UnknownEncoderFormatError:
+                When a given encoder file format is not found
         '''
-        for _format in Format.childs():
+        for _format in EncoderFormat.childs():
             if _format.name == (name if strict else name.lower()):
                 return _format
 
-        raise UnknownFormatError('No format found with this name: {}' \
-                                     .format(name))
+        raise UnknownEncoderFormatError(
+            'No encoder format found with this name: {}'.format(name))
 
     @staticmethod
     def findByExtension(extension, strict=False):
         '''
-        Returns the format with the given extension.
+        Returns the encoder file format with the given extension.
 
         Arguments:
-            extension (str): The file format extension
+            extension (str): The encoder file format extension
             strict (bool): Whether it should do a loose or strict search
 
         Returns:
-            Format: The file format class
+            geodatabr.encoders.EncoderFormat: The encoder file format class
 
         Raises:
-            UnknownFormatError: When a given file format is not found
+            geodatabr.encoders.UnknownEncoderFormatError:
+                When a given encoder file format is not found
         '''
-        for _format in Format.childs():
+        for _format in EncoderFormat.childs():
             if (_format.extension
                     == (extension if strict else extension.lower())):
                 return _format
 
-        raise UnknownFormatError('No format found with this extension: {}' \
-                                     .format(extension))
-
-    @staticmethod
-    def findExportableFormats():
-        '''
-        Returns a list with all exportable formats.
-
-        Returns:
-            list: A list with all exportable formats
-        '''
-        return [format_ for format_ in Format.childs() if format_.isExportable]
+        raise UnknownEncoderFormatError(
+            'No encoder format found with this extension: {}'.format(extension))
 
     @classmethod
-    def listExportableFormatNames(cls):
+    def listNames(cls):
         '''
-        Returns a list with all exportable format names.
+        Returns a list with all encoder format names.
 
         Returns:
-            list: A list with all exportable format names
+            list: A list with all encoder format names
         '''
-        return [format_.name for format_ in cls.findExportableFormats()]
+        return list(sorted([encoder._format.name
+                            for encoder in Encoder.childs()]))
 
     @classmethod
-    def groupExportableFormatsByType(cls):
+    def groupByType(cls):
         '''
-        Returns a list with all exportable formats grouped by their type.
+        Returns a list with all encoder formats grouped by their type.
 
         Returns:
-            list: A list with all exportable formats grouped by their type
+            list: A list with all encoder formats grouped by their type
         '''
         sorter = lambda format_: format_.type
 
-        return groupby(sorted(cls.findExportableFormats(), key=sorter),
-                       key=sorter)
+        return list(groupby(
+            sorted([encoder._format for encoder in Encoder.childs()],
+                   key=sorter),
+            key=sorter))
 
 
 class Encoder(AbstractClass):
@@ -312,14 +303,7 @@ class EncoderFactory(object):
             if encoder._format.name == _format:
                 return encoder(*args, **kwargs)
 
-        raise UnknownEncoderError('Unsupported encoding format')
-
-
-class FormatError(Exception):
-    '''
-    Generic exception class for file format errors.
-    '''
-    pass
+        raise UnknownEncoderError('Unsupported encoder format')
 
 
 class EncodeError(Exception):
@@ -329,14 +313,14 @@ class EncodeError(Exception):
     pass
 
 
-class UnknownFormatError(FormatError):
+class UnknownEncoderFormatError(Exception):
     '''
-    Exception class raised when a given file format is not found.
+    Exception class raised when a given encoder file format is not found.
     '''
     pass
 
 
-class UnknownEncoderError(EncodeError):
+class UnknownEncoderError(Exception):
     '''
     Exception class raised when a given encoder is not found.
     '''

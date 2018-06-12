@@ -19,13 +19,13 @@ import yaml
 
 from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import Encoder, Format
+from geodatabr.encoders import Encoder, EncoderFormat
 from geodatabr.encoders.yaml.utils import OrderedDumper
 
 # Classes
 
 
-class YamlFormat(Format):
+class YamlFormat(EncoderFormat):
     '''
     The file format class for YAML file format.
     '''
@@ -71,13 +71,6 @@ class YamlFormat(Format):
         The file format reference info.
         '''
         return 'https://en.wikipedia.org/wiki/YAML'
-
-    @classproperty
-    def isExportable(self):
-        '''
-        Tells whether the file format is exportable or not.
-        '''
-        return True
 
 
 class YamlEncoder(Encoder):

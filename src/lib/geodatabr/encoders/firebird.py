@@ -20,13 +20,13 @@ import fdb
 
 from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.core.helpers.filesystem import File
-from geodatabr.encoders import Encoder, Format
+from geodatabr.encoders import Encoder, EncoderFormat
 from geodatabr.encoders.sql import SqlEncoder
 
 # Classes
 
 
-class FirebirdFormat(Format):
+class FirebirdFormat(EncoderFormat):
     '''
     The file format class for Firebird Embedded file format.
     '''
@@ -77,13 +77,6 @@ class FirebirdFormat(Format):
     def isBinary(self):
         '''
         Tells whether the file format is binary or not.
-        '''
-        return True
-
-    @classproperty
-    def isExportable(self):
-        '''
-        Tells whether the file format is exportable or not.
         '''
         return True
 

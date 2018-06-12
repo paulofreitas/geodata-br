@@ -16,13 +16,13 @@ import tempfile
 # Package dependencies
 
 from geodatabr.core.helpers.decorators import classproperty
-from geodatabr.encoders import Encoder, Format
+from geodatabr.encoders import Encoder, EncoderFormat
 from geodatabr.encoders.sql import SqlEncoder
 
 # Classes
 
 
-class Sqlite3Format(Format):
+class Sqlite3Format(EncoderFormat):
     '''
     The file format class for SQLite 3 file format.
     '''
@@ -73,13 +73,6 @@ class Sqlite3Format(Format):
     def isBinary(self):
         '''
         Tells whether the file format is binary or not.
-        '''
-        return True
-
-    @classproperty
-    def isExportable(self):
-        '''
-        Tells whether the file format is exportable or not.
         '''
         return True
 

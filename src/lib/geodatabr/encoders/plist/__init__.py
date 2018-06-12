@@ -15,13 +15,13 @@ import io
 
 from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import Encoder, Format
+from geodatabr.encoders import Encoder, EncoderFormat
 from geodatabr.encoders.plist.utils import PlistDumper, BinaryFormat
 
 # Classes
 
 
-class PlistFormat(Format):
+class PlistFormat(EncoderFormat):
     '''
     The file format class for Property List file format.
     '''
@@ -72,13 +72,6 @@ class PlistFormat(Format):
     def isBinary(self):
         '''
         Tells whether the file format is binary or not.
-        '''
-        return True
-
-    @classproperty
-    def isExportable(self):
-        '''
-        Tells whether the file format is exportable or not.
         '''
         return True
 

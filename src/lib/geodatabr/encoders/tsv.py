@@ -10,13 +10,13 @@ TSV file encoder module
 # Package dependencies
 
 from geodatabr.core.helpers.decorators import classproperty
-from geodatabr.encoders import Encoder, Format
+from geodatabr.encoders import Encoder, EncoderFormat
 from geodatabr.encoders.csv import CsvEncoder
 
 # Classes
 
 
-class TsvFormat(Format):
+class TsvFormat(EncoderFormat):
     '''
     The file format class for TSV file format.
     '''
@@ -62,13 +62,6 @@ class TsvFormat(Format):
         The file format reference info.
         '''
         return 'https://en.wikipedia.org/wiki/Tab-separated_values'
-
-    @classproperty
-    def isExportable(self):
-        '''
-        Tells whether the file format is exportable or not.
-        '''
-        return True
 
 
 class TsvEncoder(Encoder):

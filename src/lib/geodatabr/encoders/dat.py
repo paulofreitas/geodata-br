@@ -10,12 +10,12 @@ Generic Data File file encoder module
 # Package dependencies
 
 from geodatabr.core.helpers.decorators import classproperty
-from geodatabr.encoders import Format
+from geodatabr.encoders import EncoderFormat
 
 # Classes
 
 
-class DatFormat(Format):
+class DatFormat(EncoderFormat):
     '''
     The file format class for Generic Data File file format.
     '''
@@ -54,10 +54,3 @@ class DatFormat(Format):
         The file format media type.
         '''
         return None
-
-    @classproperty
-    def isParseable(self):
-        '''
-        Tells whether the file format is parseable or not.
-        '''
-        return True

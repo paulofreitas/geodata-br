@@ -16,13 +16,13 @@ import io
 from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.dataset.schema import Entities
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import Encoder, Format
+from geodatabr.encoders import Encoder, EncoderFormat
 from geodatabr.encoders.sql.utils import SchemaGenerator
 
 # Classes
 
 
-class SqlFormat(Format):
+class SqlFormat(EncoderFormat):
     '''
     The file format class for SQL file format.
     '''
@@ -68,13 +68,6 @@ class SqlFormat(Format):
         The file format reference info.
         '''
         return 'https://en.wikipedia.org/wiki/SQL'
-
-    @classproperty
-    def isExportable(self):
-        '''
-        Tells whether the file format is exportable or not.
-        '''
-        return True
 
 
 class SqlEncoder(Encoder):
