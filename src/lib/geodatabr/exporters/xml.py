@@ -51,7 +51,7 @@ class XmlExporter(Exporter):
             ExportError: When data fails to export
         '''
         data = Serializer(forceStr=True, includeKey=True).serialize()
-        database = Element('database', name=_('dataset'))
+        database = Element('database', name=_('dataset_name'))
 
         for table_name, rows in iter(data.items()):
             database.append(Comment(' Table {} '.format(table_name)))

@@ -25,7 +25,7 @@ from geodatabr.formats import FormatRepository
 # Setup translator
 
 Translator.locale = 'en'
-Translator.load('databases')
+Translator.load('dataset')
 
 # Classes
 
@@ -180,7 +180,7 @@ class DatasetReadme(Readme):
         Returns:
             str: The dataset files info
         '''
-        files = list(self._dataset_dir.files(pattern=_('dataset') + '*'))
+        files = list(self._dataset_dir.files(pattern=_('dataset_name') + '*'))
         grouped_files = groupby(sorted(files, key=lambda file: file.format.type),
                                 key=lambda file: file.format.type)
         listing = []

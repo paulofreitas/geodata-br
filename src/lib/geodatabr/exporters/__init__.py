@@ -91,7 +91,7 @@ class Exporter(AbstractClass):
             return sys.stdout.write(data + '\n')
 
         if filename == 'auto':
-            filename = _('dataset') + extension
+            filename = _('dataset_name') + extension
 
         writeMode = 'wb' if self.format.isBinary else 'w'
 
