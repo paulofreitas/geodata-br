@@ -12,7 +12,7 @@ Export command module
 from geodatabr.commands import Command
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import Logger
-from geodatabr.exporters import ExporterFactory
+from geodatabr.encoders import EncoderFactory
 from geodatabr.formats import FormatRepository
 
 # Module logging
@@ -52,7 +52,7 @@ class DatasetExporterCommand(Command):
         '''
         Defines the command arguments.
         '''
-        locales = Translator.locales()
+        Translator.locales()
 
         self.addArgument('-f', '--format',
                          metavar='FORMAT',
@@ -78,7 +78,7 @@ class DatasetExporterCommand(Command):
         Handles the command.
 
         Raises:
-            ExportError: When dataset fails to export
+            geodatabr.encoders.EncodeError: When dataset fails to encode
         '''
         if not args.format:
             self._parser.error(
@@ -87,7 +87,7 @@ class DatasetExporterCommand(Command):
         Translator.locale = args.locale
 
         try:
-            exporter = ExporterFactory.fromFormat(args.format)
-            exporter.exportToFile(args.filename)
+            encoder = EncoderFactory.fromFormat(args.format)
+            encoder.encodeToFile(args.filename)
         except KeyboardInterrupt:
             logger.info('> Exporting was canceled.')

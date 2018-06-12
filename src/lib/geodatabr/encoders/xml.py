@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-XML file exporter module
+XML file encoder module
 '''
 # Imports
 
@@ -19,7 +19,7 @@ from lxml.etree import Comment, Element, SubElement, tostring as xml_str
 
 from geodatabr.core.i18n import _, Translator
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.exporters import Exporter
+from geodatabr.encoders import Encoder
 from geodatabr.formats.xml import XmlFormat
 
 # Translator setup
@@ -29,26 +29,26 @@ Translator.load('dataset')
 # Classes
 
 
-class XmlExporter(Exporter):
+class XmlEncoder(Encoder):
     '''
-    XML exporter class.
+    XML encoder class.
     '''
 
-    # Exporter format
+    # Encoder format
     _format = XmlFormat
 
-    def export(self, **options):
+    def encode(self, **options):
         '''
-        Exports the data into a XML file-like stream.
+        Encodes the data into a XML file-like stream.
 
         Arguments:
-            options (dict): The exporting options
+            options (dict): The encoding options
 
         Returns:
             io.StringIO: A XML file-like stream
 
         Raises:
-            ExportError: When data fails to export
+            geodatabr.encoders.EncodeError: When data fails to encode
         '''
         data = Serializer(forceStr=True, includeKey=True).serialize()
         database = Element('database', name=_('dataset_name'))

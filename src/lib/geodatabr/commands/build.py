@@ -14,7 +14,7 @@ from geodatabr.core.constants import DATA_DIR
 from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import Logger
-from geodatabr.exporters import ExporterFactory
+from geodatabr.encoders import EncoderFactory
 from geodatabr.formats import FormatRepository
 
 # Module logging
@@ -87,8 +87,8 @@ class BuildCommand(Command):
 
                 with dataset_dir:
                     for dataset_format in args.formats:
-                        exporter = ExporterFactory.fromFormat(dataset_format)
-                        exporter.exportToFile()
+                        encoder = EncoderFactory.fromFormat(dataset_format)
+                        encoder.encodeToFile()
 
                     logger.info('Generating dataset README file...')
 

@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-SQL file exporter module
+SQL file encoder module
 '''
 # Imports
 
@@ -13,35 +13,35 @@ import io
 
 # Package dependencies
 
-from geodatabr.exporters import Exporter
 from geodatabr.dataset.schema import Entities
 from geodatabr.dataset.serializers import Serializer
+from geodatabr.encoders import Encoder
 from geodatabr.formats.sql import SqlFormat
 from geodatabr.formats.sql.utils import SchemaGenerator
 
 # Classes
 
 
-class SqlExporter(Exporter):
+class SqlEncoder(Encoder):
     '''
-    SQL exporter class.
+    SQL encoder class.
     '''
 
-    # Exporter format
+    # Encoder format
     _format = SqlFormat
 
-    def export(self, **options):
+    def encode(self, **options):
         '''
-        Exports the data into a SQL file-like stream.
+        Encodes the data into a SQL file-like stream.
 
         Arguments:
-            options (dict): The exporting options
+            options (dict): The encoding options
 
         Returns:
             io.StringIO: A SQL file-like stream
 
         Raises:
-            ExportError: When data fails to export
+            geodatabr.encoders.EncodeError: When data fails to encode
         '''
         data = Serializer(localize=False, includeKey=True).serialize()
         schema = SchemaGenerator(options.get('dialect', 'default'))

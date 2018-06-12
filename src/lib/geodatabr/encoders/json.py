@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-JSON file exporter module
+JSON file encoder module
 '''
 # Imports
 
@@ -15,32 +15,32 @@ import json
 # Package dependencies
 
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.exporters import Exporter
+from geodatabr.encoders import Encoder
 from geodatabr.formats.json import JsonFormat
 
 # Classes
 
 
-class JsonExporter(Exporter):
+class JsonEncoder(Encoder):
     '''
-    JSON exporter class.
+    JSON encoder class.
     '''
 
-    # Exporter format
+    # Encoder format
     _format = JsonFormat
 
-    def export(self, **options):
+    def encode(self, **options):
         '''
-        Exports the data into a JSON file-like stream.
+        Encodes the data into a JSON file-like stream.
 
         Arguments:
-            options (dict): The exporting options
+            options (dict): The encoding options
 
         Returns:
             io.StringIO: A JSON file-like stream
 
         Raises:
-            ExportError: When data fails to export
+            geodatabr.encoders.EncodeError: When data fails to encode
         '''
         data = Serializer().serialize()
         json_data = json.dumps(data,

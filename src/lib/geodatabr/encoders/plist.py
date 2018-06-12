@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-Property List file exporter module
+Property List file encoder module
 '''
 # Imports
 
@@ -14,33 +14,33 @@ import io
 # Package dependencies
 
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.exporters import Exporter
+from geodatabr.encoders import Encoder
 from geodatabr.formats.plist import PlistFormat
 from geodatabr.formats.plist.utils import PlistDumper, BinaryFormat
 
 # Classes
 
 
-class PlistExporter(Exporter):
+class PropertyListEncoder(Encoder):
     '''
-    Property List exporter class.
+    Property List encoder class.
     '''
 
-    # Exporter format
+    # Encoder format
     _format = PlistFormat
 
-    def export(self, **options):
+    def encode(self, **options):
         '''
-        Exports the data into a Property List file-like stream.
+        Encodes the data into a Property List file-like stream.
 
         Arguments:
-            options (dict): The exporting options
+            options (dict): The encoding options
 
         Returns:
             io.BytesIO: A Property List file-like stream
 
         Raises:
-            ExportError: When data fails to export
+            geodatabr.encoders.EncodeError: When data fails to encode
         '''
         data = Serializer(forceStrKeys=True).serialize()
         plist_data = PlistDumper(data,

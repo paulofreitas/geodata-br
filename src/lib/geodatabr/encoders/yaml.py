@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-YAML file exporter module
+YAML file encoder module
 '''
 # Imports
 
@@ -18,33 +18,33 @@ import yaml
 # Package dependencies
 
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.exporters import Exporter
+from geodatabr.encoders import Encoder
 from geodatabr.formats.yaml import YamlFormat
 from geodatabr.formats.yaml.utils import OrderedDumper
 
 # Classes
 
 
-class YamlExporter(Exporter):
+class YamlEncoder(Encoder):
     '''
-    YAML exporter class.
+    YAML encoder class.
     '''
 
-    # Exporter format
+    # Encoder format
     _format = YamlFormat
 
-    def export(self, **options):
+    def encode(self, **options):
         '''
-        Exports the data into a YAML file-like stream.
+        Encodes the data into a YAML file-like stream.
 
         Arguments:
-            options (dict): The exporting options
+            options (dict): The encoding options
 
         Returns:
             io.StringIO: A YAML file-like stream
 
         Raises:
-            ExportError: When data fails to export
+            geodatabr.encoders.EncodeError: When data fails to encode
         '''
         data = Serializer().serialize()
         yaml_data = yaml.dump(data,

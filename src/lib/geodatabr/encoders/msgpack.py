@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-MessagePack file exporter module
+MessagePack file encoder module
 '''
 # Imports
 
@@ -15,32 +15,32 @@ import msgpack
 # Package dependencies
 
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.exporters import Exporter
+from geodatabr.encoders import Encoder
 from geodatabr.formats.msgpack import MessagePackFormat
 
 # Classes
 
 
-class MessagePackExporter(Exporter):
+class MessagePackEncoder(Encoder):
     '''
-    MessagePack exporter class.
+    MessagePack encoder class.
     '''
 
-    # Exporter format
+    # Encoder format
     _format = MessagePackFormat
 
-    def export(self, **options):
+    def encode(self, **options):
         '''
-        Exports the data into a MessagePack file-like stream.
+        Encodes the data into a MessagePack file-like stream.
 
         Arguments:
-            options (dict): The exporting options
+            options (dict): The encoding options
 
         Returns:
             io.BytesIO: A MessagePack file-like stream
 
         Raises:
-            ExportError: When data fails to export
+            geodatabr.encoders.EncodeError: When data fails to encode
         '''
         unpacked = Serializer().serialize()
         packed = msgpack.packb(unpacked, use_bin_type=False)

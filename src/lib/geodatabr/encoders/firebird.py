@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-Firebird Embedded file exporter module
+Firebird Embedded file encoder module
 '''
 # Imports
 
@@ -19,36 +19,36 @@ import fdb
 # Package dependencies
 
 from geodatabr.core.helpers.filesystem import File
-from geodatabr.exporters import Exporter
-from geodatabr.exporters.sql import SqlExporter
+from geodatabr.encoders import Encoder
+from geodatabr.encoders.sql import SqlEncoder
 from geodatabr.formats.firebird import FirebirdFormat
 
 # Classes
 
 
-class FirebirdExporter(Exporter):
+class FirebirdEncoder(Encoder):
     '''
-    Firebird exporter class.
+    Firebird encoder class.
     '''
 
-    # Exporter format
+    # Encoder format
     _format = FirebirdFormat
 
-    def export(self, **options):
+    def encode(self, **options):
         '''
-        Exports the data into a Firebird Embedded file-like stream.
+        Encodes the data into a Firebird Embedded file-like stream.
 
         Arguments:
-            options (dict): The exporting options
+            options (dict): The encoding options
 
         Returns:
             io.BytesIO: A Firebird Embedded file-like stream
 
         Raises:
-            ExportError: When data fails to export
+            geodatabr.encoders.EncodeError: When data fails to encode
         '''
         sql_options = dict(options, dialect='firebird')
-        sql_data = SqlExporter().export(**sql_options)
+        sql_data = SqlEncoder().encode(**sql_options)
         fdb_data = io.BytesIO()
         fdb_file = tempfile.mktemp()
         fdb_con = fdb.create_database(

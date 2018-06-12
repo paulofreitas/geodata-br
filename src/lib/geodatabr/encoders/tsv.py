@@ -3,40 +3,40 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-TSV file exporter module
+TSV file encoder module
 '''
 # Imports
 
 # Package dependencies
 
-from geodatabr.exporters import Exporter
-from geodatabr.exporters.csv import CsvExporter
+from geodatabr.encoders import Encoder
+from geodatabr.encoders.csv import CsvEncoder
 from geodatabr.formats.tsv import TsvFormat
 
 # Classes
 
 
-class TsvExporter(Exporter):
+class TsvEncoder(Encoder):
     '''
-    TSV exporter class.
+    TSV encoder class.
     '''
 
-    # Exporter format
+    # Encoder format
     _format = TsvFormat
 
-    def export(self, **options):
+    def encode(self, **options):
         '''
-        Exports the data into a TSV file-like stream.
+        Encodes the data into a TSV file-like stream.
 
         Arguments:
-            options (dict): The exporting options
+            options (dict): The encoding options
 
         Returns:
             io.StringIO: A TSV file-like stream
 
         Raises:
-            ExportError: When data fails to export
+            geodatabr.encoders.EncodeError: When data fails to encode
         '''
         tsv_options = dict(options, delimiter='\t')
 
-        return CsvExporter().export(**tsv_options)
+        return CsvEncoder().encode(**tsv_options)

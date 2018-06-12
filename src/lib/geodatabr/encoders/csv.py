@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-CSV file exporter module
+CSV file encoder module
 '''
 # Imports
 
@@ -16,33 +16,33 @@ from csv import DictWriter
 
 # Package dependencies
 
-from geodatabr.exporters import Exporter
 from geodatabr.dataset.serializers import FlattenedSerializer
+from geodatabr.encoders import Encoder
 from geodatabr.formats.csv import CsvFormat
 
 # Classes
 
 
-class CsvExporter(Exporter):
+class CsvEncoder(Encoder):
     '''
-    CSV exporter class.
+    CSV encoder class.
     '''
 
-    # Exporter format
+    # Encoder format
     _format = CsvFormat
 
-    def export(self, **options):
+    def encode(self, **options):
         '''
-        Exports the data into a CSV file-like stream.
+        Encodes the data into a CSV file-like stream.
 
         Arguments:
-            options (dict): The exporting options
+            options (dict): The encoding options
 
         Returns:
             io.StringIO: A CSV file-like stream
 
         Raises:
-            ExportError: When data fails to export
+            geodatabr.encoders.EncodeError: When data fails to encode
         '''
         rows = FlattenedSerializer().serialize()
         csv_data = io.StringIO()
