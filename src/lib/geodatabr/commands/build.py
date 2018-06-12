@@ -11,6 +11,8 @@ Build command module
 
 from geodatabr.commands import Command
 from geodatabr.core.constants import DATA_DIR
+from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
+from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import Logger
 from geodatabr.exporters import ExporterFactory
@@ -23,9 +25,9 @@ logger = Logger.instance(__name__)
 # Classes
 
 
-class DatasetBuilderCommand(Command):
+class BuildCommand(Command):
     '''
-    The dataset builder command.
+    A command class to build the dataset files.
     '''
 
     @property
@@ -40,7 +42,7 @@ class DatasetBuilderCommand(Command):
         '''
         Defines the command description.
         '''
-        return 'Builds the dataset distribution data'
+        return 'Build the dataset files'
 
     @property
     def usage(self):
@@ -60,7 +62,7 @@ class DatasetBuilderCommand(Command):
                          metavar='LOCALE',
                          nargs='*',
                          default=locales,
-                         help=('Locales to build.\n'
+                         help=('Locales to build the dataset.\n'
                                'Defaults to all available: {}' \
                                    .format(', '.join(locales))))
         self.addArgument('-f', '--formats',
@@ -88,5 +90,13 @@ class DatasetBuilderCommand(Command):
                     for dataset_format in args.formats:
                         exporter = ExporterFactory.fromFormat(dataset_format)
                         exporter.exportToFile()
+
+                    logger.info('Generating dataset README file...')
+
+                    DatasetReadme(dataset_dir).write()
+
+            logger.info('Generating project README file...')
+
+            ProjectReadme().write()
         except KeyboardInterrupt:
-            logger.info('> Building was canceled.')
+            logger.info('Building was canceled.')
