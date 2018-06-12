@@ -12,7 +12,6 @@ Build command module
 from geodatabr.commands import Command
 from geodatabr.core.constants import DATA_DIR
 from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
-from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import Logger
 from geodatabr.exporters import ExporterFactory

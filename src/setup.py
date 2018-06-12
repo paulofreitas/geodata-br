@@ -20,18 +20,18 @@ if sys.version_info[:2] < (3, 4):
 
 # Routines
 
-with open('lib/geodatabr/__init__.py') as metadata:
-    exec(metadata.read())
+with open('lib/geodatabr/__init__.py') as package:
+    __metadata__ = exec(package.read()) # pylint: disable=exec-used
 
 setup(
     # Package metadata
-    name=__name__,
-    version=__version__,
-    description=__description__,
-    license=__license__,
-    url=__url__,
-    author=__author_name__,
-    author_email=__author_email__,
+    name=__metadata__['__package_name__'],
+    version=__metadata__['__version__'],
+    description=__metadata__['__description__'],
+    license=__metadata__['__license__'],
+    url=__metadata__['__url__'],
+    author=__metadata__['__author_name__'],
+    author_email=__metadata__['__author_email__'],
 
     # Package distribution
     packages=find_packages('lib'),

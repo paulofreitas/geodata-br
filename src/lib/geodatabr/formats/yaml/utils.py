@@ -11,13 +11,13 @@ YAML file format utils module
 
 from collections import OrderedDict
 
-# Package dependencies
-
-from geodatabr.core.types import Map, OrderedMap
-
 # External dependencies
 
 import yaml
+
+# Package dependencies
+
+from geodatabr.core.types import Map, OrderedMap
 
 # Classes
 

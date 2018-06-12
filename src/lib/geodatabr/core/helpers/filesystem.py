@@ -36,7 +36,7 @@ class Path(type(pathlib.Path())):
 
         return self
 
-    def __exit__(self, *_):
+    def __exit__(self, exc_type, exc_value, traceback):
         '''
         Magic method to allow changing the working directory to the previous
         path.
@@ -85,7 +85,7 @@ class Path(type(pathlib.Path())):
         '''
         Returns the path's owner group ID.
         '''
-        return self._gid
+        return self.stat().st_gid
 
     @property
     def mode(self):

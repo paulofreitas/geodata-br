@@ -17,13 +17,13 @@ from abc import ABCMeta
 from collections import OrderedDict
 from struct import Struct
 
-# Package dependencies
-
-from geodatabr.core.helpers.bootstrapping import ModuleLoader
-
 # External dependencies
 
 import yaml
+
+# Package dependencies
+
+from geodatabr.core.helpers.bootstrapping import ModuleLoader
 
 # Classes
 
@@ -85,12 +85,6 @@ class Map(dict):
     '''
     An improved dictionary that provides attribute-style access to keys.
     '''
-
-    def __init__(self, *args, **kwargs):
-        '''
-        Constructor.
-        '''
-        super().__init__(*args, **kwargs)
 
     def __getattr__(self, key):
         '''

@@ -89,15 +89,15 @@ class SchemaGenerator(object):
         ddl.append('--\n-- Structure for table "{}"\n--\n'.format(_(table.name)))
         ddl.append(self._compiler.createTable(table))
 
-        if len(table._records):
+        if table._records:
             ddl.append('\n--\n-- Data for table "{}"\n--\n'.format(_(table.name)))
             ddl.append(self._compiler.inserts(table, table._records.values()))
 
-        if len(table.foreign_keys) and self._dialect.supports_alter:
+        if table.foreign_keys and self._dialect.supports_alter:
             ddl.append('\n--\n-- Constraints for table "{}"\n--\n'.format(_(table.name)))
             ddl.append(self._compiler.addConstraints(table))
 
-        if createIndexes and len(table.indexes):
+        if createIndexes and table.indexes:
             ddl.append('\n--\n-- Indexes for table "{}"\n--\n'.format(_(table.name)))
             ddl.append(self._compiler.createIndexes(table))
 
@@ -275,6 +275,8 @@ class SqlCompiler(object):
         if isinstance(constraint, ForeignKeyConstraint):
             return self.foreignKeyConstraint(constraint)
 
+        return ''
+
     @cachedmethod()
     def primaryKeyConstraint(self, constraint):
         '''
@@ -354,7 +356,7 @@ class SqlCompiler(object):
             str: The DDL for the ALTER TABLE ADD CONSTRAINT statements
         '''
         if not self._dialect.supports_alter:
-            return
+            return ''
 
         ddl = []
 

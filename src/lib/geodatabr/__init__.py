@@ -9,7 +9,7 @@ Brazilian geographic data exporter package
 
 VERSION = (18, 6, 'dev') # CalVer YY.MM[.ID] (see https://calver.org/)
 
-__name__ = 'geodatabr'
+__package_name__ = 'geodatabr'
 __description__ = 'Brazilian geographic data exporter'
 __version__ = '.'.join(map(str, VERSION))
 __author_name__ = 'Paulo Freitas'

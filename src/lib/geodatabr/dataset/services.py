@@ -15,17 +15,17 @@ import logging
 
 from urllib.parse import urljoin
 
-# Package dependencies
-
-from geodatabr import __version__, __url__
-from geodatabr.core.types import Map
-
 # External dependencies
 
 from requests import Session
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 from ratelimit import limits, sleep_and_retry
+
+# Package dependencies
+
+from geodatabr import __version__, __url__
+from geodatabr.core.types import Map
 
 # Logging setup
 
@@ -57,12 +57,12 @@ class HttpSession(Session):
     Custom HTTP session implementation.
     '''
 
-    def __init__(self, base_url=None, *args, **kwargs):
+    def __init__(self, base_url, *args, **kwargs):
         '''
         Constructor.
 
         Args:
-            base_url (str): The base URL for this HTTP session, if any
+            base_url (str): The base URL for this HTTP session
         '''
         super().__init__(*args, **kwargs)
         self._base_url = base_url
@@ -96,10 +96,9 @@ class HttpSession(Session):
         if kwargs.get('timeout') is None:
             kwargs.update(timeout=(HTTP_CONNECT_TIMEOUT, HTTP_READ_TIMEOUT))
 
-        if self._base_url:
-            url = urljoin(self._base_url, url)
-
-        response = super().request(method, url, **kwargs)
+        response = super().request(method,
+                                   urljoin(self._base_url, url),
+                                   **kwargs)
         response.raise_for_status()
 
         return response
@@ -201,7 +200,7 @@ class SidraDataset(object):
             records = self._session \
                 .get('/Territorio/Unidades', params={'nivel': level}) \
                 .json()
-        except:
+        except Exception:
             records = {}
 
         return SidraDatasetResponse(records)
@@ -226,7 +225,7 @@ class SidraDataset(object):
                              'abrangente': parent_level,
                              'unidade': parent_id}) \
                 .json()
-        except:
+        except Exception:
             records = {}
 
         return SidraDatasetResponse(records)

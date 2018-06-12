@@ -9,15 +9,15 @@ This module provides the core classes to access and manage the database.
 '''
 # Imports
 
-# Package dependencies
-
-from geodatabr.core.helpers.filesystem import CacheDirectory, CacheFile
-from geodatabr.dataset.schema import Entity
-
 # External dependencies
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+# Package dependencies
+
+from geodatabr.core.helpers.filesystem import CacheDirectory, CacheFile
+from geodatabr.dataset.schema import Entity
 
 # Classes
 

@@ -43,7 +43,7 @@ class Translation(object):
         self._domains = self._translations.keys()
 
         if domain in self._domains:
-           self._translations = self._translations.get(domain)
+            self._translations = self._translations.get(domain)
 
     @property
     def locale(self):

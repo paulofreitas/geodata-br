@@ -9,16 +9,16 @@ This module provides the repositories classes used to query the dataset.
 '''
 # Imports
 
+# External dependencies
+
+from sqlalchemy.orm import subqueryload
+
 # Package dependencies
 
 from geodatabr.core.types import AbstractClass
 from geodatabr.dataset import Database
 from geodatabr.dataset.schema import \
     State, Mesoregion, Microregion, Municipality, District, Subdistrict
-
-# External dependencies
-
-from sqlalchemy.orm import subqueryload
 
 # Classes
 
@@ -61,18 +61,18 @@ class Repository(AbstractClass):
         return Database.query(cls.entity).all()
 
     @classmethod
-    def findById(cls, id):
+    def findById(cls, _id):
         '''
         Retrieves a single entity item by ID.
 
         Args:
-            id (int): The entity item ID
+            _id (int): The entity item ID
 
         Returns:
             geodatabr.dataset.schema.Entity: An entity item
         '''
         return Database.query(cls.entity) \
-            .filter(cls.entity.id == id) \
+            .filter(cls.entity.id == _id) \
             .first()
 
     @classmethod
@@ -152,17 +152,17 @@ class StateRepository(Repository):
             .all()
 
     @classmethod
-    def findById(cls, id):
+    def findById(cls, _id):
         '''
         Retrieves a single state by ID.
 
         Args:
-            id (int): The state ID
+            _id (int): The state ID
 
         Returns:
             geodatabr.dataset.schema.State: The state record
         '''
-        return super().findById(id)
+        return super().findById(_id)
 
     @classmethod
     def findByName(cls, name):
@@ -238,17 +238,17 @@ class MesoregionRepository(Repository):
             .all()
 
     @classmethod
-    def findById(cls, id):
+    def findById(cls, _id):
         '''
         Retrieves a single mesoregion by ID.
 
         Args:
-            id (int): The mesoregion ID
+            _id (int): The mesoregion ID
 
         Returns:
             geodatabr.dataset.schema.Mesoregion: The mesoregion record
         '''
-        return super().findById(id)
+        return super().findById(_id)
 
     @classmethod
     def findByName(cls, name):
@@ -323,17 +323,17 @@ class MicroregionRepository(Repository):
             .all()
 
     @classmethod
-    def findById(cls, id):
+    def findById(cls, _id):
         '''
         Retrieves a single microregion by ID.
 
         Args:
-            id (int): The microregion ID
+            _id (int): The microregion ID
 
         Returns:
             geodatabr.dataset.schema.Microregion: The microregion record
         '''
-        return super().findById(id)
+        return super().findById(_id)
 
     @classmethod
     def findByName(cls, name):
@@ -407,17 +407,17 @@ class MunicipalityRepository(Repository):
             .all()
 
     @classmethod
-    def findById(cls, id):
+    def findById(cls, _id):
         '''
         Retrieves a single municipality by ID.
 
         Args:
-            id (int): The municipality ID
+            _id (int): The municipality ID
 
         Returns:
             geodatabr.dataset.schema.Municipality: The municipality record
         '''
-        return super().findById(id)
+        return super().findById(_id)
 
     @classmethod
     def findByName(cls, name):
@@ -490,17 +490,17 @@ class DistrictRepository(Repository):
             .all()
 
     @classmethod
-    def findById(cls, id):
+    def findById(cls, _id):
         '''
         Retrieves a single district by ID.
 
         Args:
-            id (int): The district ID
+            _id (int): The district ID
 
         Returns:
             geodatabr.dataset.schema.District: The district record
         '''
-        return super().findById(id)
+        return super().findById(_id)
 
     @classmethod
     def findByName(cls, name):
@@ -561,17 +561,17 @@ class SubdistrictRepository(Repository):
         return super().findAll()
 
     @classmethod
-    def findById(cls, id):
+    def findById(cls, _id):
         '''
         Retrieves a single subdistrict by ID.
 
         Args:
-            id (int): The subdistrict ID
+            _id (int): The subdistrict ID
 
         Returns:
             geodatabr.dataset.schema.Subdistrict: The subdistrict record
         '''
-        return super().findById(id)
+        return super().findById(_id)
 
     @classmethod
     def findByName(cls, name):
@@ -596,7 +596,7 @@ class SubdistrictRepository(Repository):
 
 class RepositoryFactory(object):
     '''
-    Factory class for instantiation of concrete repositories. 
+    Factory class for instantiation of concrete repositories.
     '''
 
     @staticmethod

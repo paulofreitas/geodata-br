@@ -107,7 +107,7 @@ class Serializer(BaseSerializer):
             table = str(entity.__table__.name)
             _records = self.__records__[table]
 
-            if not len(_records):
+            if not _records:
                 continue
 
             if self._options.localize:

@@ -9,17 +9,16 @@ This module provides the entities used to describe the database.
 '''
 # Imports
 
-# Package dependencies
-
-from geodatabr.core.types import OrderedMap
-
 # External dependencies
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import Column, ForeignKey, MetaData, Table
 from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
+
+# Package dependencies
+
+from geodatabr.core.types import OrderedMap
 
 # Aliases
 
@@ -56,7 +55,7 @@ class Entity(declarative_base()):
         '''
         if not flatten:
             return OrderedMap({column.name: getattr(self, column.name)
-                       for column in self.__table__.columns})
+                               for column in self.__table__.columns})
 
         def _flatten(entity):
             flattened = OrderedMap()

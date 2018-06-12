@@ -56,8 +56,7 @@ class SeedCommand(Command):
             DatabaseHelper.create()
 
             for entity in Entities:
-                logger.info('> Seeding table "{}"...' \
-                    .format(entity.__table__.name))
+                logger.info('> Seeding table "%s"...', entity.__table__.name)
 
                 try:
                     SeederFactory(entity).run()

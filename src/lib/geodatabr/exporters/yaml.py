@@ -10,7 +10,6 @@ YAML file exporter module
 # Built-in dependencies
 
 import io
-import re
 
 # External dependencies
 
