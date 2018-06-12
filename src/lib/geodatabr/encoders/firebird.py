@@ -18,12 +18,74 @@ import fdb
 
 # Package dependencies
 
+from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.core.helpers.filesystem import File
-from geodatabr.encoders import Encoder
+from geodatabr.encoders import Encoder, Format
 from geodatabr.encoders.sql import SqlEncoder
-from geodatabr.formats.firebird import FirebirdFormat
 
 # Classes
+
+
+class FirebirdFormat(Format):
+    '''
+    The file format class for Firebird Embedded file format.
+    '''
+
+    @classproperty
+    def name(self):
+        '''
+        The file format name.
+        '''
+        return 'firebird'
+
+    @classproperty
+    def friendlyName(self):
+        '''
+        The file format friendly name.
+        '''
+        return 'Firebird Embedded'
+
+    @classproperty
+    def extension(self):
+        '''
+        The file format extension.
+        '''
+        return '.fdb'
+
+    @classproperty
+    def type(self):
+        '''
+        The file format type.
+        '''
+        return 'Database'
+
+    @classproperty
+    def mimeType(self):
+        '''
+        The file format media type.
+        '''
+        return None
+
+    @classproperty
+    def info(self):
+        '''
+        The file format reference info.
+        '''
+        return 'https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded'
+
+    @classproperty
+    def isBinary(self):
+        '''
+        Tells whether the file format is binary or not.
+        '''
+        return True
+
+    @classproperty
+    def isExportable(self):
+        '''
+        Tells whether the file format is exportable or not.
+        '''
+        return True
 
 
 class FirebirdEncoder(Encoder):

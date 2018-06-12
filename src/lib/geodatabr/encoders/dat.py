@@ -3,21 +3,21 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-Firebird Embedded file format module
+Generic Data File file encoder module
 '''
 # Imports
 
 # Package dependencies
 
 from geodatabr.core.helpers.decorators import classproperty
-from geodatabr.formats import Format
+from geodatabr.encoders import Format
 
 # Classes
 
 
-class FirebirdFormat(Format):
+class DatFormat(Format):
     '''
-    The file format class for Firebird Embedded file format.
+    The file format class for Generic Data File file format.
     '''
 
     @classproperty
@@ -25,28 +25,28 @@ class FirebirdFormat(Format):
         '''
         The file format name.
         '''
-        return 'firebird'
+        return 'dat'
 
     @classproperty
     def friendlyName(self):
         '''
         The file format friendly name.
         '''
-        return 'Firebird Embedded'
+        return 'Generic Data File'
 
     @classproperty
     def extension(self):
         '''
         The file format extension.
         '''
-        return '.fdb'
+        return '.dat'
 
     @classproperty
     def type(self):
         '''
         The file format type.
         '''
-        return 'Database'
+        return 'Data'
 
     @classproperty
     def mimeType(self):
@@ -56,22 +56,8 @@ class FirebirdFormat(Format):
         return None
 
     @classproperty
-    def info(self):
+    def isParseable(self):
         '''
-        The file format reference info.
-        '''
-        return 'https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded'
-
-    @classproperty
-    def isBinary(self):
-        '''
-        Tells whether the file format is binary or not.
-        '''
-        return True
-
-    @classproperty
-    def isExportable(self):
-        '''
-        Tells whether the file format is exportable or not.
+        Tells whether the file format is parseable or not.
         '''
         return True

@@ -17,16 +17,71 @@ from lxml.etree import Comment, Element, SubElement, tostring as xml_str
 
 # Package dependencies
 
+from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.core.i18n import _, Translator
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import Encoder
-from geodatabr.formats.xml import XmlFormat
+from geodatabr.encoders import Encoder, Format
 
 # Translator setup
 
 Translator.load('dataset')
 
 # Classes
+
+
+class XmlFormat(Format):
+    '''
+    The file format class for XML file format.
+    '''
+
+    @classproperty
+    def name(self):
+        '''
+        The file format name.
+        '''
+        return 'xml'
+
+    @classproperty
+    def friendlyName(self):
+        '''
+        The file format friendly name.
+        '''
+        return 'XML'
+
+    @classproperty
+    def extension(self):
+        '''
+        The file format extension.
+        '''
+        return '.xml'
+
+    @classproperty
+    def type(self):
+        '''
+        The file format type.
+        '''
+        return 'Data Interchange'
+
+    @classproperty
+    def mimeType(self):
+        '''
+        The file format media type.
+        '''
+        return ['application/xml', 'text/xml']
+
+    @classproperty
+    def info(self):
+        '''
+        The file format reference info.
+        '''
+        return 'https://en.wikipedia.org/wiki/XML'
+
+    @classproperty
+    def isExportable(self):
+        '''
+        Tells whether the file format is exportable or not.
+        '''
+        return True
 
 
 class XmlEncoder(Encoder):

@@ -12,8 +12,7 @@ Export command module
 from geodatabr.commands import Command
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import Logger
-from geodatabr.encoders import EncoderFactory
-from geodatabr.formats import FormatRepository
+from geodatabr.encoders import EncoderFactory, FormatRepository
 
 # Module logging
 
@@ -52,7 +51,7 @@ class DatasetExporterCommand(Command):
         '''
         Defines the command arguments.
         '''
-        Translator.locales()
+        locales = Translator.locales()
 
         self.addArgument('-f', '--format',
                          metavar='FORMAT',

@@ -20,7 +20,7 @@ from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.helpers.markup import GithubMarkdown as Markdown
 from geodatabr.core.i18n import _, Translator
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.formats import FormatRepository
+from geodatabr.encoders import FormatRepository
 
 # Setup translator
 

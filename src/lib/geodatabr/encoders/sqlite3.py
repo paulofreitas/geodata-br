@@ -15,11 +15,73 @@ import tempfile
 
 # Package dependencies
 
-from geodatabr.encoders import Encoder
+from geodatabr.core.helpers.decorators import classproperty
+from geodatabr.encoders import Encoder, Format
 from geodatabr.encoders.sql import SqlEncoder
-from geodatabr.formats.sqlite3 import Sqlite3Format
 
 # Classes
+
+
+class Sqlite3Format(Format):
+    '''
+    The file format class for SQLite 3 file format.
+    '''
+
+    @classproperty
+    def name(self):
+        '''
+        The file format name.
+        '''
+        return 'sqlite3'
+
+    @classproperty
+    def friendlyName(self):
+        '''
+        The file format friendly name.
+        '''
+        return 'SQLite 3'
+
+    @classproperty
+    def extension(self):
+        '''
+        The file format extension.
+        '''
+        return '.sqlite3'
+
+    @classproperty
+    def type(self):
+        '''
+        The file format type.
+        '''
+        return 'Database'
+
+    @classproperty
+    def mimeType(self):
+        '''
+        The file format media type.
+        '''
+        return 'application/x-sqlite3'
+
+    @classproperty
+    def info(self):
+        '''
+        The file format reference info.
+        '''
+        return 'https://en.wikipedia.org/wiki/SQLite'
+
+    @classproperty
+    def isBinary(self):
+        '''
+        Tells whether the file format is binary or not.
+        '''
+        return True
+
+    @classproperty
+    def isExportable(self):
+        '''
+        Tells whether the file format is exportable or not.
+        '''
+        return True
 
 
 class Sqlite3Encoder(Encoder):

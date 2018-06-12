@@ -15,10 +15,6 @@ import os
 import pathlib
 import uuid
 
-# Package dependencies
-
-from geodatabr.formats import FormatRepository, FormatError
-
 # Classes
 
 
@@ -279,6 +275,8 @@ class File(Path):
         Returns:
             The file format
         '''
+        from geodatabr.encoders import FormatRepository, FormatError
+
         try:
             return FormatRepository.findByExtension(self.extension)
         except FormatError:

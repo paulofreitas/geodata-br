@@ -14,8 +14,7 @@ from geodatabr.core.constants import DATA_DIR
 from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import Logger
-from geodatabr.encoders import EncoderFactory
-from geodatabr.formats import FormatRepository
+from geodatabr.encoders import EncoderFactory, FormatRepository
 
 # Module logging
 

@@ -13,9 +13,12 @@ This package provides the dataset encoder modules.
 
 import sys
 
+from itertools import groupby
+
 # Package dependencies
 
 from geodatabr import __version__, __author__, __copyright__, __license__
+from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.i18n import _, Translator
 from geodatabr.core.logging import Logger
@@ -30,6 +33,182 @@ logger = Logger.instance(__name__)
 Translator.load('dataset')
 
 # Classes
+
+
+class Format(AbstractClass):
+    '''
+    Abstract file format base class.
+    '''
+
+    @classproperty
+    def name(self):
+        '''
+        The file format name.
+        '''
+        raise NotImplementedError
+
+    @classproperty
+    def friendlyName(self):
+        '''
+        The file format friendly name.
+        '''
+        raise NotImplementedError
+
+    @classproperty
+    def extension(self):
+        '''
+        The file format extension.
+        '''
+        raise NotImplementedError
+
+    @classproperty
+    def type(self):
+        '''
+        The file format type.
+        '''
+        raise NotImplementedError
+
+    @classproperty
+    def mimeType(self):
+        '''
+        The file format media type.
+        '''
+        raise NotImplementedError
+
+    @classproperty
+    def info(self):
+        '''
+        The file format reference info.
+        '''
+        raise NotImplementedError
+
+    @classproperty
+    def isBinary(self):
+        '''
+        Tells whether the file format is binary or not.
+        '''
+        return False
+
+    @classproperty
+    def isExportable(self):
+        '''
+        Tells whether the file format is exportable or not.
+        '''
+        return False
+
+    def __repr__(self):
+        '''
+        Returns a string representation of this format class.
+        '''
+        return self.name
+
+
+class FormatFactory(object):
+    '''
+    File format factory class.
+    '''
+
+    @classmethod
+    def fromName(cls, name):
+        '''
+        Factories a file format class for a given file format name.
+
+        Arguments:
+            name (str): The file format name to retrieve a file format class
+
+        Returns:
+            Format: The file format class instance
+
+        Raises:
+            UnknownFormatError: When a given format is not found
+        '''
+        format_ = FormatRepository.findByName(name)
+
+        return format_()
+
+
+class FormatRepository(object):
+    '''
+    File format repository class.
+    '''
+
+    @staticmethod
+    def findByName(name, strict=False):
+        '''
+        Returns the format with the given name.
+
+        Arguments:
+            name (str): The file format name
+            strict (bool): Whether it should do a loose or strict search
+
+        Returns:
+            Format: The file format class
+
+        Raises:
+            UnknownFormatError: When a given file format is not found
+        '''
+        for _format in Format.childs():
+            if _format.name == (name if strict else name.lower()):
+                return _format
+
+        raise UnknownFormatError('No format found with this name: {}' \
+                                     .format(name))
+
+    @staticmethod
+    def findByExtension(extension, strict=False):
+        '''
+        Returns the format with the given extension.
+
+        Arguments:
+            extension (str): The file format extension
+            strict (bool): Whether it should do a loose or strict search
+
+        Returns:
+            Format: The file format class
+
+        Raises:
+            UnknownFormatError: When a given file format is not found
+        '''
+        for _format in Format.childs():
+            if (_format.extension
+                    == (extension if strict else extension.lower())):
+                return _format
+
+        raise UnknownFormatError('No format found with this extension: {}' \
+                                     .format(extension))
+
+    @staticmethod
+    def findExportableFormats():
+        '''
+        Returns a list with all exportable formats.
+
+        Returns:
+            list: A list with all exportable formats
+        '''
+        return [format_ for format_ in Format.childs() if format_.isExportable]
+
+    @classmethod
+    def listExportableFormatNames(cls):
+        '''
+        Returns a list with all exportable format names.
+
+        Returns:
+            list: A list with all exportable format names
+        '''
+        return [format_.name for format_ in cls.findExportableFormats()]
+
+    @classmethod
+    def groupExportableFormatsByType(cls):
+        '''
+        Returns a list with all exportable formats grouped by their type.
+
+        Returns:
+            list: A list with all exportable formats grouped by their type
+        '''
+        sorter = lambda format_: format_.type
+
+        return groupby(sorted(cls.findExportableFormats(), key=sorter),
+                       key=sorter)
 
 
 class Encoder(AbstractClass):
@@ -136,9 +315,23 @@ class EncoderFactory(object):
         raise UnknownEncoderError('Unsupported encoding format')
 
 
+class FormatError(Exception):
+    '''
+    Generic exception class for file format errors.
+    '''
+    pass
+
+
 class EncodeError(Exception):
     '''
     Generic exception class for encoding errors.
+    '''
+    pass
+
+
+class UnknownFormatError(FormatError):
+    '''
+    Exception class raised when a given file format is not found.
     '''
     pass
 

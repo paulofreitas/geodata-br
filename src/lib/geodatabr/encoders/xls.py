@@ -3,21 +3,21 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-Generic Data File file format module
+Microsoft Excel Spreadsheet file encoder module
 '''
 # Imports
 
 # Package dependencies
 
 from geodatabr.core.helpers.decorators import classproperty
-from geodatabr.formats import Format
+from geodatabr.encoders import Format
 
 # Classes
 
 
-class DatFormat(Format):
+class XlsFormat(Format):
     '''
-    The file format class for Generic Data File file format.
+    The file format class for Microsoft Excel Spreadsheet file format.
     '''
 
     @classproperty
@@ -25,35 +25,49 @@ class DatFormat(Format):
         '''
         The file format name.
         '''
-        return 'dat'
+        return 'xls'
 
     @classproperty
     def friendlyName(self):
         '''
         The file format friendly name.
         '''
-        return 'Generic Data File'
+        return 'Microsoft Excel Spreadsheet'
 
     @classproperty
     def extension(self):
         '''
         The file format extension.
         '''
-        return '.dat'
+        return '.xls'
 
     @classproperty
     def type(self):
         '''
         The file format type.
         '''
-        return 'Data'
+        return 'Spreadsheet'
 
     @classproperty
     def mimeType(self):
         '''
         The file format media type.
         '''
-        return None
+        return 'application/vnd.ms-excel'
+
+    @classproperty
+    def info(self):
+        '''
+        The file format reference info.
+        '''
+        return 'https://en.wikipedia.org/wiki/Microsoft_Excel_file_format'
+
+    @classproperty
+    def isBinary(self):
+        '''
+        Tells whether the file format is binary or not.
+        '''
+        return True
 
     @classproperty
     def isParseable(self):

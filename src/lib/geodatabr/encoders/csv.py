@@ -16,11 +16,66 @@ from csv import DictWriter
 
 # Package dependencies
 
+from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.dataset.serializers import FlattenedSerializer
-from geodatabr.encoders import Encoder
-from geodatabr.formats.csv import CsvFormat
+from geodatabr.encoders import Encoder, Format
 
 # Classes
+
+
+class CsvFormat(Format):
+    '''
+    The file format class for CSV file format.
+    '''
+
+    @classproperty
+    def name(self):
+        '''
+        The file format name.
+        '''
+        return 'csv'
+
+    @classproperty
+    def friendlyName(self):
+        '''
+        The file format friendly name.
+        '''
+        return 'CSV'
+
+    @classproperty
+    def extension(self):
+        '''
+        The file format extension.
+        '''
+        return '.csv'
+
+    @classproperty
+    def type(self):
+        '''
+        The file format type.
+        '''
+        return 'Tabular Text'
+
+    @classproperty
+    def mimeType(self):
+        '''
+        The file format media type.
+        '''
+        return 'text/csv'
+
+    @classproperty
+    def info(self):
+        '''
+        The file format reference info.
+        '''
+        return 'https://en.wikipedia.org/wiki/Comma-separated_values'
+
+    @classproperty
+    def isExportable(self):
+        '''
+        Tells whether the file format is exportable or not.
+        '''
+        return True
 
 
 class CsvEncoder(Encoder):
