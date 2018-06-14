@@ -15,6 +15,8 @@ import os
 import pathlib
 import uuid
 
+from typing import Iterable
+
 # Classes
 
 
@@ -22,7 +24,7 @@ class Path(type(pathlib.Path())):
     """A filesystem path object."""
     _old_dir = None
 
-    def __enter__(self):
+    def __enter__(self) -> 'Path':
         """
         Magic method to allow changing the working directory to this path.
         """
@@ -38,15 +40,15 @@ class Path(type(pathlib.Path())):
         """
         os.chdir(str(self._old_dir))
 
-    def __contains__(self, segment):
+    def __contains__(self, segment: str) -> bool:
         """
         Magic method to test if a path segment is in this path.
 
         Args:
-            segment (str): A path segment
+            segment: A path segment
 
         Returns:
-            bool: Whether or not the given path segment is in this path
+            Whether or not the given path segment is in this path
         """
         return segment in str(self)
 
@@ -62,43 +64,43 @@ class Path(type(pathlib.Path())):
     # Properties
 
     @property
-    def atime(self):
+    def atime(self) -> float:
         """Gets the path's last access time."""
         return self.stat().st_atime
 
     @property
-    def ctime(self):
+    def ctime(self) -> float:
         """Gets the path's last change time."""
         return self.stat().st_ctime
 
     @property
-    def gid(self):
+    def gid(self) -> int:
         """Gets the path's owner group ID."""
         return self.stat().st_gid
 
     @property
-    def mode(self):
+    def mode(self) -> int:
         """Gets the path's mode."""
         return self.stat().st_mode
 
     @property
-    def mtime(self):
+    def mtime(self) -> float:
         """Gets the path's last modification time."""
         return self.stat().st_mtime
 
     @property
-    def size(self):
+    def size(self) -> int:
         """Gets the path's size in bytes."""
         return self.stat().st_size
 
     @property
-    def uid(self):
+    def uid(self) -> int:
         """Gets the path's owner user ID."""
         return self.stat().st_uid
 
     # Method aliases
 
-    def join(self, *args):
+    def join(self, *args) -> 'Path':
         """Alias for .joinpath() method."""
         return self.joinpath(*args)
 
@@ -114,7 +116,7 @@ class Path(type(pathlib.Path())):
     userId = uid
 
     @property
-    def basename(self):
+    def basename(self) -> str:
         """Alias for .stem property."""
         return self.stem
 
@@ -122,17 +124,17 @@ class Path(type(pathlib.Path())):
 class Directory(Path):
     """A filesystem directory object."""
 
-    def create(self, mode=0o777, parents=False):
+    def create(self, mode: int = 0o755, parents: bool = False) -> bool:
         """
         Creates a new directory at this given path.
 
         Args:
-            mode (int): The file mode
-            parents (bool): Whether the missing parents of this path should be
+            mode: The file mode
+            parents: Whether the missing parents of this path should be
                 created as needed or not
 
         Returns:
-            bool: Whether the directory has been created or not
+            Whether the directory has been created or not
         """
         try:
             self.mkdir(mode, parents)
@@ -141,14 +143,15 @@ class Directory(Path):
         except OSError:
             return False
 
-    def directories(self, pattern='*', recursive=False):
+    def directories(self,
+                    pattern: str = '*',
+                    recursive: bool = False) -> Iterable['Directory']:
         """
         Yields a generator with all directories matching the given pattern.
 
         Args:
-            pattern (str): The search pattern
-            recursive (bool): Whether or not it should return directories
-                recursively
+            pattern: The search pattern
+            recursive: Whether or not it should return directories recursively
 
         Yields:
             A generator with all directories matching the given pattern
@@ -159,13 +162,15 @@ class Directory(Path):
             if path.is_dir():
                 yield Directory(path)
 
-    def files(self, pattern='*', recursive=False):
+    def files(self,
+              pattern: str = '*',
+              recursive: bool = False) -> Iterable['File']:
         """
         Yields a generator with all files matching the given pattern.
 
         Args:
-            pattern (str): The search pattern
-            recursive (bool): Whether or not it should return files recursively
+            pattern: The search pattern
+            recursive: Whether or not it should return files recursively
 
         Yields:
             A generator with all files matching the given pattern
@@ -181,59 +186,68 @@ class CacheDirectory(Directory):
     """A filesystem cache directory object."""
 
     def __new__(cls, *args, **kwargs):
-        """Creates a new cache directory instance."""
+        """
+        Creates a new cache directory instance.
+
+        Args:
+            *args: The optional path segments
+            **kwargs: The directory options
+        """
         return Directory(Path.home() / '.geodatabr', *args, **kwargs)
 
 
 class File(Path):
     """A filesystem file object."""
 
-    def read(self, **kwargs):
+    def read(self, **options) -> str:
         """
         Returns the decoded file contents as string.
+
+        Args:
+            **options: The file reading options
 
         Returns:
             str: The file contents
         """
-        with self.open('r', **kwargs) as file_:
+        with self.open(mode='r', **options) as file_:
             return file_.read()
 
-    def readBytes(self, **kwargs):
+    def readBytes(self, **options) -> bytes:
         """
         Returns the decoded file contents as bytes.
 
+        Args:
+            **options: The file reading options
+
         Returns:
-            bytes: The file contents
+            The file contents
         """
-        with self.open('rb', **kwargs) as file_:
+        with self.open(mode='rb', **options) as file_:
             return file_.read()
 
-    def write(self, data, **kwargs):
+    def write(self, data: str, **options):
         """
         Opens the file in text mode, write data to it, and closes the file.
 
         Args:
-            data (str): The content to be written
+            data: The content to be written
+            **options: The file writing options
         """
-        with self.open('w', **kwargs) as file_:
+        with self.open(mode='w', **options) as file_:
             file_.write(data)
 
-    def writeBytes(self, data, **kwargs):
+    def writeBytes(self, data: bytes, **options):
         """
         Opens the file in binary mode, write data to it, and closes the file.
 
         Args:
-            data (bytes): The content to be written
+            data: The content to be written
+            **options: The file writing options
         """
-        with self.open('wb', **kwargs) as file_:
+        with self.open(mode='wb', **options) as file_:
             file_.write(data)
 
     # Properties
-
-    @property
-    def extension(self):
-        """Gets the file extension."""
-        return self.suffixes[-1] if self.suffixes else ''
 
     @property
     def format(self):
@@ -246,12 +260,22 @@ class File(Path):
         except UnknownEncoderFormatError:
             return None
 
+    # Property aliases
+
+    extension = Path.suffix
+
 
 class CacheFile(File):
     """A filesystem cache file object."""
 
-    def __new__(cls, *args, **kwargs):
-        """Creates a new cache file instance."""
+    def __new__(cls, *args, **kwargs) -> File:
+        """
+        Creates a new cache file instance.
+
+        Args:
+            *args: The optional path segments
+            **kwargs: The file options
+        """
         if not args:
             args += (str(uuid.uuid4()),)
 
