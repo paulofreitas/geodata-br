@@ -2,87 +2,85 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Export command module
-'''
+'''Encode command module.'''
 # Imports
+
+# Built-in dependencies
+
+from argparse import Namespace
 
 # Package dependencies
 
 from geodatabr.commands import Command
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import logger
-from geodatabr.encoders import EncoderFactory, EncoderFormatRepository
+from geodatabr.encoders import EncoderFactory, EncoderFormatRepository, \
+    EncodeError
 
 # Classes
 
 
-class DatasetExporterCommand(Command):
-    '''
-    The dataset exporter command.
-    '''
+class EncodeCommand(Command):
+    '''The dataset encoder command.'''
 
     @property
-    def name(self):
-        '''
-        Defines the command name.
-        '''
-        return 'export'
+    def name(self) -> str:
+        '''Gets the command name.'''
+        return 'encode'
 
     @property
-    def description(self):
-        '''
-        Defines the command description.
-        '''
-        return 'Exports the dataset'
+    def description(self) -> str:
+        '''Gets the command description.'''
+        return 'Encode the dataset'
 
     @property
-    def usage(self):
-        '''
-        Defines the command usage syntax.
-        '''
+    def usage(self) -> str:
+        '''Gets the command usage syntax.'''
         return '%(prog)s -f FORMAT [-l LOCALE] [-o FILENAME]'
 
     def configure(self):
-        '''
-        Defines the command arguments.
-        '''
-        locales = Translator.locales()
-
+        '''Defines the command arguments.'''
         self.addArgument('-f', '--format',
                          metavar='FORMAT',
                          choices=EncoderFormatRepository.listNames(),
-                         help=('File format to export the dataset.\n'
+                         help=('File format to encode the dataset.\n'
                                'Options: %(choices)s'))
         self.addArgument('-l', '--locale',
                          metavar='LOCALE',
-                         choices=locales,
+                         choices=Translator.locales(),
                          default='en',
-                         help=('Locale to export the dataset.\n'
+                         help=('Locale to encode the dataset.\n'
                                'Options: %(choices)s\n'
                                'Default: %(default)s'))
         self.addArgument('-o', '--out',
                          dest='filename',
                          nargs='?',
-                         help=('Filename to write the export to.\n'
-                               'If none are specified, %(prog)s writes data to '
+                         help=('Filename to save the dataset.\n'
+                               'If none are specified, data is written to '
                                'standard output.'))
 
-    def handle(self, args):
+    def handle(self, args: Namespace):
         '''
         Handles the command.
 
         Raises:
-            geodatabr.encoders.EncodeError: When dataset fails to encode
+            geodatabr.encoders.EncodeError: If dataset fails to encode
         '''
         if not args.format:
             self._parser.error(
-                'You need to give the output format you want to export.')
+                'You need to give the output format you want to encode.')
 
         Translator.locale = args.locale
 
         try:
             encoder = EncoderFactory.fromFormat(args.format)
-            encoder.encodeToFile(args.filename)
+
+            logger().info('Encoding dataset to %s format...',
+                          encoder.format().friendlyName)
+
+            serializer = encoder.serializer(**encoder.serializationOptions)
+            encoder.encodeToFile(serializer.serialize(), args.filename)
+        except EncodeError:
+            logger().error('Failed to encode dataset.')
         except KeyboardInterrupt:
-            logger().info('> Exporting was canceled.')
+            logger().info('Encoding was canceled.')
