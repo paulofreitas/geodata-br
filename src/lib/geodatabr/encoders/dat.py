@@ -2,55 +2,40 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Generic Data File file encoder module
-'''
+'''Generic Data File encoder module.'''
 # Imports
 
 # Package dependencies
 
-from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.encoders import EncoderFormat
 
 # Classes
 
 
 class DatFormat(EncoderFormat):
-    '''
-    The file format class for Generic Data File file format.
-    '''
+    '''Encoder format class for Generic Data File file format.'''
 
-    @classproperty
-    def name(self):
-        '''
-        The file format name.
-        '''
+    @property
+    def name(self) -> str:
+        '''Gets the encoder format name.'''
         return 'dat'
 
-    @classproperty
-    def friendlyName(self):
-        '''
-        The file format friendly name.
-        '''
+    @property
+    def friendlyName(self) -> str:
+        '''Gets the encoder format friendly name.'''
         return 'Generic Data File'
 
-    @classproperty
-    def extension(self):
-        '''
-        The file format extension.
-        '''
+    @property
+    def extension(self) -> str:
+        '''Gets the encoder format extension.'''
         return '.dat'
 
-    @classproperty
-    def type(self):
-        '''
-        The file format type.
-        '''
+    @property
+    def type(self) -> str:
+        '''Gets the encoder format type.'''
         return 'Data'
 
-    @classproperty
-    def mimeType(self):
-        '''
-        The file format media type.
-        '''
+    @property
+    def mimeType(self) -> None:
+        '''Gets the encoder format media type.'''
         return None
