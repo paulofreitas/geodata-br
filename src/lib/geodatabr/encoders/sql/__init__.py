@@ -2,97 +2,93 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-SQL file encoder module
-'''
+'''SQL encoder module.'''
 # Imports
-
-# Built-in dependencies
-
-import io
 
 # Package dependencies
 
-from geodatabr.core.helpers.decorators import classproperty
+from geodatabr.core.types import FileStream
 from geodatabr.dataset.schema import Entities
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import Encoder, EncoderFormat
+from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 from geodatabr.encoders.sql.utils import SchemaGenerator
 
 # Classes
 
 
 class SqlFormat(EncoderFormat):
-    '''
-    The file format class for SQL file format.
-    '''
+    '''Encoder format class for SQL file format.'''
 
-    @classproperty
-    def name(self):
-        '''
-        The file format name.
-        '''
+    @property
+    def name(self) -> str:
+        '''Gets the encoder format name.'''
         return 'sql'
 
-    @classproperty
-    def friendlyName(self):
-        '''
-        The file format friendly name.
-        '''
+    @property
+    def friendlyName(self) -> str:
+        '''Gets the encoder format friendly name.'''
         return 'SQL'
 
-    @classproperty
-    def extension(self):
-        '''
-        The file format extension.
-        '''
+    @property
+    def extension(self) -> str:
+        '''Gets the encoder format extension.'''
         return '.sql'
 
-    @classproperty
-    def type(self):
-        '''
-        The file format type.
-        '''
+    @property
+    def type(self) -> str:
+        '''Gets the encoder format type.'''
         return 'Database'
 
-    @classproperty
-    def mimeType(self):
-        '''
-        The file format media type.
-        '''
+    @property
+    def mimeType(self) -> str:
+        '''Gets the encoder format media type.'''
         return 'application/sql'
 
-    @classproperty
-    def info(self):
-        '''
-        The file format reference info.
-        '''
+    @property
+    def info(self) -> str:
+        '''Gets the encoder format reference info.'''
         return 'https://en.wikipedia.org/wiki/SQL'
 
 
 class SqlEncoder(Encoder):
     '''
     SQL encoder class.
+
+    Attributes:
+        format (geodatabr.encoders.sql.SqlFormat): The encoder format class
+        serializer (geodatabr.dataset.serializers.Serializer):
+            The encoder serialization class
     '''
 
-    # Encoder format
-    _format = SqlFormat
+    format = SqlFormat
+    serializer = Serializer
 
-    def encode(self, **options):
+    @property
+    def options(self) -> dict:
+        '''Gets the default encoding options.'''
+        return dict(dialect='default')
+
+    @property
+    def serializationOptions(self) -> dict:
+        '''Gets the encoder serialization options.'''
+        return dict(localize=False,
+                    includeKey=True)
+
+    def encode(self, data: dict, **options) -> FileStream:
         '''
         Encodes the data into a SQL file-like stream.
 
-        Arguments:
-            options (dict): The encoding options
+        Args:
+            data: The data to encode
+            **options: The encoding options
 
         Returns:
-            io.StringIO: A SQL file-like stream
+            A SQL file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: When data fails to encode
+            geodatabr.encoders.EncodeError: If data fails to encode
         '''
-        data = Serializer(localize=False, includeKey=True).serialize()
-        schema = SchemaGenerator(options.get('dialect', 'default'))
+        schema = SchemaGenerator(**dict(self.options, **options))
 
         for entity in Entities:
             records = data.get(entity.__table__.name)
@@ -100,4 +96,4 @@ class SqlEncoder(Encoder):
             if records:
                 schema.addTable(entity.__table__, records)
 
-        return io.StringIO(schema.render())
+        return FileStream(schema.render())
