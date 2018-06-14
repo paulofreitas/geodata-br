@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Main console script
-'''
+"""Main console script."""
 # Imports
 
 # Package dependencies
@@ -15,7 +13,7 @@ from geodatabr.commands import Application
 
 
 def main():
-    '''Main entry point.'''
+    """Main entry point."""
     app = Application()
     app.run()
 

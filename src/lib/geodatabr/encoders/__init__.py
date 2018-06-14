@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
+"""
 Dataset encoders package.
 
 This package provides the dataset encoder modules.
-'''
+"""
 # Imports
 
 # Built-in dependencies
@@ -30,54 +30,54 @@ Translator.load('dataset')
 
 
 class EncoderFormat(AbstractClass):
-    '''Abstract encoder file format base class.'''
+    """Abstract encoder file format base class."""
 
     @property
     def name(self) -> str:
-        '''Gets the encoder format name.'''
+        """Gets the encoder format name."""
         raise NotImplementedError
 
     @property
     def friendlyName(self) -> str:
-        '''Gets encoder format friendly name.'''
+        """Gets encoder format friendly name."""
         raise NotImplementedError
 
     @property
     def extension(self) -> str:
-        '''Gets the encoder format extension.'''
+        """Gets the encoder format extension."""
         raise NotImplementedError
 
     @property
     def type(self) -> str:
-        '''Gets the encoder format type.'''
+        """Gets the encoder format type."""
         raise NotImplementedError
 
     @property
     def mimeType(self):
-        '''Gets the encoder format media type.'''
+        """Gets the encoder format media type."""
         raise NotImplementedError
 
     @property
     def info(self) -> str:
-        '''Gets the encoder format reference info.'''
+        """Gets the encoder format reference info."""
         raise NotImplementedError
 
     @property
     def isBinary(self) -> bool:
-        '''Tells whether the encoder format is binary or not.'''
+        """Tells whether the encoder format is binary or not."""
         return False
 
     def __repr__(self) -> str:
-        '''Returns a string representation of this encoder format class.'''
+        """Returns a string representation of this encoder format class."""
         return self.name
 
 
 class EncoderFormatFactory(object):
-    '''Encoder format factory class.'''
+    """Encoder format factory class."""
 
     @classmethod
     def fromName(cls, name: str) -> EncoderFormat:
-        '''
+        """
         Factories a encoder format class for a given file format name.
 
         Args:
@@ -89,18 +89,18 @@ class EncoderFormatFactory(object):
         Raises:
             geodatabr.encoders.UnknownEncoderFormatError:
                 If a given encoder format is not found
-        '''
+        """
         format_ = EncoderFormatRepository.findByName(name)
 
         return format_()
 
 
 class EncoderFormatRepository(object):
-    '''Encoder format repository class.'''
+    """Encoder format repository class."""
 
     @staticmethod
     def findByName(name: str, strict: bool = False) -> EncoderFormat:
-        '''
+        """
         Returns the encoder format with the given name.
 
         Args:
@@ -113,7 +113,7 @@ class EncoderFormatRepository(object):
         Raises:
             geodatabr.encoders.UnknownEncoderFormatError:
                 If a given encoder format is not found
-        '''
+        """
         for _format in EncoderFormat.childs():
             if _format.name == (name if strict else name.lower()):
                 return _format
@@ -123,7 +123,7 @@ class EncoderFormatRepository(object):
 
     @staticmethod
     def findByExtension(extension: str, strict: bool = False) -> EncoderFormat:
-        '''
+        """
         Returns the encoder format with the given extension.
 
         Args:
@@ -136,7 +136,7 @@ class EncoderFormatRepository(object):
         Raises:
             geodatabr.encoders.UnknownEncoderFormatError:
                 If a given encoder format is not found
-        '''
+        """
         for _format in EncoderFormat.childs():
             if (_format.extension
                     == (extension if strict else extension.lower())):
@@ -147,24 +147,24 @@ class EncoderFormatRepository(object):
 
     @classmethod
     def listNames(cls) -> list:
-        '''
+        """
         Returns a list with all encoder format names.
 
         Returns:
             A list with all encoder format names
-        '''
+        """
         return list(sorted([encoder.format().name
                             for encoder in Encoder.childs()
                             if getattr(encoder, 'format')]))
 
     @classmethod
     def groupByType(cls) -> list:
-        '''
+        """
         Returns a list with all encoder formats grouped by their type.
 
         Returns:
             A list with all encoder formats grouped by their type
-        '''
+        """
         sorter = lambda format_: format_.type
 
         return list(groupby(
@@ -176,19 +176,19 @@ class EncoderFormatRepository(object):
 
 
 class Encoder(AbstractClass):
-    '''
+    """
     Abstract base encoder class.
 
     Attributes:
         format (geodatabr.encoders.EncoderFormat): The encoder format class
         serializer: The encoder format serialization class
-    '''
+    """
 
     format = None
     serializer = None
 
     def __call__(self, **options):
-        '''
+        """
         Allows encoding the data into a stream calling the encoder instance.
 
         Returns:
@@ -196,21 +196,21 @@ class Encoder(AbstractClass):
 
         Raises:
             geodatabr.encoders.EncodeError: If data fails to encode
-        '''
+        """
         return self.encode(**options)
 
     @property
     def options(self) -> dict:
-        '''Gets the default encoding options.'''
+        """Gets the default encoding options."""
         return {}
 
     @property
     def serializationOptions(self) -> dict:
-        '''Gets the encoder serialization options.'''
+        """Gets the encoder serialization options."""
         return {}
 
     def encode(self, data, **options):
-        '''
+        """
         Encodes the data into a file-like stream.
 
         Args:
@@ -222,11 +222,11 @@ class Encoder(AbstractClass):
 
         Raises:
             geodatabr.encoders.EncodeError: If data fails to encode
-        '''
+        """
         raise NotImplementedError
 
     def encodeToFile(self, data, filename: str = 'auto', **options):
-        '''
+        """
         Encodes the data into a file.
 
         Args:
@@ -236,7 +236,7 @@ class Encoder(AbstractClass):
 
         Raises:
             geodatabr.encoders.EncodeError: If data fails to encode
-        '''
+        """
         data = self.encode(data, **options).read()
 
         if not filename:
@@ -251,11 +251,11 @@ class Encoder(AbstractClass):
 
 
 class EncoderFactory(object):
-    '''Encoder factory class.'''
+    """Encoder factory class."""
 
     @classmethod
     def fromFormat(cls, name: str) -> Encoder:
-        '''
+        """
         Factories an encoder class for a given encoder format.
 
         Args:
@@ -267,7 +267,7 @@ class EncoderFactory(object):
         Raises:
             geodatabr.encoders.UnknownEncoderError:
                 If a given encoder format is not supported
-        '''
+        """
         for encoder in Encoder.childs():
             if (encoder.format
                     and encoder.serializer
@@ -278,15 +278,15 @@ class EncoderFactory(object):
 
 
 class EncodeError(Exception):
-    '''Generic exception class for encoding errors.'''
+    """Generic exception class for encoding errors."""
     pass
 
 
 class UnknownEncoderFormatError(Exception):
-    '''Exception class raised when a given encoder format is not found.'''
+    """Exception class raised when a given encoder format is not found."""
     pass
 
 
 class UnknownEncoderError(Exception):
-    '''Exception class raised when a given encoder is not found.'''
+    """Exception class raised when a given encoder is not found."""
     pass

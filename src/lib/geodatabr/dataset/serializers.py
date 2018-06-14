@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
+"""
 Dataset serialization module.
 
 This module provides the serializers classes used to export the dataset.
-'''
+"""
 # Imports
 
 # Built-in dependencies
@@ -29,17 +29,17 @@ Translator.load('dataset')
 
 
 class BaseSerializer(object):
-    '''Abstract serializer class.'''
+    """Abstract serializer class."""
 
     @property
     @cachedmethod()
     def __records__(self) -> OrderedMap:
-        '''
+        """
         Retrieves the dataset records.
 
         Returns:
             The dataset records
-        '''
+        """
         records = OrderedMap(states=StateRepository().loadAll())
 
         for _entity in Entities:
@@ -53,30 +53,30 @@ class BaseSerializer(object):
         return records
 
     def __init__(self, **options):
-        '''
+        """
         Setup the serializer.
 
         Args:
             **options: The serialization options
-        '''
+        """
         self._options = OrderedMap(options)
 
     def serialize(self) -> Any:
-        '''
+        """
         Abstract serialization method.
-        '''
+        """
         raise NotImplementedError
 
 
 class Serializer(BaseSerializer):
-    '''Default serialization implementation.'''
+    """Default serialization implementation."""
 
     def __init__(self,
                  localize: bool = True,
                  forceStr: bool = False,
                  forceStrKeys: bool = False,
                  includeKey: bool = False):
-        '''
+        """
         Setup the serializer.
 
         Args:
@@ -85,7 +85,7 @@ class Serializer(BaseSerializer):
             forceStrKeys:
                 Whether or not it should coerce mapping keys to string
             includeKey: Whether or not it should include the primary key
-        '''
+        """
         super().__init__(localize=localize,
                          forceStr=forceStr,
                          forceStrKeys=forceStrKeys,
@@ -93,12 +93,12 @@ class Serializer(BaseSerializer):
 
     @cachedmethod()
     def serialize(self) -> OrderedMap:
-        '''
+        """
         Serializes the dataset records.
 
         Returns:
             The serialized dataset records mapping
-        '''
+        """
         records = OrderedMap()
 
         for entity in Entities:
@@ -137,16 +137,16 @@ class Serializer(BaseSerializer):
 
 
 class FlattenedSerializer(BaseSerializer):
-    '''Flattened serialization implementation.'''
+    """Flattened serialization implementation."""
 
     @cachedmethod()
     def serialize(self) -> List:
-        '''
+        """
         Serializes the dataset records.
 
         Returns:
             The serialized dataset records list
-        '''
+        """
         records = List()
 
         for entity in Entities:

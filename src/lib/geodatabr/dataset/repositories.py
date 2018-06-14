@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Dataset repositories module
+"""
+Dataset repositories module.
 
 This module provides the repositories classes used to query the dataset.
-'''
+"""
 # Imports
 
 # External dependencies
@@ -24,45 +24,44 @@ from geodatabr.dataset.schema import \
 
 
 class Repository(AbstractClass):
-    '''
-    Abstract implementation of repository pattern.
-    '''
+    """Abstract implementation of repository pattern."""
+
     entity = None
 
     @classmethod
     def add(cls, instance):
-        '''
+        """
         Saves an entity instance.
 
         Args:
             instance (geodatabr.dataset.schema.Entity):
                 The entity instance to save
-        '''
+        """
         Database.add(instance)
 
     @classmethod
     def count(cls):
-        '''
+        """
         Returns the total entity items count.
 
         Returns:
             int: The total entity items count
-        '''
+        """
         return Database.query(cls.entity).count()
 
     @classmethod
     def findAll(cls):
-        '''
+        """
         Retrieves all entity items.
 
         Returns:
             list: A list with all entity items
-        '''
+        """
         return Database.query(cls.entity).all()
 
     @classmethod
     def findById(cls, _id):
-        '''
+        """
         Retrieves a single entity item by ID.
 
         Args:
@@ -70,14 +69,14 @@ class Repository(AbstractClass):
 
         Returns:
             geodatabr.dataset.schema.Entity: An entity item
-        '''
+        """
         return Database.query(cls.entity) \
             .filter(cls.entity.id == _id) \
             .first()
 
     @classmethod
     def findByName(cls, name):
-        '''
+        """
         Retrieves a single entity item by name.
 
         Args:
@@ -85,64 +84,61 @@ class Repository(AbstractClass):
 
         Returns:
             geodatabr.dataset.schema.Entity: An entity item
-        '''
+        """
         return Database.query(cls.entity) \
             .filter(cls.entity.name == name) \
             .first()
 
     @classmethod
     def delete(cls):
-        '''
-        Removes all entity items.
-        '''
+        """Removes all entity items."""
         Database.query(cls.entity).delete()
 
 
 class StateRepository(Repository):
-    '''
-    Implementation of states repository.
-    '''
+    """Implementation of states repository."""
+
     entity = State
 
     @classmethod
     def add(cls, instance):
-        '''
+        """
         Saves a State instance.
 
         Args:
             instance (geodatabr.dataset.schema.State):
                 The State instance to save
-        '''
+        """
         super().add(instance)
 
     @classmethod
     def count(cls):
-        '''
+        """
         Returns the total states count.
 
         Returns:
             int: The total states count
-        '''
+        """
         return super().count()
 
     @classmethod
     def findAll(cls):
-        '''
+        """
         Retrieves all states.
 
         Returns:
             list: A list with all states
-        '''
+        """
         return super().findAll()
 
     @classmethod
     def loadAll(cls):
-        '''
+        """
         Retrieves all states with relationships loaded.
 
         Returns:
             list: A list with all states with relationships loaded
-        '''
+        """
         return Database.query(State) \
             .options(subqueryload(State.mesoregions),
                      subqueryload(State.microregions),
@@ -153,7 +149,7 @@ class StateRepository(Repository):
 
     @classmethod
     def findById(cls, _id):
-        '''
+        """
         Retrieves a single state by ID.
 
         Args:
@@ -161,12 +157,12 @@ class StateRepository(Repository):
 
         Returns:
             geodatabr.dataset.schema.State: The state record
-        '''
+        """
         return super().findById(_id)
 
     @classmethod
     def findByName(cls, name):
-        '''
+        """
         Retrieves a single state by name.
 
         Args:
@@ -174,62 +170,59 @@ class StateRepository(Repository):
 
         Returns:
             geodatabr.dataset.schema.State: The state record
-        '''
+        """
         return super().findByName(name)
 
     @classmethod
     def delete(cls):
-        '''
-        Removes all states.
-        '''
+        """Removes all states."""
         super().delete()
 
 
 class MesoregionRepository(Repository):
-    '''
-    Implementation of mesoregions repository.
-    '''
+    """Implementation of mesoregions repository."""
+
     entity = Mesoregion
 
     @classmethod
     def add(cls, instance):
-        '''
+        """
         Saves a Mesoregion instance.
 
         Args:
             instance (geodatabr.dataset.schema.Mesoregion):
                 The Mesoregion instance to save
-        '''
+        """
         super().add(instance)
 
     @classmethod
     def count(cls):
-        '''
+        """
         Returns the total mesoregions count.
 
         Returns:
             int: The total mesoregions count
-        '''
+        """
         return super().count()
 
     @classmethod
     def findAll(cls):
-        '''
+        """
         Retrieves all mesoregions.
 
         Returns:
             list: A list with all mesoregions
-        '''
+        """
         return super().findAll()
 
     @classmethod
     def loadAll(cls):
-        '''
+        """
         Retrieves all mesoregions with relationships loaded.
 
         Returns:
             list: A list with all mesoregions with relationships loaded
-        '''
+        """
         return Database.query(Mesoregion) \
             .options(subqueryload(Mesoregion.microregions),
                      subqueryload(Mesoregion.municipalities),
@@ -239,7 +232,7 @@ class MesoregionRepository(Repository):
 
     @classmethod
     def findById(cls, _id):
-        '''
+        """
         Retrieves a single mesoregion by ID.
 
         Args:
@@ -247,12 +240,12 @@ class MesoregionRepository(Repository):
 
         Returns:
             geodatabr.dataset.schema.Mesoregion: The mesoregion record
-        '''
+        """
         return super().findById(_id)
 
     @classmethod
     def findByName(cls, name):
-        '''
+        """
         Retrieves a single mesoregion by name.
 
         Args:
@@ -260,62 +253,59 @@ class MesoregionRepository(Repository):
 
         Returns:
             geodatabr.dataset.schema.Mesoregion: The mesoregion record
-        '''
+        """
         return super().findByName(name)
 
     @classmethod
     def delete(cls):
-        '''
-        Removes all mesoregions.
-        '''
+        """Removes all mesoregions."""
         super().delete()
 
 
 class MicroregionRepository(Repository):
-    '''
-    Implementation of microregions repository.
-    '''
+    """Implementation of microregions repository."""
+
     entity = Microregion
 
     @classmethod
     def add(cls, instance):
-        '''
+        """
         Saves a Microregion instance.
 
         Args:
             instance (geodatabr.dataset.schema.Microregion):
                 The Microregion instance to save
-        '''
+        """
         super().add(instance)
 
     @classmethod
     def count(cls):
-        '''
+        """
         Returns the total microregions count.
 
         Returns:
             int: The total microregions count
-        '''
+        """
         return super().count()
 
     @classmethod
     def findAll(cls):
-        '''
+        """
         Retrieves all microregions.
 
         Returns:
             list: A list with all microregions
-        '''
+        """
         return super().findAll()
 
     @classmethod
     def loadAll(cls):
-        '''
+        """
         Retrieves all microregions with relationships loaded.
 
         Returns:
             list: A list with all microregions with relationships loaded
-        '''
+        """
         return Database.query(Microregion) \
             .options(subqueryload(Microregion.municipalities),
                      subqueryload(Microregion.districts),
@@ -324,7 +314,7 @@ class MicroregionRepository(Repository):
 
     @classmethod
     def findById(cls, _id):
-        '''
+        """
         Retrieves a single microregion by ID.
 
         Args:
@@ -332,12 +322,12 @@ class MicroregionRepository(Repository):
 
         Returns:
             geodatabr.dataset.schema.Microregion: The microregion record
-        '''
+        """
         return super().findById(_id)
 
     @classmethod
     def findByName(cls, name):
-        '''
+        """
         Retrieves a single microregion by name.
 
         Args:
@@ -345,62 +335,59 @@ class MicroregionRepository(Repository):
 
         Returns:
             geodatabr.dataset.schema.Microregion: The microregion record
-        '''
+        """
         return super().findByName(name)
 
     @classmethod
     def delete(cls):
-        '''
-        Removes all microregions.
-        '''
+        """Removes all microregions."""
         super().delete()
 
 
 class MunicipalityRepository(Repository):
-    '''
-    Implementation of municipalities repository.
-    '''
+    """Implementation of municipalities repository."""
+
     entity = Municipality
 
     @classmethod
     def add(cls, instance):
-        '''
+        """
         Saves a Municipality instance.
 
         Args:
             instance (geodatabr.dataset.schema.Municipality):
                 The Municipality instance to save
-        '''
+        """
         super().add(instance)
 
     @classmethod
     def count(cls):
-        '''
+        """
         Returns the total municipalities count.
 
         Returns:
             int: The total municipalities count
-        '''
+        """
         return super().count()
 
     @classmethod
     def findAll(cls):
-        '''
+        """
         Retrieves all municipalities.
 
         Returns:
             list: A list with all municipalities
-        '''
+        """
         return super().findAll()
 
     @classmethod
     def loadAll(cls):
-        '''
+        """
         Retrieves all municipalities with relationships loaded.
 
         Returns:
             list: A list with all municipalities with relationships loaded
-        '''
+        """
         return Database.query(Municipality) \
             .options(subqueryload(Municipality.districts),
                      subqueryload(Municipality.subdistricts)) \
@@ -408,7 +395,7 @@ class MunicipalityRepository(Repository):
 
     @classmethod
     def findById(cls, _id):
-        '''
+        """
         Retrieves a single municipality by ID.
 
         Args:
@@ -416,12 +403,12 @@ class MunicipalityRepository(Repository):
 
         Returns:
             geodatabr.dataset.schema.Municipality: The municipality record
-        '''
+        """
         return super().findById(_id)
 
     @classmethod
     def findByName(cls, name):
-        '''
+        """
         Retrieves a single municipality by name.
 
         Args:
@@ -429,69 +416,66 @@ class MunicipalityRepository(Repository):
 
         Returns:
             geodatabr.dataset.schema.Municipality: The municipality record
-        '''
+        """
         return super().findByName(name)
 
     @classmethod
     def delete(cls):
-        '''
-        Removes all municipalities.
-        '''
+        """Removes all municipalities."""
         super().delete()
 
 
 class DistrictRepository(Repository):
-    '''
-    Implementation of districts repository.
-    '''
+    """Implementation of districts repository."""
+
     entity = District
 
     @classmethod
     def add(cls, instance):
-        '''
+        """
         Saves a District instance.
 
         Args:
             instance (geodatabr.dataset.schema.District):
                 The District instance to save
-        '''
+        """
         super().add(instance)
 
     @classmethod
     def count(cls):
-        '''
+        """
         Returns the total districts count.
 
         Returns:
             int: The total districts count
-        '''
+        """
         return super().count()
 
     @classmethod
     def findAll(cls):
-        '''
+        """
         Retrieves all districts.
 
         Returns:
             list: A list with all districts
-        '''
+        """
         return super().findAll()
 
     @classmethod
     def loadAll(cls):
-        '''
+        """
         Retrieves all districts with relationships loaded.
 
         Returns:
             list: A list with all districts with relationships loaded
-        '''
+        """
         return Database.query(District) \
             .options(subqueryload(District.subdistricts)) \
             .all()
 
     @classmethod
     def findById(cls, _id):
-        '''
+        """
         Retrieves a single district by ID.
 
         Args:
@@ -499,12 +483,12 @@ class DistrictRepository(Repository):
 
         Returns:
             geodatabr.dataset.schema.District: The district record
-        '''
+        """
         return super().findById(_id)
 
     @classmethod
     def findByName(cls, name):
-        '''
+        """
         Retrieves a single district by name.
 
         Args:
@@ -512,57 +496,54 @@ class DistrictRepository(Repository):
 
         Returns:
             geodatabr.dataset.schema.District: The district record
-        '''
+        """
         return super().findByName(name)
 
     @classmethod
     def delete(cls):
-        '''
-        Removes all districts.
-        '''
+        """Removes all districts."""
         super().delete()
 
 
 class SubdistrictRepository(Repository):
-    '''
-    Implementation of subdistricts repository.
-    '''
+    """Implementation of subdistricts repository."""
+
     entity = Subdistrict
 
     @classmethod
     def add(cls, instance):
-        '''
+        """
         Saves a Subdistrict instance.
 
         Args:
             instance (geodatabr.dataset.schema.Subdistrict):
                 The Subdistrict instance to save
-        '''
+        """
         super().add(instance)
 
     @classmethod
     def count(cls):
-        '''
+        """
         Returns the total subdistricts count.
 
         Returns:
             int: The total subdistricts count
-        '''
+        """
         return super().count()
 
     @classmethod
     def findAll(cls):
-        '''
+        """
         Retrieves all subdistricts.
 
         Returns:
             list: A list with all subdistricts
-        '''
+        """
         return super().findAll()
 
     @classmethod
     def findById(cls, _id):
-        '''
+        """
         Retrieves a single subdistrict by ID.
 
         Args:
@@ -570,12 +551,12 @@ class SubdistrictRepository(Repository):
 
         Returns:
             geodatabr.dataset.schema.Subdistrict: The subdistrict record
-        '''
+        """
         return super().findById(_id)
 
     @classmethod
     def findByName(cls, name):
-        '''
+        """
         Retrieves a single subdistrict by name.
 
         Args:
@@ -583,25 +564,21 @@ class SubdistrictRepository(Repository):
 
         Returns:
             geodatabr.dataset.schema.Subdistrict: The subdistrict record
-        '''
+        """
         return super().findByName(name)
 
     @classmethod
     def delete(cls):
-        '''
-        Removes all subdistricts.
-        '''
+        """Removes all subdistricts."""
         super().delete()
 
 
 class RepositoryFactory(object):
-    '''
-    Factory class for instantiation of concrete repositories.
-    '''
+    """Factory class for instantiation of concrete repositories."""
 
     @staticmethod
     def fromEntity(entity):
-        '''
+        """
         Factories a repository class for a given entity class.
 
         Args:
@@ -613,8 +590,9 @@ class RepositoryFactory(object):
                 The repository class instance
 
         Raises:
-            UnknownEntityError: When a given entity is not supported
-        '''
+            geodatabr.dataset.repositories.UnknownEntityError:
+                If a given entity is not supported
+        """
         for repository in Repository.childs():
             if repository.entity is entity:
                 return repository()
@@ -624,7 +602,8 @@ class RepositoryFactory(object):
 
 
 class UnknownEntityError(Exception):
-    '''
-    Exception class raised when a given entity does not belong to any repository.
-    '''
+    """
+    Exception class raised when a given entity does not belong to any
+    repository.
+    """
     pass

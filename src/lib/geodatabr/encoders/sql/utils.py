@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-SQL file format utils module
-'''
+"""
+SQL encoder format utils module.
+"""
 # Imports
 
 # External dependencies
@@ -26,29 +26,27 @@ Translator.load('dataset')
 
 
 class SchemaGenerator(object):
-    '''
-    SQL schema generator class.
-    '''
+    """SQL schema generator class."""
 
     def __init__(self, dialect='default'):
-        '''
-        Constructor.
+        """
+        Creates a new schema generator instance.
 
-        Arguments:
+        Args:
             dialect (str): The SQL dialect to use
-        '''
+        """
         self._tables = []
         self._dialect = DialectFactory(dialect)
         self._compiler = SqlCompiler(dialect)
 
     def addTable(self, table, records):
-        '''
+        """
         Add the given table to schema.
 
-        Arguments:
+        Args:
             table (sqlalchemy.sql.schema.Table): The Table instance to add
             records (geodatabr.core.types.OrderedMap): The table records mapping
-        '''
+        """
         table._records = records
 
         # Workaround to render table indexes in the order they were declared
@@ -60,31 +58,31 @@ class SchemaGenerator(object):
         self._tables.append(table)
 
     def render(self, createIndexes=True):
-        '''
-        Render all SQL statements for the schema tables.
+        """
+        Renders all SQL statements for the schema tables.
 
-        Arguments:
+        Args:
             createIndexes (bool): Whether or not it should create table indexes
 
         Returns:
             str: The compiled SQL statements
-        '''
+        """
         return '\n\n'.join([
             self.renderTable(table, createIndexes=createIndexes)
             for table in self._tables
         ])
 
     def renderTable(self, table, createIndexes=True):
-        '''
-        Render all SQL statements for the given table.
+        """
+        Renders all SQL statements for the given table.
 
-        Arguments:
+        Args:
             table (sqlalchemy.sql.schema.Table): The Table instance to render
             createIndexes (bool): Whether or not it should create table indexes
 
         Returns:
             str: The compiled SQL statements
-        '''
+        """
         ddl = []
         ddl.append('--\n-- Structure for table "{}"\n--\n'.format(_(table.name)))
         ddl.append(self._compiler.createTable(table))
@@ -104,40 +102,38 @@ class SchemaGenerator(object):
         return '\n'.join(ddl)
 
     def __str_(self):
-        '''
-        Return the generated SQL.
+        """
+        Returns the generated SQL.
 
         Returns:
             str: The generated SQL
-        '''
+        """
         return self.render()
 
 
 class SqlCompiler(object):
-    '''
-    Custom DDL/DML compiler.
-    '''
+    """Custom DDL/DML compiler."""
 
     def __init__(self, dialect='default'):
-        '''
-        Constructor.
+        """
+        Creates a new SQL compiler instance.
 
-        Arguments:
+        Args:
             dialect (str): The SQL dialect to use
-        '''
+        """
         self._dialect = DialectFactory(dialect)
 
     @cachedmethod()
     def createTable(self, table):
-        '''
-        Compile a CREATE TABLE statement for a given table.
+        """
+        Compiles a CREATE TABLE statement for a given table.
 
         Args:
             table (sqlalchemy.sql.schema.Table): The Table instance to compile
 
         Returns:
             str: The DDL for the CREATE TABLE statement
-        '''
+        """
         ddl = 'CREATE '
 
         if table._prefixes:
@@ -157,8 +153,8 @@ class SqlCompiler(object):
 
     @cachedmethod()
     def createColumn(self, column):
-        '''
-        Compile a given column element for use in CREATE TABLE statement.
+        """
+        Compiles a given column element for use in CREATE TABLE statement.
 
         Args:
             column (sqlalchemy.sql.schema.Column):
@@ -166,7 +162,7 @@ class SqlCompiler(object):
 
         Returns:
             str: The DDL for the column element
-        '''
+        """
         ddl = '{} {}'.format(_(column.name), column.type)
 
         if column.default is not None:
@@ -183,15 +179,16 @@ class SqlCompiler(object):
 
     @cachedmethod()
     def createColumns(self, table):
-        '''
-        Compile a given table columns elements for use in CREATE TABLE statement.
+        """
+        Compiles a given table columns elements for use in CREATE TABLE
+        statement.
 
         Args:
             table (sqlalchemy.sql.schema.Table): The Table instance to compile
 
         Returns:
             str: The DDL for the table columns elements
-        '''
+        """
         separator = '\n'
         ddl = ''
 
@@ -206,15 +203,15 @@ class SqlCompiler(object):
 
     @cachedmethod()
     def createConstraints(self, table):
-        '''
-        Compile a given table constraints for use in CREATE TABLE statement.
+        """
+        Compiles a given table constraints for use in CREATE TABLE statement.
 
         Args:
             table (sqlalchemy.sql.schema.Table): The Table instance to compile
 
         Returns:
             str: The DDL for the table constraints elements
-        '''
+        """
         return ',\n  '.join(
             self.constraint(constraint)
             for constraint in table.constraints
@@ -222,15 +219,15 @@ class SqlCompiler(object):
 
     @cachedmethod()
     def createIndex(self, index):
-        '''
-        Compile a CREATE INDEX statement for a given index.
+        """
+        Compiles a CREATE INDEX statement for a given index.
 
         Args:
             index (sqlalchemy.sql.schema.Index): The Index instance to compile
 
         Returns:
             str: The DDL for the CREATE INDEX statement
-        '''
+        """
         ddl = 'CREATE '
 
         if index.unique:
@@ -245,22 +242,22 @@ class SqlCompiler(object):
 
     @cachedmethod()
     def createIndexes(self, table):
-        '''
-        Compile the CREATE INDEX statements for a given table.
+        """
+        Compiles the CREATE INDEX statements for a given table.
 
         Args:
             table (sqlalchemy.sql.schema.Table): The Table instance to compile
 
         Returns:
             str: The DDL for the CREATE INDEX statements
-        '''
+        """
         return '\n'.join(self.createIndex(index)
                          for index in table._sorted_indexes)
 
     @cachedmethod()
     def constraint(self, constraint):
-        '''
-        Compile a given constraint element for use in CREATE TABLE
+        """
+        Compiles a given constraint element for use in CREATE TABLE
         and ALTER TABLE statements.
 
         Args:
@@ -268,7 +265,7 @@ class SqlCompiler(object):
 
         Returns:
             str: The DDL for the constraint element
-        '''
+        """
         if isinstance(constraint, PrimaryKeyConstraint):
             return self.primaryKeyConstraint(constraint)
 
@@ -279,8 +276,8 @@ class SqlCompiler(object):
 
     @cachedmethod()
     def primaryKeyConstraint(self, constraint):
-        '''
-        Compile a given primary key constraint element for use in CREATE TABLE
+        """
+        Compiles a given primary key constraint element for use in CREATE TABLE
         and ALTER TABLE statements.
 
         Args:
@@ -289,7 +286,7 @@ class SqlCompiler(object):
 
         Returns:
             str: The DDL for the primary key constraint element
-        '''
+        """
         ddl = ''
 
         if constraint.name is not None:
@@ -303,8 +300,8 @@ class SqlCompiler(object):
 
     @cachedmethod()
     def foreignKeyConstraint(self, constraint):
-        '''
-        Compile a given foreign key constraint element for use in CREATE TABLE
+        """
+        Compiles a given foreign key constraint element for use in CREATE TABLE
         and ALTER TABLE statements.
 
         Args:
@@ -313,7 +310,7 @@ class SqlCompiler(object):
 
         Returns:
             str: The DDL for the foreign key constraint element
-        '''
+        """
         ddl = ''
 
         if constraint.name is not None:
@@ -332,29 +329,29 @@ class SqlCompiler(object):
 
     @cachedmethod()
     def addConstraint(self, constraint):
-        '''
-        Compile a ALTER TABLE ADD CONSTRAINT statement for a given constraint.
+        """
+        Compiles a ALTER TABLE ADD CONSTRAINT statement for a given constraint.
 
         Args:
             constraint: The constraint instance to compile
 
         Returns:
             str: The DDL for the ALTER TABLE ADD CONSTRAINT statement
-        '''
+        """
         return 'ALTER TABLE {} ADD {};'.format(_(constraint.table.name),
                                                self.constraint(constraint))
 
     @cachedmethod()
     def addConstraints(self, table):
-        '''
-        Compile the ALTER TABLE ADD CONSTRAINT statements for a given table.
+        """
+        Compiles the ALTER TABLE ADD CONSTRAINT statements for a given table.
 
         Args:
             table (sqlalchemy.sql.schema.Table): The Table instance to compile
 
         Returns:
             str: The DDL for the ALTER TABLE ADD CONSTRAINT statements
-        '''
+        """
         if not self._dialect.supports_alter:
             return ''
 
@@ -368,8 +365,8 @@ class SqlCompiler(object):
         return '\n'.join(ddl)
 
     def insert(self, table, record):
-        '''
-        Compile a INSERT statement for a given table and record.
+        """
+        Compiles a INSERT statement for a given table and record.
 
         Args:
             table (sqlalchemy.sql.schema.Table): The Table instance to compile
@@ -377,7 +374,7 @@ class SqlCompiler(object):
 
         Returns:
             str: The DML for the INSERT statements
-        '''
+        """
         def _compileLiterals(record):
             return ', '.join(
                 table.columns.get(column).type.literal_processor(
@@ -398,8 +395,8 @@ class SqlCompiler(object):
 
     @cachedmethod()
     def inserts(self, table, records):
-        '''
-        Compile the INSERT statements for a given table and list of records.
+        """
+        Compiles the INSERT statements for a given table and list of records.
 
         Args:
             table (sqlalchemy.sql.schema.Table): The Table instance to compile
@@ -407,25 +404,23 @@ class SqlCompiler(object):
 
         Returns:
             str: The DML for the INSERT statements
-        '''
+        """
         return '\n'.join(self.insert(table, record) for record in records)
 
 
 class DialectFactory(object):
-    '''
-    Factory class for instantiation of SQL dialect implementations.
-    '''
+    """Factory class for instantiation of SQL dialect implementations."""
 
     def __new__(cls, dialect):
-        '''
-        Get the given SQL dialect instance by name.
+        """
+        Gets the given SQL dialect instance by name.
 
-        Arguments:
+        Args:
             dialect (str): The SQL dialect name
 
         Returns:
             type: The SQL dialect instance
-        '''
+        """
         if dialect == 'default':
             return DefaultDialect()
 
@@ -437,7 +432,5 @@ class DialectFactory(object):
 
 
 class UnsupportedDialectError(Exception):
-    '''
-    Exception class raised when a given SQL dialect is not supported.
-    '''
+    """Exception class raised when a given SQL dialect is not supported."""
     pass

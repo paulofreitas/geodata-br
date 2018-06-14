@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Core internationalization module
+"""
+Core internationalization module.
 
 This module provides the internationalization facilities.
-'''
+"""
 # External dependencies
 
 import yaml
@@ -22,18 +22,17 @@ from geodatabr.core.types import Map
 
 
 class Translation(object):
-    '''
-    Translation class.
-    '''
+    """Translation class."""
 
     def __init__(self, locale_file, domain=None):
-        '''
-        Constructor.
+        """
+        Creates a new translation instance.
 
-        Arguments:
-            locale_file (geodatabr.core.helpers.filesystem.File): The localization file
+        Args:
+            locale_file (geodatabr.core.helpers.filesystem.File):
+                The localization file
             domain (str): An optional domain to load the translations
-        '''
+        """
         if not isinstance(locale_file, File):
             raise UnsupportedLocaleError('Unsupported localization')
 
@@ -47,46 +46,31 @@ class Translation(object):
 
     @property
     def locale(self):
-        '''
-        Returns the translation localization name.
-
-        Returns:
-            str: The translation localization name
-        '''
+        """Gets the translation localization name."""
         return self._locale
 
     @property
     def domain(self):
-        '''
-        Returns the translation domain name.
-
-        Returns:
-            str: The translation domain name
-        '''
+        """Gets the translation domain name."""
         return self._domain
 
     @property
     def domains(self):
-        '''
-        Returns the list of available translation domain names.
-
-        Returns:
-            list: The list of available translation domain names
-        '''
+        """Gets the list of available translation domain names."""
         return self._domains
 
     @cachedmethod()
     def translate(self, message, **placeholders):
-        '''
+        """
         Translates the given message with their placeholders.
 
-        Arguments:
+        Args:
             message (str): The message to be translated
             placeholders (dict): Any translation placeholder
 
         Returns:
             str: The translated message
-        '''
+        """
         if message in self._translations:
             return self._translations.get(message).format(placeholders)
 
@@ -94,9 +78,16 @@ class Translation(object):
 
 
 class Translator(object):
-    '''
+    """
     Translator service.
-    '''
+
+    Attributes:
+        LANGUAGE_DIR (geodatabr.core.helpers.filesystem.Directory):
+            The translations directory path
+        locale (str): The default locale name
+        fallbackLocale (str): The default fallback locale name
+        _translation: The translation instance
+    """
 
     LANGUAGE_DIR = SRC_DIR / 'data' / 'translations'
 
@@ -111,29 +102,30 @@ class Translator(object):
 
     @classmethod
     def locales(cls):
-        '''
+        """
         Returns the available localizations.
 
         Returns:
             dict: The available localizations mapping
-        '''
+        """
         return {locale_file.basename: locale_file
                 for locale_file in cls.LANGUAGE_DIR.files(pattern='*.yaml')}
 
     @classmethod
     def domains(cls, locale):
-        '''
+        """
         Returns the available domains for the given localization.
 
-        Arguments:
+        Args:
             locale (str): The localization name
 
         Returns:
             list: The available localization domain names
 
         Raises:
-            UnsupportedLocaleError: When an unsupported localization is used
-        '''
+            geodatabr.core.i18n.UnsupportedLocaleError:
+                If an unsupported localization is given
+        """
         locale_file = cls.locales().get(locale)
 
         if not locale_file:
@@ -143,43 +135,43 @@ class Translator(object):
 
     @classmethod
     def translations(cls, domain):
-        '''
+        """
         Returns the available localizations for the given domain.
 
-        Arguments:
+        Args:
             domain (str): The localization domain name
 
         Returns:
             dict: The available localizations mapping
-        '''
+        """
         return {locale: locale_file
                 for locale, locale_file in cls.locales().items()
                 if domain in Translation(locale_file).domains}
 
     @classmethod
     def load(cls, domain):
-        '''
+        """
         Loads the given localization domain.
 
-        Arguments:
+        Args:
             domain (str): The localization domain
-        '''
+        """
         cls._translations = {
             locale: Translation(locale_file, domain)
             for locale, locale_file in cls.translations(domain).items()}
 
     @classmethod
     def translate(cls, message, **placeholders):
-        '''
+        """
         Translates the given message with their placeholders.
 
-        Arguments:
+        Args:
             message (str): The message to be translated
             placeholders (dict): Any translation placeholder
 
         Returns:
             str: The translated message
-        '''
+        """
         if cls.locale in cls._translations:
             return cls._translations[cls.locale] \
                 .translate(message, **placeholders)
@@ -194,9 +186,7 @@ class Translator(object):
 
 
 class UnsupportedLocaleError(Exception):
-    '''
-    Exception class raised when an unsupported localization is used.
-    '''
+    """Exception class raised when an unsupported localization is used."""
     pass
 
 # Alias functions

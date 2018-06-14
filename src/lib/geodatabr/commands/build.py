@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Build command module
-'''
+"""Build command module."""
 # Imports
 
 # Package dependencies
@@ -20,35 +18,25 @@ from geodatabr.encoders import EncoderFactory, EncoderFormatRepository
 
 
 class BuildCommand(Command):
-    '''
-    A command class to build the dataset files.
-    '''
+    """A command class to build the dataset files."""
 
     @property
     def name(self):
-        '''
-        Defines the command name.
-        '''
+        """Gets the command name."""
         return 'build'
 
     @property
     def description(self):
-        '''
-        Defines the command description.
-        '''
+        """Gets the command description."""
         return 'Build the dataset files'
 
     @property
     def usage(self):
-        '''
-        Defines the command usage syntax.
-        '''
+        """Gets the command usage syntax."""
         return '%(prog)s [-l LOCALE] [-f FORMAT]'
 
     def configure(self):
-        '''
-        Defines the command arguments.
-        '''
+        """Defines the command arguments."""
         locales = Translator.locales()
         formats = EncoderFormatRepository.listNames()
 
@@ -68,9 +56,7 @@ class BuildCommand(Command):
                                .format(', '.join(formats))))
 
     def handle(self, args):
-        '''
-        Handles the command.
-        '''
+        """Handles the command."""
         try:
             for locale in args.locales:
                 Translator.locale = locale

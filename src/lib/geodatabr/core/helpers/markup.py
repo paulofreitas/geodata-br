@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Markup helper module
+"""
+Markup helper module.
 
 This module provides a Markdown markup generator class.
-'''
+"""
 # Imports
 
 # Built-in dependencies
@@ -17,24 +17,23 @@ from collections import defaultdict
 
 
 class Markdown(object):
-    '''
-    Markdown markup generator.
-    '''
+    """Markdown markup generator."""
+
     # Headers
 
     @staticmethod
     def header(heading_text, depth=1, alternative=False):
-        '''
+        """
         Creates a header.
 
-        Arguments:
+        Args:
             heading_text (str): The header text
             depth (int): The header depth level
             alternative (bool): Whether it should use the alternative syntax
 
         Returns:
             str: A header
-        '''
+        """
         assert depth >= 1 and depth <= 6, 'Invalid depth level'
 
         if alternative and depth in (1, 2):
@@ -49,16 +48,16 @@ class Markdown(object):
 
     @staticmethod
     def bold(text, alternative=False):
-        '''
+        """
         Creates a bold text.
 
-        Arguments:
+        Args:
             text (str): The text to be bolded
             alternative (bool): Whether it should use the alternative syntax
 
         Returns:
             str: A bolded text
-        '''
+        """
         if alternative:
             return '__{}__'.format(text)
 
@@ -66,16 +65,16 @@ class Markdown(object):
 
     @staticmethod
     def italic(text, alternative=True):
-        '''
+        """
         Creates an italic text.
 
-        Arguments:
+        Args:
             text (str): The text to be italicized
             alternative (bool): Whether it should use the alternative syntax
 
         Returns:
             str: An italicized text
-        '''
+        """
         if alternative:
             return '_{}_'.format(text)
 
@@ -85,16 +84,16 @@ class Markdown(object):
 
     @staticmethod
     def unorderedList(items, bullet_char='*'):
-        '''
+        """
         Creates a bullet list.
 
-        Arguments:
+        Args:
             items (list): The list items
             bullet_char (str): The bullet character to use
 
         Returns:
             str: A bullet list
-        '''
+        """
         assert bullet_char in ['*', '-', '+'], 'Invalid bullet char'
 
         return '\n'.join('{} {}'.format(bullet_char, item)
@@ -102,15 +101,15 @@ class Markdown(object):
 
     @staticmethod
     def orderedList(items):
-        '''
+        """
         Creates a numbered list.
 
-        Arguments:
+        Args:
             items (list): The list items
 
         Returns:
             str: A numbered list
-        '''
+        """
         return '\n'.join('{}. {}'.format(index + 1, item)
                          for index, item in enumerate(items)) + '\n'
 
@@ -118,16 +117,16 @@ class Markdown(object):
 
     @staticmethod
     def code(content, inline=True):
-        '''
+        """
         Creates an inline or block code.
 
-        Arguments:
+        Args:
             content (str): The code content
             inline (bool): Whether it should be rendered inline or not
 
         Returns:
             str: An inline or block code
-        '''
+        """
         if inline:
             return '`{}`'.format(content)
 
@@ -137,17 +136,17 @@ class Markdown(object):
 
     @staticmethod
     def image(url, text='', title=''):
-        '''
+        """
         Creates an image.
 
-        Arguments:
+        Args:
             url (str): The image URL
             text (str): The optional image alternate text
             title (str): The optional image title
 
         Returns:
             str: An image
-        '''
+        """
         if not title:
             return '![{}]({})'.format(text, url)
 
@@ -157,17 +156,17 @@ class Markdown(object):
 
     @staticmethod
     def link(url, text='', title=''):
-        '''
+        """
         Creates a link to an URL.
 
-        Arguments:
+        Args:
             url (str): The link URL
             text (str): The optional link text
             title (str): The optional link title
 
         Returns:
             str: A link
-        '''
+        """
         if not text and not title:
             return url
 
@@ -180,16 +179,16 @@ class Markdown(object):
 
     @staticmethod
     def blockquote(text, simple=False):
-        '''
+        """
         Creates a block quoted text.
 
-        Arguments:
+        Args:
             text (str): The text to be quoted
             simple (bool):
 
         Returns:
             str: A quoted text
-        '''
+        """
         if simple:
             return '> {}\n'.format(text)
 
@@ -199,67 +198,66 @@ class Markdown(object):
 
     @staticmethod
     def rule(rule_char='-'):
-        '''
+        """
         Creates an horizontal rule.
 
-        Arguments:
+        Args:
             rule_char (str): The rule character to use
 
         Returns:
             str: An horizontal rule
-        '''
+        """
         assert rule_char in ['-', '*', '_']
 
         return rule_char * 3 + '\n'
 
     @staticmethod
     def literal(text):
-        '''
+        """
         Generates an escaped text.
 
-        Arguments:
+        Args:
             text (str): The text to be escaped
 
         Returns:
             str: The escaped text
-        '''
+        """
         chars = '\\`*_{}[]()#+-.!<>'
 
         return ''.join('\\' + char if char in chars else char for char in text)
 
 
 class GithubMarkdown(Markdown):
-    '''
-    GitHub Flavored Markdown
-    '''
+    """GitHub Flavored Markdown extension."""
+
     # Emphasis
 
     @staticmethod
     def strikethrough(text):
-        '''
+        """
         Strikes out the provided text.
 
-        Arguments:
+        Args:
             text (str): The text to be striked out
 
         Returns:
             str: A striked text
-        '''
+        """
         return '~~{}~~'.format(text)
 
     # Lists
 
     @staticmethod
     def taskList(tasks):
-        '''
+        """
         Creates a task list.
 
-        Arguments:
+        Args:
             tasks (dict): A dictionary of task items
 
         Returns:
             str: A task list
-        '''
+        """
         assert isinstance(tasks, dict)
 
         return '\n'.join(
@@ -271,17 +269,17 @@ class GithubMarkdown(Markdown):
 
     @staticmethod
     def code(content, inline=True, syntax=None):
-        '''
+        """
         Creates an inline or block code.
 
-        Arguments:
+        Args:
             content (str): The code content
             inline (bool): Whether it should be rendered inline or not
             syntax (str): The code language it should highlight the syntax
 
         Returns:
             str: An inline or block code
-        '''
+        """
         # pylint: disable=arguments-differ
         if not syntax:
             return Markdown.code(content, inline)
@@ -292,16 +290,16 @@ class GithubMarkdown(Markdown):
 
     @staticmethod
     def table(data, aligning=None):
-        '''
+        """
         Creates a table from a 2 dimensional list.
 
-        Arguments:
+        Args:
             table (list): A two-dimensional list
             aligning (list): The table alignments
 
         Returns:
             str: A table
-        '''
+        """
         assert isinstance(data, list)
         assert set(aligning).issubset(set(['<', '^', '>']))
 

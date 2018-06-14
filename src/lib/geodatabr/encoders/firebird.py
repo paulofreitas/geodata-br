@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''Firebird Embedded encoder module.'''
+"""Firebird Embedded encoder module."""
 # Imports
 
 # Built-in dependencies
@@ -25,46 +25,46 @@ from geodatabr.encoders.sql import SqlEncoder
 
 
 class FirebirdFormat(EncoderFormat):
-    '''Encoder format class for Firebird Embedded file format.'''
+    """Encoder format class for Firebird Embedded file format."""
 
     @property
     def name(self) -> str:
-        '''Gets the encoder format name.'''
+        """Gets the encoder format name."""
         return 'firebird'
 
     @property
     def friendlyName(self):
-        '''Gets the encoder format friendly name.'''
+        """Gets the encoder format friendly name."""
         return 'Firebird Embedded'
 
     @property
     def extension(self) -> str:
-        '''Gets the encoder format extension.'''
+        """Gets the encoder format extension."""
         return '.fdb'
 
     @property
     def type(self) -> str:
-        '''Gets the encoder format type.'''
+        """Gets the encoder format type."""
         return 'Database'
 
     @property
     def mimeType(self) -> None:
-        '''Gets the encoder format media type.'''
+        """Gets the encoder format media type."""
         return None
 
     @property
     def info(self) -> str:
-        '''Gets the encoder format reference info.'''
+        """Gets the encoder format reference info."""
         return 'https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded'
 
     @property
     def isBinary(self) -> bool:
-        '''Tells whether the file format is binary or not.'''
+        """Tells whether the file format is binary or not."""
         return True
 
 
 class FirebirdEncoder(SqlEncoder, Encoder):
-    '''
+    """
     Firebird encoder class.
 
     Attributes:
@@ -72,18 +72,18 @@ class FirebirdEncoder(SqlEncoder, Encoder):
             The encoder format class
         serializer (geodatabr.dataset.serializers.Serializer):
             The encoder serialization class
-    '''
+    """
 
     format = FirebirdFormat
     serializer = Serializer
 
     @property
     def options(self) -> dict:
-        '''Gets the default encoding options.'''
+        """Gets the default encoding options."""
         return dict(dialect='firebird')
 
     def encode(self, data: dict, **options) -> BinaryFileStream:
-        '''
+        """
         Encodes the data into a Firebird Embedded file-like stream.
 
         Arguments:
@@ -95,7 +95,7 @@ class FirebirdEncoder(SqlEncoder, Encoder):
 
         Raises:
             geodatabr.encoders.EncodeError: If data fails to encode
-        '''
+        """
         try:
             sql_data = super().encode(data, **dict(self.options, **options))
             fdb_file = tempfile.mktemp()

@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Brazilian geographic data exporter package
-'''
+"""Brazilian geographic data exporter package."""
 # Package metadata
 
 VERSION = (18, 6, 'dev')  # CalVer YY.MM[.ID] (see https://calver.org/)

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''CSV encoder module.'''
+"""CSV encoder module."""
 # Imports
 
 # Built-in dependencies
@@ -19,55 +19,55 @@ from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 
 
 class CsvFormat(EncoderFormat):
-    '''Encoder format class for CSV file format.'''
+    """Encoder format class for CSV file format."""
 
     @property
     def name(self):
-        '''Gets the encoder format name.'''
+        """Gets the encoder format name."""
         return 'csv'
 
     @property
     def friendlyName(self):
-        '''Gets the encoder format friendly name.'''
+        """Gets the encoder format friendly name."""
         return 'CSV'
 
     @property
     def extension(self):
-        '''Gets the encoder format extension.'''
+        """Gets the encoder format extension."""
         return '.csv'
 
     @property
     def type(self):
-        '''Gets the encoder format type.'''
+        """Gets the encoder format type."""
         return 'Tabular Text'
 
     @property
     def mimeType(self):
-        '''Gets the encoder format media type.'''
+        """Gets the encoder format media type."""
         return 'text/csv'
 
     @property
     def info(self):
-        '''Gets the file format reference info.'''
+        """Gets the file format reference info."""
         return 'https://en.wikipedia.org/wiki/Comma-separated_values'
 
 
 class CsvEncoder(Encoder):
-    '''
+    """
     CSV encoder class.
 
     Attributes:
         format (geodatabr.encoders.csv.CsvFormat): The encoder format class
         serializer (geodatabr.dataset.serializers.FlattenedSerializer):
             The encoder serialization class
-    '''
+    """
 
     format = CsvFormat
     serializer = FlattenedSerializer
 
     @property
     def options(self) -> dict:
-        '''Gets the default encoding options.'''
+        """Gets the default encoding options."""
         return dict(delimiter=',',
                     quotechar='"',
                     doublequote=True,
@@ -76,7 +76,7 @@ class CsvEncoder(Encoder):
                     extrasaction='ignore')
 
     def encode(self, data: list, **options) -> FileStream:
-        '''
+        """
         Encodes the data into a CSV file-like stream.
 
         Args:
@@ -88,7 +88,7 @@ class CsvEncoder(Encoder):
 
         Raises:
             geodatabr.encoders.EncodeError: If data fails to encode
-        '''
+        """
         try:
             csv_data = FileStream()
             csv_writer = csv.DictWriter(csv_data,

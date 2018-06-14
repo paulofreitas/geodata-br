@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
+"""
 Property List file format utils module
-'''
+"""
 # Imports
 
 # Built-in dependencies

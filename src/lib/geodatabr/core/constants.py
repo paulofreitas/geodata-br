@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Core constants module
+"""
+Core constants module.
 
 This module provides the core constants.
-'''
+"""
 # Imports
 
 # Package dependencies

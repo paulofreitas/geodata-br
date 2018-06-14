@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Core logging module
-'''
+"""Core logging module."""
 from __future__ import absolute_import
 
 # Imports
@@ -19,22 +17,20 @@ import sys
 
 
 class Logger(object):
-    '''
-    Base logger class.
-    '''
+    """Base logger class."""
 
     @staticmethod
     def instance(name=None, level=logging.NOTSET):
-        '''
+        """
         Returns a logger instance.
 
-        Arguments:
+        Args:
             name (str): The logger name
             level (int): The logger level
 
         Returns:
             logging.Logger: The requested logger instance
-        '''
+        """
         logger = logging.getLogger(name)
         logger.setLevel(level)
 
@@ -42,13 +38,13 @@ class Logger(object):
 
     @staticmethod
     def setup(verbose=False, filename=None):
-        '''
+        """
         Setups the root logger.
 
-        Arguments:
+        Args:
             verbose (bool): Whether or not the logger should be verbose
             filename (string): A file to log errors
-        '''
+        """
         logging_level = logging.DEBUG if verbose else logging.INFO
         logger = Logger.instance(level=logging_level)
 
@@ -68,15 +64,15 @@ class Logger(object):
 
 
 def logger(level=logging.NOTSET):
-    '''
+    """
     Logger factory method.
 
-    Arguments:
+    Args:
         level (int): The logger level
 
     Returns:
         geodatabr.core.logging.Logger: A module-level logger instance
-    '''
+    """
     frame = inspect.stack()[1]
     module = inspect.getmodule(frame[0])
 

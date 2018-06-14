@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''Encode command module.'''
+"""Encode command module."""
 # Imports
 
 # Built-in dependencies
@@ -21,25 +21,25 @@ from geodatabr.encoders import EncoderFactory, EncoderFormatRepository, \
 
 
 class EncodeCommand(Command):
-    '''The dataset encoder command.'''
+    """A command class to encode the dataset."""
 
     @property
     def name(self) -> str:
-        '''Gets the command name.'''
+        """Gets the command name."""
         return 'encode'
 
     @property
     def description(self) -> str:
-        '''Gets the command description.'''
+        """Gets the command description."""
         return 'Encode the dataset'
 
     @property
     def usage(self) -> str:
-        '''Gets the command usage syntax.'''
+        """Gets the command usage syntax."""
         return '%(prog)s -f FORMAT [-l LOCALE] [-o FILENAME]'
 
     def configure(self):
-        '''Defines the command arguments.'''
+        """Defines the command arguments."""
         self.addArgument('-f', '--format',
                          metavar='FORMAT',
                          choices=EncoderFormatRepository.listNames(),
@@ -60,12 +60,7 @@ class EncodeCommand(Command):
                                'standard output.'))
 
     def handle(self, args: Namespace):
-        '''
-        Handles the command.
-
-        Raises:
-            geodatabr.encoders.EncodeError: If dataset fails to encode
-        '''
+        """Handles the command."""
         if not args.format:
             self._parser.error(
                 'You need to give the output format you want to encode.')

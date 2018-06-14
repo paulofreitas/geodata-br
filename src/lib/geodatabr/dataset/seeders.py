@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Dataset seeders module
+"""
+Dataset seeders module.
 
 This module provides the seeders classes used to populate the dataset.
-'''
+"""
 # Imports
 
 # Package dependencies
@@ -26,37 +26,30 @@ from geodatabr.dataset.services import \
 
 
 class Seeder(AbstractClass):
-    '''
-    Abstract implementation of seeders.
-    '''
+    """Abstract implementation of seeders."""
 
     def __init__(self):
-        '''
-        Creates a new entity seeder instance.
-        '''
+        """Creates a new entity seeder instance."""
         self._sidra = SidraDataset()
 
     def run(self):
-        '''
-        Runs the database seeder.
-        '''
+        """Runs the database seeder."""
         raise NotImplementedError
 
 
 class StateSeeder(Seeder):
-    '''
-    Database seeder for states.
-    '''
+    """Database seeder for states."""
+
     entity = State
 
     def run(self):
-        '''
+        """
         Runs the database seeder.
 
         Raises:
-            NothingToSeedError:
-                Should be thrown when the entity table is not empty.
-        '''
+            geodatabr.dataset.seeders.NothingToSeedError:
+                If the states table is not empty
+        """
         if StateRepository.count():
             raise NothingToSeedError
 
@@ -70,19 +63,18 @@ class StateSeeder(Seeder):
 
 
 class MesoregionSeeder(Seeder):
-    '''
-    Database seeder for mesoregions.
-    '''
+    """Database seeder for mesoregions."""
+
     entity = Mesoregion
 
     def run(self):
-        '''
+        """
         Runs the database seeder.
 
         Raises:
-            NothingToSeedError:
-                Should be thrown when the entity table is not empty.
-        '''
+            geodatabr.dataset.seeders.NothingToSeedError:
+                If the mesoregions table is not empty
+        """
         if MesoregionRepository.count():
             raise NothingToSeedError
 
@@ -103,19 +95,18 @@ class MesoregionSeeder(Seeder):
 
 
 class MicroregionSeeder(Seeder):
-    '''
-    Database seeder for microregions.
-    '''
+    """Database seeder for microregions."""
+
     entity = Microregion
 
     def run(self):
-        '''
+        """
         Runs the database seeder.
 
         Raises:
-            NothingToSeedError:
-                Should be thrown when the entity table is not empty.
-        '''
+            geodatabr.dataset.seeders.NothingToSeedError:
+                If the microregions table is not empty
+        """
         if MicroregionRepository.count():
             raise NothingToSeedError
 
@@ -138,19 +129,18 @@ class MicroregionSeeder(Seeder):
 
 
 class MunicipalitySeeder(Seeder):
-    '''
-    Database seeder for microregions.
-    '''
+    """Database seeder for municipalities."""
+
     entity = Municipality
 
     def run(self):
-        '''
+        """
         Runs the database seeder.
 
         Raises:
-            NothingToSeedError:
-                Should be thrown when the entity table is not empty.
-        '''
+            geodatabr.dataset.seeders.NothingToSeedError:
+                If the municipalities table is not empty
+        """
         if MunicipalityRepository.count():
             raise NothingToSeedError
 
@@ -174,19 +164,18 @@ class MunicipalitySeeder(Seeder):
 
 
 class DistrictSeeder(Seeder):
-    '''
-    Database seeder for districts.
-    '''
+    """Database seeder for districts."""
+
     entity = District
 
     def run(self):
-        '''
+        """
         Runs the database seeder.
 
         Raises:
-            NothingToSeedError:
-                Should be thrown when the entity table is not empty.
-        '''
+            geodatabr.dataset.seeders.NothingToSeedError:
+                If the districts table is not empty
+        """
         if DistrictRepository.count():
             raise NothingToSeedError
 
@@ -211,19 +200,18 @@ class DistrictSeeder(Seeder):
 
 
 class SubdistrictSeeder(Seeder):
-    '''
-    Database seeder for subdistricts.
-    '''
+    """Database seeder for subdistricts."""
+
     entity = Subdistrict
 
     def run(self):
-        '''
+        """
         Runs the database seeder.
 
         Raises:
-            NothingToSeedError:
-                Should be thrown when the entity table is not empty.
-        '''
+            geodatabr.dataset.seeders.NothingToSeedError:
+                If the subdistricts table is not empty
+        """
         if SubdistrictRepository.count():
             raise NothingToSeedError
 
@@ -249,12 +237,10 @@ class SubdistrictSeeder(Seeder):
 
 
 class SeederFactory(object):
-    '''
-    Factory class for instantiation of concrete seeder classes.
-    '''
+    """Factory class for instantiation of concrete seeder classes."""
 
     def __new__(cls, entity):
-        '''
+        """
         Factories a seeder class for a given entity class.
 
         Args:
@@ -266,8 +252,9 @@ class SeederFactory(object):
                 The seeder class instance
 
         Raises:
-            UnknownEntityError: When a given entity is not supported
-        '''
+            geodatabr.dataset.seeders.UnknownEntityError:
+                If a given entity is not supported
+        """
         for seeder in Seeder.childs():
             if seeder.entity is entity:
                 return seeder()
@@ -277,13 +264,11 @@ class SeederFactory(object):
 
 
 class UnknownEntityError(Exception):
-    '''
+    """
     Exception class raised when a given entity does not belong to any seeder.
-    '''
+    """
     pass
 
 
 class NothingToSeedError(Exception):
-    '''
-    Exception class raised when a given entity table is not empty.
-    '''
+    """Exception class raised when a given entity table is not empty."""

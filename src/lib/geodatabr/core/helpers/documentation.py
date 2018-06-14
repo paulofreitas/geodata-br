@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Documentation helper module
+"""
+Documentation helper module.
 
 This module provides helper classes to write documentation files.
-'''
+"""
 # Imports
 
 # Built-in dependencies
@@ -31,68 +31,58 @@ Translator.load('dataset')
 
 
 class Readme(object):
-    '''
-    A README documentation file.
-    '''
+    """A README documentation file."""
 
     def __init__(self, readme_file, stub_file=None):
-        '''
-        Constructor.
+        """
+        Creates a new README file.
 
-        Arguments:
+        Args:
             readme_file (geodatabr.core.helpers.filesystem.File): The README file
             stub_file (geodatabr.core.helpers.filesystem.File): The README stub file
-        '''
+        """
         self._readme_file = readme_file
         self._stub_file = stub_file
         self._stub = self._stub_file.read() if stub_file else ''
 
     def render(self):
-        '''
-        Renders the file.
-        '''
+        """Renders the file."""
         raise NotImplementedError
 
     def write(self):
-        '''
-        Writes the file to disk.
-        '''
+        """Writes the file to disk."""
         self._readme_file.write(self.render())
 
 
 class ProjectReadme(Readme):
-    '''
-    The project README documentation file.
-    '''
+    """The project README documentation file."""
 
     def __init__(self):
-        '''
-        Constructor.
-        '''
+        """Creates a new project README documentation file instance."""
         readme_file = File(BASE_DIR / 'README.md')
         stub_file = File(SRC_DIR / 'data/stubs/README.stub.md')
 
         super().__init__(readme_file, stub_file)
 
     def render(self):
-        '''
+        """
         Renders the file.
 
         Returns:
             str: The rendered project README contents
-        '''
+        """
         return self._stub.format(
             dataset_records=self.renderDatasetRecords().strip(),
             dataset_formats=self.renderDatasetFormats().strip()
         )
 
     def renderDatasetRecords(self):
-        '''
+        """
         Renders the available dataset records counts.
 
         Returns:
             str: The available dataset records counts
-        '''
+        """
         headers = ['Table/Collection', 'Records']
         alignment = ['>'] * 2
         dataset = Serializer().serialize()
@@ -105,12 +95,12 @@ class ProjectReadme(Readme):
         return Markdown.table([headers] + data, alignment)
 
     def renderDatasetFormats(self):
-        '''
+        """
         Renders the available dataset formats.
 
         Returns:
             str: The available dataset formats
-        '''
+        """
         grouped_formats = EncoderFormatRepository.groupByType()
         markdown = ''
 
@@ -127,17 +117,15 @@ class ProjectReadme(Readme):
 
 
 class DatasetReadme(Readme):
-    '''
-    A dataset README documentation file.
-    '''
+    """A dataset README documentation file."""
 
     def __init__(self, dataset_dir):
-        '''
-        Constructor.
+        """
+        Creates a new dataset README documentation file instance.
 
-        Arguments:
+        Args:
             dataset_dir (str): The dataset directory
-        '''
+        """
         readme_file = File(dataset_dir / 'README.md')
         stub_file = File(SRC_DIR / 'data/stubs/BASE_README.stub.md')
 
@@ -146,23 +134,23 @@ class DatasetReadme(Readme):
         self._dataset_dir = dataset_dir
 
     def render(self):
-        '''
+        """
         Renders the file.
 
         Returns:
             str: The rendered dataset README contents
-        '''
+        """
         return self._stub.format(
             dataset_records=self.renderDatasetRecords().strip(),
             dataset_files=self.renderDatasetFiles().strip())
 
     def renderDatasetRecords(self):
-        '''
+        """
         Renders the dataset records counts.
 
         Returns:
             str: The dataset records counts
-        '''
+        """
         headers = ['Table/Collection', 'Records']
         alignment = ['>', '>']
         dataset = Serializer().serialize()
@@ -175,12 +163,12 @@ class DatasetReadme(Readme):
         return Markdown.table([headers] + data, alignment)
 
     def renderDatasetFiles(self):
-        '''
+        """
         Renders the dataset files info.
 
         Returns:
             str: The dataset files info
-        '''
+        """
         files = list(self._dataset_dir.files(pattern=_('dataset_name') + '*'))
         grouped_files = groupby(sorted(files, key=lambda file: file.format.type),
                                 key=lambda file: file.format.type)

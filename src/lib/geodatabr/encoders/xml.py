@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''XML encoder module.'''
+"""XML encoder module."""
 # Imports
 
 # External dependencies
@@ -24,67 +24,67 @@ Translator.load('dataset')
 
 
 class XmlFormat(EncoderFormat):
-    '''Encoder format class for XML file format.'''
+    """Encoder format class for XML file format."""
 
     @property
     def name(self) -> str:
-        '''Gets the encoder format name.'''
+        """Gets the encoder format name."""
         return 'xml'
 
     @property
     def friendlyName(self) -> str:
-        '''Gets the encoder format friendly name.'''
+        """Gets the encoder format friendly name."""
         return 'XML'
 
     @property
     def extension(self) -> str:
-        '''Gets the encoder format extension.'''
+        """Gets the encoder format extension."""
         return '.xml'
 
     @property
     def type(self) -> str:
-        '''Gets the encoder format type.'''
+        """Gets the encoder format type."""
         return 'Data Interchange'
 
     @property
     def mimeType(self) -> list:
-        '''Gets the encoder format media type.'''
+        """Gets the encoder format media type."""
         return ['application/xml', 'text/xml']
 
     @property
     def info(self) -> str:
-        '''Gets the encoder format reference info.'''
+        """Gets the encoder format reference info."""
         return 'https://en.wikipedia.org/wiki/XML'
 
 
 class XmlEncoder(Encoder):
-    '''
+    """
     XML encoder class.
 
     Attributes:
         format (geodatabr.encoders.xml.XmlFormat): The encoder format class
         serializer (geodatabr.dataset.serializers.Serializer):
             The encoder format serialization class
-    '''
+    """
 
     format = XmlFormat
     serializer = Serializer
 
     @property
     def options(self) -> dict:
-        '''Gets the default encoding options.'''
+        """Gets the default encoding options."""
         return dict(xml_declaration=True,
                     encoding='utf-8',
                     pretty_print=True)
 
     @property
     def serializationOptions(self) -> dict:
-        '''Gets the encoder serialization options.'''
+        """Gets the encoder serialization options."""
         return dict(forceStr=True,
                     includeKey=True)
 
     def encode(self, data, **options) -> FileStream:
-        '''
+        """
         Encodes the data into a XML file-like stream.
 
         Args:
@@ -96,7 +96,7 @@ class XmlEncoder(Encoder):
 
         Raises:
             geodatabr.encoders.EncodeError: If data fails to encode
-        '''
+        """
         try:
             database = Element('database', name=_('dataset_name'))
 

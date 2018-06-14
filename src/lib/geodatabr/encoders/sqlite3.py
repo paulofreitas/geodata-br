@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''SQLite 3 encoder module.'''
+"""SQLite 3 encoder module."""
 # Imports
 
 # Built-in dependencies
@@ -21,46 +21,46 @@ from geodatabr.encoders.sql import SqlEncoder
 
 
 class Sqlite3Format(EncoderFormat):
-    '''Encoder format class for SQLite 3 file format.'''
+    """Encoder format class for SQLite 3 file format."""
 
     @property
     def name(self) -> str:
-        '''Gets the encoder format name.'''
+        """Gets the encoder format name."""
         return 'sqlite3'
 
     @property
     def friendlyName(self) -> str:
-        '''Gets the encoder format friendly name.'''
+        """Gets the encoder format friendly name."""
         return 'SQLite 3'
 
     @property
     def extension(self) -> str:
-        '''Gets the encoder format extension.'''
+        """Gets the encoder format extension."""
         return '.sqlite3'
 
     @property
     def type(self) -> str:
-        '''Gets the encoder format type.'''
+        """Gets the encoder format type."""
         return 'Database'
 
     @property
     def mimeType(self) -> str:
-        '''Gets the encoder format media type.'''
+        """Gets the encoder format media type."""
         return 'application/x-sqlite3'
 
     @property
     def info(self) -> str:
-        '''Gets the encoder format reference info.'''
+        """Gets the encoder format reference info."""
         return 'https://en.wikipedia.org/wiki/SQLite'
 
     @property
     def isBinary(self) -> bool:
-        '''Tells whether the file format is binary or not.'''
+        """Tells whether the file format is binary or not."""
         return True
 
 
 class Sqlite3Encoder(SqlEncoder, Encoder):
-    '''
+    """
     SQLite3 encoder class.
 
     Attributes:
@@ -68,18 +68,18 @@ class Sqlite3Encoder(SqlEncoder, Encoder):
             The encoder format class
         serializer (geodatabr.dataset.serializers.Serializer):
             The encoder serialization class
-    '''
+    """
 
     format = Sqlite3Format
     serializer = Serializer
 
     @property
     def options(self) -> dict:
-        '''Gets the default encoding options.'''
+        """Gets the default encoding options."""
         return dict(dialect='sqlite')
 
     def encode(self, data: dict, **options) -> BinaryFileStream:
-        '''
+        """
         Encodes the data into a SQLite 3 file-like stream.
 
         Args:
@@ -91,7 +91,7 @@ class Sqlite3Encoder(SqlEncoder, Encoder):
 
         Raises:
             geodatabr.encoders.EncodeError: If data fails to encode
-        '''
+        """
         try:
             sql_data = super().encode(data, **dict(self.options, **options))
 

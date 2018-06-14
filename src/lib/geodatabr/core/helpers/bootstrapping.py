@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Bootstrapping helper module
+"""
+Bootstrapping helper module.
 
 This module provides methods to bootstrap packages and modules.
-'''
+"""
 # Imports
 
 # Built-in dependencies
@@ -20,21 +20,19 @@ from pkgutil import walk_packages
 
 
 class ModuleLoader(object):
-    '''
-    Module loader class.
-    '''
+    """Module loader class."""
 
     @staticmethod
     def load(module):
-        '''
+        """
         Loads a given module.
 
-        Arguments:
+        Args:
             module (str): The module name to load
 
         Returns:
             module: The given module class
-        '''
+        """
         if module in sys.modules:
             return sys.modules[module]
 
@@ -42,17 +40,17 @@ class ModuleLoader(object):
 
     @classmethod
     def loadModules(cls, package, ignore_error=True):
-        '''
+        """
         Loads a given package modules.
 
-        Arguments:
+        Args:
             package: The package name or instance to load modules
             ignore_error (bool): Whether it should ignore import errors or not
 
         Raises:
             ImportError: When a package module can't be imported
             InvalidPackageError: When a given package is not valid
-        '''
+        """
         if isinstance(package, str):
             package = cls.load(package)
 
@@ -71,7 +69,5 @@ class ModuleLoader(object):
 
 
 class InvalidPackageError(Exception):
-    '''
-    Exception class raised when a package is not valid.
-    '''
+    """Exception class raised when a package is not valid."""
     pass

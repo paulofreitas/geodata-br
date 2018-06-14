@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Dataset services module
+"""
+Dataset services module.
 
 This module provides the services that are used to create the dataset.
-'''
+"""
 # Imports
 
 # Built-in dependencies
@@ -53,17 +53,15 @@ SIDRA_SUBDISTRICT = 11
 
 
 class HttpSession(Session):
-    '''
-    Custom HTTP session implementation.
-    '''
+    """Custom HTTP session implementation."""
 
     def __init__(self, base_url, *args, **kwargs):
-        '''
-        Constructor.
+        """
+        Creates a new HTTP session instance.
 
         Args:
             base_url (str): The base URL for this HTTP session
-        '''
+        """
         super().__init__(*args, **kwargs)
         self._base_url = base_url
 
@@ -83,7 +81,7 @@ class HttpSession(Session):
     @sleep_and_retry
     @limits(calls=1, period=HTTP_THROTTLING_INTERVAL)
     def request(self, method, url, **kwargs):
-        '''
+        """
         HTTP throttled requests with custom timeouts.
 
         Args:
@@ -92,7 +90,7 @@ class HttpSession(Session):
 
         Returns:
             requests.models.Response: The HTTP response object
-        '''
+        """
         if kwargs.get('timeout') is None:
             kwargs.update(timeout=(HTTP_CONNECT_TIMEOUT, HTTP_READ_TIMEOUT))
 
@@ -105,49 +103,43 @@ class HttpSession(Session):
 
 
 class SidraApi(object):
-    '''
-    Main service to query the SIDRA API.
-    '''
+    """Main service to query the SIDRA API."""
 
     def __init__(self):
-        '''
-        Constructors.
-        '''
+        """Creates a new SidraApi instance."""
         self._session = HttpSession('http://api.sidra.ibge.gov.br')
 
     def query(self, params):
-        '''
+        """
         Runs a query over the API.
 
-        Arguments:
+        Args:
             params (str): The query params
 
         Returns:
             geodatabr.dataset.services.SidraApiRespone: The SidraApiResponse
                 instance
-        '''
+        """
         return SidraApiResponse(self._session.get('/values' + params).json())
 
 
 class SidraApiResponse(object):
-    '''
-    The response object returned by SidraApi service.
-    '''
+    """Response object returned by SidraApi service."""
 
     def __init__(self, data):
-        '''
-        Constructor.
+        """
+        Creates a new SidraApiResponse instance.
 
         Args:
             data (dict): The API JSON response
-        '''
+        """
         self._data = data
 
     def get(self, keys=[]):
-        '''
+        """
         Retrieves the API response records.
 
-        Arguments:
+        Args:
             keys (list): The response records keys to retrieve
 
         Returns:
@@ -155,7 +147,7 @@ class SidraApiResponse(object):
 
         Raises:
             KeyError: When a given record key is not valid
-        '''
+        """
         records = []
 
         for _record in self._data:
@@ -176,18 +168,14 @@ class SidraApiResponse(object):
 
 
 class SidraDataset(object):
-    '''
-    Main service to query the SIDRA database of geographic territories.
-    '''
+    """Main service to query the SIDRA database of geographic territories."""
 
     def __init__(self):
-        '''
-        Constructor.
-        '''
+        """Creates a new SidraDataset instance."""
         self._session = HttpSession('https://sidra.ibge.gov.br')
 
     def findAll(self, level):
-        '''
+        """
         Finds all geographic territories for a given territorial level.
 
         Args:
@@ -195,7 +183,7 @@ class SidraDataset(object):
 
         Returns:
             list: The list of geographic territories
-        '''
+        """
         try:
             records = self._session \
                 .get('/Territorio/Unidades', params={'nivel': level}) \
@@ -206,7 +194,7 @@ class SidraDataset(object):
         return SidraDatasetResponse(records)
 
     def findChildren(self, child_level, parent_level, parent_id):
-        '''
+        """
         Finds all geographic territories belonging to a parent territory.
 
         Args:
@@ -217,7 +205,7 @@ class SidraDataset(object):
         Returns:
             geodatabr.dataset.services.SidraDatasetResponse:
                 The list of geographic territories
-        '''
+        """
         try:
             records = self._session \
                 .get('/Territorio/UnidadesAbrangidas',
@@ -232,17 +220,15 @@ class SidraDataset(object):
 
 
 class SidraDatasetResponse(list):
-    '''
-    The response object returned by SidraDataset service.
-    '''
+    """Response object returned by SidraDataset service."""
 
     def __init__(self, data):
-        '''
-        Constructor.
+        """
+        Creates a new SidraDatasetResponse instance.
 
         Args:
             data (dict): The API JSON response
-        '''
+        """
         super().__init__([
             Map(id=_id, name=name)
             for (_id, name) in zip(data['Codigos'], data['Nomes'])

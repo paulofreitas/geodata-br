@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Refresh command module
-'''
+"""Refresh command module."""
 # Imports
 
 # Package dependencies
@@ -18,35 +16,25 @@ from geodatabr.dataset.base import DatabaseHelper
 
 
 class RefreshCommand(Command):
-    '''
-    A command class to reset and re-run all dataset seeders.
-    '''
+    """A command class to reset and re-run all dataset seeders."""
 
     @property
     def name(self):
-        '''
-        Defines the command name.
-        '''
+        """Gets the command name."""
         return 'refresh'
 
     @property
     def description(self):
-        '''
-        Defines the command description.
-        '''
+        """Gets the command description."""
         return 'Reset and re-run all dataset seeders'
 
     @property
     def usage(self):
-        '''
-        Defines the command usage syntax.
-        '''
+        """Gets the command usage syntax."""
         return '%(prog)s'
 
     def handle(self, args):
-        '''
-        Handles the command.
-        '''
+        """Handles the command."""
         try:
             logger().info('> Clearing the dataset...')
             DatabaseHelper.clear()

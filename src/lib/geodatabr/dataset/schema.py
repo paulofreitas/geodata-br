@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Dataset schema module
+"""
+Dataset schema module.
 
 This module provides the entities used to describe the database.
-'''
+"""
 # Imports
 
 # External dependencies
@@ -31,9 +31,8 @@ def Relationship(entity, backref, **kwargs):
 
 
 class Entity(declarative_base()):
-    '''
-    Abstract entity class.
-    '''
+    """Abstract entity class."""
+
     __abstract__ = True
 
     naming_convention = {
@@ -46,7 +45,7 @@ class Entity(declarative_base()):
     metadata = MetaData(naming_convention=naming_convention)
 
     def serialize(self, flatten=False):
-        '''
+        """
         Serializes the entity to an ordered mapping.
 
         Args:
@@ -54,7 +53,7 @@ class Entity(declarative_base()):
 
         Returns:
             geodatabr.core.types.OrderedMap: The entity columns/values pairs
-        '''
+        """
         if not flatten:
             return OrderedMap({column.name: getattr(self, column.name)
                                for column in self.__table__.columns})
@@ -84,9 +83,8 @@ class Entity(declarative_base()):
 
 
 class State(Entity):
-    '''
-    Entity for states.
-    '''
+    """Entity for states."""
+
     __name__ = 'state'
 
     __table__ = Table(
@@ -110,9 +108,8 @@ class State(Entity):
 
 
 class Mesoregion(Entity):
-    '''
-    Entity for mesoregions.
-    '''
+    """Entity for mesoregions."""
+
     __name__ = 'mesoregion'
 
     __table__ = Table(
@@ -141,9 +138,8 @@ class Mesoregion(Entity):
 
 
 class Microregion(Entity):
-    '''
-    Entity for microregions.
-    '''
+    """Entity for microregions."""
+
     __name__ = 'microregion'
 
     __table__ = Table(
@@ -177,9 +173,8 @@ class Microregion(Entity):
 
 
 class Municipality(Entity):
-    '''
-    Entity for municipalities.
-    '''
+    """Entity for municipalities."""
+
     __name__ = 'municipality'
 
     __table__ = Table(
@@ -218,9 +213,8 @@ class Municipality(Entity):
 
 
 class District(Entity):
-    '''
-    Entity for districts.
-    '''
+    """Entity for districts."""
+
     __name__ = 'district'
 
     __table__ = Table(
@@ -264,9 +258,8 @@ class District(Entity):
 
 
 class Subdistrict(Entity):
-    '''
-    Entity for subdistricts.
-    '''
+    """Entity for subdistricts."""
+
     __name__ = 'subdistrict'
 
     __table__ = Table(

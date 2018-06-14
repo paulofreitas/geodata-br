@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Commands package
+"""
+Commands package.
 
 This package provides an application class, an abstract command class and
 concrete command modules.
-'''
+"""
 # Imports
 
 # Built-in dependencies
@@ -25,10 +25,10 @@ from geodatabr.core.types import AbstractClass
 
 
 class Application(object):
-    '''Main application class.'''
+    """Main application class."""
 
     def __init__(self):
-        '''Constructor.'''
+        """Creates a new application instance."""
         self._parser = argparse.ArgumentParser(
             description=self.description,
             epilog=self.epilog,
@@ -44,7 +44,7 @@ class Application(object):
         self.setDefaults()
 
     def setDefaults(self):
-        '''Sets the application default arguments.'''
+        """Sets the application default arguments."""
         default_args = self.addArgumentGroup('Arguments')
 
         self.addArgument(default_args,
@@ -62,50 +62,54 @@ class Application(object):
                          help='Display informational messages and warnings')
 
     def addParser(self, *args, **kwargs):
-        '''Adds a new command parser to the application.
+        """
+        Adds a new command parser to the application.
 
         Returns:
             argparse.ArgumentParser: The command argument parser
-        '''
+        """
         return self._subparsers.add_parser(*args, **kwargs)
 
     def addCommand(self, command_class):
-        '''Adds a new command to the application.
+        """
+        Adds a new command to the application.
 
-        Arguments:
-            command_class (Command): The command class
-        '''
+        Args:
+            command_class (geodatabr.commands.Command): The command class
+        """
         command = command_class(self)
         command.configure()
 
         self._commands[command.name] = command
 
     def addArgumentGroup(self, title):
-        '''Adds a new argument group.
+        """
+        Adds a new argument group.
 
-        Arguments:
+        Args:
             title (str): The argument group title
 
         Returns:
             argparse._ArgumentGroup: The argument group instance
-        '''
+        """
         return self._parser.add_argument_group(title)
 
     def addArgument(self, group, *args, **kwargs):
-        '''Adds a new argument to the given argument group.
+        """
+        Adds a new argument to the given argument group.
 
-        Arguments:
+        Args:
             group (argparse._ArgumentGroup): The argument group
-        '''
+        """
         group.add_argument(*args, **kwargs)
 
     def registerCommands(self):
-        '''Registers the available command modules into the application.'''
+        """Registers the available command modules into the application."""
         for command in Command.childs():
             self.addCommand(command)
 
     def parse(self):
-        '''Parses the given application arguments.'''
+        """Parses the given application arguments."""
         args = self._parser.parse_args()
 
         Logger.setup(args.verbose)
@@ -113,7 +117,7 @@ class Application(object):
         return args
 
     def run(self):
-        '''Runs the application.'''
+        """Runs the application."""
         self.registerCommands()
 
         args = self.parse()
@@ -124,30 +128,32 @@ class Application(object):
 
     @property
     def version(self):
-        '''Defines the application version.'''
+        """Gets the application version."""
         return __version__
 
     @property
     def description(self):
-        '''Defines the application description.'''
+        """Gets the application description."""
         return __description__
 
     @property
     def epilog(self):
-        '''Defines the application epilog message.'''
-        return 'Report bugs and feature requests to {}/issues.'.format(__url__)
+        """Gets the application epilog message."""
+        return 'Report bugs and feature requests to {}/issues.' \
+                .format(__url__)
 
 
 class Command(AbstractClass):
-    '''Abstract command class.'''
+    """Abstract command class."""
 
     def __init__(self, application):
-        '''Constructor.
+        """
+        Creates a new command instance.
 
-        Arguments:
+        Args:
             application (geodatabr.commands.Application):
                 The application class instance
-        '''
+        """
         self.application = application
 
         self._parser = application.addParser(
@@ -162,50 +168,51 @@ class Command(AbstractClass):
         self.setDefaults()
 
     def setDefaults(self):
-        '''Sets the command default arguments.'''
+        """Sets the command default arguments."""
         self.addArgument('-h', '--help',
                          action='help',
                          help='Display this information')
 
     def addArgument(self, *args, **kwargs):
-        '''Adds a new argument to the command.'''
+        """Adds a new argument to the command."""
         self._parser.add_argument(*args, **kwargs)
 
     @property
     def name(self):
-        '''Defines the command name.'''
+        """Gets the command name."""
         raise NotImplementedError
 
     @property
     def description(self):
-        '''Defines the command description.'''
+        """Gets the command description."""
         return None
 
     @property
     def usage(self):
-        '''Defines the command usage syntax.'''
+        """Gets the command usage syntax."""
         return None
 
     @property
     def epilog(self):
-        '''Defines the command epilog message.'''
+        """Gets the command epilog message."""
         return None
 
     def configure(self):
-        '''Defines the command arguments.'''
+        """Defines the command arguments."""
         pass
 
     def handle(self, args):
-        '''Handles the command.
+        """
+        Handles the command.
 
-        Arguments:
+        Args:
             args (argparser.Namespace): The command arguments
-        '''
+        """
         raise NotImplementedError
 
 
 class HelpFormatter(argparse.HelpFormatter):
-    '''Custom help formatter class to use when parsing arguments.'''
+    """Custom help formatter class to use when parsing arguments."""
 
     def start_section(self, heading):
         heading = heading.replace('optional arguments', 'Arguments')
