@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-YAML file format utils module
-'''
+'''YAML encoder utils module.'''
 # Imports
 
 # Built-in dependencies
@@ -17,37 +15,12 @@ import yaml
 
 # Package dependencies
 
-from geodatabr.core.types import Map, OrderedMap
+from geodatabr.core.types import List, Map, OrderedMap
 
-# Classes
+# Monkey patches
 
+for dumper in (yaml.Dumper, yaml.SafeDumper):
+    yaml.add_representer(List, dumper.represent_list)
 
-class OrderedDumper(yaml.Dumper):
-    '''
-    A YAML dumper which is able to serialize ordered mapping objects.
-    Usage: `yaml.dump(data, Dumper=OrderedDumper)`
-    '''
-
-    def __init__(self, *args, **kwargs):
-        '''
-        Constructor.
-        '''
-        super().__init__(*args, **kwargs)
-
-        for mapping in (OrderedDict, Map, OrderedMap):
-            yaml.add_representer(mapping, self._mappingRepresenter)
-            yaml.add_representer(mapping, self._mappingRepresenter,
-                                 Dumper=yaml.SafeDumper)
-
-    def _mappingRepresenter(self, dumper, mapping):
-        '''
-        Represents mapping objects.
-
-        Arguments:
-            dumper (yaml.dumper.BaseDumper): The YAML dumper to use
-            mapping (collections.MutableMapping): The mapping to represent
-
-        Returns:
-            yaml.nodes.MappingNode: A YAML mapping node
-        '''
-        return dumper.represent_dict(mapping.items())
+    for mapping in (Map, OrderedDict, OrderedMap):
+        yaml.add_representer(mapping, dumper.represent_dict)
