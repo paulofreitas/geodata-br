@@ -2,104 +2,102 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Property List file encoder module
-'''
+'''Property List encoder module.'''
 # Imports
 
 # Built-in dependencies
 
-import io
 import plistlib
 
 # Package dependencies
 
-from geodatabr.core.helpers.decorators import classproperty
+from geodatabr.core.types import BinaryFileStream
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import Encoder, EncoderFormat
+from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 
 # Classes
 
 
-class PlistFormat(EncoderFormat):
-    '''
-    The file format class for Property List file format.
-    '''
+class PropertyListFormat(EncoderFormat):
+    '''Encoder format class for Property List file format.'''
 
-    @classproperty
-    def name(self):
-        '''
-        The file format name.
-        '''
+    @property
+    def name(self) -> str:
+        '''Gets the encoder format name.'''
         return 'plist'
 
-    @classproperty
-    def friendlyName(self):
-        '''
-        The file format friendly name.
-        '''
+    @property
+    def friendlyName(self) -> str:
+        '''Gets the encoder format friendly name.'''
         return 'Property List'
 
-    @classproperty
-    def extension(self):
-        '''
-        The file format extension.
-        '''
+    @property
+    def extension(self) -> str:
+        '''Gets the encoder format extension.'''
         return '.plist'
 
-    @classproperty
-    def type(self):
-        '''
-        The file format type.
-        '''
+    @property
+    def type(self) -> str:
+        '''Gets the encoder format type.'''
         return 'Data Interchange'
 
-    @classproperty
-    def mimeType(self):
-        '''
-        The file format media type.
-        '''
+    @property
+    def mimeType(self) -> str:
+        '''Gets the encoder format media type.'''
         return 'application/x-plist'
 
-    @classproperty
-    def info(self):
-        '''
-        The file format reference info.
-        '''
+    @property
+    def info(self) -> str:
+        '''Gets the encoder format reference info.'''
         return 'https://en.wikipedia.org/wiki/Property_list'
 
-    @classproperty
-    def isBinary(self):
-        '''
-        Tells whether the file format is binary or not.
-        '''
+    @property
+    def isBinary(self) -> bool:
+        '''Tells whether the file format is binary or not.'''
         return True
 
 
 class PropertyListEncoder(Encoder):
     '''
     Property List encoder class.
+
+    Attributes:
+        format (geodatabr.encoders.plist.PropertyListFormat):
+            The encoder format class
+        serializer (geodatabr.dataset.serializers.Serializer):
+            The encoder serialization class
     '''
 
-    # Encoder format
-    _format = PlistFormat
+    format = PropertyListFormat
+    serializer = Serializer
 
-    def encode(self, **options):
+    @property
+    def options(self) -> dict:
+        '''Gets the default encoding options.'''
+        return dict(fmt=plistlib.FMT_BINARY,
+                    sort_keys=False)
+
+    @property
+    def serializationOptions(self) -> dict:
+        '''Gets the encoder format serialization options.'''
+        return dict(forceStrKeys=True)
+
+    def encode(self, data: dict, **options) -> BinaryFileStream:
         '''
         Encodes the data into a Property List file-like stream.
 
-        Arguments:
-            options (dict): The encoding options
+        Args:
+            data: The data to encode
+            **options: The encoding options
 
         Returns:
-            io.BytesIO: A Property List file-like stream
+            A Property List file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: When data fails to encode
+            geodatabr.encoders.EncodeError: If data fails to encode
         '''
-        data = Serializer(forceStrKeys=True).serialize()
-        plist_data = plistlib.dumps(data,
-                                    fmt=plistlib.FMT_BINARY,
-                                    sort_keys=False)
-
-        return io.BytesIO(plist_data)
+        try:
+            return BinaryFileStream(
+                plistlib.dumps(data, **dict(self.options, **options)))
+        except Exception:
+            raise EncodeError
