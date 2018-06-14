@@ -108,15 +108,15 @@ class EncoderFormatRepository(object):
             strict: Whether it should do a loose or strict search
 
         Returns:
-            The encoder format class
+            The encoder format class instance
 
         Raises:
             geodatabr.encoders.UnknownEncoderFormatError:
                 If a given encoder format is not found
         """
-        for _format in EncoderFormat.childs():
-            if _format.name == (name if strict else name.lower()):
-                return _format
+        for encoder_format in EncoderFormat.childs():
+            if encoder_format().name == (name if strict else name.lower()):
+                return encoder_format()
 
         raise UnknownEncoderFormatError(
             'No encoder format found with this name: {}'.format(name))
@@ -131,16 +131,16 @@ class EncoderFormatRepository(object):
             strict: Whether it should do a loose or strict search
 
         Returns:
-            The encoder format class
+            The encoder format class instance
 
         Raises:
             geodatabr.encoders.UnknownEncoderFormatError:
                 If a given encoder format is not found
         """
-        for _format in EncoderFormat.childs():
-            if (_format.extension
+        for encoder_format in EncoderFormat.childs():
+            if (encoder_format().extension
                     == (extension if strict else extension.lower())):
-                return _format
+                return encoder_format()
 
         raise UnknownEncoderFormatError(
             'No encoder format found with this extension: {}'.format(extension))
@@ -238,15 +238,16 @@ class Encoder(AbstractClass):
             geodatabr.encoders.EncodeError: If data fails to encode
         """
         data = self.encode(data, **options).read()
+        encoder_format = self.format()
 
         if not filename:
             return sys.stdout.write(data + '\n')
 
         if filename == 'auto':
-            filename = _('dataset_name') + self.format.extension
+            filename = _('dataset_name') + encoder_format.extension
 
         with File(filename) \
-            .open('wb' if self.format.isBinary else 'w') as _file:
+            .open('wb' if encoder_format.isBinary else 'w') as _file:
             _file.write(data)
 
 
