@@ -12,7 +12,8 @@ from geodatabr.core import DATA_DIR
 from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import logger
-from geodatabr.encoders import EncoderFactory, EncoderFormatRepository
+from geodatabr.encoders import EncoderFactory, EncoderFormatRepository, \
+    EncodeError
 
 # Classes
 
@@ -69,7 +70,14 @@ class BuildCommand(Command):
                 with dataset_dir:
                     for dataset_format in args.formats:
                         encoder = EncoderFactory.fromFormat(dataset_format)
-                        encoder.encodeToFile()
+
+                        logger().info('Encoding dataset to %s format...',
+                                      encoder.format().friendlyName)
+
+                        serializer = encoder.serializer(
+                            **encoder.serializationOptions)
+
+                        encoder.encodeToFile(serializer.serialize())
 
                     logger().info('Generating dataset README file...')
 
@@ -78,5 +86,7 @@ class BuildCommand(Command):
             logger().info('Generating project README file...')
 
             ProjectReadme().write()
+        except EncodeError:
+            logger().error('Failed to encode dataset.')
         except KeyboardInterrupt:
             logger().info('Building was canceled.')
