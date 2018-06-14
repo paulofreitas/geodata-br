@@ -2,14 +2,8 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-XML file encoder module
-'''
+'''XML encoder module.'''
 # Imports
-
-# Built-in dependencies
-
-import io
 
 # External dependencies
 
@@ -17,10 +11,10 @@ from lxml.etree import Comment, Element, SubElement, tostring as xml_str
 
 # Package dependencies
 
-from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.core.i18n import _, Translator
+from geodatabr.core.types import FileStream
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import Encoder, EncoderFormat
+from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 
 # Translator setup
 
@@ -30,91 +24,95 @@ Translator.load('dataset')
 
 
 class XmlFormat(EncoderFormat):
-    '''
-    The file format class for XML file format.
-    '''
+    '''Encoder format class for XML file format.'''
 
-    @classproperty
-    def name(self):
-        '''
-        The file format name.
-        '''
+    @property
+    def name(self) -> str:
+        '''Gets the encoder format name.'''
         return 'xml'
 
-    @classproperty
-    def friendlyName(self):
-        '''
-        The file format friendly name.
-        '''
+    @property
+    def friendlyName(self) -> str:
+        '''Gets the encoder format friendly name.'''
         return 'XML'
 
-    @classproperty
-    def extension(self):
-        '''
-        The file format extension.
-        '''
+    @property
+    def extension(self) -> str:
+        '''Gets the encoder format extension.'''
         return '.xml'
 
-    @classproperty
-    def type(self):
-        '''
-        The file format type.
-        '''
+    @property
+    def type(self) -> str:
+        '''Gets the encoder format type.'''
         return 'Data Interchange'
 
-    @classproperty
-    def mimeType(self):
-        '''
-        The file format media type.
-        '''
+    @property
+    def mimeType(self) -> list:
+        '''Gets the encoder format media type.'''
         return ['application/xml', 'text/xml']
 
-    @classproperty
-    def info(self):
-        '''
-        The file format reference info.
-        '''
+    @property
+    def info(self) -> str:
+        '''Gets the encoder format reference info.'''
         return 'https://en.wikipedia.org/wiki/XML'
 
 
 class XmlEncoder(Encoder):
     '''
     XML encoder class.
+
+    Attributes:
+        format (geodatabr.encoders.xml.XmlFormat): The encoder format class
+        serializer (geodatabr.dataset.serializers.Serializer):
+            The encoder format serialization class
     '''
 
-    # Encoder format
-    _format = XmlFormat
+    format = XmlFormat
+    serializer = Serializer
 
-    def encode(self, **options):
+    @property
+    def options(self) -> dict:
+        '''Gets the default encoding options.'''
+        return dict(xml_declaration=True,
+                    encoding='utf-8',
+                    pretty_print=True)
+
+    @property
+    def serializationOptions(self) -> dict:
+        '''Gets the encoder serialization options.'''
+        return dict(forceStr=True,
+                    includeKey=True)
+
+    def encode(self, data, **options) -> FileStream:
         '''
         Encodes the data into a XML file-like stream.
 
-        Arguments:
-            options (dict): The encoding options
+        Args:
+            data: The data to encode
+            **options: The encoding options
 
         Returns:
-            io.StringIO: A XML file-like stream
+            A XML file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: When data fails to encode
+            geodatabr.encoders.EncodeError: If data fails to encode
         '''
-        data = Serializer(forceStr=True, includeKey=True).serialize()
-        database = Element('database', name=_('dataset_name'))
+        try:
+            database = Element('database', name=_('dataset_name'))
 
-        for table_name, rows in iter(data.items()):
-            database.append(Comment(' Table {} '.format(table_name)))
-            table = SubElement(database, 'table', name=table_name)
+            for table_name, rows in iter(data.items()):
+                database.append(Comment(' Table {} '.format(table_name)))
+                table = SubElement(database, 'table', name=table_name)
 
-            for row_data in iter(rows.values()):
-                row = SubElement(table, 'row')
+                for row_data in iter(rows.values()):
+                    row = SubElement(table, 'row')
 
-                for column_name, column_value in iter(row_data.items()):
-                    SubElement(row, 'field', name=column_name).text =\
-                        column_value
+                    for column_name, column_value in iter(row_data.items()):
+                        SubElement(row, 'field', name=column_name).text =\
+                            column_value
 
-        xml_data = xml_str(database,
-                           xml_declaration=True,
-                           encoding='utf-8',
-                           pretty_print=True)
+            xml_data = xml_str(database, **dict(self.options, **options))
 
-        return io.StringIO(xml_data.decode())
+            return FileStream(xml_data.decode())
+        except Exception:
+            raise EncodeError
