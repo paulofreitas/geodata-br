@@ -2,14 +2,8 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-YAML file encoder module
-'''
+'''YAML encoder module.'''
 # Imports
-
-# Built-in dependencies
-
-import io
 
 # External dependencies
 
@@ -17,87 +11,84 @@ import yaml
 
 # Package dependencies
 
-from geodatabr.core.helpers.decorators import classproperty
+import geodatabr.encoders.yaml.utils
+
+from geodatabr.core.types import FileStream
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import Encoder, EncoderFormat
-from geodatabr.encoders.yaml.utils import OrderedDumper
+from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 
 # Classes
 
 
 class YamlFormat(EncoderFormat):
-    '''
-    The file format class for YAML file format.
-    '''
+    '''Encoder format class for YAML file format.'''
 
-    @classproperty
-    def name(self):
-        '''
-        The file format name.
-        '''
+    @property
+    def name(self) -> str:
+        '''Gets the encoder format name.'''
         return 'yaml'
 
-    @classproperty
-    def friendlyName(self):
-        '''
-        The file format friendly name.
-        '''
+    @property
+    def friendlyName(self) -> str:
+        '''Gets the encoder format friendly name.'''
         return 'YAML'
 
-    @classproperty
-    def extension(self):
-        '''
-        The file format extension.
-        '''
+    @property
+    def extension(self) -> str:
+        '''Gets the encoder format extension.'''
         return '.yaml'
 
-    @classproperty
-    def type(self):
-        '''
-        The file format type.
-        '''
+    @property
+    def type(self) -> str:
+        '''Gets the encoder format type.'''
         return 'Data Interchange'
 
-    @classproperty
-    def mimeType(self):
-        '''
-        The file format media type.
-        '''
+    @property
+    def mimeType(self) -> None:
+        '''Gets the encoder format media type.'''
         return None
 
-    @classproperty
-    def info(self):
-        '''
-        The file format reference info.
-        '''
+    @property
+    def info(self) -> str:
+        '''Gets the encoder format reference info.'''
         return 'https://en.wikipedia.org/wiki/YAML'
 
 
 class YamlEncoder(Encoder):
     '''
     YAML encoder class.
+
+    Attributes:
+        format (geodatabr.encoders.yaml.YamlFormat): The encoder format class
+        serializer (geodatabr.dataset.serializers.Serializer):
+            The encoder serialization class
     '''
 
-    # Encoder format
-    _format = YamlFormat
+    format = YamlFormat
+    serializer = Serializer
 
-    def encode(self, **options):
+    @property
+    def options(self) -> dict:
+        '''Gets the default encoding options.'''
+        return dict(allow_unicode=True,
+                    default_flow_style=False)
+
+    def encode(self, data: dict, **options) -> FileStream:
         '''
         Encodes the data into a YAML file-like stream.
 
-        Arguments:
-            options (dict): The encoding options
+        Args:
+            data: The data to encode
+            **options: The encoding options
 
         Returns:
-            io.StringIO: A YAML file-like stream
+            A YAML file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: When data fails to encode
+            geodatabr.encoders.EncodeError: If data fails to encode
         '''
-        data = Serializer().serialize()
-        yaml_data = yaml.dump(data,
-                              Dumper=OrderedDumper,
-                              allow_unicode=True,
-                              default_flow_style=False)
-
-        return io.StringIO(yaml_data)
+        try:
+            return FileStream(yaml.dump(data,
+                                        **dict(self.options, **options)))
+        except Exception:
+            raise EncodeError
