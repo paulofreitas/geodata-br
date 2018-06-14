@@ -2,64 +2,51 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-TSV file encoder module
-'''
+'''TSV encoder module.'''
 # Imports
 
 # Package dependencies
 
-from geodatabr.core.helpers.decorators import classproperty
-from geodatabr.encoders import Encoder, EncoderFormat
+from geodatabr.core.types import FileStream
+from geodatabr.dataset.serializers import FlattenedSerializer
+from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 from geodatabr.encoders.csv import CsvEncoder
 
 # Classes
 
 
 class TsvFormat(EncoderFormat):
-    '''
-    The file format class for TSV file format.
-    '''
+    '''Encoder format class for TSV file format.'''
 
-    @classproperty
-    def name(self):
-        '''
-        The file format name.
-        '''
+    @property
+    def name(self) -> str:
+        '''Gets the encoder format name.'''
         return 'tsv'
 
-    @classproperty
-    def friendlyName(self):
-        '''
-        The file format friendly name.
-        '''
+    @property
+    def friendlyName(self) -> str:
+        '''Gets the encoder format friendly name.'''
         return 'TSV'
 
-    @classproperty
-    def extension(self):
-        '''
-        The file format extension.
-        '''
+    @property
+    def extension(self) -> str:
+        '''Gets the encoder format extension.'''
         return '.tsv'
 
-    @classproperty
-    def type(self):
-        '''
-        The file format type.
-        '''
+    @property
+    def type(self) -> str:
+        '''Gets the encoder format type.'''
         return 'Tabular Text'
 
-    @classproperty
-    def mimeType(self):
-        '''
-        The file format media type.
+    @property
+    def mimeType(self) -> str:
+        '''Gets the file format media type.
         '''
         return 'text/tab-separated-values'
 
-    @classproperty
-    def info(self):
-        '''
-        The file format reference info.
+    @property
+    def info(self) -> str:
+        '''Gets the encoder format reference info.
         '''
         return 'https://en.wikipedia.org/wiki/Tab-separated_values'
 
@@ -67,24 +54,36 @@ class TsvFormat(EncoderFormat):
 class TsvEncoder(Encoder):
     '''
     TSV encoder class.
+
+    Attributes:
+        format (geodatabr.encoders.tsv.TsvFormat): The encoder format class
+        serializer (geodatabr.dataset.serializers.FlattenedSerializer):
+            The encoder serialization class
     '''
 
-    # Encoder format
-    _format = TsvFormat
+    format = TsvFormat
+    serializer = FlattenedSerializer
 
-    def encode(self, **options):
+    @property
+    def options(self) -> dict:
+        '''Gets the default encoding options.'''
+        return dict(delimiter='\t')
+
+    def encode(self, data: list, **options) -> FileStream:
         '''
         Encodes the data into a TSV file-like stream.
 
-        Arguments:
-            options (dict): The encoding options
+        Args:
+            data: The data to encode
+            **options: The encoding options
 
         Returns:
-            io.StringIO: A TSV file-like stream
+            A TSV file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: When data fails to encode
+            geodatabr.encoders.EncodeError: If data fails to encode
         '''
-        tsv_options = dict(options, delimiter='\t')
-
-        return CsvEncoder().encode(**tsv_options)
+        try:
+            return CsvEncoder().encode(data, **dict(self.options, **options))
+        except Exception:
+            raise EncodeError
