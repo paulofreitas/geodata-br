@@ -3,16 +3,20 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 '''
-Dataset serialization module
+Dataset serialization module.
 
 This module provides the serializers classes used to export the dataset.
 '''
 # Imports
 
+# Built-in dependencies
+
+from typing import Any
+
 # Package dependencies
 
 from geodatabr.core.helpers.decorators import cachedmethod
-from geodatabr.core.types import OrderedMap
+from geodatabr.core.types import List, OrderedMap
 from geodatabr.core.i18n import _, Translator
 from geodatabr.dataset.schema import Entities
 from geodatabr.dataset.repositories import StateRepository
@@ -25,18 +29,16 @@ Translator.load('dataset')
 
 
 class BaseSerializer(object):
-    '''
-    Abstract serializer class.
-    '''
+    '''Abstract serializer class.'''
 
     @property
     @cachedmethod()
-    def __records__(self):
+    def __records__(self) -> OrderedMap:
         '''
         Retrieves the dataset records.
 
         Returns:
-            geodatabr.core.types.OrderedMap: The dataset records
+            The dataset records
         '''
         records = OrderedMap(states=StateRepository().loadAll())
 
@@ -55,11 +57,11 @@ class BaseSerializer(object):
         Setup the serializer.
 
         Args:
-            options (dict): The serialization options
+            **options: The serialization options
         '''
         self._options = OrderedMap(options)
 
-    def serialize(self):
+    def serialize(self) -> Any:
         '''
         Abstract serialization method.
         '''
@@ -67,25 +69,22 @@ class BaseSerializer(object):
 
 
 class Serializer(BaseSerializer):
-    '''
-    Default serialization implementation.
-    '''
+    '''Default serialization implementation.'''
 
     def __init__(self,
-                 localize=True,
-                 forceStr=False,
-                 forceStrKeys=False,
-                 includeKey=False):
+                 localize: bool = True,
+                 forceStr: bool = False,
+                 forceStrKeys: bool = False,
+                 includeKey: bool = False):
         '''
         Setup the serializer.
 
         Args:
-            localize (bool): Whether or not it should localize dictionary keys
-            forceStr (bool):
-                Whether or not it should coerce mapping values to string
-            forceStrKeys (bool):
+            localize: Whether or not it should localize mapping keys
+            forceStr: Whether or not it should coerce mapping values to string
+            forceStrKeys:
                 Whether or not it should coerce mapping keys to string
-            includeKey (bool): Whether or not it should include the primary key
+            includeKey: Whether or not it should include the primary key
         '''
         super().__init__(localize=localize,
                          forceStr=forceStr,
@@ -93,13 +92,12 @@ class Serializer(BaseSerializer):
                          includeKey=includeKey)
 
     @cachedmethod()
-    def serialize(self):
+    def serialize(self) -> OrderedMap:
         '''
         Serializes the dataset records.
 
         Returns:
-            geodatabr.core.types.OrderedMap:
-                The serialized dataset records mapping
+            The serialized dataset records mapping
         '''
         records = OrderedMap()
 
@@ -139,19 +137,17 @@ class Serializer(BaseSerializer):
 
 
 class FlattenedSerializer(BaseSerializer):
-    '''
-    Flattened serialization implementation.
-    '''
+    '''Flattened serialization implementation.'''
 
     @cachedmethod()
-    def serialize(self):
+    def serialize(self) -> List:
         '''
         Serializes the dataset records.
 
         Returns:
-            list: The serialized dataset records list
+            The serialized dataset records list
         '''
-        records = []
+        records = List()
 
         for entity in Entities:
             for record in self.__records__[entity.__table__.name]:
@@ -159,10 +155,11 @@ class FlattenedSerializer(BaseSerializer):
                     [(_(key), value)
                      for key, value in record.serialize(flatten=True).items()]))
 
-        return sorted(records,
-                      key=lambda record: (record.get('state_id') or 0,
-                                          record.get('mesoregion_id') or 0,
-                                          record.get('microregion_id') or 0,
-                                          record.get('municipality_id') or 0,
-                                          record.get('district_id') or 0,
-                                          record.get('subdistrict_id') or 0))
+        records.sort(key=lambda record: (record.get('state_id') or 0,
+                                         record.get('mesoregion_id') or 0,
+                                         record.get('microregion_id') or 0,
+                                         record.get('municipality_id') or 0,
+                                         record.get('district_id') or 0,
+                                         record.get('subdistrict_id') or 0))
+
+        return records
