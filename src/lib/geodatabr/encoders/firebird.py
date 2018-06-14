@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-'''
-Firebird Embedded file encoder module
-'''
+'''Firebird Embedded encoder module.'''
 # Imports
 
 # Built-in dependencies
@@ -13,118 +11,111 @@ import tempfile
 
 # External dependencies
 
-import io
 import fdb
 
 # Package dependencies
 
-from geodatabr.core.helpers.decorators import classproperty
 from geodatabr.core.helpers.filesystem import File
-from geodatabr.encoders import Encoder, EncoderFormat
+from geodatabr.core.types import BinaryFileStream
+from geodatabr.dataset.serializers import Serializer
+from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 from geodatabr.encoders.sql import SqlEncoder
 
 # Classes
 
 
 class FirebirdFormat(EncoderFormat):
-    '''
-    The file format class for Firebird Embedded file format.
-    '''
+    '''Encoder format class for Firebird Embedded file format.'''
 
-    @classproperty
-    def name(self):
-        '''
-        The file format name.
-        '''
+    @property
+    def name(self) -> str:
+        '''Gets the encoder format name.'''
         return 'firebird'
 
-    @classproperty
+    @property
     def friendlyName(self):
-        '''
-        The file format friendly name.
-        '''
+        '''Gets the encoder format friendly name.'''
         return 'Firebird Embedded'
 
-    @classproperty
-    def extension(self):
-        '''
-        The file format extension.
-        '''
+    @property
+    def extension(self) -> str:
+        '''Gets the encoder format extension.'''
         return '.fdb'
 
-    @classproperty
-    def type(self):
-        '''
-        The file format type.
-        '''
+    @property
+    def type(self) -> str:
+        '''Gets the encoder format type.'''
         return 'Database'
 
-    @classproperty
-    def mimeType(self):
-        '''
-        The file format media type.
-        '''
+    @property
+    def mimeType(self) -> None:
+        '''Gets the encoder format media type.'''
         return None
 
-    @classproperty
-    def info(self):
-        '''
-        The file format reference info.
-        '''
+    @property
+    def info(self) -> str:
+        '''Gets the encoder format reference info.'''
         return 'https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded'
 
-    @classproperty
-    def isBinary(self):
-        '''
-        Tells whether the file format is binary or not.
-        '''
+    @property
+    def isBinary(self) -> bool:
+        '''Tells whether the file format is binary or not.'''
         return True
 
 
-class FirebirdEncoder(Encoder):
+class FirebirdEncoder(SqlEncoder, Encoder):
     '''
     Firebird encoder class.
+
+    Attributes:
+        format (geodatabr.encoders.firebird.FirebirdFormat):
+            The encoder format class
+        serializer (geodatabr.dataset.serializers.Serializer):
+            The encoder serialization class
     '''
 
-    # Encoder format
-    _format = FirebirdFormat
+    format = FirebirdFormat
+    serializer = Serializer
 
-    def encode(self, **options):
+    @property
+    def options(self) -> dict:
+        '''Gets the default encoding options.'''
+        return dict(dialect='firebird')
+
+    def encode(self, data: dict, **options) -> BinaryFileStream:
         '''
         Encodes the data into a Firebird Embedded file-like stream.
 
         Arguments:
-            options (dict): The encoding options
+            data: The data to encode
+            **options: The encoding options
 
         Returns:
-            io.BytesIO: A Firebird Embedded file-like stream
+            A Firebird Embedded file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: When data fails to encode
+            geodatabr.encoders.EncodeError: If data fails to encode
         '''
-        sql_options = dict(options, dialect='firebird')
-        sql_data = SqlEncoder().encode(**sql_options)
-        fdb_data = io.BytesIO()
-        fdb_file = tempfile.mktemp()
-        fdb_con = fdb.create_database(
-            "CREATE DATABASE '{}' USER 'sysdba' PASSWORD 'masterkey'"
-            .format(fdb_file),
-            sql_dialect=3
-        )
-        fdb_cursor = fdb_con.cursor()
-        in_trans = False
+        try:
+            sql_data = super().encode(data, **dict(self.options, **options))
+            fdb_file = tempfile.mktemp()
+            fdb_con = fdb.create_database(
+                "CREATE DATABASE '{}' USER 'sysdba' PASSWORD 'masterkey'"
+                .format(fdb_file),
+                sql_dialect=3)
+            fdb_cursor = fdb_con.cursor()
+            in_trans = False
 
-        for stmt in sql_data.read().rstrip(';').split(';'):
-            if stmt.startswith('INSERT') and not in_trans:
-                fdb_con.begin()
-                in_trans = True
-            else:
-                fdb_con.commit()
-                in_trans = False
+            for stmt in sql_data.read().rstrip(';').split(';'):
+                if stmt.startswith('INSERT') and not in_trans:
+                    fdb_con.begin()
+                    in_trans = True
+                else:
+                    fdb_con.commit()
+                    in_trans = False
 
-            fdb_cursor.execute(stmt)
+                fdb_cursor.execute(stmt)
 
-        fdb_data.write(File(fdb_file).readBytes())
-        fdb_data.seek(0)
-
-        return fdb_data
+            return BinaryFileStream(File(fdb_file).readBytes())
+        except Exception:
+            raise EncodeError
