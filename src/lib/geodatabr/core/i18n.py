@@ -13,7 +13,7 @@ import yaml
 
 # Package dependencies
 
-from geodatabr.core.constants import SRC_DIR
+from geodatabr.core import SRC_DIR
 from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.helpers.decorators import cachedmethod
 from geodatabr.core.types import Map

@@ -8,7 +8,7 @@
 # Package dependencies
 
 from geodatabr.commands import Command
-from geodatabr.core.constants import DATA_DIR
+from geodatabr.core import DATA_DIR
 from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import logger

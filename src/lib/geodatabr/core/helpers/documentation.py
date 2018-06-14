@@ -15,7 +15,7 @@ from itertools import groupby
 
 # Package dependencies
 
-from geodatabr.core.constants import BASE_DIR, SRC_DIR
+from geodatabr.core import BASE_DIR, SRC_DIR
 from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.helpers.markup import GithubMarkdown as Markdown
 from geodatabr.core.i18n import _, Translator
