@@ -77,11 +77,6 @@ class PropertyListEncoder(Encoder):
         return dict(fmt=plistlib.FMT_BINARY,
                     sort_keys=False)
 
-    @property
-    def serializationOptions(self) -> dict:
-        """Gets the encoder format serialization options."""
-        return dict(forceStrKeys=True)
-
     def encode(self, data: dict, **options) -> BinaryFileStream:
         """
         Encodes the data into a Property List file-like stream.

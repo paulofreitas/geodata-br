@@ -46,9 +46,9 @@ class BaseSerializer(object):
             entity = _entity.__table__.name
 
             if entity not in records:
-                records[entity] = [item
-                                   for state in records.states
-                                   for item in getattr(state, entity)]
+                records[entity] = List([item
+                                        for state in records.states
+                                        for item in getattr(state, entity)])
 
         return records
 
@@ -73,23 +73,16 @@ class Serializer(BaseSerializer):
 
     def __init__(self,
                  localize: bool = True,
-                 forceStr: bool = False,
-                 forceStrKeys: bool = False,
-                 includeKey: bool = False):
+                 forceStr: bool = False):
         """
         Setup the serializer.
 
         Args:
             localize: Whether or not it should localize mapping keys
             forceStr: Whether or not it should coerce mapping values to string
-            forceStrKeys:
-                Whether or not it should coerce mapping keys to string
-            includeKey: Whether or not it should include the primary key
         """
         super().__init__(localize=localize,
-                         forceStr=forceStr,
-                         forceStrKeys=forceStrKeys,
-                         includeKey=includeKey)
+                         forceStr=forceStr)
 
     @cachedmethod()
     def serialize(self) -> OrderedMap:
@@ -111,7 +104,7 @@ class Serializer(BaseSerializer):
             if self._options.localize:
                 table = _(table)
 
-            records[table] = OrderedMap()
+            records[table] = List()
 
             for _record in _records:
                 _record = _record.serialize()
@@ -126,12 +119,7 @@ class Serializer(BaseSerializer):
 
                     record[column] = str(value) if self._options.forceStr else value
 
-                row_id = str(record.id) if self._options.forceStrKeys else record.id
-
-                if not self._options.includeKey:
-                    del record.id
-
-                records[table][row_id] = record
+                records[table].append(record)
 
         return records
 

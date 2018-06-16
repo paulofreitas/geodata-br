@@ -71,8 +71,7 @@ class SqlEncoder(Encoder):
     @property
     def serializationOptions(self) -> dict:
         """Gets the encoder serialization options."""
-        return dict(localize=False,
-                    includeKey=True)
+        return dict(localize=False)
 
     def encode(self, data: dict, **options) -> FileStream:
         """

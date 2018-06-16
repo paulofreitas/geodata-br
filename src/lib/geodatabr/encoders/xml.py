@@ -80,8 +80,7 @@ class XmlEncoder(Encoder):
     @property
     def serializationOptions(self) -> dict:
         """Gets the encoder serialization options."""
-        return dict(forceStr=True,
-                    includeKey=True)
+        return dict(forceStr=True)
 
     def encode(self, data, **options) -> FileStream:
         """
