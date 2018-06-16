@@ -11,343 +11,418 @@ This module provides a Markdown markup generator class.
 
 # Built-in dependencies
 
-from collections import defaultdict
+from html import escape
+
+# Package dependencies
+
+from geodatabr.core.types import AbstractClass, Map
 
 # Classes
+
+
+class MarkdownElement(AbstractClass, Map):
+    """Abstract markdown element class."""
 
 
 class Markdown(object):
     """Markdown markup generator."""
 
-    # Headers
+    class Header(MarkdownElement):
+        """Markdown header element."""
 
-    @staticmethod
-    def header(heading_text, depth=1, alternative=False):
-        """
-        Creates a header.
+        STYLE_SETEXT = 'setext'
+        STYLE_ATX = 'atx'
 
-        Args:
-            heading_text (str): The header text
-            depth (int): The header depth level
-            alternative (bool): Whether it should use the alternative syntax
+        def __init__(self,
+                     heading_text: str,
+                     depth: int = 1,
+                     style: str = STYLE_ATX):
+            """
+            Creates a header.
 
-        Returns:
-            str: A header
-        """
-        assert depth >= 1 and depth <= 6, 'Invalid depth level'
+            Args:
+                heading_text: The header text
+                depth: The header depth level
+                style: The header style
 
-        if alternative and depth in (1, 2):
-            return '\n'.join([
-                heading_text,
-                ['=', '-'][depth - 1] * len(heading_text)
-            ]) + '\n'
+            Raises:
+                ValueError: If depth level is invalid
+                ValueError: If header style is invalid
+            """
+            if style not in (self.STYLE_SETEXT, self.STYLE_ATX):
+                raise ValueError('Invalid header style')
 
-        return '#' * depth + ' ' + heading_text + '\n'
+            if (style == self.STYLE_SETEXT and depth not in range(1, 3)) \
+                or (style == self.STYLE_ATX and depth not in range(1, 7)):
+                raise ValueError('Invalid depth level')
 
-    # Emphasis
+            self.heading_text = heading_text
+            self.depth = depth
+            self.style = style
 
-    @staticmethod
-    def bold(text, alternative=False):
-        """
-        Creates a bold text.
+        def __str__(self) -> str:
+            """Renders the element."""
+            if self.style == self.STYLE_SETEXT:
+                return '\n'.join([
+                    self.heading_text,
+                    ['=', '-'][self.depth - 1] * len(self.heading_text)
+                ]) + '\n'
 
-        Args:
-            text (str): The text to be bolded
-            alternative (bool): Whether it should use the alternative syntax
+            return '#' * self.depth + ' ' + self.heading_text + '\n'
 
-        Returns:
-            str: A bolded text
-        """
-        if alternative:
-            return '__{}__'.format(text)
+    class Bold(MarkdownElement):
+        """Markdown bold element."""
 
-        return '**{}**'.format(text)
+        def __init__(self, text: str, style: str = '*'):
+            """
+            Creates a bold emphasized text.
 
-    @staticmethod
-    def italic(text, alternative=True):
-        """
-        Creates an italic text.
+            Args:
+                text: The text to be bolded
+                style: The emphasis style to use
 
-        Args:
-            text (str): The text to be italicized
-            alternative (bool): Whether it should use the alternative syntax
+            Raises:
+                ValueError: If emphasis style is invalid
+            """
+            if style not in ('_', '*'):
+                raise ValueError('Invalid emphasis style')
 
-        Returns:
-            str: An italicized text
-        """
-        if alternative:
-            return '_{}_'.format(text)
+            self.text = text
+            self.style = style
 
-        return '*{}*'.format(text)
+        def __str__(self) -> str:
+            """Renders the element."""
+            return '{_}{}{_}'.format(self.text, _=self.style * 2)
 
-    # Lists
+    class Italic(MarkdownElement):
+        """Markdown italic element."""
 
-    @staticmethod
-    def unorderedList(items, bullet_char='*'):
-        """
-        Creates a bullet list.
+        def __init__(self, text: str, style: str = '*'):
+            """
+            Creates an italic emphasized text.
 
-        Args:
-            items (list): The list items
-            bullet_char (str): The bullet character to use
+            Args:
+                text: The text to be italicized
+                style: The emphasis style to use
 
-        Returns:
-            str: A bullet list
-        """
-        assert bullet_char in ['*', '-', '+'], 'Invalid bullet char'
+            Raises:
+                ValueError: If emphasis style is invalid
+            """
+            if style not in ('_', '*'):
+                raise ValueError('Invalid emphasis style')
 
-        return '\n'.join('{} {}'.format(bullet_char, item)
-                         for item in items) + '\n'
+            self.text = text
+            self.style = style
 
-    @staticmethod
-    def orderedList(items):
-        """
-        Creates a numbered list.
+        def __str__(self) -> str:
+            """Renders the element."""
+            return '{_}{}{_}'.format(self.text, _=self.style)
 
-        Args:
-            items (list): The list items
+    class UnorderedList(MarkdownElement):
+        """Markdown unordered list element."""
 
-        Returns:
-            str: A numbered list
-        """
-        return '\n'.join('{}. {}'.format(index + 1, item)
-                         for index, item in enumerate(items)) + '\n'
+        def __init__(self, items: list, bullet_char: str = '*'):
+            """
+            Creates a bullet list.
 
-    # Code
+            Args:
+                item: The list items
+                bullet_char: The bullet character to use
 
-    @staticmethod
-    def code(content, inline=True):
-        """
-        Creates an inline or block code.
+            Raises:
+                ValueError: If bullet char is invalid
+            """
+            if bullet_char not in ['*', '-', '+']:
+                raise ValueError('Invalid bullet char')
 
-        Args:
-            content (str): The code content
-            inline (bool): Whether it should be rendered inline or not
+            self.items = items
+            self.bullet_char = bullet_char
 
-        Returns:
-            str: An inline or block code
-        """
-        if inline:
-            return '`{}`'.format(content)
+        def __str__(self) -> str:
+            """Renders the element."""
+            return '\n'.join('{} {}'.format(self.bullet_char, item)
+                             for item in self.items) + '\n'
 
-        return '    {}\n'.format(content)
+    class OrderedList(MarkdownElement):
+        """Markdown ordered list element."""
 
-    # Images
+        def __init__(self, items: list):
+            """
+            Creates a numbered list.
 
-    @staticmethod
-    def image(url, text='', title=''):
-        """
-        Creates an image.
+            Args:
+                items: The list items
+            """
+            self.items = items
 
-        Args:
-            url (str): The image URL
-            text (str): The optional image alternate text
-            title (str): The optional image title
+        def __str__(self) -> str:
+            """Renders the element."""
+            return '\n'.join('{}. {}'.format(index + 1, item)
+                             for index, item in enumerate(self.items)) + '\n'
 
-        Returns:
-            str: An image
-        """
-        if not title:
-            return '![{}]({})'.format(text, url)
+    class Code(MarkdownElement):
+        """Markdown code element."""
 
-        return '![{}]({} "{}")'.format(text, url, title)
+        def __init__(self, source: str, inline: bool = True):
+            """
+            Creates an inline or block code.
 
-    # Links
+            Args:
+                source: The source code
+                inline: Whether it should be rendered inline or not
+            """
+            self.source = source
+            self.inline = inline
 
-    @staticmethod
-    def link(url, text='', title=''):
-        """
-        Creates a link to an URL.
+        def __str__(self) -> str:
+            """Renders the element."""
+            if self.inline:
+                return '`{}`'.format(escape(self.source))
 
-        Args:
-            url (str): The link URL
-            text (str): The optional link text
-            title (str): The optional link title
+            return '    {}\n'.format(escape(self.source))
 
-        Returns:
-            str: A link
-        """
-        if not text and not title:
-            return url
+    class Image(MarkdownElement):
+        """Markdown image element."""
 
-        if not title:
-            return '[{}]({})'.format(text, url)
+        def __init__(self, url: str, text: str = '', title: str = ''):
+            """
+            Creates an image.
 
-        return '[{}]({} "{}")'.format(text, url, title)
+            Args:
+                url: The image URL
+                text: The optional image alternate text
+                title: The optional image title
+            """
+            self.url = url
+            self.text = text
+            self.title = title
 
-    # Quoting
+        def __str__(self) -> str:
+            """Renders the element."""
+            if not self.title:
+                return '![{}]({})'.format(self.text, self.url)
 
-    @staticmethod
-    def blockquote(text, simple=False):
-        """
-        Creates a block quoted text.
+            return '![{}]({} "{}")'.format(self.text, self.url, self.title)
 
-        Args:
-            text (str): The text to be quoted
-            simple (bool):
+    class Link(MarkdownElement):
+        """Markdown link element."""
 
-        Returns:
-            str: A quoted text
-        """
-        if simple:
-            return '> {}\n'.format(text)
+        def __init__(self, url: str, text: str = '', title: str = ''):
+            """
+            Creates a link to an URL.
 
-        return '\n'.join(['> {}'.format(line) for line in text.splitlines()])
+            Args:
+                url: The link URL
+                text: The optional link text
+                title: The optional link title
+            """
+            self.url = url
+            self.text = text
+            self.title = title
 
-    # Misc
+        def __str__(self) -> str:
+            """Renders the element."""
+            if not self.text and not self.title:
+                return self.url
 
-    @staticmethod
-    def rule(rule_char='-'):
-        """
-        Creates an horizontal rule.
+            if not self.title:
+                return '[{}]({})'.format(self.text, self.url)
 
-        Args:
-            rule_char (str): The rule character to use
+            return '[{}]({} "{}")'.format(self.text, self.url, self.title)
 
-        Returns:
-            str: An horizontal rule
-        """
-        assert rule_char in ['-', '*', '_']
+    class Blockquote(MarkdownElement):
+        """Markdown blockquote element."""
 
-        return rule_char * 3 + '\n'
+        def __init__(self, text: str):
+            """
+            Creates a quoted text.
 
-    @staticmethod
-    def literal(text):
-        """
-        Generates an escaped text.
+            Args:
+                text: The text to be quoted
+            """
+            self.text = text
 
-        Args:
-            text (str): The text to be escaped
+        def __str__(self) -> str:
+            """Renders the element."""
+            return '\n'.join(['> {}'.format(line)
+                              for line in self.text.splitlines()]) + '\n'
 
-        Returns:
-            str: The escaped text
-        """
-        chars = '\\`*_{}[]()#+-.!<>'
+    class HorizontalRule(MarkdownElement):
+        """Markdown horizontal rule element."""
 
-        return ''.join('\\' + char if char in chars else char for char in text)
+        def __init__(self, rule_char: str = '-'):
+            """
+            Creates an horizontal rule.
+
+            Args:
+                rule_char: The rule character to use
+
+            Raises:
+                ValueError: If rule character is invalid
+            """
+            if rule_char not in ['-', '*', '_']:
+                raise ValueError('Invalid rule character')
+
+            self.rule_char = rule_char
+
+        def __str__(self) -> str:
+            """Renders the element."""
+            return self.rule_char * 3 + '\n'
+
+    class Literal(MarkdownElement):
+        """Markdown literal text element."""
+
+        def __init__(self, text: str):
+            """
+            Generates an escaped text.
+
+            Args:
+                text: The text to be escaped
+            """
+            self.text = text
+
+        def __str__(self) -> str:
+            """Renders the element."""
+            chars = '\\`*_{}[]()#+-.!<>'
+
+            return ''.join('\\' + char if char in chars else char
+                           for char in self.text)
+
+    # Method aliases
+
+    header = Header
+    bold = Bold
+    italic = Italic
+    unorderedList = UnorderedList
+    orderedList = OrderedList
+    code = Code
+    image = Image
+    link = Link
+    blockquote = Blockquote
+    rule = HorizontalRule
+    literal = Literal
 
 
 class GithubMarkdown(Markdown):
     """GitHub Flavored Markdown extension."""
 
-    # Emphasis
+    class Strikethrough(MarkdownElement):
+        """Markdown strikethrough element."""
 
-    @staticmethod
-    def strikethrough(text):
-        """
-        Strikes out the provided text.
+        def __init__(self, text: str):
+            """
+            Creates a striked text.
 
-        Args:
-            text (str): The text to be striked out
+            Args:
+                text: The text to be striked out
+            """
+            self.text = text
 
-        Returns:
-            str: A striked text
-        """
-        return '~~{}~~'.format(text)
+        def __str__(self) -> str:
+            """Renders the element."""
+            return '~~{}~~'.format(self.text)
 
-    # Lists
+    class TaskList(MarkdownElement):
+        """Markdown task list element."""
 
-    @staticmethod
-    def taskList(tasks):
-        """
-        Creates a task list.
+        def __init__(self, tasks: dict):
+            """
+            Creates a task list.
 
-        Args:
-            tasks (dict): A dictionary of task items
+            Args:
+                tasks: A dictionary of task items
+            """
+            self.tasks = tasks
 
-        Returns:
-            str: A task list
-        """
-        assert isinstance(tasks, dict)
+        def __str__(self) -> str:
+            """Renders the element."""
+            return '\n'.join(
+                '- [{}] {}'.format('x' if task_completed else ' ', task_item)
+                for task_item, task_completed in self.tasks.items()
+            ) + '\n'
 
-        return '\n'.join(
-            '- [{}] {}'.format('x' if task_completed else ' ', task_item)
-            for task_item, task_completed in tasks.items()
-        ) + '\n'
+    class Code(MarkdownElement):
+        """Markdown code element."""
 
-    # Code
+        def __init__(self,
+                     source: str,
+                     inline: bool = True,
+                     lang: str = None):
+            """
+            Creates an inline or block code.
 
-    @staticmethod
-    def code(content, inline=True, syntax=None):
-        """
-        Creates an inline or block code.
+            Args:
+                source: The source code
+                inline: Whether it should be rendered inline or not
+                lang: The code language it should highlight the syntax
+            """
+            self.source = source
+            self.inline = inline
+            self.lang = lang
 
-        Args:
-            content (str): The code content
-            inline (bool): Whether it should be rendered inline or not
-            syntax (str): The code language it should highlight the syntax
+        def __str__(self) -> str:
+            """Renders the element."""
+            if not self.lang:
+                return Markdown.code(self.source, self.inline)
 
-        Returns:
-            str: An inline or block code
-        """
-        # pylint: disable=arguments-differ
-        if not syntax:
-            return Markdown.code(content, inline)
+            return '```{}\n{}\n```'.format(self.lang, escape(self.source))
 
-        return '```{}\n{}\n```'.format(syntax, content)
+    class Table(MarkdownElement):
+        """Markdown table element."""
 
-    # Misc
+        def __init__(self, data: list, aligning: list = None):
+            """
+            Creates a table from a 2 dimensional list.
 
-    @staticmethod
-    def table(data, aligning=None):
-        """
-        Creates a table from a 2 dimensional list.
+            Args:
+                table: A two-dimensional list
+                aligning: The table alignments
 
-        Args:
-            table (list): A two-dimensional list
-            aligning (list): The table alignments
+            Raises:
+                ValueError: If table alignments are invalid
+            """
+            # No aligning: default is left
+            if not aligning:
+                aligning = ['<'] * len(data[0])
 
-        Returns:
-            str: A table
-        """
-        assert isinstance(data, list)
-        assert set(aligning).issubset(set(['<', '^', '>']))
+            if not set(aligning).issubset(set(['<', '^', '>'])):
+                raise ValueError('Invalid table alignments')
 
-        markdown = ''
+            # Partial aligning: fill missing
+            if len(data[0]) > len(aligning):
+                aligning.extend(['<'] * (len(data[0]) - len(aligning)))
 
-        # No aligning: default is left
-        if not aligning:
-            aligning = ['<'] * len(data[0])
+            self.data = data
+            self.aligning = aligning
+            self.column_sizes = [max(len(str(item)) for item in row)
+                                 for row in zip(*data)]
 
-        if len(data[0]) > len(aligning):
-            difference = len(data[0]) - len(aligning)
-            aligning.extend(['<'] * difference)
+        def __str__(self) -> str:
+            """Renders the element."""
+            def _table_row(row, heading=False):
+                return '|{}|\n'.format('|'.join([
+                    ''.join([
+                        ':' if self.aligning[col] == '^' else ' ',  # left char
+                        '-' * self.column_sizes[col],
+                        ' ' if self.aligning[col] == '<' else ':',  # right char
+                    ])
+                    if heading else
+                    (' {{:' + self.aligning[col] + '{}}} ')
+                    .format(self.column_sizes[col]) \
+                    .replace('^', '<') \
+                    .format(item)
+                    for col, item in enumerate(row)
+                ]))
 
-        assert len(aligning) >= len(data[0])
+            headers = _table_row(self.data[0])
+            separators = _table_row(self.data[0], True)
+            data = ''.join([_table_row(row) for row in self.data[1:]])
 
-        # Calculate max size of each column
-        column_sizes = defaultdict(int)
+            return headers + separators + data
 
-        for row in data:
-            for column, cell in enumerate(map(str, row)):
-                column_sizes[column] = max(column_sizes[column], len(cell))
+    # Method aliases
 
-        # Headers
-
-        markdown += '|{}|\n'.format('|'.join([
-            (' {{:' + aligning[col] + '{}}} ')
-            .format(column_sizes[col]).replace('^', '<').format(cell)
-            for col, cell in enumerate(data[0])
-        ]))
-
-        # Heading separator
-        markdown += '|{}|\n'.format('|'.join([
-            ''.join([
-                ':' if aligning[col] == '^' else ' ',  # left char
-                '-' * column_sizes[col],
-                ' ' if aligning[col] == '<' else ':',  # right char
-            ])
-            for col in range(len(data[0]))
-        ]))
-
-        # Data
-        markdown += ''.join([
-            '|{}|\n'.format('|'.join([
-                (' {{:' + aligning[col] + '{}}} ')
-                .format(column_sizes[col]).replace('^', '<').format(cell)
-                for col, cell in enumerate(row)
-            ]))
-            for row in data[1:]
-        ])
-
-        return markdown
+    strikethrough = Strikethrough
+    taskList = TaskList
+    code = Code
+    table = Table
