@@ -15,9 +15,9 @@ from sqlalchemy.orm import subqueryload
 
 # Package dependencies
 
-from geodatabr.core.types import AbstractClass
+from geodatabr.core.types import AbstractClass, List
 from geodatabr.dataset import Database
-from geodatabr.dataset.schema import \
+from geodatabr.dataset.schema import Entity, \
     State, Mesoregion, Microregion, Municipality, District, Subdistrict
 
 # Classes
@@ -29,61 +29,60 @@ class Repository(AbstractClass):
     entity = None
 
     @classmethod
-    def add(cls, instance):
+    def add(cls, instance: Entity):
         """
         Saves an entity instance.
 
         Args:
-            instance (geodatabr.dataset.schema.Entity):
-                The entity instance to save
+            instance: The entity instance to save
         """
         Database.add(instance)
 
     @classmethod
-    def count(cls):
+    def count(cls) -> int:
         """
         Returns the total entity items count.
 
         Returns:
-            int: The total entity items count
+            The total entity items count
         """
         return Database.query(cls.entity).count()
 
     @classmethod
-    def findAll(cls):
+    def findAll(cls) -> List:
         """
         Retrieves all entity items.
 
         Returns:
-            list: A list with all entity items
+            A list with all entity items
         """
-        return Database.query(cls.entity).all()
+        return List(Database.query(cls.entity).all())
 
     @classmethod
-    def findById(cls, _id):
+    def findById(cls, _id: int) -> Entity:
         """
         Retrieves a single entity item by ID.
 
         Args:
-            _id (int): The entity item ID
+            _id: The entity item ID
 
         Returns:
-            geodatabr.dataset.schema.Entity: An entity item
+            An entity item
         """
         return Database.query(cls.entity) \
             .filter(cls.entity.id == _id) \
             .first()
 
     @classmethod
-    def findByName(cls, name):
+    def findByName(cls, name: str) -> Entity:
         """
         Retrieves a single entity item by name.
 
         Args:
-            name (str): The entity item name
+            name: The entity item name
 
         Returns:
-            geodatabr.dataset.schema.Entity: An entity item
+            An entity item
         """
         return Database.query(cls.entity) \
             .filter(cls.entity.name == name) \
@@ -96,80 +95,84 @@ class Repository(AbstractClass):
 
 
 class StateRepository(Repository):
-    """Implementation of states repository."""
+    """
+    Implementation of states repository.
+
+    Attributes:
+        entity (geodatabr.dataset.schema.State): The repository entity class
+    """
 
     entity = State
 
     @classmethod
-    def add(cls, instance):
+    def add(cls, instance: State):
         """
         Saves a State instance.
 
         Args:
-            instance (geodatabr.dataset.schema.State):
-                The State instance to save
+            instance: The State instance to save
         """
         super().add(instance)
 
     @classmethod
-    def count(cls):
+    def count(cls) -> int:
         """
         Returns the total states count.
 
         Returns:
-            int: The total states count
+            The total states count
         """
         return super().count()
 
     @classmethod
-    def findAll(cls):
+    def findAll(cls) -> List:
         """
         Retrieves all states.
 
         Returns:
-            list: A list with all states
+            A list with all states
         """
         return super().findAll()
 
     @classmethod
-    def loadAll(cls):
+    def loadAll(cls) -> List:
         """
         Retrieves all states with relationships loaded.
 
         Returns:
-            list: A list with all states with relationships loaded
+            A list with all states with relationships loaded
         """
-        return Database.query(State) \
+        return List(Database.query(State) \
             .options(subqueryload(State.mesoregions),
                      subqueryload(State.microregions),
                      subqueryload(State.municipalities),
                      subqueryload(State.districts),
                      subqueryload(State.subdistricts)) \
-            .all()
+            .all())
 
     @classmethod
-    def findById(cls, _id):
+    def findById(cls, _id: int) -> State:
         """
         Retrieves a single state by ID.
 
         Args:
-            _id (int): The state ID
+            _id: The state ID
 
         Returns:
-            geodatabr.dataset.schema.State: The state record
+            The state record
         """
         return super().findById(_id)
 
     @classmethod
-    def findByName(cls, name):
+    def findByName(cls, name: str) -> State:
         """
         Retrieves a single state by name.
 
         Args:
-            name (str): The state name
+            name: The state name
 
         Returns:
-            geodatabr.dataset.schema.State: The state record
+            The state record
         """
         return super().findByName(name)
 
@@ -180,79 +183,84 @@ class StateRepository(Repository):
 
 
 class MesoregionRepository(Repository):
-    """Implementation of mesoregions repository."""
+    """
+    Implementation of mesoregions repository.
+
+    Attributes:
+        entity (geodatabr.dataset.schema.Mesoregion):
+            The repository entity class
+    """
 
     entity = Mesoregion
 
     @classmethod
-    def add(cls, instance):
+    def add(cls, instance: Mesoregion):
         """
         Saves a Mesoregion instance.
 
         Args:
-            instance (geodatabr.dataset.schema.Mesoregion):
-                The Mesoregion instance to save
+            instance: The Mesoregion instance to save
         """
         super().add(instance)
 
     @classmethod
-    def count(cls):
+    def count(cls) -> int:
         """
         Returns the total mesoregions count.
 
         Returns:
-            int: The total mesoregions count
+            The total mesoregions count
         """
         return super().count()
 
     @classmethod
-    def findAll(cls):
+    def findAll(cls) -> List:
         """
         Retrieves all mesoregions.
 
         Returns:
-            list: A list with all mesoregions
+            A list with all mesoregions
         """
         return super().findAll()
 
     @classmethod
-    def loadAll(cls):
+    def loadAll(cls) -> List:
         """
         Retrieves all mesoregions with relationships loaded.
 
         Returns:
-            list: A list with all mesoregions with relationships loaded
+            A list with all mesoregions with relationships loaded
         """
-        return Database.query(Mesoregion) \
+        return List(Database.query(Mesoregion) \
             .options(subqueryload(Mesoregion.microregions),
                      subqueryload(Mesoregion.municipalities),
                      subqueryload(Mesoregion.districts),
                      subqueryload(Mesoregion.subdistricts)) \
-            .all()
+            .all())
 
     @classmethod
-    def findById(cls, _id):
+    def findById(cls, _id: int) -> Mesoregion:
         """
         Retrieves a single mesoregion by ID.
 
         Args:
-            _id (int): The mesoregion ID
+            _id: The mesoregion ID
 
         Returns:
-            geodatabr.dataset.schema.Mesoregion: The mesoregion record
+            The mesoregion record
         """
         return super().findById(_id)
 
     @classmethod
-    def findByName(cls, name):
+    def findByName(cls, name: str) -> Mesoregion:
         """
         Retrieves a single mesoregion by name.
 
         Args:
-            name (str): The mesoregion name
+            name: The mesoregion name
 
         Returns:
-            geodatabr.dataset.schema.Mesoregion: The mesoregion record
+            The mesoregion record
         """
         return super().findByName(name)
 
@@ -263,78 +271,83 @@ class MesoregionRepository(Repository):
 
 
 class MicroregionRepository(Repository):
-    """Implementation of microregions repository."""
+    """
+    Implementation of microregions repository.
+
+    Attributes:
+        entity (geodatabr.dataset.schema.Microregion):
+            The repository entity class
+    """
 
     entity = Microregion
 
     @classmethod
-    def add(cls, instance):
+    def add(cls, instance: Microregion):
         """
         Saves a Microregion instance.
 
         Args:
-            instance (geodatabr.dataset.schema.Microregion):
-                The Microregion instance to save
+            instance: The Microregion instance to save
         """
         super().add(instance)
 
     @classmethod
-    def count(cls):
+    def count(cls) -> int:
         """
         Returns the total microregions count.
 
         Returns:
-            int: The total microregions count
+            The total microregions count
         """
         return super().count()
 
     @classmethod
-    def findAll(cls):
+    def findAll(cls) -> List:
         """
         Retrieves all microregions.
 
         Returns:
-            list: A list with all microregions
+            A list with all microregions
         """
         return super().findAll()
 
     @classmethod
-    def loadAll(cls):
+    def loadAll(cls) -> List:
         """
         Retrieves all microregions with relationships loaded.
 
         Returns:
-            list: A list with all microregions with relationships loaded
+            A list with all microregions with relationships loaded
         """
-        return Database.query(Microregion) \
+        return List(Database.query(Microregion) \
             .options(subqueryload(Microregion.municipalities),
                      subqueryload(Microregion.districts),
                      subqueryload(Microregion.subdistricts)) \
-            .all()
+            .all())
 
     @classmethod
-    def findById(cls, _id):
+    def findById(cls, _id: int) -> Microregion:
         """
         Retrieves a single microregion by ID.
 
         Args:
-            _id (int): The microregion ID
+            _id: The microregion ID
 
         Returns:
-            geodatabr.dataset.schema.Microregion: The microregion record
+            The microregion record
         """
         return super().findById(_id)
 
     @classmethod
-    def findByName(cls, name):
+    def findByName(cls, name: str) -> Microregion:
         """
         Retrieves a single microregion by name.
 
         Args:
-            name (str): The microregion name
+            name: The microregion name
 
         Returns:
-            geodatabr.dataset.schema.Microregion: The microregion record
+            The microregion record
         """
         return super().findByName(name)
 
@@ -345,77 +358,82 @@ class MicroregionRepository(Repository):
 
 
 class MunicipalityRepository(Repository):
-    """Implementation of municipalities repository."""
+    """
+    Implementation of municipalities repository.
+
+    Attributes:
+        entity (geodatabr.dataset.schema.Municipality):
+            The repository entity class
+    """
 
     entity = Municipality
 
     @classmethod
-    def add(cls, instance):
+    def add(cls, instance: Municipality):
         """
         Saves a Municipality instance.
 
         Args:
-            instance (geodatabr.dataset.schema.Municipality):
-                The Municipality instance to save
+            instance: The Municipality instance to save
         """
         super().add(instance)
 
     @classmethod
-    def count(cls):
+    def count(cls) -> int:
         """
         Returns the total municipalities count.
 
         Returns:
-            int: The total municipalities count
+            The total municipalities count
         """
         return super().count()
 
     @classmethod
-    def findAll(cls):
+    def findAll(cls) -> List:
         """
         Retrieves all municipalities.
 
         Returns:
-            list: A list with all municipalities
+            A list with all municipalities
         """
         return super().findAll()
 
     @classmethod
-    def loadAll(cls):
+    def loadAll(cls) -> List:
         """
         Retrieves all municipalities with relationships loaded.
 
         Returns:
-            list: A list with all municipalities with relationships loaded
+            A list with all municipalities with relationships loaded
         """
-        return Database.query(Municipality) \
+        return List(Database.query(Municipality) \
             .options(subqueryload(Municipality.districts),
                      subqueryload(Municipality.subdistricts)) \
-            .all()
+            .all())
 
     @classmethod
-    def findById(cls, _id):
+    def findById(cls, _id: int) -> Municipality:
         """
         Retrieves a single municipality by ID.
 
         Args:
-            _id (int): The municipality ID
+            _id: The municipality ID
 
         Returns:
-            geodatabr.dataset.schema.Municipality: The municipality record
+            The municipality record
         """
         return super().findById(_id)
 
     @classmethod
-    def findByName(cls, name):
+    def findByName(cls, name: str) -> Municipality:
         """
         Retrieves a single municipality by name.
 
         Args:
-            name (str): The municipality name
+            name: The municipality name
 
         Returns:
-            geodatabr.dataset.schema.Municipality: The municipality record
+            The municipality record
         """
         return super().findByName(name)
 
@@ -426,76 +444,81 @@ class MunicipalityRepository(Repository):
 
 
 class DistrictRepository(Repository):
-    """Implementation of districts repository."""
+    """
+    Implementation of districts repository.
+
+    Attributes:
+        entity (geodatabr.dataset.schema.District):
+            The repository entity class
+    """
 
     entity = District
 
     @classmethod
-    def add(cls, instance):
+    def add(cls, instance: District):
         """
         Saves a District instance.
 
         Args:
-            instance (geodatabr.dataset.schema.District):
-                The District instance to save
+            instance: The District instance to save
         """
         super().add(instance)
 
     @classmethod
-    def count(cls):
+    def count(cls) -> int:
         """
         Returns the total districts count.
 
         Returns:
-            int: The total districts count
+            The total districts count
         """
         return super().count()
 
     @classmethod
-    def findAll(cls):
+    def findAll(cls) -> List:
         """
         Retrieves all districts.
 
         Returns:
-            list: A list with all districts
+            A list with all districts
         """
         return super().findAll()
 
     @classmethod
-    def loadAll(cls):
+    def loadAll(cls) -> List:
         """
         Retrieves all districts with relationships loaded.
 
         Returns:
-            list: A list with all districts with relationships loaded
+            A list with all districts with relationships loaded
         """
-        return Database.query(District) \
+        return List(Database.query(District) \
             .options(subqueryload(District.subdistricts)) \
-            .all()
+            .all())
 
     @classmethod
-    def findById(cls, _id):
+    def findById(cls, _id: int) -> District:
         """
         Retrieves a single district by ID.
 
         Args:
-            _id (int): The district ID
+            _id: The district ID
 
         Returns:
-            geodatabr.dataset.schema.District: The district record
+            The district record
         """
         return super().findById(_id)
 
     @classmethod
-    def findByName(cls, name):
+    def findByName(cls, name: str) -> District:
         """
         Retrieves a single district by name.
 
         Args:
-            name (str): The district name
+            name: The district name
 
         Returns:
-            geodatabr.dataset.schema.District: The district record
+            The district record
         """
         return super().findByName(name)
 
@@ -506,64 +529,69 @@ class DistrictRepository(Repository):
 
 
 class SubdistrictRepository(Repository):
-    """Implementation of subdistricts repository."""
+    """
+    Implementation of subdistricts repository.
+
+    Attributes:
+        entity (geodatabr.dataset.schema.Subdistrict):
+            The repository entity class
+    """
 
     entity = Subdistrict
 
     @classmethod
-    def add(cls, instance):
+    def add(cls, instance: Subdistrict):
         """
         Saves a Subdistrict instance.
 
         Args:
-            instance (geodatabr.dataset.schema.Subdistrict):
-                The Subdistrict instance to save
+            instance: The Subdistrict instance to save
         """
         super().add(instance)
 
     @classmethod
-    def count(cls):
+    def count(cls) -> int:
         """
         Returns the total subdistricts count.
 
         Returns:
-            int: The total subdistricts count
+            The total subdistricts count
         """
         return super().count()
 
     @classmethod
-    def findAll(cls):
+    def findAll(cls) -> List:
         """
         Retrieves all subdistricts.
 
         Returns:
-            list: A list with all subdistricts
+            A list with all subdistricts
         """
         return super().findAll()
 
     @classmethod
-    def findById(cls, _id):
+    def findById(cls, _id: int) -> Subdistrict:
         """
         Retrieves a single subdistrict by ID.
 
         Args:
-            _id (int): The subdistrict ID
+            _id: The subdistrict ID
 
         Returns:
-            geodatabr.dataset.schema.Subdistrict: The subdistrict record
+            The subdistrict record
         """
         return super().findById(_id)
 
     @classmethod
-    def findByName(cls, name):
+    def findByName(cls, name: str) -> Subdistrict:
         """
         Retrieves a single subdistrict by name.
 
         Args:
-            name (str): The subdistrict name
+            name: The subdistrict name
 
         Returns:
-            geodatabr.dataset.schema.Subdistrict: The subdistrict record
+            The subdistrict record
         """
         return super().findByName(name)
 
@@ -577,17 +605,15 @@ class RepositoryFactory(object):
     """Factory class for instantiation of concrete repositories."""
 
     @staticmethod
-    def fromEntity(entity):
+    def fromEntity(entity: Entity) -> Repository:
         """
         Factories a repository class for a given entity class.
 
         Args:
-            entity (geodatabr.dataset.schema.Entity):
-                The entity class to retrieve a repository
+            entity: The entity class to retrieve a repository
 
         Returns:
-            geodatabr.dataset.repositories.Repository:
-                The repository class instance
+            The repository class instance
 
         Raises:
             geodatabr.dataset.repositories.UnknownEntityError:
@@ -606,4 +632,3 @@ class UnknownEntityError(Exception):
     Exception class raised when a given entity does not belong to any
     repository.
     """
-    pass
