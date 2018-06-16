@@ -20,12 +20,49 @@ from geodatabr.core.types import AbstractClass, Map
 # Classes
 
 
+class MarkupGenerator(type):
+    """Metaclass for markup generators."""
+
+    def __getattr__(cls, name: str) -> str:
+        """
+        Magic method to call a markup generator alias method.
+
+        Args:
+            name: The alias method name
+
+        Returns:
+            The alias method result
+
+        Raises:
+            AttributeError: If alias method name is invalid
+        """
+        aliases = cls.__aliases__
+
+        for parent in cls.__bases__:
+            aliases.update({alias: resolver
+                            for alias, resolver in parent.__aliases__.items()
+                            if alias not in aliases})
+
+        if name == '__aliases__' or name not in aliases:
+            raise AttributeError('Invalid method')
+
+        def _wrapper(*args, **kwargs):
+            return str(aliases.get(name)(*args, **kwargs))
+
+        return _wrapper
+
+
 class MarkdownElement(AbstractClass, Map):
     """Abstract markdown element class."""
 
 
-class Markdown(object):
-    """Markdown markup generator."""
+class Markdown(metaclass=MarkupGenerator):
+    """
+    Markdown markup generator.
+
+    Attributes:
+        __aliases__ (dict): Method aliases
+    """
 
     class Header(MarkdownElement):
         """Markdown header element."""
@@ -33,15 +70,12 @@ class Markdown(object):
         STYLE_SETEXT = 'setext'
         STYLE_ATX = 'atx'
 
-        def __init__(self,
-                     heading_text: str,
-                     depth: int = 1,
-                     style: str = STYLE_ATX):
+        def __init__(self, text: str, depth: int = 1, style: str = STYLE_ATX):
             """
-            Creates a header.
+            Creates a heading text.
 
             Args:
-                heading_text: The header text
+                text: The heading text
                 depth: The header depth level
                 style: The header style
 
@@ -56,7 +90,7 @@ class Markdown(object):
                 or (style == self.STYLE_ATX and depth not in range(1, 7)):
                 raise ValueError('Invalid depth level')
 
-            self.heading_text = heading_text
+            self.text = text
             self.depth = depth
             self.style = style
 
@@ -64,11 +98,11 @@ class Markdown(object):
             """Renders the element."""
             if self.style == self.STYLE_SETEXT:
                 return '\n'.join([
-                    self.heading_text,
-                    ['=', '-'][self.depth - 1] * len(self.heading_text)
+                    self.text,
+                    ['=', '-'][self.depth - 1] * len(self.text)
                 ]) + '\n'
 
-            return '#' * self.depth + ' ' + self.heading_text + '\n'
+            return '#' * self.depth + ' ' + self.text + '\n'
 
     class Bold(MarkdownElement):
         """Markdown bold element."""
@@ -126,7 +160,7 @@ class Markdown(object):
             Creates a bullet list.
 
             Args:
-                item: The list items
+                items: The list items
                 bullet_char: The bullet character to use
 
             Raises:
@@ -135,13 +169,13 @@ class Markdown(object):
             if bullet_char not in ['*', '-', '+']:
                 raise ValueError('Invalid bullet char')
 
-            self.items = items
+            self._items = items
             self.bullet_char = bullet_char
 
         def __str__(self) -> str:
             """Renders the element."""
             return '\n'.join('{} {}'.format(self.bullet_char, item)
-                             for item in self.items) + '\n'
+                             for item in self._items) + '\n'
 
     class OrderedList(MarkdownElement):
         """Markdown ordered list element."""
@@ -288,23 +322,26 @@ class Markdown(object):
             return ''.join('\\' + char if char in chars else char
                            for char in self.text)
 
-    # Method aliases
-
-    header = Header
-    bold = Bold
-    italic = Italic
-    unorderedList = UnorderedList
-    orderedList = OrderedList
-    code = Code
-    image = Image
-    link = Link
-    blockquote = Blockquote
-    rule = HorizontalRule
-    literal = Literal
+    __aliases__ = dict(header=Header,
+                       bold=Bold,
+                       italic=Italic,
+                       unorderedList=UnorderedList,
+                       orderedList=OrderedList,
+                       code=Code,
+                       image=Image,
+                       link=Link,
+                       blockquote=Blockquote,
+                       rule=HorizontalRule,
+                       literal=Literal)
 
 
-class GithubMarkdown(Markdown):
-    """GitHub Flavored Markdown extension."""
+class GithubMarkdown(Markdown, metaclass=MarkupGenerator):
+    """
+    GitHub Flavored Markdown extension.
+
+    Attributes:
+        __aliases__ (dict): Method aliases
+    """
 
     class Strikethrough(MarkdownElement):
         """Markdown strikethrough element."""
@@ -420,9 +457,7 @@ class GithubMarkdown(Markdown):
 
             return headers + separators + data
 
-    # Method aliases
-
-    strikethrough = Strikethrough
-    taskList = TaskList
-    code = Code
-    table = Table
+    __aliases__ = dict(strikethrough=Strikethrough,
+                       taskList=TaskList,
+                       code=Code,
+                       table=Table)
