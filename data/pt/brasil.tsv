@@ -1,4 +1,4 @@
-id_uf	nome_uf	id_mesorregiao	nome_mesorregiao	id_microrregiao	nome_microrregiao	id_municipio	nome_municipio	id_distrito	nome_distrito	id_subdistrito	nome_subdistrito
+id_estado	nome_estado	id_mesorregiao	nome_mesorregiao	id_microrregiao	nome_microrregiao	id_municipio	nome_municipio	id_distrito	nome_distrito	id_subdistrito	nome_subdistrito
 11	Rondônia										
 12	Acre										
 13	Amazonas										
