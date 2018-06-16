@@ -1,6 +1,14 @@
 dataset:
   dataset_name: brasil
 
+  # Entities
+  state: estado
+  mesoregion: mesorregiao
+  microregion: microrregiao
+  municipality: municipio
+  district: distrito
+  subdistrict: subdistrito
+
   # Tables
   states: estados
   mesoregions: mesorregioes
