@@ -7,6 +7,7 @@
 
 # Built-in dependencies
 
+from functools import reduce
 from typing import Any
 
 # External dependencies
@@ -131,6 +132,27 @@ class SqlCompiler(object):
         self._dialect = DialectFactory(dialect)
 
     @cachedmethod()
+    def _name(self, element: Any) -> str:
+        """
+        Gets the element name.
+
+        Firebird dialect will be using the "p_", "f_" and "i_" prefixes for
+        primary keys, foreign keys and indexes.
+
+        Args:
+            element: The element to retrieve the name
+
+        Returns:
+            The element name
+        """
+        if not self._dialect.name == 'firebird':
+            return _(element.name)
+
+        # Workaround for identifiers size limitation of Firebird dialect
+        return reduce(lambda name, prefix: name.replace(prefix, prefix[0::2]),
+            ['pk_', 'fk_', 'ix_'], _(element.name))
+
+    @cachedmethod()
     def createTable(self, table: Table) -> str:
         """
         Compiles a CREATE TABLE statement for a given table.
@@ -241,7 +263,7 @@ class SqlCompiler(object):
             ddl += 'UNIQUE '
 
         ddl += 'INDEX {} ON {} ({});'.format(
-            _(index.name),
+            self._name(index),
             _(index.table.name),
             ', '.join(_(column.name) for column in index.expressions))
 
@@ -297,11 +319,10 @@ class SqlCompiler(object):
         ddl = ''
 
         if constraint.name is not None:
-            ddl += 'CONSTRAINT {} '.format(_(constraint.name))
+            ddl += 'CONSTRAINT {} '.format(self._name(constraint))
 
         ddl += 'PRIMARY KEY ({})'.format(
-            ', '.join(_(_constraint.name)
-                      for _constraint in constraint.columns))
+            ', '.join(_(column.name) for column in constraint.columns))
 
         return ddl
 
@@ -320,7 +341,7 @@ class SqlCompiler(object):
         ddl = ''
 
         if constraint.name is not None:
-            ddl += 'CONSTRAINT {} '.format(_(constraint.name))
+            ddl += 'CONSTRAINT {} '.format(self._name(constraint))
 
         remote_table = list(constraint.elements)[0].column.table
 
