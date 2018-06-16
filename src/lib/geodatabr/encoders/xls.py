@@ -7,11 +7,11 @@
 
 # External dependencies
 
-from xlwt import Workbook
+from pyexcel_xls import save_data as write_xls
 
 # Package dependencies
 
-from geodatabr.core.types import BinaryFileStream
+from geodatabr.core.types import BinaryFileStream, OrderedMap
 from geodatabr.dataset.serializers import Serializer
 from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 
@@ -59,7 +59,7 @@ class MicrosoftExcelFormat(EncoderFormat):
 
 class MicrosoftExcelEncoder(Encoder):
     """
-    Microsoft Excelt Spreadsheet encoder class.
+    Microsoft Excel Spreadsheet encoder class.
 
     Attributes:
         format (geodatabr.encoders.xls.MicrosoftExcelFormat):
@@ -87,25 +87,13 @@ class MicrosoftExcelEncoder(Encoder):
         """
         try:
             xls_file = BinaryFileStream()
-            workbook = Workbook(encoding='utf-8')
+            xls_data = OrderedMap()
 
             for entity, records in data.items():
-                sheet = workbook.add_sheet(entity)
-                row_id = 0
+                xls_data[entity] = [list(data[entity].first().keys())] \
+                    + [list(item.values()) for item in data[entity]]
 
-                for record in records:
-                    if row_id == 0:
-                        for col_id, (column, _) in enumerate(record.items()):
-                            sheet.write(row_id, col_id, column)
-
-                        row_id += 1
-
-                    for col_id, (_, value) in enumerate(record.items()):
-                        sheet.write(row_id, col_id, value)
-
-                    row_id += 1
-
-            workbook.save(xls_file)
+            write_xls(xls_file, xls_data)
             xls_file.seek(0)
 
             return xls_file
