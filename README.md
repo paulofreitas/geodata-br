@@ -28,6 +28,7 @@ Currently we provide these datasets into the following formats:
 * [JSON](https://en.wikipedia.org/wiki/JSON)
 * [MessagePack](https://en.wikipedia.org/wiki/MessagePack)
 * [Property List](https://en.wikipedia.org/wiki/Property_list)
+* [UBJSON](https://en.wikipedia.org/wiki/UBJSON)
 * [XML](https://en.wikipedia.org/wiki/XML)
 * [YAML](https://en.wikipedia.org/wiki/YAML)
 
