@@ -5,13 +5,15 @@
 """
 Markup helper module.
 
-This module provides a Markdown markup generator class.
+This module provides markup generators for HTML and Markdown.
 """
 # Imports
 
 # Built-in dependencies
 
 from html import escape
+from lxml.builder import E as HtmlElement
+from lxml.html import tostring
 
 # Package dependencies
 
@@ -20,12 +22,12 @@ from geodatabr.core.types import AbstractClass, Map
 # Classes
 
 
-class MarkupGenerator(type):
-    """Metaclass for markup generators."""
+class MarkdownGenerator(type):
+    """Metaclass for Markdown generators."""
 
     def __getattr__(cls, name: str) -> str:
         """
-        Magic method to call a markup generator alias method.
+        Magic method to call a Markdown generator alias method.
 
         Args:
             name: The alias method name
@@ -56,7 +58,7 @@ class MarkdownElement(AbstractClass, Map):
     """Abstract markdown element class."""
 
 
-class Markdown(metaclass=MarkupGenerator):
+class Markdown(metaclass=MarkdownGenerator):
     """
     Markdown markup generator.
 
@@ -335,7 +337,7 @@ class Markdown(metaclass=MarkupGenerator):
                        literal=Literal)
 
 
-class GithubMarkdown(Markdown, metaclass=MarkupGenerator):
+class GithubMarkdown(Markdown, metaclass=MarkdownGenerator):
     """
     GitHub Flavored Markdown extension.
 
@@ -461,3 +463,64 @@ class GithubMarkdown(Markdown, metaclass=MarkupGenerator):
                        taskList=TaskList,
                        code=Code,
                        table=Table)
+
+
+class HtmlGenerator(type):
+    """Metaclass for HTML generator."""
+
+    def __getattr__(cls, name: str) -> str:
+        """
+        Magic method to call a HTML element.
+
+        Args:
+            name: The HTML element name
+
+        Returns:
+            HTML element
+
+        Raises:
+            AttributeError: If an HTML element name is invalid
+        """
+        if name == '__elements__' or name not in cls.__elements__:
+            raise AttributeError('Invalid element')
+
+        def _wrapper(*args, **kwargs):
+            return getattr(HtmlElement, name)(*args, **kwargs)
+
+        return _wrapper
+
+
+class Html(object, metaclass=HtmlGenerator):
+    """
+    HTML markup generator.
+
+    Attributes:
+        __elements__ (list): List of allowed elements
+    """
+
+    __elements__ = ['a', 'abbr', 'address', 'area', 'article', 'aside',
+                    'audio', 'b', 'base', 'bdi', 'bdo', 'blockquote', 'body',
+                    'br', 'button', 'canvas', 'caption', 'cite', 'code',
+                    'col', 'colgroup', 'data', 'datalist', 'dd', 'del',
+                    'details', 'dfn', 'dialog', 'div', 'dl', 'dt', 'em',
+                    'embed', 'fieldset', 'figcaption', 'figure', 'footer',
+                    'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head',
+                    'header', 'hr', 'html', 'i', 'iframe', 'img', 'input',
+                    'ins', 'kbd', 'label', 'legend', 'li', 'link', 'main',
+                    'map', 'mark', 'menu', 'menuitem', 'meta', 'meter', 'nav',
+                    'noscript', 'object', 'ol', 'optgroup', 'option',
+                    'output', 'p', 'param', 'picture', 'pre', 'progress', 'q',
+                    's', 'samp', 'script', 'section', 'select', 'small',
+                    'source', 'span', 'strong', 'style', 'sub', 'summary',
+                    'sup', 'svg', 'table', 'tbody', 'td', 'template',
+                    'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr',
+                    'track', 'u', 'ul', 'var', 'video', 'wbr']
+
+    def __new__(cls, element: HtmlElement) -> str:
+        """
+        Renders an HTML element.
+
+        Attributes:
+            element: The HTML element to render
+        """
+        return tostring(element).decode()
