@@ -22,7 +22,7 @@
 | `brazil.plist`   | [Property List](https://en.wikipedia.org/wiki/Property_list) |   896,374 |
 | `brazil.ubj`     | [UBJSON](https://en.wikipedia.org/wiki/UBJSON)               | 1,655,372 |
 | `brazil.xml`     | [XML](https://en.wikipedia.org/wiki/XML)                     | 2,180,127 |
-| `brazil.yaml`    | [YAML](https://en.wikipedia.org/wiki/YAML)                   | 4,999,010 |
+| `brazil.yaml`    | [YAML](https://en.wikipedia.org/wiki/YAML)                   | 1,974,632 |
 
 #### Database
 
