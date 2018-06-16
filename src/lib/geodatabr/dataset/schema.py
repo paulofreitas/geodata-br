@@ -63,7 +63,7 @@ class Entity(declarative_base()):
 
             for column in entity.__table__.columns:
                 if not column.foreign_keys:
-                    flattened[entity.__name__ + '_' + column.name] =\
+                    flattened[entity._name + '_' + column.name] =\
                         getattr(entity, column.name)
 
             return flattened
@@ -85,7 +85,7 @@ class Entity(declarative_base()):
 class State(Entity):
     """Entity for states."""
 
-    __name__ = 'state'
+    _name = 'state'
 
     __table__ = Table(
         'states',
@@ -110,7 +110,7 @@ class State(Entity):
 class Mesoregion(Entity):
     """Entity for mesoregions."""
 
-    __name__ = 'mesoregion'
+    _name = 'mesoregion'
 
     __table__ = Table(
         'mesoregions',
@@ -140,7 +140,7 @@ class Mesoregion(Entity):
 class Microregion(Entity):
     """Entity for microregions."""
 
-    __name__ = 'microregion'
+    _name = 'microregion'
 
     __table__ = Table(
         'microregions',
@@ -175,7 +175,7 @@ class Microregion(Entity):
 class Municipality(Entity):
     """Entity for municipalities."""
 
-    __name__ = 'municipality'
+    _name = 'municipality'
 
     __table__ = Table(
         'municipalities',
@@ -215,7 +215,7 @@ class Municipality(Entity):
 class District(Entity):
     """Entity for districts."""
 
-    __name__ = 'district'
+    _name = 'district'
 
     __table__ = Table(
         'districts',
@@ -260,7 +260,7 @@ class District(Entity):
 class Subdistrict(Entity):
     """Entity for subdistricts."""
 
-    __name__ = 'subdistrict'
+    _name = 'subdistrict'
 
     __table__ = Table(
         'subdistricts',
@@ -310,3 +310,8 @@ class Subdistrict(Entity):
 # Collections
 
 Entities = (State, Mesoregion, Microregion, Municipality, District, Subdistrict)
+
+# Monkey patches
+
+for entity in Entities:
+    entity.__table__.__entity__ = entity
