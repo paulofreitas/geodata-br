@@ -51,8 +51,9 @@ setup(
         'lxml',
         'msgpack',
         'py-ubjson',
+        'pyexcel-ods',
+        'pyexcel-xls',
         'pyyaml',
         'sqlalchemy',
-        'xlwt',
     ]
 )
