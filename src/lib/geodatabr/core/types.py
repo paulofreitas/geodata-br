@@ -14,7 +14,8 @@ This module provides the base types used across the packages.
 import io
 
 from abc import ABCMeta
-from collections import OrderedDict
+from collections import Iterable, OrderedDict
+from functools import reduce
 from random import sample, shuffle
 from struct import pack, unpack
 from typing import Any, Callable
@@ -283,7 +284,7 @@ class List(list):
             size: The length of each chunk
 
         Returns:
-            The chunked list
+            A chunked list
 
         Raises:
             TypeError: If no chunk size is given
@@ -292,7 +293,7 @@ class List(list):
         if size <= 0:
             raise ValueError('The chunk size should be a positive number')
 
-        return List(self[idx:idx+size] for idx in range(0, len(self), size))
+        return List(self[idx:idx + size] for idx in range(0, len(self), size))
 
     def copy(self) -> 'List':
         """
@@ -311,7 +312,7 @@ class List(list):
             other: The list to compute difference
 
         Returns:
-            The list of different items
+            A list of different items
 
         Raises:
             TypeError: If no comparing list is given
@@ -322,44 +323,61 @@ class List(list):
 
         return List(item for item in self if item not in other)
 
-    def filter(self, callback: Callable) -> 'List':
+    def filter(self, predicate: Callable) -> 'List':
         """
         Returns all of the items in the list that pass a given truth test.
 
         Args:
-            callback: The callback function to apply
+            predicate: The callback function to apply
 
         Returns:
-            The filtered list
+            A filtered list
 
         Raises:
-            TypeError: If no callback is given
-            ValueError: If callback is not callable
+            TypeError: If no predicate is given
+            ValueError: If predicate is not callable
         """
-        if not callable(callback):
-            raise ValueError('The callback should be callable')
+        if not callable(predicate):
+            raise ValueError('The predicate should be callable')
 
-        return List(item for item in self if callback(item))
+        return List(item for item in self if predicate(item))
 
-    def first(self, callback: Callable = None) -> Any:
+    def first(self, predicate: Callable = None) -> Any:
         """
         Returns the first item of the list or the first item in the list that
         passes a given truth test if callback is passed.
 
         Args:
-            callback: An optional callback function to apply
+            predicate: An optional callback function to apply
 
         Returns:
             The first item of the list
 
         Raises:
             IndexError: If the list is empty
-            ValueError: If callback is not callable
+            ValueError: If predicate is not callable
         """
-        if callback:
-            return self.filter(callback).first()
+        if predicate:
+            return self.filter(predicate).first()
 
         return self[0]
+
+    def flatten(self) -> 'List':
+        """
+        Returns a recursively flattened list from a nested list.
+
+        Returns:
+            A flattened list
+        """
+        flattened = List()
+
+        for item in self:
+            flattened.extend(List(item).flatten()
+                             if (isinstance(item, Iterable)
+                                 and not isinstance(item, (str, bytes))) else
+                             [item])
+
+        return flattened
 
     def intersection(self, other: list) -> 'List':
         """
@@ -369,7 +387,7 @@ class List(list):
             other: The list to compute intersection
 
         Returns:
-            The list of intersecting items
+            A list of intersecting items
 
         Raises:
             TypeError: If no comparing list is given
@@ -380,25 +398,56 @@ class List(list):
 
         return List(item for item in self if item in other)
 
-    def last(self, callback: Callable = None) -> Any:
+    def last(self, predicate: Callable = None) -> Any:
         """
         Returns the last item of the list or the last item in the list that
         passes a given truth test if callback is passed.
 
         Args:
-            callback: An optional callback function to apply
+            predicate: An optional callback function to apply
 
         Returns:
             The last element of the list
 
         Raises:
             IndexError: If the list is empty
-            ValueError: If callback is not callable
+            ValueError: If predicate is not callable
         """
-        if callback:
-            return self.filter(callback).last()
+        if predicate:
+            return self.filter(predicate).last()
 
         return self[-1]
+
+    def nth(self, step: int, offset: int = 0) -> 'List':
+        """
+        Returns a new list consisting of every n-th item.
+
+        Args:
+            step: The step size
+            offset: The start offset
+
+        Returns:
+            A sliced list
+        """
+        return List([item
+                     for position, item in enumerate(self)
+                     if position % step == offset])
+
+    def partition(self, predicate: Callable) -> 'List':
+        """
+        Splits the list into two using the given predicate.
+
+        Args:
+            predicate: The callback function to use as predicate
+
+        Returns:
+            A partitioned list
+
+        Raises:
+            TypeError: If no callback is given
+            ValueError: If callback is not callable
+        """
+        return List([self.filter(predicate), self.reject(predicate)])
 
     def prepend(self, item: Any):
         """
@@ -409,25 +458,57 @@ class List(list):
         """
         self.insert(0, item)
 
-    def reject(self, callback: Callable) -> 'List':
+    def reduce(self, predicate: Callable, initial: Any = None) -> Any:
+        """
+        Reduces the list values into a single value.
+
+        Args:
+            predicate: The callback function to apply
+            initial: The initial value
+
+        Returns:
+            The final reducing value
+
+        Raises:
+            TypeError: If no predicate is given
+            ValueError: If predicate is not callable
+        """
+        if not callable(predicate):
+            raise ValueError('The predicate should be callable')
+
+        return reduce(predicate, self, initial)
+
+    def reject(self, predicate: Callable) -> 'List':
         """
         Returns all of the items in the list that do not pass a given truth
         test.
 
         Args:
-            callback: The callback function to apply
+            predicate: The callback function to apply
 
         Returns:
-            The filtered list
+            A filtered list
 
         Raises:
-            TypeError: If no callback is given
-            ValueError: If callback is not callable
+            TypeError: If no predicate is given
+            ValueError: If predicate is not callable
         """
-        if not callable(callback):
-            raise ValueError('The callback should be callable')
+        if not callable(predicate):
+            raise ValueError('The predicate should be callable')
 
-        return List(item for item in self if not callback(item))
+        return List(item for item in self if not predicate(item))
+
+    def rotate(self, offset: int) -> 'List':
+        """
+        Returns a new list with items rotated at the given offset.
+
+        Args:
+            offset: The offset where the rotation should start
+
+        Returns:
+            A rotated list
+        """
+        return List(self[offset:] + self[:offset])
 
     def sample(self, count: int = 1) -> 'List':
         """
@@ -437,7 +518,7 @@ class List(list):
             count: The number of random items to retrieve from the list
 
         Returns:
-            The random list sample
+            A random list sample
 
         Raises:
             ValueError: If the number of random items is negative
@@ -464,12 +545,34 @@ class List(list):
         Returns a shuffled copy of the list.
 
         Returns:
-            The shuffled copy of the list
+            A shuffled copy of the list
         """
         copy = self.copy()
         shuffle(copy)
 
         return copy
+
+    def splice(self, index: int, size: int = None) -> 'List':
+        """
+        Removes and returns a slice of items starting at the specified index.
+
+        Args:
+            index: The index to start slicing
+            size: An optional slice size
+
+        Returns:
+            A list of sliced items
+        """
+        if size:
+            _slice = self[index:index + size]
+            del self[index:index + size]
+
+            return List(_slice)
+
+        _slice = self[index:]
+        del self[index:]
+
+        return List(_slice)
 
     def split(self, count: int) -> 'List':
         """
@@ -479,7 +582,7 @@ class List(list):
             count: The number of groups to split
 
         Returns:
-            The split list
+            A split list
 
         Raises:
             TypeError: If no number of groups is given
@@ -501,12 +604,32 @@ class List(list):
             count: The number of items to take
 
         Returns:
-            The sliced list
+            A sliced list
 
         Raises:
             TypeError: If no number of items is given
         """
         return List(self[:count] if count >= 0 else self[count:])
+
+    def transpose(self) -> 'List':
+        """
+        Returns a transposed list from a nested list.
+
+        Returns:
+            A transposed list
+
+        Raises:
+            ValueError: If the list is not a nested list
+            ValueError: If the list do not have equal sized lists
+        """
+        if not any(isinstance(item, list) for item in self):
+            raise ValueError(
+                'The list should be a nested list (a list of lists)')
+
+        if len(set(map(len, self))) != 1:
+            raise ValueError('The list should have equal sized lists')
+
+        return List(zip(*self))
 
     def union(self, other: list) -> 'List':
         """
@@ -516,7 +639,7 @@ class List(list):
             other: The list to compute union
 
         Returns:
-            The list of unique items
+            A list of unique items
 
         Raises:
             TypeError: If no comparing list is given
@@ -532,7 +655,7 @@ class List(list):
         Returns all of the unique items in the list.
 
         Returns:
-            The filtered unique list
+            A list of unique items
         """
         return List(sorted(set(self), key=self.index))
 
@@ -541,7 +664,7 @@ class List(list):
         Returns the canonical string representation of the object.
 
         Returns:
-            str: The canonical string representation of the object
+            The canonical string representation of the object
         """
         return '{:s}({!s})'.format(self.__class__.__name__,
                                    super().__repr__())
