@@ -18,9 +18,8 @@ from itertools import groupby
 # Package dependencies
 
 from geodatabr import __version__, __author__, __copyright__, __license__
-from geodatabr.core.helpers.filesystem import File
 from geodatabr.core.i18n import _, Translator
-from geodatabr.core.types import AbstractClass
+from geodatabr.core.types import AbstractClass, List
 
 # Translator setup
 
@@ -146,33 +145,34 @@ class EncoderFormatRepository(object):
             'No encoder format found with this extension: {}'.format(extension))
 
     @classmethod
-    def listNames(cls) -> list:
+    def listNames(cls) -> List:
         """
         Returns a list with all encoder format names.
 
         Returns:
             A list with all encoder format names
         """
-        return list(sorted([encoder.format().name
+        return List(sorted([encoder.format().name
                             for encoder in Encoder.childs()
                             if getattr(encoder, 'format')]))
 
     @classmethod
-    def groupByType(cls) -> list:
+    def groupByType(cls) -> List:
         """
         Returns a list with all encoder formats grouped by their type.
 
         Returns:
             A list with all encoder formats grouped by their type
         """
-        sorter = lambda format_: format_.type
-
-        return list(groupby(
-            sorted([encoder.format()
-                    for encoder in Encoder.childs()
-                    if getattr(encoder, 'format')],
-                   key=sorter),
-            key=sorter))
+        return List([(format_type,
+                      List(sorted(formats,
+                                  key=lambda _format: _format.name)))
+                     for format_type, formats in groupby(
+                         sorted([encoder.format()
+                                 for encoder in Encoder.childs()
+                                 if getattr(encoder, 'format')],
+                                key=lambda _format: _format.type),
+                         key=lambda _format: _format.type)])
 
 
 class Encoder(AbstractClass):
@@ -237,6 +237,8 @@ class Encoder(AbstractClass):
         Raises:
             geodatabr.encoders.EncodeError: If data fails to encode
         """
+        from geodatabr.core.helpers.filesystem import File
+
         data = self.encode(data, **options).read()
         encoder_format = self.format()
 
