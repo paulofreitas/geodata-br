@@ -16,7 +16,7 @@ from itertools import groupby
 # Package dependencies
 
 from geodatabr.core import BASE_DIR, SRC_DIR
-from geodatabr.core.helpers.filesystem import File
+from geodatabr.core.helpers.filesystem import Directory, File
 from geodatabr.core.helpers.markup import GithubMarkdown as Markdown
 from geodatabr.core.i18n import _, Translator
 from geodatabr.dataset.serializers import Serializer
@@ -24,7 +24,6 @@ from geodatabr.encoders import EncoderFormatRepository
 
 # Setup translator
 
-Translator.locale = 'en'
 Translator.load('dataset')
 
 # Classes
@@ -33,19 +32,19 @@ Translator.load('dataset')
 class Readme(object):
     """A README documentation file."""
 
-    def __init__(self, readme_file, stub_file=None):
+    def __init__(self, readme_file: File, stub_file: File = None):
         """
         Creates a new README file.
 
         Args:
-            readme_file (geodatabr.core.helpers.filesystem.File): The README file
-            stub_file (geodatabr.core.helpers.filesystem.File): The README stub file
+            readme_file: The README file
+            stub_file: The README stub file
         """
         self._readme_file = readme_file
         self._stub_file = stub_file
         self._stub = self._stub_file.read() if stub_file else ''
 
-    def render(self):
+    def render(self) -> str:
         """Renders the file."""
         raise NotImplementedError
 
@@ -64,24 +63,26 @@ class ProjectReadme(Readme):
 
         super().__init__(readme_file, stub_file)
 
-    def render(self):
+    def render(self) -> str:
         """
         Renders the file.
 
         Returns:
-            str: The rendered project README contents
+            The rendered project README contents
         """
+        Translator.locale = 'en'
+
         return self._stub.format(
             dataset_records=self.renderDatasetRecords().strip(),
             dataset_formats=self.renderDatasetFormats().strip()
         )
 
-    def renderDatasetRecords(self):
+    def renderDatasetRecords(self) -> str:
         """
         Renders the available dataset records counts.
 
         Returns:
-            str: The available dataset records counts
+            The available dataset records counts
         """
         headers = ['Table/Collection', 'Records']
         alignment = ['>'] * 2
@@ -94,12 +95,12 @@ class ProjectReadme(Readme):
 
         return Markdown.table([headers] + data, alignment)
 
-    def renderDatasetFormats(self):
+    def renderDatasetFormats(self) -> str:
         """
         Renders the available dataset formats.
 
         Returns:
-            str: The available dataset formats
+            The available dataset formats
         """
         grouped_formats = EncoderFormatRepository.groupByType()
         markdown = ''
@@ -119,12 +120,12 @@ class ProjectReadme(Readme):
 class DatasetReadme(Readme):
     """A dataset README documentation file."""
 
-    def __init__(self, dataset_dir):
+    def __init__(self, dataset_dir: Directory):
         """
         Creates a new dataset README documentation file instance.
 
         Args:
-            dataset_dir (str): The dataset directory
+            dataset_dir: The dataset directory
         """
         readme_file = File(dataset_dir / 'README.md')
         stub_file = File(SRC_DIR / 'data/stubs/BASE_README.stub.md')
@@ -133,23 +134,23 @@ class DatasetReadme(Readme):
 
         self._dataset_dir = dataset_dir
 
-    def render(self):
+    def render(self) -> str:
         """
         Renders the file.
 
         Returns:
-            str: The rendered dataset README contents
+            The rendered dataset README contents
         """
         return self._stub.format(
             dataset_records=self.renderDatasetRecords().strip(),
             dataset_files=self.renderDatasetFiles().strip())
 
-    def renderDatasetRecords(self):
+    def renderDatasetRecords(self) -> str:
         """
         Renders the dataset records counts.
 
         Returns:
-            str: The dataset records counts
+            The dataset records counts
         """
         headers = ['Table/Collection', 'Records']
         alignment = ['>', '>']
@@ -162,12 +163,12 @@ class DatasetReadme(Readme):
 
         return Markdown.table([headers] + data, alignment)
 
-    def renderDatasetFiles(self):
+    def renderDatasetFiles(self) -> str:
         """
         Renders the dataset files info.
 
         Returns:
-            str: The dataset files info
+            The dataset files info
         """
         files = list(self._dataset_dir.files(pattern=_('dataset_name') + '*'))
         grouped_files = groupby(sorted(files, key=lambda file: file.format.type),
