@@ -46,14 +46,13 @@ setup(
         # geodatabr package
         'requests',
         'ratelimit',
-        # geodatabr.exporters package
+        # geodatabr.encoders package
         'fdb',
         'lxml',
         'msgpack',
+        'py-ubjson',
         'pyyaml',
         'sqlalchemy',
-        # geodatabr.parsers package
-        'xlrd',
         'xlwt',
     ]
 )
