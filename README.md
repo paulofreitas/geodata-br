@@ -38,6 +38,10 @@ Currently we provide these datasets into the following formats:
 * [SQL](https://en.wikipedia.org/wiki/SQL)
 * [SQLite 3](https://en.wikipedia.org/wiki/SQLite)
 
+#### Spreadsheet
+
+* [Microsoft Excel Spreadsheet](https://en.wikipedia.org/wiki/Microsoft_Excel_file_format)
+
 #### Tabular Text
 
 * [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)

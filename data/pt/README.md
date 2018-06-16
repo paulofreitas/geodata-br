@@ -32,6 +32,12 @@
 | `brasil.sql`     | [SQL](https://en.wikipedia.org/wiki/SQL)                                               | 1,402,012 |
 | `brasil.sqlite3` | [SQLite 3](https://en.wikipedia.org/wiki/SQLite)                                       | 1,786,880 |
 
+#### Spreadsheet
+
+| File         | Format                                                                                   |      Size |
+| ------------ |:----------------------------------------------------------------------------------------:| ---------:|
+| `brasil.xls` | [Microsoft Excel Spreadsheet](https://en.wikipedia.org/wiki/Microsoft_Excel_file_format) | 1,413,120 |
+
 #### Tabular Text
 
 | File         | Format                                                      |      Size |
