@@ -36,6 +36,7 @@
 
 | File         | Format                                                                                   |      Size |
 | ------------ |:----------------------------------------------------------------------------------------:| ---------:|
+| `brasil.ods` | [OpenDocument Spreadsheet](https://en.wikipedia.org/wiki/OpenDocument)                   |   401,369 |
 | `brasil.xls` | [Microsoft Excel Spreadsheet](https://en.wikipedia.org/wiki/Microsoft_Excel_file_format) | 1,413,120 |
 
 #### Tabular Text
