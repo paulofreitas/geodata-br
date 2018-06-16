@@ -44,17 +44,19 @@ class BuildCommand(Command):
         self.addArgument('-l', '--locales',
                          metavar='LOCALE',
                          nargs='*',
+                         choices=locales,
                          default=locales,
                          help=('Locales to build the dataset.\n'
-                               'Defaults to all available: {}'
-                               .format(', '.join(locales))))
+                               'Options: %(choices)s\n'
+                               'Defaults to all available.'))
         self.addArgument('-f', '--formats',
                          metavar='FORMAT',
                          nargs='*',
+                         choices=formats,
                          default=formats,
-                         help=('Formats to build the dataset.\n'
-                               'Defaults to all available: {}'
-                               .format(', '.join(formats))))
+                         help=('File formats to build the dataset.\n'
+                               'Options: %(choices)s\n'
+                               'Defaults to all available.'))
 
     def handle(self, args):
         """Handles the command."""
