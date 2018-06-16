@@ -37,11 +37,11 @@ class MarkupGenerator(type):
             AttributeError: If alias method name is invalid
         """
         aliases = cls.__aliases__
-
-        for parent in cls.__bases__:
-            aliases.update({alias: resolver
-                            for alias, resolver in parent.__aliases__.items()
-                            if alias not in aliases})
+        aliases.update({alias: resolver
+                        for parent in cls.__bases__
+                        if hasattr(parent, '__aliases__')
+                        for alias, resolver in parent.__aliases__.items()
+                        if alias not in aliases})
 
         if name == '__aliases__' or name not in aliases:
             raise AttributeError('Invalid method')
