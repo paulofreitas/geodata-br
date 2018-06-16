@@ -7,12 +7,13 @@
 
 # External dependencies
 
-from lxml.etree import Comment, Element, SubElement, tostring as xml_str
+from lxml.etree import Element, SubElement, tostring as xml_str
 
 # Package dependencies
 
 from geodatabr.core.i18n import _, Translator
 from geodatabr.core.types import FileStream
+from geodatabr.dataset.schema import Entities
 from geodatabr.dataset.serializers import Serializer
 from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 
@@ -97,20 +98,22 @@ class XmlEncoder(Encoder):
             geodatabr.encoders.EncodeError: If data fails to encode
         """
         try:
-            database = Element('database', name=_('dataset_name'))
+            dataset = Element(_('dataset_name'))
+            entities = {_(entity.__table__.name): _(entity._name)
+                        for entity in Entities}
 
             for table_name, rows in iter(data.items()):
-                database.append(Comment(' Table {} '.format(table_name)))
-                table = SubElement(database, 'table', name=table_name)
+                table = SubElement(dataset, table_name)
 
-                for row_data in iter(rows.values()):
-                    row = SubElement(table, 'row')
+                for row in rows:
+                    SubElement(table, entities.get(table_name), row)
 
-                    for column_name, column_value in iter(row_data.items()):
-                        SubElement(row, 'field', name=column_name).text =\
-                            column_value
+            xml_data = xml_str(dataset, **dict(self.options, **options))
 
-            xml_data = xml_str(database, **dict(self.options, **options))
+            # Workaround for hard-coded single quoting
+            xml_declaration = xml_data[:xml_data.find(b'?>') + 2]
+            xml_data = xml_data.replace(xml_declaration,
+                                        xml_declaration.replace(b"'", b'"'))
 
             return FileStream(xml_data.decode())
         except Exception:
