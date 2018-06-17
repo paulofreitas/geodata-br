@@ -17,8 +17,10 @@ from itertools import groupby
 
 from geodatabr.core import BASE_DIR, SRC_DIR
 from geodatabr.core.helpers.filesystem import Directory, File
-from geodatabr.core.helpers.markup import GithubMarkdown as Markdown
+from geodatabr.core.helpers.markup import GithubMarkdown as Markdown, Html, \
+    HtmlElement
 from geodatabr.core.i18n import _, Translator
+from geodatabr.core.types import AbstractClass, Map
 from geodatabr.dataset.serializers import Serializer
 from geodatabr.encoders import EncoderFormatRepository
 
@@ -29,8 +31,8 @@ Translator.load('dataset')
 # Classes
 
 
-class Readme(object):
-    """A README documentation file."""
+class Readme(AbstractClass):
+    """An abstract README documentation file."""
 
     def __init__(self, readme_file: File, stub_file: File = None):
         """
@@ -73,27 +75,22 @@ class ProjectReadme(Readme):
         Translator.locale = 'en'
 
         return self._stub.format(
-            dataset_records=self.renderDatasetRecords().strip(),
+            badges=self.renderBadges().strip(),
             dataset_formats=self.renderDatasetFormats().strip()
         )
 
-    def renderDatasetRecords(self) -> str:
+    def renderBadges(self) -> str:
         """
-        Renders the available dataset records counts.
+        Renders the document badges.
 
         Returns:
-            The available dataset records counts
+            The document badges
         """
-        headers = ['Table/Collection', 'Records']
-        alignment = ['>'] * 2
         dataset = Serializer().serialize()
-        data = [
-            [Markdown.code(entity),
-             '{:,d}'.format(len(dataset[entity]))]
-            for entity in dataset
-        ]
+        data = [CustomBadge(entity, len(dataset[entity]), 'red').render()
+                for entity in dataset]
 
-        return Markdown.table([headers] + data, alignment)
+        return Html(Html.p(*data, align='center'))
 
     def renderDatasetFormats(self) -> str:
         """
@@ -197,3 +194,35 @@ class DatasetReadme(Readme):
             listing.append(Markdown.table([headers] + rows, alignment))
 
         return '\n'.join(listing)
+
+
+class Badge(AbstractClass, Map):
+    """An abstract badge image."""
+
+    def render(self) -> HtmlElement:
+        """Renders the badge image."""
+        raise NotImplementedError
+
+    def __str__(self) -> str:
+        """Renders the badge image string."""
+        return Html(self.render())
+
+
+class CustomBadge(Badge):
+    """A custom badge image."""
+
+    def __init__(self, label: str, value: str, color: str):
+        """
+        Creates a new custom badge image.
+        """
+        self.label = label
+        self.value = value
+        self.color = color
+
+    def render(self) -> HtmlElement:
+        """Renders the badge image element."""
+        return Html.img(
+            src='https://img.shields.io/badge/{label}-{value}-{color}.svg'
+            .format(label=self.label,
+                    value=self.value,
+                    color=self.color))
