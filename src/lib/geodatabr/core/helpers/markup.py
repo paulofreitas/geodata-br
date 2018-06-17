@@ -12,12 +12,13 @@ This module provides markup generators for HTML and Markdown.
 # Built-in dependencies
 
 from html import escape
-from lxml.builder import E as HtmlElement
+from lxml.builder import ElementMaker
+from lxml.etree import ElementBase, ElementDefaultClassLookup, HTMLParser
 from lxml.html import tostring
 
 # Package dependencies
 
-from geodatabr.core.types import AbstractClass, Map
+from geodatabr.core.types import Map
 
 # Classes
 
@@ -54,8 +55,12 @@ class MarkdownGenerator(type):
         return _wrapper
 
 
-class MarkdownElement(AbstractClass, Map):
-    """Abstract markdown element class."""
+class MarkdownElement(Map):
+    """Abstract Markdown element class."""
+
+    def __init__(self):
+        """No-op constructor."""
+        raise NotImplementedError
 
 
 class Markdown(metaclass=MarkdownGenerator):
@@ -484,10 +489,23 @@ class HtmlGenerator(type):
         if name == '__elements__' or name not in cls.__elements__:
             raise AttributeError('Invalid element')
 
+        parser = HTMLParser()
+        parser.set_element_class_lookup(
+            ElementDefaultClassLookup(element=HtmlElement))
+
         def _wrapper(*args, **kwargs):
-            return getattr(HtmlElement, name)(*args, **kwargs)
+            return getattr(ElementMaker(makeelement=parser.makeelement),
+                           name)(*args, **kwargs)
 
         return _wrapper
+
+
+class HtmlElement(ElementBase):
+    """Abstract HTML element class."""
+
+    def __init__(self):
+        """No-op constructor."""
+        raise NotImplementedError
 
 
 class Html(object, metaclass=HtmlGenerator):
