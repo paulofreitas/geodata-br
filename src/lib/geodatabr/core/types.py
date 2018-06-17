@@ -22,7 +22,7 @@ from typing import Any, Callable
 
 # Package dependencies
 
-from geodatabr.core.helpers.bootstrapping import ModuleLoader
+from geodatabr.core.bootstrapping import ModuleLoader
 
 # Classes
 

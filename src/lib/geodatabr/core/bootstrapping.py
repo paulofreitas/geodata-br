@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 """
-Bootstrapping helper module.
+Core bootstrapping module.
 
 This module provides methods to bootstrap packages and modules.
 """
