@@ -1,16 +1,23 @@
-<p align="center"><img src="https://img.shields.io/badge/states-27-red.svg"><img src="https://img.shields.io/badge/mesoregions-137-red.svg"><img src="https://img.shields.io/badge/microregions-558-red.svg"><img src="https://img.shields.io/badge/municipalities-5570-red.svg"><img src="https://img.shields.io/badge/districts-10302-red.svg"><img src="https://img.shields.io/badge/subdistricts-662-red.svg"></p>
+<p align="center">
+<img src="https://img.shields.io/badge/states-27-red.svg">
+<img src="https://img.shields.io/badge/mesoregions-137-red.svg">
+<img src="https://img.shields.io/badge/microregions-558-red.svg">
+<img src="https://img.shields.io/badge/municipalities-5570-red.svg">
+<img src="https://img.shields.io/badge/districts-10302-red.svg">
+<img src="https://img.shields.io/badge/subdistricts-662-red.svg">
+</p>
 
 # geodata-br
 
 Free open public domain geographic data of Brazil available in multiple languages and formats.
 
-## Data Source
+## Data source
 
 All data was compiled from [SIDRA](https://sidra.ibge.gov.br/) (IBGE's Automatic Recovery System) data sets by [IBGE](https://www.ibge.gov.br/) (Brazilian Institute of Geography and Statistics).
 
-## Data Formats
+## Data formats
 
-The compiled data is available into the following formats:
+The compiled data are available into the following formats:
 
 #### Data Interchange
 

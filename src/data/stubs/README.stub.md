@@ -4,15 +4,15 @@
 
 Free open public domain geographic data of Brazil available in multiple languages and formats.
 
-## Data Source
+## Data source
 
 All data was compiled from [SIDRA](https://sidra.ibge.gov.br/) (IBGE's Automatic Recovery System) data sets by [IBGE](https://www.ibge.gov.br/) (Brazilian Institute of Geography and Statistics).
 
-## Data Formats
+## Data formats
 
-The compiled data is available into the following formats:
+The compiled data are available into the following formats:
 
-{dataset_formats}
+{data_formats}
 
 ## License
 
