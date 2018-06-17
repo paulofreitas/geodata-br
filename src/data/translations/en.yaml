@@ -1,2 +1,4 @@
-dataset:
-  dataset_name: brazil
+locales:
+  en: English
+  pt: Portuguese
+dataset_name: brazil
