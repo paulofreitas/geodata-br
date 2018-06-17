@@ -15,6 +15,8 @@ import sys
 
 from importlib import import_module
 from pkgutil import walk_packages
+from types import ModuleType
+from typing import Any
 
 # Classes
 
@@ -23,51 +25,57 @@ class ModuleLoader(object):
     """Module loader class."""
 
     @staticmethod
-    def load(module):
+    def load(module: str) -> ModuleType:
         """
         Loads a given module.
 
         Args:
-            module (str): The module name to load
+            module: The module name to load
 
         Returns:
-            module: The given module class
+            The given module class
+
+        Raises:
+            ModuleNotFoundError: Raised when a module could not be located
+            ImportError: Raised when the a module could not be loaded
         """
         if module in sys.modules:
             return sys.modules[module]
 
-        return import_module(module)
+        try:
+            return import_module(module)
+        except ImportError:
+            raise ModuleNotFoundError("No module named '{}'".format(module))
+        except Exception:
+            raise ImportError("Failed to load module '{}'".format(module))
 
     @classmethod
-    def loadModules(cls, package, ignore_error=True):
+    def loadModules(cls, package: Any, ignore_error: bool = True):
         """
         Loads a given package modules.
 
         Args:
             package: The package name or instance to load modules
-            ignore_error (bool): Whether it should ignore import errors or not
+            ignore_error: Whether it should ignore import errors or not
 
         Raises:
-            ImportError: When a package module can't be imported
-            InvalidPackageError: When a given package is not valid
+            ModuleNotFoundError: Raised when a module could not be located
+            ImportError: Raised when the a module could not be loaded
         """
-        if isinstance(package, str):
-            package = cls.load(package)
-
         try:
+            if isinstance(package, str):
+                package = cls.load(package)
+
             namespace = package.__name__ + '.'
 
             for _, name, _ in walk_packages(package.__path__, namespace):
                 cls.load(name)
-        except ImportError:
+        except AttributeError:
+            raise ModuleNotFoundError("No module named '{}'".format(package))
+        except Exception:
             if not ignore_error:
                 raise
-        except AttributeError:
-            if not ignore_error:
-                raise InvalidPackageError(
-                    'The given package is not valid: {}'.format(package))
 
 
-class InvalidPackageError(Exception):
-    """Exception class raised when a package is not valid."""
-    pass
+class ModuleNotFoundError(ImportError):
+    """Exception class raised when a module could not be located."""
