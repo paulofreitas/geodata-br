@@ -1,27 +1,16 @@
+<p align="center"><img src="https://img.shields.io/badge/states-27-red.svg"><img src="https://img.shields.io/badge/mesoregions-137-red.svg"><img src="https://img.shields.io/badge/microregions-558-red.svg"><img src="https://img.shields.io/badge/municipalities-5570-red.svg"><img src="https://img.shields.io/badge/districts-10302-red.svg"><img src="https://img.shields.io/badge/subdistricts-662-red.svg"></p>
+
 # geodata-br
 
 Free open public domain geographic data of Brazil available in multiple languages and formats.
 
 ## Data Source
 
-All these data was compiled from SIDRA (IBGE's Automatic Recovery System) database by IBGE (Brazilian Institute of Geography and Statistics).
+All data was compiled from [SIDRA](https://sidra.ibge.gov.br/) (IBGE's Automatic Recovery System) data sets by [IBGE](https://www.ibge.gov.br/) (Brazilian Institute of Geography and Statistics).
 
-## Datasets
+## Data Formats
 
-### Records
-
-| Table/Collection | Records |
-| ----------------:| -------:|
-|         `states` |      27 |
-|    `mesoregions` |     137 |
-|   `microregions` |     558 |
-| `municipalities` |   5,570 |
-|      `districts` |  10,302 |
-|   `subdistricts` |     662 |
-
-### Data formats
-
-Currently we provide these datasets into the following formats:
+The compiled data is available into the following formats:
 
 #### Data Interchange
 
@@ -50,7 +39,9 @@ Currently we provide these datasets into the following formats:
 
 ## License
 
-The project source code are available under the [MIT License](src/LICENSE). The data compiled here are [public domain](data/LICENSE) and falls within fair use.
+The data compiled here are [public domain](data/LICENSE) and falls within fair use.
+
+The project source code are available under the [MIT License](src/LICENSE).
 
 ## Contributing
 
