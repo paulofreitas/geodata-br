@@ -17,8 +17,7 @@ from itertools import groupby
 
 from geodatabr.core import BASE_DIR, SRC_DIR
 from geodatabr.core.helpers.filesystem import Directory, File
-from geodatabr.core.helpers.markup import GithubMarkdown as Markdown, Html, \
-    HtmlElement
+from geodatabr.core.helpers.markup import GithubMarkdown as Markdown
 from geodatabr.core.i18n import _, Translator
 from geodatabr.core.types import AbstractClass, Map
 from geodatabr.dataset.serializers import Serializer
@@ -87,15 +86,11 @@ class ProjectReadme(Readme):
             The document badges
         """
         dataset = Serializer().serialize()
-        html = ['\n']
 
-        for entity in dataset:
-            html.append(CustomBadge(entity,
-                                    len(dataset[entity]),
-                                    'red').render())
-            html.append('\n')
-
-        return Html(Html.p(*html, align='center'))
+        return '\n'.join(str(CustomBadge(entity,
+                                         '{:,d}'.format(len(dataset[entity])),
+                                         '97c554'))
+                         for entity in dataset)
 
     def renderDataFormats(self) -> str:
         """
@@ -206,13 +201,9 @@ class DatasetReadme(Readme):
 class Badge(AbstractClass, Map):
     """An abstract badge image."""
 
-    def render(self) -> HtmlElement:
+    def __str__(self) -> str:
         """Renders the badge image."""
         raise NotImplementedError
-
-    def __str__(self) -> str:
-        """Renders the badge image string."""
-        return Html(self.render())
 
 
 class CustomBadge(Badge):
@@ -226,10 +217,12 @@ class CustomBadge(Badge):
         self.value = value
         self.color = color
 
-    def render(self) -> HtmlElement:
-        """Renders the badge image element."""
-        return Html.img(
-            src='https://img.shields.io/badge/{label}-{value}-{color}.svg'
+    def __str__(self) -> str:
+        """Renders the badge image."""
+        return Markdown.image(
+            'https://img.shields.io/badge/{label}-{value}-{color}.svg'
             .format(label=self.label,
                     value=self.value,
-                    color=self.color))
+                    color=self.color),
+            self.label + ': ' + self.value,
+            self.label + ': ' + self.value)
