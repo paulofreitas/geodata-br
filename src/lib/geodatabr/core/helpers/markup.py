@@ -16,11 +16,27 @@ from lxml.builder import ElementMaker
 from lxml.etree import ElementBase, ElementDefaultClassLookup, HTMLParser
 from lxml.html import tostring
 
-# Package dependencies
-
-from geodatabr.core.types import Map
-
 # Classes
+
+
+class MarkupElement(object):
+    """Abstract markup element class."""
+
+    def __init__(self):
+        """No-op constructor."""
+        raise NotImplementedError
+
+    def __repr__(self) -> str:
+        """
+        Returns the canonical string representation of the object.
+
+        Returns:
+            The canonical string representation of the object
+        """
+        return '{:s}({!s})' \
+               .format(self.__class__.__name__,
+                       ', '.join('{}={}'.format(key, repr(value))
+                                 for key, value in self.__dict__.items()))
 
 
 class MarkdownGenerator(type):
@@ -55,7 +71,7 @@ class MarkdownGenerator(type):
         return _wrapper
 
 
-class MarkdownElement(Map):
+class MarkdownElement(MarkupElement):
     """Abstract Markdown element class."""
 
 
@@ -496,8 +512,29 @@ class HtmlGenerator(type):
         return _wrapper
 
 
-class HtmlElement(ElementBase):
+class HtmlElement(MarkupElement, ElementBase):
     """Abstract HTML element class."""
+
+    def __repr__(self) -> str:
+        """
+        Returns the canonical string representation of the object.
+
+        Returns:
+            The canonical string representation of the object
+        """
+        attr = ''
+
+        if self.text:
+            attr += repr(self.text)
+
+        if self.attrib:
+            if attr:
+                attr += ', '
+
+            attr += ', '.join('{}={}'.format(key, repr(value))
+                              for key, value in self.attrib.items())
+
+        return 'Html.{:s}({!s})'.format(self.tag, attr)
 
 
 class Html(object, metaclass=HtmlGenerator):
