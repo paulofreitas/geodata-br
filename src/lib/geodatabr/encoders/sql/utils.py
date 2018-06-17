@@ -150,7 +150,8 @@ class SqlCompiler(object):
 
         # Workaround for identifiers size limitation of Firebird dialect
         return reduce(lambda name, prefix: name.replace(prefix, prefix[0::2]),
-            ['pk_', 'fk_', 'ix_'], _(element.name))
+                      ['pk_', 'fk_', 'ix_'],
+                      _(element.name))
 
     @cachedmethod()
     def createTable(self, table: Table) -> str:
@@ -406,7 +407,7 @@ class SqlCompiler(object):
         Returns:
             The DML for the INSERT statements
         """
-        def _compileLiterals(record):
+        def _compile_literals(record):
             return ', '.join(
                 table.columns.get(column).type.literal_processor(
                     dialect=self._dialect)(value)
@@ -417,10 +418,10 @@ class SqlCompiler(object):
         if any(isinstance(record, _type) for _type in (list, set, tuple)) \
                 and self._dialect.supports_multivalues_insert:
             dml += ' VALUES {};'.format(
-                ', '.join('({})'.format(_compileLiterals(_record))
+                ', '.join('({})'.format(_compile_literals(_record))
                           for _record in record))
         else:
-            dml += ' VALUES ({});'.format(_compileLiterals(record))
+            dml += ' VALUES ({});'.format(_compile_literals(record))
 
         return dml
 

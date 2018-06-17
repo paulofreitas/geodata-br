@@ -58,10 +58,6 @@ class MarkdownGenerator(type):
 class MarkdownElement(Map):
     """Abstract Markdown element class."""
 
-    def __init__(self):
-        """No-op constructor."""
-        raise NotImplementedError
-
 
 class Markdown(metaclass=MarkdownGenerator):
     """
@@ -94,7 +90,7 @@ class Markdown(metaclass=MarkdownGenerator):
                 raise ValueError('Invalid header style')
 
             if (style == self.STYLE_SETEXT and depth not in range(1, 3)) \
-                or (style == self.STYLE_ATX and depth not in range(1, 7)):
+                    or (style == self.STYLE_ATX and depth not in range(1, 7)):
                 raise ValueError('Invalid depth level')
 
             self.text = text
@@ -502,10 +498,6 @@ class HtmlGenerator(type):
 
 class HtmlElement(ElementBase):
     """Abstract HTML element class."""
-
-    def __init__(self):
-        """No-op constructor."""
-        raise NotImplementedError
 
 
 class Html(object, metaclass=HtmlGenerator):

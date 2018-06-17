@@ -249,7 +249,7 @@ class Encoder(AbstractClass):
             filename = _('dataset_name') + encoder_format.extension
 
         with File(filename) \
-            .open('wb' if encoder_format.isBinary else 'w') as _file:
+                .open('wb' if encoder_format.isBinary else 'w') as _file:
             _file.write(data)
 
 

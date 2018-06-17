@@ -90,8 +90,8 @@ class OpenDocumentSpreadsheetEncoder(Encoder):
             ods_data = OrderedMap()
 
             for entity, records in data.items():
-                ods_data[entity] = [list(data[entity].first().keys())] \
-                    + [list(item.values()) for item in data[entity]]
+                ods_data[entity] = [list(records.first().keys())] \
+                    + [list(record.values()) for record in records]
 
             write_ods(ods_file, ods_data)
             ods_file.seek(0)

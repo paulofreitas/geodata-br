@@ -9,4 +9,13 @@ This package provides utility helper modules.
 """
 # Package imports
 
-from geodatabr import __version__, __author__, __copyright__, __license__
+from geodatabr import __author__, __copyright__, __license__, __version__
+
+# Package exports
+
+__all__ = [
+    '__author__',
+    '__copyright__',
+    '__license__',
+    '__version__',
+]

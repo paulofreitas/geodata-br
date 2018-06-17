@@ -140,7 +140,7 @@ class Application(object):
     def epilog(self):
         """Gets the application epilog message."""
         return 'Report bugs and feature requests to {}/issues.' \
-                .format(__url__)
+               .format(__url__)
 
 
 class Command(AbstractClass):

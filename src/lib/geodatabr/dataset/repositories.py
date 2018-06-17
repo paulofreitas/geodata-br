@@ -142,13 +142,13 @@ class StateRepository(Repository):
         Returns:
             A list with all states with relationships loaded
         """
-        return List(Database.query(State) \
-            .options(subqueryload(State.mesoregions),
-                     subqueryload(State.microregions),
-                     subqueryload(State.municipalities),
-                     subqueryload(State.districts),
-                     subqueryload(State.subdistricts)) \
-            .all())
+        return List(Database.query(State)
+                    .options(subqueryload(State.mesoregions),
+                             subqueryload(State.microregions),
+                             subqueryload(State.municipalities),
+                             subqueryload(State.districts),
+                             subqueryload(State.subdistricts))
+                    .all())
 
     @classmethod
     def findById(cls, _id: int) -> State:
@@ -231,12 +231,12 @@ class MesoregionRepository(Repository):
         Returns:
             A list with all mesoregions with relationships loaded
         """
-        return List(Database.query(Mesoregion) \
-            .options(subqueryload(Mesoregion.microregions),
-                     subqueryload(Mesoregion.municipalities),
-                     subqueryload(Mesoregion.districts),
-                     subqueryload(Mesoregion.subdistricts)) \
-            .all())
+        return List(Database.query(Mesoregion)
+                    .options(subqueryload(Mesoregion.microregions),
+                             subqueryload(Mesoregion.municipalities),
+                             subqueryload(Mesoregion.districts),
+                             subqueryload(Mesoregion.subdistricts))
+                    .all())
 
     @classmethod
     def findById(cls, _id: int) -> Mesoregion:
@@ -319,11 +319,11 @@ class MicroregionRepository(Repository):
         Returns:
             A list with all microregions with relationships loaded
         """
-        return List(Database.query(Microregion) \
-            .options(subqueryload(Microregion.municipalities),
-                     subqueryload(Microregion.districts),
-                     subqueryload(Microregion.subdistricts)) \
-            .all())
+        return List(Database.query(Microregion)
+                    .options(subqueryload(Microregion.municipalities),
+                             subqueryload(Microregion.districts),
+                             subqueryload(Microregion.subdistricts))
+                    .all())
 
     @classmethod
     def findById(cls, _id: int) -> Microregion:
@@ -406,10 +406,10 @@ class MunicipalityRepository(Repository):
         Returns:
             A list with all municipalities with relationships loaded
         """
-        return List(Database.query(Municipality) \
-            .options(subqueryload(Municipality.districts),
-                     subqueryload(Municipality.subdistricts)) \
-            .all())
+        return List(Database.query(Municipality)
+                    .options(subqueryload(Municipality.districts),
+                             subqueryload(Municipality.subdistricts))
+                    .all())
 
     @classmethod
     def findById(cls, _id: int) -> Municipality:
@@ -492,9 +492,9 @@ class DistrictRepository(Repository):
         Returns:
             A list with all districts with relationships loaded
         """
-        return List(Database.query(District) \
-            .options(subqueryload(District.subdistricts)) \
-            .all())
+        return List(Database.query(District)
+                    .options(subqueryload(District.subdistricts))
+                    .all())
 
     @classmethod
     def findById(cls, _id: int) -> District:

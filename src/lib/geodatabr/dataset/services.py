@@ -135,7 +135,7 @@ class SidraApiResponse(object):
         """
         self._data = data
 
-    def get(self, keys=[]):
+    def get(self, keys=None):
         """
         Retrieves the API response records.
 

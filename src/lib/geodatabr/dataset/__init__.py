@@ -9,5 +9,15 @@ This package provides modules related to dataset management.
 """
 # Package imports
 
-from geodatabr import __version__, __author__, __copyright__, __license__
+from geodatabr import __author__, __copyright__, __license__, __version__
 from geodatabr.dataset.base import Database
+
+# Package exports
+
+__all__ = [
+    '__author__',
+    '__copyright__',
+    '__license__',
+    '__version__',
+    'Database',
+]

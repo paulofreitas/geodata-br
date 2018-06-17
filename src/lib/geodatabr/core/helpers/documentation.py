@@ -173,7 +173,8 @@ class DatasetReadme(Readme):
             The dataset files info
         """
         files = list(self._dataset_dir.files(pattern=_('dataset_name') + '*'))
-        grouped_files = groupby(sorted(files, key=lambda file: file.format.type),
+        grouped_files = groupby(sorted(files,
+                                       key=lambda file: file.format.type),
                                 key=lambda file: file.format.type)
         listing = []
 
@@ -187,8 +188,9 @@ class DatasetReadme(Readme):
                 dataset_format = '-'
 
                 if dataset_file.format:
-                    dataset_format = Markdown.link(dataset_file.format.info,
-                                                   dataset_file.format.friendlyName)
+                    dataset_format = Markdown.link(
+                        dataset_file.format.info,
+                        dataset_file.format.friendlyName)
 
                 rows.append([
                     Markdown.code(dataset_file.name),

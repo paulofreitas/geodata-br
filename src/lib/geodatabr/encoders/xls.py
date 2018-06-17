@@ -90,8 +90,8 @@ class MicrosoftExcelEncoder(Encoder):
             xls_data = OrderedMap()
 
             for entity, records in data.items():
-                xls_data[entity] = [list(data[entity].first().keys())] \
-                    + [list(item.values()) for item in data[entity]]
+                xls_data[entity] = [list(records.first().keys())] \
+                    + [list(record.values()) for record in records]
 
             write_xls(xls_file, xls_data)
             xls_file.seek(0)
