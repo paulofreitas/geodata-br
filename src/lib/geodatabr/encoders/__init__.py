@@ -18,12 +18,8 @@ from itertools import groupby
 # Package dependencies
 
 from geodatabr import __version__, __author__, __copyright__, __license__
-from geodatabr.core.i18n import _, Translator
+from geodatabr.core.i18n import _
 from geodatabr.core.types import AbstractClass, List
-
-# Translator setup
-
-Translator.load('dataset')
 
 # Classes
 

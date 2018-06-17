@@ -23,10 +23,6 @@ from geodatabr.core.types import AbstractClass, Map
 from geodatabr.dataset.serializers import Serializer
 from geodatabr.encoders import EncoderFormatRepository
 
-# Setup translator
-
-Translator.load('dataset')
-
 # Classes
 
 

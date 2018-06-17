@@ -17,13 +17,9 @@ from typing import Any
 
 from geodatabr.core.helpers.decorators import cachedmethod
 from geodatabr.core.types import List, OrderedMap
-from geodatabr.core.i18n import _, Translator
+from geodatabr.core.i18n import _
 from geodatabr.dataset.schema import Entities
 from geodatabr.dataset.repositories import StateRepository
-
-# Translator setup
-
-Translator.load('dataset')
 
 # Classes
 

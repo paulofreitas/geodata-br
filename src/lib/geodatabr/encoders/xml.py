@@ -11,15 +11,11 @@ from lxml.etree import Element, SubElement, tostring as xml_str
 
 # Package dependencies
 
-from geodatabr.core.i18n import _, Translator
+from geodatabr.core.i18n import _
 from geodatabr.core.types import FileStream
 from geodatabr.dataset.schema import Entities
 from geodatabr.dataset.serializers import Serializer
 from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
-
-# Translator setup
-
-Translator.load('dataset')
 
 # Classes
 
