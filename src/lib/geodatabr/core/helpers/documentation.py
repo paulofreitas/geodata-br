@@ -76,7 +76,7 @@ class ProjectReadme(Readme):
 
         return self._stub.format(
             badges=self.renderBadges().strip(),
-            dataset_formats=self.renderDatasetFormats().strip()
+            data_formats=self.renderDataFormats().strip()
         )
 
     def renderBadges(self) -> str:
@@ -87,17 +87,22 @@ class ProjectReadme(Readme):
             The document badges
         """
         dataset = Serializer().serialize()
-        data = [CustomBadge(entity, len(dataset[entity]), 'red').render()
-                for entity in dataset]
+        html = ['\n']
 
-        return Html(Html.p(*data, align='center'))
+        for entity in dataset:
+            html.append(CustomBadge(entity,
+                                    len(dataset[entity]),
+                                    'red').render())
+            html.append('\n')
 
-    def renderDatasetFormats(self) -> str:
+        return Html(Html.p(*html, align='center'))
+
+    def renderDataFormats(self) -> str:
         """
-        Renders the available dataset formats.
+        Renders the available data formats.
 
         Returns:
-            The available dataset formats
+            The available data formats
         """
         grouped_formats = EncoderFormatRepository.groupByType()
         markdown = ''
