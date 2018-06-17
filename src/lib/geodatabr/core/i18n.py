@@ -5,76 +5,87 @@
 """
 Core internationalization module.
 
-This module provides the internationalization facilities.
+This module provides the localization facilities.
 """
 # External dependencies
+
+from typing import Any
 
 import yaml
 
 # Package dependencies
 
 from geodatabr.core import SRC_DIR
-from geodatabr.core.helpers.filesystem import File
+from geodatabr.core.helpers.filesystem import Directory, File
 from geodatabr.core.helpers.decorators import cachedmethod
 from geodatabr.core.types import Map
 
 # Classes
 
 
-class Translation(object):
-    """Translation class."""
+class Localization(object):
+    """Localization class."""
 
-    def __init__(self, locale_file, domain=None):
+    def __init__(self, locale: str, locale_file: File):
         """
-        Creates a new translation instance.
+        Creates a new localization instance.
 
         Args:
-            locale_file (geodatabr.core.helpers.filesystem.File):
-                The localization file
-            domain (str): An optional domain to load the translations
+            locale: The localization name
+            locale_file: The localization file
+
+        Raises:
+            geodatabr.core.i18n.UnsupportedLocaleFileError:
+                Raised when a localization file is invalid
         """
-        if not isinstance(locale_file, File):
-            raise UnsupportedLocaleError('Unsupported localization')
+        self._locale = locale
 
-        self._locale = str(locale_file.basename)
-        self._domain = domain
-        self._translations = Map(yaml.load(locale_file.read()))
-        self._domains = self._translations.keys()
-
-        if domain in self._domains:
-            self._translations = self._translations.get(domain)
+        try:
+            self._translations = Map(yaml.load(locale_file.read()))
+        except Exception:
+            raise UnsupportedLocaleFileError('Unsupported localization file')
 
     @property
-    def locale(self):
-        """Gets the translation localization name."""
+    def locale(self) -> str:
+        """Gets the localization name."""
         return self._locale
 
     @property
-    def domain(self):
-        """Gets the translation domain name."""
-        return self._domain
-
-    @property
-    def domains(self):
-        """Gets the list of available translation domain names."""
-        return self._domains
+    def translations(self) -> Map:
+        """Gets the localization translations."""
+        return self._translations
 
     @cachedmethod()
-    def translate(self, message, **placeholders):
+    def translate(self, message: str, **placeholders) -> Any:
         """
         Translates the given message with their placeholders.
 
         Args:
-            message (str): The message to be translated
-            placeholders (dict): Any translation placeholder
+            message: The message to be translated
+            **placeholders: Any translation placeholder
 
         Returns:
-            str: The translated message
+            The translated message
         """
-        if message in self._translations:
-            return self._translations.get(message).format(placeholders)
+        if message in self.translations:
+            translation = self.translations.get(message)
+
+            if placeholders:
+                return translation.format(placeholders)
+
+            return translation
 
         return message
+
+    def __repr__(self) -> str:
+        """
+        Returns the canonical string representation of the object.
+
+        Returns:
+            The canonical string representation of the object
+        """
+        return '{:s}(locale={!r})'.format(self.__class__.__name__,
+                                          self.locale)
 
 
 class Translator(object):
@@ -82,14 +93,9 @@ class Translator(object):
     Translator service.
 
     Attributes:
-        LANGUAGE_DIR (geodatabr.core.helpers.filesystem.Directory):
-            The translations directory path
         locale (str): The default locale name
         fallbackLocale (str): The default fallback locale name
-        _translation: The translation instance
     """
-
-    LANGUAGE_DIR = SRC_DIR / 'data' / 'translations'
 
     # Default locale
     locale = 'en'
@@ -97,97 +103,50 @@ class Translator(object):
     # Default fallback locale
     fallbackLocale = 'en'
 
-    # Translation instance
-    _translation = None
-
     @classmethod
-    def locales(cls):
+    @cachedmethod()
+    def locales(cls) -> Map:
         """
         Returns the available localizations.
 
         Returns:
-            dict: The available localizations mapping
+            The available localizations mapping
         """
-        return {locale_file.basename: locale_file
-                for locale_file in cls.LANGUAGE_DIR.files(pattern='*.yaml')}
+        return Map({locale: Localization(locale, locale_file)
+                    for locale, locale_file in map(
+                        lambda locale_file: (locale_file.basename,
+                                             locale_file),
+                        Directory(SRC_DIR / 'data' / 'translations')
+                        .files(pattern='*.yaml'))})
 
     @classmethod
-    def domains(cls, locale):
-        """
-        Returns the available domains for the given localization.
-
-        Args:
-            locale (str): The localization name
-
-        Returns:
-            list: The available localization domain names
-
-        Raises:
-            geodatabr.core.i18n.UnsupportedLocaleError:
-                If an unsupported localization is given
-        """
-        locale_file = cls.locales().get(locale)
-
-        if not locale_file:
-            raise UnsupportedLocaleError('Unsupported localization')
-
-        return Translation(locale_file).domains
-
-    @classmethod
-    def translations(cls, domain):
-        """
-        Returns the available localizations for the given domain.
-
-        Args:
-            domain (str): The localization domain name
-
-        Returns:
-            dict: The available localizations mapping
-        """
-        return {locale: locale_file
-                for locale, locale_file in cls.locales().items()
-                if domain in Translation(locale_file).domains}
-
-    @classmethod
-    def load(cls, domain):
-        """
-        Loads the given localization domain.
-
-        Args:
-            domain (str): The localization domain
-        """
-        cls._translations = {
-            locale: Translation(locale_file, domain)
-            for locale, locale_file in cls.translations(domain).items()}
-
-    @classmethod
-    def translate(cls, message, **placeholders):
+    def translate(cls, message: str, **placeholders) -> str:
         """
         Translates the given message with their placeholders.
 
         Args:
-            message (str): The message to be translated
-            placeholders (dict): Any translation placeholder
+            message: The message to be translated
+            **placeholders: Any translation placeholder
 
         Returns:
-            str: The translated message
+            The translated message
         """
-        if cls.locale in cls._translations:
-            return cls._translations[cls.locale] \
-                .translate(message, **placeholders)
+        locales = cls.locales()
+
+        if cls.locale in locales:
+            return locales[cls.locale].translate(message, **placeholders)
 
         # Try using the fallback locale
-        if cls.fallbackLocale in cls._translations:
-            return cls._translations[cls.fallbackLocale] \
-                .translate(message, **placeholders)
+        if cls.fallbackLocale in locales:
+            return locales[cls.fallbackLocale].translate(message,
+                                                         **placeholders)
 
         # Fallback to the original message
         return message.format(**placeholders)
 
 
-class UnsupportedLocaleError(Exception):
-    """Exception class raised when an unsupported localization is used."""
-    pass
+class UnsupportedLocaleFileError(Exception):
+    """Exception class raised when an unsupported localization file is used."""
 
 # Alias functions
 
