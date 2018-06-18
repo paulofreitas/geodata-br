@@ -3,5 +3,6 @@ __pycache__
 .DS_Store
 build
 dist
+lib/*/data
 *.egg-info
 *.pyc
