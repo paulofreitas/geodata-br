@@ -24,9 +24,10 @@ __metadata__ = {}
 with open('lib/geodatabr/__init__.py') as package:
     exec(package.read(), __metadata__)  # pylint: disable=exec-used
 
-# Symlink data for distribution
+# Symlink package data
 try:
-    symlink(abspath('data'), abspath('lib/geodatabr/data'))
+    for filepath in ('LICENSE', 'data'):
+        symlink(abspath(filepath), abspath('lib/geodatabr/' + filepath))
 except FileExistsError:
     pass
 
@@ -43,8 +44,7 @@ setup(
     # Package distribution
     packages=find_packages('lib'),
     package_dir={'': 'lib'},
-    package_data={'': ['data/stubs/*', 'data/translations/*']},
-    data_files=[('geodatabr', ['LICENSE'])],
+    package_data={'': ['LICENSE', 'data/stubs/*', 'data/translations/*']},
     include_package_data=True,
     entry_points={
         'console_scripts': [
