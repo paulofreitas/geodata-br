@@ -34,10 +34,11 @@
 
 #### Spreadsheet
 
-| File         | Format                                                                                   |      Size |
-| ------------ |:----------------------------------------------------------------------------------------:| ---------:|
-| `brasil.ods` | [OpenDocument Spreadsheet](https://en.wikipedia.org/wiki/OpenDocument)                   |   401,369 |
-| `brasil.xls` | [Microsoft Excel Spreadsheet](https://en.wikipedia.org/wiki/Microsoft_Excel_file_format) | 1,413,120 |
+| File          | Format                                                                                   |      Size |
+| ------------- |:----------------------------------------------------------------------------------------:| ---------:|
+| `brasil.ods`  | [OpenDocument Spreadsheet](https://en.wikipedia.org/wiki/OpenDocument)                   |   401,369 |
+| `brasil.xls`  | [Microsoft Excel Spreadsheet](https://en.wikipedia.org/wiki/Microsoft_Excel_file_format) | 1,413,120 |
+| `brasil.xlsx` | [Office Open XML Workbook](https://en.wikipedia.org/wiki/Office_Open_XML)                |   534,311 |
 
 #### Tabular Text
 
