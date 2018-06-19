@@ -5,6 +5,10 @@
 """Seed command module."""
 # Imports
 
+# Built-in dependencies
+
+from argparse import Namespace
+
 # Package dependencies
 
 from geodatabr.commands import Command
@@ -20,21 +24,16 @@ class SeedCommand(Command):
     """A command class to seed the dataset with records."""
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Gets the command name."""
         return 'seed'
 
     @property
-    def description(self):
+    def description(self) -> str:
         """Gets the command description."""
         return 'Seed the dataset with records'
 
-    @property
-    def usage(self):
-        """Gets the command usage syntax."""
-        return '%(prog)s'
-
-    def handle(self, args):
+    def handle(self, args: Namespace):
         """Handles the command."""
         try:
             DatabaseHelper.create()
