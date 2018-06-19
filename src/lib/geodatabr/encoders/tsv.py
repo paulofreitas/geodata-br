@@ -7,7 +7,7 @@
 
 # Package dependencies
 
-from geodatabr.core.types import FileStream
+from geodatabr.core.types import BinaryFileStream
 from geodatabr.dataset.serializers import FlattenedSerializer
 from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 from geodatabr.encoders.csv import CsvEncoder
@@ -69,7 +69,7 @@ class TsvEncoder(Encoder):
         """Gets the default encoding options."""
         return dict(delimiter='\t')
 
-    def encode(self, data: list, **options) -> FileStream:
+    def encode(self, data: list, **options) -> BinaryFileStream:
         """
         Encodes the data into a TSV file-like stream.
 

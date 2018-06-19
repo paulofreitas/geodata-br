@@ -12,7 +12,7 @@ from lxml.etree import Element, SubElement, tostring as xml_str
 # Package dependencies
 
 from geodatabr.core.i18n import _
-from geodatabr.core.types import FileStream
+from geodatabr.core.types import BinaryFileStream
 from geodatabr.dataset.schema import Entities
 from geodatabr.dataset.serializers import Serializer
 from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
@@ -79,7 +79,7 @@ class XmlEncoder(Encoder):
         """Gets the encoder serialization options."""
         return dict(forceStr=True)
 
-    def encode(self, data, **options) -> FileStream:
+    def encode(self, data, **options) -> BinaryFileStream:
         """
         Encodes the data into a XML file-like stream.
 
@@ -111,6 +111,6 @@ class XmlEncoder(Encoder):
             xml_data = xml_data.replace(xml_declaration,
                                         xml_declaration.replace(b"'", b'"'))
 
-            return FileStream(xml_data.decode())
+            return BinaryFileStream(xml_data)
         except Exception:
             raise EncodeError
