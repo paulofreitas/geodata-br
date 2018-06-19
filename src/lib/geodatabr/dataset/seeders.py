@@ -26,13 +26,22 @@ from geodatabr.dataset.services import \
 
 
 class Seeder(AbstractClass):
-    """Abstract implementation of seeders."""
+    """
+    Abstract implementation of database seeders.
 
-    def __init__(self):
-        """Creates a new entity seeder instance."""
-        self._sidra = SidraDataset()
+    Attributes:
+        db (sqlalchemy.orm.session.Session): The database session instance
+        sidra (geodatabr.dataset.services.SidraDataset):
+            The SIDRA dataset service instance
+        entity (geodatabr.dataset.schema.Entity): The seeder entity class
+    """
 
-    def run(self):
+    db = Database.session()
+    sidra = SidraDataset()
+    entity = None
+
+    @classmethod
+    def run(cls):
         """Runs the database seeder."""
         raise NotImplementedError
 
@@ -42,7 +51,8 @@ class StateSeeder(Seeder):
 
     entity = State
 
-    def run(self):
+    @classmethod
+    def run(cls):
         """
         Runs the database seeder.
 
@@ -53,13 +63,13 @@ class StateSeeder(Seeder):
         if StateRepository.count():
             raise NothingToSeedError
 
-        states = self._sidra.findAll(SIDRA_STATE)
+        states = cls.sidra.findAll(SIDRA_STATE)
 
         for state in states:
             StateRepository.add(State(id=state.id,
                                       name=state.name))
 
-        Database.commit()
+        cls.db.commit()
 
 
 class MesoregionSeeder(Seeder):
@@ -67,7 +77,8 @@ class MesoregionSeeder(Seeder):
 
     entity = Mesoregion
 
-    def run(self):
+    @classmethod
+    def run(cls):
         """
         Runs the database seeder.
 
@@ -81,17 +92,16 @@ class MesoregionSeeder(Seeder):
         states = StateRepository.findAll()
 
         for state in states:
-            mesoregions = self._sidra \
-                .findChildren(SIDRA_MESOREGION,
-                              SIDRA_STATE,
-                              state.id)
+            mesoregions = cls.sidra.findChildren(SIDRA_MESOREGION,
+                                                 SIDRA_STATE,
+                                                 state.id)
 
             for mesoregion in mesoregions:
                 MesoregionRepository.add(Mesoregion(id=mesoregion.id,
                                                     state_id=state.id,
                                                     name=mesoregion.name))
 
-        Database.commit()
+        cls.db.commit()
 
 
 class MicroregionSeeder(Seeder):
@@ -99,7 +109,8 @@ class MicroregionSeeder(Seeder):
 
     entity = Microregion
 
-    def run(self):
+    @classmethod
+    def run(cls):
         """
         Runs the database seeder.
 
@@ -113,10 +124,9 @@ class MicroregionSeeder(Seeder):
         mesoregions = MesoregionRepository.findAll()
 
         for mesoregion in mesoregions:
-            microregions = self._sidra \
-                .findChildren(SIDRA_MICROREGION,
-                              SIDRA_MESOREGION,
-                              mesoregion.id)
+            microregions = cls.sidra.findChildren(SIDRA_MICROREGION,
+                                                  SIDRA_MESOREGION,
+                                                  mesoregion.id)
 
             for microregion in microregions:
                 MicroregionRepository.add(
@@ -125,7 +135,7 @@ class MicroregionSeeder(Seeder):
                                 mesoregion_id=mesoregion.id,
                                 name=microregion.name))
 
-        Database.commit()
+        cls.db.commit()
 
 
 class MunicipalitySeeder(Seeder):
@@ -133,7 +143,8 @@ class MunicipalitySeeder(Seeder):
 
     entity = Municipality
 
-    def run(self):
+    @classmethod
+    def run(cls):
         """
         Runs the database seeder.
 
@@ -147,10 +158,9 @@ class MunicipalitySeeder(Seeder):
         microregions = MicroregionRepository.findAll()
 
         for microregion in microregions:
-            municipalities = self._sidra \
-                .findChildren(SIDRA_MUNICIPALITY,
-                              SIDRA_MICROREGION,
-                              microregion.id)
+            municipalities = cls.sidra.findChildren(SIDRA_MUNICIPALITY,
+                                                    SIDRA_MICROREGION,
+                                                    microregion.id)
 
             for municipality in municipalities:
                 MunicipalityRepository.add(
@@ -160,7 +170,7 @@ class MunicipalitySeeder(Seeder):
                                  microregion_id=microregion.id,
                                  name=municipality.name))
 
-        Database.commit()
+        cls.db.commit()
 
 
 class DistrictSeeder(Seeder):
@@ -168,7 +178,8 @@ class DistrictSeeder(Seeder):
 
     entity = District
 
-    def run(self):
+    @classmethod
+    def run(cls):
         """
         Runs the database seeder.
 
@@ -182,10 +193,9 @@ class DistrictSeeder(Seeder):
         municipalities = MunicipalityRepository.findAll()
 
         for municipality in municipalities:
-            districts = self._sidra \
-                .findChildren(SIDRA_DISTRICT,
-                              SIDRA_MUNICIPALITY,
-                              municipality.id)
+            districts = cls.sidra.findChildren(SIDRA_DISTRICT,
+                                               SIDRA_MUNICIPALITY,
+                                               municipality.id)
 
             for district in districts:
                 DistrictRepository.add(
@@ -196,7 +206,7 @@ class DistrictSeeder(Seeder):
                              municipality_id=municipality.id,
                              name=district.name))
 
-        Database.commit()
+        cls.db.commit()
 
 
 class SubdistrictSeeder(Seeder):
@@ -204,7 +214,8 @@ class SubdistrictSeeder(Seeder):
 
     entity = Subdistrict
 
-    def run(self):
+    @classmethod
+    def run(cls):
         """
         Runs the database seeder.
 
@@ -218,10 +229,9 @@ class SubdistrictSeeder(Seeder):
         districts = DistrictRepository.findAll()
 
         for district in districts:
-            subdistricts = self._sidra \
-                .findChildren(SIDRA_SUBDISTRICT,
-                              SIDRA_DISTRICT,
-                              district.id)
+            subdistricts = cls.sidra.findChildren(SIDRA_SUBDISTRICT,
+                                                  SIDRA_DISTRICT,
+                                                  district.id)
 
             for subdistrict in subdistricts:
                 SubdistrictRepository.add(
@@ -233,7 +243,7 @@ class SubdistrictSeeder(Seeder):
                                 district_id=district.id,
                                 name=subdistrict.name))
 
-        Database.commit()
+        cls.db.commit()
 
 
 class SeederFactory(object):
