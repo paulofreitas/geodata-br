@@ -31,51 +31,49 @@ class AbstractClass(object, metaclass=ABCMeta):
     """Base abstract class."""
 
     @classmethod
-    def parent(cls):
+    def parent(cls) -> type:
         """
         Returns the parent class (metaclass) of this class.
 
         Returns:
-            type: The parent class of this class
+            The parent class of this class
         """
         return cls.__class__
 
     @classmethod
-    def childs(cls, forceLoad: bool = True) -> list:
+    def childs(cls, force_load: bool = True) -> list:
         """
         Returns a list of child classes (subclasses) of this class.
 
         Args:
-            forceLoad: Forces the loading of the given class childs
+            force_load: Forces the loading of the given class childs
 
         Returns:
             The child classes of this class
         """
-        if forceLoad:
+        if force_load:
             ModuleLoader.loadModules(cls.__module__)
 
         return type.__subclasses__(cls)
 
 
-class Singleton(object):
-    """
-    Singleton pattern implementation.
+class Singleton(type):
+    """Singleton pattern implementation."""
 
-    Attributes:
-        _instance: The singleton instance
-    """
-
-    _instance = None
-
-    def __new__(cls, *args, **kwargs):
+    def __call__(cls: type, *args, **kwargs) -> object:
         """
         Singleton method.
 
         Args:
-            cls (object): The class to get the instance
+            cls: The class to get the instance
+            *args: The class positional arguments
+            **kwargs: The class keyword arguments
+
+        Returns:
+            The class singleton instance
         """
-        if not isinstance(cls._instance, cls):
-            cls._instance = super().__new__(cls)
+        if not hasattr(cls, '_instance') or not isinstance(cls._instance, cls):
+            cls._instance = super().__call__(*args, **kwargs)
 
         return cls._instance
 
