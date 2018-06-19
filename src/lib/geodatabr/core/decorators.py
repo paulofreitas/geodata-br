@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 """
-Decorators helper module.
+Core decorators module.
 
 This module provides a set of useful decorators and other wrap-like utility
 functions.

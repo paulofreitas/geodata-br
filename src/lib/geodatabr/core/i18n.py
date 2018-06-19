@@ -15,8 +15,8 @@ import yaml
 
 # Package dependencies
 
+from geodatabr.core.decorators import cachedmethod
 from geodatabr.core.helpers.filesystem import File, TRANSLATION_DIR
-from geodatabr.core.helpers.decorators import cachedmethod
 from geodatabr.core.types import Map
 
 # Classes

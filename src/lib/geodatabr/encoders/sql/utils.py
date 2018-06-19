@@ -20,7 +20,7 @@ from sqlalchemy.sql.schema import Column, ForeignKeyConstraint, Index, \
 
 # Package dependencies
 
-from geodatabr.core.helpers.decorators import cachedmethod
+from geodatabr.core.decorators import cachedmethod
 from geodatabr.core.i18n import _
 from geodatabr.core.types import List, OrderedMap
 
