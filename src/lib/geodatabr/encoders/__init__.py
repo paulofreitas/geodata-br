@@ -11,6 +11,8 @@ This package provides the dataset encoder modules.
 
 # Built-in dependencies
 
+from abc import ABCMeta
+
 import sys
 
 from itertools import groupby
@@ -18,13 +20,16 @@ from itertools import groupby
 # Package dependencies
 
 from geodatabr import __version__, __author__, __copyright__, __license__
+from geodatabr.core.decorators import DataDescriptor
 from geodatabr.core.i18n import _
-from geodatabr.core.types import AbstractClass, List
+from geodatabr.core.types import AbstractClass, BinaryFileStream, List
 
 # Classes
 
 
-class EncoderFormat(AbstractClass):
+class EncoderFormat(AbstractClass,
+                    metaclass=type('_AbstractClass',
+                                   (ABCMeta, DataDescriptor), {})):
     """Abstract encoder file format base class."""
 
     @property
@@ -63,8 +68,20 @@ class EncoderFormat(AbstractClass):
         return False
 
     def __repr__(self) -> str:
-        """Returns a string representation of this encoder format class."""
-        return self.name
+        """
+        Returns the canonical string representation of the object.
+
+        Returns:
+            The canonical string representation of the object
+        """
+        attrs = dict(name=self.name, friendlyName=self.friendlyName,
+                     extension=self.extension, type=self.type,
+                     mimeType=self.mimeType, info=self.info,
+                     isBinary=self.isBinary)
+
+        return '{}({})'.format(self.__class__.__name__,
+                               ', '.join('{}={}'.format(key, repr(value))
+                                         for key, value in attrs.items()))
 
 
 class EncoderFormatFactory(object):
@@ -110,7 +127,7 @@ class EncoderFormatRepository(object):
                 If a given encoder format is not found
         """
         for encoder_format in EncoderFormat.childs():
-            if encoder_format().name == (name if strict else name.lower()):
+            if encoder_format.name == (name if strict else name.lower()):
                 return encoder_format()
 
         raise UnknownEncoderFormatError(
@@ -133,7 +150,7 @@ class EncoderFormatRepository(object):
                 If a given encoder format is not found
         """
         for encoder_format in EncoderFormat.childs():
-            if (encoder_format().extension
+            if (encoder_format.extension
                     == (extension if strict else extension.lower())):
                 return encoder_format()
 
@@ -148,7 +165,7 @@ class EncoderFormatRepository(object):
         Returns:
             A list with all encoder format names
         """
-        return List(sorted([encoder.format().name
+        return List(sorted([encoder.format.name
                             for encoder in Encoder.childs()
                             if getattr(encoder, 'format')]))
 
@@ -205,7 +222,7 @@ class Encoder(AbstractClass):
         """Gets the encoder serialization options."""
         return {}
 
-    def encode(self, data, **options):
+    def encode(self, data, **options) -> BinaryFileStream:
         """
         Encodes the data into a file-like stream.
 
@@ -214,14 +231,14 @@ class Encoder(AbstractClass):
             **options: The encoding options
 
         Returns:
-            io.IOBase: a file-like stream
+            A file-like stream
 
         Raises:
             geodatabr.encoders.EncodeError: If data fails to encode
         """
         raise NotImplementedError
 
-    def encodeToFile(self, data, filename: str = 'auto', **options):
+    def encodeToFile(self, data, filename: str = None, **options):
         """
         Encodes the data into a file.
 
@@ -233,20 +250,17 @@ class Encoder(AbstractClass):
         Raises:
             geodatabr.encoders.EncodeError: If data fails to encode
         """
-        from geodatabr.core.helpers.filesystem import File
+        if not filename:
+            filename = _('dataset_name') + self.format.extension
 
         data = self.encode(data, **options).read()
-        encoder_format = self.format()
+        output_file = sys.stdout if filename == '-' else open(filename, 'wb')
 
-        if not filename:
-            return sys.stdout.write(data + '\n')
+        if filename == '-':
+            data = data.decode()
 
-        if filename == 'auto':
-            filename = _('dataset_name') + encoder_format.extension
-
-        with File(filename) \
-                .open('wb' if encoder_format.isBinary else 'w') as _file:
-            _file.write(data)
+        with output_file:
+            output_file.write(data)
 
 
 class EncoderFactory(object):
@@ -270,7 +284,7 @@ class EncoderFactory(object):
         for encoder in Encoder.childs():
             if (encoder.format
                     and encoder.serializer
-                    and encoder.format().name == name):
+                    and encoder.format.name == name):
                 return encoder()
 
         raise UnknownEncoderError('Unsupported encoder format')
