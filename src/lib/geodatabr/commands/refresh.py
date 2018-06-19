@@ -5,6 +5,10 @@
 """Refresh command module."""
 # Imports
 
+# Built-in dependencies
+
+from argparse import Namespace
+
 # Package dependencies
 
 from geodatabr.commands import Command
@@ -19,21 +23,16 @@ class RefreshCommand(Command):
     """A command class to reset and re-run all dataset seeders."""
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Gets the command name."""
         return 'refresh'
 
     @property
-    def description(self):
+    def description(self) -> str:
         """Gets the command description."""
         return 'Reset and re-run all dataset seeders'
 
-    @property
-    def usage(self):
-        """Gets the command usage syntax."""
-        return '%(prog)s'
-
-    def handle(self, args):
+    def handle(self, args: Namespace):
         """Handles the command."""
         try:
             logger().info('> Clearing the dataset...')
