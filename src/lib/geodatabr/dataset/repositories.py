@@ -24,8 +24,15 @@ from geodatabr.dataset.schema import Entity, \
 
 
 class Repository(AbstractClass):
-    """Abstract implementation of repository pattern."""
+    """
+    Abstract implementation of repository pattern.
 
+    Attributes:
+        db (sqlalchemy.orm.session.Session): The database session instance
+        entity (geodatabr.dataset.schema.Entity): The repository entity class
+    """
+
+    db = Database.session()
     entity = None
 
     @classmethod
@@ -36,7 +43,7 @@ class Repository(AbstractClass):
         Args:
             instance: The entity instance to save
         """
-        Database.add(instance)
+        cls.db.add(instance)
 
     @classmethod
     def count(cls) -> int:
@@ -46,7 +53,7 @@ class Repository(AbstractClass):
         Returns:
             The total entity items count
         """
-        return Database.query(cls.entity).count()
+        return cls.db.query(cls.entity).count()
 
     @classmethod
     def findAll(cls) -> List:
@@ -56,7 +63,7 @@ class Repository(AbstractClass):
         Returns:
             A list with all entity items
         """
-        return List(Database.query(cls.entity).all())
+        return List(cls.db.query(cls.entity).all())
 
     @classmethod
     def findById(cls, _id: int) -> Entity:
@@ -69,7 +76,7 @@ class Repository(AbstractClass):
         Returns:
             An entity item
         """
-        return Database.query(cls.entity) \
+        return cls.db.query(cls.entity) \
             .filter(cls.entity.id == _id) \
             .first()
 
@@ -84,14 +91,14 @@ class Repository(AbstractClass):
         Returns:
             An entity item
         """
-        return Database.query(cls.entity) \
+        return cls.db.query(cls.entity) \
             .filter(cls.entity.name == name) \
             .first()
 
     @classmethod
     def delete(cls):
         """Removes all entity items."""
-        Database.query(cls.entity).delete()
+        cls.db.query(cls.entity).delete()
 
 
 class StateRepository(Repository):
@@ -142,7 +149,7 @@ class StateRepository(Repository):
         Returns:
             A list with all states with relationships loaded
         """
-        return List(Database.query(State)
+        return List(cls.db.query(State)
                     .options(subqueryload(State.mesoregions),
                              subqueryload(State.microregions),
                              subqueryload(State.municipalities),
@@ -231,7 +238,7 @@ class MesoregionRepository(Repository):
         Returns:
             A list with all mesoregions with relationships loaded
         """
-        return List(Database.query(Mesoregion)
+        return List(cls.db.query(Mesoregion)
                     .options(subqueryload(Mesoregion.microregions),
                              subqueryload(Mesoregion.municipalities),
                              subqueryload(Mesoregion.districts),
@@ -319,7 +326,7 @@ class MicroregionRepository(Repository):
         Returns:
             A list with all microregions with relationships loaded
         """
-        return List(Database.query(Microregion)
+        return List(cls.db.query(Microregion)
                     .options(subqueryload(Microregion.municipalities),
                              subqueryload(Microregion.districts),
                              subqueryload(Microregion.subdistricts))
@@ -406,7 +413,7 @@ class MunicipalityRepository(Repository):
         Returns:
             A list with all municipalities with relationships loaded
         """
-        return List(Database.query(Municipality)
+        return List(cls.db.query(Municipality)
                     .options(subqueryload(Municipality.districts),
                              subqueryload(Municipality.subdistricts))
                     .all())
@@ -492,7 +499,7 @@ class DistrictRepository(Repository):
         Returns:
             A list with all districts with relationships loaded
         """
-        return List(Database.query(District)
+        return List(cls.db.query(District)
                     .options(subqueryload(District.subdistricts))
                     .all())
 
