@@ -13,7 +13,7 @@ from argparse import Namespace
 
 from geodatabr.commands import Command
 from geodatabr.core.logging import logger
-from geodatabr.dataset.base import DatabaseHelper
+from geodatabr.dataset.base import Database
 from geodatabr.dataset.schema import Entities
 from geodatabr.dataset.seeders import SeederFactory, NothingToSeedError
 
@@ -36,7 +36,7 @@ class SeedCommand(Command):
     def handle(self, args: Namespace):
         """Handles the command."""
         try:
-            DatabaseHelper.create()
+            Database.create()
 
             for entity in Entities:
                 logger().info('> Seeding table "%s"...', entity.__table__.name)

@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 """
-Dataset base module,
+Dataset base module.
 
 This module provides the core classes to access and manage the database.
 """
@@ -12,66 +12,57 @@ This module provides the core classes to access and manage the database.
 # External dependencies
 
 from sqlalchemy import create_engine
+from sqlalchemy.engine.base import Engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.session import Session
 
 # Package dependencies
 
-from geodatabr.core.helpers.filesystem import CacheDirectory, CacheFile
+from geodatabr.core.helpers.filesystem import CacheFile, CACHE_DIR
 from geodatabr.dataset.schema import Entity
 
 # Classes
 
 
-class DatabaseEngine(object):
-    """Database engine factory class."""
+class Database(object):
+    """Database service class."""
 
-    def __new__(cls, **options):
+    @classmethod
+    def engine(cls, **options) -> Engine:
         """
         Factories a new database engine.
 
         Args:
-            options (dict): The engine options
+            **options: The engine options
 
         Returns:
-            sqlalchemy.engine.base.Engine: The database engine
+            The database engine instance
         """
         return create_engine('sqlite:///' + str(CacheFile('geodatabr.db')),
                              **options)
 
-
-class DatabaseSession(object):
-    """Database session factory class."""
-
-    def __new__(cls):
+    @classmethod
+    def session(cls) -> Session:
         """
         Factories a new database session.
 
         Returns:
-            sqlalchemy.orm.session.Session: The database session
+            The database session instance
         """
-        return sessionmaker(bind=DatabaseEngine())()
+        return sessionmaker(bind=cls.engine())()
 
-
-class DatabaseHelper(object):
-    """Database helper methods."""
-
-    @staticmethod
-    def create():
+    @classmethod
+    def create(cls):
         """Creates the database."""
-        CacheDirectory().create(parents=True)
-        Entity.metadata.create_all(Database.bind)
+        CACHE_DIR.create(parents=True)
+        Entity.metadata.create_all(cls.engine())
 
-    @staticmethod
-    def clear():
+    @classmethod
+    def clear(cls):
         """Clears the database."""
-        Entity.metadata.drop_all(Database.bind)
+        Entity.metadata.drop_all(cls.engine())
 
-    @staticmethod
-    def delete():
+    @classmethod
+    def delete(cls):
         """Removes the database."""
         CacheFile('geodatabr.db').unlink()
-
-# Instances
-
-
-Database = DatabaseSession()

@@ -14,7 +14,7 @@ from argparse import Namespace
 from geodatabr.commands import Command
 from geodatabr.commands.seed import SeedCommand
 from geodatabr.core.logging import logger
-from geodatabr.dataset.base import DatabaseHelper
+from geodatabr.dataset.base import Database
 
 # Classes
 
@@ -36,7 +36,7 @@ class RefreshCommand(Command):
         """Handles the command."""
         try:
             logger().info('> Clearing the dataset...')
-            DatabaseHelper.clear()
+            Database.clear()
 
             SeedCommand(self.application).handle(args)
         except KeyboardInterrupt:
