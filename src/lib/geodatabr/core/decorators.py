@@ -16,75 +16,56 @@ from functools import lru_cache
 
 # Classes
 
+class DataDescriptor(type):
+    """A data descriptor to allow declaring read-only class properties."""
 
-class ClassProperty(object):
-    """A data descriptor that allows declaring class properties."""
-
-    def __init__(self, fget):
+    def __new__(mcs, name: str, bases: tuple, _dict):
         """
-        Creates a new ClassProperty descriptor.
+        Creates a new data descriptor.
 
         Args:
-            fget (callable): The function or method to use to get the value
+            mcs: The class object to decorate
+            name: The class name
+            bases: The class base classes
+            _dict: The class dictionary of methods/attributes
         """
-        self.fget = fget
-        self.fset = None
-        self.fdel = None
-        self.__doc__ = fget.__doc__
+        class _ReadOnly(mcs):
+            pass
 
-    def __get__(self, instance, owner):
-        """
-        Descriptor getter.
+        for attr, value in _dict.items():
+            if isinstance(value, property):
+                setattr(_ReadOnly, attr, value)
 
-        Args:
-            instance (object): The property class instance
-            owner (class): The property class
-        """
-        return self.fget(owner)
-
-    def __set__(self, instance, value):
-        """
-        Descriptor setter.
-
-        Args:
-            instance (object): The property class instance
-            value: The new property value
-
-        Raises:
-            AttributeError: When trying to set a class property
-        """
-        raise AttributeError("can't set attribute")
-
-    def __delete__(self, instance):
-        """
-        Descriptor deleter.
-
-        Args:
-            instance (object): The property class instance
-
-        Raises:
-            AttributeError: When trying to delete a class property
-        """
-        raise AttributeError("can't delete attribute")
+        return type.__new__(_ReadOnly, name, bases, _dict)
 
 
 # Functions
 
 
-def cachedmethod(maxsize=None):
+def cachedmethod(maxsize: int = None):
     """
     A cache decorator for memoizing functions and methods.
 
     Args:
-        maxsize (int): The max cache size. If set, a LRU (least recently used)
-            cache is used.
+        maxsize: The max cache size. If set, a LRU (least recently used) cache
+            is used.
 
     Returns:
-        function: The cache decorating function
+        The cache decorated function
     """
     return lru_cache(maxsize=maxsize)
 
+def datadescriptor(cls):
+    """
+    A data descriptor decorator to allow declaring read-only class properties.
 
-# Aliases
+    Args:
+        cls: The class object to decorate
 
-classproperty = ClassProperty
+    Returns:
+        The decorated class
+    """
+    return DataDescriptor.__new__(type,
+                                  cls.__name__,
+                                  cls.__bases__,
+                                  dict(cls.__dict__))
