@@ -55,6 +55,7 @@ class EncodeCommand(Command):
         self.addArgument('-o', '--out',
                          dest='filename',
                          nargs='?',
+                         default='-',
                          help=('Filename to save the dataset.\n'
                                'If none are specified, data is written to '
                                'standard output.'))
@@ -69,6 +70,10 @@ class EncodeCommand(Command):
 
         try:
             encoder = EncoderFactory.fromFormat(args.format)
+
+            if args.filename == '-' and encoder.format.isBinary:
+                self._parser.error(
+                    "Binary formats can't be written to standard output")
 
             logger().info('Encoding dataset to %s format...',
                           encoder.format().friendlyName)
