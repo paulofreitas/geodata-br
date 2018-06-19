@@ -5,11 +5,15 @@
 """Build command module."""
 # Imports
 
+# Built-in dependencies
+
+from argparse import Namespace
+
 # Package dependencies
 
 from geodatabr.commands import Command
-from geodatabr.core import DATA_DIR
 from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
+from geodatabr.core.helpers.filesystem import DATA_DIR
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import logger
 from geodatabr.encoders import EncoderFactory, EncoderFormatRepository, \
@@ -22,17 +26,17 @@ class BuildCommand(Command):
     """A command class to build the dataset files."""
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Gets the command name."""
         return 'build'
 
     @property
-    def description(self):
+    def description(self) -> str:
         """Gets the command description."""
         return 'Build the dataset files'
 
     @property
-    def usage(self):
+    def usage(self) -> str:
         """Gets the command usage syntax."""
         return '%(prog)s [-l LOCALE] [-f FORMAT]'
 
@@ -58,7 +62,7 @@ class BuildCommand(Command):
                                'Options: %(choices)s\n'
                                'Defaults to all available.'))
 
-    def handle(self, args):
+    def handle(self, args: Namespace):
         """Handles the command."""
         try:
             for locale in args.locales:
