@@ -15,6 +15,7 @@ import os
 import pathlib
 import uuid
 
+from pkg_resources import resource_filename
 from typing import Iterable
 
 # Classes
@@ -182,20 +183,6 @@ class Directory(Path):
                 yield File(path)
 
 
-class CacheDirectory(Directory):
-    """A filesystem cache directory object."""
-
-    def __new__(cls, *args, **kwargs):
-        """
-        Creates a new cache directory instance.
-
-        Args:
-            *args: The optional path segments
-            **kwargs: The directory options
-        """
-        return Directory(Path.home() / '.geodatabr', *args, **kwargs)
-
-
 class File(Path):
     """A filesystem file object."""
 
@@ -279,4 +266,15 @@ class CacheFile(File):
         if not args:
             args += (str(uuid.uuid4()),)
 
-        return File(CacheDirectory(), *args, **kwargs)
+        return File(CACHE_DIR, *args, **kwargs)
+
+
+# Constants
+
+HOME_DIR = Path.home()
+CACHE_DIR = HOME_DIR / '.geodatabr'
+CURRENT_DIR = Path.cwd()
+PACKAGE_DIR = Directory(resource_filename(__name__, ''))
+DATA_DIR = PACKAGE_DIR / 'data'
+STUB_DIR = DATA_DIR / 'stubs'
+TRANSLATION_DIR = DATA_DIR / 'translations'
