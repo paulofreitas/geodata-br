@@ -15,8 +15,8 @@ from itertools import groupby
 
 # Package dependencies
 
-from geodatabr.core import BASE_DIR, SRC_DIR
-from geodatabr.core.helpers.filesystem import Directory, File
+from geodatabr.core.helpers.filesystem import File, Directory, \
+    CURRENT_DIR, STUB_DIR
 from geodatabr.core.helpers.markup import GithubMarkdown as Markdown
 from geodatabr.core.i18n import _, Translator
 from geodatabr.core.types import AbstractClass, Map
@@ -55,8 +55,8 @@ class ProjectReadme(Readme):
 
     def __init__(self):
         """Creates a new project README documentation file instance."""
-        readme_file = File(BASE_DIR / 'README.md')
-        stub_file = File(SRC_DIR / 'data/stubs/README.stub.md')
+        readme_file = File(CURRENT_DIR / 'README.md')
+        stub_file = File(STUB_DIR / 'README.stub.md')
 
         super().__init__(readme_file, stub_file)
 
@@ -121,7 +121,7 @@ class DatasetReadme(Readme):
             dataset_dir: The dataset directory
         """
         readme_file = File(dataset_dir / 'README.md')
-        stub_file = File(SRC_DIR / 'data/stubs/BASE_README.stub.md')
+        stub_file = File(STUB_DIR / 'BASE_README.stub.md')
 
         super().__init__(readme_file, stub_file)
 
