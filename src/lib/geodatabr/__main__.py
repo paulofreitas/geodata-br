@@ -7,7 +7,7 @@
 
 # Package dependencies
 
-from geodatabr.commands import Application
+from geodatabr.core.commands import Application
 
 # Functions
 

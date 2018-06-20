@@ -11,8 +11,8 @@ from argparse import Namespace
 
 # Package dependencies
 
-from geodatabr.commands import Command
 from geodatabr.commands.seed import SeedCommand
+from geodatabr.core.commands import Command
 from geodatabr.core.logging import logger
 from geodatabr.dataset.base import Database
 

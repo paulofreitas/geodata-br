@@ -11,7 +11,7 @@ from argparse import Namespace
 
 # Package dependencies
 
-from geodatabr.commands import Command
+from geodatabr.core.commands import Command
 from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
 from geodatabr.core.helpers.filesystem import Directory, Path
 from geodatabr.core.i18n import Translator
