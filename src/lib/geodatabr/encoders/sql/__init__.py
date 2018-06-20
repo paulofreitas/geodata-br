@@ -7,10 +7,10 @@
 
 # Package dependencies
 
+from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
 from geodatabr.core.types import FileStream
 from geodatabr.dataset.schema import ENTITIES
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 from geodatabr.encoders.sql.utils import SchemaGenerator
 
 # Classes

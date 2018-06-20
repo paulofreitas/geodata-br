@@ -7,7 +7,7 @@
 
 # Package dependencies
 
-from geodatabr.encoders import EncoderFormat
+from geodatabr.core.encoders import EncoderFormat
 
 # Classes
 

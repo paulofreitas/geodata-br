@@ -11,9 +11,9 @@ import csv
 
 # Package dependencies
 
+from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
 from geodatabr.core.types import FileStream, BinaryFileStream
 from geodatabr.dataset.serializers import FlattenedSerializer
-from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 
 # Classes
 

@@ -12,10 +12,10 @@ from argparse import Namespace
 # Package dependencies
 
 from geodatabr.core.commands import Command
+from geodatabr.core.encoders import EncoderFactory, EncoderFormatRepository, \
+    EncodeError
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import logger
-from geodatabr.encoders import EncoderFactory, EncoderFormatRepository, \
-    EncodeError
 
 # Classes
 

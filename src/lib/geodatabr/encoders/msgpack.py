@@ -11,9 +11,9 @@ import msgpack
 
 # Package dependencies
 
+from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
 from geodatabr.core.types import BinaryFileStream
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 
 # Classes
 

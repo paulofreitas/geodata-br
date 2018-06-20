@@ -15,12 +15,12 @@ from itertools import groupby
 
 # Package dependencies
 
+from geodatabr.core.encoders import EncoderFormatRepository
 from geodatabr.core.helpers.filesystem import Directory, File, Path
 from geodatabr.core.helpers.markup import GithubMarkdown as Markdown
 from geodatabr.core.i18n import _, Translator
 from geodatabr.core.types import AbstractClass, Map
 from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders import EncoderFormatRepository
 
 # Classes
 
