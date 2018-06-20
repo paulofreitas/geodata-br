@@ -19,6 +19,7 @@ from urllib.parse import urljoin
 
 from requests import Session
 from requests.adapters import HTTPAdapter
+from requests.models import Response
 from requests.packages.urllib3.util.retry import Retry
 from ratelimit import limits, sleep_and_retry
 
@@ -55,12 +56,14 @@ SIDRA_SUBDISTRICT = 11
 class HttpSession(Session):
     """Custom HTTP session implementation."""
 
-    def __init__(self, base_url, *args, **kwargs):
+    def __init__(self, base_url: str, *args, **kwargs):
         """
         Creates a new HTTP session instance.
 
         Args:
-            base_url (str): The base URL for this HTTP session
+            base_url: The base URL for this HTTP session
+            *args: The optional positional arguments
+            **kwargs: The optional keyword arguments
         """
         super().__init__(*args, **kwargs)
         self._base_url = base_url
@@ -80,16 +83,17 @@ class HttpSession(Session):
 
     @sleep_and_retry
     @limits(calls=1, period=HTTP_THROTTLING_INTERVAL)
-    def request(self, method, url, **kwargs):
+    def request(self, method: str, url: str, **kwargs) -> Response:
         """
         HTTP throttled requests with custom timeouts.
 
         Args:
-            method (str): The HTTP method for this request
-            url (str): The target URL of this request
+            method: The HTTP method for this request
+            url: The target URL of this request
+            **kwargs: The optional request keyword arguments
 
         Returns:
-            requests.models.Response: The HTTP response object
+            The HTTP response object
         """
         if kwargs.get('timeout') is None:
             kwargs.update(timeout=(HTTP_CONNECT_TIMEOUT, HTTP_READ_TIMEOUT))
@@ -109,16 +113,15 @@ class SidraApi(object):
         """Creates a new SidraApi instance."""
         self._session = HttpSession('http://api.sidra.ibge.gov.br')
 
-    def query(self, params):
+    def query(self, params: str) -> 'SidraApiResponse':
         """
         Runs a query over the API.
 
         Args:
-            params (str): The query params
+            params: The query params
 
         Returns:
-            geodatabr.dataset.services.SidraApiRespone: The SidraApiResponse
-                instance
+            The SidraApiResponse instance
         """
         return SidraApiResponse(self._session.get('/values' + params).json())
 
@@ -126,24 +129,24 @@ class SidraApi(object):
 class SidraApiResponse(object):
     """Response object returned by SidraApi service."""
 
-    def __init__(self, data):
+    def __init__(self, data: dict):
         """
-        Creates a new SidraApiResponse instance.
+        Creates a new instance.
 
         Args:
-            data (dict): The API JSON response
+            data: The API JSON response
         """
         self._data = data
 
-    def get(self, keys=None):
+    def get(self, keys: list = None) -> list:
         """
         Retrieves the API response records.
 
         Args:
-            keys (list): The response records keys to retrieve
+            keys: The response records keys to retrieve
 
         Returns:
-            list: The API response records
+            The API response records
 
         Raises:
             KeyError: When a given record key is not valid
@@ -174,15 +177,15 @@ class SidraDataset(object):
         """Creates a new SidraDataset instance."""
         self._session = HttpSession('https://sidra.ibge.gov.br')
 
-    def findAll(self, level):
+    def findAll(self, level: int) -> 'SidraDatasetResponse':
         """
         Finds all geographic territories for a given territorial level.
 
         Args:
-            level (int): The territorial level constant
+            level: The territorial level constant
 
         Returns:
-            list: The list of geographic territories
+            The list of geographic territories
         """
         try:
             records = self._session \
@@ -193,18 +196,20 @@ class SidraDataset(object):
 
         return SidraDatasetResponse(records)
 
-    def findChildren(self, child_level, parent_level, parent_id):
+    def findChildren(self,
+                     child_level: int,
+                     parent_level: int,
+                     parent_id: int):
         """
         Finds all geographic territories belonging to a parent territory.
 
         Args:
-            child_level (int): The children territorial level
-            parent_level (int): The parent territorial level
-            parent_id (int): The parent territory ID
+            child_level: The children territorial level
+            parent_level: The parent territorial level
+            parent_id: The parent territory ID
 
         Returns:
-            geodatabr.dataset.services.SidraDatasetResponse:
-                The list of geographic territories
+            The list of geographic territories
         """
         try:
             records = self._session \
@@ -222,12 +227,12 @@ class SidraDataset(object):
 class SidraDatasetResponse(list):
     """Response object returned by SidraDataset service."""
 
-    def __init__(self, data):
+    def __init__(self, data: dict):
         """
-        Creates a new SidraDatasetResponse instance.
+        Creates a new instance.
 
         Args:
-            data (dict): The API JSON response
+            data: The API JSON response
         """
         super().__init__([
             Map(id=_id, name=name)
