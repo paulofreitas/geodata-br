@@ -20,8 +20,8 @@ import sys
 
 # Package dependencies
 
-from geodatabr import __package_name__, __description__, __version__, \
-    __license_text__, __prolog__, __epilog__
+from geodatabr.__meta__ import __package_name__, __description__, \
+    __version__, __license_text__, __prolog__, __epilog__
 from geodatabr.core.logging import Logger
 from geodatabr.core.types import AbstractClass
 

@@ -9,7 +9,8 @@ This package provides all the reusable stuff used in other packages.
 """
 # Package imports
 
-from geodatabr import __author__, __copyright__, __license__, __version__
+from geodatabr.__meta__ import \
+    __author__, __copyright__, __license__, __version__
 
 # Package exports
 

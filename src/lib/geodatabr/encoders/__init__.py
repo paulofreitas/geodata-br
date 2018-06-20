@@ -19,7 +19,8 @@ from itertools import groupby
 
 # Package dependencies
 
-from geodatabr import __version__, __author__, __copyright__, __license__
+from geodatabr.__meta__ import \
+    __version__, __author__, __copyright__, __license__
 from geodatabr.core.decorators import DataDescriptor
 from geodatabr.core.i18n import _
 from geodatabr.core.types import AbstractClass, BinaryFileStream, List

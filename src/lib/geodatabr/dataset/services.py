@@ -24,7 +24,7 @@ from ratelimit import limits, sleep_and_retry
 
 # Package dependencies
 
-from geodatabr import __version__, __url__
+from geodatabr.__meta__ import __version__, __url__
 from geodatabr.core.types import Map
 
 # Logging setup

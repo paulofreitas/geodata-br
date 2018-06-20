@@ -9,7 +9,8 @@ This package provides the available command modules.
 """
 # Package imports
 
-from geodatabr import __author__, __copyright__, __license__, __version__
+from geodatabr.__meta__ import \
+    __author__, __copyright__, __license__, __version__
 from geodatabr.core.bootstrapping import ModuleLoader
 
 ModuleLoader.loadModules(__package__)
