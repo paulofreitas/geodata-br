@@ -8,7 +8,7 @@
 # Package dependencies
 
 from geodatabr.core.types import FileStream
-from geodatabr.dataset.schema import Entities
+from geodatabr.dataset.schema import ENTITIES
 from geodatabr.dataset.serializers import Serializer
 from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 from geodatabr.encoders.sql.utils import SchemaGenerator
@@ -90,7 +90,7 @@ class SqlEncoder(Encoder):
         try:
             schema = SchemaGenerator(**dict(self.options, **options))
 
-            for entity in Entities:
+            for entity in ENTITIES:
                 records = data.get(entity.__table__.name)
 
                 if records:

@@ -18,7 +18,7 @@ from typing import Any
 from geodatabr.core.decorators import cachedmethod
 from geodatabr.core.i18n import _
 from geodatabr.core.types import List, OrderedMap
-from geodatabr.dataset.schema import Entities
+from geodatabr.dataset.schema import ENTITIES
 from geodatabr.dataset.repositories import StateRepository
 
 # Classes
@@ -38,7 +38,7 @@ class BaseSerializer(object):
         """
         records = OrderedMap(states=StateRepository().loadAll())
 
-        for _entity in Entities:
+        for _entity in ENTITIES:
             entity = _entity.__table__.name
 
             if entity not in records:
@@ -90,7 +90,7 @@ class Serializer(BaseSerializer):
         """
         records = OrderedMap()
 
-        for entity in Entities:
+        for entity in ENTITIES:
             table = str(entity.__table__.name)
             _records = self.__records__[table]
 
@@ -133,7 +133,7 @@ class FlattenedSerializer(BaseSerializer):
         """
         records = List()
 
-        for entity in Entities:
+        for entity in ENTITIES:
             for record in self.__records__[entity.__table__.name]:
                 records.append(OrderedMap(
                     [(_(key), value)

@@ -13,7 +13,7 @@ from lxml.etree import Element, SubElement, tostring as xml_str
 
 from geodatabr.core.i18n import _
 from geodatabr.core.types import BinaryFileStream
-from geodatabr.dataset.schema import Entities
+from geodatabr.dataset.schema import ENTITIES
 from geodatabr.dataset.serializers import Serializer
 from geodatabr.encoders import Encoder, EncoderFormat, EncodeError
 
@@ -96,7 +96,7 @@ class XmlEncoder(Encoder):
         try:
             dataset = Element(_('dataset_name'))
             entities = {_(entity.__table__.name): _(entity._name)
-                        for entity in Entities}
+                        for entity in ENTITIES}
 
             for table_name, rows in iter(data.items()):
                 table = SubElement(dataset, table_name)

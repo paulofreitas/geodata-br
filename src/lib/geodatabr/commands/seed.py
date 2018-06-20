@@ -14,7 +14,7 @@ from argparse import Namespace
 from geodatabr.commands import Command
 from geodatabr.core.logging import logger
 from geodatabr.dataset.base import Database
-from geodatabr.dataset.schema import Entities
+from geodatabr.dataset.schema import ENTITIES
 from geodatabr.dataset.seeders import SeederFactory, NothingToSeedError
 
 # Classes
@@ -38,7 +38,7 @@ class SeedCommand(Command):
         try:
             Database.create()
 
-            for entity in Entities:
+            for entity in ENTITIES:
                 logger().info('> Seeding table "%s"...', entity.__table__.name)
 
                 try:

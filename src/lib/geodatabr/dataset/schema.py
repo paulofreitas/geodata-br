@@ -11,8 +11,8 @@ This module provides the entities used to describe the database.
 
 # External dependencies
 
-from sqlalchemy import orm
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship as Relationship
 from sqlalchemy.sql.schema import Column, ForeignKey, MetaData, Table
 from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 
@@ -20,39 +20,38 @@ from sqlalchemy.types import BigInteger, Integer, SmallInteger, String
 
 from geodatabr.core.types import OrderedMap
 
-# Aliases
-
-
-def Relationship(entity, backref, **kwargs):
-    return orm.relationship(entity, back_populates=backref, **kwargs)
-
-
 # Classes
 
 
 class Entity(declarative_base()):
-    """Abstract entity class."""
+    """
+    Abstract entity class.
+
+    Attributes:
+        naming_convention (dict): The constraint naming conventions
+        metadata (sqlalchemy.sql.schema.MetaData): The entity metadata
+    """
 
     __abstract__ = True
 
     naming_convention = {
         'pk': 'pk_%(table_name)s',
         'fk': 'fk_%(table_name)s_%(column_0_name)s',
-        'ix': 'ix_%(column_0_label)s',
         'uq': 'uq_%(table_name)s_%(column_0_name)s',
+        'ix': 'ix_%(column_0_label)s',
     }
 
     metadata = MetaData(naming_convention=naming_convention)
 
-    def serialize(self, flatten=False):
+    def serialize(self, flatten: bool = False) -> OrderedMap:
         """
         Serializes the entity to an ordered mapping.
 
         Args:
-            flatten (bool): Whether it should flatten column names or not
+            flatten: Whether it should flatten column names or not
 
         Returns:
-            geodatabr.core.types.OrderedMap: The entity columns/values pairs
+            The entity columns/values pairs
         """
         if not flatten:
             return OrderedMap({column.name: getattr(self, column.name)
@@ -83,7 +82,7 @@ class Entity(declarative_base()):
 
 
 class State(Entity):
-    """Entity for states."""
+    """Entity class for states."""
 
     _name = 'state'
 
@@ -100,15 +99,15 @@ class State(Entity):
                index=True))
 
     # Relationships
-    mesoregions = Relationship('Mesoregion', 'state')
-    microregions = Relationship('Microregion', 'state')
-    municipalities = Relationship('Municipality', 'state')
-    districts = Relationship('District', 'state')
-    subdistricts = Relationship('Subdistrict', 'state')
+    mesoregions = Relationship('Mesoregion', back_populates='state')
+    microregions = Relationship('Microregion', back_populates='state')
+    municipalities = Relationship('Municipality', back_populates='state')
+    districts = Relationship('District', back_populates='state')
+    subdistricts = Relationship('Subdistrict', back_populates='state')
 
 
 class Mesoregion(Entity):
-    """Entity for mesoregions."""
+    """Entity class for mesoregions."""
 
     _name = 'mesoregion'
 
@@ -130,15 +129,15 @@ class Mesoregion(Entity):
                index=True))
 
     # Relationships
-    state = Relationship('State', 'mesoregions')
-    microregions = Relationship('Microregion', 'mesoregion')
-    municipalities = Relationship('Municipality', 'mesoregion')
-    districts = Relationship('District', 'mesoregion')
-    subdistricts = Relationship('Subdistrict', 'mesoregion')
+    state = Relationship('State', back_populates='mesoregions')
+    microregions = Relationship('Microregion', back_populates='mesoregion')
+    municipalities = Relationship('Municipality', back_populates='mesoregion')
+    districts = Relationship('District', back_populates='mesoregion')
+    subdistricts = Relationship('Subdistrict', back_populates='mesoregion')
 
 
 class Microregion(Entity):
-    """Entity for microregions."""
+    """Entity class for microregions."""
 
     _name = 'microregion'
 
@@ -165,15 +164,15 @@ class Microregion(Entity):
                index=True))
 
     # Relationships
-    state = Relationship('State', 'microregions')
-    mesoregion = Relationship('Mesoregion', 'microregions')
-    municipalities = Relationship('Municipality', 'microregion')
-    districts = Relationship('District', 'microregion')
-    subdistricts = Relationship('Subdistrict', 'microregion')
+    state = Relationship('State', back_populates='microregions')
+    mesoregion = Relationship('Mesoregion', back_populates='microregions')
+    municipalities = Relationship('Municipality', back_populates='microregion')
+    districts = Relationship('District', back_populates='microregion')
+    subdistricts = Relationship('Subdistrict', back_populates='microregion')
 
 
 class Municipality(Entity):
-    """Entity for municipalities."""
+    """Entity class for municipalities."""
 
     _name = 'municipality'
 
@@ -205,15 +204,15 @@ class Municipality(Entity):
                index=True))
 
     # Relationships
-    state = Relationship('State', 'municipalities')
-    mesoregion = Relationship('Mesoregion', 'municipalities')
-    microregion = Relationship('Microregion', 'municipalities')
-    districts = Relationship('District', 'municipality')
-    subdistricts = Relationship('Subdistrict', 'municipality')
+    state = Relationship('State', back_populates='municipalities')
+    mesoregion = Relationship('Mesoregion', back_populates='municipalities')
+    microregion = Relationship('Microregion', back_populates='municipalities')
+    districts = Relationship('District', back_populates='municipality')
+    subdistricts = Relationship('Subdistrict', back_populates='municipality')
 
 
 class District(Entity):
-    """Entity for districts."""
+    """Entity class for districts."""
 
     _name = 'district'
 
@@ -250,15 +249,15 @@ class District(Entity):
                index=True))
 
     # Relationships
-    state = Relationship('State', 'districts')
-    mesoregion = Relationship('Mesoregion', 'districts')
-    microregion = Relationship('Microregion', 'districts')
-    municipality = Relationship('Municipality', 'districts')
-    subdistricts = Relationship('Subdistrict', 'district')
+    state = Relationship('State', back_populates='districts')
+    mesoregion = Relationship('Mesoregion', back_populates='districts')
+    microregion = Relationship('Microregion', back_populates='districts')
+    municipality = Relationship('Municipality', back_populates='districts')
+    subdistricts = Relationship('Subdistrict', back_populates='district')
 
 
 class Subdistrict(Entity):
-    """Entity for subdistricts."""
+    """Entity class for subdistricts."""
 
     _name = 'subdistrict'
 
@@ -300,18 +299,13 @@ class Subdistrict(Entity):
                index=True))
 
     # Relationships
-    state = Relationship('State', 'subdistricts')
-    mesoregion = Relationship('Mesoregion', 'subdistricts')
-    microregion = Relationship('Microregion', 'subdistricts')
-    municipality = Relationship('Municipality', 'subdistricts')
-    district = Relationship('District', 'subdistricts')
+    state = Relationship('State', back_populates='subdistricts')
+    mesoregion = Relationship('Mesoregion', back_populates='subdistricts')
+    microregion = Relationship('Microregion', back_populates='subdistricts')
+    municipality = Relationship('Municipality', back_populates='subdistricts')
+    district = Relationship('District', back_populates='subdistricts')
 
 
-# Collections
+# Constants
 
-Entities = (State, Mesoregion, Microregion, Municipality, District, Subdistrict)
-
-# Monkey patches
-
-for entity in Entities:
-    entity.__table__.__entity__ = entity
+ENTITIES = (State, Mesoregion, Microregion, Municipality, District, Subdistrict)
