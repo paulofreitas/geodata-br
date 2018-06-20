@@ -9,6 +9,11 @@ This module provides the core classes to access and manage the database.
 """
 # Imports
 
+# Built-in dependencies
+
+from contextlib import contextmanager
+from typing import Iterator
+
 # External dependencies
 
 from sqlalchemy import create_engine
@@ -49,7 +54,29 @@ class Database(object):
         Returns:
             The database session instance
         """
-        return sessionmaker(bind=cls.engine())()
+        session = sessionmaker(bind=cls.engine())()
+        session.execute('PRAGMA foreign_keys = OFF')
+
+        return session
+
+    @classmethod
+    @contextmanager
+    def transaction(cls) -> Iterator[Session]:
+        """
+        Provides a transactional context-based database session.
+
+        Yields:
+            The database session instance
+        """
+        try:
+            session = cls.session()
+            yield session
+            session.commit()
+        except:
+            session.rollback()
+            raise
+        finally:
+            session.close()
 
     @classmethod
     def create(cls):
