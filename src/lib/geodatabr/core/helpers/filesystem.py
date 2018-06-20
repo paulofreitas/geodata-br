@@ -15,19 +15,61 @@ import os
 import pathlib
 import uuid
 
+from typing import Iterator
 from pkg_resources import resource_filename
-from typing import Iterable
 
 # Classes
 
 
-class Path(type(pathlib.Path())):
-    """A filesystem path object."""
-    _old_dir = None
+class _Path(type(pathlib.Path())):
+    """A filesystem path type."""
+
+
+class Path(_Path):
+    """
+    A filesystem path object.
+
+    Attributes:
+        HOME_DIR (geodatabr.core.helpers.filesystem._Path):
+            The path for home directory
+        CACHE_DIR (geodatabr.core.helpers.filesystem._Path):
+            The path for cache directory
+        CURRENT_DIR (geodatabr.core.helpers.filesystem._Path):
+            The path for current working directory
+        DATA_DIR (geodatabr.core.helpers.filesystem._Path):
+            The path for data directory
+        PKG_DIR (geodatabr.core.helpers.filesystem._Path):
+            The path for package directory
+        PKG_DATA_DIR (geodatabr.core.helpers.filesystem._Path):
+            The path for package data directory
+        PKG_STUB_DIR (geodatabr.core.helpers.filesystem._Path):
+            The path for package stubs directory
+        PKG_TRANSLATION_DIR (geodatabr.core.helpers.filesystem._Path):
+            The path for package translations directory
+    """
+
+    HOME_DIR = _Path.home()
+    CACHE_DIR = HOME_DIR / '.geodatabr'
+    CURRENT_DIR = _Path.cwd()
+    DATA_DIR = CURRENT_DIR / 'data'
+    PKG_DIR = _Path(resource_filename('geodatabr', ''))
+    PKG_DATA_DIR = PKG_DIR / 'data'
+    PKG_STUB_DIR = PKG_DATA_DIR / 'stubs'
+    PKG_TRANSLATION_DIR = PKG_DATA_DIR / 'translations'
+
+    def _init(self):
+        """Private constructor."""
+        super()._init()
+
+        #: geodatabr.core.helpers.filesystem._Path: The previous working directory
+        self._old_dir = None
 
     def __enter__(self) -> 'Path':
         """
         Magic method to allow changing the working directory to this path.
+
+        Returns:
+            This path instance
         """
         self._old_dir = self.cwd()
         os.chdir(str(self))
@@ -53,12 +95,12 @@ class Path(type(pathlib.Path())):
         """
         return segment in str(self)
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator['Path']:
         """
         Magic method to allow iterating this path components.
 
         Returns:
-            iterator: An iterator with this path components
+            An iterator with this path components
         """
         return iter(Path(part) for part in self.parts)
 
@@ -146,7 +188,7 @@ class Directory(Path):
 
     def directories(self,
                     pattern: str = '*',
-                    recursive: bool = False) -> Iterable['Directory']:
+                    recursive: bool = False) -> Iterator['Directory']:
         """
         Yields a generator with all directories matching the given pattern.
 
@@ -165,7 +207,7 @@ class Directory(Path):
 
     def files(self,
               pattern: str = '*',
-              recursive: bool = False) -> Iterable['File']:
+              recursive: bool = False) -> Iterator['File']:
         """
         Yields a generator with all files matching the given pattern.
 
@@ -266,15 +308,4 @@ class CacheFile(File):
         if not args:
             args += (str(uuid.uuid4()),)
 
-        return File(CACHE_DIR, *args, **kwargs)
-
-
-# Constants
-
-HOME_DIR = Path.home()
-CACHE_DIR = HOME_DIR / '.geodatabr'
-CURRENT_DIR = Path.cwd()
-PACKAGE_DIR = Directory(resource_filename(__name__, ''))
-DATA_DIR = PACKAGE_DIR / 'data'
-STUB_DIR = DATA_DIR / 'stubs'
-TRANSLATION_DIR = DATA_DIR / 'translations'
+        return File(Path.CACHE_DIR, *args, **kwargs)

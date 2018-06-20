@@ -13,7 +13,7 @@ from argparse import Namespace
 
 from geodatabr.commands import Command
 from geodatabr.core.helpers.documentation import ProjectReadme, DatasetReadme
-from geodatabr.core.helpers.filesystem import DATA_DIR
+from geodatabr.core.helpers.filesystem import Directory, Path
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import logger
 from geodatabr.encoders import EncoderFactory, EncoderFormatRepository, \
@@ -70,7 +70,7 @@ class BuildCommand(Command):
 
                 logger().info('> Building locale: %s', locale)
 
-                dataset_dir = DATA_DIR / locale
+                dataset_dir = Directory(Path.DATA_DIR / locale)
                 dataset_dir.create(parents=True)
 
                 with dataset_dir:

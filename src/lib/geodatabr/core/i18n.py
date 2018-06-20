@@ -16,7 +16,7 @@ import yaml
 # Package dependencies
 
 from geodatabr.core.decorators import cachedmethod
-from geodatabr.core.helpers.filesystem import File, TRANSLATION_DIR
+from geodatabr.core.helpers.filesystem import Directory, File, Path
 from geodatabr.core.types import Map
 
 # Classes
@@ -115,7 +115,8 @@ class Translator(object):
                     for locale, locale_file in map(
                         lambda locale_file: (locale_file.basename,
                                              locale_file),
-                        TRANSLATION_DIR.files(pattern='*.yaml'))})
+                        Directory(Path.PKG_TRANSLATION_DIR)
+                        .files(pattern='*.yaml'))})
 
     @classmethod
     def translate(cls, message: str, **placeholders) -> str:

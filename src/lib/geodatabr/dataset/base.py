@@ -18,7 +18,7 @@ from sqlalchemy.orm.session import Session
 
 # Package dependencies
 
-from geodatabr.core.helpers.filesystem import CacheFile, CACHE_DIR
+from geodatabr.core.helpers.filesystem import CacheFile, Directory, Path
 from geodatabr.dataset.schema import Entity
 
 # Classes
@@ -54,7 +54,7 @@ class Database(object):
     @classmethod
     def create(cls):
         """Creates the database."""
-        CACHE_DIR.create(parents=True)
+        Directory(Path.CACHE_DIR).create(parents=True)
         Entity.metadata.create_all(cls.engine())
 
     @classmethod
