@@ -20,10 +20,6 @@ from random import sample, shuffle
 from struct import pack, unpack
 from typing import Any, Callable
 
-# Package dependencies
-
-from geodatabr.core.bootstrapping import ModuleLoader
-
 # Classes
 
 
@@ -41,19 +37,13 @@ class AbstractClass(object, metaclass=ABCMeta):
         return cls.__class__
 
     @classmethod
-    def childs(cls, force_load: bool = True) -> list:
+    def childs(cls) -> list:
         """
         Returns a list of child classes (subclasses) of this class.
-
-        Args:
-            force_load: Forces the loading of the given class childs
 
         Returns:
             The child classes of this class
         """
-        if force_load:
-            ModuleLoader.loadModules(cls.__module__)
-
         return type.__subclasses__(cls)
 
 
@@ -729,7 +719,7 @@ class Map(dict):
         """
         return '{}({})'.format(self.__class__.__name__,
                                ', '.join('{}={}'.format(key, repr(value))
-                                         for key, value in iter(self.items())))
+                                         for key, value in self.items()))
 
     def copy(self) -> 'Map':
         """
