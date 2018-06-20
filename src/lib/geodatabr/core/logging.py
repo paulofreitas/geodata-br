@@ -11,6 +11,7 @@ from __future__ import absolute_import
 
 import inspect
 import logging
+from logging import Logger as BaseLogger
 import sys
 
 # Classes
@@ -20,16 +21,16 @@ class Logger(object):
     """Base logger class."""
 
     @staticmethod
-    def instance(name=None, level=logging.NOTSET):
+    def instance(name: str = None, level: int = logging.NOTSET) -> BaseLogger:
         """
         Returns a logger instance.
 
         Args:
-            name (str): The logger name
-            level (int): The logger level
+            name: The logger name
+            level: The logger level
 
         Returns:
-            logging.Logger: The requested logger instance
+            The requested logger instance
         """
         logger = logging.getLogger(name)
         logger.setLevel(level)
@@ -37,13 +38,13 @@ class Logger(object):
         return logger
 
     @staticmethod
-    def setup(verbose=False, filename=None):
+    def setup(verbose: bool = False, filename: str = None):
         """
         Setups the root logger.
 
         Args:
-            verbose (bool): Whether or not the logger should be verbose
-            filename (string): A file to log errors
+            verbose: Whether or not the logger should be verbose
+            filename: A file to log errors
         """
         logging_level = logging.DEBUG if verbose else logging.INFO
         logger = Logger.instance(level=logging_level)
@@ -63,15 +64,15 @@ class Logger(object):
 # Functions
 
 
-def logger(level=logging.NOTSET):
+def logger(level: int = logging.NOTSET) -> BaseLogger:
     """
     Logger factory method.
 
     Args:
-        level (int): The logger level
+        level: The logger level
 
     Returns:
-        geodatabr.core.logging.Logger: A module-level logger instance
+        A module-level logger instance
     """
     frame = inspect.stack()[1]
     module = inspect.getmodule(frame[0])
