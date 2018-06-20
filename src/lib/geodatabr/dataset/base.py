@@ -61,15 +61,17 @@ class Database(object):
 
     @classmethod
     @contextmanager
-    def transaction(cls) -> Iterator[Session]:
+    def transaction(cls, session: Session) -> Iterator[Session]:
         """
         Provides a transactional context-based database session.
 
+        Args:
+            session: The database session instance to wrap
+
         Yields:
-            The database session instance
+            The wrapped database session instance
         """
         try:
-            session = cls.session()
             yield session
             session.commit()
         except:
