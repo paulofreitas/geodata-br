@@ -7,22 +7,18 @@
 
 # Built-in dependencies
 
-from functools import reduce
+import functools
 from typing import Any
 
 # External dependencies
 
 from sqlalchemy import dialects
-from sqlalchemy.engine.default import DefaultDialect
-from sqlalchemy.engine.interfaces import Dialect
-from sqlalchemy.sql.schema import Column, ForeignKeyConstraint, Index, \
-    PrimaryKeyConstraint, Table
+from sqlalchemy.engine import default, interfaces
+from sqlalchemy.sql import schema
 
 # Package dependencies
 
-from geodatabr.core.decorators import cachedmethod
-from geodatabr.core.i18n import _
-from geodatabr.core.types import List, OrderedMap
+from geodatabr.core import decorators, i18n, types
 
 # Classes
 
@@ -37,11 +33,11 @@ class SchemaGenerator(object):
         Args:
             dialect: The SQL dialect to use
         """
-        self._tables = List()
-        self._dialect = DialectFactory(dialect)
+        self._tables = types.List()
+        self._dialect = SqlDialect.factory(dialect)
         self._compiler = SqlCompiler(dialect)
 
-    def addTable(self, table: Table, records: List):
+    def addTable(self, table: schema.Table, records: types.List):
         """
         Add the given table to schema.
 
@@ -53,10 +49,10 @@ class SchemaGenerator(object):
         table._records = records
 
         # Workaround to render table indexes in the order they were declared
-        table._sorted_indexes = List([index
-                                      for column in table.columns
-                                      for index in table.indexes
-                                      if column in iter(index.columns)])
+        table._sorted_indexes = types.List([index
+                                            for column in table.columns
+                                            for index in table.indexes
+                                            if column in iter(index.columns)])
 
         self._tables.append(table)
 
@@ -75,7 +71,9 @@ class SchemaGenerator(object):
             for table in self._tables
         ])
 
-    def renderTable(self, table: Table, create_indexes: bool = True) -> str:
+    def renderTable(self,
+                    table: schema.Table,
+                    create_indexes: bool = True) -> str:
         """
         Renders all SQL statements for the given table.
 
@@ -88,19 +86,23 @@ class SchemaGenerator(object):
         """
         # pylint: disable=W0212
         ddl = []
-        ddl.append('--\n-- Structure for table "{}"\n--\n'.format(_(table.name)))
+        ddl.append('--\n-- Structure for table "{}"\n--\n'
+                   .format(i18n._(table.name)))
         ddl.append(self._compiler.createTable(table))
 
         if table._records:
-            ddl.append('\n--\n-- Data for table "{}"\n--\n'.format(_(table.name)))
+            ddl.append('\n--\n-- Data for table "{}"\n--\n'
+                       .format(i18n._(table.name)))
             ddl.append(self._compiler.inserts(table))
 
         if table.foreign_keys and self._dialect.supports_alter:
-            ddl.append('\n--\n-- Constraints for table "{}"\n--\n'.format(_(table.name)))
+            ddl.append('\n--\n-- Constraints for table "{}"\n--\n'
+                       .format(i18n._(table.name)))
             ddl.append(self._compiler.addConstraints(table))
 
         if create_indexes and table.indexes:
-            ddl.append('\n--\n-- Indexes for table "{}"\n--\n'.format(_(table.name)))
+            ddl.append('\n--\n-- Indexes for table "{}"\n--\n'
+                       .format(i18n._(table.name)))
             ddl.append(self._compiler.createIndexes(table))
 
         return '\n'.join(ddl)
@@ -125,9 +127,9 @@ class SqlCompiler(object):
         Args:
             dialect: The SQL dialect to use
         """
-        self._dialect = DialectFactory(dialect)
+        self._dialect = SqlDialect.factory(dialect)
 
-    @cachedmethod()
+    @decorators.cachedmethod()
     def _name(self, element: Any) -> str:
         """
         Gets the element name.
@@ -141,16 +143,17 @@ class SqlCompiler(object):
         Returns:
             The element name
         """
-        if not self._dialect.name == 'firebird':
-            return _(element.name)
+        if self._dialect.name != 'firebird':
+            return i18n._(element.name)
 
         # Workaround for identifiers size limitation of Firebird dialect
-        return reduce(lambda name, prefix: name.replace(prefix, prefix[0::2]),
-                      ['pk_', 'fk_', 'ix_'],
-                      _(element.name))
+        return functools.reduce(
+            lambda name, prefix: name.replace(prefix, prefix[0::2]),
+            ['pk_', 'fk_', 'ix_'],
+            i18n._(element.name))
 
-    @cachedmethod()
-    def createTable(self, table: Table) -> str:
+    @decorators.cachedmethod()
+    def createTable(self, table: schema.Table) -> str:
         """
         Compiles a CREATE TABLE statement for a given table.
 
@@ -166,7 +169,7 @@ class SqlCompiler(object):
         if table._prefixes:
             ddl += ' '.join(table._prefixes) + ' '
 
-        ddl += 'TABLE {} ('.format(_(table.name))
+        ddl += 'TABLE {} ('.format(i18n._(table.name))
         ddl += self.createColumns(table)
 
         constraints_ddl = self.createConstraints(table)
@@ -178,8 +181,8 @@ class SqlCompiler(object):
 
         return ddl
 
-    @cachedmethod()
-    def createColumn(self, column: Column) -> str:
+    @decorators.cachedmethod()
+    def createColumn(self, column: schema.Column) -> str:
         """
         Compiles a given column element for use in CREATE TABLE statement.
 
@@ -189,7 +192,7 @@ class SqlCompiler(object):
         Returns:
             The DDL for the column element
         """
-        ddl = '{} {}'.format(_(column.name), column.type)
+        ddl = '{} {}'.format(i18n._(column.name), column.type)
 
         if column.default is not None:
             ddl += ' DEFAULT ' + column.default
@@ -203,8 +206,8 @@ class SqlCompiler(object):
 
         return ddl
 
-    @cachedmethod()
-    def createColumns(self, table: Table) -> str:
+    @decorators.cachedmethod()
+    def createColumns(self, table: schema.Table) -> str:
         """
         Compiles a given table columns elements for use in CREATE TABLE
         statement.
@@ -227,8 +230,8 @@ class SqlCompiler(object):
 
         return ddl
 
-    @cachedmethod()
-    def createConstraints(self, table: Table) -> str:
+    @decorators.cachedmethod()
+    def createConstraints(self, table: schema.Table) -> str:
         """
         Compiles a given table constraints for use in CREATE TABLE statement.
 
@@ -243,8 +246,8 @@ class SqlCompiler(object):
             for constraint in table.constraints
             if not hasattr(constraint, 'use_alter') or not constraint.use_alter)
 
-    @cachedmethod()
-    def createIndex(self, index: Index) -> str:
+    @decorators.cachedmethod()
+    def createIndex(self, index: schema.Index) -> str:
         """
         Compiles a CREATE INDEX statement for a given index.
 
@@ -261,13 +264,13 @@ class SqlCompiler(object):
 
         ddl += 'INDEX {} ON {} ({});'.format(
             self._name(index),
-            _(index.table.name),
-            ', '.join(_(column.name) for column in index.expressions))
+            i18n._(index.table.name),
+            ', '.join(i18n._(column.name) for column in index.expressions))
 
         return ddl
 
-    @cachedmethod()
-    def createIndexes(self, table: Table) -> str:
+    @decorators.cachedmethod()
+    def createIndexes(self, table: schema.Table) -> str:
         """
         Compiles the CREATE INDEX statements for a given table.
 
@@ -281,7 +284,7 @@ class SqlCompiler(object):
         return '\n'.join(self.createIndex(index)
                          for index in table._sorted_indexes)
 
-    @cachedmethod()
+    @decorators.cachedmethod()
     def constraint(self, constraint: Any) -> str:
         """
         Compiles a given constraint element for use in CREATE TABLE
@@ -293,16 +296,17 @@ class SqlCompiler(object):
         Returns:
             The DDL for the constraint element
         """
-        if isinstance(constraint, PrimaryKeyConstraint):
+        if isinstance(constraint, schema.PrimaryKeyConstraint):
             return self.primaryKeyConstraint(constraint)
 
-        if isinstance(constraint, ForeignKeyConstraint):
+        if isinstance(constraint, schema.ForeignKeyConstraint):
             return self.foreignKeyConstraint(constraint)
 
         return ''
 
-    @cachedmethod()
-    def primaryKeyConstraint(self, constraint: PrimaryKeyConstraint) -> str:
+    @decorators.cachedmethod()
+    def primaryKeyConstraint(self,
+                             constraint: schema.PrimaryKeyConstraint) -> str:
         """
         Compiles a given primary key constraint element for use in CREATE TABLE
         and ALTER TABLE statements.
@@ -319,12 +323,13 @@ class SqlCompiler(object):
             ddl += 'CONSTRAINT {} '.format(self._name(constraint))
 
         ddl += 'PRIMARY KEY ({})'.format(
-            ', '.join(_(column.name) for column in constraint.columns))
+            ', '.join(i18n._(column.name) for column in constraint.columns))
 
         return ddl
 
-    @cachedmethod()
-    def foreignKeyConstraint(self, constraint: ForeignKeyConstraint) -> str:
+    @decorators.cachedmethod()
+    def foreignKeyConstraint(self,
+                             constraint: schema.ForeignKeyConstraint) -> str:
         """
         Compiles a given foreign key constraint element for use in CREATE TABLE
         and ALTER TABLE statements.
@@ -343,15 +348,15 @@ class SqlCompiler(object):
         remote_table = list(constraint.elements)[0].column.table
 
         ddl += 'FOREIGN KEY ({}) REFERENCES {} ({})'.format(
-            ', '.join(_(element.parent.name)
+            ', '.join(i18n._(element.parent.name)
                       for element in constraint.elements),
-            _(remote_table.name),
-            ', '.join(_(element.column.name)
+            i18n._(remote_table.name),
+            ', '.join(i18n._(element.column.name)
                       for element in constraint.elements))
 
         return ddl
 
-    @cachedmethod()
+    @decorators.cachedmethod()
     def addConstraint(self, constraint: Any) -> str:
         """
         Compiles a ALTER TABLE ADD CONSTRAINT statement for a given constraint.
@@ -365,11 +370,11 @@ class SqlCompiler(object):
         if not self._dialect.supports_alter:
             return ''
 
-        return 'ALTER TABLE {} ADD {};'.format(_(constraint.table.name),
+        return 'ALTER TABLE {} ADD {};'.format(i18n._(constraint.table.name),
                                                self.constraint(constraint))
 
-    @cachedmethod()
-    def addConstraints(self, table: Table) -> str:
+    @decorators.cachedmethod()
+    def addConstraints(self, table: schema.Table) -> str:
         """
         Compiles the ALTER TABLE ADD CONSTRAINT statements for a given table.
 
@@ -387,12 +392,12 @@ class SqlCompiler(object):
 
         for constraint in table._sorted_constraints:
             # if self.dialect.supports_alter or getattr(constraint, 'use_alter', False)
-            if isinstance(constraint, ForeignKeyConstraint):
+            if isinstance(constraint, schema.ForeignKeyConstraint):
                 ddl.append(self.addConstraint(constraint))
 
         return '\n'.join(ddl)
 
-    def insert(self, table: Table, record: OrderedMap) -> str:
+    def insert(self, table: schema.Table, record: types.OrderedMap) -> str:
         """
         Compiles a INSERT statement for a given table and record.
 
@@ -409,7 +414,7 @@ class SqlCompiler(object):
                     dialect=self._dialect)(value)
                 for column, value in record.items())
 
-        dml = 'INSERT INTO ' + _(table.name)
+        dml = 'INSERT INTO ' + i18n._(table.name)
 
         if any(isinstance(record, _type) for _type in (list, set, tuple)) \
                 and self._dialect.supports_multivalues_insert:
@@ -421,8 +426,8 @@ class SqlCompiler(object):
 
         return dml
 
-    @cachedmethod()
-    def inserts(self, table: Table) -> str:
+    @decorators.cachedmethod()
+    def inserts(self, table: schema.Table) -> str:
         """
         Compiles the INSERT statements for a given table and list of records.
 
@@ -437,12 +442,13 @@ class SqlCompiler(object):
                          for record in table._records)
 
 
-class DialectFactory(object):
+class SqlDialect(object):
     """Factory class for instantiation of SQL dialect implementations."""
 
-    def __new__(cls, dialect: str) -> Dialect:
+    @staticmethod
+    def factory(dialect: str) -> interfaces.Dialect:
         """
-        Gets the given SQL dialect instance by name.
+        Factories the given SQL dialect instance by name.
 
         Args:
             dialect: The SQL dialect name
@@ -451,7 +457,7 @@ class DialectFactory(object):
             The SQL dialect instance
         """
         if dialect == 'default':
-            return DefaultDialect()
+            return default.DefaultDialect()
 
         if dialect in ['firebird', 'mssql', 'mysql', 'oracle', 'postgresql',
                        'sqlite', 'sybase']:
@@ -462,4 +468,3 @@ class DialectFactory(object):
 
 class UnsupportedDialectError(Exception):
     """Exception class raised when a given SQL dialect is not supported."""
-    pass
