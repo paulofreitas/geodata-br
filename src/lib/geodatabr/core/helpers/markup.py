@@ -20,10 +20,6 @@ from lxml import builder, etree, html as _html
 class MarkupElement(object):
     """Abstract markup element class."""
 
-    def __init__(self):
-        """No-op constructor."""
-        raise NotImplementedError
-
     def __repr__(self) -> str:
         """
         Returns the canonical string representation of the object.
@@ -35,6 +31,15 @@ class MarkupElement(object):
                .format(self.__class__.__name__,
                        ', '.join('{}={}'.format(key, repr(value))
                                  for key, value in self.__dict__.items()))
+
+    def __str__(self) -> str:
+        """
+        Returns the string representation of the object.
+
+        Returns:
+            The string representation of the object
+        """
+        raise NotImplementedError
 
 
 class MarkdownGenerator(type):
@@ -71,6 +76,15 @@ class MarkdownGenerator(type):
 
 class MarkdownElement(MarkupElement):
     """Abstract Markdown element class."""
+
+    def __str__(self) -> str:
+        """
+        Returns the string representation of the object.
+
+        Returns:
+            The string representation of the object
+        """
+        raise NotImplementedError
 
 
 class Markdown(metaclass=MarkdownGenerator):
@@ -534,6 +548,15 @@ class HtmlElement(MarkupElement, etree.ElementBase):
                               for key, value in self.attrib.items())
 
         return 'Html.{:s}({!s})'.format(self.tag, attr)
+
+    def __str__(self) -> str:
+        """
+        Returns the string representation of the object.
+
+        Returns:
+            The string representation of the object
+        """
+        return Html(self)
 
 
 class Html(object, metaclass=HtmlGenerator):
