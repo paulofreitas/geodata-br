@@ -7,16 +7,14 @@
 
 # Package dependencies
 
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.types import FileStream
-from geodatabr.dataset.schema import ENTITIES
-from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders.sql.utils import SchemaGenerator
+from geodatabr.core import encoders, types
+from geodatabr.dataset import schema, serializers
+from geodatabr.encoders.sql import utils as sql_utils
 
 # Classes
 
 
-class SqlFormat(EncoderFormat):
+class SqlFormat(encoders.EncoderFormat):
     """Encoder format class for SQL file format."""
 
     @property
@@ -50,7 +48,7 @@ class SqlFormat(EncoderFormat):
         return 'https://en.wikipedia.org/wiki/SQL'
 
 
-class SqlEncoder(Encoder):
+class SqlEncoder(encoders.Encoder):
     """
     SQL encoder class.
 
@@ -61,7 +59,7 @@ class SqlEncoder(Encoder):
     """
 
     format = SqlFormat
-    serializer = Serializer
+    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:
@@ -73,7 +71,7 @@ class SqlEncoder(Encoder):
         """Gets the encoder serialization options."""
         return dict(localize=False)
 
-    def encode(self, data: dict, **options) -> FileStream:
+    def encode(self, data: dict, **options) -> types.FileStream:
         """
         Encodes the data into a SQL file-like stream.
 
@@ -85,17 +83,18 @@ class SqlEncoder(Encoder):
             A SQL file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            schema = SchemaGenerator(**dict(self.options, **options))
+            sql_schema = sql_utils.SchemaGenerator(**dict(self.options,
+                                                          **options))
 
-            for entity in ENTITIES:
+            for entity in schema.ENTITIES:
                 records = data.get(entity.__table__.name)
 
                 if records:
-                    schema.addTable(entity.__table__, records)
+                    sql_schema.addTable(entity.__table__, records)
 
-            return FileStream(schema.render())
+            return types.FileStream(sql_schema.render())
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

@@ -7,14 +7,14 @@
 
 # Package dependencies
 
-from geodatabr.core.commands import Application
+from geodatabr.core import commands
 
 # Functions
 
 
 def main():
     """Main entry point."""
-    app = Application()
+    app = commands.Application()
     app.run()
 
 

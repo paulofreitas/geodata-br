@@ -7,20 +7,17 @@
 
 # External dependencies
 
-from lxml.etree import Element, SubElement, tostring as xml_str
+from lxml import etree
 
 # Package dependencies
 
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.i18n import _
-from geodatabr.core.types import BinaryFileStream
-from geodatabr.dataset.schema import ENTITIES
-from geodatabr.dataset.serializers import Serializer
+from geodatabr.core import encoders, i18n, types
+from geodatabr.dataset import schema, serializers
 
 # Classes
 
 
-class XmlFormat(EncoderFormat):
+class XmlFormat(encoders.EncoderFormat):
     """Encoder format class for XML file format."""
 
     @property
@@ -54,7 +51,7 @@ class XmlFormat(EncoderFormat):
         return 'https://en.wikipedia.org/wiki/XML'
 
 
-class XmlEncoder(Encoder):
+class XmlEncoder(encoders.Encoder):
     """
     XML encoder class.
 
@@ -65,7 +62,7 @@ class XmlEncoder(Encoder):
     """
 
     format = XmlFormat
-    serializer = Serializer
+    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:
@@ -79,7 +76,7 @@ class XmlEncoder(Encoder):
         """Gets the encoder serialization options."""
         return dict(forceStr=True)
 
-    def encode(self, data, **options) -> BinaryFileStream:
+    def encode(self, data, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a XML file-like stream.
 
@@ -91,26 +88,28 @@ class XmlEncoder(Encoder):
             A XML file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
+        # pylint: disable=protected-access
         try:
-            dataset = Element(_('dataset_name'))
-            entities = {_(entity.__table__.name): _(entity._name)
-                        for entity in ENTITIES}
+            dataset = etree.Element(i18n._('dataset_name'))
+            entities = {i18n._(entity.__table__.name): i18n._(entity._name)
+                        for entity in schema.ENTITIES}
 
             for table_name, rows in iter(data.items()):
-                table = SubElement(dataset, table_name)
+                table = etree.SubElement(dataset, table_name)
 
                 for row in rows:
-                    SubElement(table, entities.get(table_name), row)
+                    etree.SubElement(table, entities.get(table_name), row)
 
-            xml_data = xml_str(dataset, **dict(self.options, **options))
+            xml_data = etree.tostring(dataset,
+                                      **dict(self.options, **options))
 
             # Workaround for hard-coded single quoting
             xml_declaration = xml_data[:xml_data.find(b'?>') + 2]
             xml_data = xml_data.replace(xml_declaration,
                                         xml_declaration.replace(b"'", b'"'))
 
-            return BinaryFileStream(xml_data)
+            return types.BinaryFileStream(xml_data)
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

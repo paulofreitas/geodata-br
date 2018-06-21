@@ -7,18 +7,17 @@
 
 # External dependencies
 
-from pyexcel_ods import save_data as write_ods
+import pyexcel_ods
 
 # Package dependencies
 
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.types import BinaryFileStream, OrderedMap
-from geodatabr.dataset.serializers import Serializer
+from geodatabr.core import encoders, types
+from geodatabr.dataset import serializers
 
 # Classes
 
 
-class OpenDocumentSpreadsheetFormat(EncoderFormat):
+class OpenDocumentSpreadsheetFormat(encoders.EncoderFormat):
     """Encoder format class for OpenDocument Spreadsheet file format."""
 
     @property
@@ -57,7 +56,7 @@ class OpenDocumentSpreadsheetFormat(EncoderFormat):
         return True
 
 
-class OpenDocumentSpreadsheetEncoder(Encoder):
+class OpenDocumentSpreadsheetEncoder(encoders.Encoder):
     """
     OpenDocument Spreadsheet encoder class.
 
@@ -69,9 +68,9 @@ class OpenDocumentSpreadsheetEncoder(Encoder):
     """
 
     format = OpenDocumentSpreadsheetFormat
-    serializer = Serializer
+    serializer = serializers.Serializer
 
-    def encode(self, data: dict, **options) -> BinaryFileStream:
+    def encode(self, data: dict, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a OpenDocument Spreadsheet file-like stream.
 
@@ -83,19 +82,19 @@ class OpenDocumentSpreadsheetEncoder(Encoder):
             An OpenDocument Spreadsheet file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            ods_file = BinaryFileStream()
-            ods_data = OrderedMap()
+            ods_file = types.BinaryFileStream()
+            ods_data = types.OrderedMap()
 
             for entity, records in data.items():
                 ods_data[entity] = [list(records.first().keys())] \
                     + [list(record.values()) for record in records]
 
-            write_ods(ods_file, ods_data)
+            pyexcel_ods.save_data(ods_file, ods_data)
             ods_file.seek(0)
 
             return ods_file
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

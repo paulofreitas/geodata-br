@@ -15,16 +15,15 @@ import fdb
 
 # Package dependencies
 
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.helpers.filesystem import File
-from geodatabr.core.types import BinaryFileStream
-from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders.sql import SqlEncoder
+from geodatabr.core import encoders, types
+from geodatabr.core.helpers import filesystem as io
+from geodatabr.dataset import serializers
+from geodatabr.encoders import sql
 
 # Classes
 
 
-class FirebirdFormat(EncoderFormat):
+class FirebirdFormat(encoders.EncoderFormat):
     """Encoder format class for Firebird Embedded file format."""
 
     @property
@@ -63,7 +62,7 @@ class FirebirdFormat(EncoderFormat):
         return True
 
 
-class FirebirdEncoder(SqlEncoder, Encoder):
+class FirebirdEncoder(sql.SqlEncoder, encoders.Encoder):
     """
     Firebird encoder class.
 
@@ -75,14 +74,14 @@ class FirebirdEncoder(SqlEncoder, Encoder):
     """
 
     format = FirebirdFormat
-    serializer = Serializer
+    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:
         """Gets the default encoding options."""
         return dict(dialect='firebird')
 
-    def encode(self, data: dict, **options) -> BinaryFileStream:
+    def encode(self, data: dict, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a Firebird Embedded file-like stream.
 
@@ -94,7 +93,7 @@ class FirebirdEncoder(SqlEncoder, Encoder):
             A Firebird Embedded file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
             sql_data = super().encode(data, **dict(self.options, **options))
@@ -116,6 +115,6 @@ class FirebirdEncoder(SqlEncoder, Encoder):
 
                 fdb_cursor.execute(stmt)
 
-            return BinaryFileStream(File(fdb_file).readBytes())
+            return types.BinaryFileStream(io.File(fdb_file).readBytes())
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

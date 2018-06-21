@@ -7,15 +7,14 @@
 
 # Package dependencies
 
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.types import BinaryFileStream
-from geodatabr.encoders.csv import CsvEncoder
-from geodatabr.dataset.serializers import FlattenedSerializer
+from geodatabr.core import encoders, types
+from geodatabr.dataset import serializers
+from geodatabr.encoders import csv
 
 # Classes
 
 
-class TsvFormat(EncoderFormat):
+class TsvFormat(encoders.EncoderFormat):
     """Encoder format class for TSV file format."""
 
     @property
@@ -51,7 +50,7 @@ class TsvFormat(EncoderFormat):
         return 'https://en.wikipedia.org/wiki/Tab-separated_values'
 
 
-class TsvEncoder(Encoder):
+class TsvEncoder(encoders.Encoder):
     """
     TSV encoder class.
 
@@ -62,14 +61,14 @@ class TsvEncoder(Encoder):
     """
 
     format = TsvFormat
-    serializer = FlattenedSerializer
+    serializer = serializers.FlattenedSerializer
 
     @property
     def options(self) -> dict:
         """Gets the default encoding options."""
         return dict(delimiter='\t')
 
-    def encode(self, data: list, **options) -> BinaryFileStream:
+    def encode(self, data: list, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a TSV file-like stream.
 
@@ -81,9 +80,10 @@ class TsvEncoder(Encoder):
             A TSV file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            return CsvEncoder().encode(data, **dict(self.options, **options))
+            return csv.CsvEncoder().encode(data,
+                                           **dict(self.options, **options))
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

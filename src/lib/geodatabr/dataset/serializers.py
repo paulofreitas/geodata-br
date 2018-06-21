@@ -15,11 +15,8 @@ from typing import Any
 
 # Package dependencies
 
-from geodatabr.core.decorators import cachedmethod
-from geodatabr.core.i18n import _
-from geodatabr.core.types import List, OrderedMap
-from geodatabr.dataset.schema import ENTITIES
-from geodatabr.dataset.repositories import StateRepository
+from geodatabr.core import decorators, i18n, types
+from geodatabr.dataset import repositories, schema
 
 # Classes
 
@@ -28,23 +25,25 @@ class BaseSerializer(object):
     """Abstract serializer class."""
 
     @property
-    @cachedmethod()
-    def __records__(self) -> OrderedMap:
+    @decorators.cachedmethod()
+    def __records__(self) -> types.OrderedMap:
         """
         Retrieves the dataset records.
 
         Returns:
             The dataset records
         """
-        records = OrderedMap(states=StateRepository().loadAll())
+        records = types.OrderedMap(
+            states=repositories.StateRepository.loadAll())
 
-        for _entity in ENTITIES:
-            entity = _entity.__table__.name
+        for entity in schema.ENTITIES:
+            table = entity.__table__.name
 
-            if entity not in records:
-                records[entity] = List([item
-                                        for state in records.states
-                                        for item in getattr(state, entity)])
+            if table not in records:
+                records[table] = types.List([item
+                                             for state in records.states
+                                             for item in getattr(state,
+                                                                 table)])
 
         return records
 
@@ -55,7 +54,7 @@ class BaseSerializer(object):
         Args:
             **options: The serialization options
         """
-        self._options = OrderedMap(options)
+        self._options = types.OrderedMap(options)
 
     def serialize(self) -> Any:
         """
@@ -80,17 +79,17 @@ class Serializer(BaseSerializer):
         super().__init__(localize=localize,
                          forceStr=forceStr)
 
-    @cachedmethod()
-    def serialize(self) -> OrderedMap:
+    @decorators.cachedmethod()
+    def serialize(self) -> types.OrderedMap:
         """
         Serializes the dataset records.
 
         Returns:
             The serialized dataset records mapping
         """
-        records = OrderedMap()
+        records = types.OrderedMap()
 
-        for entity in ENTITIES:
+        for entity in schema.ENTITIES:
             table = str(entity.__table__.name)
             _records = self.__records__[table]
 
@@ -98,20 +97,20 @@ class Serializer(BaseSerializer):
                 continue
 
             if self._options.localize:
-                table = _(table)
+                table = i18n._(table)
 
-            records[table] = List()
+            records[table] = types.List()
 
             for _record in _records:
                 _record = _record.serialize()
-                record = OrderedMap()
+                record = types.OrderedMap()
 
                 for column in entity.__table__.columns:
                     column = str(column.name)
                     value = _record[column]
 
                     if self._options.localize:
-                        column = _(column)
+                        column = i18n._(column)
 
                     record[column] = str(value) if self._options.forceStr else value
 
@@ -123,20 +122,20 @@ class Serializer(BaseSerializer):
 class FlattenedSerializer(BaseSerializer):
     """Flattened serialization implementation."""
 
-    @cachedmethod()
-    def serialize(self) -> List:
+    @decorators.cachedmethod()
+    def serialize(self) -> types.List:
         """
         Serializes the dataset records.
 
         Returns:
             The serialized dataset records list
         """
-        records = List()
+        records = types.List()
 
-        for entity in ENTITIES:
+        for entity in schema.ENTITIES:
             for record in self.__records__[entity.__table__.name]:
-                records.append(OrderedMap(
-                    [(_(key), value)
+                records.append(types.OrderedMap(
+                    [(i18n._(key), value)
                      for key, value in record.serialize(flatten=True).items()]))
 
         records.sort(key=lambda record: (record.get('state_id') or 0,

@@ -11,34 +11,42 @@ This module provides helper classes to write documentation files.
 
 # Built-in dependencies
 
-from itertools import groupby
+import itertools
 
 # Package dependencies
 
-from geodatabr.core.encoders import EncoderFormatRepository
-from geodatabr.core.helpers.filesystem import Directory, File, Path
-from geodatabr.core.helpers.markup import GithubMarkdown as Markdown
-from geodatabr.core.i18n import _, Translator
-from geodatabr.core.types import AbstractClass, Map
-from geodatabr.dataset.serializers import Serializer
+from geodatabr.core import encoders, i18n, types
+from geodatabr.core.helpers import filesystem as io, markup
+from geodatabr.dataset import serializers
 
 # Classes
 
 
-class Readme(AbstractClass):
-    """An abstract README documentation file."""
+class Readme(types.AbstractClass):
+    """
+    An abstract README documentation file.
 
-    def __init__(self, readme_file: File, stub_file: File = None):
+    Attributes:
+        _readme_file (geodatabr.core.helpers.filesystem.File): The README file
+        _stub_file (geodatabr.core.helpers.filesystem.File):
+            The template README file
+        _stub (str): template README contents
+        _markdown (geodatabr.core.helpers.markup.GithubMarkdown):
+            The Github Markdown helper
+    """
+
+    def __init__(self, readme_file: io.File, stub_file: io.File = None):
         """
         Creates a new README file.
 
         Args:
             readme_file: The README file
-            stub_file: The README stub file
+            stub_file: The template README file
         """
         self._readme_file = readme_file
         self._stub_file = stub_file
         self._stub = self._stub_file.read() if stub_file else ''
+        self._markdown = markup.GithubMarkdown
 
     def render(self) -> str:
         """Renders the file."""
@@ -54,8 +62,8 @@ class ProjectReadme(Readme):
 
     def __init__(self):
         """Creates a new project README documentation file instance."""
-        readme_file = File(Path.CURRENT_DIR / 'README.md')
-        stub_file = File(Path.PKG_STUB_DIR / 'README.stub.md')
+        readme_file = io.File(io.Path.CURRENT_DIR / 'README.md')
+        stub_file = io.File(io.Path.PKG_STUB_DIR / 'README.stub.md')
 
         super().__init__(readme_file, stub_file)
 
@@ -66,7 +74,7 @@ class ProjectReadme(Readme):
         Returns:
             The rendered project README contents
         """
-        Translator.locale = 'en'
+        i18n.Translator.locale = 'en'
 
         return self._stub.format(
             badges=self.renderBadges().strip(),
@@ -80,7 +88,7 @@ class ProjectReadme(Readme):
         Returns:
             The document badges
         """
-        dataset = Serializer().serialize()
+        dataset = serializers.Serializer().serialize()
 
         return '\n'.join(str(CustomBadge(entity,
                                          '{:,d}'.format(len(dataset[entity])),
@@ -94,14 +102,14 @@ class ProjectReadme(Readme):
         Returns:
             The available data formats
         """
-        grouped_formats = EncoderFormatRepository.groupByType()
+        grouped_formats = encoders.EncoderFormatRepository.groupByType()
         markdown = ''
 
         for format_type, formats in grouped_formats:
             markdown += '\n'.join([
-                Markdown.header(format_type, depth=4),
-                Markdown.unorderedList([
-                    Markdown.link(_format.info, _format.friendlyName)
+                self._markdown.header(format_type, depth=4),
+                self._markdown.unorderedList([
+                    self._markdown.link(_format.info, _format.friendlyName)
                     for _format in formats
                 ]) + '\n'
             ])
@@ -112,15 +120,15 @@ class ProjectReadme(Readme):
 class DatasetReadme(Readme):
     """A dataset README documentation file."""
 
-    def __init__(self, dataset_dir: Directory):
+    def __init__(self, dataset_dir: io.Directory):
         """
         Creates a new dataset README documentation file instance.
 
         Args:
             dataset_dir: The dataset directory
         """
-        readme_file = File(dataset_dir / 'README.md')
-        stub_file = File(Path.PKG_STUB_DIR / 'BASE_README.stub.md')
+        readme_file = io.File(dataset_dir / 'README.md')
+        stub_file = io.File(io.Path.PKG_STUB_DIR / 'BASE_README.stub.md')
 
         super().__init__(readme_file, stub_file)
 
@@ -146,14 +154,14 @@ class DatasetReadme(Readme):
         """
         headers = ['Table/Collection', 'Records']
         alignment = ['>', '>']
-        dataset = Serializer().serialize()
+        dataset = serializers.Serializer().serialize()
         data = [
-            [Markdown.code(entity),
+            [self._markdown.code(entity),
              '{:,d}'.format(len(dataset[entity]))]
             for entity in dataset
         ]
 
-        return Markdown.table([headers] + data, alignment)
+        return self._markdown.table([headers] + data, alignment)
 
     def renderDatasetFiles(self) -> str:
         """
@@ -162,14 +170,15 @@ class DatasetReadme(Readme):
         Returns:
             The dataset files info
         """
-        files = list(self._dataset_dir.files(pattern=_('dataset_name') + '*'))
-        grouped_files = groupby(sorted(files,
-                                       key=lambda file: file.format.type),
-                                key=lambda file: file.format.type)
+        files = list(self._dataset_dir.files(
+            pattern=i18n._('dataset_name') + '*'))
+        grouped_files = itertools.groupby(
+            sorted(files, key=lambda file: file.format.type),
+            key=lambda file: file.format.type)
         listing = []
 
         for dataset_type, dataset_files in grouped_files:
-            listing.append(Markdown.header(dataset_type, depth=4))
+            listing.append(self._markdown.header(dataset_type, depth=4))
             headers = ['File', 'Format', 'Size']
             alignment = ['<', '^', '>']
             rows = []
@@ -178,22 +187,20 @@ class DatasetReadme(Readme):
                 dataset_format = '-'
 
                 if dataset_file.format:
-                    dataset_format = Markdown.link(
+                    dataset_format = self._markdown.link(
                         dataset_file.format.info,
                         dataset_file.format.friendlyName)
 
-                rows.append([
-                    Markdown.code(dataset_file.name),
-                    dataset_format,
-                    '{:9,d}'.format(dataset_file.size),
-                ])
+                rows.append([self._markdown.code(dataset_file.name),
+                             dataset_format,
+                             '{:9,d}'.format(dataset_file.size)])
 
-            listing.append(Markdown.table([headers] + rows, alignment))
+            listing.append(self._markdown.table([headers] + rows, alignment))
 
         return '\n'.join(listing)
 
 
-class Badge(AbstractClass, Map):
+class Badge(types.AbstractClass, types.Map):
     """An abstract badge image."""
 
     def __str__(self) -> str:
@@ -214,7 +221,7 @@ class CustomBadge(Badge):
 
     def __str__(self) -> str:
         """Renders the badge image."""
-        return Markdown.image(
+        return markup.GithubMarkdown.image(
             'https://img.shields.io/badge/{label}-{value}-{color}.svg'
             .format(label=self.label,
                     value=self.value,

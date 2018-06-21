@@ -12,21 +12,19 @@ This module provides the services that are used to create the dataset.
 # Built-in dependencies
 
 import logging
-
-from urllib.parse import urljoin
+from urllib import parse
 
 # External dependencies
 
-from requests import Session
-from requests.adapters import HTTPAdapter
-from requests.models import Response
-from requests.packages.urllib3.util.retry import Retry
-from ratelimit import limits, sleep_and_retry
+import ratelimit
+import requests
+from requests import adapters, exceptions, models
+from requests.packages.urllib3.util import retry
 
 # Package dependencies
 
-from geodatabr.__meta__ import __version__, __url__
-from geodatabr.core.types import Map
+from geodatabr import __meta__
+from geodatabr.core import types
 
 # Logging setup
 
@@ -53,7 +51,7 @@ SIDRA_SUBDISTRICT = 11
 # Classes
 
 
-class HttpSession(Session):
+class HttpSession(requests.Session):
     """Custom HTTP session implementation."""
 
     def __init__(self, base_url: str, *args, **kwargs):
@@ -71,19 +69,20 @@ class HttpSession(Session):
         # Custom headers
         self.headers.update({
             'User-Agent': 'geodatabr/{version} ({url})'
-                          .format(version=__version__, url=__url__),
+                          .format(version=__meta__.__version__,
+                                  url=__meta__.__url__),
         })
 
         # Automatic retries
         for protocol in ('http://', 'https://'):
-            self.mount(protocol, HTTPAdapter(
-                max_retries=Retry(total=HTTP_MAX_RETRIES,
-                                  backoff_factor=HTTP_BACKOFF_FACTOR,
-                                  status_forcelist=HTTP_RETRY_STATUSES)))
+            self.mount(protocol, adapters.HTTPAdapter(
+                max_retries=retry.Retry(total=HTTP_MAX_RETRIES,
+                                        backoff_factor=HTTP_BACKOFF_FACTOR,
+                                        status_forcelist=HTTP_RETRY_STATUSES)))
 
-    @sleep_and_retry
-    @limits(calls=1, period=HTTP_THROTTLING_INTERVAL)
-    def request(self, method: str, url: str, **kwargs) -> Response:
+    @ratelimit.sleep_and_retry
+    @ratelimit.limits(calls=1, period=HTTP_THROTTLING_INTERVAL)
+    def request(self, method: str, url: str, **kwargs) -> models.Response:
         """
         HTTP throttled requests with custom timeouts.
 
@@ -99,7 +98,7 @@ class HttpSession(Session):
             kwargs.update(timeout=(HTTP_CONNECT_TIMEOUT, HTTP_READ_TIMEOUT))
 
         response = super().request(method,
-                                   urljoin(self._base_url, url),
+                                   parse.urljoin(self._base_url, url),
                                    **kwargs)
         response.raise_for_status()
 
@@ -191,7 +190,7 @@ class SidraDataset(object):
             records = self._session \
                 .get('/Territorio/Unidades', params={'nivel': level}) \
                 .json()
-        except Exception:
+        except exceptions.RequestException:
             records = {}
 
         return SidraDatasetResponse(records)
@@ -218,7 +217,7 @@ class SidraDataset(object):
                              'abrangente': parent_level,
                              'unidade': parent_id}) \
                 .json()
-        except Exception:
+        except exceptions.RequestException:
             records = {}
 
         return SidraDatasetResponse(records)
@@ -235,6 +234,6 @@ class SidraDatasetResponse(list):
             data: The API JSON response
         """
         super().__init__([
-            Map(id=_id, name=name)
+            types.Map(id=_id, name=name)
             for (_id, name) in zip(data['Codigos'], data['Nomes'])
         ])

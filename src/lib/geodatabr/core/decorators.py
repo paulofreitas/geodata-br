@@ -12,7 +12,7 @@ functions.
 
 # Built-in dependencies
 
-from functools import lru_cache
+import functools
 
 # Classes
 
@@ -53,7 +53,7 @@ def cachedmethod(maxsize: int = None):
     Returns:
         The cache decorated function
     """
-    return lru_cache(maxsize=maxsize)
+    return functools.lru_cache(maxsize=maxsize)
 
 def datadescriptor(cls):
     """

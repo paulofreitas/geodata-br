@@ -11,19 +11,17 @@ This module provides the repositories classes used to query the dataset.
 
 # External dependencies
 
-from sqlalchemy.orm import subqueryload
+from sqlalchemy import orm
 
 # Package dependencies
 
-from geodatabr.core.types import AbstractClass, List
-from geodatabr.dataset import Database
-from geodatabr.dataset.schema import Entity, \
-    State, Mesoregion, Microregion, Municipality, District, Subdistrict
+from geodatabr.core import types
+from geodatabr.dataset import base, schema
 
 # Classes
 
 
-class Repository(AbstractClass):
+class Repository(types.AbstractClass):
     """
     Abstract implementation of repository pattern.
 
@@ -32,11 +30,11 @@ class Repository(AbstractClass):
         entity (geodatabr.dataset.schema.Entity): The repository entity class
     """
 
-    db = Database.session()
+    db = base.Database.session()
     entity = None
 
     @classmethod
-    def add(cls, instance: Entity):
+    def add(cls, instance: schema.Entity):
         """
         Saves an entity instance.
 
@@ -56,17 +54,17 @@ class Repository(AbstractClass):
         return cls.db.query(cls.entity).count()
 
     @classmethod
-    def findAll(cls) -> List:
+    def findAll(cls) -> types.List:
         """
         Retrieves all entity items.
 
         Returns:
             A list with all entity items
         """
-        return List(cls.db.query(cls.entity).all())
+        return types.List(cls.db.query(cls.entity).all())
 
     @classmethod
-    def findById(cls, _id: int) -> Entity:
+    def findById(cls, _id: int) -> schema.Entity:
         """
         Retrieves a single entity item by ID.
 
@@ -81,7 +79,7 @@ class Repository(AbstractClass):
             .first()
 
     @classmethod
-    def findByName(cls, name: str) -> Entity:
+    def findByName(cls, name: str) -> schema.Entity:
         """
         Retrieves a single entity item by name.
 
@@ -109,10 +107,10 @@ class StateRepository(Repository):
         entity (geodatabr.dataset.schema.State): The repository entity class
     """
 
-    entity = State
+    entity = schema.State
 
     @classmethod
-    def add(cls, instance: State):
+    def add(cls, instance: schema.State):
         """
         Saves a State instance.
 
@@ -132,7 +130,7 @@ class StateRepository(Repository):
         return super().count()
 
     @classmethod
-    def findAll(cls) -> List:
+    def findAll(cls) -> types.List:
         """
         Retrieves all states.
 
@@ -142,23 +140,26 @@ class StateRepository(Repository):
         return super().findAll()
 
     @classmethod
-    def loadAll(cls) -> List:
+    def loadAll(cls) -> types.List:
         """
         Retrieves all states with relationships loaded.
 
         Returns:
             A list with all states with relationships loaded
         """
-        return List(cls.db.query(State)
-                    .options(subqueryload(State.mesoregions),
-                             subqueryload(State.microregions),
-                             subqueryload(State.municipalities),
-                             subqueryload(State.districts),
-                             subqueryload(State.subdistricts))
-                    .all())
+        state = cls.entity
+
+        return types.List(
+            cls.db.query(state)
+            .options(orm.subqueryload(state.mesoregions),
+                     orm.subqueryload(state.microregions),
+                     orm.subqueryload(state.municipalities),
+                     orm.subqueryload(state.districts),
+                     orm.subqueryload(state.subdistricts))
+            .all())
 
     @classmethod
-    def findById(cls, _id: int) -> State:
+    def findById(cls, _id: int) -> schema.State:
         """
         Retrieves a single state by ID.
 
@@ -171,7 +172,7 @@ class StateRepository(Repository):
         return super().findById(_id)
 
     @classmethod
-    def findByName(cls, name: str) -> State:
+    def findByName(cls, name: str) -> schema.State:
         """
         Retrieves a single state by name.
 
@@ -198,10 +199,10 @@ class MesoregionRepository(Repository):
             The repository entity class
     """
 
-    entity = Mesoregion
+    entity = schema.Mesoregion
 
     @classmethod
-    def add(cls, instance: Mesoregion):
+    def add(cls, instance: schema.Mesoregion):
         """
         Saves a Mesoregion instance.
 
@@ -221,7 +222,7 @@ class MesoregionRepository(Repository):
         return super().count()
 
     @classmethod
-    def findAll(cls) -> List:
+    def findAll(cls) -> types.List:
         """
         Retrieves all mesoregions.
 
@@ -231,22 +232,25 @@ class MesoregionRepository(Repository):
         return super().findAll()
 
     @classmethod
-    def loadAll(cls) -> List:
+    def loadAll(cls) -> types.List:
         """
         Retrieves all mesoregions with relationships loaded.
 
         Returns:
             A list with all mesoregions with relationships loaded
         """
-        return List(cls.db.query(Mesoregion)
-                    .options(subqueryload(Mesoregion.microregions),
-                             subqueryload(Mesoregion.municipalities),
-                             subqueryload(Mesoregion.districts),
-                             subqueryload(Mesoregion.subdistricts))
-                    .all())
+        mesoregion = cls.entity
+
+        return types.List(
+            cls.db.query(mesoregion)
+            .options(orm.subqueryload(mesoregion.microregions),
+                     orm.subqueryload(mesoregion.municipalities),
+                     orm.subqueryload(mesoregion.districts),
+                     orm.subqueryload(mesoregion.subdistricts))
+            .all())
 
     @classmethod
-    def findById(cls, _id: int) -> Mesoregion:
+    def findById(cls, _id: int) -> schema.Mesoregion:
         """
         Retrieves a single mesoregion by ID.
 
@@ -259,7 +263,7 @@ class MesoregionRepository(Repository):
         return super().findById(_id)
 
     @classmethod
-    def findByName(cls, name: str) -> Mesoregion:
+    def findByName(cls, name: str) -> schema.Mesoregion:
         """
         Retrieves a single mesoregion by name.
 
@@ -286,10 +290,10 @@ class MicroregionRepository(Repository):
             The repository entity class
     """
 
-    entity = Microregion
+    entity = schema.Microregion
 
     @classmethod
-    def add(cls, instance: Microregion):
+    def add(cls, instance: schema.Microregion):
         """
         Saves a Microregion instance.
 
@@ -309,7 +313,7 @@ class MicroregionRepository(Repository):
         return super().count()
 
     @classmethod
-    def findAll(cls) -> List:
+    def findAll(cls) -> types.List:
         """
         Retrieves all microregions.
 
@@ -319,21 +323,24 @@ class MicroregionRepository(Repository):
         return super().findAll()
 
     @classmethod
-    def loadAll(cls) -> List:
+    def loadAll(cls) -> types.List:
         """
         Retrieves all microregions with relationships loaded.
 
         Returns:
             A list with all microregions with relationships loaded
         """
-        return List(cls.db.query(Microregion)
-                    .options(subqueryload(Microregion.municipalities),
-                             subqueryload(Microregion.districts),
-                             subqueryload(Microregion.subdistricts))
-                    .all())
+        microregion = cls.entity
+
+        return types.List(
+            cls.db.query(microregion)
+            .options(orm.subqueryload(microregion.municipalities),
+                     orm.subqueryload(microregion.districts),
+                     orm.subqueryload(microregion.subdistricts))
+            .all())
 
     @classmethod
-    def findById(cls, _id: int) -> Microregion:
+    def findById(cls, _id: int) -> schema.Microregion:
         """
         Retrieves a single microregion by ID.
 
@@ -346,7 +353,7 @@ class MicroregionRepository(Repository):
         return super().findById(_id)
 
     @classmethod
-    def findByName(cls, name: str) -> Microregion:
+    def findByName(cls, name: str) -> schema.Microregion:
         """
         Retrieves a single microregion by name.
 
@@ -373,10 +380,10 @@ class MunicipalityRepository(Repository):
             The repository entity class
     """
 
-    entity = Municipality
+    entity = schema.Municipality
 
     @classmethod
-    def add(cls, instance: Municipality):
+    def add(cls, instance: schema.Municipality):
         """
         Saves a Municipality instance.
 
@@ -396,7 +403,7 @@ class MunicipalityRepository(Repository):
         return super().count()
 
     @classmethod
-    def findAll(cls) -> List:
+    def findAll(cls) -> types.List:
         """
         Retrieves all municipalities.
 
@@ -406,20 +413,23 @@ class MunicipalityRepository(Repository):
         return super().findAll()
 
     @classmethod
-    def loadAll(cls) -> List:
+    def loadAll(cls) -> types.List:
         """
         Retrieves all municipalities with relationships loaded.
 
         Returns:
             A list with all municipalities with relationships loaded
         """
-        return List(cls.db.query(Municipality)
-                    .options(subqueryload(Municipality.districts),
-                             subqueryload(Municipality.subdistricts))
-                    .all())
+        municipality = cls.entity
+
+        return types.List(
+            cls.db.query(municipality)
+            .options(orm.subqueryload(municipality.districts),
+                     orm.subqueryload(municipality.subdistricts))
+            .all())
 
     @classmethod
-    def findById(cls, _id: int) -> Municipality:
+    def findById(cls, _id: int) -> schema.Municipality:
         """
         Retrieves a single municipality by ID.
 
@@ -432,7 +442,7 @@ class MunicipalityRepository(Repository):
         return super().findById(_id)
 
     @classmethod
-    def findByName(cls, name: str) -> Municipality:
+    def findByName(cls, name: str) -> schema.Municipality:
         """
         Retrieves a single municipality by name.
 
@@ -459,10 +469,10 @@ class DistrictRepository(Repository):
             The repository entity class
     """
 
-    entity = District
+    entity = schema.District
 
     @classmethod
-    def add(cls, instance: District):
+    def add(cls, instance: schema.District):
         """
         Saves a District instance.
 
@@ -482,7 +492,7 @@ class DistrictRepository(Repository):
         return super().count()
 
     @classmethod
-    def findAll(cls) -> List:
+    def findAll(cls) -> types.List:
         """
         Retrieves all districts.
 
@@ -492,19 +502,21 @@ class DistrictRepository(Repository):
         return super().findAll()
 
     @classmethod
-    def loadAll(cls) -> List:
+    def loadAll(cls) -> types.List:
         """
         Retrieves all districts with relationships loaded.
 
         Returns:
             A list with all districts with relationships loaded
         """
-        return List(cls.db.query(District)
-                    .options(subqueryload(District.subdistricts))
-                    .all())
+        district = cls.entity
+
+        return types.List(cls.db.query(district)
+                          .options(orm.subqueryload(district.subdistricts))
+                          .all())
 
     @classmethod
-    def findById(cls, _id: int) -> District:
+    def findById(cls, _id: int) -> schema.District:
         """
         Retrieves a single district by ID.
 
@@ -517,7 +529,7 @@ class DistrictRepository(Repository):
         return super().findById(_id)
 
     @classmethod
-    def findByName(cls, name: str) -> District:
+    def findByName(cls, name: str) -> schema.District:
         """
         Retrieves a single district by name.
 
@@ -544,10 +556,10 @@ class SubdistrictRepository(Repository):
             The repository entity class
     """
 
-    entity = Subdistrict
+    entity = schema.Subdistrict
 
     @classmethod
-    def add(cls, instance: Subdistrict):
+    def add(cls, instance: schema.Subdistrict):
         """
         Saves a Subdistrict instance.
 
@@ -567,7 +579,7 @@ class SubdistrictRepository(Repository):
         return super().count()
 
     @classmethod
-    def findAll(cls) -> List:
+    def findAll(cls) -> types.List:
         """
         Retrieves all subdistricts.
 
@@ -577,7 +589,7 @@ class SubdistrictRepository(Repository):
         return super().findAll()
 
     @classmethod
-    def findById(cls, _id: int) -> Subdistrict:
+    def findById(cls, _id: int) -> schema.Subdistrict:
         """
         Retrieves a single subdistrict by ID.
 
@@ -590,7 +602,7 @@ class SubdistrictRepository(Repository):
         return super().findById(_id)
 
     @classmethod
-    def findByName(cls, name: str) -> Subdistrict:
+    def findByName(cls, name: str) -> schema.Subdistrict:
         """
         Retrieves a single subdistrict by name.
 
@@ -612,7 +624,7 @@ class RepositoryFactory(object):
     """Factory class for instantiation of concrete repositories."""
 
     @staticmethod
-    def fromEntity(entity: Entity) -> Repository:
+    def fromEntity(entity: schema.Entity) -> Repository:
         """
         Factories a repository class for a given entity class.
 

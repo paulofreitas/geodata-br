@@ -11,14 +11,13 @@ import msgpack
 
 # Package dependencies
 
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.types import BinaryFileStream
-from geodatabr.dataset.serializers import Serializer
+from geodatabr.core import encoders, types
+from geodatabr.dataset import serializers
 
 # Classes
 
 
-class MessagePackFormat(EncoderFormat):
+class MessagePackFormat(encoders.EncoderFormat):
     """Encoder format class for MessagePack file format."""
 
     @property
@@ -57,7 +56,7 @@ class MessagePackFormat(EncoderFormat):
         return True
 
 
-class MessagePackEncoder(Encoder):
+class MessagePackEncoder(encoders.Encoder):
     """
     MessagePack encoder class.
 
@@ -69,14 +68,14 @@ class MessagePackEncoder(Encoder):
     """
 
     format = MessagePackFormat
-    serializer = Serializer
+    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:
         """Gets the default encoding options."""
         return dict(use_bin_type=False)
 
-    def encode(self, data: dict, **options) -> BinaryFileStream:
+    def encode(self, data: dict, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a MessagePack file-like stream.
 
@@ -88,10 +87,10 @@ class MessagePackEncoder(Encoder):
             A MessagePack file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            return BinaryFileStream(
+            return types.BinaryFileStream(
                 msgpack.packb(data, **dict(self.options, **options)))
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

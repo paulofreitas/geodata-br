@@ -7,18 +7,17 @@
 
 # External dependencies
 
-from pyexcel_xls import save_data as write_xls
+import pyexcel_xls
 
 # Package dependencies
 
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.types import BinaryFileStream, OrderedMap
-from geodatabr.dataset.serializers import Serializer
+from geodatabr.core import encoders, types
+from geodatabr.dataset import serializers
 
 # Classes
 
 
-class MicrosoftExcelFormat(EncoderFormat):
+class MicrosoftExcelFormat(encoders.EncoderFormat):
     """Encoder format class for Microsoft Excel Spreadsheet file format."""
 
     @property
@@ -57,7 +56,7 @@ class MicrosoftExcelFormat(EncoderFormat):
         return True
 
 
-class MicrosoftExcelEncoder(Encoder):
+class MicrosoftExcelEncoder(encoders.Encoder):
     """
     Microsoft Excel Spreadsheet encoder class.
 
@@ -69,9 +68,9 @@ class MicrosoftExcelEncoder(Encoder):
     """
 
     format = MicrosoftExcelFormat
-    serializer = Serializer
+    serializer = serializers.Serializer
 
-    def encode(self, data: dict, **options) -> BinaryFileStream:
+    def encode(self, data: dict, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a Microsoft Excel Spreadsheet file-like stream.
 
@@ -83,19 +82,19 @@ class MicrosoftExcelEncoder(Encoder):
             A Microsoft Excel Spreadsheet file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            xls_file = BinaryFileStream()
-            xls_data = OrderedMap()
+            xls_file = types.BinaryFileStream()
+            xls_data = types.OrderedMap()
 
             for entity, records in data.items():
                 xls_data[entity] = [list(records.first().keys())] \
                     + [list(record.values()) for record in records]
 
-            write_xls(xls_file, xls_data)
+            pyexcel_xls.save_data(xls_file, xls_data)
             xls_file.seek(0)
 
             return xls_file
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

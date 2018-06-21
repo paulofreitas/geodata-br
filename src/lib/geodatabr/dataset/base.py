@@ -11,20 +11,20 @@ This module provides the core classes to access and manage the database.
 
 # Built-in dependencies
 
-from contextlib import contextmanager
+import contextlib
 from typing import Iterator
 
 # External dependencies
 
-from sqlalchemy import create_engine
-from sqlalchemy.engine.base import Engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm.session import Session
+import sqlalchemy as sql
+from sqlalchemy import orm as sql_orm
+from sqlalchemy.engine import base as sql_engine
+from sqlalchemy.orm import session as sql_session
 
 # Package dependencies
 
-from geodatabr.core.helpers.filesystem import CacheFile, Directory, Path
-from geodatabr.dataset.schema import Entity
+from geodatabr.core.helpers import filesystem as io
+from geodatabr.dataset import schema
 
 # Classes
 
@@ -33,7 +33,7 @@ class Database(object):
     """Database service class."""
 
     @classmethod
-    def engine(cls, **options) -> Engine:
+    def engine(cls, **options) -> sql_engine.Engine:
         """
         Factories a new database engine.
 
@@ -43,25 +43,27 @@ class Database(object):
         Returns:
             The database engine instance
         """
-        return create_engine('sqlite:///' + str(CacheFile('geodatabr.db')),
-                             **options)
+        return sql.create_engine(
+            'sqlite:///' + str(io.CacheFile('geodatabr.db')),
+            **options)
 
     @classmethod
-    def session(cls) -> Session:
+    def session(cls) -> sql_session.Session:
         """
         Factories a new database session.
 
         Returns:
             The database session instance
         """
-        session = sessionmaker(bind=cls.engine())()
+        session = sql_orm.sessionmaker(bind=cls.engine())()
         session.execute('PRAGMA foreign_keys = OFF')
 
         return session
 
     @classmethod
-    @contextmanager
-    def transaction(cls, session: Session) -> Iterator[Session]:
+    @contextlib.contextmanager
+    def transaction(cls,
+                    session: sql_session.Session) -> Iterator[sql_session.Session]:
         """
         Provides a transactional context-based database session.
 
@@ -83,15 +85,15 @@ class Database(object):
     @classmethod
     def create(cls):
         """Creates the database."""
-        Directory(Path.CACHE_DIR).create(parents=True)
-        Entity.metadata.create_all(cls.engine())
+        io.Directory(io.Path.CACHE_DIR).create(parents=True)
+        schema.Entity.metadata.create_all(cls.engine())
 
     @classmethod
     def clear(cls):
         """Clears the database."""
-        Entity.metadata.drop_all(cls.engine())
+        schema.Entity.metadata.drop_all(cls.engine())
 
     @classmethod
     def delete(cls):
         """Removes the database."""
-        CacheFile('geodatabr.db').unlink()
+        io.CacheFile('geodatabr.db').unlink()

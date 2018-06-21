@@ -7,12 +7,12 @@
 
 # Package dependencies
 
-from geodatabr.core.encoders import EncoderFormat
+from geodatabr.core import encoders
 
 # Classes
 
 
-class DatFormat(EncoderFormat):
+class DatFormat(encoders.EncoderFormat):
     """Encoder format class for Generic Data File file format."""
 
     @property

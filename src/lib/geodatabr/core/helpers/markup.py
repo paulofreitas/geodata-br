@@ -11,10 +11,8 @@ This module provides markup generators for HTML and Markdown.
 
 # Built-in dependencies
 
-from html import escape
-from lxml.builder import ElementMaker
-from lxml.etree import ElementBase, ElementDefaultClassLookup, HTMLParser
-from lxml.html import tostring
+import html
+from lxml import builder, etree, html as _html
 
 # Classes
 
@@ -230,9 +228,9 @@ class Markdown(metaclass=MarkdownGenerator):
         def __str__(self) -> str:
             """Renders the element."""
             if self.inline:
-                return '`{}`'.format(escape(self.source))
+                return '`{}`'.format(html.escape(self.source))
 
-            return '    {}\n'.format(escape(self.source))
+            return '    {}\n'.format(html.escape(self.source))
 
     class Image(MarkdownElement):
         """Markdown image element."""
@@ -421,7 +419,7 @@ class GithubMarkdown(Markdown, metaclass=MarkdownGenerator):
             if not self.lang:
                 return Markdown.code(self.source, self.inline)
 
-            return '```{}\n{}\n```'.format(self.lang, escape(self.source))
+            return '```{}\n{}\n```'.format(self.lang, html.escape(self.source))
 
     class Table(MarkdownElement):
         """Markdown table element."""
@@ -501,18 +499,19 @@ class HtmlGenerator(type):
         if name == '__elements__' or name not in cls.__elements__:
             raise AttributeError('Invalid element')
 
-        parser = HTMLParser()
+        parser = etree.HTMLParser()
         parser.set_element_class_lookup(
-            ElementDefaultClassLookup(element=HtmlElement))
+            etree.ElementDefaultClassLookup(element=HtmlElement))
 
         def _wrapper(*args, **kwargs):
-            return getattr(ElementMaker(makeelement=parser.makeelement),
-                           name)(*args, **kwargs)
+            return \
+                getattr(builder.ElementMaker(makeelement=parser.makeelement),
+                        name)(*args, **kwargs)
 
         return _wrapper
 
 
-class HtmlElement(MarkupElement, ElementBase):
+class HtmlElement(MarkupElement, etree.ElementBase):
     """Abstract HTML element class."""
 
     def __repr__(self) -> str:
@@ -570,4 +569,4 @@ class Html(object, metaclass=HtmlGenerator):
         Attributes:
             element: The HTML element to render
         """
-        return tostring(element).decode()
+        return _html.tostring(element).decode()

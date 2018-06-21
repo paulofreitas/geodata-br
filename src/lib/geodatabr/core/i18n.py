@@ -7,17 +7,20 @@ Core internationalization module.
 
 This module provides the localization facilities.
 """
-# External dependencies
+# Imports
+
+# Built-in dependencies
 
 from typing import Any
+
+# External dependencies
 
 import yaml
 
 # Package dependencies
 
-from geodatabr.core.decorators import cachedmethod
-from geodatabr.core.helpers.filesystem import Directory, File, Path
-from geodatabr.core.types import Map
+from geodatabr.core import decorators, types
+from geodatabr.core.helpers import filesystem as io
 
 # Classes
 
@@ -25,7 +28,7 @@ from geodatabr.core.types import Map
 class Localization(object):
     """Localization class."""
 
-    def __init__(self, locale: str, locale_file: File):
+    def __init__(self, locale: str, locale_file: io.File):
         """
         Creates a new localization instance.
 
@@ -40,7 +43,7 @@ class Localization(object):
         self._locale = locale
 
         try:
-            self._translations = Map(yaml.load(locale_file.read()))
+            self._translations = types.Map(yaml.load(locale_file.read()))
         except Exception:
             raise UnsupportedLocaleFileError('Unsupported localization file')
 
@@ -50,11 +53,11 @@ class Localization(object):
         return self._locale
 
     @property
-    def translations(self) -> Map:
+    def translations(self) -> types.Map:
         """Gets the localization translations."""
         return self._translations
 
-    @cachedmethod()
+    @decorators.cachedmethod()
     def translate(self, message: str, **placeholders) -> Any:
         """
         Translates the given message with their placeholders.
@@ -103,20 +106,20 @@ class Translator(object):
     fallbackLocale = 'en'
 
     @classmethod
-    @cachedmethod()
-    def locales(cls) -> Map:
+    @decorators.cachedmethod()
+    def locales(cls) -> types.Map:
         """
         Returns the available localizations.
 
         Returns:
             The available localizations mapping
         """
-        return Map({locale: Localization(locale, locale_file)
-                    for locale, locale_file in map(
-                        lambda locale_file: (locale_file.basename,
-                                             locale_file),
-                        Directory(Path.PKG_TRANSLATION_DIR)
-                        .files(pattern='*.yaml'))})
+        return types.Map({locale: Localization(locale, locale_file)
+                          for locale, locale_file in map(
+                              lambda locale_file: (locale_file.basename,
+                                                   locale_file),
+                              io.Directory(io.Path.PKG_TRANSLATION_DIR)
+                              .files(pattern='*.yaml'))})
 
     @classmethod
     def translate(cls, message: str, **placeholders) -> str:

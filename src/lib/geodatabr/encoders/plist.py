@@ -11,14 +11,13 @@ import plistlib
 
 # Package dependencies
 
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.types import BinaryFileStream
-from geodatabr.dataset.serializers import Serializer
+from geodatabr.core import encoders, types
+from geodatabr.dataset import serializers
 
 # Classes
 
 
-class PropertyListFormat(EncoderFormat):
+class PropertyListFormat(encoders.EncoderFormat):
     """Encoder format class for Property List file format."""
 
     @property
@@ -57,7 +56,7 @@ class PropertyListFormat(EncoderFormat):
         return True
 
 
-class PropertyListEncoder(Encoder):
+class PropertyListEncoder(encoders.Encoder):
     """
     Property List encoder class.
 
@@ -69,15 +68,15 @@ class PropertyListEncoder(Encoder):
     """
 
     format = PropertyListFormat
-    serializer = Serializer
+    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:
         """Gets the default encoding options."""
-        return dict(fmt=plistlib.FMT_BINARY,
+        return dict(fmt=plistlib.PlistFormat.FMT_BINARY,
                     sort_keys=False)
 
-    def encode(self, data: dict, **options) -> BinaryFileStream:
+    def encode(self, data: dict, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a Property List file-like stream.
 
@@ -89,10 +88,10 @@ class PropertyListEncoder(Encoder):
             A Property List file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            return BinaryFileStream(
+            return types.BinaryFileStream(
                 plistlib.dumps(data, **dict(self.options, **options)))
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

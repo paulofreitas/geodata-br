@@ -11,7 +11,6 @@ from __future__ import absolute_import
 
 import inspect
 import logging
-from logging import Logger as BaseLogger
 import sys
 
 # Classes
@@ -21,7 +20,8 @@ class Logger(object):
     """Base logger class."""
 
     @staticmethod
-    def instance(name: str = None, level: int = logging.NOTSET) -> BaseLogger:
+    def instance(name: str = None,
+                 level: int = logging.NOTSET) -> logging.Logger:
         """
         Returns a logger instance.
 
@@ -64,7 +64,7 @@ class Logger(object):
 # Functions
 
 
-def logger(level: int = logging.NOTSET) -> BaseLogger:
+def logger(level: int = logging.NOTSET) -> logging.Logger:
     """
     Logger factory method.
 

@@ -11,11 +11,10 @@ This module provides methods to bootstrap packages and modules.
 
 # Built-in dependencies
 
+import importlib
+import pkgutil
 import sys
-
-from importlib import import_module
-from pkgutil import walk_packages
-from types import ModuleType
+import types
 from typing import Any
 
 # Classes
@@ -25,7 +24,7 @@ class ModuleLoader(object):
     """Module loader class."""
 
     @staticmethod
-    def load(module: str) -> ModuleType:
+    def load(module: str) -> types.ModuleType:
         """
         Loads a given module.
 
@@ -36,17 +35,18 @@ class ModuleLoader(object):
             The given module class
 
         Raises:
-            ModuleNotFoundError: Raised when a module could not be located
+            geodatabr.core.bootstrapping.ModuleNotFoundError:
+                Raised when a module could not be located
             ImportError: Raised when the a module could not be loaded
         """
         if module in sys.modules:
             return sys.modules[module]
 
         try:
-            return import_module(module)
+            return importlib.import_module(module)
         except ImportError:
             raise ModuleNotFoundError("No module named '{}'".format(module))
-        except Exception:
+        except (NameError, SyntaxError):
             raise ImportError("Failed to load module '{}'".format(module))
 
     @classmethod
@@ -59,7 +59,8 @@ class ModuleLoader(object):
             ignore_error: Whether it should ignore import errors or not
 
         Raises:
-            ModuleNotFoundError: Raised when a module could not be located
+            geodatabr.core.bootstrapping.ModuleNotFoundError:
+                Raised when a module could not be located
             ImportError: Raised when the a module could not be loaded
         """
         try:
@@ -68,14 +69,15 @@ class ModuleLoader(object):
 
             namespace = package.__name__ + '.'
 
-            for _, name, _ in walk_packages(package.__path__, namespace):
+            for _, name, _ in pkgutil.walk_packages(package.__path__,
+                                                    namespace):
                 cls.load(name)
         except AttributeError:
             raise ModuleNotFoundError("No module named '{}'".format(package))
-        except Exception:
+        except (ImportError, ModuleNotFoundError):
             if not ignore_error:
                 raise
 
 
-class ModuleNotFoundError(ImportError):
+class ModuleNotFoundError(ImportError):  # pylint: disable=redefined-builtin
     """Exception class raised when a module could not be located."""

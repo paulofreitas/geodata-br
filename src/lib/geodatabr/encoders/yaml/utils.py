@@ -7,7 +7,7 @@
 
 # Built-in dependencies
 
-from collections import OrderedDict
+import collections
 
 # External dependencies
 
@@ -15,12 +15,12 @@ import yaml
 
 # Package dependencies
 
-from geodatabr.core.types import List, Map, OrderedMap
+from geodatabr.core import types
 
 # Monkey patches
 
 for dumper in (yaml.Dumper, yaml.SafeDumper):
-    yaml.add_representer(List, dumper.represent_list)
+    yaml.add_representer(types.List, dumper.represent_list)
 
-    for mapping in (Map, OrderedDict, OrderedMap):
+    for mapping in (collections.OrderedDict, types.Map, types.OrderedMap):
         yaml.add_representer(mapping, dumper.represent_dict)

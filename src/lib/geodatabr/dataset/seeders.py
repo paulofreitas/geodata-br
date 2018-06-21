@@ -11,34 +11,33 @@ This module provides the seeders classes used to populate the dataset.
 
 # Package dependencies
 
-from geodatabr.core.types import AbstractClass
-from geodatabr.dataset import Database
-from geodatabr.dataset.schema import \
-    State, Mesoregion, Microregion, Municipality, District, Subdistrict
-from geodatabr.dataset.repositories import \
-    StateRepository, MesoregionRepository, MicroregionRepository, \
-    MunicipalityRepository, DistrictRepository, SubdistrictRepository
-from geodatabr.dataset.services import \
-    SidraDataset, SIDRA_STATE, SIDRA_MESOREGION, SIDRA_MICROREGION, \
-    SIDRA_MUNICIPALITY, SIDRA_DISTRICT, SIDRA_SUBDISTRICT
+from geodatabr.core import types
+from geodatabr.dataset import base, repositories, schema, services as sidra
 
 # Classes
 
 
-class Seeder(AbstractClass):
+class Seeder(types.AbstractClass):
     """
     Abstract implementation of database seeders.
 
     Attributes:
-        db (sqlalchemy.orm.session.Session): The database session instance
-        sidra (geodatabr.dataset.services.SidraDataset):
+        db (geodatabr.dataset.base.Database)
+        session (sqlalchemy.orm.session.Session):
+            The database session instance
+        sidra_db (geodatabr.dataset.services.SidraDataset):
             The SIDRA dataset service instance
-        entity (geodatabr.dataset.schema.Entity): The seeder entity class
+        entity (geodatabr.dataset.schema.Entity):
+            The seeder entity class
+        repository (geodatabr.dataset.repositories.Repository):
+            The seeder repository class
     """
 
-    db = Database.session()
-    sidra = SidraDataset()
+    db = base.Database
+    session = db.session()
+    sidra_db = sidra.SidraDataset()
     entity = None
+    repository = None
 
     @classmethod
     def run(cls):
@@ -47,9 +46,18 @@ class Seeder(AbstractClass):
 
 
 class StateSeeder(Seeder):
-    """Database seeder for states."""
+    """
+    Database seeder for states.
 
-    entity = State
+    Attributes:
+        entity (geodatabr.dataset.schema.State):
+            The states entity class
+        repository (geodatabr.dataset.repositories.StateRepository):
+            The states repository class
+    """
+
+    entity = schema.State
+    repository = repositories.StateRepository
 
     @classmethod
     def run(cls):
@@ -60,21 +68,33 @@ class StateSeeder(Seeder):
             geodatabr.dataset.seeders.NothingToSeedError:
                 If the states table is not empty
         """
-        if StateRepository.count():
+        if cls.repository.count():
             raise NothingToSeedError
 
-        states = cls.sidra.findAll(SIDRA_STATE)
+        states = cls.sidra_db.findAll(sidra.SIDRA_STATE)
 
-        with Database.transaction(cls.db):
+        with cls.db.transaction(cls.session):
             for state in states:
-                StateRepository.add(State(id=state.id,
-                                          name=state.name))
+                cls.repository.add(cls.entity(id=state.id,
+                                              name=state.name))
 
 
 class MesoregionSeeder(Seeder):
-    """Database seeder for mesoregions."""
+    """
+    Database seeder for mesoregions.
 
-    entity = Mesoregion
+    Attributes:
+        entity (geodatabr.dataset.schema.Mesoregion):
+            The mesoregions entity class
+        repository (geodatabr.dataset.repositories.MesoregionRepository):
+            The mesoregions repository class
+        parent_repository (geodatabr.dataset.repositories.StateRepository):
+            The states repository class
+    """
+
+    entity = schema.Mesoregion
+    repository = repositories.MesoregionRepository
+    parent_repository = repositories.StateRepository
 
     @classmethod
     def run(cls):
@@ -85,27 +105,40 @@ class MesoregionSeeder(Seeder):
             geodatabr.dataset.seeders.NothingToSeedError:
                 If the mesoregions table is not empty
         """
-        if MesoregionRepository.count():
+        if cls.repository.count():
             raise NothingToSeedError
 
-        states = StateRepository.findAll()
+        states = cls.parent_repository.findAll()
 
-        with Database.transaction(cls.db):
+        with cls.db.transaction(cls.session):
             for state in states:
-                mesoregions = cls.sidra.findChildren(SIDRA_MESOREGION,
-                                                     SIDRA_STATE,
-                                                     state.id)
+                mesoregions = cls.sidra_db \
+                    .findChildren(sidra.SIDRA_MESOREGION,
+                                  sidra.SIDRA_STATE,
+                                  state.id)
 
                 for mesoregion in mesoregions:
-                    MesoregionRepository.add(Mesoregion(id=mesoregion.id,
-                                                        state_id=state.id,
-                                                        name=mesoregion.name))
+                    cls.repository.add(cls.entity(id=mesoregion.id,
+                                                  state_id=state.id,
+                                                  name=mesoregion.name))
 
 
 class MicroregionSeeder(Seeder):
-    """Database seeder for microregions."""
+    """
+    Database seeder for microregions.
 
-    entity = Microregion
+    Attributes:
+        entity (geodatabr.dataset.schema.Microregion):
+            The microregions entity class
+        repository (geodatabr.dataset.repositories.MicroregionReposiory):
+            The microregions repository class
+        parent_repository (geodatabr.dataset.repositories.MesoregionRepository):
+            The mesoregions repository class
+    """
+
+    entity = schema.Microregion
+    repository = repositories.MicroregionRepository
+    parent_repository = repositories.MesoregionRepository
 
     @classmethod
     def run(cls):
@@ -116,29 +149,42 @@ class MicroregionSeeder(Seeder):
             geodatabr.dataset.seeders.NothingToSeedError:
                 If the microregions table is not empty
         """
-        if MicroregionRepository.count():
+        if cls.repository.count():
             raise NothingToSeedError
 
-        mesoregions = MesoregionRepository.findAll()
+        mesoregions = cls.parent_repository.findAll()
 
-        with Database.transaction(cls.db):
+        with cls.db.transaction(cls.session):
             for mesoregion in mesoregions:
-                microregions = cls.sidra.findChildren(SIDRA_MICROREGION,
-                                                      SIDRA_MESOREGION,
-                                                      mesoregion.id)
+                microregions = cls.sidra_db \
+                    .findChildren(sidra.SIDRA_MICROREGION,
+                                  sidra.SIDRA_MESOREGION,
+                                  mesoregion.id)
 
                 for microregion in microregions:
-                    MicroregionRepository.add(
-                        Microregion(id=microregion.id,
-                                    state_id=mesoregion.state_id,
-                                    mesoregion_id=mesoregion.id,
-                                    name=microregion.name))
+                    cls.repository.add(
+                        cls.entity(id=microregion.id,
+                                   state_id=mesoregion.state_id,
+                                   mesoregion_id=mesoregion.id,
+                                   name=microregion.name))
 
 
 class MunicipalitySeeder(Seeder):
-    """Database seeder for municipalities."""
+    """
+    Database seeder for municipalities.
 
-    entity = Municipality
+    Attributes:
+        entity (geodatabr.dataset.schema.Municipality):
+            The municipalities entity class
+        repository (geodatabr.dataset.repositories.MunicipalityRepository):
+            The municipalities repository class
+        parent_repository (geodatabr.dataset.repositories.MicroregionRepository):
+            The microregions repository class
+    """
+
+    entity = schema.Municipality
+    repository = repositories.MunicipalityRepository
+    parent_repository = repositories.MicroregionRepository
 
     @classmethod
     def run(cls):
@@ -149,30 +195,43 @@ class MunicipalitySeeder(Seeder):
             geodatabr.dataset.seeders.NothingToSeedError:
                 If the municipalities table is not empty
         """
-        if MunicipalityRepository.count():
+        if cls.repository.count():
             raise NothingToSeedError
 
-        microregions = MicroregionRepository.findAll()
+        microregions = cls.parent_repository.findAll()
 
-        with Database.transaction(cls.db):
+        with cls.db.transaction(cls.session):
             for microregion in microregions:
-                municipalities = cls.sidra.findChildren(SIDRA_MUNICIPALITY,
-                                                        SIDRA_MICROREGION,
-                                                        microregion.id)
+                municipalities = cls.sidra_db \
+                    .findChildren(sidra.SIDRA_MUNICIPALITY,
+                                  sidra.SIDRA_MICROREGION,
+                                  microregion.id)
 
                 for municipality in municipalities:
-                    MunicipalityRepository.add(
-                        Municipality(id=municipality.id,
-                                     state_id=microregion.state_id,
-                                     mesoregion_id=microregion.mesoregion_id,
-                                     microregion_id=microregion.id,
-                                     name=municipality.name))
+                    cls.repository.add(
+                        cls.entity(id=municipality.id,
+                                   state_id=microregion.state_id,
+                                   mesoregion_id=microregion.mesoregion_id,
+                                   microregion_id=microregion.id,
+                                   name=municipality.name))
 
 
 class DistrictSeeder(Seeder):
-    """Database seeder for districts."""
+    """
+    Database seeder for districts.
 
-    entity = District
+    Attributes:
+        entity (geodatabr.dataset.schema.District):
+            The districts entity class
+        repository (geodatabr.dataset.repositories.DistrictRepository):
+            The districts repository class
+        parent_repository (geodatabr.dataset.repositories.MunicipalityRepository):
+            The municipalities repository class
+    """
+
+    entity = schema.District
+    repository = repositories.DistrictRepository
+    parent_repository = repositories.MunicipalityRepository
 
     @classmethod
     def run(cls):
@@ -183,31 +242,44 @@ class DistrictSeeder(Seeder):
             geodatabr.dataset.seeders.NothingToSeedError:
                 If the districts table is not empty
         """
-        if DistrictRepository.count():
+        if cls.repository.count():
             raise NothingToSeedError
 
-        municipalities = MunicipalityRepository.findAll()
+        municipalities = cls.parent_repository.findAll()
 
-        with Database.transaction(cls.db):
+        with cls.db.transaction(cls.session):
             for municipality in municipalities:
-                districts = cls.sidra.findChildren(SIDRA_DISTRICT,
-                                                   SIDRA_MUNICIPALITY,
-                                                   municipality.id)
+                districts = cls.sidra_db \
+                    .findChildren(sidra.SIDRA_DISTRICT,
+                                  sidra.SIDRA_MUNICIPALITY,
+                                  municipality.id)
 
                 for district in districts:
-                    DistrictRepository.add(
-                        District(id=district.id,
-                                 state_id=municipality.state_id,
-                                 mesoregion_id=municipality.mesoregion_id,
-                                 microregion_id=municipality.microregion_id,
-                                 municipality_id=municipality.id,
-                                 name=district.name))
+                    cls.repository.add(
+                        cls.entity(id=district.id,
+                                   state_id=municipality.state_id,
+                                   mesoregion_id=municipality.mesoregion_id,
+                                   microregion_id=municipality.microregion_id,
+                                   municipality_id=municipality.id,
+                                   name=district.name))
 
 
 class SubdistrictSeeder(Seeder):
-    """Database seeder for subdistricts."""
+    """
+    Database seeder for subdistricts.
 
-    entity = Subdistrict
+    Attributes:
+        entity (geodatabr.dataset.schema.Subdistrict):
+            The subdistricts entity class
+        repository (geodatabr.dataset.repositories.SubdistrictRepository):
+            The subdistricts repository class
+        parent_repository (geodatabr.dataset.repositories.DistrictRepository):
+            The districts repository class
+    """
+
+    entity = schema.Subdistrict
+    repository = repositories.SubdistrictRepository
+    parent_repository = repositories.DistrictRepository
 
     @classmethod
     def run(cls):
@@ -218,42 +290,41 @@ class SubdistrictSeeder(Seeder):
             geodatabr.dataset.seeders.NothingToSeedError:
                 If the subdistricts table is not empty
         """
-        if SubdistrictRepository.count():
+        if cls.repository.count():
             raise NothingToSeedError
 
-        districts = DistrictRepository.findAll()
+        districts = cls.parent_repository.findAll()
 
-        with Database.transaction(cls.db):
+        with cls.db.transaction(cls.session):
             for district in districts:
-                subdistricts = cls.sidra.findChildren(SIDRA_SUBDISTRICT,
-                                                      SIDRA_DISTRICT,
-                                                      district.id)
+                subdistricts = cls.sidra_db \
+                    .findChildren(sidra.SIDRA_SUBDISTRICT,
+                                  sidra.SIDRA_DISTRICT,
+                                  district.id)
 
                 for subdistrict in subdistricts:
-                    SubdistrictRepository.add(
-                        Subdistrict(id=subdistrict.id,
-                                    state_id=district.state_id,
-                                    mesoregion_id=district.mesoregion_id,
-                                    microregion_id=district.microregion_id,
-                                    municipality_id=district.municipality_id,
-                                    district_id=district.id,
-                                    name=subdistrict.name))
+                    cls.repository.add(
+                        cls.entity(id=subdistrict.id,
+                                   state_id=district.state_id,
+                                   mesoregion_id=district.mesoregion_id,
+                                   microregion_id=district.microregion_id,
+                                   municipality_id=district.municipality_id,
+                                   district_id=district.id,
+                                   name=subdistrict.name))
 
 
 class SeederFactory(object):
     """Factory class for instantiation of concrete seeder classes."""
 
-    def __new__(cls, entity):
+    def __new__(cls, entity: schema.Entity) -> Seeder:
         """
         Factories a seeder class for a given entity class.
 
         Args:
-            entity (geodatabr.dataset.schema.Entity):
-                The entity class to retrieve a seeder
+            entity: The entity class to retrieve a seeder
 
         Returns:
-            geodatabr.dataset.seeders.Seeder:
-                The seeder class instance
+            The seeder class instance
 
         Raises:
             geodatabr.dataset.seeders.UnknownEntityError:
@@ -271,7 +342,6 @@ class UnknownEntityError(Exception):
     """
     Exception class raised when a given entity does not belong to any seeder.
     """
-    pass
 
 
 class NothingToSeedError(Exception):

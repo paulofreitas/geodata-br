@@ -11,14 +11,13 @@ import ubjson
 
 # Package dependencies
 
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.types import BinaryFileStream
-from geodatabr.dataset.serializers import Serializer
+from geodatabr.core import encoders, types
+from geodatabr.dataset import serializers
 
 # Classes
 
 
-class UniversalBinaryJsonFormat(EncoderFormat):
+class UniversalBinaryJsonFormat(encoders.EncoderFormat):
     """Encoder format class for Universal Binary JSON file format."""
 
     @property
@@ -57,7 +56,7 @@ class UniversalBinaryJsonFormat(EncoderFormat):
         return True
 
 
-class UniversalBinaryJsonEncoder(Encoder):
+class UniversalBinaryJsonEncoder(encoders.Encoder):
     """
     Universal Binary JSON encoder class.
 
@@ -69,9 +68,9 @@ class UniversalBinaryJsonEncoder(Encoder):
     """
 
     format = UniversalBinaryJsonFormat
-    serializer = Serializer
+    serializer = serializers.Serializer
 
-    def encode(self, data: dict, **options) -> BinaryFileStream:
+    def encode(self, data: dict, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a Universal Binary JSON file-like stream.
 
@@ -83,10 +82,10 @@ class UniversalBinaryJsonEncoder(Encoder):
             A Universal Binary JSON file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            return BinaryFileStream(
+            return types.BinaryFileStream(
                 ubjson.dumpb(data, **dict(self.options, **options)))
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

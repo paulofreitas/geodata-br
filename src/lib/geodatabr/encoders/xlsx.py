@@ -7,18 +7,17 @@
 
 # External dependencies
 
-from pyexcel_xlsx import save_data as write_xlsx
+import pyexcel_xlsx
 
 # Package dependencies
 
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.types import BinaryFileStream, OrderedMap
-from geodatabr.dataset.serializers import Serializer
+from geodatabr.core import encoders, types
+from geodatabr.dataset import serializers
 
 # Classes
 
 
-class OfficeOpenXmlWorkbookFormat(EncoderFormat):
+class OfficeOpenXmlWorkbookFormat(encoders.EncoderFormat):
     """Encoder format class for Office Open XML Workbook file format."""
 
     @property
@@ -57,7 +56,7 @@ class OfficeOpenXmlWorkbookFormat(EncoderFormat):
         return True
 
 
-class OfficeOpenXmlWorkbookEncoder(Encoder):
+class OfficeOpenXmlWorkbookEncoder(encoders.Encoder):
     """
     Office Open XML Workbook encoder class.
 
@@ -69,9 +68,9 @@ class OfficeOpenXmlWorkbookEncoder(Encoder):
     """
 
     format = OfficeOpenXmlWorkbookFormat
-    serializer = Serializer
+    serializer = serializers.Serializer
 
-    def encode(self, data: dict, **options) -> BinaryFileStream:
+    def encode(self, data: dict, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a Office Open XML Workbook file-like stream.
 
@@ -83,19 +82,19 @@ class OfficeOpenXmlWorkbookEncoder(Encoder):
             A Office Open XML Workbook file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            xlsx_file = BinaryFileStream()
-            xlsx_data = OrderedMap()
+            xlsx_file = types.BinaryFileStream()
+            xlsx_data = types.OrderedMap()
 
             for entity, records in data.items():
                 xlsx_data[entity] = [list(records.first().keys())] \
                     + [list(record.values()) for record in records]
 
-            write_xlsx(xlsx_file, xlsx_data)
+            pyexcel_xlsx.save_data(xlsx_file, xlsx_data)
             xlsx_file.seek(0)
 
             return xlsx_file
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

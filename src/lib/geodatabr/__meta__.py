@@ -7,7 +7,7 @@
 
 # Built-in imports
 
-from pkg_resources import resource_string
+import pkg_resources
 
 # Constants
 
@@ -30,6 +30,7 @@ __epilog__ = 'Report bugs and feature requests to <{0}>.' \
              .format(__url__ + '/issues')
 
 try:
-    __license_text__ = resource_string(__name__, 'LICENSE').decode()
+    __license_text__ =\
+        pkg_resources.resource_string(__name__, 'LICENSE').decode()
 except RuntimeError:
     __license_text__ = ''

@@ -11,19 +11,18 @@ This module provides the base types used across the packages.
 
 # Built-in dependencies
 
+import abc
+import collections
+import functools
 import io
-
-from abc import ABCMeta
-from collections import Iterable, OrderedDict
-from functools import reduce
-from random import sample, shuffle
-from struct import pack, unpack
+import random
+import struct
 from typing import Any, Callable
 
 # Classes
 
 
-class AbstractClass(object, metaclass=ABCMeta):
+class AbstractClass(object, metaclass=abc.ABCMeta):
     """Base abstract class."""
 
     @classmethod
@@ -79,7 +78,7 @@ class Bytes(io.BytesIO):
             _format: The packing format
             value: The value to pack
         """
-        self.write(pack(_format, value))
+        self.write(struct.pack(_format, value))
 
     def _unpack(self, _format: str, size: int) -> Any:
         """
@@ -92,7 +91,7 @@ class Bytes(io.BytesIO):
         Returns:
             The unpacked value
         """
-        return unpack(_format, self.read(size))[0]
+        return struct.unpack(_format, self.read(size))[0]
 
     def readByte(self) -> int:
         """
@@ -361,7 +360,7 @@ class List(list):
 
         for item in self:
             flattened.extend(List(item).flatten()
-                             if (isinstance(item, Iterable)
+                             if (isinstance(item, collections.Iterable)
                                  and not isinstance(item, (str, bytes))) else
                              [item])
 
@@ -464,7 +463,7 @@ class List(list):
         if not callable(predicate):
             raise ValueError('The predicate should be callable')
 
-        return reduce(predicate, self, initial)
+        return functools.reduce(predicate, self, initial)
 
     def reject(self, predicate: Callable) -> 'List':
         """
@@ -514,7 +513,7 @@ class List(list):
         if count < 0:
             raise ValueError('The number of random items should be positive')
 
-        return List(sample(self, count))
+        return List(random.sample(self, count))
 
     def shift(self) -> Any:
         """
@@ -536,7 +535,7 @@ class List(list):
             A shuffled copy of the list
         """
         copy = self.copy()
-        shuffle(copy)
+        random.shuffle(copy)
 
         return copy
 
@@ -731,6 +730,6 @@ class Map(dict):
         return self.__class__(self)
 
 
-class OrderedMap(OrderedDict, Map):
+class OrderedMap(collections.OrderedDict, Map):
     """An improved ordered dictionary type with attribute-style access."""
     pass

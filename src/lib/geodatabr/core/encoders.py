@@ -11,24 +11,21 @@ This module provides the dataset encoders base functionality.
 
 # Built-in dependencies
 
-from abc import ABCMeta
-
+import abc
+import itertools
 import sys
-
-from itertools import groupby
 
 # Package dependencies
 
-from geodatabr.core.decorators import DataDescriptor
-from geodatabr.core.i18n import _
-from geodatabr.core.types import AbstractClass, BinaryFileStream, List
+from geodatabr.core import decorators, i18n, types
 
 # Classes
 
 
-class EncoderFormat(AbstractClass,
+class EncoderFormat(types.AbstractClass,
                     metaclass=type('_AbstractClass',
-                                   (ABCMeta, DataDescriptor), {})):
+                                   (abc.ABCMeta,
+                                    decorators.DataDescriptor), {})):
     """Abstract encoder file format base class."""
 
     @property
@@ -157,37 +154,37 @@ class EncoderFormatRepository(object):
             'No encoder format found with this extension: {}'.format(extension))
 
     @classmethod
-    def listNames(cls) -> List:
+    def listNames(cls) -> types.List:
         """
         Returns a list with all encoder format names.
 
         Returns:
             A list with all encoder format names
         """
-        return List(sorted([encoder.format.name
-                            for encoder in Encoder.childs()
-                            if getattr(encoder, 'format')]))
+        return types.List(sorted([encoder.format.name
+                                  for encoder in Encoder.childs()
+                                  if getattr(encoder, 'format')]))
 
     @classmethod
-    def groupByType(cls) -> List:
+    def groupByType(cls) -> types.List:
         """
         Returns a list with all encoder formats grouped by their type.
 
         Returns:
             A list with all encoder formats grouped by their type
         """
-        return List([(format_type,
-                      List(sorted(formats,
-                                  key=lambda _format: _format.name)))
-                     for format_type, formats in groupby(
-                         sorted([encoder.format()
-                                 for encoder in Encoder.childs()
-                                 if getattr(encoder, 'format')],
-                                key=lambda _format: _format.type),
-                         key=lambda _format: _format.type)])
+        return types.List([(format_type,
+                            types.List(sorted(
+                                formats, key=lambda _format: _format.name)))
+                           for format_type, formats in itertools.groupby(
+                               sorted([encoder.format()
+                                       for encoder in Encoder.childs()
+                                       if getattr(encoder, 'format')],
+                                      key=lambda _format: _format.type),
+                               key=lambda _format: _format.type)])
 
 
-class Encoder(AbstractClass):
+class Encoder(types.AbstractClass):
     """
     Abstract base encoder class.
 
@@ -201,12 +198,15 @@ class Encoder(AbstractClass):
     format = None
     serializer = None
 
-    def __call__(self, **options):
+    def __call__(self, **options) -> types.BinaryFileStream:
         """
         Allows encoding the data into a stream calling the encoder instance.
 
-        Returns:
+        Args:
             **options: The encoding options
+
+        Returns:
+            A file-like stream
 
         Raises:
             geodatabr.core.encoders.EncodeError: If data fails to encode
@@ -223,7 +223,7 @@ class Encoder(AbstractClass):
         """Gets the encoder serialization options."""
         return {}
 
-    def encode(self, data, **options) -> BinaryFileStream:
+    def encode(self, data, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a file-like stream.
 
@@ -252,7 +252,7 @@ class Encoder(AbstractClass):
             geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         if not filename:
-            filename = _('dataset_name') + self.format.extension
+            filename = i18n._('dataset_name') + self.format.extension
 
         data = self.encode(data, **options).read()
         output_file = sys.stdout if filename == '-' else open(filename, 'wb')
@@ -293,14 +293,11 @@ class EncoderFactory(object):
 
 class EncodeError(Exception):
     """Generic exception class for encoding errors."""
-    pass
 
 
 class UnknownEncoderFormatError(Exception):
     """Exception class raised when a given encoder format is not found."""
-    pass
 
 
 class UnknownEncoderError(Exception):
     """Exception class raised when a given encoder is not found."""
-    pass

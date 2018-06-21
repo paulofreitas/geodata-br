@@ -11,16 +11,14 @@ import yaml
 
 # Package dependencies
 
-import geodatabr.encoders.yaml.utils
-
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.types import BinaryFileStream
-from geodatabr.dataset.serializers import Serializer
+from geodatabr.core import encoders, types
+from geodatabr.dataset import serializers
+from geodatabr.encoders.yaml import utils
 
 # Classes
 
 
-class YamlFormat(EncoderFormat):
+class YamlFormat(encoders.EncoderFormat):
     """Encoder format class for YAML file format."""
 
     @property
@@ -54,7 +52,7 @@ class YamlFormat(EncoderFormat):
         return 'https://en.wikipedia.org/wiki/YAML'
 
 
-class YamlEncoder(Encoder):
+class YamlEncoder(encoders.Encoder):
     """
     YAML encoder class.
 
@@ -65,7 +63,7 @@ class YamlEncoder(Encoder):
     """
 
     format = YamlFormat
-    serializer = Serializer
+    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:
@@ -73,7 +71,7 @@ class YamlEncoder(Encoder):
         return dict(allow_unicode=True,
                     default_flow_style=False)
 
-    def encode(self, data: dict, **options) -> BinaryFileStream:
+    def encode(self, data: dict, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a YAML file-like stream.
 
@@ -85,11 +83,11 @@ class YamlEncoder(Encoder):
             A YAML file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            return BinaryFileStream(
+            return types.BinaryFileStream(
                 yaml.dump(data, **dict(self.options, **options))
                 .encode('utf-8'))
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

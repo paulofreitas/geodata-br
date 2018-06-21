@@ -12,15 +12,14 @@ import tempfile
 
 # Package dependencies
 
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.types import BinaryFileStream
-from geodatabr.dataset.serializers import Serializer
-from geodatabr.encoders.sql import SqlEncoder
+from geodatabr.core import encoders, types
+from geodatabr.dataset import serializers
+from geodatabr.encoders import sql
 
 # Classes
 
 
-class Sqlite3Format(EncoderFormat):
+class Sqlite3Format(encoders.EncoderFormat):
     """Encoder format class for SQLite 3 file format."""
 
     @property
@@ -59,7 +58,7 @@ class Sqlite3Format(EncoderFormat):
         return True
 
 
-class Sqlite3Encoder(SqlEncoder, Encoder):
+class Sqlite3Encoder(sql.SqlEncoder, encoders.Encoder):
     """
     SQLite3 encoder class.
 
@@ -71,14 +70,14 @@ class Sqlite3Encoder(SqlEncoder, Encoder):
     """
 
     format = Sqlite3Format
-    serializer = Serializer
+    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:
         """Gets the default encoding options."""
         return dict(dialect='sqlite')
 
-    def encode(self, data: dict, **options) -> BinaryFileStream:
+    def encode(self, data: dict, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a SQLite 3 file-like stream.
 
@@ -90,7 +89,7 @@ class Sqlite3Encoder(SqlEncoder, Encoder):
             A SQLite 3 file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
             sql_data = super().encode(data, **dict(self.options, **options))
@@ -103,6 +102,6 @@ class Sqlite3Encoder(SqlEncoder, Encoder):
                     sqlite_cursor.executescript(
                         'BEGIN; {} COMMIT'.format(sql_data.read()))
 
-                return BinaryFileStream(sqlite_file.read())
+                return types.BinaryFileStream(sqlite_file.read())
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

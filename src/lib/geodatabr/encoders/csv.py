@@ -11,14 +11,13 @@ import csv
 
 # Package dependencies
 
-from geodatabr.core.encoders import Encoder, EncoderFormat, EncodeError
-from geodatabr.core.types import FileStream, BinaryFileStream
-from geodatabr.dataset.serializers import FlattenedSerializer
+from geodatabr.core import encoders, types
+from geodatabr.dataset import serializers
 
 # Classes
 
 
-class CsvFormat(EncoderFormat):
+class CsvFormat(encoders.EncoderFormat):
     """Encoder format class for CSV file format."""
 
     @property
@@ -52,7 +51,7 @@ class CsvFormat(EncoderFormat):
         return 'https://en.wikipedia.org/wiki/Comma-separated_values'
 
 
-class CsvEncoder(Encoder):
+class CsvEncoder(encoders.Encoder):
     """
     CSV encoder class.
 
@@ -63,7 +62,7 @@ class CsvEncoder(Encoder):
     """
 
     format = CsvFormat
-    serializer = FlattenedSerializer
+    serializer = serializers.FlattenedSerializer
 
     @property
     def options(self) -> dict:
@@ -75,7 +74,7 @@ class CsvEncoder(Encoder):
                     quoting=csv.QUOTE_MINIMAL,
                     extrasaction='ignore')
 
-    def encode(self, data: list, **options) -> BinaryFileStream:
+    def encode(self, data: list, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a CSV file-like stream.
 
@@ -87,10 +86,10 @@ class CsvEncoder(Encoder):
             A CSV file-like stream
 
         Raises:
-            geodatabr.encoders.EncodeError: If data fails to encode
+            geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            csv_data = FileStream()
+            csv_data = types.FileStream()
             csv_writer = csv.DictWriter(csv_data,
                                         data.last().keys(),
                                         **dict(self.options, **options))
@@ -98,6 +97,6 @@ class CsvEncoder(Encoder):
             csv_writer.writerows(data)
             csv_data.seek(0)
 
-            return BinaryFileStream(csv_data.getvalue().encode('utf-8'))
+            return types.BinaryFileStream(csv_data.getvalue().encode('utf-8'))
         except Exception:
-            raise EncodeError
+            raise encoders.EncodeError

@@ -14,9 +14,8 @@ This module provides classes to work with filesystem files and directories.
 import os
 import pathlib
 import uuid
-
 from typing import Iterator
-from pkg_resources import resource_filename
+import pkg_resources
 
 # Classes
 
@@ -52,7 +51,7 @@ class Path(_Path):
     CACHE_DIR = HOME_DIR / '.geodatabr'
     CURRENT_DIR = _Path.cwd()
     DATA_DIR = CURRENT_DIR / 'data'
-    PKG_DIR = _Path(resource_filename('geodatabr', ''))
+    PKG_DIR = _Path(pkg_resources.resource_filename('geodatabr', ''))
     PKG_DATA_DIR = PKG_DIR / 'data'
     PKG_STUB_DIR = PKG_DATA_DIR / 'stubs'
     PKG_TRANSLATION_DIR = PKG_DATA_DIR / 'translations'
@@ -236,7 +235,7 @@ class File(Path):
             **options: The file reading options
 
         Returns:
-            str: The file contents
+            The file contents
         """
         with self.open(mode='r', **options) as file_:
             return file_.read()

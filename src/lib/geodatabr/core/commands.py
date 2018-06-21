@@ -11,27 +11,23 @@ This module provides the command-line parsing functionality.
 
 # Built-in dependencies
 
-from argparse import _ArgumentGroup as ArgumentGroup, \
-    ArgumentParser as _ArgumentParser, Action, Namespace, RawTextHelpFormatter
-from typing import Any
-
-import textwrap
+import argparse
 import sys
+import textwrap
+from typing import Any
 
 # Package dependencies
 
-from geodatabr.__meta__ import __package_name__, __description__, \
-    __version__, __license_text__, __prolog__, __epilog__
-from geodatabr.core.logging import Logger
-from geodatabr.core.types import AbstractClass
+from geodatabr import __meta__
+from geodatabr.core import logging, types
 
 # Classes
 
 
-class ArgumentParser(_ArgumentParser):
+class ArgumentParser(argparse.ArgumentParser):
     """Custom argument parser class."""
 
-    class _LicenseAction(Action):
+    class _LicenseAction(argparse.Action):
         """Custom action class to output the license information and exit."""
 
         def __init__(self,
@@ -49,7 +45,7 @@ class ArgumentParser(_ArgumentParser):
 
         def __call__(self,
                      parser: 'ArgumentParser',
-                     namespace: Namespace,
+                     namespace: argparse.Namespace,
                      values: list,
                      option_string: str = None):
             """Invokes the license action class."""
@@ -154,7 +150,7 @@ class Application(object):
             epilog=self.epilog,
             add_help=False,
             conflict_handler='resolve',
-            formatter_class=RawTextHelpFormatter)
+            formatter_class=argparse.RawTextHelpFormatter)
         self._subparsers = self._parser.add_subparsers(
             title='Commands',
             dest='command',
@@ -188,7 +184,7 @@ class Application(object):
         """
         return self._subparsers.add_parser(*args, **kwargs)
 
-    def addArgumentGroup(self, *args, **kwargs) -> ArgumentGroup:
+    def addArgumentGroup(self, *args, **kwargs) -> argparse._ArgumentGroup:
         """
         Adds a new argument group into the application parser.
 
@@ -210,7 +206,7 @@ class Application(object):
             **kwargs: The argument keyword arguments
         """
         # Allows adding arguments to argument groups
-        if isinstance(args[0], ArgumentGroup):
+        if isinstance(args[0], argparse._ArgumentGroup):
             args[0].add_argument(*args[1:], **kwargs)
 
             return
@@ -245,7 +241,7 @@ class Application(object):
         for command in Command.childs():
             self.addCommand(command)
 
-    def parse(self) -> Namespace:
+    def parse(self) -> argparse.Namespace:
         """
         Parses the given application arguments.
 
@@ -254,7 +250,7 @@ class Application(object):
         """
         args = self._parser.parse_args()
 
-        Logger.setup(args.verbose)
+        logging.Logger.setup(args.verbose)
 
         return args
 
@@ -274,35 +270,35 @@ class Application(object):
     @property
     def name(self) -> str:
         """Gets the application name."""
-        return __package_name__
+        return __meta__.__package_name__
 
     @property
     def version(self) -> str:
         """Gets the application version."""
-        return __version__
+        return __meta__.__version__
 
     @property
     def description(self) -> str:
         """Gets the application description."""
-        return __description__
+        return __meta__.__description__
 
     @property
     def license(self) -> str:
         """Gets the application license."""
-        return textwrap.indent(__license_text__, 4 * ' ')
+        return textwrap.indent(__meta__.__license_text__, 4 * ' ')
 
     @property
     def prolog(self) -> str:
         """Gets the application prologue message."""
-        return __prolog__
+        return __meta__.__prolog__
 
     @property
     def epilog(self) -> str:
         """Gets the application epilogue message."""
-        return __epilog__
+        return __meta__.__epilog__
 
 
-class Command(AbstractClass):
+class Command(types.AbstractClass):
     """
     Abstract command class.
 
@@ -327,7 +323,7 @@ class Command(AbstractClass):
             prolog=application.prolog,
             epilog=self.epilog,
             conflict_handler='resolve',
-            formatter_class=RawTextHelpFormatter)
+            formatter_class=argparse.RawTextHelpFormatter)
 
         self.setDefaults()
 
@@ -341,7 +337,7 @@ class Command(AbstractClass):
                          action='help',
                          help='Display this usage information')
 
-    def addArgumentGroup(self, *args, **kwargs) -> ArgumentGroup:
+    def addArgumentGroup(self, *args, **kwargs) -> argparse._ArgumentGroup:
         """
         Adds a new argument group into the command parser.
 
@@ -363,7 +359,7 @@ class Command(AbstractClass):
             **kwargs: The argument keyword arguments
         """
         # Allows adding arguments to argument groups
-        if isinstance(args[0], ArgumentGroup):
+        if isinstance(args[0], argparse._ArgumentGroup):
             args[0].add_argument(*args[1:], **kwargs)
 
             return
@@ -399,7 +395,7 @@ class Command(AbstractClass):
         """Registers the command arguments."""
         pass
 
-    def handle(self, args: Namespace):
+    def handle(self, args: argparse.Namespace):
         """
         Handles the command.
 
