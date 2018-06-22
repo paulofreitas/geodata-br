@@ -26,26 +26,24 @@ class BaseSerializer(object):
 
     @property
     @decorators.cachedmethod()
-    def __records__(self) -> types.OrderedMap:
+    def __rows__(self) -> types.OrderedMap:
         """
-        Retrieves the dataset records.
+        Retrieves the dataset rows.
 
         Returns:
-            The dataset records
+            The dataset rows
         """
-        records = types.OrderedMap(
-            states=repositories.StateRepository.loadAll())
+        rows = types.OrderedMap(states=repositories.StateRepository.loadAll())
 
         for entity in schema.ENTITIES:
             table = entity.__table__.name
 
-            if table not in records:
-                records[table] = types.List([item
-                                             for state in records.states
-                                             for item in getattr(state,
-                                                                 table)])
+            if table not in rows:
+                rows[table] = types.List([item
+                                          for state in rows.states
+                                          for item in getattr(state, table)])
 
-        return records
+        return rows
 
     def __init__(self, **options):
         """
@@ -82,41 +80,44 @@ class Serializer(BaseSerializer):
     @decorators.cachedmethod()
     def serialize(self) -> types.OrderedMap:
         """
-        Serializes the dataset records.
+        Serializes the dataset rows.
 
         Returns:
-            The serialized dataset records mapping
+            The serialized dataset rows mapping
         """
-        records = types.OrderedMap()
+        rows = types.OrderedMap()
 
         for entity in schema.ENTITIES:
             table = str(entity.__table__.name)
-            _records = self.__records__[table]
+            _rows = self.__rows__[table]
 
-            if not _records:
+            if not _rows:
                 continue
 
             if self._options.localize:
                 table = i18n._(table)
 
-            records[table] = types.List()
+            rows[table] = types.List()
 
-            for _record in _records:
-                _record = _record.serialize()
-                record = types.OrderedMap()
+            for _row in _rows:
+                _row = _row.serialize()
+                row = types.OrderedMap()
 
                 for column in entity.__table__.columns:
                     column = str(column.name)
-                    value = _record[column]
+                    value = _row[column]
 
                     if self._options.localize:
                         column = i18n._(column)
 
-                    record[column] = str(value) if self._options.forceStr else value
+                    if self._options.forceStr or column == 'name':
+                        value = str(value)
 
-                records[table].append(record)
+                    row[column] = value
 
-        return records
+                rows[table].append(row)
+
+        return rows
 
 
 class FlattenedSerializer(BaseSerializer):
@@ -125,24 +126,24 @@ class FlattenedSerializer(BaseSerializer):
     @decorators.cachedmethod()
     def serialize(self) -> types.List:
         """
-        Serializes the dataset records.
+        Serializes the dataset rows.
 
         Returns:
-            The serialized dataset records list
+            The serialized dataset rows list
         """
-        records = types.List()
+        rows = types.List()
 
         for entity in schema.ENTITIES:
-            for record in self.__records__[entity.__table__.name]:
-                records.append(types.OrderedMap(
+            for row in self.__rows__[entity.__table__.name]:
+                rows.append(types.OrderedMap(
                     [(i18n._(key), value)
-                     for key, value in record.serialize(flatten=True).items()]))
+                     for key, value in row.serialize(flatten=True).items()]))
 
-        records.sort(key=lambda record: (record.get('state_id') or 0,
-                                         record.get('mesoregion_id') or 0,
-                                         record.get('microregion_id') or 0,
-                                         record.get('municipality_id') or 0,
-                                         record.get('district_id') or 0,
-                                         record.get('subdistrict_id') or 0))
+        rows.sort(key=lambda row: (row.get('state_id') or 0,
+                                   row.get('mesoregion_id') or 0,
+                                   row.get('microregion_id') or 0,
+                                   row.get('municipality_id') or 0,
+                                   row.get('district_id') or 0,
+                                   row.get('subdistrict_id') or 0))
 
-        return records
+        return rows
