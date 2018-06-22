@@ -86,8 +86,7 @@ class SqlEncoder(encoders.Encoder):
             geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            sql_schema = sql_utils.SchemaGenerator(**dict(self.options,
-                                                          **options))
+            sql_schema = sql_utils.Schema(**dict(self.options, **options))
 
             for entity in schema.ENTITIES:
                 records = data.get(entity.__table__.name)
@@ -95,6 +94,6 @@ class SqlEncoder(encoders.Encoder):
                 if records:
                     sql_schema.addTable(entity.__table__, records)
 
-            return types.FileStream(sql_schema.render())
+            return types.FileStream(sql_schema.compile())
         except Exception:
             raise encoders.EncodeError
