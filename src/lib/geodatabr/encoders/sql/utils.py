@@ -244,7 +244,8 @@ class ConstraintCollection(Compiler):
             return ',\n  '.join(
                 str(Constraint(constraint, dialect=self.dialect.name))
                 for constraint in self.table.constraints
-                if not getattr(constraint, 'use_alter', False))
+                if (not getattr(constraint, 'use_alter', False)
+                    or not self.dialect.supports_alter))
 
         if not self.table.foreign_keys or not self.dialect.supports_alter:
             return ''
@@ -256,7 +257,8 @@ class ConstraintCollection(Compiler):
             constraints='\n'.join(
                 str(Constraint(constraint, dialect=self.dialect.name))
                 for constraint in self.table._sorted_constraints
-                if isinstance(constraint, schema.ForeignKeyConstraint)))
+                if (isinstance(constraint, schema.ForeignKeyConstraint)
+                    and getattr(constraint, 'use_alter', False))))
 
 
 class Index(Compiler):
