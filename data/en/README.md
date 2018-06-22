@@ -30,7 +30,7 @@
 | ---------------- |:--------------------------------------------------------------------------------------:| ---------:|
 | `brazil.fdb`     | [Firebird Embedded](https://en.wikipedia.org/wiki/Embedded_database#Firebird_Embedded) | 3,194,880 |
 | `brazil.sql`     | [SQL](https://en.wikipedia.org/wiki/SQL)                                               | 1,423,581 |
-| `brazil.sqlite3` | [SQLite 3](https://en.wikipedia.org/wiki/SQLite)                                       | 1,786,880 |
+| `brazil.sqlite3` | [SQLite 3](https://en.wikipedia.org/wiki/SQLite)                                       | 1,788,928 |
 
 #### Spreadsheet
 
