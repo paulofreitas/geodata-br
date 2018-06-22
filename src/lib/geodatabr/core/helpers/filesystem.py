@@ -280,7 +280,7 @@ class File(Path):
     @property
     def format(self):
         """Gets the file format."""
-        from geodatabr.encoders import \
+        from geodatabr.core.encoders import \
             EncoderFormatRepository, UnknownEncoderFormatError
 
         try:
