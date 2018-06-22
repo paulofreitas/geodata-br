@@ -71,7 +71,7 @@ class SqlEncoder(encoders.Encoder):
         """Gets the encoder serialization options."""
         return dict(localize=False)
 
-    def encode(self, data: dict, **options) -> types.FileStream:
+    def encode(self, data: dict, **options) -> types.BinaryFileStream:
         """
         Encodes the data into a SQL file-like stream.
 
@@ -89,11 +89,11 @@ class SqlEncoder(encoders.Encoder):
             sql_schema = sql_utils.Schema(**dict(self.options, **options))
 
             for entity in schema.ENTITIES:
-                records = data.get(entity.__table__.name)
+                rows = data.get(entity.__table__.name)
 
-                if records:
-                    sql_schema.addTable(entity.__table__, records)
+                if rows:
+                    sql_schema.addTable(entity.__table__, rows)
 
-            return types.FileStream(sql_schema.compile())
+            return types.BinaryFileStream(sql_schema.compile().encode('utf-8'))
         except Exception:
             raise encoders.EncodeError

@@ -100,7 +100,7 @@ class Sqlite3Encoder(sql.SqlEncoder, encoders.Encoder):
                     sqlite_cursor.execute('PRAGMA page_size = 1024')
                     sqlite_cursor.execute('PRAGMA foreign_keys = ON')
                     sqlite_cursor.executescript(
-                        'BEGIN; {} COMMIT'.format(sql_data.read()))
+                        'BEGIN; {} COMMIT'.format(sql_data.read().decode()))
 
                 return types.BinaryFileStream(sqlite_file.read())
         except Exception:

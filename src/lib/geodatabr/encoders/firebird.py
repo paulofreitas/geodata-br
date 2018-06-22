@@ -105,7 +105,7 @@ class FirebirdEncoder(sql.SqlEncoder, encoders.Encoder):
             fdb_cursor = fdb_con.cursor()
             in_trans = False
 
-            for stmt in sql_data.read().rstrip(';').split(';'):
+            for stmt in sql_data.read().decode().rstrip(';').split(';'):
                 if stmt.startswith('INSERT') and not in_trans:
                     fdb_con.begin()
                     in_trans = True
