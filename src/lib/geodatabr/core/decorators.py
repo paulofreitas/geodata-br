@@ -12,9 +12,11 @@ functions.
 
 # Built-in dependencies
 
+import abc
 import functools
 
 # Classes
+
 
 class DataDescriptor(type):
     """A data descriptor to allow declaring read-only class properties."""
@@ -41,6 +43,18 @@ class DataDescriptor(type):
 
 # Functions
 
+
+def abstractmethod(func):
+    """
+    A decorator indicating abstract methods.
+
+    Args:
+        func: The function object to decorate
+
+    Returns:
+        The decorated function
+    """
+    return abc.abstractmethod(func)
 
 def cachedmethod(maxsize: int = None):
     """
