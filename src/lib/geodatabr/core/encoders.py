@@ -175,7 +175,8 @@ class EncoderFormatRepository(object):
         """
         return types.List([(format_type,
                             types.List(sorted(
-                                formats, key=lambda _format: _format.name)))
+                                formats,
+                                key=lambda _format: _format.friendlyName)))
                            for format_type, formats in itertools.groupby(
                                sorted([encoder.format()
                                        for encoder in Encoder.childs()
