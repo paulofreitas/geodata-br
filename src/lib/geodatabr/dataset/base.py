@@ -97,3 +97,8 @@ class Database(object):
     def delete(cls):
         """Removes the database."""
         io.CacheFile('geodatabr.db').unlink()
+
+    @classmethod
+    def optimize(cls):
+        """Optimizes the database."""
+        cls.engine().execute('VACUUM')
