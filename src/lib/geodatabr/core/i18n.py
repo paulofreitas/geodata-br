@@ -20,7 +20,7 @@ import yaml
 # Package dependencies
 
 from geodatabr.core import decorators, types
-from geodatabr.core.helpers import filesystem as io
+from geodatabr.core.utils import filesystem as io
 
 # Classes
 

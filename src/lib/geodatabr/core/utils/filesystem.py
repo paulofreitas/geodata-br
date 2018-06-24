@@ -29,21 +29,21 @@ class Path(_Path):
     A filesystem path object.
 
     Attributes:
-        HOME_DIR (geodatabr.core.helpers.filesystem._Path):
+        HOME_DIR (geodatabr.core.utils.filesystem._Path):
             The path for home directory
-        CACHE_DIR (geodatabr.core.helpers.filesystem._Path):
+        CACHE_DIR (geodatabr.core.utils.filesystem._Path):
             The path for cache directory
-        CURRENT_DIR (geodatabr.core.helpers.filesystem._Path):
+        CURRENT_DIR (geodatabr.core.utils.filesystem._Path):
             The path for current working directory
-        DATA_DIR (geodatabr.core.helpers.filesystem._Path):
+        DATA_DIR (geodatabr.core.utils.filesystem._Path):
             The path for data directory
-        PKG_DIR (geodatabr.core.helpers.filesystem._Path):
+        PKG_DIR (geodatabr.core.utils.filesystem._Path):
             The path for package directory
-        PKG_DATA_DIR (geodatabr.core.helpers.filesystem._Path):
+        PKG_DATA_DIR (geodatabr.core.utils.filesystem._Path):
             The path for package data directory
-        PKG_STUB_DIR (geodatabr.core.helpers.filesystem._Path):
+        PKG_STUB_DIR (geodatabr.core.utils.filesystem._Path):
             The path for package stubs directory
-        PKG_TRANSLATION_DIR (geodatabr.core.helpers.filesystem._Path):
+        PKG_TRANSLATION_DIR (geodatabr.core.utils.filesystem._Path):
             The path for package translations directory
     """
 
@@ -60,7 +60,7 @@ class Path(_Path):
         """Private constructor."""
         super()._init()
 
-        #: geodatabr.core.helpers.filesystem._Path: The previous working directory
+        #: geodatabr.core.utils.filesystem._Path: The previous working directory
         self._old_dir = None
 
     def __enter__(self) -> 'Path':

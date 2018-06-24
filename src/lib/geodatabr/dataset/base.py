@@ -23,7 +23,7 @@ from sqlalchemy.orm import session as sql_session
 
 # Package dependencies
 
-from geodatabr.core.helpers import filesystem as io
+from geodatabr.core.utils import filesystem as io
 from geodatabr.dataset import schema
 
 # Classes

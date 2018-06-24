@@ -16,7 +16,7 @@ import itertools
 # Package dependencies
 
 from geodatabr.core import encoders, i18n, types
-from geodatabr.core.helpers import filesystem as io, markup
+from geodatabr.core.utils import filesystem as io, markup
 from geodatabr.dataset import serializers
 
 # Classes
@@ -27,11 +27,11 @@ class Readme(types.AbstractClass):
     An abstract README documentation file.
 
     Attributes:
-        _readme_file (geodatabr.core.helpers.filesystem.File): The README file
-        _stub_file (geodatabr.core.helpers.filesystem.File):
+        _readme_file (geodatabr.core.utils.filesystem.File): The README file
+        _stub_file (geodatabr.core.utils.filesystem.File):
             The template README file
         _stub (str): template README contents
-        _markdown (geodatabr.core.helpers.markup.GithubMarkdown):
+        _markdown (geodatabr.core.utils.markup.GithubMarkdown):
             The Github Markdown helper
     """
 
