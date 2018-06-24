@@ -243,7 +243,7 @@ class ConstraintCollection(Compiler):
         if not self.use_alter:
             return ',\n  '.join(
                 str(Constraint(constraint, dialect=self.dialect.name))
-                for constraint in self.table.constraints
+                for constraint in self.table._sorted_constraints
                 if (not getattr(constraint, 'use_alter', False)
                     or not self.dialect.supports_alter))
 
