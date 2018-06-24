@@ -1,14 +1,18 @@
 # geodata-br
 
-{badges}
+![License: PDDL](https://img.shields.io/badge/License-PDDL-brightgreen.svg "License: ODC Public Domain Dedication and Licence (PDDL)")
 
 Free open public domain geographic data of Brazil available in multiple languages and formats.
 
-## Data source
+## Datasets
+
+{badges}
+
+### Data source
 
 All data was compiled from [SIDRA](https://sidra.ibge.gov.br/) (IBGE's Automatic Recovery System) data sets by [IBGE](https://www.ibge.gov.br/) (Brazilian Institute of Geography and Statistics).
 
-## Data formats
+### Data formats
 
 The compiled data are available into the following formats:
 
@@ -16,7 +20,7 @@ The compiled data are available into the following formats:
 
 ## License
 
-The data compiled here are [public domain](data/LICENSE) and falls within fair use.
+The data compiled here are [public domain](LICENSE) and falls within fair use.
 
 The project source code is available under the [MIT License](src/LICENSE).
 
