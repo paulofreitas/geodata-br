@@ -17,7 +17,8 @@ import functools
 import io
 import random
 import struct
-from typing import Any, Callable
+import textwrap
+from typing import Any, Callable, Iterable
 
 # Classes
 
@@ -732,4 +733,121 @@ class Map(dict):
 
 class OrderedMap(collections.OrderedDict, Map):
     """An improved ordered dictionary type with attribute-style access."""
-    pass
+
+
+class String(str):
+    """An improved string type with batteries included."""
+
+    def after(self, search: str) -> 'String':
+        """
+        Returns the remainder of a string after a given value.
+
+        Args:
+            search: The substring to search
+
+        Returns:
+            The remainder of string after the given value
+        """
+        if not search:
+            return String(self)
+
+        return String(self.split(search).pop())
+
+    def before(self, search: str) -> 'String':
+        """
+        Returns the portion of a string before a given value.
+
+        Args:
+            search: The substring to search
+
+        Return:
+            The portion of string before the given value
+        """
+        if not search:
+            return String(self)
+
+        return String(self.split(search).pop(0))
+
+    def dedent(self) -> 'String':
+        """
+        Returns the string with unnecessary indentation stripped.
+
+        Returns:
+            The stripped string
+        """
+        return String(textwrap.dedent(self))
+
+    def indent(self, prefix: str) -> 'String':
+        """
+        Returns the string with lines indented using the specified prefix.
+
+        Args:
+            prefix: The prefix used to indent the string lines
+
+        Returns:
+            The indented string
+        """
+        return String(textwrap.indent(self, prefix))
+
+    def reverse(self) -> 'String':
+        """
+        Returns the string reversed.
+
+        Returns:
+            The reversed string
+        """
+        return String(self[::-1])
+
+    @staticmethod
+    def sentence(items: Iterable[str],
+                 delimiter: str = None,
+                 last_delimiter: str = None,
+                 serial: bool = False) -> 'String':
+        """
+        Joins a list into a human-readable sentence.
+
+        Args:
+            items: The list of strings to join
+            delimiter: The string used to join the items
+            last_delimiter: The last string used to join the items
+            serial: Whether a serial comma delimiter should be used
+
+        Returns:
+            A human-readable sentence string
+        """
+        delimiter = delimiter or ', '
+
+        if len(items) > 2 and last_delimiter and serial:
+            last_delimiter = delimiter.rstrip() + last_delimiter
+
+        if len(items) < 2 or not last_delimiter:
+            return String(delimiter.join(items))
+
+        return String(delimiter.join(items[:-1]) + last_delimiter + items[-1])
+
+    def truncate(self, length: int, suffix: str = None) -> 'String':
+        """
+        Returns the string truncated to fit the given length.
+
+        Args:
+            length: The position to truncate the string
+            suffix: The string to add after the truncated string
+
+        Returns:
+            The truncated string
+        """
+        return String(textwrap.shorten(self,
+                                       width=length,
+                                       placeholder=suffix or '...'))
+
+    def wrap(self, length: int = 75) -> 'String':
+        """
+        Returns the string wrapped to the given length of characters.
+
+        Args:
+            length: The number of characters at which the string will be wrapped
+
+        Returns:
+            The wrapped string
+        """
+        return String(textwrap.fill(self, length))
