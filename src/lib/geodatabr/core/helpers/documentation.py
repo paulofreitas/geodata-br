@@ -103,18 +103,18 @@ class ProjectReadme(Readme):
             The available data formats
         """
         grouped_formats = encoders.EncoderFormatRepository.groupByType()
-        markdown = ''
 
-        for format_type, formats in grouped_formats:
-            markdown += '\n'.join([
-                self._markdown.header(format_type, depth=4),
-                self._markdown.unorderedList([
-                    self._markdown.link(_format.info, _format.friendlyName)
-                    for _format in formats
-                ]) + '\n'
-            ])
-
-        return markdown
+        return self._markdown.unorderedList([
+            '{format_type}: {formats}\n'.format(
+                format_type=self._markdown.bold(format_type),
+                formats=types.String.sentence(
+                    [self._markdown.link(_format.info,
+                                         _format.friendlyName,
+                                         'File extension: {}' \
+                                             .format(_format.extension))
+                     for _format in formats],
+                    last_delimiter=' and '))
+            for format_type, formats in grouped_formats])
 
 
 class DatasetReadme(Readme):
@@ -211,20 +211,33 @@ class Badge(types.AbstractClass, types.Map):
 class CustomBadge(Badge):
     """A custom badge image."""
 
-    def __init__(self, label: str, value: str, color: str):
+    def __init__(self,
+                 label: str,
+                 value: str,
+                 color: str = None,
+                 style: str = None):
         """
         Creates a new custom badge image.
+
+        Args:
+            label: The badge label text
+            value: The badge value text
+            color: The badge color (defaults to "brightgreen")
+            style: The badge style (defaults to "flat")
         """
         self.label = label
         self.value = value
-        self.color = color
+        self.color = color or 'brightgreen'
+        self.style = style or 'flat'
 
     def __str__(self) -> str:
         """Renders the badge image."""
         return markup.GithubMarkdown.image(
-            'https://img.shields.io/badge/{label}-{value}-{color}.svg'
+            'https://img.shields.io/badge/{label}-{value}-{color}.svg' \
+            '?style={style}'
             .format(label=self.label,
                     value=self.value,
-                    color=self.color),
+                    color=self.color,
+                    style=self.style),
             self.label + ': ' + self.value,
             self.label + ': ' + self.value)
