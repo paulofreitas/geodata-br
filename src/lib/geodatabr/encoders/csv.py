@@ -11,7 +11,8 @@ import csv
 
 # Package dependencies
 
-from geodatabr.core import encoders, types
+from geodatabr.core import encoders
+from geodatabr.core.utils import io
 from geodatabr.dataset import serializers
 
 # Classes
@@ -74,7 +75,7 @@ class CsvEncoder(encoders.Encoder):
                     quoting=csv.QUOTE_MINIMAL,
                     extrasaction='ignore')
 
-    def encode(self, data: list, **options) -> types.BinaryFileStream:
+    def encode(self, data: list, **options) -> io.BinaryFileStream:
         """
         Encodes the data into a CSV file-like stream.
 
@@ -89,7 +90,7 @@ class CsvEncoder(encoders.Encoder):
             geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            csv_data = types.FileStream()
+            csv_data = io.FileStream()
             csv_writer = csv.DictWriter(csv_data,
                                         data.last().keys(),
                                         **dict(self.options, **options))
@@ -97,6 +98,6 @@ class CsvEncoder(encoders.Encoder):
             csv_writer.writerows(data)
             csv_data.seek(0)
 
-            return types.BinaryFileStream(csv_data.getvalue().encode('utf-8'))
+            return io.BinaryFileStream(csv_data.getvalue().encode('utf-8'))
         except Exception:
             raise encoders.EncodeError

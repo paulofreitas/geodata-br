@@ -12,7 +12,8 @@ import tempfile
 
 # Package dependencies
 
-from geodatabr.core import encoders, types
+from geodatabr.core import encoders
+from geodatabr.core.utils import io
 from geodatabr.dataset import serializers
 from geodatabr.encoders import sql
 
@@ -77,7 +78,7 @@ class Sqlite3Encoder(sql.SqlEncoder, encoders.Encoder):
         """Gets the default encoding options."""
         return dict(dialect='sqlite')
 
-    def encode(self, data: dict, **options) -> types.BinaryFileStream:
+    def encode(self, data: dict, **options) -> io.BinaryFileStream:
         """
         Encodes the data into a SQLite 3 file-like stream.
 
@@ -102,6 +103,6 @@ class Sqlite3Encoder(sql.SqlEncoder, encoders.Encoder):
                     sqlite_cursor.executescript(
                         'BEGIN; {} COMMIT'.format(sql_data.read().decode()))
 
-                return types.BinaryFileStream(sqlite_file.read())
+                return io.BinaryFileStream(sqlite_file.read())
         except Exception:
             raise encoders.EncodeError

@@ -11,7 +11,8 @@ import json
 
 # Package dependencies
 
-from geodatabr.core import encoders, types
+from geodatabr.core import encoders
+from geodatabr.core.utils import io
 from geodatabr.dataset import serializers
 
 # Classes
@@ -71,7 +72,7 @@ class JsonEncoder(encoders.Encoder):
                     separators=(',', ': '),
                     ensure_ascii=False)
 
-    def encode(self, data: dict, **options) -> types.BinaryFileStream:
+    def encode(self, data: dict, **options) -> io.BinaryFileStream:
         """
         Encodes the data into a JSON file-like stream.
 
@@ -86,7 +87,7 @@ class JsonEncoder(encoders.Encoder):
             geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            return types.BinaryFileStream(
+            return io.BinaryFileStream(
                 json.dumps(data, **dict(self.options, **options))
                 .encode('utf-8'))
         except Exception:

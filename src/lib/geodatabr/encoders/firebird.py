@@ -15,7 +15,7 @@ import fdb
 
 # Package dependencies
 
-from geodatabr.core import encoders, types
+from geodatabr.core import encoders
 from geodatabr.core.utils import io
 from geodatabr.dataset import serializers
 from geodatabr.encoders import sql
@@ -81,7 +81,7 @@ class FirebirdEncoder(sql.SqlEncoder, encoders.Encoder):
         """Gets the default encoding options."""
         return dict(dialect='firebird')
 
-    def encode(self, data: dict, **options) -> types.BinaryFileStream:
+    def encode(self, data: dict, **options) -> io.BinaryFileStream:
         """
         Encodes the data into a Firebird Embedded file-like stream.
 
@@ -115,6 +115,6 @@ class FirebirdEncoder(sql.SqlEncoder, encoders.Encoder):
 
                 fdb_cursor.execute(stmt)
 
-            return types.BinaryFileStream(io.File(fdb_file).readBytes())
+            return io.BinaryFileStream(io.File(fdb_file).readBytes())
         except Exception:
             raise encoders.EncodeError

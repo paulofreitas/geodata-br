@@ -18,6 +18,7 @@ import sys
 # Package dependencies
 
 from geodatabr.core import decorators, i18n, types
+from geodatabr.core.utils import io
 
 # Classes
 
@@ -200,7 +201,7 @@ class Encoder(types.AbstractClass):
     format = None
     serializer = None
 
-    def __call__(self, **options) -> types.BinaryFileStream:
+    def __call__(self, **options) -> io.BinaryFileStream:
         """
         Allows encoding the data into a stream calling the encoder instance.
 
@@ -225,7 +226,7 @@ class Encoder(types.AbstractClass):
         """Gets the encoder serialization options."""
         return {}
 
-    def encode(self, data, **options) -> types.BinaryFileStream:
+    def encode(self, data, **options) -> io.BinaryFileStream:
         """
         Encodes the data into a file-like stream.
 

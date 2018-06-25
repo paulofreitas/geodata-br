@@ -7,7 +7,8 @@
 
 # Package dependencies
 
-from geodatabr.core import encoders, types
+from geodatabr.core import encoders
+from geodatabr.core.utils import io
 from geodatabr.dataset import schema, serializers
 from geodatabr.encoders.sql import utils as sql_utils
 
@@ -71,7 +72,7 @@ class SqlEncoder(encoders.Encoder):
         """Gets the encoder serialization options."""
         return dict(localize=False)
 
-    def encode(self, data: dict, **options) -> types.BinaryFileStream:
+    def encode(self, data: dict, **options) -> io.BinaryFileStream:
         """
         Encodes the data into a SQL file-like stream.
 
@@ -94,6 +95,6 @@ class SqlEncoder(encoders.Encoder):
                 if rows:
                     sql_schema.addTable(entity.__table__, rows)
 
-            return types.BinaryFileStream(sql_schema.compile().encode('utf-8'))
+            return io.BinaryFileStream(sql_schema.compile().encode('utf-8'))
         except Exception:
             raise encoders.EncodeError

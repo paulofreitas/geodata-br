@@ -11,7 +11,8 @@ import plistlib
 
 # Package dependencies
 
-from geodatabr.core import encoders, types
+from geodatabr.core import encoders
+from geodatabr.core.utils import io
 from geodatabr.dataset import serializers
 
 # Classes
@@ -76,7 +77,7 @@ class BinaryPropertyListEncoder(encoders.Encoder):
         return dict(fmt=plistlib.PlistFormat.FMT_BINARY,
                     sort_keys=False)
 
-    def encode(self, data: dict, **options) -> types.BinaryFileStream:
+    def encode(self, data: dict, **options) -> io.BinaryFileStream:
         """
         Encodes the data into a Binary Property List file-like stream.
 
@@ -91,7 +92,7 @@ class BinaryPropertyListEncoder(encoders.Encoder):
             geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            return types.BinaryFileStream(
+            return io.BinaryFileStream(
                 plistlib.dumps(data, **dict(self.options, **options)))
         except Exception:
             raise encoders.EncodeError

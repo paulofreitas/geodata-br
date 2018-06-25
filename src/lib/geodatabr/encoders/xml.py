@@ -11,7 +11,8 @@ from lxml import etree
 
 # Package dependencies
 
-from geodatabr.core import encoders, i18n, types
+from geodatabr.core import encoders, i18n
+from geodatabr.core.utils import io
 from geodatabr.dataset import schema, serializers
 
 # Classes
@@ -76,7 +77,7 @@ class XmlEncoder(encoders.Encoder):
         """Gets the encoder serialization options."""
         return dict(forceStr=True)
 
-    def encode(self, data, **options) -> types.BinaryFileStream:
+    def encode(self, data, **options) -> io.BinaryFileStream:
         """
         Encodes the data into a XML file-like stream.
 
@@ -110,6 +111,6 @@ class XmlEncoder(encoders.Encoder):
             xml_data = xml_data.replace(xml_declaration,
                                         xml_declaration.replace(b"'", b'"'))
 
-            return types.BinaryFileStream(xml_data)
+            return io.BinaryFileStream(xml_data)
         except Exception:
             raise encoders.EncodeError

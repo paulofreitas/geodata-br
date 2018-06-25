@@ -217,50 +217,6 @@ class Bytes(io.BytesIO):
         return len(self.getvalue())
 
 
-class BinaryFileStream(io.BytesIO):
-    """An in-memory stream for bytes I/O."""
-
-    def __repr__(self) -> str:
-        """
-        Returns the canonical string representation of the object.
-
-        Returns:
-            The canonical string representation of the object
-        """
-        return '{:s}({!r})'.format(self.__class__.__name__, self.getvalue())
-
-    def __str__(self) -> str:
-        """
-        Returns the string representation of the object.
-
-        Returns:
-            The string representation of the object
-        """
-        return str(self.getvalue())
-
-
-class FileStream(io.StringIO):
-    """An in-memory stream for string I/O."""
-
-    def __repr__(self) -> str:
-        """
-        Returns the canonical string representation of the object.
-
-        Returns:
-            The canonical string representation of the object
-        """
-        return '{:s}({!r})'.format(self.__class__.__name__, self.getvalue())
-
-    def __str__(self) -> str:
-        """
-        Returns the string representation of the object.
-
-        Returns:
-            The string representation of the object
-        """
-        return str(self.getvalue())
-
-
 class List(list):
     """An improved list type with super powers."""
 

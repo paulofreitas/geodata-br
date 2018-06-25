@@ -12,6 +12,7 @@ import pyexcel_ods
 # Package dependencies
 
 from geodatabr.core import encoders, types
+from geodatabr.core.utils import io
 from geodatabr.dataset import serializers
 
 # Classes
@@ -70,7 +71,7 @@ class OpenDocumentSpreadsheetEncoder(encoders.Encoder):
     format = OpenDocumentSpreadsheetFormat
     serializer = serializers.Serializer
 
-    def encode(self, data: dict, **options) -> types.BinaryFileStream:
+    def encode(self, data: dict, **options) -> io.BinaryFileStream:
         """
         Encodes the data into a OpenDocument Spreadsheet file-like stream.
 
@@ -85,7 +86,7 @@ class OpenDocumentSpreadsheetEncoder(encoders.Encoder):
             geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            ods_file = types.BinaryFileStream()
+            ods_file = io.BinaryFileStream()
             ods_data = types.OrderedMap()
 
             for entity, records in data.items():

@@ -12,6 +12,7 @@ import pyexcel_xlsx
 # Package dependencies
 
 from geodatabr.core import encoders, types
+from geodatabr.core.utils import io
 from geodatabr.dataset import serializers
 
 # Classes
@@ -70,7 +71,7 @@ class OfficeOpenXmlWorkbookEncoder(encoders.Encoder):
     format = OfficeOpenXmlWorkbookFormat
     serializer = serializers.Serializer
 
-    def encode(self, data: dict, **options) -> types.BinaryFileStream:
+    def encode(self, data: dict, **options) -> io.BinaryFileStream:
         """
         Encodes the data into a Office Open XML Workbook file-like stream.
 
@@ -85,7 +86,7 @@ class OfficeOpenXmlWorkbookEncoder(encoders.Encoder):
             geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
-            xlsx_file = types.BinaryFileStream()
+            xlsx_file = io.BinaryFileStream()
             xlsx_data = types.OrderedMap()
 
             for entity, records in data.items():

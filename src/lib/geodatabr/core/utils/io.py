@@ -7,10 +7,13 @@ Filesystem helper module.
 
 This module provides classes to work with filesystem files and directories.
 """
+from __future__ import absolute_import
+
 # Imports
 
 # Built-in dependencies
 
+import io
 import os
 import pathlib
 import uuid
@@ -308,3 +311,47 @@ class CacheFile(File):
             args += (str(uuid.uuid4()),)
 
         return File(Path.CACHE_DIR, *args, **kwargs)
+
+
+class FileStream(io.StringIO):
+    """An in-memory stream for string I/O."""
+
+    def __repr__(self) -> str:
+        """
+        Returns the canonical string representation of the object.
+
+        Returns:
+            The canonical string representation of the object
+        """
+        return '{:s}({!r})'.format(self.__class__.__name__, self.getvalue())
+
+    def __str__(self) -> str:
+        """
+        Returns the string representation of the object.
+
+        Returns:
+            The string representation of the object
+        """
+        return str(self.getvalue())
+
+
+class BinaryFileStream(io.BytesIO):
+    """An in-memory stream for bytes I/O."""
+
+    def __repr__(self) -> str:
+        """
+        Returns the canonical string representation of the object.
+
+        Returns:
+            The canonical string representation of the object
+        """
+        return '{:s}({!r})'.format(self.__class__.__name__, self.getvalue())
+
+    def __str__(self) -> str:
+        """
+        Returns the string representation of the object.
+
+        Returns:
+            The string representation of the object
+        """
+        return str(self.getvalue())
