@@ -143,12 +143,13 @@ class Constraint(Compiler):
 
         super().__init__(dialect)
 
-    def _compilePrimaryKey(self) -> str:
+    def _compilePrimaryKeyConstraint(self) -> str:
         """
-        Compiles the DDL statement for a table primary key element.
+        Compiles the DDL statement for a table primary key constraint element.
 
         Returns:
-            The compiled DDL statement for the table primary key element
+            The compiled DDL statement for the table primary key constraint
+            element
         """
         ddl = ''
 
@@ -161,12 +162,13 @@ class Constraint(Compiler):
             columns=', '.join(i18n._(column.name)
                               for column in self.constraint.columns))
 
-    def _compileForeignKey(self) -> str:
+    def _compileForeignKeyConstraint(self) -> str:
         """
-        Compiles the DDL statement for a table foreign key element.
+        Compiles the DDL statement for a table foreign key constraint element.
 
         Returns:
-            The compiled DDL statement for the table foreign key element
+            The compiled DDL statement for the table foreign key constraint
+            element
         """
         ddl = ''
 
@@ -176,15 +178,43 @@ class Constraint(Compiler):
                 .format(table_name=i18n._(self.constraint.table.name),
                         column_name=i18n._(self.constraint.column_keys[0]))
 
-        ddl += 'FOREIGN KEY ({columns}) REFERENCES {ref_table} ({ref_columns})'
+        ddl += 'FOREIGN KEY ({columns}) REFERENCES {ref_table} ({ref_columns})' \
+            .format(columns=', '.join(i18n._(element.parent.name)
+                                      for element in self.constraint.elements),
+                    ref_table=i18n._(
+                        list(self.constraint.elements)[0].column.table.name),
+                    ref_columns=', '.join(
+                        i18n._(element.column.name)
+                        for element in self.constraint.elements))
 
-        return ddl.format(
-            columns=', '.join(i18n._(element.parent.name)
-                              for element in self.constraint.elements),
-            ref_table=i18n._(list(
-                self.constraint.elements)[0].column.table.name),
-            ref_columns=', '.join(i18n._(element.column.name)
-                                  for element in self.constraint.elements))
+        # Cascading
+        if self.constraint.ondelete is not None:
+            ddl += ' ON DELETE {}'.format(self.constraint.ondelete)
+
+        if self.constraint.onupdate is not None:
+            ddl += ' ON UPDATE {}'.format(self.constraint.onupdate)
+
+        return ddl
+
+    def _compileUniqueConstraint(self) -> str:
+        """
+        Compiles the DDL statement for a table unique constraint element.
+
+        Returns:
+            The compiled DDL statement for the table unique constraint element
+        """
+        ddl = ''
+
+        if self.constraint.name is not None:
+            ddl += 'CONSTRAINT {name} '.format(
+                name=self.naming_convention[type(self.constraint)]) \
+                .format(table_name=i18n._(self.constraint.table.name))
+
+        ddl += 'UNIQUE {columns}'.format(
+            columns=', '.join(i18n._(column.name)
+                              for column in self.constraint))
+
+        return ddl
 
     @decorators.cachedmethod()
     def compile(self) -> str:
@@ -194,14 +224,13 @@ class Constraint(Compiler):
         Returns:
             The compiled DDL statement for the table constraint element
         """
-        ddl = ''
+        ddl = {
+            schema.PrimaryKeyConstraint: self._compilePrimaryKeyConstraint(),
+            schema.ForeignKeyConstraint: self._compileForeignKeyConstraint(),
+            schema.UniqueConstraint: self._compileUniqueConstraint()
+        }.get(type(self.constraint), '')
 
-        if isinstance(self.constraint, schema.PrimaryKeyConstraint):
-            ddl += self._compilePrimaryKey()
-
-        if isinstance(self.constraint, schema.ForeignKeyConstraint):
-            ddl += self._compileForeignKey()
-
+        # Inline constraints
         if (not getattr(self.constraint, 'use_alter', False)
                 or not self.dialect.supports_alter):
             return ddl
