@@ -42,9 +42,9 @@ class YamlFormat(encoders.EncoderFormat):
         return 'Data Interchange'
 
     @property
-    def mimeType(self) -> None:
+    def mimeType(self) -> str:
         """Gets the encoder format media type."""
-        return None
+        return 'application/x-yaml'
 
     @property
     def info(self) -> str:

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-"""Property List encoder module."""
+"""Binary Property List encoder module."""
 # Imports
 
 # Built-in dependencies
@@ -17,8 +17,8 @@ from geodatabr.dataset import serializers
 # Classes
 
 
-class PropertyListFormat(encoders.EncoderFormat):
-    """Encoder format class for Property List file format."""
+class BinaryPropertyListFormat(encoders.EncoderFormat):
+    """Encoder format class for Binary Property List file format."""
 
     @property
     def name(self) -> str:
@@ -28,7 +28,7 @@ class PropertyListFormat(encoders.EncoderFormat):
     @property
     def friendlyName(self) -> str:
         """Gets the encoder format friendly name."""
-        return 'Property List'
+        return 'Binary Property List'
 
     @property
     def extension(self) -> str:
@@ -56,18 +56,18 @@ class PropertyListFormat(encoders.EncoderFormat):
         return True
 
 
-class PropertyListEncoder(encoders.Encoder):
+class BinaryPropertyListEncoder(encoders.Encoder):
     """
-    Property List encoder class.
+    Binary Property List encoder class.
 
     Attributes:
-        format (geodatabr.encoders.plist.PropertyListFormat):
+        format (geodatabr.encoders.plist.BinaryPropertyListFormat):
             The encoder format class
         serializer (geodatabr.dataset.serializers.Serializer):
             The encoder serialization class
     """
 
-    format = PropertyListFormat
+    format = BinaryPropertyListFormat
     serializer = serializers.Serializer
 
     @property
@@ -78,14 +78,14 @@ class PropertyListEncoder(encoders.Encoder):
 
     def encode(self, data: dict, **options) -> types.BinaryFileStream:
         """
-        Encodes the data into a Property List file-like stream.
+        Encodes the data into a Binary Property List file-like stream.
 
         Args:
             data: The data to encode
             **options: The encoding options
 
         Returns:
-            A Property List file-like stream
+            A Binary Property List file-like stream
 
         Raises:
             geodatabr.core.encoders.EncodeError: If data fails to encode

@@ -45,7 +45,7 @@ class Sqlite3Format(encoders.EncoderFormat):
     @property
     def mimeType(self) -> str:
         """Gets the encoder format media type."""
-        return 'application/x-sqlite3'
+        return 'application/vnd.sqlite3'
 
     @property
     def info(self) -> str:
