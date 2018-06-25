@@ -14,11 +14,25 @@ This module provides markup generators for HTML and Markdown.
 import html
 from lxml import builder, etree, html as _html
 
+# Package dependencies
+
+from geodatabr.core import decorators
+
 # Classes
 
 
 class MarkupElement(object):
     """Abstract markup element class."""
+
+    @decorators.abstractmethod
+    def render(self) -> str:
+        """
+        Returns the rendered element.
+
+        Returns:
+            The rendered element
+        """
+        raise NotImplementedError
 
     def __repr__(self) -> str:
         """
@@ -39,7 +53,7 @@ class MarkupElement(object):
         Returns:
             The string representation of the object
         """
-        raise NotImplementedError
+        return self.render()
 
 
 class MarkdownGenerator(type):
@@ -77,12 +91,13 @@ class MarkdownGenerator(type):
 class MarkdownElement(MarkupElement):
     """Abstract Markdown element class."""
 
-    def __str__(self) -> str:
+    @decorators.abstractmethod
+    def render(self) -> str:
         """
-        Returns the string representation of the object.
+        Returns the rendered element.
 
         Returns:
-            The string representation of the object
+            The rendered element
         """
         raise NotImplementedError
 
@@ -125,7 +140,7 @@ class Markdown(metaclass=MarkdownGenerator):
             self.depth = depth
             self.style = style
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             if self.style == self.STYLE_SETEXT:
                 return '\n'.join([
@@ -155,7 +170,7 @@ class Markdown(metaclass=MarkdownGenerator):
             self.text = text
             self.style = style
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             return '{_}{}{_}'.format(self.text, _=self.style * 2)
 
@@ -179,7 +194,7 @@ class Markdown(metaclass=MarkdownGenerator):
             self.text = text
             self.style = style
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             return '{_}{}{_}'.format(self.text, _=self.style)
 
@@ -203,7 +218,7 @@ class Markdown(metaclass=MarkdownGenerator):
             self._items = items
             self.bullet_char = bullet_char
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             return '\n'.join('{} {}'.format(self.bullet_char, item)
                              for item in self._items) + '\n'
@@ -220,7 +235,7 @@ class Markdown(metaclass=MarkdownGenerator):
             """
             self.items = items
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             return '\n'.join('{}. {}'.format(index + 1, item)
                              for index, item in enumerate(self.items)) + '\n'
@@ -239,7 +254,7 @@ class Markdown(metaclass=MarkdownGenerator):
             self.source = source
             self.inline = inline
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             if self.inline:
                 return '`{}`'.format(html.escape(self.source))
@@ -262,7 +277,7 @@ class Markdown(metaclass=MarkdownGenerator):
             self.text = text
             self.title = title
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             if not self.title:
                 return '![{}]({})'.format(self.text, self.url)
@@ -285,7 +300,7 @@ class Markdown(metaclass=MarkdownGenerator):
             self.text = text
             self.title = title
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             if not self.text and not self.title:
                 return self.url
@@ -307,7 +322,7 @@ class Markdown(metaclass=MarkdownGenerator):
             """
             self.text = text
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             return '\n'.join(['> {}'.format(line)
                               for line in self.text.splitlines()]) + '\n'
@@ -330,7 +345,7 @@ class Markdown(metaclass=MarkdownGenerator):
 
             self.rule_char = rule_char
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             return self.rule_char * 3 + '\n'
 
@@ -346,7 +361,7 @@ class Markdown(metaclass=MarkdownGenerator):
             """
             self.text = text
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             chars = '\\`*_{}[]()#+-.!<>'
 
@@ -386,7 +401,7 @@ class GithubMarkdown(Markdown, metaclass=MarkdownGenerator):
             """
             self.text = text
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             return '~~{}~~'.format(self.text)
 
@@ -402,7 +417,7 @@ class GithubMarkdown(Markdown, metaclass=MarkdownGenerator):
             """
             self.tasks = tasks
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             return '\n'.join(
                 '- [{}] {}'.format('x' if task_completed else ' ', task_item)
@@ -428,7 +443,7 @@ class GithubMarkdown(Markdown, metaclass=MarkdownGenerator):
             self.inline = inline
             self.lang = lang
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             if not self.lang:
                 return Markdown.code(self.source, self.inline)
@@ -465,7 +480,7 @@ class GithubMarkdown(Markdown, metaclass=MarkdownGenerator):
             self.column_sizes = [max(len(str(item)) for item in row)
                                  for row in zip(*data)]
 
-        def __str__(self) -> str:
+        def render(self) -> str:
             """Renders the element."""
             def _table_row(row, heading=False):
                 return '|{}|\n'.format('|'.join([
@@ -528,6 +543,15 @@ class HtmlGenerator(type):
 class HtmlElement(MarkupElement, etree.ElementBase):
     """Abstract HTML element class."""
 
+    def render(self) -> str:
+        """
+        Returns the rendered element.
+
+        Returns:
+            The rendered element
+        """
+        return Html(self)
+
     def __repr__(self) -> str:
         """
         Returns the canonical string representation of the object.
@@ -545,18 +569,9 @@ class HtmlElement(MarkupElement, etree.ElementBase):
                 attr += ', '
 
             attr += ', '.join('{}={}'.format(key, repr(value))
-                              for key, value in self.attrib.items())
+                              for key, value in dict(self.attrib).items())
 
         return 'Html.{:s}({!s})'.format(self.tag, attr)
-
-    def __str__(self) -> str:
-        """
-        Returns the string representation of the object.
-
-        Returns:
-            The string representation of the object
-        """
-        return Html(self)
 
 
 class Html(object, metaclass=HtmlGenerator):
