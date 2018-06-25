@@ -22,11 +22,12 @@ from geodatabr.core import decorators, i18n, types
 # Classes
 
 
-class EncoderFormat(types.AbstractClass,
-                    metaclass=type('_AbstractClass',
-                                   (abc.ABCMeta,
-                                    decorators.DataDescriptor), {})):
-    """Abstract encoder file format base class."""
+class _EncoderFormat(abc.ABCMeta, decorators.DataDescriptor):
+    """Metaclass of encoder format classes."""
+
+
+class EncoderFormat(types.AbstractClass, metaclass=_EncoderFormat):
+    """Base encoder format class."""
 
     @property
     def name(self) -> str:
