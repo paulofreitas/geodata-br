@@ -7,14 +7,17 @@
 
 # Built-in dependencies
 
-from os import symlink
-from os.path import abspath
-from sys import version_info
-from setuptools import setup, find_packages
+import os
+from os import path
+import sys
+
+# External dependencies
+
+import setuptools
 
 # Compatibility check
 
-if version_info[:2] < (3, 4):
+if sys.version_info[:2] < (3, 4):
     raise RuntimeError('Python version >= 3.4 required')
 
 # Routines
@@ -27,11 +30,12 @@ with open('lib/geodatabr/__init__.py') as package:
 # Symlink package data
 try:
     for filepath in ('LICENSE', 'data'):
-        symlink(abspath(filepath), abspath('lib/geodatabr/' + filepath))
+        os.symlink(path.abspath(filepath),
+                   path.abspath('lib/geodatabr/' + filepath))
 except FileExistsError:
     pass
 
-setup(
+setuptools.setup(
     # Package metadata
     name=__metadata__['__package_name__'],
     version=__metadata__['__version__'],
@@ -42,7 +46,7 @@ setup(
     author_email=__metadata__['__author_email__'],
 
     # Package distribution
-    packages=find_packages('lib'),
+    packages=setuptools.find_packages('lib'),
     package_dir={'': 'lib'},
     package_data={'': ['LICENSE', 'data/stubs/*', 'data/translations/*']},
     include_package_data=True,
@@ -56,6 +60,7 @@ setup(
     python_requires='>=3.4',
     install_requires=[
         # geodatabr package
+        'pytest',
         'requests',
         'ratelimit',
         # geodatabr.dataset package
