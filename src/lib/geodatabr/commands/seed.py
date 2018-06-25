@@ -42,7 +42,7 @@ class SeedCommand(Command):
                 logger().info('> Seeding table "%s"...', entity.__table__.name)
 
                 try:
-                    SeederFactory(entity).run()
+                    SeederFactory.fromEntity(entity).run()
                 except NothingToSeedError:
                     logger().warning('Nothing to seed.')
         except KeyboardInterrupt:

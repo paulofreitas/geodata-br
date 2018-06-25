@@ -11,7 +11,7 @@ This module provides the seeders classes used to populate the dataset.
 
 # Package dependencies
 
-from geodatabr.core import types
+from geodatabr.core import decorators, types
 from geodatabr.dataset import base, repositories, schema, services as sidra
 
 # Classes
@@ -40,6 +40,7 @@ class Seeder(types.AbstractClass):
     repository = None
 
     @classmethod
+    @decorators.abstractmethod
     def run(cls):
         """Runs the database seeder."""
         raise NotImplementedError
@@ -316,7 +317,8 @@ class SubdistrictSeeder(Seeder):
 class SeederFactory(object):
     """Factory class for instantiation of concrete seeder classes."""
 
-    def __new__(cls, entity: schema.Entity) -> Seeder:
+    @staticmethod
+    def fromEntity(entity: schema.Entity) -> Seeder:
         """
         Factories a seeder class for a given entity class.
 
