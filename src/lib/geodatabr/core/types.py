@@ -27,14 +27,14 @@ class AbstractClass(object, metaclass=abc.ABCMeta):
     """Base abstract class."""
 
     @classmethod
-    def parent(cls) -> type:
+    def parents(cls) -> list:
         """
-        Returns the parent class (metaclass) of this class.
+        Returns the parent classes of this class.
 
         Returns:
-            The parent class of this class
+            The parent classes of this class
         """
-        return cls.__class__
+        return list(cls.__bases__)
 
     @classmethod
     def childs(cls) -> list:
@@ -281,7 +281,8 @@ class List(list):
         if size <= 0:
             raise ValueError('The chunk size should be a positive number')
 
-        return List(self[idx:idx + size] for idx in range(0, len(self), size))
+        return List(List(self[idx:idx + size])
+                    for idx in range(0, len(self), size))
 
     def copy(self) -> 'List':
         """
@@ -411,15 +412,16 @@ class List(list):
         Returns a new list consisting of every n-th item.
 
         Args:
-            step: The step size
-            offset: The start offset
+            step: The slice step size
+            offset: The slice start offset
 
         Returns:
             A sliced list
+
+        Raises:
+            ValueError: If the slice step is zero
         """
-        return List([item
-                     for position, item in enumerate(self)
-                     if position % step == offset])
+        return List(self[offset::step])
 
     def partition(self, predicate: Callable) -> 'List':
         """
@@ -610,7 +612,7 @@ class List(list):
             ValueError: If the list is not a nested list
             ValueError: If the list do not have equal sized lists
         """
-        if not any(isinstance(item, list) for item in self):
+        if not all(isinstance(item, list) for item in self):
             raise ValueError(
                 'The list should be a nested list (a list of lists)')
 
@@ -789,6 +791,18 @@ class String(str):
         """
         return String(textwrap.indent(self, prefix))
 
+    def repeat(self, times: int) -> 'String':
+        """
+        Returns a string repeated the given amount of times.
+
+        Args:
+            times: The amount of times to repeat
+
+        Returns:
+            The repeated string
+        """
+        return String(self * times)
+
     def reverse(self) -> 'String':
         """
         Returns the string reversed.
@@ -797,6 +811,22 @@ class String(str):
             The reversed string
         """
         return String(self[::-1])
+
+    def rotate(self, shift: int) -> 'String':
+        """
+        Returns the string rotated by the given amount of characters.
+
+        Args:
+            shift: The amount of characters to rotate
+
+        Returns:
+            The rotated string
+        """
+        # pylint: disable=len-as-condition
+        if abs(shift) > len(self) > 0:
+            shift %= len(self)
+
+        return String(self[-shift:] + self[:-shift])
 
     @staticmethod
     def sentence(items: Iterable[str],
@@ -825,7 +855,7 @@ class String(str):
 
         return String(delimiter.join(items[:-1]) + last_delimiter + items[-1])
 
-    def truncate(self, length: int, suffix: str = None) -> 'String':
+    def truncate(self, length: int = 75, suffix: str = None) -> 'String':
         """
         Returns the string truncated to fit the given length.
 
