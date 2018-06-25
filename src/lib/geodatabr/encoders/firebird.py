@@ -16,7 +16,7 @@ import fdb
 # Package dependencies
 
 from geodatabr.core import encoders, types
-from geodatabr.core.utils import filesystem as io
+from geodatabr.core.utils import io
 from geodatabr.dataset import serializers
 from geodatabr.encoders import sql
 

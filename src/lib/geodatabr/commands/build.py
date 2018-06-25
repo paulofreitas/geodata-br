@@ -15,7 +15,7 @@ from geodatabr.core.commands import Command
 from geodatabr.core.encoders import EncoderFactory, EncoderFormatRepository, \
     EncodeError
 from geodatabr.core.utils.documentation import ProjectReadme, DatasetReadme
-from geodatabr.core.utils.filesystem import Directory, Path
+from geodatabr.core.utils.io import Directory, Path
 from geodatabr.core.i18n import Translator
 from geodatabr.core.logging import logger
 
