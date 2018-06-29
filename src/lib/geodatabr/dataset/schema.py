@@ -52,10 +52,10 @@ class Entity(declarative.declarative_base()):
         Returns:
             The entity columns/values pairs
         """
-        columns = columns or self.__table__.columns
+        columns = columns or [column.name for column in self.__table__.columns]
 
-        return types.OrderedMap({str(column.name): getattr(self, column.name)
-                                 for column in columns})
+        return types.OrderedMap((str(column), getattr(self, column))
+                                for column in columns)
 
 
 class State(Entity):
