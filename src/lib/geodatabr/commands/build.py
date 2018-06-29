@@ -7,22 +7,18 @@
 
 # Built-in dependencies
 
-from argparse import Namespace
+import argparse
 
 # Package dependencies
 
-from geodatabr.core.commands import Command
-from geodatabr.core.encoders import EncoderFactory, EncoderFormatRepository, \
-    EncodeError
-from geodatabr.core.utils.documentation import ProjectReadme, DatasetReadme
-from geodatabr.core.utils.io import Directory, Path
-from geodatabr.core.i18n import Translator
-from geodatabr.core.logging import logger
+from geodatabr.commands import encode
+from geodatabr.core import commands, encoders, i18n, logging
+from geodatabr.core.utils import documentation, io
 
 # Classes
 
 
-class BuildCommand(Command):
+class BuildCommand(commands.Command):
     """A command class to build the dataset files."""
 
     @property
@@ -42,8 +38,8 @@ class BuildCommand(Command):
 
     def configure(self):
         """Defines the command arguments."""
-        locales = Translator.locales()
-        formats = EncoderFormatRepository.listNames()
+        locales = i18n.Translator.locales()
+        formats = encoders.EncoderFormatRepository.listNames()
 
         self.addArgument('-l', '--locales',
                          metavar='LOCALE',
@@ -62,37 +58,40 @@ class BuildCommand(Command):
                                'Options: %(choices)s\n'
                                'Defaults to all available.'))
 
-    def handle(self, args: Namespace):
-        """Handles the command."""
+    def handle(self, args: argparse.Namespace):
+        """
+        Handles the command.
+
+        Args:
+            args: The command arguments
+        """
         try:
+            encoder = encode.EncodeCommand(self.application)
+            logger = logging.logger()
+
             for locale in args.locales:
-                Translator.locale = locale
+                i18n.Translator.locale = locale
 
-                logger().info('> Building locale: %s', locale)
+                logger.info('> Building locale: %s', locale)
 
-                dataset_dir = Directory(Path.DATA_DIR / locale)
+                dataset_dir = io.Directory(io.Path.DATA_DIR / locale)
                 dataset_dir.create(parents=True)
 
                 with dataset_dir:
                     for dataset_format in args.formats:
-                        encoder = EncoderFactory.fromFormat(dataset_format)
+                        encoder.configure()
+                        encoder.handle(encoder.parse([
+                            '--format', dataset_format,
+                            '--locale', locale]))
 
-                        logger().info('Encoding dataset to %s format...',
-                                      encoder.format().friendlyName)
+                    logger.info('Generating dataset README file...')
 
-                        serializer = encoder.serializer(
-                            **encoder.serializationOptions)
+                    documentation.DatasetReadme(dataset_dir).write()
 
-                        encoder.encodeToFile(serializer.serialize())
+            logger.info('Generating project README file...')
 
-                    logger().info('Generating dataset README file...')
-
-                    DatasetReadme(dataset_dir).write()
-
-            logger().info('Generating project README file...')
-
-            ProjectReadme().write()
-        except EncodeError:
-            logger().error('Failed to encode dataset.')
+            documentation.ProjectReadme().write()
+        except encoders.EncodeError:
+            self._parser.error('Failed to build dataset.')
         except KeyboardInterrupt:
-            logger().info('Building was canceled.')
+            self._parser.terminate('Building was canceled.')
