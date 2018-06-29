@@ -11,7 +11,7 @@ This module provides the serializers classes used to export the dataset.
 
 # Built-in dependencies
 
-from typing import Any
+from typing import Iterable
 
 # Package dependencies
 
@@ -21,29 +21,8 @@ from geodatabr.dataset import repositories, schema
 # Classes
 
 
-class BaseSerializer(object):
-    """Abstract serializer class."""
-
-    @property
-    @decorators.cachedmethod()
-    def __rows__(self) -> types.OrderedMap:
-        """
-        Retrieves the dataset rows.
-
-        Returns:
-            The dataset rows
-        """
-        rows = types.OrderedMap(states=repositories.StateRepository.loadAll())
-
-        for entity in schema.ENTITIES:
-            table = entity.__table__.name
-
-            if table not in rows:
-                rows[table] = types.List([item
-                                          for state in rows.states
-                                          for item in getattr(state, table)])
-
-        return rows
+class Serializer(object):
+    """Dataset serializer class."""
 
     def __init__(self, **options):
         """
@@ -52,61 +31,43 @@ class BaseSerializer(object):
         Args:
             **options: The serialization options
         """
-        self._options = types.OrderedMap(options)
-
-    def serialize(self) -> Any:
-        """
-        Abstract serialization method.
-        """
-        raise NotImplementedError
-
-
-class Serializer(BaseSerializer):
-    """Default serialization implementation."""
-
-    def __init__(self,
-                 localize: bool = True,
-                 forceStr: bool = False):
-        """
-        Setup the serializer.
-
-        Args:
-            localize: Whether or not it should localize mapping keys
-            forceStr: Whether or not it should coerce mapping values to string
-        """
-        super().__init__(localize=localize,
-                         forceStr=forceStr)
+        self._options = types.OrderedMap(
+            # Whether or not it should localize mapping keys
+            localize=bool(options.get('localize', True)),
+            # Whether or not it should coerce mapping values to string
+            forceStr=bool(options.get('forceStr', False)),
+        )
 
     @decorators.cachedmethod()
-    def serialize(self) -> types.OrderedMap:
+    def serialize(self, entities: Iterable[schema.Entity]) -> types.OrderedMap:
         """
         Serializes the dataset rows.
+
+        Args:
+            entities: The list of entities to serialize
 
         Returns:
             The serialized dataset rows mapping
         """
         rows = types.OrderedMap()
 
-        for entity in schema.ENTITIES:
-            table = str(entity.__table__.name)
-            _rows = self.__rows__[table]
+        for entity in entities:
+            table_name = str(entity.__table__.name)
+            repository = repositories.RepositoryFactory.fromEntity(entity)
+            _rows = repository.findAll()
 
             if not _rows:
                 continue
 
             if self._options.localize:
-                table = i18n._(table)
+                table_name = i18n._(table_name)
 
-            rows[table] = types.List()
+            rows[table_name] = types.List()
 
             for _row in _rows:
-                _row = _row.serialize()
                 row = types.OrderedMap()
 
-                for column in entity.__table__.columns:
-                    column = str(column.name)
-                    value = _row[column]
-
+                for column, value in _row.serialize().items():
                     if self._options.localize:
                         column = i18n._(column)
 
@@ -115,35 +76,6 @@ class Serializer(BaseSerializer):
 
                     row[column] = value
 
-                rows[table].append(row)
-
-        return rows
-
-
-class FlattenedSerializer(BaseSerializer):
-    """Flattened serialization implementation."""
-
-    @decorators.cachedmethod()
-    def serialize(self) -> types.List:
-        """
-        Serializes the dataset rows.
-
-        Returns:
-            The serialized dataset rows list
-        """
-        rows = types.List()
-
-        for entity in schema.ENTITIES:
-            for row in self.__rows__[entity.__table__.name]:
-                rows.append(types.OrderedMap(
-                    [(i18n._(key), value)
-                     for key, value in row.serialize(flatten=True).items()]))
-
-        rows.sort(key=lambda row: (row.get('state_id') or 0,
-                                   row.get('mesoregion_id') or 0,
-                                   row.get('microregion_id') or 0,
-                                   row.get('municipality_id') or 0,
-                                   row.get('district_id') or 0,
-                                   row.get('subdistrict_id') or 0))
+                rows[table_name].append(row)
 
         return rows
