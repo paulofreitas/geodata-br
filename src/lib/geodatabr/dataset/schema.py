@@ -42,43 +42,20 @@ class Entity(declarative.declarative_base()):
 
     metadata = schema.MetaData(naming_convention=naming_convention)
 
-    def serialize(self, flatten: bool = False) -> types.OrderedMap:
+    def serialize(self, columns: list = None) -> types.OrderedMap:
         """
         Serializes the entity to an ordered mapping.
 
         Args:
-            flatten: Whether it should flatten column names or not
+            columns: An optional list of column names to serialize
 
         Returns:
             The entity columns/values pairs
         """
-        # pylint: disable=protected-access
-        if not flatten:
-            return types.OrderedMap({column.name: getattr(self, column.name)
-                                     for column in self.__table__.columns})
+        columns = columns or self.__table__.columns
 
-        def _flatten(entity):
-            flattened = types.OrderedMap()
-
-            for column in entity.__table__.columns:
-                if not column.foreign_keys:
-                    flattened[entity._name + '_' + column.name] =\
-                        getattr(entity, column.name)
-
-            return flattened
-
-        flattened = types.OrderedMap()
-
-        for column in reversed(list(self.__table__.columns)):
-            for foreign_key in column.foreign_keys:
-                for relationship in self.__mapper__.relationships:
-                    if relationship.table == foreign_key.column.table:
-                        flattened.update(
-                            _flatten(getattr(self, relationship.key)))
-
-        flattened.update(_flatten(self))
-
-        return flattened
+        return types.OrderedMap({str(column.name): getattr(self, column.name)
+                                 for column in columns})
 
 
 class State(Entity):
@@ -320,3 +297,4 @@ class Subdistrict(Entity):
 # Constants
 
 ENTITIES = (State, Mesoregion, Microregion, Municipality, District, Subdistrict)
+TABLES = tuple(entity.__table__.name for entity in ENTITIES)
