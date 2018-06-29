@@ -42,7 +42,17 @@
 
 #### Tabular Text
 
-| File         | Format                                                      |      Size |
-| ------------ |:-----------------------------------------------------------:| ---------:|
-| `brazil.csv` | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) | 1,679,640 |
-| `brazil.tsv` | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)   | 1,679,638 |
+| File                        | Format                                                      |      Size |
+| --------------------------- |:-----------------------------------------------------------:| ---------:|
+| `brazil-districts.csv`      | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) |   474,565 |
+| `brazil-districts.tsv`      | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)   |   474,565 |
+| `brazil-mesoregions.csv`    | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) |     3,883 |
+| `brazil-mesoregions.tsv`    | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)   |     3,883 |
+| `brazil-microregions.csv`   | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) |    15,548 |
+| `brazil-microregions.tsv`   | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)   |    15,548 |
+| `brazil-municipalities.csv` | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) |   201,240 |
+| `brazil-municipalities.tsv` | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)   |   201,240 |
+| `brazil-states.csv`         | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) |       409 |
+| `brazil-states.tsv`         | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)   |       409 |
+| `brazil-subdistricts.csv`   | [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) |    41,692 |
+| `brazil-subdistricts.tsv`   | [TSV](https://en.wikipedia.org/wiki/Tab-separated_values)   |    41,690 |

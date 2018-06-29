@@ -1,0 +1,138 @@
+id	id_estado	nome
+1101	11	Madeira-Guaporé
+1102	11	Leste Rondoniense
+1201	12	Vale do Juruá
+1202	12	Vale do Acre
+1301	13	Norte Amazonense
+1302	13	Sudoeste Amazonense
+1303	13	Centro Amazonense
+1304	13	Sul Amazonense
+1401	14	Norte de Roraima
+1402	14	Sul de Roraima
+1501	15	Baixo Amazonas
+1502	15	Marajó
+1503	15	Metropolitana de Belém
+1504	15	Nordeste Paraense
+1505	15	Sudoeste Paraense
+1506	15	Sudeste Paraense
+1601	16	Norte do Amapá
+1602	16	Sul do Amapá
+1701	17	Ocidental do Tocantins
+1702	17	Oriental do Tocantins
+2101	21	Norte Maranhense
+2102	21	Oeste Maranhense
+2103	21	Centro Maranhense
+2104	21	Leste Maranhense
+2105	21	Sul Maranhense
+2201	22	Norte Piauiense
+2202	22	Centro-Norte Piauiense
+2203	22	Sudoeste Piauiense
+2204	22	Sudeste Piauiense
+2301	23	Noroeste Cearense
+2302	23	Norte Cearense
+2303	23	Metropolitana de Fortaleza
+2304	23	Sertões Cearenses
+2305	23	Jaguaribe
+2306	23	Centro-Sul Cearense
+2307	23	Sul Cearense
+2401	24	Oeste Potiguar
+2402	24	Central Potiguar
+2403	24	Agreste Potiguar
+2404	24	Leste Potiguar
+2501	25	Sertão Paraibano
+2502	25	Borborema
+2503	25	Agreste Paraibano
+2504	25	Mata Paraibana
+2601	26	Sertão Pernambucano
+2602	26	São Francisco Pernambucano
+2603	26	Agreste Pernambucano
+2604	26	Mata Pernambucana
+2605	26	Metropolitana de Recife
+2701	27	Sertão Alagoano
+2702	27	Agreste Alagoano
+2703	27	Leste Alagoano
+2801	28	Sertão Sergipano
+2802	28	Agreste Sergipano
+2803	28	Leste Sergipano
+2901	29	Extremo Oeste Baiano
+2902	29	Vale São-Franciscano da Bahia
+2903	29	Centro Norte Baiano
+2904	29	Nordeste Baiano
+2905	29	Metropolitana de Salvador
+2906	29	Centro Sul Baiano
+2907	29	Sul Baiano
+3101	31	Noroeste de Minas
+3102	31	Norte de Minas
+3103	31	Jequitinhonha
+3104	31	Vale do Mucuri
+3105	31	Triângulo Mineiro/Alto Paranaíba
+3106	31	Central Mineira
+3107	31	Metropolitana de Belo Horizonte
+3108	31	Vale do Rio Doce
+3109	31	Oeste de Minas
+3110	31	Sul/Sudoeste de Minas
+3111	31	Campo das Vertentes
+3112	31	Zona da Mata
+3201	32	Noroeste Espírito-santense
+3202	32	Litoral Norte Espírito-santense
+3203	32	Central Espírito-santense
+3204	32	Sul Espírito-santense
+3301	33	Noroeste Fluminense
+3302	33	Norte Fluminense
+3303	33	Centro Fluminense
+3304	33	Baixadas
+3305	33	Sul Fluminense
+3306	33	Metropolitana do Rio de Janeiro
+3501	35	São José do Rio Preto
+3502	35	Ribeirão Preto
+3503	35	Araçatuba
+3504	35	Bauru
+3505	35	Araraquara
+3506	35	Piracicaba
+3507	35	Campinas
+3508	35	Presidente Prudente
+3509	35	Marília
+3510	35	Assis
+3511	35	Itapetininga
+3512	35	Macro Metropolitana Paulista
+3513	35	Vale do Paraíba Paulista
+3514	35	Litoral Sul Paulista
+3515	35	Metropolitana de São Paulo
+4101	41	Noroeste Paranaense
+4102	41	Centro Ocidental Paranaense
+4103	41	Norte Central Paranaense
+4104	41	Norte Pioneiro Paranaense
+4105	41	Centro Oriental Paranaense
+4106	41	Oeste Paranaense
+4107	41	Sudoeste Paranaense
+4108	41	Centro-Sul Paranaense
+4109	41	Sudeste Paranaense
+4110	41	Metropolitana de Curitiba
+4201	42	Oeste Catarinense
+4202	42	Norte Catarinense
+4203	42	Serrana
+4204	42	Vale do Itajaí
+4205	42	Grande Florianópolis
+4206	42	Sul Catarinense
+4301	43	Noroeste Rio-grandense
+4302	43	Nordeste Rio-grandense
+4303	43	Centro Ocidental Rio-grandense
+4304	43	Centro Oriental Rio-grandense
+4305	43	Metropolitana de Porto Alegre
+4306	43	Sudoeste Rio-grandense
+4307	43	Sudeste Rio-grandense
+5001	50	Pantanais Sul Mato-grossense
+5002	50	Centro Norte de Mato Grosso do Sul
+5003	50	Leste de Mato Grosso do Sul
+5004	50	Sudoeste de Mato Grosso do Sul
+5101	51	Norte Mato-grossense
+5102	51	Nordeste Mato-grossense
+5103	51	Sudoeste Mato-grossense
+5104	51	Centro-Sul Mato-grossense
+5105	51	Sudeste Mato-grossense
+5201	52	Noroeste Goiano
+5202	52	Norte Goiano
+5203	52	Centro Goiano
+5204	52	Leste Goiano
+5205	52	Sul Goiano
+5301	53	Distrito Federal
