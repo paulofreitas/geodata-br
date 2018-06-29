@@ -15,15 +15,32 @@ from sqlalchemy import orm
 
 # Package dependencies
 
-from geodatabr.core import types
+from geodatabr.core import decorators, types
 from geodatabr.dataset import base, schema
 
 # Classes
 
 
+class Criteria(types.AbstractClass):
+    """The base criteria class."""
+
+    @decorators.abstractmethod
+    def apply(self, query: orm.query.Query):
+        """
+        Applies a criteria to the given query object.
+
+        Args:
+            query: The query object to apply the criteria
+
+        Returns:
+            An adjusted query object
+        """
+        raise NotImplementedError
+
+
 class Repository(types.AbstractClass):
     """
-    Abstract implementation of repository pattern.
+    Base implementation of repository pattern.
 
     Attributes:
         db (sqlalchemy.orm.session.Session): The database session instance
@@ -62,6 +79,24 @@ class Repository(types.AbstractClass):
             A list with all entity items
         """
         return types.List(cls.db.query(cls.entity).all())
+
+    @classmethod
+    def findByCriteria(cls, *criterias) -> types.List:
+        """
+        Retrieves all entity items that matches the given criterias.
+
+        Args:
+            criterias: A list of Criteria objects
+
+        Returns:
+            A list with all matching entity items
+        """
+        query = cls.db.query(cls.entity)
+
+        for criteria in criterias:
+            query = criteria.apply(query)
+
+        return types.List(query.all())
 
     @classmethod
     def findById(cls, _id: int) -> schema.Entity:
