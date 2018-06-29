@@ -60,7 +60,12 @@ class EncodeCommand(commands.Command):
                                'Default: All tables'))
 
     def handle(self, args: argparse.Namespace):
-        """Handles the command."""
+        """
+        Handles the command.
+
+        Args:
+            args: The command arguments
+        """
         if not args.format:
             self._parser.error(
                 'You need to give the output format you want to encode.')
@@ -82,14 +87,16 @@ class EncodeCommand(commands.Command):
             with dataset_dir:
                 if encoder.format.isFlatFile:
                     for table in args.tables:
+                        table_name = i18n._(table)
                         entity = (entity_map.get(table),)
                         encoder.encodeToFile(
-                            serializer.serialize(entity).get(table),
-                            '{dataset_name}-{table_name}'.format(
+                            serializer.serialize(entity).get(table_name),
+                            '{dataset_name}-{table_name}{extension}'.format(
                                 dataset_name=i18n._('dataset_name'),
-                                table_name=table) + encoder.format.extension)
+                                table_name=table_name,
+                                extension=encoder.format.extension))
 
-                    self._parser.exit(0)
+                    return
 
                 encoder.encodeToFile(
                     serializer.serialize(tuple(entity_map.get(table)
