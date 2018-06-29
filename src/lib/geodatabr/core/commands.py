@@ -7,6 +7,7 @@ Core commands module.
 
 This module provides the command-line parsing functionality.
 """
+# pylint: disable=protected-access
 # Imports
 
 # Built-in dependencies
@@ -19,7 +20,7 @@ from typing import Any
 # Package dependencies
 
 from geodatabr import __meta__
-from geodatabr.core import logging, types
+from geodatabr.core import decorators, logging, types
 
 # Classes
 
@@ -29,6 +30,7 @@ class ArgumentParser(argparse.ArgumentParser):
 
     class _LicenseAction(argparse.Action):
         """Custom action class to output the license information and exit."""
+        # pylint: disable=redefined-builtin
 
         def __init__(self,
                      option_strings: list,
@@ -49,7 +51,6 @@ class ArgumentParser(argparse.ArgumentParser):
                      values: list,
                      option_string: str = None):
             """Invokes the license action class."""
-            # pylint: disable=W0212
             formatter = parser._get_formatter()
             formatter.add_text(self.license)
             parser._print_message(formatter.format_help(), sys.stdout)
@@ -94,7 +95,6 @@ class ArgumentParser(argparse.ArgumentParser):
 
     def format_help(self) -> str:
         """Formats help information."""
-        # pylint: disable=W0212
         formatter = self._get_formatter()
 
         # Prolog
@@ -128,8 +128,7 @@ class ArgumentParser(argparse.ArgumentParser):
         Args:
             message: The error message
         """
-        self.print_usage(sys.stderr)
-        self.exit(1, '\nERROR: {}\n'.format(message))
+        self.exit(1, 'ERROR: {}\n'.format(message))
 
     def terminate(self, message: str = None):
         """
@@ -250,14 +249,17 @@ class Application(object):
         for command in Command.childs():
             self.addCommand(command)
 
-    def parse(self) -> argparse.Namespace:
+    def parse(self, args: list = None) -> argparse.Namespace:
         """
         Parses the given application arguments.
 
+        Args:
+            args: The optional application arguments
+
         Returns:
-            The application arguments
+            The parsed application arguments
         """
-        args = self._parser.parse_args()
+        args = self._parser.parse_args(args)
 
         logging.Logger.setup(args.verbose)
 
@@ -376,11 +378,13 @@ class Command(types.AbstractClass):
         self._parser.add_argument(*args, **kwargs)
 
     @property
+    @decorators.abstractmethod
     def name(self) -> str:
         """Gets the command name."""
         raise NotImplementedError
 
     @property
+    @decorators.abstractmethod
     def description(self) -> str:
         """Gets the command description."""
         raise NotImplementedError
@@ -404,6 +408,19 @@ class Command(types.AbstractClass):
         """Registers the command arguments."""
         pass
 
+    def parse(self, args: list = None) -> argparse.Namespace:
+        """
+        Parses the given command arguments.
+
+        Args:
+            args: The optional command arguments
+
+        Returns:
+            The parsed command arguments
+        """
+        return self._parser.parse_args(args)
+
+    @decorators.abstractmethod
     def handle(self, args: argparse.Namespace):
         """
         Handles the command.
