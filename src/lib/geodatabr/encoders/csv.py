@@ -50,6 +50,11 @@ class CsvFormat(encoders.EncoderFormat):
         """Gets the file format reference info."""
         return 'https://en.wikipedia.org/wiki/Comma-separated_values'
 
+    @property
+    def isFlatFile(self) -> bool:
+        """Tells whether the encoder format is a flat file or not."""
+        return True
+
 
 class CsvEncoder(encoders.Encoder):
     """

@@ -49,6 +49,11 @@ class TsvFormat(encoders.EncoderFormat):
         """
         return 'https://en.wikipedia.org/wiki/Tab-separated_values'
 
+    @property
+    def isFlatFile(self) -> bool:
+        """Tells whether the encoder format is a flat file or not."""
+        return True
+
 
 class TsvEncoder(encoders.Encoder):
     """
