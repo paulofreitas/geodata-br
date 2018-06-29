@@ -123,13 +123,22 @@ class ArgumentParser(argparse.ArgumentParser):
 
     def error(self, message: str):
         """
-        Prints an error message to strerr and exists.
+        Prints an error message to strerr and exits.
 
         Args:
             message: The error message
         """
         self.print_usage(sys.stderr)
-        self.exit(2, '\nERROR: {}\n'.format(message))
+        self.exit(1, '\nERROR: {}\n'.format(message))
+
+    def terminate(self, message: str = None):
+        """
+        Prints an interruption message to stderr and exits.
+
+        Args:
+            message: The interruption message
+        """
+        self.exit(130, '\r{}\n'.format(message or ''))
 
 
 class Application(object):
