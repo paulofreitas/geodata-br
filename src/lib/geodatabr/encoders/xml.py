@@ -13,7 +13,7 @@ from lxml import etree
 
 from geodatabr.core import encoders, i18n
 from geodatabr.core.utils import io
-from geodatabr.dataset import schema, serializers
+from geodatabr.dataset import schema
 
 # Classes
 
@@ -58,12 +58,9 @@ class XmlEncoder(encoders.Encoder):
 
     Attributes:
         format (geodatabr.encoders.xml.XmlFormat): The encoder format class
-        serializer (geodatabr.dataset.serializers.Serializer):
-            The encoder format serialization class
     """
 
     format = XmlFormat
-    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:

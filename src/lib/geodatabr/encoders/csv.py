@@ -13,7 +13,6 @@ import csv
 
 from geodatabr.core import encoders
 from geodatabr.core.utils import io
-from geodatabr.dataset import serializers
 
 # Classes
 
@@ -58,12 +57,9 @@ class CsvEncoder(encoders.Encoder):
 
     Attributes:
         format (geodatabr.encoders.csv.CsvFormat): The encoder format class
-        serializer (geodatabr.dataset.serializers.FlattenedSerializer):
-            The encoder serialization class
     """
 
     format = CsvFormat
-    serializer = serializers.FlattenedSerializer
 
     @property
     def options(self) -> dict:

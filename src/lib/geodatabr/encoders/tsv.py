@@ -9,7 +9,6 @@
 
 from geodatabr.core import encoders
 from geodatabr.core.utils import io
-from geodatabr.dataset import serializers
 from geodatabr.encoders import csv
 
 # Classes
@@ -57,12 +56,9 @@ class TsvEncoder(encoders.Encoder):
 
     Attributes:
         format (geodatabr.encoders.tsv.TsvFormat): The encoder format class
-        serializer (geodatabr.dataset.serializers.FlattenedSerializer):
-            The encoder serialization class
     """
 
     format = TsvFormat
-    serializer = serializers.FlattenedSerializer
 
     @property
     def options(self) -> dict:

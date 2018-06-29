@@ -9,7 +9,7 @@
 
 from geodatabr.core import encoders
 from geodatabr.core.utils import io
-from geodatabr.dataset import schema, serializers
+from geodatabr.dataset import schema
 from geodatabr.encoders.sql import utils as sql_utils
 
 # Classes
@@ -55,12 +55,9 @@ class SqlEncoder(encoders.Encoder):
 
     Attributes:
         format (geodatabr.encoders.sql.SqlFormat): The encoder format class
-        serializer (geodatabr.dataset.serializers.Serializer):
-            The encoder serialization class
     """
 
     format = SqlFormat
-    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:

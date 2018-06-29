@@ -194,12 +194,9 @@ class Encoder(types.AbstractClass):
     Attributes:
         format (geodatabr.core.encoders.EncoderFormat):
             The encoder format class
-        serializer (geodatabr.dataset.serializers.BaseSerializer):
-            The encoder format serialization class
     """
 
     format = None
-    serializer = None
 
     def __call__(self, **options) -> io.BinaryFileStream:
         """
@@ -286,9 +283,7 @@ class EncoderFactory(object):
                 If a given encoder format is not supported
         """
         for encoder in Encoder.childs():
-            if (encoder.format
-                    and encoder.serializer
-                    and encoder.format.name == name):
+            if (encoder.format and encoder.format.name == name):
                 return encoder()
 
         raise UnknownEncoderError('Unsupported encoder format')

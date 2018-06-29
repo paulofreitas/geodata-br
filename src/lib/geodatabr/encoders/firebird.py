@@ -17,7 +17,6 @@ import fdb
 
 from geodatabr.core import encoders
 from geodatabr.core.utils import io
-from geodatabr.dataset import serializers
 from geodatabr.encoders import sql
 
 # Classes
@@ -69,12 +68,9 @@ class FirebirdEncoder(sql.SqlEncoder, encoders.Encoder):
     Attributes:
         format (geodatabr.encoders.firebird.FirebirdFormat):
             The encoder format class
-        serializer (geodatabr.dataset.serializers.Serializer):
-            The encoder serialization class
     """
 
     format = FirebirdFormat
-    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:

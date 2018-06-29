@@ -13,7 +13,6 @@ import ubjson
 
 from geodatabr.core import encoders
 from geodatabr.core.utils import io
-from geodatabr.dataset import serializers
 
 # Classes
 
@@ -64,12 +63,9 @@ class UniversalBinaryJsonEncoder(encoders.Encoder):
     Attributes:
         format (geodatabr.encoders.ubjson.UniversalBinaryJsonFormat):
             The encoder format class
-        serializer (geodatabr.dataset.serializers.Serializer):
-            The encoder serialization class
     """
 
     format = UniversalBinaryJsonFormat
-    serializer = serializers.Serializer
 
     def encode(self, data: dict, **options) -> io.BinaryFileStream:
         """

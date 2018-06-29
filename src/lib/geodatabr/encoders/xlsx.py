@@ -13,7 +13,6 @@ import pyexcel_xlsx
 
 from geodatabr.core import encoders, types
 from geodatabr.core.utils import io
-from geodatabr.dataset import serializers
 
 # Classes
 
@@ -64,12 +63,9 @@ class OfficeOpenXmlWorkbookEncoder(encoders.Encoder):
     Attributes:
         format (geodatabr.encoders.xlsx.OfficeOpenXmlWorkbookFormat):
             The encoder format class
-        serializer (geodatabr.dataset.serializers.Serializer):
-            The encoder serialization class
     """
 
     format = OfficeOpenXmlWorkbookFormat
-    serializer = serializers.Serializer
 
     def encode(self, data: dict, **options) -> io.BinaryFileStream:
         """

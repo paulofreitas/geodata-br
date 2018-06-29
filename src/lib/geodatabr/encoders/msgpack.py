@@ -13,7 +13,6 @@ import msgpack
 
 from geodatabr.core import encoders
 from geodatabr.core.utils import io
-from geodatabr.dataset import serializers
 
 # Classes
 
@@ -64,12 +63,9 @@ class MessagePackEncoder(encoders.Encoder):
     Attributes:
         format (geodatabr.encoders.msgpack.MessagePackFormat):
             The encoder format class
-        serializer (geodatabr.dataset.serializers):
-            The encoder serialization class
     """
 
     format = MessagePackFormat
-    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:

@@ -13,7 +13,6 @@ import yaml
 
 from geodatabr.core import encoders
 from geodatabr.core.utils import io
-from geodatabr.dataset import serializers
 from geodatabr.encoders.yaml import utils
 
 # Classes
@@ -59,12 +58,9 @@ class YamlEncoder(encoders.Encoder):
 
     Attributes:
         format (geodatabr.encoders.yaml.YamlFormat): The encoder format class
-        serializer (geodatabr.dataset.serializers.Serializer):
-            The encoder serialization class
     """
 
     format = YamlFormat
-    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:

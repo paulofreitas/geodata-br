@@ -13,7 +13,6 @@ import plistlib
 
 from geodatabr.core import encoders
 from geodatabr.core.utils import io
-from geodatabr.dataset import serializers
 
 # Classes
 
@@ -64,12 +63,9 @@ class BinaryPropertyListEncoder(encoders.Encoder):
     Attributes:
         format (geodatabr.encoders.plist.BinaryPropertyListFormat):
             The encoder format class
-        serializer (geodatabr.dataset.serializers.Serializer):
-            The encoder serialization class
     """
 
     format = BinaryPropertyListFormat
-    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:

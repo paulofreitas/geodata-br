@@ -13,7 +13,6 @@ import pyexcel_xls
 
 from geodatabr.core import encoders, types
 from geodatabr.core.utils import io
-from geodatabr.dataset import serializers
 
 # Classes
 
@@ -64,12 +63,9 @@ class MicrosoftExcelEncoder(encoders.Encoder):
     Attributes:
         format (geodatabr.encoders.xls.MicrosoftExcelFormat):
             The encoder format class
-        serializer (geodatabr.dataset.serializers.Serializer):
-            The encoder serialization class
     """
 
     format = MicrosoftExcelFormat
-    serializer = serializers.Serializer
 
     def encode(self, data: dict, **options) -> io.BinaryFileStream:
         """

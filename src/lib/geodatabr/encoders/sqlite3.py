@@ -14,7 +14,6 @@ import tempfile
 
 from geodatabr.core import encoders
 from geodatabr.core.utils import io
-from geodatabr.dataset import serializers
 from geodatabr.encoders import sql
 
 # Classes
@@ -66,12 +65,9 @@ class Sqlite3Encoder(sql.SqlEncoder, encoders.Encoder):
     Attributes:
         format (geodatabr.encoders.sqlite3.Sqlite3Format):
             The encoder format class
-        serializer (geodatabr.dataset.serializers.Serializer):
-            The encoder serialization class
     """
 
     format = Sqlite3Format
-    serializer = serializers.Serializer
 
     @property
     def options(self) -> dict:
