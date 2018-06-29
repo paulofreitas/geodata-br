@@ -15,14 +15,14 @@
 
 #### Data Interchange
 
-| File             | Format                                                       |      Size |
-| ---------------- |:------------------------------------------------------------:| ---------:|
-| `brazil.json`    | [JSON](https://en.wikipedia.org/wiki/JSON)                   | 2,895,244 |
-| `brazil.msgpack` | [MessagePack](https://en.wikipedia.org/wiki/MessagePack)     | 1,474,426 |
-| `brazil.plist`   | [Property List](https://en.wikipedia.org/wiki/Property_list) |   896,374 |
-| `brazil.ubj`     | [UBJSON](https://en.wikipedia.org/wiki/UBJSON)               | 1,655,372 |
-| `brazil.xml`     | [XML](https://en.wikipedia.org/wiki/XML)                     | 2,180,127 |
-| `brazil.yaml`    | [YAML](https://en.wikipedia.org/wiki/YAML)                   | 1,974,632 |
+| File             | Format                                                              |      Size |
+| ---------------- |:-------------------------------------------------------------------:| ---------:|
+| `brazil.json`    | [JSON](https://en.wikipedia.org/wiki/JSON)                          | 2,895,244 |
+| `brazil.msgpack` | [MessagePack](https://en.wikipedia.org/wiki/MessagePack)            | 1,474,426 |
+| `brazil.plist`   | [Binary Property List](https://en.wikipedia.org/wiki/Property_list) |   896,374 |
+| `brazil.ubj`     | [UBJSON](https://en.wikipedia.org/wiki/UBJSON)                      | 1,655,372 |
+| `brazil.xml`     | [XML](https://en.wikipedia.org/wiki/XML)                            | 2,180,127 |
+| `brazil.yaml`    | [YAML](https://en.wikipedia.org/wiki/YAML)                          | 1,974,632 |
 
 #### Database
 
