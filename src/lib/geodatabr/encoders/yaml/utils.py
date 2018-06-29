@@ -17,10 +17,13 @@ import yaml
 
 from geodatabr.core import types
 
-# Monkey patches
+# Functions
 
-for dumper in (yaml.Dumper, yaml.SafeDumper):
-    yaml.add_representer(types.List, dumper.represent_list)
 
-    for mapping in (collections.OrderedDict, types.Map, types.OrderedMap):
-        yaml.add_representer(mapping, dumper.represent_dict)
+def register_representers():
+    """Registers custom YAML representers."""
+    for dumper in (yaml.Dumper, yaml.SafeDumper):
+        yaml.add_representer(types.List, dumper.represent_list)
+
+        for mapping in (collections.OrderedDict, types.Map, types.OrderedMap):
+            yaml.add_representer(mapping, dumper.represent_dict)

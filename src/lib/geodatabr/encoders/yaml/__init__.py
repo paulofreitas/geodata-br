@@ -87,6 +87,8 @@ class YamlEncoder(encoders.Encoder):
             geodatabr.core.encoders.EncodeError: If data fails to encode
         """
         try:
+            utils.register_representers()
+
             return io.BinaryFileStream(
                 yaml.dump(data, **dict(self.options, **options))
                 .encode('utf-8'))
