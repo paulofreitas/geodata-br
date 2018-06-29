@@ -225,10 +225,10 @@ class Constraint(Compiler):
             The compiled DDL statement for the table constraint element
         """
         ddl = {
-            schema.PrimaryKeyConstraint: self._compilePrimaryKeyConstraint(),
-            schema.ForeignKeyConstraint: self._compileForeignKeyConstraint(),
-            schema.UniqueConstraint: self._compileUniqueConstraint()
-        }.get(type(self.constraint), '')
+            schema.PrimaryKeyConstraint: self._compilePrimaryKeyConstraint,
+            schema.ForeignKeyConstraint: self._compileForeignKeyConstraint,
+            schema.UniqueConstraint: self._compileUniqueConstraint,
+        }.get(type(self.constraint))()
 
         # Inline constraints
         if (not getattr(self.constraint, 'use_alter', False)
