@@ -13,11 +13,10 @@ This module provides the dataset encoders base functionality.
 
 import abc
 import itertools
-import sys
 
 # Package dependencies
 
-from geodatabr.core import decorators, i18n, types
+from geodatabr.core import decorators, types
 from geodatabr.core.utils import io
 
 # Classes
@@ -63,6 +62,11 @@ class EncoderFormat(types.AbstractClass, metaclass=_EncoderFormat):
     @property
     def isBinary(self) -> bool:
         """Tells whether the encoder format is binary or not."""
+        return False
+
+    @property
+    def isFlatFile(self) -> bool:
+        """Tells whether the encoder format is a flat file or not."""
         return False
 
     def __repr__(self) -> str:
@@ -239,29 +243,20 @@ class Encoder(types.AbstractClass):
         """
         raise NotImplementedError
 
-    def encodeToFile(self, data, filename: str = None, **options):
+    def encodeToFile(self, data, filename: str, **options):
         """
         Encodes the data into a file.
 
         Args:
             data: The data to encode
-            filename: The filename to write, if any
+            filename: The filename to write
             **options: The encoding options
 
         Raises:
             geodatabr.core.encoders.EncodeError: If data fails to encode
         """
-        if not filename:
-            filename = i18n._('dataset_name') + self.format.extension
-
-        data = self.encode(data, **options).read()
-        output_file = sys.stdout if filename == '-' else open(filename, 'wb')
-
-        if filename == '-':
-            data = data.decode()
-
-        with output_file:
-            output_file.write(data)
+        with open(filename, 'wb') as output_file:
+            output_file.write(self.encode(data, **options).read())
 
 
 class EncoderFactory(object):
