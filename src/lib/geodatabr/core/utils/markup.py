@@ -12,6 +12,9 @@ This module provides markup generators for HTML and Markdown.
 # Built-in dependencies
 
 import html
+
+# External dependencies
+
 from lxml import builder, etree, html as _html
 
 # Package dependencies
@@ -607,4 +610,5 @@ class Html(object, metaclass=HtmlGenerator):
         Attributes:
             element: The HTML element to render
         """
-        return _html.tostring(element).decode()
+        # Pretty-print HTML
+        return etree.tostring(element, pretty_print=True).decode()
