@@ -42,9 +42,9 @@ class XmlFormat(encoders.EncoderFormat):
         return 'Data Interchange'
 
     @property
-    def mimeType(self) -> list:
+    def mimeType(self) -> str:
         """Gets the encoder format media type."""
-        return ['application/xml', 'text/xml']
+        return 'application/xml'
 
     @property
     def info(self) -> str:
