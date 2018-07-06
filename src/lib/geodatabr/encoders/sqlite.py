@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
-"""SQLite 3 encoder module."""
+"""SQLite encoder module."""
 # Imports
 
 # Built-in dependencies
@@ -19,23 +19,23 @@ from geodatabr.encoders import sql
 # Classes
 
 
-class Sqlite3Format(encoders.EncoderFormat):
-    """Encoder format class for SQLite 3 file format."""
+class SqliteFormat(encoders.EncoderFormat):
+    """Encoder format class for SQLite file format."""
 
     @property
     def name(self) -> str:
         """Gets the encoder format name."""
-        return 'sqlite3'
+        return 'sqlite'
 
     @property
     def friendlyName(self) -> str:
         """Gets the encoder format friendly name."""
-        return 'SQLite 3'
+        return 'SQLite'
 
     @property
     def extension(self) -> str:
         """Gets the encoder format extension."""
-        return '.sqlite3'
+        return '.sqlite'
 
     @property
     def type(self) -> str:
@@ -58,16 +58,16 @@ class Sqlite3Format(encoders.EncoderFormat):
         return True
 
 
-class Sqlite3Encoder(sql.SqlEncoder, encoders.Encoder):
+class SqliteEncoder(sql.SqlEncoder, encoders.Encoder):
     """
-    SQLite3 encoder class.
+    SQLite encoder class.
 
     Attributes:
-        format (geodatabr.encoders.sqlite3.Sqlite3Format):
+        format (geodatabr.encoders.sqlite.SqliteFormat):
             The encoder format class
     """
 
-    format = Sqlite3Format
+    format = SqliteFormat
 
     @property
     def options(self) -> dict:
@@ -76,14 +76,14 @@ class Sqlite3Encoder(sql.SqlEncoder, encoders.Encoder):
 
     def encode(self, data: dict, **options) -> io.BinaryFileStream:
         """
-        Encodes the data into a SQLite 3 file-like stream.
+        Encodes the data into a SQLite file-like stream.
 
         Args:
             data: The data to encode
             **options: The encoding options
 
         Returns:
-            A SQLite 3 file-like stream
+            A SQLite file-like stream
 
         Raises:
             geodatabr.core.encoders.EncodeError: If data fails to encode
