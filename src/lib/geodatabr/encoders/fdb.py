@@ -28,7 +28,7 @@ class FirebirdFormat(encoders.EncoderFormat):
     @property
     def name(self) -> str:
         """Gets the encoder format name."""
-        return 'firebird'
+        return 'fdb'
 
     @property
     def friendlyName(self):
