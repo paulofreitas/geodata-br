@@ -7,21 +7,18 @@
 
 # Built-in dependencies
 
-from argparse import Namespace
+import argparse
 
 # Package dependencies
 
-from geodatabr.core.commands import Command
-from geodatabr.core.logging import logger
-from geodatabr.dataset.base import Database
-from geodatabr.dataset.schema import ENTITIES
-from geodatabr.dataset.seeders import SeederFactory, NothingToSeedError
+from geodatabr.core import commands, datasets, logging
+from geodatabr.dataset import schema, seeders
 
 # Classes
 
 
-class SeedCommand(Command):
-    """A command class to seed the dataset with records."""
+class SeedCommand(commands.Command):
+    """A command class to seed datasets with records."""
 
     @property
     def name(self) -> str:
@@ -31,19 +28,25 @@ class SeedCommand(Command):
     @property
     def description(self) -> str:
         """Gets the command description."""
-        return 'Seed the dataset with records'
+        return 'Seed datasets with records'
 
-    def handle(self, args: Namespace):
-        """Handles the command."""
+    def handle(self, args: argparse.Namespace):
+        """
+        Handles the command.
+
+        Args:
+            args: The command arguments
+        """
         try:
-            Database.create()
+            logger = logging.logger()
+            datasets.Database.create()
 
-            for entity in ENTITIES:
-                logger().info('> Seeding table "%s"...', entity.__table__.name)
+            for entity in schema.ENTITIES:
+                logger.info('> Seeding dataset "%s"...', entity.__table__.name)
 
                 try:
-                    SeederFactory.fromEntity(entity).run()
-                except NothingToSeedError:
-                    logger().warning('Nothing to seed.')
+                    seeders.SeederFactory.fromEntity(entity).run()
+                except seeders.NothingToSeedError:
+                    logger.warning('Nothing to seed.')
         except KeyboardInterrupt:
-            logger().warning('Seeding was canceled.')
+            self._parser.terminate('Seeding was canceled.')
