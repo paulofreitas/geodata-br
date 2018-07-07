@@ -7,20 +7,18 @@
 
 # Built-in dependencies
 
-from argparse import Namespace
+import argparse
 
 # Package dependencies
 
-from geodatabr.commands.seed import SeedCommand
-from geodatabr.core.commands import Command
-from geodatabr.core.logging import logger
-from geodatabr.dataset.base import Database
+from geodatabr.commands import seed
+from geodatabr.core import commands, datasets, logging
 
 # Classes
 
 
-class RefreshCommand(Command):
-    """A command class to reset and re-run all dataset seeders."""
+class RefreshCommand(commands.Command):
+    """A command class to reset and re-run all datasets seeders."""
 
     @property
     def name(self) -> str:
@@ -30,14 +28,21 @@ class RefreshCommand(Command):
     @property
     def description(self) -> str:
         """Gets the command description."""
-        return 'Reset and re-run all dataset seeders'
+        return 'Reset and re-run all datasets seeders'
 
-    def handle(self, args: Namespace):
-        """Handles the command."""
+    def handle(self, args: argparse.Namespace):
+        """
+        Handles the command.
+
+        Args:
+            args: The command arguments
+        """
         try:
-            logger().info('> Clearing the dataset...')
-            Database.clear()
+            logger = logging.logger()
 
-            SeedCommand(self.application).handle(args)
+            logger.info('> Clearing datasets...')
+            datasets.Database.clear()
+
+            seed.SeedCommand(self.application).handle(args)
         except KeyboardInterrupt:
-            logger().warning('Refreshing was canceled.')
+            self._parser.terminate('Refreshing was canceled.')
