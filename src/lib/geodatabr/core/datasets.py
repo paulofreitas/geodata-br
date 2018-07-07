@@ -3,7 +3,7 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 """
-Dataset base module.
+Core datasets module.
 
 This module provides the core classes to access and manage the database.
 """
