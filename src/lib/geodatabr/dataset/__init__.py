@@ -3,15 +3,14 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 """
-Dataset package.
+Datasets package.
 
-This package provides modules related to dataset management.
+This package provides modules related to datasets management.
 """
 # Package imports
 
 from geodatabr.__meta__ import \
     __author__, __copyright__, __license__, __version__
-from geodatabr.dataset.base import Database
 
 # Package exports
 
@@ -20,5 +19,4 @@ __all__ = [
     '__copyright__',
     '__license__',
     '__version__',
-    'Database',
 ]
