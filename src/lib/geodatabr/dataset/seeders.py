@@ -3,47 +3,33 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 """
-Dataset seeders module.
+Datasets seeders module.
 
-This module provides the seeders classes used to populate the dataset.
+This module provides the seeders classes used to populate the datasets.
 """
 # Imports
 
 # Package dependencies
 
-from geodatabr.core import decorators, types
-from geodatabr.dataset import base, repositories, schema, services as sidra
+from geodatabr.core import datasets
+from geodatabr.dataset import repositories, schema, services as sidra
 
 # Classes
 
 
-class Seeder(types.AbstractClass):
+class Seeder(datasets.Seeder):
     """
-    Abstract implementation of database seeders.
+    Base database seeder class.
 
     Attributes:
-        db (geodatabr.dataset.base.Database)
-        session (sqlalchemy.orm.session.Session):
-            The database session instance
+        db (geodatabr.core.datasets.Database): The database instance
+        entity (geodatabr.core.datasets.Entity): The entity class
+        repository (geodatabr.core.datasets.Repository): The repository class
         sidra_db (geodatabr.dataset.services.SidraDataset):
             The SIDRA dataset service instance
-        entity (geodatabr.dataset.schema.Entity):
-            The seeder entity class
-        repository (geodatabr.dataset.repositories.Repository):
-            The seeder repository class
     """
 
-    db = base.Database
-    session = db.session()
     sidra_db = sidra.SidraDataset()
-    entity = None
-    repository = None
-
-    @classmethod
-    @decorators.abstractmethod
-    def run(cls):
-        """Runs the database seeder."""
-        raise NotImplementedError
 
 
 class StateSeeder(Seeder):
@@ -74,7 +60,7 @@ class StateSeeder(Seeder):
 
         states = cls.sidra_db.findAll(sidra.SIDRA_STATE)
 
-        with cls.db.transaction(cls.session):
+        with cls.db.transaction(cls.db.session()):
             for state in states:
                 cls.repository.add(cls.entity(id=state.id,
                                               name=state.name))
@@ -111,7 +97,7 @@ class MesoregionSeeder(Seeder):
 
         states = cls.parent_repository.findAll()
 
-        with cls.db.transaction(cls.session):
+        with cls.db.transaction(cls.db.session()):
             for state in states:
                 mesoregions = cls.sidra_db \
                     .findChildren(sidra.SIDRA_MESOREGION,
@@ -155,7 +141,7 @@ class MicroregionSeeder(Seeder):
 
         mesoregions = cls.parent_repository.findAll()
 
-        with cls.db.transaction(cls.session):
+        with cls.db.transaction(cls.db.session()):
             for mesoregion in mesoregions:
                 microregions = cls.sidra_db \
                     .findChildren(sidra.SIDRA_MICROREGION,
@@ -201,7 +187,7 @@ class MunicipalitySeeder(Seeder):
 
         microregions = cls.parent_repository.findAll()
 
-        with cls.db.transaction(cls.session):
+        with cls.db.transaction(cls.db.session()):
             for microregion in microregions:
                 municipalities = cls.sidra_db \
                     .findChildren(sidra.SIDRA_MUNICIPALITY,
@@ -248,7 +234,7 @@ class DistrictSeeder(Seeder):
 
         municipalities = cls.parent_repository.findAll()
 
-        with cls.db.transaction(cls.session):
+        with cls.db.transaction(cls.db.session()):
             for municipality in municipalities:
                 districts = cls.sidra_db \
                     .findChildren(sidra.SIDRA_DISTRICT,
@@ -296,7 +282,7 @@ class SubdistrictSeeder(Seeder):
 
         districts = cls.parent_repository.findAll()
 
-        with cls.db.transaction(cls.session):
+        with cls.db.transaction(cls.db.session()):
             for district in districts:
                 subdistricts = cls.sidra_db \
                     .findChildren(sidra.SIDRA_SUBDISTRICT,
@@ -314,37 +300,5 @@ class SubdistrictSeeder(Seeder):
                                    name=subdistrict.name))
 
 
-class SeederFactory(object):
-    """Factory class for instantiation of concrete seeder classes."""
-
-    @staticmethod
-    def fromEntity(entity: schema.Entity) -> Seeder:
-        """
-        Factories a seeder class for a given entity class.
-
-        Args:
-            entity: The entity class to retrieve a seeder
-
-        Returns:
-            The seeder class instance
-
-        Raises:
-            geodatabr.dataset.seeders.UnknownEntityError:
-                If a given entity is not supported
-        """
-        for seeder in Seeder.childs():
-            if seeder.entity is entity:
-                return seeder()
-
-        raise UnknownEntityError(
-            'No seeder for entity "{}"'.format(entity.__name__))
-
-
-class UnknownEntityError(Exception):
-    """
-    Exception class raised when a given entity does not belong to any seeder.
-    """
-
-
 class NothingToSeedError(Exception):
-    """Exception class raised when a given entity table is not empty."""
+    """Exception class raised when a given entity dataset is not empty."""
