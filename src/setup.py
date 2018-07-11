@@ -7,8 +7,6 @@
 
 # Built-in dependencies
 
-import os
-from os import path
 import sys
 
 # External dependencies
@@ -24,16 +22,8 @@ if sys.version_info[:2] < (3, 4):
 
 __metadata__ = {}
 
-with open('lib/geodatabr/__init__.py') as package:
+with open('geodatabr/__meta__.py') as package:
     exec(package.read(), __metadata__)  # pylint: disable=exec-used
-
-# Symlink package data
-try:
-    for filepath in ('LICENSE', 'data'):
-        os.symlink(path.abspath(filepath),
-                   path.abspath('lib/geodatabr/' + filepath))
-except FileExistsError:
-    pass
 
 setuptools.setup(
     # Package metadata
@@ -46,9 +36,11 @@ setuptools.setup(
     author_email=__metadata__['__author_email__'],
 
     # Package distribution
-    packages=setuptools.find_packages('lib'),
-    package_dir={'': 'lib'},
-    package_data={'': ['LICENSE', 'data/stubs/*', 'data/translations/*']},
+    packages=setuptools.find_packages(),
+    package_data={
+        '': ['data/*', 'data/stubs/*', 'data/translations/*'],
+        '.': ['LICENSE']
+    },
     include_package_data=True,
     entry_points={
         'console_scripts': [
@@ -61,18 +53,17 @@ setuptools.setup(
     install_requires=[
         # geodatabr package
         'pytest',
-        'requests',
         'ratelimit',
+        'requests',
+        # geodatabr.core package
+        'datapackage',
+        'pyyaml',
         # geodatabr.dataset package
         'sqlalchemy',
         # geodatabr.encoders package
-        'fdb',
         'lxml',
-        'msgpack',
-        'py-ubjson',
         'pyexcel-ods',
         'pyexcel-xls',
         'pyexcel-xlsx',
-        'pyyaml',
     ],
 )
