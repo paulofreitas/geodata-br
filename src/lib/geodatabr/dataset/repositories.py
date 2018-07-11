@@ -3,9 +3,9 @@
 # Copyright (c) 2013-2018 Paulo Freitas
 # MIT License (see LICENSE file)
 """
-Dataset repositories module.
+Datasets repositories module.
 
-This module provides the repositories classes used to query the dataset.
+This module provides the repositories classes used to query the datasets.
 """
 # Imports
 
@@ -15,126 +15,13 @@ from sqlalchemy import orm
 
 # Package dependencies
 
-from geodatabr.core import decorators, types
-from geodatabr.dataset import base, schema
+from geodatabr.core import datasets, types
+from geodatabr.dataset import schema
 
 # Classes
 
 
-class Criteria(types.AbstractClass):
-    """The base criteria class."""
-
-    @decorators.abstractmethod
-    def apply(self, query: orm.query.Query):
-        """
-        Applies a criteria to the given query object.
-
-        Args:
-            query: The query object to apply the criteria
-
-        Returns:
-            An adjusted query object
-        """
-        raise NotImplementedError
-
-
-class Repository(types.AbstractClass):
-    """
-    Base implementation of repository pattern.
-
-    Attributes:
-        db (sqlalchemy.orm.session.Session): The database session instance
-        entity (geodatabr.dataset.schema.Entity): The repository entity class
-    """
-
-    db = base.Database.session()
-    entity = None
-
-    @classmethod
-    def add(cls, instance: schema.Entity):
-        """
-        Saves an entity instance.
-
-        Args:
-            instance: The entity instance to save
-        """
-        cls.db.add(instance)
-
-    @classmethod
-    def count(cls) -> int:
-        """
-        Returns the total entity items count.
-
-        Returns:
-            The total entity items count
-        """
-        return cls.db.query(cls.entity).count()
-
-    @classmethod
-    def findAll(cls) -> types.List:
-        """
-        Retrieves all entity items.
-
-        Returns:
-            A list with all entity items
-        """
-        return types.List(cls.db.query(cls.entity).all())
-
-    @classmethod
-    def findByCriteria(cls, *criterias) -> types.List:
-        """
-        Retrieves all entity items that matches the given criterias.
-
-        Args:
-            criterias: A list of Criteria objects
-
-        Returns:
-            A list with all matching entity items
-        """
-        query = cls.db.query(cls.entity)
-
-        for criteria in criterias:
-            query = criteria.apply(query)
-
-        return types.List(query.all())
-
-    @classmethod
-    def findById(cls, _id: int) -> schema.Entity:
-        """
-        Retrieves a single entity item by ID.
-
-        Args:
-            _id: The entity item ID
-
-        Returns:
-            An entity item
-        """
-        return cls.db.query(cls.entity) \
-            .filter(cls.entity.id == _id) \
-            .first()
-
-    @classmethod
-    def findByName(cls, name: str) -> schema.Entity:
-        """
-        Retrieves a single entity item by name.
-
-        Args:
-            name: The entity item name
-
-        Returns:
-            An entity item
-        """
-        return cls.db.query(cls.entity) \
-            .filter(cls.entity.name == name) \
-            .first()
-
-    @classmethod
-    def delete(cls):
-        """Removes all entity items."""
-        cls.db.query(cls.entity).delete()
-
-
-class StateRepository(Repository):
+class StateRepository(datasets.Repository):
     """
     Implementation of states repository.
 
@@ -225,7 +112,7 @@ class StateRepository(Repository):
         super().delete()
 
 
-class MesoregionRepository(Repository):
+class MesoregionRepository(datasets.Repository):
     """
     Implementation of mesoregions repository.
 
@@ -316,7 +203,7 @@ class MesoregionRepository(Repository):
         super().delete()
 
 
-class MicroregionRepository(Repository):
+class MicroregionRepository(datasets.Repository):
     """
     Implementation of microregions repository.
 
@@ -406,7 +293,7 @@ class MicroregionRepository(Repository):
         super().delete()
 
 
-class MunicipalityRepository(Repository):
+class MunicipalityRepository(datasets.Repository):
     """
     Implementation of municipalities repository.
 
@@ -495,7 +382,7 @@ class MunicipalityRepository(Repository):
         super().delete()
 
 
-class DistrictRepository(Repository):
+class DistrictRepository(datasets.Repository):
     """
     Implementation of districts repository.
 
@@ -582,7 +469,7 @@ class DistrictRepository(Repository):
         super().delete()
 
 
-class SubdistrictRepository(Repository):
+class SubdistrictRepository(datasets.Repository):
     """
     Implementation of subdistricts repository.
 
@@ -653,36 +540,3 @@ class SubdistrictRepository(Repository):
     def delete(cls):
         """Removes all subdistricts."""
         super().delete()
-
-
-class RepositoryFactory(object):
-    """Factory class for instantiation of concrete repositories."""
-
-    @staticmethod
-    def fromEntity(entity: schema.Entity) -> Repository:
-        """
-        Factories a repository class for a given entity class.
-
-        Args:
-            entity: The entity class to retrieve a repository
-
-        Returns:
-            The repository class instance
-
-        Raises:
-            geodatabr.dataset.repositories.UnknownEntityError:
-                If a given entity is not supported
-        """
-        for repository in Repository.childs():
-            if repository.entity is entity:
-                return repository()
-
-        raise UnknownEntityError(
-            'No repository for entity "{}"'.format(entity.__name__))
-
-
-class UnknownEntityError(Exception):
-    """
-    Exception class raised when a given entity does not belong to any
-    repository.
-    """
